@@ -1,0 +1,447 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		181AB90B15230AC1007A2A51 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90A15230AC1007A2A51 /* UIKit.framework */; };
+		181AB90D15230AC1007A2A51 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90C15230AC1007A2A51 /* Foundation.framework */; };
+		181AB90F15230AC1007A2A51 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90E15230AC1007A2A51 /* CoreGraphics.framework */; };
+		181AB91515230AC1007A2A51 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 181AB91315230AC1007A2A51 /* InfoPlist.strings */; };
+		181AB91715230AC1007A2A51 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB91615230AC1007A2A51 /* main.m */; };
+		181AB91B15230AC1007A2A51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB91A15230AC1007A2A51 /* AppDelegate.m */; };
+		181AB91E15230AC1007A2A51 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181AB91C15230AC1007A2A51 /* MainStoryboard.storyboard */; };
+		181AB92115230AC1007A2A51 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB92015230AC1007A2A51 /* ViewController.m */; };
+		181AB92915230AC1007A2A51 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB92815230AC1007A2A51 /* SenTestingKit.framework */; };
+		181AB92A15230AC1007A2A51 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90A15230AC1007A2A51 /* UIKit.framework */; };
+		181AB92B15230AC1007A2A51 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90C15230AC1007A2A51 /* Foundation.framework */; };
+		181AB93315230AC1007A2A51 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 181AB93115230AC1007A2A51 /* InfoPlist.strings */; };
+		181AB93615230AC1007A2A51 /* VCardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB93515230AC1007A2A51 /* VCardTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		181AB92C15230AC1007A2A51 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 181AB8FD15230AC1007A2A51 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 181AB90515230AC1007A2A51;
+			remoteInfo = VCard;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		181AB90615230AC1007A2A51 /* VCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		181AB90A15230AC1007A2A51 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		181AB90C15230AC1007A2A51 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		181AB90E15230AC1007A2A51 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		181AB91215230AC1007A2A51 /* VCard-Info.plist */ = {isa = PBXFileReference; path = "VCard-Info.plist"; sourceTree = "<group>"; };
+		181AB91415230AC1007A2A51 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		181AB91615230AC1007A2A51 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		181AB91815230AC1007A2A51 /* VCard-Prefix.pch */ = {isa = PBXFileReference; path = "VCard-Prefix.pch"; sourceTree = "<group>"; };
+		181AB91915230AC1007A2A51 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		181AB91A15230AC1007A2A51 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		181AB91D15230AC1007A2A51 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		181AB91F15230AC1007A2A51 /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		181AB92015230AC1007A2A51 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		181AB92715230AC1007A2A51 /* VCardTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VCardTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		181AB92815230AC1007A2A51 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		181AB93015230AC1007A2A51 /* VCardTests-Info.plist */ = {isa = PBXFileReference; path = "VCardTests-Info.plist"; sourceTree = "<group>"; };
+		181AB93215230AC1007A2A51 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		181AB93415230AC1007A2A51 /* VCardTests.h */ = {isa = PBXFileReference; path = VCardTests.h; sourceTree = "<group>"; };
+		181AB93515230AC1007A2A51 /* VCardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCardTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		181AB90315230AC1007A2A51 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				181AB90B15230AC1007A2A51 /* UIKit.framework in Frameworks */,
+				181AB90D15230AC1007A2A51 /* Foundation.framework in Frameworks */,
+				181AB90F15230AC1007A2A51 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		181AB92315230AC1007A2A51 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				181AB92915230AC1007A2A51 /* SenTestingKit.framework in Frameworks */,
+				181AB92A15230AC1007A2A51 /* UIKit.framework in Frameworks */,
+				181AB92B15230AC1007A2A51 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		181AB8FB15230AC1007A2A51 = {
+			isa = PBXGroup;
+			children = (
+				181AB91015230AC1007A2A51 /* VCard */,
+				181AB92E15230AC1007A2A51 /* VCardTests */,
+				181AB90915230AC1007A2A51 /* Frameworks */,
+				181AB90715230AC1007A2A51 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		181AB90715230AC1007A2A51 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				181AB90615230AC1007A2A51 /* VCard.app */,
+				181AB92715230AC1007A2A51 /* VCardTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		181AB90915230AC1007A2A51 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				181AB90A15230AC1007A2A51 /* UIKit.framework */,
+				181AB90C15230AC1007A2A51 /* Foundation.framework */,
+				181AB90E15230AC1007A2A51 /* CoreGraphics.framework */,
+				181AB92815230AC1007A2A51 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		181AB91015230AC1007A2A51 /* VCard */ = {
+			isa = PBXGroup;
+			children = (
+				181AB91915230AC1007A2A51 /* AppDelegate.h */,
+				181AB91A15230AC1007A2A51 /* AppDelegate.m */,
+				181AB91C15230AC1007A2A51 /* MainStoryboard.storyboard */,
+				181AB91F15230AC1007A2A51 /* ViewController.h */,
+				181AB92015230AC1007A2A51 /* ViewController.m */,
+				181AB91115230AC1007A2A51 /* Supporting Files */,
+			);
+			path = VCard;
+			sourceTree = "<group>";
+		};
+		181AB91115230AC1007A2A51 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				181AB91215230AC1007A2A51 /* VCard-Info.plist */,
+				181AB91315230AC1007A2A51 /* InfoPlist.strings */,
+				181AB91615230AC1007A2A51 /* main.m */,
+				181AB91815230AC1007A2A51 /* VCard-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		181AB92E15230AC1007A2A51 /* VCardTests */ = {
+			isa = PBXGroup;
+			children = (
+				181AB93415230AC1007A2A51 /* VCardTests.h */,
+				181AB93515230AC1007A2A51 /* VCardTests.m */,
+				181AB92F15230AC1007A2A51 /* Supporting Files */,
+			);
+			path = VCardTests;
+			sourceTree = "<group>";
+		};
+		181AB92F15230AC1007A2A51 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				181AB93015230AC1007A2A51 /* VCardTests-Info.plist */,
+				181AB93115230AC1007A2A51 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		181AB90515230AC1007A2A51 /* VCard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 181AB93915230AC1007A2A51 /* Build configuration list for PBXNativeTarget "VCard" */;
+			buildPhases = (
+				181AB90215230AC1007A2A51 /* Sources */,
+				181AB90315230AC1007A2A51 /* Frameworks */,
+				181AB90415230AC1007A2A51 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VCard;
+			productName = VCard;
+			productReference = 181AB90615230AC1007A2A51 /* VCard.app */;
+			productType = "com.apple.product-type.application";
+		};
+		181AB92615230AC1007A2A51 /* VCardTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 181AB93C15230AC1007A2A51 /* Build configuration list for PBXNativeTarget "VCardTests" */;
+			buildPhases = (
+				181AB92215230AC1007A2A51 /* Sources */,
+				181AB92315230AC1007A2A51 /* Frameworks */,
+				181AB92415230AC1007A2A51 /* Resources */,
+				181AB92515230AC1007A2A51 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				181AB92D15230AC1007A2A51 /* PBXTargetDependency */,
+			);
+			name = VCardTests;
+			productName = VCardTests;
+			productReference = 181AB92715230AC1007A2A51 /* VCardTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		181AB8FD15230AC1007A2A51 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = Mondev;
+			};
+			buildConfigurationList = 181AB90015230AC1007A2A51 /* Build configuration list for PBXProject "VCard" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 181AB8FB15230AC1007A2A51;
+			productRefGroup = 181AB90715230AC1007A2A51 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				181AB90515230AC1007A2A51 /* VCard */,
+				181AB92615230AC1007A2A51 /* VCardTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		181AB90415230AC1007A2A51 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				181AB91515230AC1007A2A51 /* InfoPlist.strings in Resources */,
+				181AB91E15230AC1007A2A51 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		181AB92415230AC1007A2A51 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				181AB93315230AC1007A2A51 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		181AB92515230AC1007A2A51 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		181AB90215230AC1007A2A51 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				181AB91715230AC1007A2A51 /* main.m in Sources */,
+				181AB91B15230AC1007A2A51 /* AppDelegate.m in Sources */,
+				181AB92115230AC1007A2A51 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		181AB92215230AC1007A2A51 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				181AB93615230AC1007A2A51 /* VCardTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		181AB92D15230AC1007A2A51 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 181AB90515230AC1007A2A51 /* VCard */;
+			targetProxy = 181AB92C15230AC1007A2A51 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		181AB91315230AC1007A2A51 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				181AB91415230AC1007A2A51 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		181AB91C15230AC1007A2A51 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				181AB91D15230AC1007A2A51 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+		181AB93115230AC1007A2A51 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				181AB93215230AC1007A2A51 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		181AB93715230AC1007A2A51 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		181AB93815230AC1007A2A51 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		181AB93A15230AC1007A2A51 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VCard/VCard-Prefix.pch";
+				INFOPLIST_FILE = "VCard/VCard-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		181AB93B15230AC1007A2A51 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VCard/VCard-Prefix.pch";
+				INFOPLIST_FILE = "VCard/VCard-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		181AB93D15230AC1007A2A51 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/VCard.app/VCard";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VCard/VCard-Prefix.pch";
+				INFOPLIST_FILE = "VCardTests/VCardTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		181AB93E15230AC1007A2A51 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/VCard.app/VCard";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VCard/VCard-Prefix.pch";
+				INFOPLIST_FILE = "VCardTests/VCardTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		181AB90015230AC1007A2A51 /* Build configuration list for PBXProject "VCard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				181AB93715230AC1007A2A51 /* Debug */,
+				181AB93815230AC1007A2A51 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		181AB93915230AC1007A2A51 /* Build configuration list for PBXNativeTarget "VCard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				181AB93A15230AC1007A2A51 /* Debug */,
+				181AB93B15230AC1007A2A51 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		181AB93C15230AC1007A2A51 /* Build configuration list for PBXNativeTarget "VCardTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				181AB93D15230AC1007A2A51 /* Debug */,
+				181AB93E15230AC1007A2A51 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 181AB8FD15230AC1007A2A51 /* Project object */;
+}
