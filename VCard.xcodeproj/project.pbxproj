@@ -20,6 +20,19 @@
 		181AB92B15230AC1007A2A51 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90C15230AC1007A2A51 /* Foundation.framework */; };
 		181AB93315230AC1007A2A51 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 181AB93115230AC1007A2A51 /* InfoPlist.strings */; };
 		181AB93615230AC1007A2A51 /* VCardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB93515230AC1007A2A51 /* VCardTests.m */; };
+		181AB95515230B30007A2A51 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB94215230B30007A2A51 /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		181AB95615230B30007A2A51 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB94715230B30007A2A51 /* NSObject+SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		181AB95715230B30007A2A51 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB94915230B30007A2A51 /* NSString+SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		181AB95815230B30007A2A51 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB94B15230B30007A2A51 /* SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		181AB95915230B30007A2A51 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB94D15230B30007A2A51 /* SBJsonBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		181AB95A15230B30007A2A51 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB94F15230B30007A2A51 /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		181AB95B15230B30007A2A51 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB95115230B30007A2A51 /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		181AB95C15230B30007A2A51 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB95415230B30007A2A51 /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		187348731523407A00F562E7 /* WBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348721523407A00F562E7 /* WBRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		187348791523424500F562E7 /* WBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348781523424500F562E7 /* WBUtil.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1873487C1523433000F562E7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1873487B1523432F00F562E7 /* Security.framework */; };
+		1873487F152343F300F562E7 /* WBAuthorize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873487E152343F200F562E7 /* WBAuthorize.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		187348821523443B00F562E7 /* WBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348811523443B00F562E7 /* WBClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,21 +50,49 @@
 		181AB90A15230AC1007A2A51 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		181AB90C15230AC1007A2A51 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		181AB90E15230AC1007A2A51 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		181AB91215230AC1007A2A51 /* VCard-Info.plist */ = {isa = PBXFileReference; path = "VCard-Info.plist"; sourceTree = "<group>"; };
+		181AB91215230AC1007A2A51 /* VCard-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VCard-Info.plist"; sourceTree = "<group>"; };
 		181AB91415230AC1007A2A51 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		181AB91615230AC1007A2A51 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		181AB91815230AC1007A2A51 /* VCard-Prefix.pch */ = {isa = PBXFileReference; path = "VCard-Prefix.pch"; sourceTree = "<group>"; };
-		181AB91915230AC1007A2A51 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		181AB91815230AC1007A2A51 /* VCard-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VCard-Prefix.pch"; sourceTree = "<group>"; };
+		181AB91915230AC1007A2A51 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		181AB91A15230AC1007A2A51 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		181AB91D15230AC1007A2A51 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		181AB91F15230AC1007A2A51 /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		181AB91F15230AC1007A2A51 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		181AB92015230AC1007A2A51 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		181AB92715230AC1007A2A51 /* VCardTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VCardTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		181AB92815230AC1007A2A51 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		181AB93015230AC1007A2A51 /* VCardTests-Info.plist */ = {isa = PBXFileReference; path = "VCardTests-Info.plist"; sourceTree = "<group>"; };
+		181AB93015230AC1007A2A51 /* VCardTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VCardTests-Info.plist"; sourceTree = "<group>"; };
 		181AB93215230AC1007A2A51 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		181AB93415230AC1007A2A51 /* VCardTests.h */ = {isa = PBXFileReference; path = VCardTests.h; sourceTree = "<group>"; };
+		181AB93415230AC1007A2A51 /* VCardTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCardTests.h; sourceTree = "<group>"; };
 		181AB93515230AC1007A2A51 /* VCardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCardTests.m; sourceTree = "<group>"; };
+		181AB94115230B30007A2A51 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		181AB94215230B30007A2A51 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		181AB94315230B30007A2A51 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		181AB94515230B30007A2A51 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		181AB94615230B30007A2A51 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		181AB94715230B30007A2A51 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
+		181AB94815230B30007A2A51 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		181AB94915230B30007A2A51 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
+		181AB94A15230B30007A2A51 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		181AB94B15230B30007A2A51 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
+		181AB94C15230B30007A2A51 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		181AB94D15230B30007A2A51 /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		181AB94E15230B30007A2A51 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		181AB94F15230B30007A2A51 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		181AB95015230B30007A2A51 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		181AB95115230B30007A2A51 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		181AB95315230B30007A2A51 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
+		181AB95415230B30007A2A51 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		187348711523407A00F562E7 /* WBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBRequest.h; path = Client/WBRequest.h; sourceTree = "<group>"; };
+		187348721523407A00F562E7 /* WBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBRequest.m; path = Client/WBRequest.m; sourceTree = "<group>"; };
+		187348771523424500F562E7 /* WBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBUtil.h; path = Client/WBUtil.h; sourceTree = "<group>"; };
+		187348781523424500F562E7 /* WBUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBUtil.m; path = Client/WBUtil.m; sourceTree = "<group>"; };
+		1873487A1523429E00F562E7 /* WBSDKGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBSDKGlobal.h; path = Client/WBSDKGlobal.h; sourceTree = "<group>"; };
+		1873487B1523432F00F562E7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		1873487D152343F200F562E7 /* WBAuthorize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBAuthorize.h; path = Client/WBAuthorize.h; sourceTree = "<group>"; };
+		1873487E152343F200F562E7 /* WBAuthorize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBAuthorize.m; path = Client/WBAuthorize.m; sourceTree = "<group>"; };
+		187348801523443B00F562E7 /* WBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBClient.h; path = Client/WBClient.h; sourceTree = "<group>"; };
+		187348811523443B00F562E7 /* WBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBClient.m; path = Client/WBClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1873487C1523433000F562E7 /* Security.framework in Frameworks */,
 				181AB90B15230AC1007A2A51 /* UIKit.framework in Frameworks */,
 				181AB90D15230AC1007A2A51 /* Foundation.framework in Frameworks */,
 				181AB90F15230AC1007A2A51 /* CoreGraphics.framework in Frameworks */,
@@ -100,6 +142,7 @@
 		181AB90915230AC1007A2A51 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1873487B1523432F00F562E7 /* Security.framework */,
 				181AB90A15230AC1007A2A51 /* UIKit.framework */,
 				181AB90C15230AC1007A2A51 /* Foundation.framework */,
 				181AB90E15230AC1007A2A51 /* CoreGraphics.framework */,
@@ -111,11 +154,9 @@
 		181AB91015230AC1007A2A51 /* VCard */ = {
 			isa = PBXGroup;
 			children = (
-				181AB91915230AC1007A2A51 /* AppDelegate.h */,
-				181AB91A15230AC1007A2A51 /* AppDelegate.m */,
-				181AB91C15230AC1007A2A51 /* MainStoryboard.storyboard */,
-				181AB91F15230AC1007A2A51 /* ViewController.h */,
-				181AB92015230AC1007A2A51 /* ViewController.m */,
+				181AB95D15230B41007A2A51 /* UserInterface */,
+				181AB93F15230AE6007A2A51 /* Client */,
+				181AB95E15230B5A007A2A51 /* Classes */,
 				181AB91115230AC1007A2A51 /* Supporting Files */,
 			);
 			path = VCard;
@@ -149,6 +190,83 @@
 				181AB93115230AC1007A2A51 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		181AB93F15230AE6007A2A51 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				181AB94015230B30007A2A51 /* CTMBase64 */,
+				181AB94415230B30007A2A51 /* SBJSON */,
+				181AB95215230B30007A2A51 /* SFHFKeychainUtils */,
+				187348711523407A00F562E7 /* WBRequest.h */,
+				187348721523407A00F562E7 /* WBRequest.m */,
+				187348801523443B00F562E7 /* WBClient.h */,
+				187348811523443B00F562E7 /* WBClient.m */,
+				187348771523424500F562E7 /* WBUtil.h */,
+				187348781523424500F562E7 /* WBUtil.m */,
+				1873487A1523429E00F562E7 /* WBSDKGlobal.h */,
+				1873487D152343F200F562E7 /* WBAuthorize.h */,
+				1873487E152343F200F562E7 /* WBAuthorize.m */,
+			);
+			name = Client;
+			sourceTree = "<group>";
+		};
+		181AB94015230B30007A2A51 /* CTMBase64 */ = {
+			isa = PBXGroup;
+			children = (
+				181AB94115230B30007A2A51 /* GTMBase64.h */,
+				181AB94215230B30007A2A51 /* GTMBase64.m */,
+				181AB94315230B30007A2A51 /* GTMDefines.h */,
+			);
+			path = CTMBase64;
+			sourceTree = "<group>";
+		};
+		181AB94415230B30007A2A51 /* SBJSON */ = {
+			isa = PBXGroup;
+			children = (
+				181AB94515230B30007A2A51 /* JSON.h */,
+				181AB94615230B30007A2A51 /* NSObject+SBJSON.h */,
+				181AB94715230B30007A2A51 /* NSObject+SBJSON.m */,
+				181AB94815230B30007A2A51 /* NSString+SBJSON.h */,
+				181AB94915230B30007A2A51 /* NSString+SBJSON.m */,
+				181AB94A15230B30007A2A51 /* SBJSON.h */,
+				181AB94B15230B30007A2A51 /* SBJSON.m */,
+				181AB94C15230B30007A2A51 /* SBJsonBase.h */,
+				181AB94D15230B30007A2A51 /* SBJsonBase.m */,
+				181AB94E15230B30007A2A51 /* SBJsonParser.h */,
+				181AB94F15230B30007A2A51 /* SBJsonParser.m */,
+				181AB95015230B30007A2A51 /* SBJsonWriter.h */,
+				181AB95115230B30007A2A51 /* SBJsonWriter.m */,
+			);
+			path = SBJSON;
+			sourceTree = "<group>";
+		};
+		181AB95215230B30007A2A51 /* SFHFKeychainUtils */ = {
+			isa = PBXGroup;
+			children = (
+				181AB95315230B30007A2A51 /* SFHFKeychainUtils.h */,
+				181AB95415230B30007A2A51 /* SFHFKeychainUtils.m */,
+			);
+			path = SFHFKeychainUtils;
+			sourceTree = "<group>";
+		};
+		181AB95D15230B41007A2A51 /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				181AB91C15230AC1007A2A51 /* MainStoryboard.storyboard */,
+			);
+			name = UserInterface;
+			sourceTree = "<group>";
+		};
+		181AB95E15230B5A007A2A51 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				181AB91915230AC1007A2A51 /* AppDelegate.h */,
+				181AB91A15230AC1007A2A51 /* AppDelegate.m */,
+				181AB91F15230AC1007A2A51 /* ViewController.h */,
+				181AB92015230AC1007A2A51 /* ViewController.m */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +379,18 @@
 				181AB91715230AC1007A2A51 /* main.m in Sources */,
 				181AB91B15230AC1007A2A51 /* AppDelegate.m in Sources */,
 				181AB92115230AC1007A2A51 /* ViewController.m in Sources */,
+				181AB95515230B30007A2A51 /* GTMBase64.m in Sources */,
+				181AB95615230B30007A2A51 /* NSObject+SBJSON.m in Sources */,
+				181AB95715230B30007A2A51 /* NSString+SBJSON.m in Sources */,
+				181AB95815230B30007A2A51 /* SBJSON.m in Sources */,
+				181AB95915230B30007A2A51 /* SBJsonBase.m in Sources */,
+				181AB95A15230B30007A2A51 /* SBJsonParser.m in Sources */,
+				181AB95B15230B30007A2A51 /* SBJsonWriter.m in Sources */,
+				181AB95C15230B30007A2A51 /* SFHFKeychainUtils.m in Sources */,
+				187348731523407A00F562E7 /* WBRequest.m in Sources */,
+				187348791523424500F562E7 /* WBUtil.m in Sources */,
+				1873487F152343F300F562E7 /* WBAuthorize.m in Sources */,
+				187348821523443B00F562E7 /* WBClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +562,7 @@
 				181AB93B15230AC1007A2A51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		181AB93C15230AC1007A2A51 /* Build configuration list for PBXNativeTarget "VCardTests" */ = {
 			isa = XCConfigurationList;
@@ -440,6 +571,7 @@
 				181AB93E15230AC1007A2A51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
