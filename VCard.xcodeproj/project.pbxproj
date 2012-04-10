@@ -615,7 +615,6 @@
 			isa = PBXGroup;
 			children = (
 				18EA502715346E04005ED94F /* Resource */,
-				181AB95D15230B41007A2A51 /* UserInterface */,
 				181AB93F15230AE6007A2A51 /* Client */,
 				181AB95E15230B5A007A2A51 /* Classes */,
 				181AB91115230AC1007A2A51 /* Supporting Files */,
@@ -711,12 +710,12 @@
 			path = SFHFKeychainUtils;
 			sourceTree = "<group>";
 		};
-		181AB95D15230B41007A2A51 /* UserInterface */ = {
+		181AB95D15230B41007A2A51 /* User Interface */ = {
 			isa = PBXGroup;
 			children = (
 				181AB91C15230AC1007A2A51 /* MainStoryboard.storyboard */,
 			);
-			name = UserInterface;
+			name = "User Interface";
 			sourceTree = "<group>";
 		};
 		181AB95E15230B5A007A2A51 /* Classes */ = {
@@ -730,7 +729,7 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		18EA4E5815346DFD005ED94F /* image resources */ = {
+		18EA4E5815346DFD005ED94F /* Image Resource */ = {
 			isa = PBXGroup;
 			children = (
 				18EA502815346E12005ED94F /* default */,
@@ -744,7 +743,7 @@
 				18EA4F1615346DFD005ED94F /* shelf */,
 				18EA4F3315346DFD005ED94F /* stack view */,
 			);
-			name = "image resources";
+			name = "Image Resource";
 			path = "../image resources";
 			sourceTree = "<group>";
 		};
@@ -1040,7 +1039,8 @@
 		18EA502715346E04005ED94F /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				18EA4E5815346DFD005ED94F /* image resources */,
+				181AB95D15230B41007A2A51 /* User Interface */,
+				18EA4E5815346DFD005ED94F /* Image Resource */,
 			);
 			name = Resource;
 			sourceTree = "<group>";
