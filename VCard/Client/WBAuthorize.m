@@ -15,20 +15,17 @@
 
 @interface WBAuthorize (Private)
 
-- (void)dismissModalViewController;
-- (void)requestAccessTokenWithAuthorizeCode:(NSString *)code;
 - (void)requestAccessTokenWithUserID:(NSString *)userID password:(NSString *)password;
 
 @end
 
 @implementation WBAuthorize
 
-@synthesize appKey;
-@synthesize appSecret;
-@synthesize redirectURI;
-@synthesize request;
-@synthesize rootViewController;
-@synthesize delegate;
+@synthesize appKey = _appKey;
+@synthesize appSecret = _appSecret;
+@synthesize redirectURI = _redirectURI;
+@synthesize request = _request;
+@synthesize delegate = _delegate;
 
 #pragma mark - WBAuthorize Life Circle
 
@@ -45,57 +42,32 @@
 
 - (void)dealloc
 {
-    [appKey release], appKey = nil;
-    [appSecret release], appSecret = nil;
+    [_appKey release], _appKey = nil;
+    [_appSecret release], _appSecret = nil;
     
-    [redirectURI release], redirectURI = nil;
+    [_redirectURI release], _redirectURI = nil;
     
-    [request setDelegate:nil];
-    [request disconnect];
-    [request release], request = nil;
+    [_request setDelegate:nil];
+    [_request disconnect];
+    [_request release], _request = nil;
     
-    rootViewController = nil;
-    delegate = nil;
+    _delegate = nil;
     
     [super dealloc];
 }
 
 #pragma mark - WBAuthorize Private Methods
 
-- (void)dismissModalViewController
-{
-    [rootViewController dismissModalViewControllerAnimated:YES];
-}
-
-- (void)requestAccessTokenWithAuthorizeCode:(NSString *)code
-{
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:appKey, @"client_id",
-                            appSecret, @"client_secret",
-                            @"authorization_code", @"grant_type",
-                            redirectURI, @"redirect_uri",
-                            code, @"code", nil];
-    [request disconnect];
-    
-    self.request = [WBRequest requestWithURL:kWBAccessTokenURL
-                                  httpMethod:@"POST"
-                                      params:params
-                                postDataType:kWBRequestPostDataTypeNormal
-                            httpHeaderFields:nil 
-                                    delegate:self];
-    
-    [request connect];
-}
-
 - (void)requestAccessTokenWithUserID:(NSString *)userID password:(NSString *)password
 {
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:appKey, @"client_id",
-                            appSecret, @"client_secret",
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:_appKey, @"client_id",
+                            _appSecret, @"client_secret",
                             @"password", @"grant_type",
-                            redirectURI, @"redirect_uri",
+                            _redirectURI, @"redirect_uri",
                             userID, @"username",
                             password, @"password", nil];
     
-    [request disconnect];
+    [_request disconnect];
     
     self.request = [WBRequest requestWithURL:kWBAccessTokenURL
                                   httpMethod:@"POST"
@@ -104,7 +76,7 @@
                             httpHeaderFields:nil 
                                     delegate:self];
     
-    [request connect];
+    [_request connect];
 }
 
 #pragma mark - WBAuthorize Public Methods
@@ -129,28 +101,28 @@
         
         success = token && userID;
         
-        if (success && [delegate respondsToSelector:@selector(authorize:didSucceedWithAccessToken:userID:expiresIn:)])
+        if (success && [_delegate respondsToSelector:@selector(authorize:didSucceedWithAccessToken:userID:expiresIn:)])
         {
-            [delegate authorize:self didSucceedWithAccessToken:token userID:userID expiresIn:seconds];
+            [_delegate authorize:self didSucceedWithAccessToken:token userID:userID expiresIn:seconds];
         }
     }
     
     // should not be possible
-    if (!success && [delegate respondsToSelector:@selector(authorize:didFailWithError:)])
+    if (!success && [_delegate respondsToSelector:@selector(authorize:didFailWithError:)])
     {
         NSError *error = [NSError errorWithDomain:kWBSDKErrorDomain 
                                              code:kWBErrorCodeSDK 
                                          userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", kWBSDKErrorCodeAuthorizeError] 
                                                                               forKey:kWBSDKErrorCodeKey]];
-        [delegate authorize:self didFailWithError:error];
+        [_delegate authorize:self didFailWithError:error];
     }
 }
 
 - (void)request:(WBRequest *)theReqest didFailWithError:(NSError *)error
 {
-    if ([delegate respondsToSelector:@selector(authorize:didFailWithError:)])
+    if ([_delegate respondsToSelector:@selector(authorize:didFailWithError:)])
     {
-        [delegate authorize:self didFailWithError:error];
+        [_delegate authorize:self didFailWithError:error];
     }
 }
 

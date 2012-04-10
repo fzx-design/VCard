@@ -30,26 +30,28 @@
 
 @implementation WBClient
 
-@synthesize appKey;
-@synthesize appSecret;
-@synthesize userID;
-@synthesize accessToken;
-@synthesize expireTime;
-@synthesize redirectURI;
-@synthesize isUserExclusive;
-@synthesize request;
-@synthesize authorize;
-@synthesize delegate;
-@synthesize rootViewController;
+@synthesize appKey = _appKey;
+@synthesize appSecret = _appSecret;
+@synthesize userID = _userID;
+@synthesize accessToken = _accessToken;
+@synthesize expireTime = _expireTime;
+@synthesize redirectURI = _redirectURI;
+@synthesize isUserExclusive = isUserExclusive;
+@synthesize request = _request;
+@synthesize authorize = _authorize;
+@synthesize delegate = _delegate;
+
+@synthesize responseJSONObject = _responseJSONObject;
 
 #pragma mark - WBEngine Life Circle
 
-- (id)initWithAppKey:(NSString *)theAppKey appSecret:(NSString *)theAppSecret
+- (id)init
 {
     if (self = [super init])
     {
-        self.appKey = theAppKey;
-        self.appSecret = theAppSecret;
+        _appKey = kWBSDKAppKey;
+        _appSecret = kWBSDKAppSecret;
+        _redirectURI = @"http://";
         
         isUserExclusive = NO;
         
@@ -61,23 +63,22 @@
 
 - (void)dealloc
 {
-    [appKey release], appKey = nil;
-    [appSecret release], appSecret = nil;
+    [_appKey release], _appKey = nil;
+    [_appSecret release], _appSecret = nil;
     
-    [userID release], userID = nil;
-    [accessToken release], accessToken = nil;
+    [_userID release], _userID = nil;
+    [_accessToken release], _accessToken = nil;
     
-    [redirectURI release], redirectURI = nil;
+    [_redirectURI release], _redirectURI = nil;
     
-    [request setDelegate:nil];
-    [request disconnect];
-    [request release], request = nil;
+    [_request setDelegate:nil];
+    [_request disconnect];
+    [_request release], _request = nil;
     
-    [authorize setDelegate:nil];
-    [authorize release], authorize = nil;
+    [_authorize setDelegate:nil];
+    [_authorize release], _authorize = nil;
     
-    delegate = nil;
-    rootViewController = nil;
+    _delegate = nil;
     
     [super dealloc];
 }
@@ -86,15 +87,15 @@
 
 - (NSString *)urlSchemeString
 {
-    return [NSString stringWithFormat:@"%@%@", kWBURLSchemePrefix, appKey];
+    return [NSString stringWithFormat:@"%@%@", kWBURLSchemePrefix, _appKey];
 }
 
 - (void)saveAuthorizeDataToKeychain
 {
     NSString *serviceName = [[self urlSchemeString] stringByAppendingString:kWBKeychainServiceNameSuffix];
-    [SFHFKeychainUtils storeUsername:kWBKeychainUserID andPassword:userID forServiceName:serviceName updateExisting:YES error:nil];
-	[SFHFKeychainUtils storeUsername:kWBKeychainAccessToken andPassword:accessToken forServiceName:serviceName updateExisting:YES error:nil];
-	[SFHFKeychainUtils storeUsername:kWBKeychainExpireTime andPassword:[NSString stringWithFormat:@"%lf", expireTime] forServiceName:serviceName updateExisting:YES error:nil];
+    [SFHFKeychainUtils storeUsername:kWBKeychainUserID andPassword:_userID forServiceName:serviceName updateExisting:YES error:nil];
+	[SFHFKeychainUtils storeUsername:kWBKeychainAccessToken andPassword:_accessToken forServiceName:serviceName updateExisting:YES error:nil];
+	[SFHFKeychainUtils storeUsername:kWBKeychainExpireTime andPassword:[NSString stringWithFormat:@"%lf", _expireTime] forServiceName:serviceName updateExisting:YES error:nil];
 }
 
 - (void)readAuthorizeDataFromKeychain
@@ -119,61 +120,79 @@
 
 #pragma mark - WBEngine Public Methods
 
+- (void)setCompletionBlock:(void (^)(WBClient* client))completionBlock
+{
+    [_completionBlock autorelease];
+    _completionBlock = [completionBlock copy];
+}
+
+- (WCCompletionBlock)completionBlock
+{
+    return _completionBlock;
+}
+
+- (void)reportCompletion
+{
+    if (_completionBlock) {
+        _completionBlock(self);
+    }
+}
+
+
 #pragma mark Authorization
 
-- (void)logInUsingUserID:(NSString *)theUserID password:(NSString *)thePassword
-{
-    self.userID = theUserID;
-    
-    if ([self isLoggedIn])
-    {
-        if ([delegate respondsToSelector:@selector(engineAlreadyLoggedIn:)])
-        {
-            [delegate clientAlreadyLoggedIn:self];
-        }
-        if (isUserExclusive)
-        {
-            return;
-        }
-    }
-    
-    WBAuthorize *auth = [[WBAuthorize alloc] initWithAppKey:appKey appSecret:appSecret];
-    [auth setRootViewController:rootViewController];
-    [auth setDelegate:self];
-    self.authorize = auth;
-    [auth release];
-    
-    if ([redirectURI length] > 0)
-    {
-        [authorize setRedirectURI:redirectURI];
-    }
-    else
-    {
-        [authorize setRedirectURI:@"http://"];
-    }
-    
-    [authorize startAuthorizeUsingUserID:theUserID password:thePassword];
-}
+//- (void)logInUsingUserID:(NSString *)theUserID password:(NSString *)thePassword
+//{
+//    self.userID = theUserID;
+//    
+//    if ([self isLoggedIn])
+//    {
+//        if ([_delegate respondsToSelector:@selector(engineAlreadyLoggedIn:)])
+//        {
+//            [_delegate clientAlreadyLoggedIn:self];
+//        }
+//        if (isUserExclusive)
+//        {
+//            return;
+//        }
+//    }
+//    
+//    WBAuthorize *auth = [[WBAuthorize alloc] initWithAppKey:_appKey appSecret:_appSecret];
+//    [auth setDelegate:self];
+//    self.authorize = auth;
+//    [auth release];
+//    
+//    if ([_redirectURI length] > 0)
+//    {
+//        [_authorize setRedirectURI:_redirectURI];
+//    }
+//    else
+//    {
+//        [_authorize setRedirectURI:@"http://"];
+//    }
+//    
+//    [_authorize startAuthorizeUsingUserID:theUserID password:thePassword];
+//}
 
 - (void)logOut
 {
     [self deleteAuthorizeDataInKeychain];
     
-    if ([delegate respondsToSelector:@selector(engineDidLogOut:)])
+    if ([_delegate respondsToSelector:@selector(engineDidLogOut:)])
     {
-        [delegate clientDidLogOut:self];
+        [_delegate clientDidLogOut:self];
     }
 }
 
 - (BOOL)isLoggedIn
 {
     //    return userID && accessToken && refreshToken;
-    return userID && accessToken && (expireTime > 0);
+    return _userID && _accessToken && (_expireTime > 0);
 }
 
 - (BOOL)isAuthorizeExpired
 {
-    if ([[NSDate date] timeIntervalSince1970] > expireTime)
+    if ([[NSDate date] timeIntervalSince1970] > _expireTime)
     {
         // force to log out
         [self deleteAuthorizeDataInKeychain];
@@ -194,9 +213,9 @@
     // Check if the user has been logged in.
 	if (![self isLoggedIn])
 	{
-        if ([delegate respondsToSelector:@selector(engineNotAuthorized:)])
+        if ([_delegate respondsToSelector:@selector(engineNotAuthorized:)])
         {
-            [delegate clientNotAuthorized:self];
+            [_delegate clientNotAuthorized:self];
         }
         return;
 	}
@@ -205,16 +224,16 @@
     // Check if the access token is expired.
     if ([self isAuthorizeExpired])
     {
-        if ([delegate respondsToSelector:@selector(engineAuthorizeExpired:)])
+        if ([_delegate respondsToSelector:@selector(engineAuthorizeExpired:)])
         {
-            [delegate clientAuthorizeExpired:self];
+            [_delegate clientAuthorizeExpired:self];
         }
         return;
     }
     
-    [request disconnect];
+    [_request disconnect];
     
-    self.request = [WBRequest requestWithAccessToken:accessToken
+    self.request = [WBRequest requestWithAccessToken:_accessToken
                                                  url:[NSString stringWithFormat:@"%@%@", kWBSDKAPIDomain, methodName]
                                           httpMethod:httpMethod
                                               params:params
@@ -222,7 +241,7 @@
                                     httpHeaderFields:httpHeaderFields
                                             delegate:self];
 	
-	[request connect];
+	[_request connect];
 }
 
 - (void)sendWeiBoWithText:(NSString *)text image:(UIImage *)image
@@ -255,25 +274,47 @@
 
 #pragma mark - WBAuthorizeDelegate Methods
 
-- (void)authorize:(WBAuthorize *)authorize didSucceedWithAccessToken:(NSString *)theAccessToken userID:(NSString *)theUserID expiresIn:(NSInteger)seconds
+- (void)authorizeUsingUserID:(NSString *)userID password:(NSString *)password
 {
-    self.accessToken = theAccessToken;
-    self.userID = theUserID;
-    self.expireTime = [[NSDate date] timeIntervalSince1970] + seconds;
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:_appKey, @"client_id",
+                            _appSecret, @"client_secret",
+                            @"password", @"grant_type",
+                            _redirectURI, @"redirect_uri",
+                            userID, @"username",
+                            password, @"password", nil];
     
-    [self saveAuthorizeDataToKeychain];
     
-    if ([delegate respondsToSelector:@selector(engineDidLogIn:)])
-    {
-        [delegate clientDidLogIn:self];
-    }
+    [self setCompletionBlock:^(WBClient *client) {
+        
+        if ([self.responseJSONObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dict = (NSDictionary*)client.responseJSONObject;
+            
+            self.accessToken = [dict objectForKey:@"access_token"];
+            self.userID = [dict objectForKey:@"uid"];
+            self.expireTime = [[NSDate date] timeIntervalSince1970] + [[dict objectForKey:@"expires_in"] intValue];
+            
+            [self saveAuthorizeDataToKeychain];
+        }
+    }];
+    
+    [_request disconnect];
+    
+    self.request = [WBRequest requestWithURL:kWBAccessTokenURL
+                                  httpMethod:@"POST"
+                                      params:params
+                                postDataType:kWBRequestPostDataTypeNormal
+                            httpHeaderFields:nil 
+                                    delegate:self];
+    
+    
+    [_request connect];
 }
 
 - (void)authorize:(WBAuthorize *)authorize didFailWithError:(NSError *)error
 {
-    if ([delegate respondsToSelector:@selector(engine:didFailToLogInWithError:)])
+    if ([_delegate respondsToSelector:@selector(engine:didFailToLogInWithError:)])
     {
-        [delegate client:self didFailToLogInWithError:error];
+        [_delegate client:self didFailToLogInWithError:error];
     }
 }
 
@@ -281,18 +322,28 @@
 
 - (void)request:(WBRequest *)request didFinishLoadingWithResult:(id)result
 {
-    if ([delegate respondsToSelector:@selector(engine:requestDidSucceedWithResult:)])
+    if ([_delegate respondsToSelector:@selector(engine:requestDidSucceedWithResult:)])
     {
-        [delegate client:self requestDidSucceedWithResult:result];
+        [_delegate client:self requestDidSucceedWithResult:result];
     }
+    
+    self.responseJSONObject = result;
+    
+    [self reportCompletion];
+    
+    [self autorelease];
 }
 
 - (void)request:(WBRequest *)request didFailWithError:(NSError *)error
 {
-    if ([delegate respondsToSelector:@selector(engine:requestDidFailWithError:)])
+    if ([_delegate respondsToSelector:@selector(engine:requestDidFailWithError:)])
     {
-        [delegate client:self requestDidFailWithError:error];
+        [_delegate client:self requestDidFailWithError:error];
     }
+    
+    [self reportCompletion];
+    
+    [self autorelease];
 }
 
 

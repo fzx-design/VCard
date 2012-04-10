@@ -46,30 +46,34 @@
 
 @end
 
-@interface WBClient : NSObject<WBAuthorizeDelegate, WBRequestDelegate>
+typedef void (^WCCompletionBlock)(WBClient *client);
+
+@interface WBClient : NSObject<WBRequestDelegate>
 {
-    NSString        *appKey;
-    NSString        *appSecret;
+    NSString        *_appKey;
+    NSString        *_appSecret;
     
-    NSString        *userID;
-    NSString        *accessToken;
-    NSTimeInterval  expireTime;
+    NSString        *_userID;
+    NSString        *_accessToken;
+    NSTimeInterval  _expireTime;
     
-    NSString        *redirectURI;
+    NSString        *_redirectURI;
     
     // Determine whether user must log out before another logging in.
-    BOOL            isUserExclusive;
+    BOOL            _isUserExclusive;
     
-    WBRequest       *request;
-    WBAuthorize     *authorize;
+    WBRequest       *_request;
+    WBAuthorize     *_authorize;
     
-    id<WBClientDelegate> delegate;
+    id<WBClientDelegate> _delegate;
     
-    UIViewController *rootViewController;
+    id _responseJSONObject;
+    WCCompletionBlock _completionBlock;
+    
 }
 
-@property (nonatomic, retain) NSString *appKey;
-@property (nonatomic, retain) NSString *appSecret;
+@property (nonatomic, copy) NSString *appKey;
+@property (nonatomic, copy) NSString *appSecret;
 @property (nonatomic, retain) NSString *userID;
 @property (nonatomic, retain) NSString *accessToken;
 @property (nonatomic, assign) NSTimeInterval expireTime;
@@ -78,14 +82,17 @@
 @property (nonatomic, retain) WBRequest *request;
 @property (nonatomic, retain) WBAuthorize *authorize;
 @property (nonatomic, assign) id<WBClientDelegate> delegate;
-@property (nonatomic, assign) UIViewController *rootViewController;
 
-// Initialize an instance with the AppKey and the AppSecret you have for your client.
-- (id)initWithAppKey:(NSString *)theAppKey appSecret:(NSString *)theAppSecret;
+
+@property (nonatomic, retain) id responseJSONObject;
+- (void)setCompletionBlock:(void (^)(WBClient* client))completionBlock;
+- (WCCompletionBlock)completionBlock;
+
+- (id)init;
 
 // Log in using OAuth Client authorization.
 // If succeed, engineDidLogIn will be called.
-- (void)logInUsingUserID:(NSString *)theUserID password:(NSString *)thePassword;
+//- (void)logInUsingUserID:(NSString *)theUserID password:(NSString *)thePassword;
 
 // Log out.
 // If succeed, engineDidLogOut will be called.
@@ -111,5 +118,7 @@
 
 // Send a Weibo, to which you can attach an image.
 - (void)sendWeiBoWithText:(NSString *)text image:(UIImage *)image;
+
+- (void)authorizeUsingUserID:(NSString *)userID password:(NSString *)password;
 
 @end

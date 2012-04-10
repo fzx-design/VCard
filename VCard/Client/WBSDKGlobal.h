@@ -11,6 +11,12 @@
 
 #define kWBSDKAPIDomain             @"https://api.weibo.com/2/"
 
+#define kWBAuthorizeURL             @"https://api.weibo.com/oauth2/authorize"
+#define kWBAccessTokenURL           @"https://api.weibo.com/oauth2/access_token"
+
+#define kWBSDKAppKey                @"1965726745"
+#define kWBSDKAppSecret             @"55377ca138fa49b63b7767778ca1fb5a"
+
 typedef enum
 {
 	kWBErrorCodeInterface	= 100,
