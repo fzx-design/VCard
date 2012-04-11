@@ -14,7 +14,6 @@
 		181AB91715230AC1007A2A51 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB91615230AC1007A2A51 /* main.m */; };
 		181AB91B15230AC1007A2A51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB91A15230AC1007A2A51 /* AppDelegate.m */; };
 		181AB91E15230AC1007A2A51 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181AB91C15230AC1007A2A51 /* MainStoryboard.storyboard */; };
-		181AB92115230AC1007A2A51 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181AB92015230AC1007A2A51 /* ViewController.m */; };
 		181AB92915230AC1007A2A51 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB92815230AC1007A2A51 /* SenTestingKit.framework */; };
 		181AB92A15230AC1007A2A51 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90A15230AC1007A2A51 /* UIKit.framework */; };
 		181AB92B15230AC1007A2A51 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90C15230AC1007A2A51 /* Foundation.framework */; };
@@ -33,6 +32,8 @@
 		1873487C1523433000F562E7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1873487B1523432F00F562E7 /* Security.framework */; };
 		1873487F152343F300F562E7 /* WBAuthorize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873487E152343F200F562E7 /* WBAuthorize.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		187348821523443B00F562E7 /* WBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348811523443B00F562E7 /* WBClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1890C68A15356BCB00023A13 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C68915356BCB00023A13 /* LoginViewController.m */; };
+		1890C69115356F6F00023A13 /* BaseLayoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C69015356F6F00023A13 /* BaseLayoutView.m */; };
 		18EA4F4415346DFD005ED94F /* button_back_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA4E5A15346DFD005ED94F /* button_back_dark.png */; };
 		18EA4F4515346DFD005ED94F /* button_back_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA4E5B15346DFD005ED94F /* button_back_dark@2x.png */; };
 		18EA4F4615346DFD005ED94F /* button_bg_brown.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA4E5C15346DFD005ED94F /* button_bg_brown.png */; };
@@ -293,8 +294,6 @@
 		181AB91915230AC1007A2A51 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		181AB91A15230AC1007A2A51 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		181AB91D15230AC1007A2A51 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		181AB91F15230AC1007A2A51 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		181AB92015230AC1007A2A51 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		181AB92715230AC1007A2A51 /* VCardTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VCardTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		181AB92815230AC1007A2A51 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		181AB93015230AC1007A2A51 /* VCardTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VCardTests-Info.plist"; sourceTree = "<group>"; };
@@ -329,6 +328,11 @@
 		1873487E152343F200F562E7 /* WBAuthorize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBAuthorize.m; path = Client/WBAuthorize.m; sourceTree = "<group>"; };
 		187348801523443B00F562E7 /* WBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBClient.h; path = Client/WBClient.h; sourceTree = "<group>"; };
 		187348811523443B00F562E7 /* WBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBClient.m; path = Client/WBClient.m; sourceTree = "<group>"; };
+		1890C68815356BCB00023A13 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		1890C68915356BCB00023A13 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		1890C68F15356F6F00023A13 /* BaseLayoutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseLayoutView.h; sourceTree = "<group>"; };
+		1890C69015356F6F00023A13 /* BaseLayoutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseLayoutView.m; sourceTree = "<group>"; };
+		1890C6A21535A87900023A13 /* ResourceList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResourceList.h; sourceTree = "<group>"; };
 		18EA4E5A15346DFD005ED94F /* button_back_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_back_dark.png; sourceTree = "<group>"; };
 		18EA4E5B15346DFD005ED94F /* button_back_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_back_dark@2x.png"; sourceTree = "<group>"; };
 		18EA4E5C15346DFD005ED94F /* button_bg_brown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_bg_brown.png; sourceTree = "<group>"; };
@@ -626,9 +630,8 @@
 		181AB91015230AC1007A2A51 /* VCard */ = {
 			isa = PBXGroup;
 			children = (
-				18EA502715346E04005ED94F /* Resource */,
-				181AB93F15230AE6007A2A51 /* Client */,
 				181AB95E15230B5A007A2A51 /* Classes */,
+				18EA502715346E04005ED94F /* Resource */,
 				181AB91115230AC1007A2A51 /* Supporting Files */,
 			);
 			path = VCard;
@@ -733,10 +736,14 @@
 		181AB95E15230B5A007A2A51 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				181AB93F15230AE6007A2A51 /* Client */,
 				181AB91915230AC1007A2A51 /* AppDelegate.h */,
 				181AB91A15230AC1007A2A51 /* AppDelegate.m */,
-				181AB91F15230AC1007A2A51 /* ViewController.h */,
-				181AB92015230AC1007A2A51 /* ViewController.m */,
+				1890C68F15356F6F00023A13 /* BaseLayoutView.h */,
+				1890C69015356F6F00023A13 /* BaseLayoutView.m */,
+				1890C68815356BCB00023A13 /* LoginViewController.h */,
+				1890C68915356BCB00023A13 /* LoginViewController.m */,
+				1890C6A21535A87900023A13 /* ResourceList.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1420,7 +1427,6 @@
 			files = (
 				181AB91715230AC1007A2A51 /* main.m in Sources */,
 				181AB91B15230AC1007A2A51 /* AppDelegate.m in Sources */,
-				181AB92115230AC1007A2A51 /* ViewController.m in Sources */,
 				181AB95515230B30007A2A51 /* GTMBase64.m in Sources */,
 				181AB95615230B30007A2A51 /* NSObject+SBJSON.m in Sources */,
 				181AB95715230B30007A2A51 /* NSString+SBJSON.m in Sources */,
@@ -1433,6 +1439,8 @@
 				187348791523424500F562E7 /* WBUtil.m in Sources */,
 				1873487F152343F300F562E7 /* WBAuthorize.m in Sources */,
 				187348821523443B00F562E7 /* WBClient.m in Sources */,
+				1890C68A15356BCB00023A13 /* LoginViewController.m in Sources */,
+				1890C69115356F6F00023A13 /* BaseLayoutView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
