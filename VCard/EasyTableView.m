@@ -10,7 +10,6 @@
 #import "EasyTableView.h"
 #import "EasyTableViewCell.h"
 
-#define ANIMATION_DURATION	0.30
 #define OriginX UIInterfaceOrientationIsPortrait([[UIDevice currentDevice] orientation]) ? 238 : 366
 
 @interface EasyTableView (PrivateMethods)
@@ -42,39 +41,22 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame numberOfRows:(NSUInteger)numRows ofHeight:(CGFloat)height {
-    if (self = [super initWithFrame:frame]) {
-		_numItems			= numRows;
-		_cellWidthOrHeight	= height;
-		
-		[self createTableWithOrientation:EasyTableViewOrientationVertical];
-    }
-    return self;
-}
-
 - (void)createTableWithOrientation:(EasyTableViewOrientation)orientation {
 	// Save the orientation so that the table view cell knows how to set itself up
 	_orientation = orientation;
 	
 	UITableView *tableView;
-	if (orientation == EasyTableViewOrientationHorizontal) {
-		int xOrigin	= (self.bounds.size.width - self.bounds.size.height)/2;
-		int yOrigin	= (self.bounds.size.height - self.bounds.size.width)/2;
-		tableView	= [[UITableView alloc] initWithFrame:CGRectMake(xOrigin, yOrigin, self.bounds.size.height, self.bounds.size.width)];
-	}
-	else
-		tableView	= [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+    
+    int xOrigin	= (self.bounds.size.width - self.bounds.size.height)/2;
+    int yOrigin	= (self.bounds.size.height - self.bounds.size.width)/2;
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(xOrigin, yOrigin, self.bounds.size.height, self.bounds.size.width)];
 	
-	tableView.tag				= TABLEVIEW_TAG;
-	tableView.delegate			= self;
-	tableView.dataSource		= self;
-	tableView.autoresizingMask	= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	
-	// Rotate the tableView 90 degrees so that it is horizontal
-	if (orientation == EasyTableViewOrientationHorizontal)
-		tableView.transform	= CGAffineTransformMakeRotation(-M_PI/2);
-	
-	tableView.showsVerticalScrollIndicator	 = NO;
+	tableView.tag = TABLEVIEW_TAG;
+	tableView.delegate = self;
+	tableView.dataSource = self;
+	tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    tableView.transform	= CGAffineTransformMakeRotation(-M_PI/2);
+	tableView.showsVerticalScrollIndicator = NO;
 	tableView.showsHorizontalScrollIndicator = NO;
 	
 	[self addSubview:tableView];
@@ -102,31 +84,18 @@
 
 - (CGPoint)contentOffset {
 	CGPoint offset = self.tableView.contentOffset;
-	
-	if (_orientation == EasyTableViewOrientationHorizontal)
-		offset = CGPointMake(offset.y, offset.x);
-	
+    offset = CGPointMake(offset.y, offset.x);
 	return offset;
 }
 
 
 - (void)setContentOffset:(CGPoint)offset {
-	if (_orientation == EasyTableViewOrientationHorizontal)
-		self.tableView.contentOffset = CGPointMake(offset.y, offset.x);
-	else
-		self.tableView.contentOffset = offset;
+    self.tableView.contentOffset = CGPointMake(offset.y, offset.x);
 }
 
 
 - (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated {
-	CGPoint newOffset;
-	
-	if (_orientation == EasyTableViewOrientationHorizontal) {
-		newOffset = CGPointMake(offset.y, offset.x);
-	}
-	else {
-		newOffset = offset;
-	}
+	CGPoint newOffset = CGPointMake(offset.y, offset.x);
 	[self.tableView setContentOffset:newOffset animated:animated];
 }
 
@@ -135,8 +104,8 @@
 #pragma mark Selection
 
 - (void)selectCellAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
-	self.selectedIndexPath	= indexPath;
-	CGPoint defaultOffset	= CGPointMake(0, indexPath.row  *_cellWidthOrHeight);
+	self.selectedIndexPath = indexPath;
+	CGPoint defaultOffset = CGPointMake(0, indexPath.row  *_cellWidthOrHeight);
 	
 	[self.tableView setContentOffset:defaultOffset animated:animated];
 }
@@ -168,10 +137,7 @@
 -(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
     if ([delegate respondsToSelector:@selector(easyTableView:viewForHeaderInSection:)]) {
         UIView *headerView = [delegate easyTableView:self viewForHeaderInSection:section];
-		if (_orientation == EasyTableViewOrientationHorizontal)
-			return headerView.frame.size.width;
-		else 
-			return headerView.frame.size.height;
+        return headerView.frame.size.width;
     }
     return 0.0;
 }
@@ -179,10 +145,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if ([delegate respondsToSelector:@selector(easyTableView:viewForFooterInSection:)]) {
         UIView *footerView = [delegate easyTableView:self viewForFooterInSection:section];
-		if (_orientation == EasyTableViewOrientationHorizontal)
-			return footerView.frame.size.width;
-		else 
-			return footerView.frame.size.height;
+        return footerView.frame.size.width;
     }
     return 0.0;
 }
@@ -190,18 +153,14 @@
 - (UIView *)viewToHoldSectionView:(UIView *)sectionView {
 	// Enforce proper section header/footer view height abd origin. This is required because
 	// of the way UITableView resizes section views on orientation changes.
-	if (_orientation == EasyTableViewOrientationHorizontal)
-		sectionView.frame = CGRectMake(0, 0, sectionView.frame.size.width, self.frame.size.height);
+    
+    sectionView.frame = CGRectMake(0, 0, sectionView.frame.size.width, self.frame.size.height);
 	
 	UIView *rotatedView = [[UIView alloc] initWithFrame:sectionView.frame];
 	
-	if (_orientation == EasyTableViewOrientationHorizontal) {
-		rotatedView.transform = CGAffineTransformMakeRotation(M_PI/2);
-		sectionView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-	}
-	else {
-		sectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-	}
+    rotatedView.transform = CGAffineTransformMakeRotation(M_PI/2);
+    sectionView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+	
 	[rotatedView addSubview:sectionView];
 	return rotatedView;
 }
@@ -300,17 +259,14 @@
 #pragma mark -
 #pragma mark TableViewDataSource
 
-- (void)setCell:(UITableViewCell *)cell boundsForOrientation:(EasyTableViewOrientation)theOrientation {
-	if (theOrientation == EasyTableViewOrientationHorizontal) {
-		cell.bounds	= CGRectMake(0, 0, self.bounds.size.height, _cellWidthOrHeight);
-	}
-	else {
-		cell.bounds	= CGRectMake(0, 0, self.bounds.size.width, _cellWidthOrHeight);
-	}
+- (void)setCell:(UITableViewCell *)cell boundsForOrientation:(EasyTableViewOrientation)theOrientation 
+{
+    cell.bounds	= CGRectMake(0, 0, self.bounds.size.height, _cellWidthOrHeight);
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
     static NSString *CellIdentifier = @"EasyTableViewCell";
     
     UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -325,23 +281,15 @@
         cell.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 		
 		// Add a view to the cell's content view that is rotated to compensate for the table view rotation
-		CGRect viewRect;
-		if (_orientation == EasyTableViewOrientationHorizontal)
-			viewRect = CGRectMake(OriginX, 0, cell.bounds.size.height, cell.bounds.size.width);
-		else
-			viewRect = CGRectMake(0, 0, cell.bounds.size.width, cell.bounds.size.height);
+		CGRect viewRect = CGRectMake(OriginX, 0, cell.bounds.size.height, cell.bounds.size.width);
 		
 		UIView *rotatedView				= [[UIView alloc] initWithFrame:viewRect];
 		rotatedView.tag					= ROTATED_CELL_VIEW_TAG;
 		rotatedView.center				= cell.contentView.center;
 		rotatedView.backgroundColor		= self.cellBackgroundColor;
 		
-		if (_orientation == EasyTableViewOrientationHorizontal) {
-			rotatedView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-			rotatedView.transform = CGAffineTransformMakeRotation(M_PI/2);
-		}
-		else 
-			rotatedView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        rotatedView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        rotatedView.transform = CGAffineTransformMakeRotation(M_PI/2);
 		
 		// We want to make sure any expanded content is not visible when the cell is deselected
 		rotatedView.clipsToBounds = YES;
@@ -376,12 +324,8 @@
 #pragma mark Rotation
 
 - (void)prepareRotatedView:(UIView *)rotatedView forCell:(EasyTableViewCell*)cell{
-//	UIView *content = [delegate easyTableView:self viewForRect:rotatedView.bounds];
 	
     UIView* content = cell.userSelectionCellViewController.view;
-	// Add a default view if none is provided
-	if (content == nil)
-		content = [[UIView alloc] initWithFrame:rotatedView.bounds];
 	
 	content.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	content.tag = CELL_CONTENT_TAG;

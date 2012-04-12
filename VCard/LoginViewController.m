@@ -100,20 +100,13 @@
 // Second delegate populates the views with data from a data source
 
 - (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath *)indexPath {
-//	UILabel *label	= (UILabel *)view;
-//	label.text		= [NSString stringWithFormat:@"%i", indexPath.row];
+
 }
 
 // Optional delegate to track the selection of a particular cell
 
 - (void)easyTableView:(EasyTableView *)easyTableView selectedView:(UIView *)selectedView atIndexPath:(NSIndexPath *)indexPath deselectedView:(UIView *)deselectedView {
-//	[self borderIsSelected:YES forView:selectedView];		
-//	
-//	if (deselectedView) 
-//		[self borderIsSelected:NO forView:deselectedView];
-//	
-//	UILabel *label	= (UILabel *)selectedView;
-//	bigLabel.text	= label.text;
+
 }
 
 
