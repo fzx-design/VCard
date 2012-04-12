@@ -13,32 +13,27 @@
 
 @synthesize userSelectionCellViewController = _userSelectionCellViewController;
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithStyle:(UITableViewCellStyle)style 
+    reuseIdentifier:(NSString *)reuseIdentifier
+         storyBoard:(UIStoryboard*)storyBoard
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        [self setUp];
+        [self setUp:storyBoard];
     }
     return self;
 }
 
-- (void)setUp
+- (void)setUp:(UIStoryboard*)storyboard
 {
-    NSLog(@"CardTableViewCell awakeFromNib");
-    self.transform = CGAffineTransformRotate(self.transform, M_PI_2);
-
     if (!_userSelectionCellViewController) {
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard.storyboard" bundle:nil];
-        
-//        _userSelectionCellViewController = [[UserSelectionCellViewController alloc] init];
+                
         _userSelectionCellViewController = [storyboard instantiateViewControllerWithIdentifier:@"UserSelectionCellViewController"];
         _userSelectionCellViewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _userSelectionCellViewController.view.tag = CELL_CONTENT_TAG;
+
     }
-    
-    [self.contentView addSubview:_userSelectionCellViewController.view];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -15,8 +15,8 @@
 
 @property (nonatomic, strong) UserSelectionCellViewController *userSelectionCellViewController;
 
-//- (id)initWithStyle:(UITableViewCellStyle)style 
-//    reuseIdentifier:(NSString *)reuseIdentifier 
-//         storyBoard:(UIStoryboard*)storyBoard;
+- (id)initWithStyle:(UITableViewCellStyle)style 
+    reuseIdentifier:(NSString *)reuseIdentifier 
+         storyBoard:(UIStoryboard*)storyBoard;
 
 @end
