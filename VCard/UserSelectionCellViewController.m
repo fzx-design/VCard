@@ -7,6 +7,10 @@
 //
 
 #import "UserSelectionCellViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import "ResourceList.h"
+
+#define CornerRadius 175 / 2
 
 @interface UserSelectionCellViewController ()
 
@@ -31,6 +35,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    _avatorImageView.image = [UIImage imageNamed:kRLAvatorPlaceHolder];
+    _avatorImageView.layer.masksToBounds = YES;
+    _avatorImageView.layer.cornerRadius = CornerRadius;
 }
 
 - (void)viewDidUnload

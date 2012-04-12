@@ -12,5 +12,6 @@
 #define kRLTopBarBG @"main_bar_bg.png"
 #define kRLTopBarShadow @"main_bar_shadow.png"
 #define kRLCastViewBGUnit @"castview_bg_unit.png"
+#define kRLAvatorPlaceHolder @"imageview_placeholder.png"
 
 #endif

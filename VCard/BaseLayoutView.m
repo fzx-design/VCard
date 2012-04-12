@@ -31,12 +31,12 @@
         
         UIImageView *topBarShadow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 768, 15)];
         [topBarShadow setImage:[UIImage imageNamed:kRLTopBarShadow]];
-        [topBarShadow setContentMode:UIViewContentModeCenter];
+        [topBarShadow setContentMode:UIViewContentModeScaleToFill];
         [topBarShadow setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLCastViewBGUnit]];
-        [self addSubview:topBar];
-        [self addSubview:topBarShadow];
+        [self insertSubview:topBar atIndex:0];
+        [self insertSubview:topBarShadow atIndex:0];
     }
     return self;
 }

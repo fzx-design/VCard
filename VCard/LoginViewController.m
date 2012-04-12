@@ -17,9 +17,9 @@
 #define UserSelectionFrame          CGRectMake(0, UserPortraitOriginY, PORTRAIT_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT)
 
 #define LogoPortraitOriginY 133
-#define LogoLandscapeOriginY 83
+#define LogoLandscapeOriginY 63
 #define UserPortraitOriginY  250
-#define UserLandscapeOriginY 200
+#define UserLandscapeOriginY 180
 
 @interface LoginViewController ()
 

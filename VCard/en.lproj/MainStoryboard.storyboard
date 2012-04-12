@@ -20,6 +20,23 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mKW-Bc-ogh">
+                                <rect key="frame" x="6" y="6" width="50" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <size key="titleShadowOffset" width="0.0" height="-1"/>
+                                <state key="normal" title="注册" backgroundImage="button_bg_brown.png">
+                                    <color key="titleColor" red="0.89411771299999998" green="0.89411771299999998" blue="0.89411771299999998" alpha="0.59999999999999998" colorSpace="deviceRGB"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="selected" title="注册">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -44,7 +61,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="IDD-Xt-VQN">
-                                <rect key="frame" x="56" y="100" width="180" height="180"/>
+                                <rect key="frame" x="58.5" y="102" width="175" height="175"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" image="login_avatar_cover.png" id="5zV-Sw-IT5">
@@ -83,6 +100,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="button_bg_brown.png" width="50" height="30"/>
         <image name="login_avatar_cover.png" width="247" height="286"/>
         <image name="login_card_bg.png" width="292" height="447"/>
         <image name="title_large.png" width="233" height="74"/>
