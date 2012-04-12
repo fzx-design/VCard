@@ -23,6 +23,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="logoImageView" destination="llg-5Q-oOH" id="H5N-GG-6Zh"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="-261" y="-637"/>
@@ -41,7 +44,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="IDD-Xt-VQN">
-                                <rect key="frame" x="55" y="102" width="182" height="178"/>
+                                <rect key="frame" x="56" y="100" width="180" height="180"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" image="login_avatar_cover.png" id="5zV-Sw-IT5">
@@ -90,6 +93,9 @@
         </class>
         <class className="LoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>
+            </relationships>
         </class>
         <class className="UserSelectionCellViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSelectionCellViewController.h"/>

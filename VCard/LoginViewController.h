@@ -12,10 +12,12 @@
 #import "UserSelectionCellViewController.h"
 
 @interface LoginViewController : UIViewController <EasyTableViewDelegate> {
+    UIImageView * _logoImageView;
     EasyTableView *_userSelectionTableView;
     UserSelectionCellViewController *_currentUserCell;
 }
 
+@property (nonatomic, strong) IBOutlet UIImageView *logoImageView;
 @property (nonatomic, strong) EasyTableView *userSelectionTableView;
 @property (nonatomic, strong) UserSelectionCellViewController *currentUserCell;
 

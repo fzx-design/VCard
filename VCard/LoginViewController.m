@@ -15,7 +15,12 @@
 #define HORIZONTAL_TABLEVIEW_HEIGHT	478
 #define VERTICAL_TABLEVIEW_WIDTH	768
 #define TABLE_BACKGROUND_COLOR		[UIColor clearColor]
-#define UserSelectionFrame CGRectMake(0,250, PORTRAIT_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT)
+#define UserSelectionFrame CGRectMake(0,UserPortraitOriginY, PORTRAIT_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT)
+
+#define LogoPortraitOriginY 133
+#define LogoLandscapeOriginY 83
+#define UserPortraitOriginY  250
+#define UserLandscapeOriginY 200
 
 @interface LoginViewController ()
 
@@ -23,6 +28,7 @@
 
 @implementation LoginViewController
 
+@synthesize logoImageView = _logoImageView;
 @synthesize userSelectionTableView = _userSelectionTableView;
 @synthesize currentUserCell = _currentUserCell;
 
@@ -54,6 +60,20 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    CGRect logoFrame = self.logoImageView.frame;
+    CGRect userSelectionFrame = self.userSelectionTableView.frame;
+    
+    logoFrame.origin.y = UIInterfaceOrientationIsLandscape(fromInterfaceOrientation) ? LogoPortraitOriginY : LogoLandscapeOriginY;
+    userSelectionFrame.origin.y = UIInterfaceOrientationIsLandscape(fromInterfaceOrientation) ? UserPortraitOriginY : UserLandscapeOriginY;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.logoImageView.frame = logoFrame;
+        self.userSelectionTableView.frame = userSelectionFrame;
+    }];
 }
 
 #pragma mark -
