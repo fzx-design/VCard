@@ -11,11 +11,10 @@
 #define NUM_OF_CELLS                1
 
 #define PORTRAIT_WIDTH				768
-#define LANDSCAPE_HEIGHT			(1024-20)
 #define HORIZONTAL_TABLEVIEW_HEIGHT	478
 #define VERTICAL_TABLEVIEW_WIDTH	768
 #define TABLE_BACKGROUND_COLOR		[UIColor clearColor]
-#define UserSelectionFrame CGRectMake(0,UserPortraitOriginY, PORTRAIT_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT)
+#define UserSelectionFrame          CGRectMake(0, UserPortraitOriginY, PORTRAIT_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT)
 
 #define LogoPortraitOriginY 133
 #define LogoLandscapeOriginY 83
