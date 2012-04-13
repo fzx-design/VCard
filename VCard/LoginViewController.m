@@ -48,6 +48,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self setupHorizontalView];
+    
+    [self setNotificationSettings];
 }
 
 - (void)viewDidUnload
@@ -58,6 +60,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+    currentOrientation = interfaceOrientation;
 	return YES;
 }
 
@@ -66,14 +69,35 @@
     CGRect logoFrame = self.logoImageView.frame;
     CGRect userSelectionFrame = self.userSelectionTableView.frame;
     
-    logoFrame.origin.y = UIInterfaceOrientationIsLandscape(fromInterfaceOrientation) ? LogoPortraitOriginY : LogoLandscapeOriginY;
-    userSelectionFrame.origin.y = UIInterfaceOrientationIsLandscape(fromInterfaceOrientation) ? UserPortraitOriginY : UserLandscapeOriginY;
+    logoFrame.origin.y = UIInterfaceOrientationIsPortrait(currentOrientation) ? LogoPortraitOriginY : LogoLandscapeOriginY;
+    userSelectionFrame.origin.y = UIInterfaceOrientationIsPortrait(currentOrientation) ? UserPortraitOriginY : UserLandscapeOriginY;
     
     [UIView animateWithDuration:0.3 animations:^{
         self.logoImageView.frame = logoFrame;
         self.userSelectionTableView.frame = userSelectionFrame;
     }];
 }
+
+- (void)setNotificationSettings
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(loginTextFieldClicked:) 
+                   name:kNotificationNameLoginTextFieldClicked 
+                 object:nil];
+}
+
+#pragma mark -
+#pragma mark Notification Handler
+
+- (void)loginTextFieldClicked:(id)sender
+{
+    CGRect frame = self.view.frame;
+    frame.origin.y -= 50;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.view.frame = frame;
+    }];
+}
+
 
 #pragma mark -
 #pragma mark EasyTableView Initialization

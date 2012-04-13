@@ -15,6 +15,8 @@
     UIImageView * _logoImageView;
     EasyTableView *_userSelectionTableView;
     UserSelectionCellViewController *_currentUserCell;
+    
+    UIInterfaceOrientation currentOrientation;
 }
 
 @property (nonatomic, strong) IBOutlet UIImageView *logoImageView;

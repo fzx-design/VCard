@@ -8,14 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+#define kNotificationNameLoginTextFieldClicked @"kNotificationNameLoginTextFieldClicked"
+
 @interface UserSelectionCellViewController : UIViewController {
     UIImageView * _avatorImageView;
     UITextField * _userNameTextField;
     UITextField * _userPasswordTextField;
+    
 }
 
 @property (nonatomic, strong) IBOutlet UIImageView *avatorImageView;
 @property (nonatomic, strong) IBOutlet UITextField *userNameTextField;
 @property (nonatomic, strong) IBOutlet UITextField *userPasswordTextField;
+
+-(IBAction)textFieldDidClick:(id)sender;
 
 @end

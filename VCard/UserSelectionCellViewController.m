@@ -51,4 +51,12 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark -
+#pragma mark IBActions
+
+- (IBAction)textFieldDidClick:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameLoginTextFieldClicked object:nil];
+}
+
 @end
