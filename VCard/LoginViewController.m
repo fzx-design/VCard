@@ -21,6 +21,9 @@
 #define UserPortraitOriginY  250
 #define UserLandscapeOriginY 180
 
+#define OffsetEditingTextViewRight _currentOrientation == UIDeviceOrientationLandscapeRight ? -240 : 240
+#define OffsetOrigin UIInterfaceOrientationIsLandscape(_currentOrientation) ? 20 : 0
+
 @interface LoginViewController ()
 
 @end
@@ -46,9 +49,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    [self setupHorizontalView];
     
+    [self setupParameters];
+    [self setupHorizontalView];
     [self setNotificationSettings];
 }
 
@@ -60,7 +63,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    currentOrientation = interfaceOrientation;
+    _currentOrientation = interfaceOrientation;
 	return YES;
 }
 
@@ -69,30 +72,56 @@
     CGRect logoFrame = self.logoImageView.frame;
     CGRect userSelectionFrame = self.userSelectionTableView.frame;
     
-    logoFrame.origin.y = UIInterfaceOrientationIsPortrait(currentOrientation) ? LogoPortraitOriginY : LogoLandscapeOriginY;
-    userSelectionFrame.origin.y = UIInterfaceOrientationIsPortrait(currentOrientation) ? UserPortraitOriginY : UserLandscapeOriginY;
+    logoFrame.origin.y = UIInterfaceOrientationIsPortrait(_currentOrientation) ? LogoPortraitOriginY : LogoLandscapeOriginY;
+    userSelectionFrame.origin.y = UIInterfaceOrientationIsPortrait(_currentOrientation) ? UserPortraitOriginY : UserLandscapeOriginY;
     
     [UIView animateWithDuration:0.3 animations:^{
         self.logoImageView.frame = logoFrame;
         self.userSelectionTableView.frame = userSelectionFrame;
     }];
+    
+    [self setViewOffsetForEditingMode];
 }
 
 - (void)setNotificationSettings
 {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(loginTextFieldClicked:) 
-                   name:kNotificationNameLoginTextFieldClicked 
+    [center addObserver:self selector:@selector(loginTextFieldShouldBeginEditing:) 
+                   name:kNotificationNameLoginTextFieldShouldBeginEditing 
+                 object:nil];
+    [center addObserver:self selector:@selector(loginTextFieldShouldEndEditing:) 
+                   name:kNotificationNameLoginTextFieldShouldEndEditing 
                  object:nil];
 }
 
 #pragma mark -
-#pragma mark Notification Handler
+#pragma mark Initialization
 
-- (void)loginTextFieldClicked:(id)sender
+- (void)setupParameters
 {
+    _isEditingTextfield = NO;
+}
+
+- (void)loginTextFieldShouldBeginEditing:(id)sender
+{
+    _isEditingTextfield = YES;
+    [self setViewOffsetForEditingMode];
+}
+
+- (void)loginTextFieldShouldEndEditing:(id)sender
+{
+    _isEditingTextfield = NO;
+    [self setViewOffsetForEditingMode];
+}
+
+- (void)setViewOffsetForEditingMode
+{
+    BOOL shouldAdjustOffset = _isEditingTextfield && UIInterfaceOrientationIsLandscape(_currentOrientation);
+    
+    int offset = shouldAdjustOffset ? OffsetEditingTextViewRight : OffsetOrigin;
+    
     CGRect frame = self.view.frame;
-    frame.origin.y -= 50;
+    frame.origin.x = offset;
     [UIView animateWithDuration:0.3 animations:^{
         self.view.frame = frame;
     }];

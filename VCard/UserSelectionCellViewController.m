@@ -35,6 +35,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    _userNameTextField.delegate = self;
+    _userPasswordTextField.delegate = self;
+    
     _avatorImageView.image = [UIImage imageNamed:kRLAvatorPlaceHolder];
     _avatorImageView.layer.masksToBounds = YES;
     _avatorImageView.layer.cornerRadius = CornerRadius;
@@ -52,11 +56,17 @@
 }
 
 #pragma mark -
-#pragma mark IBActions
-
-- (IBAction)textFieldDidClick:(id)sender
+#pragma mark UITextField Delegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameLoginTextFieldClicked object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameLoginTextFieldShouldBeginEditing object:nil];
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameLoginTextFieldShouldEndEditing object:nil];
+    return YES;
 }
 
 @end

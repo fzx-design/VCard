@@ -74,10 +74,6 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="textFieldDidClick:" destination="iuS-DR-Cnr" eventType="touchDown" id="tks-jG-RTN"/>
-                                    <action selector="textFieldDidClick:" destination="iuS-DR-Cnr" eventType="touchDragInside" id="vaW-nO-Vsc"/>
-                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="密码" minimumFontSize="17" id="QQD-Eu-E7R">
                                 <rect key="frame" x="44" y="349" width="204" height="40"/>
@@ -85,10 +81,6 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="textFieldDidClick:" destination="iuS-DR-Cnr" eventType="touchDown" id="bG1-0a-E0B"/>
-                                    <action selector="textFieldDidClick:" destination="iuS-DR-Cnr" eventType="touchUpInside" id="eU2-Sw-w0M"/>
-                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -126,7 +118,6 @@
         <class className="UserSelectionCellViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSelectionCellViewController.h"/>
             <relationships>
-                <relationship kind="action" name="textFieldDidClick:"/>
                 <relationship kind="outlet" name="avatorImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="userNameTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="userPasswordTextField" candidateClass="UITextField"/>

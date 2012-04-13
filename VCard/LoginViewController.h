@@ -16,7 +16,8 @@
     EasyTableView *_userSelectionTableView;
     UserSelectionCellViewController *_currentUserCell;
     
-    UIInterfaceOrientation currentOrientation;
+    UIInterfaceOrientation _currentOrientation;
+    BOOL _isEditingTextfield;
 }
 
 @property (nonatomic, strong) IBOutlet UIImageView *logoImageView;

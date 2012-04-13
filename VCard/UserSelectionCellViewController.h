@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#define kNotificationNameLoginTextFieldClicked @"kNotificationNameLoginTextFieldClicked"
+#define kNotificationNameLoginTextFieldShouldBeginEditing @"kNotificationNameLoginTextFieldShouldBeginEditing"
+#define kNotificationNameLoginTextFieldShouldEndEditing @"kNotificationNameLoginTextFieldShouldEndEditing"
 
-@interface UserSelectionCellViewController : UIViewController {
+@interface UserSelectionCellViewController : UIViewController <UITextFieldDelegate> {
     UIImageView * _avatorImageView;
     UITextField * _userNameTextField;
     UITextField * _userPasswordTextField;
@@ -21,6 +22,5 @@
 @property (nonatomic, strong) IBOutlet UITextField *userNameTextField;
 @property (nonatomic, strong) IBOutlet UITextField *userPasswordTextField;
 
--(IBAction)textFieldDidClick:(id)sender;
 
 @end
