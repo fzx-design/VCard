@@ -36,6 +36,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    _isEditing = NO;
+    
     _userNameTextField.delegate = self;
     _userPasswordTextField.delegate = self;
     
@@ -63,9 +65,24 @@
     return YES;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if ([textField isEqual:self.userNameTextField]) {
+        _isEditing = YES;
+    } else {
+        
+    }
+    return YES;
+}
+
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameLoginTextFieldShouldEndEditing object:nil];
+    if (_isEditing) {
+        _isEditing = NO;
+        [self.userPasswordTextField becomeFirstResponder];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameLoginTextFieldShouldEndEditing object:nil];
+    }
     return YES;
 }
 

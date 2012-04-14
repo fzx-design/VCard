@@ -24,19 +24,9 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        // Initialization code
-        UIImageView *topBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 768, 43)];
-        topBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLTopBarBG]];
-        [topBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-        
-        UIImageView *topBarShadow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 768, 15)];
-        [topBarShadow setImage:[UIImage imageNamed:kRLTopBarShadow]];
-        [topBarShadow setContentMode:UIViewContentModeScaleToFill];
-        [topBarShadow setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLCastViewBGUnit]];
-        [self insertSubview:topBar atIndex:0];
-        [self insertSubview:topBarShadow atIndex:0];
+
     }
     return self;
 }

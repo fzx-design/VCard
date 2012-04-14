@@ -42,6 +42,7 @@
 		18A685171537110B00D58B7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A685161537110B00D58B7D /* QuartzCore.framework */; };
 		18A68522153718BA00D58B7D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A68520153718BA00D58B7D /* icon.png */; };
 		18A68523153718BA00D58B7D /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A68521153718BA00D58B7D /* icon@2x.png */; };
+		18DF3734153905A800C783C9 /* BaseNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF3733153905A800C783C9 /* BaseNavigationBar.m */; };
 		18EA4F4415346DFD005ED94F /* button_back_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA4E5A15346DFD005ED94F /* button_back_dark.png */; };
 		18EA4F4515346DFD005ED94F /* button_back_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA4E5B15346DFD005ED94F /* button_back_dark@2x.png */; };
 		18EA4F4615346DFD005ED94F /* button_bg_brown.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA4E5C15346DFD005ED94F /* button_bg_brown.png */; };
@@ -352,6 +353,8 @@
 		18A685161537110B00D58B7D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		18A68520153718BA00D58B7D /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		18A68521153718BA00D58B7D /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		18DF3732153905A800C783C9 /* BaseNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationBar.h; sourceTree = "<group>"; };
+		18DF3733153905A800C783C9 /* BaseNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationBar.m; sourceTree = "<group>"; };
 		18EA4E5A15346DFD005ED94F /* button_back_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_back_dark.png; sourceTree = "<group>"; };
 		18EA4E5B15346DFD005ED94F /* button_back_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_back_dark@2x.png"; sourceTree = "<group>"; };
 		18EA4E5C15346DFD005ED94F /* button_bg_brown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_bg_brown.png; sourceTree = "<group>"; };
@@ -784,6 +787,8 @@
 			children = (
 				181AB91915230AC1007A2A51 /* AppDelegate.h */,
 				181AB91A15230AC1007A2A51 /* AppDelegate.m */,
+				18DF3732153905A800C783C9 /* BaseNavigationBar.h */,
+				18DF3733153905A800C783C9 /* BaseNavigationBar.m */,
 				1890C68F15356F6F00023A13 /* BaseLayoutView.h */,
 				1890C69015356F6F00023A13 /* BaseLayoutView.m */,
 				1890C6A21535A87900023A13 /* ResourceList.h */,
@@ -1495,6 +1500,7 @@
 				1890C6B21535B57B00023A13 /* EasyTableView.m in Sources */,
 				1890C6B51535BE5200023A13 /* UserSelectionCellViewController.m in Sources */,
 				185785F41536689700C9E1B9 /* EasyTableViewCell.m in Sources */,
+				18DF3734153905A800C783C9 /* BaseNavigationBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

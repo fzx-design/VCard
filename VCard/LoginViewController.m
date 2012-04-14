@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "ResourceList.h"
 
 #define NUM_OF_CELLS                1
 
@@ -22,7 +23,7 @@
 #define UserLandscapeOriginY 180
 
 #define OffsetEditingTextViewRight _currentOrientation == UIDeviceOrientationLandscapeRight ? -240 : 240
-#define OffsetOrigin UIInterfaceOrientationIsLandscape(_currentOrientation) ? 20 : 0
+#define OffsetOrigin UIInterfaceOrientationIsLandscape(_currentOrientation) ? 0 : 0
 
 @interface LoginViewController ()
 
@@ -69,16 +70,8 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    CGRect logoFrame = self.logoImageView.frame;
-    CGRect userSelectionFrame = self.userSelectionTableView.frame;
-    
-    logoFrame.origin.y = UIInterfaceOrientationIsPortrait(_currentOrientation) ? LogoPortraitOriginY : LogoLandscapeOriginY;
-    userSelectionFrame.origin.y = UIInterfaceOrientationIsPortrait(_currentOrientation) ? UserPortraitOriginY : UserLandscapeOriginY;
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.logoImageView.frame = logoFrame;
-        self.userSelectionTableView.frame = userSelectionFrame;
-    }];
+
+    [self setLogoAndLoginViewWhenRotating];
     
     [self setViewOffsetForEditingMode];
 }
@@ -100,6 +93,33 @@
 - (void)setupParameters
 {
     _isEditingTextfield = NO;
+    
+//    CGFloat navBarHeight = 58.0f;
+//    
+//    CGRect frame = self.navigationController.navigationBar.frame;
+//    frame.size.height = navBarHeight;
+//    self.navigationController.navigationBar.frame = frame;
+    
+//    UIImageView *topBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 768, 43)];
+//    topBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLTopBarBG]];
+//    [topBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+//    
+//    UIImageView *topBarShadow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 768, 15)];
+//    [topBarShadow setImage:[UIImage imageNamed:kRLTopBarShadow]];
+//    [topBarShadow setContentMode:UIViewContentModeScaleToFill];
+//    [topBarShadow setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+//    
+//    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 768, 48)];
+//    [backgroundView addSubview:topBar];
+//    
+//    [backgroundView setBounds:self.navigationController.view.bounds];
+//    [backgroundView addSubview:topBarShadow];
+//    [topBarShadow setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+//    
+//    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
+    
+//    [self.navigationController.navigationBar addSubview:backgroundView];
+//    self.navigationController.navigationBar.tintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLTopBarBG]];
 }
 
 - (void)loginTextFieldShouldBeginEditing:(id)sender
@@ -117,13 +137,27 @@
 - (void)setViewOffsetForEditingMode
 {
     BOOL shouldAdjustOffset = _isEditingTextfield && UIInterfaceOrientationIsLandscape(_currentOrientation);
-    
-    int offset = shouldAdjustOffset ? OffsetEditingTextViewRight : OffsetOrigin;
+    int originXOffset = shouldAdjustOffset ? OffsetEditingTextViewRight : OffsetOrigin;
     
     CGRect frame = self.view.frame;
-    frame.origin.x = offset;
+    frame.origin.x = originXOffset;
+    
     [UIView animateWithDuration:0.3 animations:^{
         self.view.frame = frame;
+    }];
+}
+
+- (void)setLogoAndLoginViewWhenRotating
+{
+    CGRect logoFrame = self.logoImageView.frame;
+    CGRect userSelectionFrame = self.userSelectionTableView.frame;
+    
+    logoFrame.origin.y = UIInterfaceOrientationIsPortrait(_currentOrientation) ? LogoPortraitOriginY : LogoLandscapeOriginY;
+    userSelectionFrame.origin.y = UIInterfaceOrientationIsPortrait(_currentOrientation) ? UserPortraitOriginY : UserLandscapeOriginY;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.logoImageView.frame = logoFrame;
+        self.userSelectionTableView.frame = userSelectionFrame;
     }];
 }
 
@@ -132,7 +166,9 @@
 #pragma mark EasyTableView Initialization
 
 - (void)setupHorizontalView {
-	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:UserSelectionFrame numberOfColumns:NUM_OF_CELLS ofWidth:VERTICAL_TABLEVIEW_WIDTH];
+	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:UserSelectionFrame 
+                                               numberOfColumns:NUM_OF_CELLS 
+                                                       ofWidth:VERTICAL_TABLEVIEW_WIDTH];
 	self.userSelectionTableView = view;
 	
 	_userSelectionTableView.delegate = self;
