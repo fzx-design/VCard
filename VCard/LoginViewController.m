@@ -24,7 +24,7 @@
 
 #define FrameNormalPortrait CGRectMake(0, 0, 768, 1004)
 #define FrameNormalLandscape CGRectMake(0, 0, 1024, 748)
-#define FrameEditingTextViewLandscape CGRectMake(0, -230, 1024, 768 + 230)
+#define FrameEditingTextViewLandscape CGRectMake(0, -220, 1024, 768 + 220)
 #define OffsetOrigin 0
 
 @interface LoginViewController ()
@@ -82,10 +82,10 @@
 {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(loginTextFieldShouldBeginEditing:) 
-                   name:kNotificationNameLoginTextFieldShouldBeginEditing 
+                   name:UIKeyboardWillShowNotification
                  object:nil];
     [center addObserver:self selector:@selector(loginTextFieldShouldEndEditing:) 
-                   name:kNotificationNameLoginTextFieldShouldEndEditing 
+                   name:UIKeyboardWillHideNotification 
                  object:nil];
 }
 
@@ -121,7 +121,6 @@
     [UIView animateWithDuration:0.3 animations:^{
         self.view.frame = targetFrame;
     }];
-    
 
 }
 

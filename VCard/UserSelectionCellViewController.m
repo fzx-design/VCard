@@ -12,8 +12,17 @@
 
 #define CornerRadius 175 / 2
 
-@interface UserSelectionCellViewController ()
+typedef enum {
+    ActiveTextfieldNone,
+    ActiveTextfieldName,
+    ActiveTextfieldPassword,
+} ActiveTextfield;
 
+
+@interface UserSelectionCellViewController () {
+    BOOL _shouldLowerKeyboard;
+    ActiveTextfield _currentActiveTextfield;
+}
 @end
 
 @implementation UserSelectionCellViewController
@@ -36,7 +45,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    _isEditing = NO;
+    _shouldLowerKeyboard = YES;
+    _currentActiveTextfield = ActiveTextfieldNone;
     
     _userNameTextField.delegate = self;
     _userPasswordTextField.delegate = self;
@@ -44,6 +54,7 @@
     _avatorImageView.image = [UIImage imageNamed:kRLAvatorPlaceHolder];
     _avatorImageView.layer.masksToBounds = YES;
     _avatorImageView.layer.cornerRadius = CornerRadius;
+    
 }
 
 - (void)viewDidUnload
@@ -59,31 +70,21 @@
 
 #pragma mark -
 #pragma mark UITextField Delegate
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameLoginTextFieldShouldBeginEditing object:nil];
-    return YES;
-}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+
     if ([textField isEqual:self.userNameTextField]) {
-        _isEditing = YES;
-    } else {
         
+        [self.userPasswordTextField becomeFirstResponder];
+        
+    } else if([textField isEqual:self.userPasswordTextField]) {
+        
+        [self.userPasswordTextField resignFirstResponder];
     }
+    
     return YES;
 }
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
-    if (_isEditing) {
-        _isEditing = NO;
-        [self.userPasswordTextField becomeFirstResponder];
-    } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameLoginTextFieldShouldEndEditing object:nil];
-    }
-    return YES;
-}
 
 @end

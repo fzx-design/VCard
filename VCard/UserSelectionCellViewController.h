@@ -16,7 +16,6 @@
     UITextField * _userNameTextField;
     UITextField * _userPasswordTextField;
     
-    BOOL _isEditing;
 }
 
 @property (nonatomic, strong) IBOutlet UIImageView *avatorImageView;
