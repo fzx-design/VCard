@@ -17,13 +17,15 @@
 #define TABLE_BACKGROUND_COLOR		[UIColor clearColor]
 #define UserSelectionFrame          CGRectMake(0, UserPortraitOriginY, PORTRAIT_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT)
 
-#define LogoPortraitOriginY 133
-#define LogoLandscapeOriginY 63
-#define UserPortraitOriginY  250
-#define UserLandscapeOriginY 180
+#define LogoPortraitOriginY 105
+#define LogoLandscapeOriginY 45
+#define UserPortraitOriginY  255
+#define UserLandscapeOriginY 165
 
-#define OffsetEditingTextViewRight _currentOrientation == UIDeviceOrientationLandscapeRight ? -240 : 240
-#define OffsetOrigin UIInterfaceOrientationIsLandscape(_currentOrientation) ? 0 : 0
+#define FrameNormalPortrait CGRectMake(0, 0, 768, 1004)
+#define FrameNormalLandscape CGRectMake(0, 0, 1024, 748)
+#define FrameEditingTextViewLandscape CGRectMake(0, -230, 1024, 768 + 230)
+#define OffsetOrigin 0
 
 @interface LoginViewController ()
 
@@ -93,33 +95,6 @@
 - (void)setupParameters
 {
     _isEditingTextfield = NO;
-    
-//    CGFloat navBarHeight = 58.0f;
-//    
-//    CGRect frame = self.navigationController.navigationBar.frame;
-//    frame.size.height = navBarHeight;
-//    self.navigationController.navigationBar.frame = frame;
-    
-//    UIImageView *topBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 768, 43)];
-//    topBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLTopBarBG]];
-//    [topBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-//    
-//    UIImageView *topBarShadow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 768, 15)];
-//    [topBarShadow setImage:[UIImage imageNamed:kRLTopBarShadow]];
-//    [topBarShadow setContentMode:UIViewContentModeScaleToFill];
-//    [topBarShadow setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-//    
-//    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 768, 48)];
-//    [backgroundView addSubview:topBar];
-//    
-//    [backgroundView setBounds:self.navigationController.view.bounds];
-//    [backgroundView addSubview:topBarShadow];
-//    [topBarShadow setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-//    
-//    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
-    
-//    [self.navigationController.navigationBar addSubview:backgroundView];
-//    self.navigationController.navigationBar.tintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLTopBarBG]];
 }
 
 - (void)loginTextFieldShouldBeginEditing:(id)sender
@@ -136,15 +111,18 @@
 
 - (void)setViewOffsetForEditingMode
 {
-    BOOL shouldAdjustOffset = _isEditingTextfield && UIInterfaceOrientationIsLandscape(_currentOrientation);
-    int originXOffset = shouldAdjustOffset ? OffsetEditingTextViewRight : OffsetOrigin;
-    
-    CGRect frame = self.view.frame;
-    frame.origin.x = originXOffset;
+    CGRect targetFrame;
+    if (UIInterfaceOrientationIsPortrait(_currentOrientation)) {
+        targetFrame = FrameNormalPortrait;
+    } else {
+        targetFrame = _isEditingTextfield ? FrameEditingTextViewLandscape : FrameNormalLandscape;
+    }
     
     [UIView animateWithDuration:0.3 animations:^{
-        self.view.frame = frame;
+        self.view.frame = targetFrame;
     }];
+    
+
 }
 
 - (void)setLogoAndLoginViewWhenRotating
