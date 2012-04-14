@@ -35,6 +35,7 @@
 		187348821523443B00F562E7 /* WBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348811523443B00F562E7 /* WBClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		188A12C4153961AE003F00F1 /* silver_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 188A12C2153961AE003F00F1 /* silver_pin.png */; };
 		188A12C5153961AE003F00F1 /* silver_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188A12C3153961AE003F00F1 /* silver_pin@2x.png */; };
+		188BA4EB15398DC900344288 /* BaseCardBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188BA4EA15398DC800344288 /* BaseCardBackgroundView.m */; };
 		1890C68A15356BCB00023A13 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C68915356BCB00023A13 /* LoginViewController.m */; };
 		1890C69115356F6F00023A13 /* BaseLayoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C69015356F6F00023A13 /* BaseLayoutView.m */; };
 		1890C6B21535B57B00023A13 /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B11535B57A00023A13 /* EasyTableView.m */; };
@@ -343,6 +344,8 @@
 		187348811523443B00F562E7 /* WBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBClient.m; path = Client/WBClient.m; sourceTree = "<group>"; };
 		188A12C2153961AE003F00F1 /* silver_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = silver_pin.png; sourceTree = "<group>"; };
 		188A12C3153961AE003F00F1 /* silver_pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "silver_pin@2x.png"; sourceTree = "<group>"; };
+		188BA4E915398DC800344288 /* BaseCardBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCardBackgroundView.h; sourceTree = "<group>"; };
+		188BA4EA15398DC800344288 /* BaseCardBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCardBackgroundView.m; sourceTree = "<group>"; };
 		1890C68815356BCB00023A13 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1890C68915356BCB00023A13 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1890C68F15356F6F00023A13 /* BaseLayoutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseLayoutView.h; sourceTree = "<group>"; };
@@ -795,6 +798,8 @@
 				18DF3733153905A800C783C9 /* BaseNavigationBar.m */,
 				1890C68F15356F6F00023A13 /* BaseLayoutView.h */,
 				1890C69015356F6F00023A13 /* BaseLayoutView.m */,
+				188BA4E915398DC800344288 /* BaseCardBackgroundView.h */,
+				188BA4EA15398DC800344288 /* BaseCardBackgroundView.m */,
 				1890C6A21535A87900023A13 /* ResourceList.h */,
 			);
 			name = Basic;
@@ -1509,6 +1514,7 @@
 				1890C6B51535BE5200023A13 /* UserSelectionCellViewController.m in Sources */,
 				185785F41536689700C9E1B9 /* EasyTableViewCell.m in Sources */,
 				18DF3734153905A800C783C9 /* BaseNavigationBar.m in Sources */,
+				188BA4EB15398DC900344288 /* BaseCardBackgroundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

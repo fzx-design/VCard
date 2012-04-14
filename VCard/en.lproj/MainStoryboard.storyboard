@@ -37,6 +37,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
+                            <view contentMode="scaleToFill" id="BPQ-79-1ws" customClass="BaseCardBackgroundView">
+                                <rect key="frame" x="56" y="260" width="362" height="447"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -117,16 +122,54 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="272" y="-1238"/>
+            <point key="canvasLocation" x="-3098" y="-1092"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="cow-Ge-Jm5">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IFu-b2-IWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="u04-WG-2X6" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Hgq-wm-12w">
+                        <rect key="frame" x="0.0" y="0.0" width="362" height="500"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="yPX-uU-KyC">
+                                <rect key="frame" x="0.0" y="20" width="362" height="210"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="bottom" image="card_bg_top.png" id="jsJ-79-MSF">
+                                <rect key="frame" x="0.0" y="0.0" width="362" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="top" image="card_bg_bottom.png" id="ybn-6x-sUf">
+                                <rect key="frame" x="0.0" y="231" width="362" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-2676" y="-1086"/>
         </scene>
     </scenes>
     <resources>
         <image name="button_bg_brown.png" width="50" height="30"/>
+        <image name="card_bg_bottom.png" width="362" height="38"/>
+        <image name="card_bg_top.png" width="362" height="20"/>
         <image name="login_avatar_cover.png" width="247" height="286"/>
         <image name="login_card_bg.png" width="292" height="447"/>
         <image name="title_large.png" width="233" height="74"/>
     </resources>
     <classes>
+        <class className="BaseCardBackgroundView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCardBackgroundView.h"/>
+        </class>
         <class className="BaseLayoutView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseLayoutView.h"/>
         </class>

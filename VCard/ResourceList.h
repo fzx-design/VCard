@@ -14,4 +14,8 @@
 #define kRLCastViewBGUnit @"castview_bg_unit.png"
 #define kRLAvatorPlaceHolder @"imageview_placeholder.png"
 
+#define kRLCardBGUnit @"card_bg_body.png"
+#define kRLCardTop @"card_bg_top.png"
+#define kRLCardBottom @"card_bg_bottom.png"
+
 #endif
