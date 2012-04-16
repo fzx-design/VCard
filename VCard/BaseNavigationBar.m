@@ -57,7 +57,7 @@
         [_backgroundImageView addSubview:topBar];
         [_backgroundImageView addSubview:topBarShadow];
         
-        [self insertSubview:_backgroundImageView atIndex:0];
+        [self insertSubview:_backgroundImageView atIndex:1];
     }
     
     return _backgroundImageView;

@@ -13,6 +13,8 @@
     UIImageView *_cardTopView;
     UIImageView *_cardCenterView;
     UIImageView *_cardBottomView;
+    
+    UIView *_backgroundImageView;
 }
 
 @property (nonatomic, strong) UIImageView *cardTopView;

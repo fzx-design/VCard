@@ -9,6 +9,8 @@
 #import "LoginViewController.h"
 #import "ResourceList.h"
 
+#import "CardViewController.h"
+
 #define NUM_OF_CELLS                1
 
 #define PORTRAIT_WIDTH				768
@@ -157,6 +159,12 @@
 	_userSelectionTableView.autoresizingMask =  UIViewAutoresizingFlexibleWidth;
 	
 	[self.view addSubview:_userSelectionTableView];
+    
+    CardViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CardViewController"];
+    vc.view.frame = CGRectMake(50, 200, 362, 500);
+    
+    [self.view addSubview:vc.view];
+    
 }
 
 #pragma mark -
