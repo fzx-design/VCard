@@ -47,11 +47,6 @@
     CGRect centerViewFrame = CGRectMake(0.0, 0.0  + HeightTopView, frame.size.width, frame.size.height - HeightTopView - HeightBottomView);
     CGRect backgroundImageViewFrame = CGRectMake(0.0 , 0.0, frame.size.width, frame.size.height);
     
-
-    NSLog(@"top: %@", NSStringFromCGRect(topViewFrame));
-    NSLog(@"center: %@", NSStringFromCGRect(centerViewFrame));
-    NSLog(@"bottom: %@", NSStringFromCGRect(bottomViewFrame));
-    
     _cardTopView = [[UIImageView alloc] initWithFrame:topViewFrame];
     _cardBottomView = [[UIImageView alloc] initWithFrame:bottomViewFrame];
     _cardCenterView = [[UIImageView alloc] initWithFrame:centerViewFrame];
@@ -73,11 +68,7 @@
     [_backgroundImageView addSubview:_cardBottomView];
     
     [self addSubview:_backgroundImageView];
-    
-    NSLog(@"top_image: %@", NSStringFromCGRect(_cardTopView.frame));
-    NSLog(@"center_image: %@", NSStringFromCGRect(_cardCenterView.frame));
-    NSLog(@"bottom_image: %@", NSStringFromCGRect(_cardBottomView.frame));
-    NSLog(@"backgound_image: %@", NSStringFromCGRect(_backgroundImageView.frame));
+
 }
 
 - (void)layoutSubviews

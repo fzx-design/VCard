@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CardImageViewShadowView.h"
 
-@interface CardImageView : UIImageView
+@interface CardImageView : UIImageView {
+    CardImageViewShadowView *_shadowView;
+}
 
 @end

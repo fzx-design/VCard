@@ -38,15 +38,6 @@
     frame.origin.y = self.cardBackground.frame.origin.y + self.cardBackground.frame.size.height - 8;
     self.repostCardBackground.frame = frame;
     
-    
-    self.statusImageView.layer.shadowColor = [UIColor blackColor].CGColor;
-//    self.statusImageView.layer.shadowOffset = CGSizeMake(0, 1);
-//    self.statusImageView.layer.shadowOpacity = 0.5;
-//    self.statusImageView.layer.shadowRadius = 5.0;
-//    self.statusImageView.clipsToBounds = NO;
-    
-    self.statusImageView.transform = CGAffineTransformMakeRotation(2 * M_PI / 180); //rotation in radians
-    
 }
 
 - (void)viewDidUnload

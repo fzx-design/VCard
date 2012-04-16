@@ -18,4 +18,8 @@
 #define kRLCardTop @"card_bg_top.png"
 #define kRLCardBottom @"card_bg_bottom.png"
 
+#define kRLCardImageShadowTop @"image_shadow_top.png"
+#define kRLCardImageShadowCenter @"image_shadow_body.png"
+#define kRLCardImageShadowBottom @"image_shadow_btm.png"
+
 #endif
