@@ -41,7 +41,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="FBZ-Gr-NE7">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="Bdb-mX-Ma6">
+                        <barButtonItem key="leftBarButtonItem" style="done" id="Bdb-mX-Ma6">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mKW-Bc-ogh">
                                 <rect key="frame" x="7" y="7" width="50" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -129,7 +129,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="C7k-Qi-MZW" customClass="BaseCardBackgroundView">
-                                <rect key="frame" x="0.0" y="0.0" width="362" height="332"/>
+                                <rect key="frame" x="0.0" y="0.0" width="362" height="379"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="684ff39bjw1drz0vusewdj.jpg" id="pjN-8a-Zmj" customClass="CardImageView">
@@ -141,15 +141,15 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" id="ZwQ-av-DfK">
-                                        <rect key="frame" x="-1" y="242" width="365" height="80"/>
+                                        <rect key="frame" x="-2" y="242" width="366" height="102"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="imageview_placeholder.png" id="csH-gh-gfc">
                                                 <rect key="frame" x="20" y="0.0" width="25" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Tt5-6T-Hhn">
-                                                <rect key="frame" x="60" y="0.0" width="133" height="25"/>
+                                                <rect key="frame" x="60" y="0.0" width="122" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                 <state key="normal" title="用户名">
@@ -161,7 +161,7 @@
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MMS-eP-hXe">
-                                                <rect key="frame" x="271" y="0.0" width="38" height="25"/>
+                                                <rect key="frame" x="271" y="0.0" width="40" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal" image="button_comment.png">
@@ -173,7 +173,7 @@
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cB2-kf-m4c">
-                                                <rect key="frame" x="307" y="-4" width="38" height="25"/>
+                                                <rect key="frame" x="310" y="-4" width="38" height="28"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal" image="button_share.png">
@@ -184,6 +184,11 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
+                                            <view contentMode="scaleToFill" id="IQX-2v-fUV" customClass="IFTweetLabel">
+                                                <rect key="frame" x="20" y="33" width="325" height="60"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
@@ -236,6 +241,8 @@
                         <outlet property="cardBackground" destination="C7k-Qi-MZW" id="LyO-Kj-2Jp"/>
                         <outlet property="repostCardBackground" destination="buk-L8-uIQ" id="tQG-Qx-ZLp"/>
                         <outlet property="statusImageView" destination="pjN-8a-Zmj" id="Lih-iD-nyp"/>
+                        <outlet property="statusInfoView" destination="ZwQ-av-DfK" id="jAB-BR-qZQ"/>
+                        <outlet property="statusTextLabel" destination="IQX-2v-fUV" id="afg-Dv-1pO"/>
                     </connections>
                 </viewController>
             </objects>
@@ -273,7 +280,12 @@
                 <relationship kind="outlet" name="cardBackground" candidateClass="BaseCardBackgroundView"/>
                 <relationship kind="outlet" name="repostCardBackground" candidateClass="BaseCardBackgroundView"/>
                 <relationship kind="outlet" name="statusImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="statusInfoView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="statusTextLabel" candidateClass="IFTweetLabel"/>
             </relationships>
+        </class>
+        <class className="IFTweetLabel" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/IFTweetLabel.h"/>
         </class>
         <class className="LoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>

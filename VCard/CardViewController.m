@@ -8,6 +8,7 @@
 
 #import "CardViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "IFTweetLabel.h"
 
 @interface CardViewController ()
 
@@ -16,6 +17,8 @@
 @implementation CardViewController
 
 @synthesize statusImageView = _statusImageView;
+@synthesize statusInfoView = _statusInfoView;
+@synthesize statusTextLabel = _statusTextLabel;
 
 @synthesize cardBackground = _cardBackground;
 @synthesize repostCardBackground = _repostCardBackground;
@@ -33,11 +36,21 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    CGRect statusInfoFrame;
+    statusInfoFrame.origin = CGPointMake(0.0, self.statusImageView.frame.size.height + 20);
+    statusInfoFrame.size = CGSizeMake(self.view.frame.size.width, 100);
+    self.statusInfoView.frame = statusInfoFrame;
     
-    CGRect frame = self.repostCardBackground.frame;
-    frame.origin.y = self.cardBackground.frame.origin.y + self.cardBackground.frame.size.height - 8;
-    self.repostCardBackground.frame = frame;
+    CGRect bgFrame = self.repostCardBackground.frame;
+    bgFrame.origin.y = self.cardBackground.frame.origin.y + self.cardBackground.frame.size.height - 8;
+    self.repostCardBackground.frame = bgFrame;
     
+    [self.statusTextLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+	[self.statusTextLabel setTextColor:[UIColor blackColor]];
+	[self.statusTextLabel setBackgroundColor:[UIColor clearColor]];
+	[self.statusTextLabel setNumberOfLines:8];
+	[self.statusTextLabel setText:@"This is a #test# of regular expressions with http://example.com links as used in @Twitterrific. HTTP://CHOCKLOCK.COM APPROVED OF COURSE."];
+	[self.statusTextLabel setLinksEnabled:YES];    
 }
 
 - (void)viewDidUnload

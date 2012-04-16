@@ -59,10 +59,6 @@
     
     _centerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLCardImageShadowCenter]];
     
-    NSLog(@"top_image: %@", NSStringFromCGRect(_topView.frame));
-    NSLog(@"center_image: %@", NSStringFromCGRect(_centerView.frame));
-    NSLog(@"bottom_image: %@", NSStringFromCGRect(_bottomView.frame));
-    
     [self addSubview:_topView];
     [self addSubview:_centerView];
     [self addSubview:_bottomView];

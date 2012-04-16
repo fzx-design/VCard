@@ -30,8 +30,7 @@
         [self insertSubview:_shadowView atIndex:0];
         
         CGFloat rotatingDegree = (((float) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * 4) - 2;
-        
-        self.transform = CGAffineTransformMakeRotation(rotatingDegree * M_PI / 180); //rotation in radians
+        self.transform = CGAffineTransformMakeRotation(rotatingDegree * M_PI / 180);
     }
     return self;
 }
