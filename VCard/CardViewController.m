@@ -48,8 +48,8 @@
     [self.statusTextLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
 	[self.statusTextLabel setTextColor:[UIColor blackColor]];
 	[self.statusTextLabel setBackgroundColor:[UIColor clearColor]];
-	[self.statusTextLabel setNumberOfLines:8];
-	[self.statusTextLabel setText:@"This is a #test# of regular expressions with http://example.com links as used in @Twitterrific. HTTP://CHOCKLOCK.COM APPROVED OF COURSE."];
+	[self.statusTextLabel setNumberOfLines:10];
+	[self.statusTextLabel setText:@"This is a #test# of regular expressions with http://example.com links as used in @Twitterrific. HTTP://CHOCKLOCK.COM APPROVED OF COURSE. 哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈"];
 	[self.statusTextLabel setLinksEnabled:YES];    
 }
 

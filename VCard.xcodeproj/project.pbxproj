@@ -61,6 +61,12 @@
 		18A68522153718BA00D58B7D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A68520153718BA00D58B7D /* icon.png */; };
 		18A68523153718BA00D58B7D /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A68521153718BA00D58B7D /* icon@2x.png */; };
 		18DF3734153905A800C783C9 /* BaseNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF3733153905A800C783C9 /* BaseNavigationBar.m */; };
+		18E707C9153D28A60012092E /* VCard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18E707C7153D28A60012092E /* VCard.xcdatamodeld */; };
+		18E707CC153D2C4D0012092E /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E707CB153D2C4D0012092E /* Comment.m */; };
+		18E707CF153D2C620012092E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E707CE153D2C620012092E /* User.m */; };
+		18E707D2153D2C620012092E /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E707D1153D2C620012092E /* Status.m */; };
+		18E707E4153D2E2C0012092E /* NSDateAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E707E0153D2E2C0012092E /* NSDateAddition.m */; };
+		18E707EF153D32680012092E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E707EE153D32680012092E /* CoreData.framework */; };
 		18EA4F4415346DFD005ED94F /* button_back_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA4E5A15346DFD005ED94F /* button_back_dark.png */; };
 		18EA4F4515346DFD005ED94F /* button_back_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA4E5B15346DFD005ED94F /* button_back_dark@2x.png */; };
 		18EA4F4615346DFD005ED94F /* button_bg_brown.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA4E5C15346DFD005ED94F /* button_bg_brown.png */; };
@@ -397,6 +403,16 @@
 		18A68521153718BA00D58B7D /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		18DF3732153905A800C783C9 /* BaseNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationBar.h; sourceTree = "<group>"; };
 		18DF3733153905A800C783C9 /* BaseNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationBar.m; sourceTree = "<group>"; };
+		18E707C8153D28A60012092E /* VCard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VCard.xcdatamodel; sourceTree = "<group>"; };
+		18E707CA153D2C4D0012092E /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
+		18E707CB153D2C4D0012092E /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
+		18E707CD153D2C620012092E /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = ../User.h; sourceTree = "<group>"; };
+		18E707CE153D2C620012092E /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = ../User.m; sourceTree = "<group>"; };
+		18E707D0153D2C620012092E /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Status.h; path = ../Status.h; sourceTree = "<group>"; };
+		18E707D1153D2C620012092E /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Status.m; path = ../Status.m; sourceTree = "<group>"; };
+		18E707DF153D2E2C0012092E /* NSDateAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDateAddition.h; sourceTree = "<group>"; };
+		18E707E0153D2E2C0012092E /* NSDateAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateAddition.m; sourceTree = "<group>"; };
+		18E707EE153D32680012092E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		18EA4E5A15346DFD005ED94F /* button_back_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_back_dark.png; sourceTree = "<group>"; };
 		18EA4E5B15346DFD005ED94F /* button_back_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_back_dark@2x.png"; sourceTree = "<group>"; };
 		18EA4E5C15346DFD005ED94F /* button_bg_brown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_bg_brown.png; sourceTree = "<group>"; };
@@ -641,6 +657,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1850A478153C0ADC0001A905 /* libicucore.A.dylib in Frameworks */,
+				18E707EF153D32680012092E /* CoreData.framework in Frameworks */,
 				18A685171537110B00D58B7D /* QuartzCore.framework in Frameworks */,
 				1873487C1523433000F562E7 /* Security.framework in Frameworks */,
 				181AB90B15230AC1007A2A51 /* UIKit.framework in Frameworks */,
@@ -685,6 +702,7 @@
 			isa = PBXGroup;
 			children = (
 				1850A477153C0ADC0001A905 /* libicucore.A.dylib */,
+				18E707EE153D32680012092E /* CoreData.framework */,
 				18A685161537110B00D58B7D /* QuartzCore.framework */,
 				1873487B1523432F00F562E7 /* Security.framework */,
 				181AB90A15230AC1007A2A51 /* UIKit.framework */,
@@ -712,6 +730,7 @@
 				181AB91315230AC1007A2A51 /* InfoPlist.strings */,
 				181AB91615230AC1007A2A51 /* main.m */,
 				181AB91815230AC1007A2A51 /* VCard-Prefix.pch */,
+				18E707C7153D28A60012092E /* VCard.xcdatamodeld */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -804,6 +823,8 @@
 		181AB95E15230B5A007A2A51 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				18E707D8153D2E020012092E /* Catagaories */,
+				18E707D3153D2C6B0012092E /* CoreData */,
 				1850A46F153C08E10001A905 /* Tools */,
 				188BA4F01539AA9200344288 /* CastView */,
 				18A6850915370ED900D58B7D /* Basic */,
@@ -876,6 +897,28 @@
 				1890C6A21535A87900023A13 /* ResourceList.h */,
 			);
 			name = Basic;
+			sourceTree = "<group>";
+		};
+		18E707D3153D2C6B0012092E /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				18E707CA153D2C4D0012092E /* Comment.h */,
+				18E707CB153D2C4D0012092E /* Comment.m */,
+				18E707D0153D2C620012092E /* Status.h */,
+				18E707D1153D2C620012092E /* Status.m */,
+				18E707CD153D2C620012092E /* User.h */,
+				18E707CE153D2C620012092E /* User.m */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		18E707D8153D2E020012092E /* Catagaories */ = {
+			isa = PBXGroup;
+			children = (
+				18E707DF153D2E2C0012092E /* NSDateAddition.h */,
+				18E707E0153D2E2C0012092E /* NSDateAddition.m */,
+			);
+			name = Catagaories;
 			sourceTree = "<group>";
 		};
 		18EA4E5815346DFD005ED94F /* Image Resource */ = {
@@ -1608,6 +1651,11 @@
 				1850A479153C0B4E0001A905 /* IFTweetLabel.m in Sources */,
 				1850A475153C09040001A905 /* RegexKitLite.m in Sources */,
 				1850A476153C09040001A905 /* RKLMatchEnumerator.m in Sources */,
+				18E707C9153D28A60012092E /* VCard.xcdatamodeld in Sources */,
+				18E707CC153D2C4D0012092E /* Comment.m in Sources */,
+				18E707CF153D2C620012092E /* User.m in Sources */,
+				18E707D2153D2C620012092E /* Status.m in Sources */,
+				18E707E4153D2E2C0012092E /* NSDateAddition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1792,6 +1840,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		18E707C7153D28A60012092E /* VCard.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				18E707C8153D28A60012092E /* VCard.xcdatamodel */,
+			);
+			currentVersion = 18E707C8153D28A60012092E /* VCard.xcdatamodel */;
+			path = VCard.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 181AB8FD15230AC1007A2A51 /* Project object */;
 }

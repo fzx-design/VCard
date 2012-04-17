@@ -185,7 +185,7 @@
                                                 </state>
                                             </button>
                                             <view contentMode="scaleToFill" id="IQX-2v-fUV" customClass="IFTweetLabel">
-                                                <rect key="frame" x="20" y="33" width="325" height="60"/>
+                                                <rect key="frame" x="11" y="33" width="345" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
