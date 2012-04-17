@@ -726,11 +726,11 @@
 		181AB91115230AC1007A2A51 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				18E707C7153D28A60012092E /* VCard.xcdatamodeld */,
 				181AB91215230AC1007A2A51 /* VCard-Info.plist */,
 				181AB91315230AC1007A2A51 /* InfoPlist.strings */,
 				181AB91615230AC1007A2A51 /* main.m */,
 				181AB91815230AC1007A2A51 /* VCard-Prefix.pch */,
-				18E707C7153D28A60012092E /* VCard.xcdatamodeld */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -823,13 +823,11 @@
 		181AB95E15230B5A007A2A51 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				18E707D8153D2E020012092E /* Catagaories */,
-				18E707D3153D2C6B0012092E /* CoreData */,
-				1850A46F153C08E10001A905 /* Tools */,
-				188BA4F01539AA9200344288 /* CastView */,
 				18A6850915370ED900D58B7D /* Basic */,
-				18A6850715370EB900D58B7D /* LoginComponent */,
+				18E707D3153D2C6B0012092E /* CoreData */,
 				181AB93F15230AE6007A2A51 /* Client */,
+				18E707F1153D3EDB0012092E /* ViewControllers */,
+				1850A46F153C08E10001A905 /* Tools */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -858,8 +856,6 @@
 			children = (
 				188BA4F21539AAD100344288 /* CardViewController.h */,
 				188BA4F31539AAD100344288 /* CardViewController.m */,
-				1850A46C153C07DF0001A905 /* IFTweetLabel.h */,
-				1850A46D153C07DF0001A905 /* IFTweetLabel.m */,
 			);
 			name = CastView;
 			sourceTree = "<group>";
@@ -873,8 +869,6 @@
 				1890C6B41535BE5200023A13 /* UserSelectionCellViewController.m */,
 				185785F21536689700C9E1B9 /* EasyTableViewCell.h */,
 				185785F31536689700C9E1B9 /* EasyTableViewCell.m */,
-				1890C6B01535B57A00023A13 /* EasyTableView.h */,
-				1890C6B11535B57A00023A13 /* EasyTableView.m */,
 			);
 			name = LoginComponent;
 			sourceTree = "<group>";
@@ -882,18 +876,9 @@
 		18A6850915370ED900D58B7D /* Basic */ = {
 			isa = PBXGroup;
 			children = (
+				18E707D8153D2E020012092E /* Catagaories */,
 				181AB91915230AC1007A2A51 /* AppDelegate.h */,
 				181AB91A15230AC1007A2A51 /* AppDelegate.m */,
-				18DF3732153905A800C783C9 /* BaseNavigationBar.h */,
-				18DF3733153905A800C783C9 /* BaseNavigationBar.m */,
-				1890C68F15356F6F00023A13 /* BaseLayoutView.h */,
-				1890C69015356F6F00023A13 /* BaseLayoutView.m */,
-				188BA4E915398DC800344288 /* BaseCardBackgroundView.h */,
-				188BA4EA15398DC800344288 /* BaseCardBackgroundView.m */,
-				1850A455153BE4020001A905 /* CardImageViewShadowView.h */,
-				1850A456153BE4020001A905 /* CardImageViewShadowView.m */,
-				188BA4F71539B3EB00344288 /* CardImageView.h */,
-				188BA4F81539B3EB00344288 /* CardImageView.m */,
 				1890C6A21535A87900023A13 /* ResourceList.h */,
 			);
 			name = Basic;
@@ -919,6 +904,37 @@
 				18E707E0153D2E2C0012092E /* NSDateAddition.m */,
 			);
 			name = Catagaories;
+			sourceTree = "<group>";
+		};
+		18E707F1153D3EDB0012092E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				188BA4F01539AA9200344288 /* CastView */,
+				18A6850715370EB900D58B7D /* LoginComponent */,
+				18E707F2153D3EEF0012092E /* CustomViews */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		18E707F2153D3EEF0012092E /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				1890C6B01535B57A00023A13 /* EasyTableView.h */,
+				1890C6B11535B57A00023A13 /* EasyTableView.m */,
+				1850A46C153C07DF0001A905 /* IFTweetLabel.h */,
+				1850A46D153C07DF0001A905 /* IFTweetLabel.m */,
+				18DF3732153905A800C783C9 /* BaseNavigationBar.h */,
+				18DF3733153905A800C783C9 /* BaseNavigationBar.m */,
+				1890C68F15356F6F00023A13 /* BaseLayoutView.h */,
+				1890C69015356F6F00023A13 /* BaseLayoutView.m */,
+				188BA4E915398DC800344288 /* BaseCardBackgroundView.h */,
+				188BA4EA15398DC800344288 /* BaseCardBackgroundView.m */,
+				1850A455153BE4020001A905 /* CardImageViewShadowView.h */,
+				1850A456153BE4020001A905 /* CardImageViewShadowView.m */,
+				188BA4F71539B3EB00344288 /* CardImageView.h */,
+				188BA4F81539B3EB00344288 /* CardImageView.m */,
+			);
+			name = CustomViews;
 			sourceTree = "<group>";
 		};
 		18EA4E5815346DFD005ED94F /* Image Resource */ = {
