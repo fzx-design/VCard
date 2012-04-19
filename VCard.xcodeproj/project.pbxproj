@@ -80,6 +80,9 @@
 		18E558FB153EA9D000ECCA3B /* BaseNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E558FA153EA9D000ECCA3B /* BaseNavigationView.m */; };
 		18E558FE153EAAD400ECCA3B /* CastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E558FD153EAAD300ECCA3B /* CastViewController.m */; };
 		18E55901153EF55600ECCA3B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E55900153EF55600ECCA3B /* RootViewController.m */; };
+		18E55922153F95AB00ECCA3B /* WaterflowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E55921153F95AB00ECCA3B /* WaterflowCell.m */; };
+		18E5592D153FA13E00ECCA3B /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5592B153FA01300ECCA3B /* CoreDataTableViewController.m */; };
+		18E5592E153FA14200ECCA3B /* CoreDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E55928153F9F5C00ECCA3B /* CoreDataViewController.m */; };
 		18E707C9153D28A60012092E /* VCard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18E707C7153D28A60012092E /* VCard.xcdatamodeld */; };
 		18E707CC153D2C4D0012092E /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E707CB153D2C4D0012092E /* Comment.m */; };
 		18E707CF153D2C620012092E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E707CE153D2C620012092E /* User.m */; };
@@ -445,6 +448,12 @@
 		18E558FD153EAAD300ECCA3B /* CastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CastViewController.m; sourceTree = "<group>"; };
 		18E558FF153EF55600ECCA3B /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		18E55900153EF55600ECCA3B /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		18E55920153F95AB00ECCA3B /* WaterflowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterflowCell.h; sourceTree = "<group>"; };
+		18E55921153F95AB00ECCA3B /* WaterflowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterflowCell.m; sourceTree = "<group>"; };
+		18E55927153F9F5C00ECCA3B /* CoreDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataViewController.h; sourceTree = "<group>"; };
+		18E55928153F9F5C00ECCA3B /* CoreDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataViewController.m; sourceTree = "<group>"; };
+		18E5592A153FA01200ECCA3B /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
+		18E5592B153FA01300ECCA3B /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		18E707C8153D28A60012092E /* VCard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VCard.xcdatamodel; sourceTree = "<group>"; };
 		18E707CA153D2C4D0012092E /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		18E707CB153D2C4D0012092E /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
@@ -978,6 +987,10 @@
 		18E707F1153D3EDB0012092E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				18E55927153F9F5C00ECCA3B /* CoreDataViewController.h */,
+				18E55928153F9F5C00ECCA3B /* CoreDataViewController.m */,
+				18E5592A153FA01200ECCA3B /* CoreDataTableViewController.h */,
+				18E5592B153FA01300ECCA3B /* CoreDataTableViewController.m */,
 				188BA4F01539AA9200344288 /* CastView */,
 				18A6850715370EB900D58B7D /* LoginComponent */,
 				18E707F2153D3EEF0012092E /* CustomViews */,
@@ -988,6 +1001,8 @@
 		18E707F2153D3EEF0012092E /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				18E55920153F95AB00ECCA3B /* WaterflowCell.h */,
+				18E55921153F95AB00ECCA3B /* WaterflowCell.m */,
 				18E558F5153EA8BB00ECCA3B /* WaterflowView.h */,
 				18E558F6153EA8BB00ECCA3B /* WaterflowView.m */,
 				1890C6B01535B57A00023A13 /* EasyTableView.h */,
@@ -1764,6 +1779,9 @@
 				18E558FB153EA9D000ECCA3B /* BaseNavigationView.m in Sources */,
 				18E558FE153EAAD400ECCA3B /* CastViewController.m in Sources */,
 				18E55901153EF55600ECCA3B /* RootViewController.m in Sources */,
+				18E55922153F95AB00ECCA3B /* WaterflowCell.m in Sources */,
+				18E5592D153FA13E00ECCA3B /* CoreDataTableViewController.m in Sources */,
+				18E5592E153FA14200ECCA3B /* CoreDataViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

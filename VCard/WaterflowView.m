@@ -11,7 +11,7 @@
 
 @interface WaterflowView()
 - (void)initialize;
-- (void)recycleCellIntoReusableQueue:(WaterFlowCell*)cell;
+- (void)recycleCellIntoReusableQueue:(WaterflowCell*)cell;
 - (void)pageScroll;
 - (void)cellSelected:(NSNotification*)notification;
 @end
@@ -92,7 +92,7 @@
 {
     if ([self.flowdelegate respondsToSelector:@selector(flowView:didSelectRowAtIndexPath:)])
     {
-        [self.flowdelegate flowView:self didSelectRowAtIndexPath:((WaterFlowCell*)notification.object).indexPath];
+        [self.flowdelegate flowView:self didSelectRowAtIndexPath:((WaterflowCell*)notification.object).indexPath];
     }
 }
 
@@ -105,7 +105,7 @@
     NSArray *cellsWithIndentifier = [NSArray arrayWithArray:[self.reusableCells objectForKey:identifier]];
     if (cellsWithIndentifier &&  cellsWithIndentifier.count > 0)
     {
-        WaterFlowCell *cell = [cellsWithIndentifier lastObject];
+        WaterflowCell *cell = [cellsWithIndentifier lastObject];
         [[cell retain] autorelease];
         [[self.reusableCells objectForKey:identifier] removeLastObject];
         return cell;
@@ -113,7 +113,7 @@
     return nil;
 }
 
-- (void)recycleCellIntoReusableQueue:(WaterFlowCell *)cell
+- (void)recycleCellIntoReusableQueue:(WaterflowCell *)cell
 {
     if(!self.reusableCells)
     {
@@ -185,7 +185,7 @@
         NSMutableArray *array = [self.visibleCells objectAtIndex:i];
         for (id cell in array)
         {
-            [self recycleCellIntoReusableQueue:(WaterFlowCell*)cell];
+            [self recycleCellIntoReusableQueue:(WaterflowCell*)cell];
             [cell removeFromSuperview];
         }
     }
@@ -203,7 +203,7 @@
         float origin_x = i * (self.frame.size.width / numberOfColumns);
 		float width = self.frame.size.width / numberOfColumns;
                 
-        WaterFlowCell *cell = nil;
+        WaterflowCell *cell = nil;
         
         if ([self.visibleCells objectAtIndex:i] == nil || ((NSArray*)[self.visibleCells objectAtIndex:i]).count == 0) //everytime reloadData is called and no cells in visibleCellArray
         {
@@ -368,40 +368,6 @@
 //        [self reloadData];
 //    }
 }
-@end
 
-//===================================================================
-//
-//*************************WaterflowCell*****************************
-//
-//===================================================================
-@implementation WaterFlowCell
-@synthesize indexPath = _indexPath;
-@synthesize reuseIdentifier = _reuseIdentifier;
-
-- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier
-{
-    if(self = [super init])
-	{
-		self.reuseIdentifier = reuseIdentifier;
-	}
-	
-	return self;
-}
-
-- (void)dealloc
-{
-    self.indexPath = nil;
-    self.reuseIdentifier = nil;
-    [super dealloc];
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"CellSelected"
-                                                        object:self
-                                                      userInfo:[NSDictionary dictionaryWithObject:self.indexPath forKey:@"IndexPath"]];
-    
-}
 
 @end

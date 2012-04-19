@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "CastViewController.h"
+#import "CoreDataViewController.h"
 
-@interface RootViewController : UIViewController
+@interface RootViewController : CoreDataViewController {
+    CastViewController *_castViewController;
+}
+
+@property(nonatomic, strong) CastViewController *castViewController;
+
 
 @end

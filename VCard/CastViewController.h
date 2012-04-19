@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WaterflowView.h"
+#import "CoreDataTableViewController.h"
 
-@interface CastViewController : UIViewController
+@interface CastViewController : CoreDataTableViewController <WaterflowViewDelegate,WaterflowViewDatasource,UIScrollViewDelegate> {
+    
+    WaterflowView *_waterflowView;
+}
+
+@property(nonatomic, strong) IBOutlet WaterflowView *waterflowView;
 
 @end

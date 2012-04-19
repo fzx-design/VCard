@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataViewController.h"
 #import "BaseCardBackgroundView.h"
 #import "IFTweetLabel.h"
 
-@interface CardViewController : UIViewController {
+@interface CardViewController : CoreDataViewController {
     UIImageView *_statusImageView;
     UIView *_statusInfoView;
     IFTweetLabel *_statusTextLabel;

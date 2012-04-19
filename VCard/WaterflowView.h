@@ -7,29 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WaterflowCell.h"
 
 @class WaterflowView;
-
-////TableCell for WaterFlow
-@interface WaterFlowCell:UIView
-{
-    NSIndexPath *_indexPath;
-    NSString *_reuseIdentifier;
-}
-
-@property (nonatomic, retain) NSIndexPath *indexPath;
-@property (nonatomic, retain) NSString *reuseIdentifier;
-
-- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier;
-
-@end
 
 ////DataSource and Delegate
 @protocol WaterflowViewDatasource <NSObject>
 @required
 - (NSInteger)numberOfColumnsInFlowView:(WaterflowView*)flowView;
 - (NSInteger)flowView:(WaterflowView *)flowView numberOfRowsInColumn:(NSInteger)column;
-- (WaterFlowCell *)flowView:(WaterflowView *)flowView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (WaterflowCell *)flowView:(WaterflowView *)flowView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 @end
 
 @protocol WaterflowViewDelegate <NSObject>

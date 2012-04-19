@@ -14,6 +14,8 @@
 
 @implementation RootViewController
 
+@synthesize castViewController = _castViewController;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -29,9 +31,7 @@
 	// Do any additional setup after loading the view.
     self.navigationController.navigationBarHidden = YES;
     
-    CastViewController *castViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CastViewController"];
-    castViewController.view.frame = CGRectMake(0, 20, 768, 1004);
-    [self.view addSubview:castViewController.view];
+    self.castViewController.currentUser = self.currentUser;
     
     
 }
@@ -45,6 +45,16 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
+}
+
+- (CastViewController*)castViewController
+{
+    if (_castViewController == nil) {
+        _castViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CastViewController"];
+        _castViewController.view.frame = CGRectMake(0, 0, 768, 1004);
+        [self.view addSubview:_castViewController.view];
+    }
+    return _castViewController;
 }
 
 @end
