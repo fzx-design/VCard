@@ -9,6 +9,7 @@
 #import "UserSelectionCellViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ResourceList.h"
+#import "CastViewController.h"
 
 #define CornerRadius 175 / 2
 
@@ -81,10 +82,14 @@ typedef enum {
     } else if([textField isEqual:self.userPasswordTextField]) {
         
         [self.userPasswordTextField resignFirstResponder];
+        
     }
     
     return YES;
 }
+
+#pragma mark -
+
 
 
 @end
