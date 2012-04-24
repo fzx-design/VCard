@@ -43,8 +43,8 @@
 	NSMutableArray *_visibleCells; 
 	NSMutableDictionary *_reusedCells;
     
-    WaterflowColumn *_leftColumnUnits;
-    WaterflowColumn *_rightColumnUnits;
+    WaterflowColumn *_leftColumn;
+    WaterflowColumn *_rightColumn;
 	
     id <WaterflowViewDelegate> _flowdelegate;
     id <WaterflowViewDatasource> _flowdatasource;
@@ -60,8 +60,8 @@
 @property (nonatomic, assign) id <WaterflowViewDelegate> flowdelegate;
 @property (nonatomic, assign) id <WaterflowViewDatasource> flowdatasource;
 
-@property (nonatomic, retain) WaterflowColumn *leftColumnUnits;
-@property (nonatomic, retain) WaterflowColumn *rightColumnUnits;
+@property (nonatomic, retain) WaterflowColumn *leftColumn;
+@property (nonatomic, retain) WaterflowColumn *rightColumn;
 
 
 - (void)reloadData;

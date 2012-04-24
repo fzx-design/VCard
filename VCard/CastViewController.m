@@ -7,6 +7,7 @@
 //
 
 #import "CastViewController.h"
+#import "ResourceList.h"
 
 #define MaxCardSize CGSizeMake(345,9999)
 
@@ -41,7 +42,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLCastViewBGUnit]];
     [self setUpWaterflowView];
     
 }
@@ -119,7 +120,7 @@
 - (CGFloat)heightForObjectAtIndex:(int)index_ withImageHeight:(ImageHeight)imageHeight_
 {
     NSString *string = [self randomString:index_];
-    CGSize expectedLabelSize = [string sizeWithFont:[UIFont boldSystemFontOfSize:12.0f]                       
+    CGSize expectedLabelSize = [string sizeWithFont:[UIFont boldSystemFontOfSize:17.0f]                       
                                   constrainedToSize:MaxCardSize 
                                       lineBreakMode:UILineBreakModeCharacterWrap];
     return expectedLabelSize.height + 400;

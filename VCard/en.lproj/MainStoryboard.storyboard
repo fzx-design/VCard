@@ -150,7 +150,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="362" height="379"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="684ff39bjw1drz0vusewdj.jpg" id="pjN-8a-Zmj" customClass="CardImageView">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="pjN-8a-Zmj" customClass="CardImageView">
                                         <rect key="frame" x="-4" y="13" width="370" height="208"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
@@ -301,7 +301,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="684ff39bjw1drz0vusewdj.jpg" width="16" height="16"/>
         <image name="button_bg_brown.png" width="50" height="30"/>
         <image name="button_comment.png" width="17" height="16"/>
         <image name="button_share.png" width="21" height="19"/>

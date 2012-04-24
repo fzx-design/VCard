@@ -46,7 +46,7 @@
     bgFrame.origin.y = self.cardBackground.frame.origin.y + self.cardBackground.frame.size.height - 8;
     self.repostCardBackground.frame = bgFrame;
     
-    [self.statusTextLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+    [self.statusTextLabel setFont:[UIFont boldSystemFontOfSize:17.0f]];
 	[self.statusTextLabel setTextColor:[UIColor blackColor]];
 	[self.statusTextLabel setBackgroundColor:[UIColor clearColor]];
 	[self.statusTextLabel setNumberOfLines:10];
