@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18047E3015452CB900651305 /* WaterflowColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 18047E2F15452CB900651305 /* WaterflowColumn.m */; };
+		18047E3315452D7200651305 /* WaterflowLayoutUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18047E3215452D7200651305 /* WaterflowLayoutUnit.m */; };
 		181AB90B15230AC1007A2A51 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90A15230AC1007A2A51 /* UIKit.framework */; };
 		181AB90D15230AC1007A2A51 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90C15230AC1007A2A51 /* Foundation.framework */; };
 		181AB90F15230AC1007A2A51 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90E15230AC1007A2A51 /* CoreGraphics.framework */; };
@@ -338,6 +340,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18047E2E15452CB900651305 /* WaterflowColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterflowColumn.h; sourceTree = "<group>"; };
+		18047E2F15452CB900651305 /* WaterflowColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterflowColumn.m; sourceTree = "<group>"; };
+		18047E3115452D7200651305 /* WaterflowLayoutUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterflowLayoutUnit.h; sourceTree = "<group>"; };
+		18047E3215452D7200651305 /* WaterflowLayoutUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterflowLayoutUnit.m; sourceTree = "<group>"; };
 		181AB90615230AC1007A2A51 /* VCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		181AB90A15230AC1007A2A51 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		181AB90C15230AC1007A2A51 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1005,6 +1011,10 @@
 				18E55921153F95AB00ECCA3B /* WaterflowCell.m */,
 				18E558F5153EA8BB00ECCA3B /* WaterflowView.h */,
 				18E558F6153EA8BB00ECCA3B /* WaterflowView.m */,
+				18047E2E15452CB900651305 /* WaterflowColumn.h */,
+				18047E2F15452CB900651305 /* WaterflowColumn.m */,
+				18047E3115452D7200651305 /* WaterflowLayoutUnit.h */,
+				18047E3215452D7200651305 /* WaterflowLayoutUnit.m */,
 				1890C6B01535B57A00023A13 /* EasyTableView.h */,
 				1890C6B11535B57A00023A13 /* EasyTableView.m */,
 				1850A46C153C07DF0001A905 /* IFTweetLabel.h */,
@@ -1782,6 +1792,8 @@
 				18E55922153F95AB00ECCA3B /* WaterflowCell.m in Sources */,
 				18E5592D153FA13E00ECCA3B /* CoreDataTableViewController.m in Sources */,
 				18E5592E153FA14200ECCA3B /* CoreDataViewController.m in Sources */,
+				18047E3015452CB900651305 /* WaterflowColumn.m in Sources */,
+				18047E3315452D7200651305 /* WaterflowLayoutUnit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

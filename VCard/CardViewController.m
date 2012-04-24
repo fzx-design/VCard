@@ -42,6 +42,7 @@
     self.statusInfoView.frame = statusInfoFrame;
     
     CGRect bgFrame = self.repostCardBackground.frame;
+    bgFrame.origin.x = self.cardBackground.frame.origin.x;
     bgFrame.origin.y = self.cardBackground.frame.origin.y + self.cardBackground.frame.size.height - 8;
     self.repostCardBackground.frame = bgFrame;
     
@@ -50,7 +51,8 @@
 	[self.statusTextLabel setBackgroundColor:[UIColor clearColor]];
 	[self.statusTextLabel setNumberOfLines:10];
 	[self.statusTextLabel setText:@"This is a #test# of regular expressions with http://example.com links as used in @Twitterrific. HTTP://CHOCKLOCK.COM APPROVED OF COURSE. 哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈"];
-	[self.statusTextLabel setLinksEnabled:YES];    
+
+    [self.statusTextLabel setLinksEnabled:YES];    
 }
 
 - (void)viewDidUnload

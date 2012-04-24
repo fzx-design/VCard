@@ -273,7 +273,7 @@
                 <viewController storyboardIdentifier="CastViewController" id="qGg-RJ-Vfa" customClass="CastViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uIE-Cv-hbN">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="EbD-7g-wPC" customClass="WaterflowView">
                                 <rect key="frame" x="0.0" y="43" width="768" height="961"/>
@@ -328,7 +328,7 @@
         <class className="CardImageView" superclassName="UIImageView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CardImageView.h"/>
         </class>
-        <class className="CardViewController" superclassName="UIViewController">
+        <class className="CardViewController" superclassName="CoreDataViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CardViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="cardBackground" candidateClass="BaseCardBackgroundView"/>
@@ -338,11 +338,17 @@
                 <relationship kind="outlet" name="statusTextLabel" candidateClass="IFTweetLabel"/>
             </relationships>
         </class>
-        <class className="CastViewController" superclassName="UIViewController">
+        <class className="CastViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CastViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="waterflowView" candidateClass="WaterflowView"/>
             </relationships>
+        </class>
+        <class className="CoreDataTableViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
+        </class>
+        <class className="CoreDataViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataViewController.h"/>
         </class>
         <class className="IFTweetLabel" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/IFTweetLabel.h"/>
@@ -353,7 +359,7 @@
                 <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>
             </relationships>
         </class>
-        <class className="RootViewController" superclassName="UIViewController">
+        <class className="RootViewController" superclassName="CoreDataViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RootViewController.h"/>
         </class>
         <class className="UserSelectionCellViewController" superclassName="UIViewController">
