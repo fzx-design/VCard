@@ -10,6 +10,7 @@
 
 #define kNotificationNameLoginTextFieldShouldBeginEditing @"kNotificationNameLoginTextFieldShouldBeginEditing"
 #define kNotificationNameLoginTextFieldShouldEndEditing @"kNotificationNameLoginTextFieldShouldEndEditing"
+#define kNotificationNameLoginInfoAuthorized @"kNotificationNameLoginInfoAuthorized"
 
 @interface UserSelectionCellViewController : UIViewController <UITextFieldDelegate> {
     UIImageView * _avatorImageView;

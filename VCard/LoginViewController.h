@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataViewController.h"
 #import "BaseLayoutView.h"
 #import "EasyTableView.h"
 #import "UserSelectionCellViewController.h"
 
-@interface LoginViewController : UIViewController <EasyTableViewDelegate> {
+@interface LoginViewController : CoreDataViewController <EasyTableViewDelegate> {
     UIImageView * _logoImageView;
     EasyTableView *_userSelectionTableView;
     UserSelectionCellViewController *_currentUserCell;

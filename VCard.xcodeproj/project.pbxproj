@@ -45,7 +45,6 @@
 		187348731523407A00F562E7 /* WBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348721523407A00F562E7 /* WBRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		187348791523424500F562E7 /* WBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348781523424500F562E7 /* WBUtil.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1873487C1523433000F562E7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1873487B1523432F00F562E7 /* Security.framework */; };
-		1873487F152343F300F562E7 /* WBAuthorize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873487E152343F200F562E7 /* WBAuthorize.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		187348821523443B00F562E7 /* WBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348811523443B00F562E7 /* WBClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		188A12C4153961AE003F00F1 /* silver_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 188A12C2153961AE003F00F1 /* silver_pin.png */; };
 		188A12C5153961AE003F00F1 /* silver_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188A12C3153961AE003F00F1 /* silver_pin@2x.png */; };
@@ -402,8 +401,6 @@
 		187348781523424500F562E7 /* WBUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBUtil.m; path = Client/WBUtil.m; sourceTree = "<group>"; };
 		1873487A1523429E00F562E7 /* WBSDKGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBSDKGlobal.h; path = Client/WBSDKGlobal.h; sourceTree = "<group>"; };
 		1873487B1523432F00F562E7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		1873487D152343F200F562E7 /* WBAuthorize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBAuthorize.h; path = Client/WBAuthorize.h; sourceTree = "<group>"; };
-		1873487E152343F200F562E7 /* WBAuthorize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBAuthorize.m; path = Client/WBAuthorize.m; sourceTree = "<group>"; };
 		187348801523443B00F562E7 /* WBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBClient.h; path = Client/WBClient.h; sourceTree = "<group>"; };
 		187348811523443B00F562E7 /* WBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBClient.m; path = Client/WBClient.m; sourceTree = "<group>"; };
 		188A12C2153961AE003F00F1 /* silver_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = silver_pin.png; sourceTree = "<group>"; };
@@ -824,8 +821,6 @@
 				187348771523424500F562E7 /* WBUtil.h */,
 				187348781523424500F562E7 /* WBUtil.m */,
 				1873487A1523429E00F562E7 /* WBSDKGlobal.h */,
-				1873487D152343F200F562E7 /* WBAuthorize.h */,
-				1873487E152343F200F562E7 /* WBAuthorize.m */,
 			);
 			name = Client;
 			sourceTree = "<group>";
@@ -1765,7 +1760,6 @@
 				181AB95C15230B30007A2A51 /* SFHFKeychainUtils.m in Sources */,
 				187348731523407A00F562E7 /* WBRequest.m in Sources */,
 				187348791523424500F562E7 /* WBUtil.m in Sources */,
-				1873487F152343F300F562E7 /* WBAuthorize.m in Sources */,
 				187348821523443B00F562E7 /* WBClient.m in Sources */,
 				1890C68A15356BCB00023A13 /* LoginViewController.m in Sources */,
 				1890C69115356F6F00023A13 /* BaseLayoutView.m in Sources */,

@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 #import "WBRequest.h"
-#import "WBAuthorize.h"
 
 @class WBClient;
 
@@ -63,7 +62,6 @@ typedef void (^WCCompletionBlock)(WBClient *client);
     BOOL            _isUserExclusive;
     
     WBRequest       *_request;
-    WBAuthorize     *_authorize;
     
     id<WBClientDelegate> _delegate;
     
@@ -82,7 +80,6 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 @property (nonatomic, retain) NSString *redirectURI;
 @property (nonatomic, assign) BOOL isUserExclusive;
 @property (nonatomic, retain) WBRequest *request;
-@property (nonatomic, retain) WBAuthorize *authorize;
 @property (nonatomic, assign) id<WBClientDelegate> delegate;
 
 @property (nonatomic, copy) WCCompletionBlock preCompletionBlock;
@@ -94,38 +91,17 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 - (WCCompletionBlock)completionBlock;
 
 + (id)client;
++ (id)currentUserID;
 
 - (id)init;
-
-// Log in using OAuth Client authorization.
-// If succeed, engineDidLogIn will be called.
-//- (void)logInUsingUserID:(NSString *)theUserID password:(NSString *)thePassword;
-
-// Log out.
-// If succeed, engineDidLogOut will be called.
 - (void)logOut;
-
-// Check if user has logged in, or the authorization is expired.
 - (BOOL)isLoggedIn;
 - (BOOL)isAuthorizeExpired;
 
-// @methodName: The interface you are trying to visit, exp, "statuses/public_timeline.json" for the newest timeline.
-// See 
-// http://open.weibo.com/wiki/API%E6%96%87%E6%A1%A3_V2
-// for more details.
-// @httpMethod: "GET" or "POST".
-// @params: A dictionary that contains your request parameters.
-// @postDataType: "GET" for kWBRequestPostDataTypeNone, "POST" for kWBRequestPostDataTypeNormal or kWBRequestPostDataTypeMultipart.
-// @httpHeaderFields: A dictionary that contains HTTP header information.
-- (void)loadRequestWithMethodName:(NSString *)methodName
-                       httpMethod:(NSString *)httpMethod
-                           params:(NSDictionary *)params
-                     postDataType:(WBRequestPostDataType)postDataType
-                 httpHeaderFields:(NSDictionary *)httpHeaderFields;
 
-// Send a Weibo, to which you can attach an image.
 - (void)sendWeiBoWithText:(NSString *)text image:(UIImage *)image;
 
 - (void)authorizeUsingUserID:(NSString *)userID password:(NSString *)password;
+- (void)getUser:(NSString *)userID_;
 
 @end

@@ -88,6 +88,15 @@ typedef enum {
             [self.userNameTextField becomeFirstResponder];
         } else {
             WBClient *client = [WBClient client];
+            
+            [client setCompletionBlock:^(WBClient *client) {
+                if (!client.hasError) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameLoginInfoAuthorized object:nil];
+                } else {
+                    NSLog(@"Error!");
+                }
+            }];
+            
             [client authorizeUsingUserID:self.userNameTextField.text password:self.userPasswordTextField.text];
         }
         

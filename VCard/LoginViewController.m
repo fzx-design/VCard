@@ -8,6 +8,8 @@
 
 #import "LoginViewController.h"
 #import "ResourceList.h"
+#import "WBClient.h"
+#import "User.h"
 
 #import "CardViewController.h"
 
@@ -89,6 +91,11 @@
     [center addObserver:self selector:@selector(loginTextFieldShouldEndEditing:) 
                    name:UIKeyboardWillHideNotification 
                  object:nil];
+    
+    [center addObserver:self selector:@selector(loginInfoAuthorized:) 
+                   name:kNotificationNameLoginInfoAuthorized 
+                 object:nil];
+    
 }
 
 #pragma mark -
@@ -109,9 +116,27 @@
 {
     _isEditingTextfield = NO;
     [self setViewOffsetForEditingMode];
-    
-    [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
 }
+
+
+#pragma mark - Functional Methods
+
+- (void)loginInfoAuthorized:(id)sender
+{
+    WBClient *client = [WBClient client];
+    
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSDictionary *userDict = client.responseJSONObject;
+            self.currentUser = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext];
+            [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
+        }
+    }];
+    
+    [client getUser:[WBClient currentUserID]];
+}
+
+#pragma mark - Adjust View
 
 - (void)setViewOffsetForEditingMode
 {

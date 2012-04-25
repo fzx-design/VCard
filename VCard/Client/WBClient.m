@@ -18,9 +18,20 @@
 #define kWBKeychainAccessToken          @"WeiBoAccessToken"
 #define kWBKeychainExpireTime           @"WeiBoExpireTime"
 
+typedef enum {
+    HTTPMethodPost,
+    HTTPMethodForm,
+    HTTPMethodGet,
+} HTTPMethod;
+
 static NSString *UserID = @"";
 
-@interface WBClient (Private)
+@interface WBClient()
+
+@property (nonatomic, copy) NSString *path;
+@property (nonatomic, retain) NSMutableDictionary *params;
+@property (nonatomic, assign) HTTPMethod httpMethod;
+@property (nonatomic, assign) WBRequestPostDataType postDataType;
 
 - (NSString *)urlSchemeString;
 
@@ -40,13 +51,17 @@ static NSString *UserID = @"";
 @synthesize redirectURI = _redirectURI;
 @synthesize isUserExclusive = isUserExclusive;
 @synthesize request = _request;
-@synthesize authorize = _authorize;
 @synthesize delegate = _delegate;
 @synthesize hasError = _hasError;
 
 @synthesize preCompletionBlock = _preCompletionBlock;
 
 @synthesize responseJSONObject = _responseJSONObject;
+
+@synthesize path = _path;
+@synthesize params = _params;
+@synthesize httpMethod = _httpMethod;
+@synthesize postDataType = _postDataType;
 
 #pragma mark - WBEngine Life Circle
 
@@ -56,7 +71,7 @@ static NSString *UserID = @"";
     return [[WBClient alloc] init]; 
 }
 
-+ (id)CurrentUserID
++ (id)currentUserID
 {
     return UserID;
 }
@@ -67,9 +82,13 @@ static NSString *UserID = @"";
         _appKey = kWBSDKAppKey;
         _appSecret = kWBSDKAppSecret;
         _redirectURI = @"http://";
-        _hasError = NO;
         
         isUserExclusive = NO;
+        
+        _params = [[NSMutableDictionary alloc] initWithCapacity:10];
+        _hasError = NO;
+        _httpMethod = HTTPMethodGet;
+        _postDataType = kWBRequestPostDataTypeNone;
         
         [self readAuthorizeDataFromKeychain];
     }
@@ -90,10 +109,7 @@ static NSString *UserID = @"";
     [_request setDelegate:nil];
     [_request disconnect];
     [_request release], _request = nil;
-    
-    [_authorize setDelegate:nil];
-    [_authorize release], _authorize = nil;
-    
+        
     _delegate = nil;
     
     [super dealloc];
@@ -201,39 +217,45 @@ static NSString *UserID = @"";
     
 	[params setObject:(text ? text : @"") forKey:@"status"];
 	
-    if (image)
-    {
-		[params setObject:image forKey:@"pic"];
-        
-        [self loadRequestWithMethodName:@"statuses/upload.json"
-                             httpMethod:@"POST"
-                                 params:params
-                           postDataType:kWBRequestPostDataTypeMultipart
-                       httpHeaderFields:nil];
-    }
-    else
-    {
-        [self loadRequestWithMethodName:@"statuses/update.json"
-                             httpMethod:@"POST"
-                                 params:params
-                           postDataType:kWBRequestPostDataTypeNormal
-                       httpHeaderFields:nil];
-    }
+//    if (image)
+//    {
+//		[params setObject:image forKey:@"pic"];
+//        
+//        [self loadRequestWithMethodName:@"statuses/upload.json"
+//                             httpMethod:@"POST"
+//                                 params:params
+//                           postDataType:kWBRequestPostDataTypeMultipart
+//                       httpHeaderFields:nil];
+//    }
+//    else
+//    {
+//        [self loadRequestWithMethodName:@"statuses/update.json"
+//                             httpMethod:@"POST"
+//                                 params:params
+//                           postDataType:kWBRequestPostDataTypeNormal
+//                       httpHeaderFields:nil];
+//    }
 }
 
-#pragma mark - WBAuthorizeDelegate Methods
+- (void)getUser:(NSString *)userID_
+{
+    self.path = @"users/show.json";
+    [self.params setObject:userID_ forKey:@"uid"];
+    [self loadNormalRequest];
+}
 
 - (void)authorizeUsingUserID:(NSString *)userID password:(NSString *)password
 {
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:_appKey, @"client_id",
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_appKey, @"client_id",
                             _appSecret, @"client_secret",
                             @"password", @"grant_type",
                             _redirectURI, @"redirect_uri",
                             userID, @"username",
                             password, @"password", nil];
     
+    self.params = params;
     
-    [self setCompletionBlock:^(WBClient *client) {
+    [self setPreCompletionBlock:^(WBClient *client) {
         
         if ([self.responseJSONObject isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dict = (NSDictionary*)client.responseJSONObject;
@@ -242,88 +264,79 @@ static NSString *UserID = @"";
             self.userID = [dict objectForKey:@"uid"];
             self.expireTime = [[NSDate date] timeIntervalSince1970] + [[dict objectForKey:@"expires_in"] intValue];
             
+            UserID = self.userID;
+            
             [self saveAuthorizeDataToKeychain];
         }
     }];
     
-    [_request disconnect];
-    
-    self.request = [WBRequest requestWithURL:kWBAccessTokenURL
-                                  httpMethod:@"POST"
-                                      params:params
-                                postDataType:kWBRequestPostDataTypeNormal
-                            httpHeaderFields:nil 
-                                    delegate:self];
-    
-    
-    [_request connect];
+    [self loadAuthorizeRequest];
 }
 
 
 #pragma mark Request
 
-- (void)loadRequestWithMethodName:(NSString *)methodName
-                       httpMethod:(NSString *)httpMethod
-                           params:(NSDictionary *)params
-                     postDataType:(WBRequestPostDataType)postDataType
-                 httpHeaderFields:(NSDictionary *)httpHeaderFields
+- (void)loadNormalRequest
 {
-    // Step 1.
-    // Check if the user has been logged in.
-	if (![self isLoggedIn]) {
-        if ([_delegate respondsToSelector:@selector(engineNotAuthorized:)]) {
-            [_delegate clientNotAuthorized:self];
-        }
-        return;
-	}
-    
-	// Step 2.
-    // Check if the access token is expired.
-    if ([self isAuthorizeExpired]) {
-        if ([_delegate respondsToSelector:@selector(engineAuthorizeExpired:)]) {
-            [_delegate clientAuthorizeExpired:self];
-        }
-        return;
-    }
-    
     [_request disconnect];
     
     self.request = [WBRequest requestWithAccessToken:_accessToken
-                                                 url:[NSString stringWithFormat:@"%@%@", kWBSDKAPIDomain, methodName]
-                                          httpMethod:httpMethod
-                                              params:params
-                                        postDataType:postDataType
-                                    httpHeaderFields:httpHeaderFields
+                                                 url:[NSString stringWithFormat:@"%@%@", kWBSDKAPIDomain, self.path]
+                                          httpMethod:self.httpMethod == HTTPMethodGet ? @"GET" : @"POST"
+                                              params:self.params
+                                        postDataType:self.postDataType
+                                    httpHeaderFields:nil
                                             delegate:self];
 	
 	[_request connect];
 }
 
+//- (void)loadRequestWithMethodName:(NSString *)methodName
+//                       httpMethod:(NSString *)httpMethod
+//                           params:(NSDictionary *)params
+//                     postDataType:(WBRequestPostDataType)postDataType
+//                 httpHeaderFields:(NSDictionary *)httpHeaderFields
+//{
+//    [_request disconnect];
+//    
+//    self.request = [WBRequest requestWithAccessToken:_accessToken
+//                                                 url:[NSString stringWithFormat:@"%@%@", kWBSDKAPIDomain, methodName]
+//                                          httpMethod:httpMethod
+//                                              params:params
+//                                        postDataType:postDataType
+//                                    httpHeaderFields:httpHeaderFields
+//                                            delegate:self];
+//	
+//	[_request connect];
+//}
+
+- (void)loadAuthorizeRequest
+{
+    [_request disconnect];
+    
+    self.request = [WBRequest requestWithURL:kWBAccessTokenURL
+                                  httpMethod:@"POST"
+                                      params:self.params
+                                postDataType:kWBRequestPostDataTypeNormal
+                            httpHeaderFields:nil 
+                                    delegate:self];
+	
+	[_request connect];
+}   
+
 #pragma mark - WBRequestDelegate Methods
 
 - (void)request:(WBRequest *)request didFinishLoadingWithResult:(id)result
 {
-    if ([_delegate respondsToSelector:@selector(engine:requestDidSucceedWithResult:)]) {
-        [_delegate client:self requestDidSucceedWithResult:result];
-    }
-    
     self.responseJSONObject = result;
-    
     [self reportCompletion];
-    
     [self autorelease];
 }
 
 - (void)request:(WBRequest *)request didFailWithError:(NSError *)error
 {
-    if ([_delegate respondsToSelector:@selector(engine:requestDidFailWithError:)]) {
-        [_delegate client:self requestDidFailWithError:error];
-    }
-    
     self.hasError = YES;
-    
     [self reportCompletion];
-    
     [self autorelease];
 }
 

@@ -8,12 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum
-{
+typedef enum{
     kWBRequestPostDataTypeNone,
 	kWBRequestPostDataTypeNormal,			// for normal data post, such as "user=name&password=psd"
 	kWBRequestPostDataTypeMultipart,        // for uploading images and files.
-}WBRequestPostDataType;
+} WBRequestPostDataType;
 
 
 @class WBRequest;

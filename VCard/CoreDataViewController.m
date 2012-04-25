@@ -7,6 +7,7 @@
 //
 
 #import "CoreDataViewController.h"
+#import "AppDelegate.h"
 #import "User.h"
 
 @implementation CoreDataViewController
@@ -18,10 +19,19 @@
 {
     if (_currentUser != currentUser) {
         _currentUser = currentUser;
-        if (!self.managedObjectContext) {
-            self.managedObjectContext = currentUser.managedObjectContext;
-        }
+//        if (!self.managedObjectContext) {
+//            self.managedObjectContext = currentUser.managedObjectContext;
+//        }
     }
+}
+
+- (NSManagedObjectContext*)managedObjectContext
+{
+    if (_managedObjectContext == nil) {
+        AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        _managedObjectContext = delegate.managedObjectContext;
+    }
+    return _managedObjectContext;
 }
 
 @end
