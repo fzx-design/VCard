@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ResourceList.h"
 #import "CastViewController.h"
+#import "WBClient.h"
 
 #define CornerRadius 175 / 2
 
@@ -82,6 +83,13 @@ typedef enum {
     } else if([textField isEqual:self.userPasswordTextField]) {
         
         [self.userPasswordTextField resignFirstResponder];
+        
+        if (self.userNameTextField.text == @"") {
+            [self.userNameTextField becomeFirstResponder];
+        } else {
+            WBClient *client = [WBClient client];
+            [client authorizeUsingUserID:self.userNameTextField.text password:self.userPasswordTextField.text];
+        }
         
     }
     

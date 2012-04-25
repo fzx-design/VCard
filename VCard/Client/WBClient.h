@@ -70,6 +70,8 @@ typedef void (^WCCompletionBlock)(WBClient *client);
     id _responseJSONObject;
     WCCompletionBlock _completionBlock;
     
+    BOOL _hasError;
+    
 }
 
 @property (nonatomic, copy) NSString *appKey;
@@ -83,10 +85,15 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 @property (nonatomic, retain) WBAuthorize *authorize;
 @property (nonatomic, assign) id<WBClientDelegate> delegate;
 
+@property (nonatomic, copy) WCCompletionBlock preCompletionBlock;
 
+@property (nonatomic, assign) BOOL hasError;
 @property (nonatomic, retain) id responseJSONObject;
+
 - (void)setCompletionBlock:(void (^)(WBClient* client))completionBlock;
 - (WCCompletionBlock)completionBlock;
+
++ (id)client;
 
 - (id)init;
 
