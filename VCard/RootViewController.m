@@ -31,8 +31,7 @@
 	// Do any additional setup after loading the view.
     self.navigationController.navigationBarHidden = YES;
     
-    self.castViewController.currentUser = self.currentUser;
-    
+    [self.view addSubview:self.castViewController.view];
     
 }
 
@@ -51,8 +50,8 @@
 {
     if (_castViewController == nil) {
         _castViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CastViewController"];
+        _castViewController.currentUser = self.currentUser;
         _castViewController.view.frame = CGRectMake(0, 0, 768, 1004);
-        [self.view addSubview:_castViewController.view];
     }
     return _castViewController;
 }

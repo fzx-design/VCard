@@ -273,6 +273,37 @@ static NSString *UserID = @"";
     [self loadAuthorizeRequest];
 }
 
+- (void)getFriendsTimelineSinceID:(NSString *)sinceID 
+                            maxID:(NSString *)maxID 
+                   startingAtPage:(int)page 
+                            count:(int)count
+                          feature:(int)feature
+{
+    self.path = @"statuses/friends_timeline.json";
+	
+    if (sinceID) {
+        [self.params setObject:sinceID forKey:@"since_id"];
+    }
+    if (maxID) {
+        [self.params setObject:maxID forKey:@"max_id"];
+    }
+    if (page > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+    }
+    if (count > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    }
+    if (feature > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", feature] forKey:@"feature"];
+    }
+    
+    [self setPreCompletionBlock:^(WBClient *client) {
+        NSDictionary *dict = self.responseJSONObject;
+        self.responseJSONObject = [dict objectForKey:@"statuses"];
+    }];
+    
+    [self loadNormalRequest];
+}
 
 #pragma mark Request
 
@@ -290,25 +321,6 @@ static NSString *UserID = @"";
 	
 	[_request connect];
 }
-
-//- (void)loadRequestWithMethodName:(NSString *)methodName
-//                       httpMethod:(NSString *)httpMethod
-//                           params:(NSDictionary *)params
-//                     postDataType:(WBRequestPostDataType)postDataType
-//                 httpHeaderFields:(NSDictionary *)httpHeaderFields
-//{
-//    [_request disconnect];
-//    
-//    self.request = [WBRequest requestWithAccessToken:_accessToken
-//                                                 url:[NSString stringWithFormat:@"%@%@", kWBSDKAPIDomain, methodName]
-//                                          httpMethod:httpMethod
-//                                              params:params
-//                                        postDataType:postDataType
-//                                    httpHeaderFields:httpHeaderFields
-//                                            delegate:self];
-//	
-//	[_request connect];
-//}
 
 - (void)loadAuthorizeRequest
 {

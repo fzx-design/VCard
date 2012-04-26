@@ -55,6 +55,7 @@
 		1890C69115356F6F00023A13 /* BaseLayoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C69015356F6F00023A13 /* BaseLayoutView.m */; };
 		1890C6B21535B57B00023A13 /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B11535B57A00023A13 /* EasyTableView.m */; };
 		1890C6B51535BE5200023A13 /* UserSelectionCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B41535BE5200023A13 /* UserSelectionCellViewController.m */; };
+		189D9DE215496FA300E922D9 /* UIImageViewAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D9DE115496FA300E922D9 /* UIImageViewAddition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18A6850C15370F3D00D58B7D /* imageview_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A6850A15370F3D00D58B7D /* imageview_placeholder.png */; };
 		18A6850D15370F3D00D58B7D /* imageview_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A6850B15370F3D00D58B7D /* imageview_placeholder@2x.png */; };
 		18A685171537110B00D58B7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A685161537110B00D58B7D /* QuartzCore.framework */; };
@@ -420,6 +421,8 @@
 		1890C6B11535B57A00023A13 /* EasyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableView.m; sourceTree = "<group>"; };
 		1890C6B31535BE5100023A13 /* UserSelectionCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSelectionCellViewController.h; sourceTree = "<group>"; };
 		1890C6B41535BE5200023A13 /* UserSelectionCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSelectionCellViewController.m; sourceTree = "<group>"; };
+		189D9DE015496FA300E922D9 /* UIImageViewAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewAddition.h; sourceTree = "<group>"; };
+		189D9DE115496FA300E922D9 /* UIImageViewAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewAddition.m; sourceTree = "<group>"; };
 		18A6850A15370F3D00D58B7D /* imageview_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageview_placeholder.png; sourceTree = "<group>"; };
 		18A6850B15370F3D00D58B7D /* imageview_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "imageview_placeholder@2x.png"; sourceTree = "<group>"; };
 		18A685161537110B00D58B7D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -979,6 +982,8 @@
 		18E707D8153D2E020012092E /* Catagaories */ = {
 			isa = PBXGroup;
 			children = (
+				189D9DE015496FA300E922D9 /* UIImageViewAddition.h */,
+				189D9DE115496FA300E922D9 /* UIImageViewAddition.m */,
 				18E707DF153D2E2C0012092E /* NSDateAddition.h */,
 				18E707E0153D2E2C0012092E /* NSDateAddition.m */,
 			);
@@ -1788,6 +1793,7 @@
 				18E5592E153FA14200ECCA3B /* CoreDataViewController.m in Sources */,
 				18047E3015452CB900651305 /* WaterflowColumn.m in Sources */,
 				18047E3315452D7200651305 /* WaterflowLayoutUnit.m in Sources */,
+				189D9DE215496FA300E922D9 /* UIImageViewAddition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

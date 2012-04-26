@@ -10,6 +10,7 @@
 #import "ResourceList.h"
 #import "WBClient.h"
 #import "User.h"
+#import "Status.h"
 
 #import "CardViewController.h"
 
@@ -129,11 +130,42 @@
         if (!client.hasError) {
             NSDictionary *userDict = client.responseJSONObject;
             self.currentUser = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext];
-            [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
+            [self loadFirstSetOfStatus];
         }
     }];
     
     [client getUser:[WBClient currentUserID]];
+}
+
+- (void)loadFirstSetOfStatus
+{
+    WBClient *client = [WBClient client];
+
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSArray *dictArray = client.responseJSONObject;
+            for (NSDictionary *dict in dictArray) {
+                Status *newStatus = nil;
+                newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext];
+                [self.currentUser addFriendsStatusesObject:newStatus];  
+            }
+            
+            [self.managedObjectContext processPendingChanges];
+            [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
+        }
+    }];
+    
+    [client getFriendsTimelineSinceID:nil 
+                                maxID:nil 
+                       startingAtPage:1 
+                                count:20 
+                              feature:0];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    CoreDataViewController *vc = segue.destinationViewController;
+    vc.currentUser = self.currentUser;
 }
 
 #pragma mark - Adjust View

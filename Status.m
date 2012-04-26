@@ -263,7 +263,7 @@
 }
 
 + (Status *)insertStatus:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
-{
+{    
     NSString *statusID = [[dict objectForKey:@"id"] stringValue];
     
     if (!statusID || [statusID isEqualToString:@""]) {
@@ -288,8 +288,8 @@
     
     result.favorited = [NSNumber numberWithBool:[[dict objectForKey:@"favorited"] boolValue]];
     
-    result.commentsCount = [dict objectForKey:@"comment_count"];
-    result.repostsCount = [dict objectForKey:@"repost_count"];
+    result.commentsCount = [NSString stringWithFormat:@"%i",[dict objectForKey:@"comments_count"]];
+    result.repostsCount = [NSString stringWithFormat:@"%i",[dict objectForKey:@"reposts_count"]];
     
     result.thumbnailPicURL = [dict objectForKey:@"thumbnail_pic"];
     result.bmiddlePicURL = [dict objectForKey:@"bmiddle_pic"];

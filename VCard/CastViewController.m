@@ -9,6 +9,8 @@
 #import "CastViewController.h"
 #import "ResourceList.h"
 
+#import "Status.h"
+
 #define MaxCardSize CGSizeMake(345,9999)
 
 @interface CastViewController ()
@@ -43,8 +45,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLCastViewBGUnit]];
-    [self setUpWaterflowView];
+    [self.fetchedResultsController performFetch:nil];
     
+    [self setUpWaterflowView];
 }
 
 - (void)viewDidUnload
@@ -67,54 +70,48 @@
     [self.waterflowView reloadData];
 }
 
+#pragma mark - CoreDataTableViewController methods
+
+- (void)configureRequest:(NSFetchRequest *)request
+{
+    NSSortDescriptor *sortDescriptor;
+	
+    sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"statusID" ascending:NO];
+    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    request.entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext];
+ 
+    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@", self.currentUser];
+                  
+}
+
+- (NSString *)customCellClassName
+{
+    return @"CardTableViewCell";
+}
+
+
 #pragma mark - WaterflowDataSource
-
-- (NSInteger)numberOfColumnsInFlowView:(WaterflowView *)flowView
-{
-    return 2;
-}
-
-- (NSInteger)flowView:(WaterflowView *)flowView numberOfRowsInColumn:(NSInteger)column
-{
-    return 6;
-}
 
 - (WaterflowCell*)flowView:(WaterflowView *)flowView_ cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"CardTableViewCell";
 	WaterflowCell *cell = [flowView_ dequeueReusableCellWithIdentifier:CellIdentifier];
 	
-	if(cell == nil)
-	{
-        
-		cell  = [[WaterflowCell alloc] initWithReuseIdentifier:CellIdentifier currentUser:self.currentUser];
+	if(cell == nil) {
+		cell = [[WaterflowCell alloc] initWithReuseIdentifier:CellIdentifier currentUser:self.currentUser];
 		cell.cardViewController.currentUser = self.currentUser;
-//		AsyncImageView *imageView = [[AsyncImageView alloc] initWithFrame:CGRectZero];
-//		[cell addSubview:imageView];
-//        imageView.contentMode = UIViewContentModeScaleToFill;
-//		imageView.layer.borderColor = [[UIColor whiteColor] CGColor];
-//		imageView.layer.borderWidth = 1;
-//		[imageView release];
-//		imageView.tag = 1001;
 	}
-	
-//	float height = [self flowView:nil heightForRowAtIndexPath:indexPath];
-    CGRect frame = cell.frame;
-    frame.size.height = 800;
-    cell.frame = frame;
-	
-//	AsyncImageView *imageView  = (AsyncImageView *)[cell viewWithTag:1001];
-//	imageView.frame = CGRectMake(0, 0, self.view.frame.size.width / 3, height);
-//    [imageView loadImage:[self.imageUrls objectAtIndex:(indexPath.row + indexPath.section) % 5]];
-//	
+    
+    Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
+    [cell.cardViewController configureCellWithStatus:targetStatus];
+
 	return cell;
     
 }
 
 - (int)numberOfObjectsInSection
 {
-#warning Remained to be resolved
-    return 20;
+    return self.fetchedResultsController.fetchedObjects.count;
 }
 
 - (CGFloat)heightForObjectAtIndex:(int)index_ withImageHeight:(ImageHeight)imageHeight_

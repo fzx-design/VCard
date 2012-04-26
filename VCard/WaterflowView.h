@@ -17,8 +17,6 @@
 ////DataSource and Delegate
 @protocol WaterflowViewDatasource <NSObject>
 @required
-- (NSInteger)numberOfColumnsInFlowView:(WaterflowView*)flowView;
-- (NSInteger)flowView:(WaterflowView *)flowView numberOfRowsInColumn:(NSInteger)column;
 - (WaterflowCell *)flowView:(WaterflowView *)flowView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 - (NSInteger)numberOfObjectsInSection;

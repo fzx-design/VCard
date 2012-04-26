@@ -210,6 +210,10 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" image="card_tag.png" id="eSu-cV-Lvj">
+                                        <rect key="frame" x="8" y="-6" width="62" height="59"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -245,6 +249,11 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
+                                    <view contentMode="scaleToFill" id="Mux-IR-mpT" customClass="IFTweetLabel">
+                                        <rect key="frame" x="10" y="50" width="345" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -257,10 +266,16 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="cardBackground" destination="C7k-Qi-MZW" id="LyO-Kj-2Jp"/>
+                        <outlet property="commentButton" destination="MMS-eP-hXe" id="rbH-dq-kNh"/>
+                        <outlet property="favoredImageView" destination="eSu-cV-Lvj" id="Lmx-U8-rZe"/>
+                        <outlet property="originalStatusLabel" destination="IQX-2v-fUV" id="V6q-hS-aws"/>
+                        <outlet property="originalUserAvatar" destination="csH-gh-gfc" id="QVu-sy-vZZ"/>
+                        <outlet property="repostButton" destination="cB2-kf-m4c" id="Wm4-gj-Xla"/>
                         <outlet property="repostCardBackground" destination="buk-L8-uIQ" id="tQG-Qx-ZLp"/>
+                        <outlet property="repostStatusLabel" destination="Mux-IR-mpT" id="6gW-Ol-3kD"/>
+                        <outlet property="repostUserAvatar" destination="W1Q-pN-Lvl" id="7Uj-HL-hGO"/>
                         <outlet property="statusImageView" destination="pjN-8a-Zmj" id="Lih-iD-nyp"/>
                         <outlet property="statusInfoView" destination="ZwQ-av-DfK" id="jAB-BR-qZQ"/>
-                        <outlet property="statusTextLabel" destination="IQX-2v-fUV" id="afg-Dv-1pO"/>
                     </connections>
                 </viewController>
             </objects>
@@ -306,6 +321,7 @@
         <image name="button_share.png" width="21" height="19"/>
         <image name="card_clip.png" width="42" height="59"/>
         <image name="card_comment_thread.png" width="21" height="44"/>
+        <image name="card_tag.png" width="62" height="59"/>
         <image name="imageview_placeholder.png" width="175" height="175"/>
         <image name="login_avatar_cover.png" width="247" height="286"/>
         <image name="login_card_bg.png" width="292" height="447"/>
@@ -331,10 +347,16 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CardViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="cardBackground" candidateClass="BaseCardBackgroundView"/>
+                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="favoredImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="originalStatusLabel" candidateClass="IFTweetLabel"/>
+                <relationship kind="outlet" name="originalUserAvatar" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="repostButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="repostCardBackground" candidateClass="BaseCardBackgroundView"/>
+                <relationship kind="outlet" name="repostStatusLabel" candidateClass="IFTweetLabel"/>
+                <relationship kind="outlet" name="repostUserAvatar" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="statusImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="statusInfoView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="statusTextLabel" candidateClass="IFTweetLabel"/>
             </relationships>
         </class>
         <class className="CastViewController" superclassName="CoreDataTableViewController">
@@ -352,7 +374,7 @@
         <class className="IFTweetLabel" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/IFTweetLabel.h"/>
         </class>
-        <class className="LoginViewController" superclassName="UIViewController">
+        <class className="LoginViewController" superclassName="CoreDataViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>

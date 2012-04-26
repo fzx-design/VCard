@@ -103,5 +103,10 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 
 - (void)authorizeUsingUserID:(NSString *)userID password:(NSString *)password;
 - (void)getUser:(NSString *)userID_;
+- (void)getFriendsTimelineSinceID:(NSString *)sinceID 
+                            maxID:(NSString *)maxID 
+                   startingAtPage:(int)page 
+                            count:(int)count
+                          feature:(int)feature;
 
 @end

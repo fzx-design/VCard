@@ -6,9 +6,9 @@
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
-#import "CardViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "IFTweetLabel.h"
+#import "CardViewController.h"
+#import "UIImageViewAddition.h"
 
 @interface CardViewController ()
 
@@ -17,11 +17,17 @@
 @implementation CardViewController
 
 @synthesize statusImageView = _statusImageView;
+@synthesize repostUserAvatar = _repostUserAvatar;
+@synthesize originalUserAvatar = _originalUserAvatar;
+@synthesize favoredImageView = _favoredImageView;
+@synthesize commentButton = _commentButton;
+@synthesize repostButton = _repostButton;
 @synthesize statusInfoView = _statusInfoView;
-@synthesize statusTextLabel = _statusTextLabel;
-
+@synthesize originalStatusLabel = _originalStatusLabel;
+@synthesize repostStatusLabel = _repostStatusLabel;
 @synthesize cardBackground = _cardBackground;
 @synthesize repostCardBackground = _repostCardBackground;
+@synthesize status = _status;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,13 +52,13 @@
     bgFrame.origin.y = self.cardBackground.frame.origin.y + self.cardBackground.frame.size.height - 8;
     self.repostCardBackground.frame = bgFrame;
     
-    [self.statusTextLabel setFont:[UIFont boldSystemFontOfSize:17.0f]];
-	[self.statusTextLabel setTextColor:[UIColor blackColor]];
-	[self.statusTextLabel setBackgroundColor:[UIColor clearColor]];
-	[self.statusTextLabel setNumberOfLines:10];
-	[self.statusTextLabel setText:@"This is a #test# of regular expressions with http://example.com links as used in @Twitterrific. HTTP://CHOCKLOCK.COM APPROVED OF COURSE. 哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈"];
-
-    [self.statusTextLabel setLinksEnabled:YES];    
+//    [self.statusTextLabel setFont:[UIFont boldSystemFontOfSize:17.0f]];
+//	[self.statusTextLabel setTextColor:[UIColor blackColor]];
+//	[self.statusTextLabel setBackgroundColor:[UIColor clearColor]];
+//	[self.statusTextLabel setNumberOfLines:10];
+//	[self.statusTextLabel setText:@"This is a #test# of regular expressions with http://example.com links as used in @Twitterrific. HTTP://CHOCKLOCK.COM APPROVED OF COURSE. 哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈哈哈哈哈哈h哈哈"];
+//
+//    [self.statusTextLabel setLinksEnabled:YES];  
 }
 
 - (void)viewDidUnload
@@ -64,6 +70,16 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Functional Method
+
+- (void)configureCellWithStatus:(Status*)status
+{
+    self.status = status;
+    
+    
+    
 }
 
 @end
