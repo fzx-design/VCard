@@ -12,6 +12,12 @@
 #import "User.h"
 
 #define MaxCardSize CGSizeMake(326,9999)
+#define CardSizeUserAvatarHeight 25
+#define CardSizeImageGap 22
+#define CardSizeTextGap 15
+#define CardSizeTopViewHeight 20
+#define CardSizeBottomViewHeight 36
+
 
 @interface CardViewController () {
     BOOL _doesImageExist;
@@ -69,27 +75,31 @@
 
 + (CGFloat)heightForStatus:(Status*)status_ andImageHeight:(NSInteger)imageHeight_
 {
-    BOOL doesImageExist = ![status_.bmiddlePicURL isEqualToString:@""];
     BOOL isReposted = status_.repostStatus != nil;
     
-    CGFloat height = 22.0 + 20.0 + 20 + 38 + 25;
+    Status *targetStatus = isReposted ? status_.repostStatus : status_;
+    BOOL doesImageExist = targetStatus.bmiddlePicURL && ![targetStatus.bmiddlePicURL isEqualToString:@""];
+
+    CGFloat height = CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight;
+    
     CGSize expectedTextSize = [status_.text sizeWithFont:[UIFont boldSystemFontOfSize:17.0f]                       
                                  constrainedToSize:MaxCardSize 
                                      lineBreakMode:UILineBreakModeCharacterWrap];
     
-    height += expectedTextSize.height;
+    height += expectedTextSize.height + CardSizeTextGap;
     
     if (isReposted) {
-        height += 20.0 + 38 + 25;
+        height +=  CardSizeBottomViewHeight + CardSizeUserAvatarHeight - 5;
         expectedTextSize = [status_.repostStatus.text sizeWithFont:[UIFont boldSystemFontOfSize:17.0f]                       
                                     constrainedToSize:MaxCardSize 
                                         lineBreakMode:UILineBreakModeCharacterWrap];
         
-        height += expectedTextSize.height;
+        height += expectedTextSize.height + CardSizeTextGap;
     }
     
     if (doesImageExist) {
         height += imageHeight_;
+        NSLog(@"%@", targetStatus.bmiddlePicURL);
     }
     
     return height;

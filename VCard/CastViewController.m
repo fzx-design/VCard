@@ -145,15 +145,8 @@
 
 - (CGFloat)heightForObjectAtIndex:(int)index_ withImageHeight:(NSInteger)imageHeight_
 {
-//    NSString *string = [self randomString:index_];
-//    CGSize expectedLabelSize = [string sizeWithFont:[UIFont boldSystemFontOfSize:17.0f]                       
-//                                  constrainedToSize:MaxCardSize 
-//                                      lineBreakMode:UILineBreakModeCharacterWrap];
-//#warning !!!
-    
-    
-    
-    return [CardViewController heightForStatus:(Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:index_] andImageHeight:imageHeight_];
+    Status *status = (Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:index_];
+    return [CardViewController heightForStatus:status andImageHeight:imageHeight_];
 }
 
 #pragma mark-
