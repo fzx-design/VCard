@@ -8,6 +8,7 @@
 
 #import "WaterflowView.h"
 #import "ResourceList.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation WaterflowView
 
@@ -48,7 +49,6 @@
 		self.delegate = self;
         
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        
         
         [[NSNotificationCenter defaultCenter] addObserver:self 
                                                  selector:@selector(cellSelected:)
@@ -165,15 +165,20 @@
     }
     
     for (  ; _curObjIndex < [self.flowdatasource numberOfObjectsInSection]; _curObjIndex++) {
-        CGFloat height = [self.flowdatasource heightForObjectAtIndex:_curObjIndex withImageHeight:ImageHeightLarge];
+        
         WaterflowColumn *targetColumn = [self selectColumnToInsert];
         WaterflowLayoutUnit *currentUnit = [[[WaterflowLayoutUnit alloc] init] autorelease];
         WaterflowLayoutUnit *lastUnit = (WaterflowLayoutUnit*)[targetColumn lastObject];
         
+        CGFloat height = [self.flowdatasource heightForObjectAtIndex:_curObjIndex withImageHeight:200];
+        
         currentUnit.upperBound = lastUnit ? lastUnit.lowerBound : 0;
         currentUnit.lowerBound = currentUnit.upperBound + height;
         currentUnit.dataIndex = _curObjIndex;
-        currentUnit.imageHeight = ImageHeightLarge;
+        
+#warning !!!
+        
+        currentUnit.imageHeight = 200;
         
         currentUnit.unitIndex = targetColumn.unitContainer.count;
         
@@ -220,6 +225,10 @@
     
     WaterflowLayoutUnit *currentUnit = [self currentUnitIndexInColumn:column];
     
+    if (currentUnit == nil) {
+        return;
+    }
+    
     WaterflowCell *cell = nil;
     
     if (column.visibleCells.count == 0 || column.visibleCells.lastObject == nil)  {
@@ -228,7 +237,7 @@
         CGFloat height = [currentUnit unitHeight];
         
         
-        cell = [_flowdatasource flowView:self cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentUnit.dataIndex inSection:direction]];
+        cell = [_flowdatasource flowView:self cellForLayoutUnit:currentUnit];
         cell.indexPath = [NSIndexPath indexPathForRow: currentUnit.unitIndex inSection:direction];
         cell.frame = CGRectMake(origin_x, origin_y, width, height);
         [self addSubview:cell];
@@ -254,7 +263,7 @@
         origin_y = unit.upperBound;
         height = [unit unitHeight];
         
-        cell = [self.flowdatasource flowView:self cellForRowAtIndexPath:[NSIndexPath indexPathForRow:unit.dataIndex inSection:direction]];
+        cell = [self.flowdatasource flowView:self cellForLayoutUnit:unit];
         cell.indexPath = [NSIndexPath indexPathForRow:unit.unitIndex inSection:direction];
         cell.frame = CGRectMake(origin_x, origin_y , width, height);
         [column.visibleCells insertObject:cell atIndex:0];
@@ -292,7 +301,7 @@
         origin_y = unit.upperBound;
         height = [unit unitHeight];
         
-        cell = [self.flowdatasource flowView:self cellForRowAtIndexPath:[NSIndexPath indexPathForRow:unit.dataIndex inSection:direction]];
+        cell = [self.flowdatasource flowView:self cellForLayoutUnit:unit];
         cell.indexPath = [NSIndexPath indexPathForRow:unitIndex + 1 inSection:direction];
         cell.frame = CGRectMake(origin_x, origin_y, width, height);
         [column.visibleCells addObject:cell];

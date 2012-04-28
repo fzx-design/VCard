@@ -11,6 +11,8 @@
 #import "WBSDKGlobal.h"
 #import "WBUtil.h"
 
+#import "AppDelegate.h"
+
 #define kWBURLSchemePrefix              @"WB_"
 
 #define kWBKeychainServiceNameSuffix    @"_WeiBoServiceName"
@@ -76,6 +78,11 @@ static NSString *UserID = @"";
     return UserID;
 }
 
++ (BOOL)authorized
+{
+    return [[[NSUserDefaults standardUserDefaults] valueForKey:kUserDefaultAuthorized] boolValue];
+}
+
 - (id)init
 {
     if (self = [super init]) {
@@ -128,6 +135,8 @@ static NSString *UserID = @"";
     [SFHFKeychainUtils storeUsername:kWBKeychainUserID andPassword:_userID forServiceName:serviceName updateExisting:YES error:nil];
 	[SFHFKeychainUtils storeUsername:kWBKeychainAccessToken andPassword:_accessToken forServiceName:serviceName updateExisting:YES error:nil];
 	[SFHFKeychainUtils storeUsername:kWBKeychainExpireTime andPassword:[NSString stringWithFormat:@"%lf", _expireTime] forServiceName:serviceName updateExisting:YES error:nil];
+    
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultAuthorized];
 }
 
 - (void)readAuthorizeDataFromKeychain
@@ -148,6 +157,8 @@ static NSString *UserID = @"";
     [SFHFKeychainUtils deleteItemForUsername:kWBKeychainUserID andServiceName:serviceName error:nil];
 	[SFHFKeychainUtils deleteItemForUsername:kWBKeychainAccessToken andServiceName:serviceName error:nil];
 	[SFHFKeychainUtils deleteItemForUsername:kWBKeychainExpireTime andServiceName:serviceName error:nil];
+    
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultAuthorized];
 }
 
 #pragma mark - WBEngine Public Methods

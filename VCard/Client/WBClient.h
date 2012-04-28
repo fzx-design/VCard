@@ -10,6 +10,7 @@
 
 #import "WBRequest.h"
 
+
 @class WBClient;
 
 @protocol WBClientDelegate <NSObject>
@@ -92,6 +93,7 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 
 + (id)client;
 + (id)currentUserID;
++ (BOOL)authorized;
 
 - (id)init;
 - (void)logOut;

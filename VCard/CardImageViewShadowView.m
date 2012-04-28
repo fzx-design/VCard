@@ -64,6 +64,21 @@
     [self addSubview:_bottomView];
 }
 
+- (void)resetHeight:(CGFloat)height
+{
+    CGRect frame = self.frame;
+    frame.size.height = height;
+    self.frame = frame;
+    
+    CGRect topViewFrame = CGRectMake(TopOriginXOffset , TopOriginYOffset, Width, HeightShadowTopView);
+    CGRect bottomViewFrame = CGRectMake(TopOriginXOffset, BottomOriginYOffset + frame.size.height, Width, HeightShadowBottomView);
+    CGRect centerViewFrame = CGRectMake(TopOriginXOffset, TopOriginYOffset + HeightShadowTopView, Width, frame.size.height + CenterOriginYOffset - HeightShadowTopView - HeightShadowBottomView);
+    
+    [_topView setFrame:topViewFrame];
+    [_bottomView setFrame:bottomViewFrame];
+    [_centerView setFrame:centerViewFrame];
+}
+
 - (void)layoutSubviews
 {
     [self sendSubviewToBack:_topView];

@@ -9,8 +9,23 @@
 #import <UIKit/UIKit.h>
 #import "CardImageViewShadowView.h"
 
-@interface CardImageView : UIImageView {
+#define StatusImageWidth 370
+
+@interface CardImageView : UIView {
     CardImageViewShadowView *_shadowView;
+    UIImageView *_imageView;
 }
+
+@property (nonatomic, strong) UIImageView *imageView;
+
+- (void)resetHeight:(CGFloat)height;
+
+- (void)loadImageFromURL:(NSString *)urlString 
+              completion:(void (^)())completion;
+
+- (void)loadTweetImageFromURL:(NSString *)urlString 
+                   completion:(void (^)())completion;
+
+
 
 @end

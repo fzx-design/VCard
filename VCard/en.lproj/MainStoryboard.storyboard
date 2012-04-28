@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="2" kind="relationship" relationship="rootViewController" id="eRH-6D-SF8"/>
+                        <segue destination="2" kind="relationship" relationship="rootViewController" id="bFM-he-SsP"/>
                     </connections>
                 </navigationController>
             </objects>
@@ -64,6 +64,7 @@
                     <connections>
                         <outlet property="logoImageView" destination="llg-5Q-oOH" id="H5N-GG-6Zh"/>
                         <segue destination="iUP-hU-wvp" kind="push" identifier="PushRootViewController" id="qAB-CG-YWl"/>
+                        <segue destination="iUP-hU-wvp" kind="custom" identifier="ShowRootViewController" id="57r-b5-YRm"/>
                     </connections>
                 </viewController>
             </objects>
@@ -84,7 +85,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-1421" y="-363"/>
+            <point key="canvasLocation" x="-1309" y="-363"/>
         </scene>
         <!--User Selection Cell View Controller-->
         <scene sceneID="vG5-fM-QwH">
@@ -150,12 +151,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="362" height="379"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="pjN-8a-Zmj" customClass="CardImageView">
-                                        <rect key="frame" x="-4" y="13" width="370" height="208"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
+                                    <view contentMode="scaleToFill" id="JlQ-UP-5aD" customClass="CardImageView">
+                                        <rect key="frame" x="-4" y="13" width="370" height="200"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
                                     <imageView userInteractionEnabled="NO" contentMode="center" image="card_clip.png" id="90L-iK-tu4">
-                                        <rect key="frame" x="300" y="-6" width="42" height="59"/>
+                                        <rect key="frame" x="300" y="-4" width="42" height="59"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" id="ZwQ-av-DfK">
@@ -203,7 +205,7 @@
                                                 </state>
                                             </button>
                                             <view contentMode="scaleToFill" id="IQX-2v-fUV" customClass="IFTweetLabel">
-                                                <rect key="frame" x="11" y="33" width="345" height="60"/>
+                                                <rect key="frame" x="20" y="33" width="326" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
@@ -211,7 +213,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="center" image="card_tag.png" id="eSu-cV-Lvj">
-                                        <rect key="frame" x="8" y="-6" width="62" height="59"/>
+                                        <rect key="frame" x="13" y="-5" width="62" height="59"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
@@ -219,39 +221,42 @@
                             </view>
                             <view contentMode="scaleToFill" id="buk-L8-uIQ" customClass="BaseCardBackgroundView">
                                 <rect key="frame" x="0.0" y="400" width="362" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" image="card_comment_thread.png" id="wlc-Q2-Jz4">
                                         <rect key="frame" x="20" y="-27" width="21" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" image="card_comment_thread.png" id="7wS-El-KvN">
                                         <rect key="frame" x="323" y="-28" width="21" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" id="SO2-Rt-RXt">
-                                        <rect key="frame" x="0.0" y="20" width="365" height="80"/>
+                                        <rect key="frame" x="0.0" y="11" width="365" height="89"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="imageview_placeholder.png" id="W1Q-pN-Lvl">
-                                                <rect key="frame" x="20" y="0.0" width="25" height="25"/>
+                                                <rect key="frame" x="20" y="5" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="用户名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="qwu-X6-ZRc">
-                                                <rect key="frame" x="60" y="0.0" width="155" height="21"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kEL-AV-uHU">
+                                                <rect key="frame" x="62" y="5" width="164" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                <state key="normal" title="用户名">
+                                                    <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted" title="用户名">
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <view contentMode="scaleToFill" id="Mux-IR-mpT" customClass="IFTweetLabel">
+                                                <rect key="frame" x="20" y="29" width="325" height="52"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                                <size key="shadowOffset" width="0.0" height="0.0"/>
-                                            </label>
+                                            </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" id="Mux-IR-mpT" customClass="IFTweetLabel">
-                                        <rect key="frame" x="10" y="50" width="345" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
@@ -266,15 +271,18 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="cardBackground" destination="C7k-Qi-MZW" id="LyO-Kj-2Jp"/>
+                        <outlet property="clipImageView" destination="90L-iK-tu4" id="caY-CA-Mck"/>
                         <outlet property="commentButton" destination="MMS-eP-hXe" id="rbH-dq-kNh"/>
                         <outlet property="favoredImageView" destination="eSu-cV-Lvj" id="Lmx-U8-rZe"/>
                         <outlet property="originalStatusLabel" destination="IQX-2v-fUV" id="V6q-hS-aws"/>
                         <outlet property="originalUserAvatar" destination="csH-gh-gfc" id="QVu-sy-vZZ"/>
+                        <outlet property="originalUserNameButton" destination="Tt5-6T-Hhn" id="XF4-zL-GBS"/>
                         <outlet property="repostButton" destination="cB2-kf-m4c" id="Wm4-gj-Xla"/>
                         <outlet property="repostCardBackground" destination="buk-L8-uIQ" id="tQG-Qx-ZLp"/>
                         <outlet property="repostStatusLabel" destination="Mux-IR-mpT" id="6gW-Ol-3kD"/>
                         <outlet property="repostUserAvatar" destination="W1Q-pN-Lvl" id="7Uj-HL-hGO"/>
-                        <outlet property="statusImageView" destination="pjN-8a-Zmj" id="Lih-iD-nyp"/>
+                        <outlet property="repostUserNameButton" destination="kEL-AV-uHU" id="HVy-JD-MSc"/>
+                        <outlet property="statusImageView" destination="JlQ-UP-5aD" id="fdw-1j-qQR"/>
                         <outlet property="statusInfoView" destination="ZwQ-av-DfK" id="jAB-BR-qZQ"/>
                     </connections>
                 </viewController>
@@ -312,7 +320,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-1432" y="-1483"/>
+            <point key="canvasLocation" x="-1309" y="-1503"/>
         </scene>
     </scenes>
     <resources>
@@ -340,22 +348,25 @@
         <class className="BaseNavigationView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationView.h"/>
         </class>
-        <class className="CardImageView" superclassName="UIImageView">
+        <class className="CardImageView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CardImageView.h"/>
         </class>
         <class className="CardViewController" superclassName="CoreDataViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CardViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="cardBackground" candidateClass="BaseCardBackgroundView"/>
+                <relationship kind="outlet" name="clipImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="favoredImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="originalStatusLabel" candidateClass="IFTweetLabel"/>
                 <relationship kind="outlet" name="originalUserAvatar" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="originalUserNameButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="repostButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="repostCardBackground" candidateClass="BaseCardBackgroundView"/>
                 <relationship kind="outlet" name="repostStatusLabel" candidateClass="IFTweetLabel"/>
                 <relationship kind="outlet" name="repostUserAvatar" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="statusImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="repostUserNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="statusImageView" candidateClass="CardImageView"/>
                 <relationship kind="outlet" name="statusInfoView" candidateClass="UIView"/>
             </relationships>
         </class>
@@ -400,4 +411,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="57r-b5-YRm"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -11,11 +11,11 @@
 @implementation UIImageView (UIImageViewAddition)
 
 - (void)loadImageFromURL:(NSString *)urlString 
-              completion:(void (^)())completion 
-          cacheInContext:(NSManagedObjectContext *)context
+              completion:(void (^)())completion
 {
-	
-	self.backgroundColor = [UIColor clearColor];
+    
+    self.image = nil;
+	self.backgroundColor = [UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0];
     
     NSURL *url = [NSURL URLWithString:urlString];
     
@@ -45,14 +45,11 @@
 }
 
 - (void)loadTweetImageFromURL:(NSString *)urlString 
-              completion:(void (^)())completion 
-          cacheInContext:(NSManagedObjectContext *)context
+              completion:(void (^)())completion
 {
     
-	self.backgroundColor = [UIColor clearColor];
-    
+	self.backgroundColor = [UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0];
     self.image = nil;
-    self.image = [UIImage imageNamed:@"sc_image_default.png"];
     
     NSURL *url = [NSURL URLWithString:urlString];
     
@@ -66,7 +63,6 @@
         UIImage *img = [UIImage imageWithData:imageData];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
             
             if (img != nil) {
                 self.image = nil;

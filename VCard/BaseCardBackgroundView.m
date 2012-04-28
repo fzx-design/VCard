@@ -71,6 +71,23 @@
 
 }
 
+- (void)resetHeight:(CGFloat)height
+{
+    CGRect frame = self.frame;
+    frame.size.height = height;
+    self.frame = frame;
+    
+    CGRect topViewFrame = CGRectMake(0.0 , 0.0, frame.size.width, HeightTopView);
+    CGRect bottomViewFrame = CGRectMake(0.0, 0.0 + frame.size.height - HeightBottomView, frame.size.width, HeightBottomView);
+    CGRect centerViewFrame = CGRectMake(0.0, 0.0  + HeightTopView, frame.size.width, frame.size.height - HeightTopView - HeightBottomView);
+    CGRect backgroundImageViewFrame = CGRectMake(0.0 , 0.0, frame.size.width, frame.size.height);
+    
+    [_cardTopView setFrame:topViewFrame];
+    [_cardBottomView setFrame:bottomViewFrame];
+    [_cardCenterView setFrame:centerViewFrame];
+    [_backgroundImageView setFrame:backgroundImageViewFrame];
+}
+
 - (void)layoutSubviews
 {
     [self sendSubviewToBack:_backgroundImageView];

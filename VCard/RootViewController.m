@@ -7,6 +7,7 @@
 //
 
 #import "RootViewController.h"
+#import "WBClient.h"
 
 @interface RootViewController ()
 

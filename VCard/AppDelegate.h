@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#define kUserDefaultAuthorized @"kUserDefaultAuthorized"
+#define kUserDefaultFirstTime @"kUserDefaultFirstTime"
+
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

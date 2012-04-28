@@ -21,4 +21,6 @@
 @property (nonatomic, strong) UIImageView *cardCenterView;
 @property (nonatomic, strong) UIImageView *cardBottomView;
 
+- (void)resetHeight:(CGFloat)height;
+
 @end

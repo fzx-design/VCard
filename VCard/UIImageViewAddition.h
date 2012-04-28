@@ -11,11 +11,9 @@
 @interface UIImageView (UIImageViewAddition)
 
 - (void)loadImageFromURL:(NSString *)urlString 
-              completion:(void (^)())completion 
-          cacheInContext:(NSManagedObjectContext *)context;
+              completion:(void (^)())completion;
 
 - (void)loadTweetImageFromURL:(NSString *)urlString 
-                   completion:(void (^)())completion 
-               cacheInContext:(NSManagedObjectContext *)context;
+                   completion:(void (^)())completion;
 
 @end

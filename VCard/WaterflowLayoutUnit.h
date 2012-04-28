@@ -13,16 +13,11 @@ typedef enum {
     ColumnDirectionRight,
 } ColumnDirection;
 
-typedef enum {
-    ImageHeightSmall,
-    ImageHeightLarge,
-} ImageHeight;
-
 @interface WaterflowLayoutUnit : NSObject {
     NSInteger _dataIndex;
     CGFloat _upperBound;
     CGFloat _lowerBound;
-    ImageHeight _imageHeight;
+    int _imageHeight;
     
     NSInteger _unitIndex;
 }
@@ -30,7 +25,7 @@ typedef enum {
 @property (nonatomic, assign) NSInteger dataIndex;
 @property (nonatomic, assign) CGFloat upperBound;
 @property (nonatomic, assign) CGFloat lowerBound;
-@property (nonatomic, assign) ImageHeight imageHeight;
+@property (nonatomic, assign) int imageHeight;
 
 @property (nonatomic, assign) NSInteger unitIndex;
 

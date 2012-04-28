@@ -59,8 +59,14 @@
     [super viewDidLoad];
     
     [self setupParameters];
-    [self setupHorizontalView];
     [self setNotificationSettings];
+    
+    if ([WBClient authorized]) {
+        [self performSegueWithIdentifier:@"ShowRootViewController" sender:self];
+    } else {
+        [self setupHorizontalView];
+    }
+    
 }
 
 - (void)viewDidUnload

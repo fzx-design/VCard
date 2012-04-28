@@ -17,10 +17,10 @@
 ////DataSource and Delegate
 @protocol WaterflowViewDatasource <NSObject>
 @required
-- (WaterflowCell *)flowView:(WaterflowView *)flowView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (WaterflowCell *)flowView:(WaterflowView *)flowView cellForLayoutUnit:(WaterflowLayoutUnit *)layoutUnit;
 
 - (NSInteger)numberOfObjectsInSection;
-- (CGFloat)heightForObjectAtIndex:(int)index_ withImageHeight:(ImageHeight)imageHeight_;
+- (CGFloat)heightForObjectAtIndex:(int)index_ withImageHeight:(NSInteger)imageHeight_;
 
 @end
 

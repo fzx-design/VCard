@@ -18,4 +18,6 @@
 @property (nonatomic, strong) UIImageView *centerView;
 @property (nonatomic, strong) UIImageView *bottomView;
 
+- (void)resetHeight:(CGFloat)height;
+
 @end

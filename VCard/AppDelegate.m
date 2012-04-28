@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 
+#define k
 
 @implementation AppDelegate
 
@@ -16,10 +17,20 @@
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 
++ (void)initialize
+{
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:30];
+	[dict setObject:[NSNumber numberWithBool:YES] forKey:kUserDefaultFirstTime];
+    [dict setObject:[NSNumber numberWithBool:NO] forKey:kUserDefaultAuthorized];
+	[userDefault registerDefaults:dict];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+        
+    
     return YES;
 }
 							
