@@ -64,5 +64,7 @@
 + (CGFloat)heightForStatus:(Status*)status_ andImageHeight:(NSInteger)imageHeight_;
 
 - (void)configureCardWithStatus:(Status*)status_ imageHeight:(CGFloat)imageHeight_;
+- (void)loadImage;
+- (void)prepareForReuse;
 
 @end

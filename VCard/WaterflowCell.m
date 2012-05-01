@@ -37,6 +37,16 @@
     return _cardViewController;
 }
 
+- (void)loadImageAfterScrollingStop
+{
+    [self.cardViewController loadImage];
+}
+
+- (void)prepareForReuse
+{
+    [self.cardViewController prepareForReuse];
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"CellSelected"

@@ -31,6 +31,7 @@
         _shadowView = [[CardImageViewShadowView alloc] initWithFrame:self.frame];
         [self insertSubview:_shadowView atIndex:0];
         [self insertSubview:self.imageView atIndex:1];
+        self.clearsContextBeforeDrawing = YES;
     }
     return self;
 }
@@ -60,6 +61,7 @@
         _imageView = [[UIImageView alloc] initWithFrame:self.frame];
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.clipsToBounds = YES;
+        _imageView.backgroundColor = [UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0];
         [self insertSubview:_imageView belowSubview:_shadowView];
     }
     return _imageView;
@@ -70,7 +72,6 @@
 {
     
     self.imageView.image = nil;
-	self.backgroundColor = [UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0];
     
     NSURL *url = [NSURL URLWithString:urlString];
     
@@ -100,7 +101,7 @@
                    completion:(void (^)())completion
 {
     
-	self.backgroundColor = [UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0];
+//    self.backgroundColor = [UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0];
     self.imageView.image = nil;
     
     NSURL *url = [NSURL URLWithString:urlString];
@@ -127,6 +128,11 @@
     
     dispatch_release(downloadQueue);
 	
+}
+
+- (void)clearCurrentImage
+{
+    self.imageView.image = nil;
 }
 
 /*

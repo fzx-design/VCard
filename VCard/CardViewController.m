@@ -22,6 +22,8 @@
 @interface CardViewController () {
     BOOL _doesImageExist;
     BOOL _isReposted;
+    BOOL _alreadyConfigured;
+    BOOL _imageAlreadyLoaded;
 }
 
 @end
@@ -50,6 +52,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _alreadyConfigured = NO;
+        _imageAlreadyLoaded = NO;
     }
     return self;
 }
@@ -106,6 +110,12 @@
 
 - (void)configureCardWithStatus:(Status*)status_ imageHeight:(CGFloat)imageHeight_
 {
+    if (_alreadyConfigured) {
+        return;
+    }
+    
+    _alreadyConfigured = YES;
+    
     [self setUpStatus:status_];
     
     self.imageHeight = _doesImageExist ? imageHeight_ : 0.0;
@@ -134,7 +144,7 @@
     self.statusImageView.hidden = !_doesImageExist;
     self.clipImageView.hidden = !_doesImageExist;
     
-    Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
+//    Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
     
     if (_doesImageExist) {
         
@@ -146,9 +156,30 @@
         
         [self.statusImageView resetHeight:self.imageHeight];
         
+        [self.statusImageView clearCurrentImage];
+        
+//        [self.statusImageView loadTweetImageFromURL:targetStatus.bmiddlePicURL 
+//                                         completion:nil];
+    }
+}
+
+- (void)loadImage
+{
+    if (_doesImageExist && !_imageAlreadyLoaded) {
+        
+        _imageAlreadyLoaded = YES;
+        
+        Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
+        
         [self.statusImageView loadTweetImageFromURL:targetStatus.bmiddlePicURL 
                                          completion:nil];
     }
+}
+
+- (void)prepareForReuse
+{
+    _alreadyConfigured = NO;
+    _imageAlreadyLoaded = NO;
 }
 
 - (void)setUpStatusView

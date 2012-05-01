@@ -23,5 +23,7 @@
 @property (nonatomic, strong) CardViewController *cardViewController;
 
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier currentUser:(User*)currentUser_;
+- (void)loadImageAfterScrollingStop;
+- (void)prepareForReuse;
 
 @end

@@ -192,6 +192,8 @@
     [self resetContentSize:[self currentOrientation]];
     
     [self pageScroll];
+    
+    [self loadImageInCells];
 }
 
 - (void)prepareLayoutNeedRefresh:(BOOL)needRefresh
@@ -239,6 +241,21 @@
 }
  
 #pragma mark - Layout Subviews
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self loadImageInCells];
+}
+
+- (void)loadImageInCells
+{
+    for (WaterflowCell *cell in self.leftColumn.visibleCells) {
+        [cell loadImageAfterScrollingStop];
+    }
+    for (WaterflowCell *cell in self.rightColumn.visibleCells) {
+        [cell loadImageAfterScrollingStop];
+    }
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -311,6 +328,7 @@
     while (cell &&  ((cell.frame.origin.y + cell.frame.size.height  - self.contentOffset.y) <  0.0001)) 
     {
         [cell removeFromSuperview];
+        [cell prepareForReuse];
         [self recycleCellIntoReusableQueue:cell];
         [column.visibleCells removeObject:cell];
         
@@ -349,6 +367,7 @@
     while (cell &&  ((cell.frame.origin.y - self.frame.size.height - self.contentOffset.y) > 0.0001)) 
     {
         [cell removeFromSuperview];
+        [cell prepareForReuse];
         [self recycleCellIntoReusableQueue:cell];
         [column.visibleCells removeObject:cell];
         
@@ -369,14 +388,6 @@
     } else {
         result =  isPortrait ? RightColumnPortraitOriginX : RightColumnLandscapeOriginX;
     }
-    
-//    if (isPortrait) {
-//        NSLog(@"Portrait : %f", result);
-//    } else {
-//        NSLog(@"Landscape : %f", result);
-//    }
-//    
-//    NSLog(@"Current contentSize : %f, %f", self.contentSize.width, self.contentSize.height);
     
     return result;
 }
@@ -405,7 +416,6 @@
     }
     return result;
 }
-
 
 #pragma mark - Properties
 - (WaterflowColumn*)leftColumn

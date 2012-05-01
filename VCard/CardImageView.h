@@ -26,6 +26,6 @@
 - (void)loadTweetImageFromURL:(NSString *)urlString 
                    completion:(void (^)())completion;
 
-
+- (void)clearCurrentImage;
 
 @end

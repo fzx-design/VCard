@@ -153,34 +153,7 @@
 #pragma mark- WaterflowDelegate
 
 -(CGFloat)flowView:(WaterflowView *)flowView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-	float height = 0;
-	switch ((indexPath.row + indexPath.section )  % 5) {
-		case 0:
-			height = 127;
-			break;
-		case 1:
-			height = 100;
-			break;
-		case 2:
-			height = 87;
-			break;
-		case 3:
-			height = 114;
-			break;
-		case 4:
-			height = 140;
-			break;
-		case 5:
-			height = 158;
-			break;
-		default:
-			break;
-	}
-	
-	height += indexPath.row + indexPath.section;
-	
+{	
 	return 600;
     
 }
