@@ -47,6 +47,12 @@
 	return YES;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
+                                duration:(NSTimeInterval)duration
+{
+    [self.castViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
 - (CastViewController*)castViewController
 {
     if (_castViewController == nil) {

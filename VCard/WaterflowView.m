@@ -10,6 +10,11 @@
 #import "ResourceList.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define LeftColumnLandscapeOriginX 110
+#define LeftColumnPortraitOriginX 14
+#define RightColumnLandscapeOriginX 530
+#define RightColumnPortraitOriginX 389
+
 @implementation WaterflowView
 
 @synthesize cellHeight = _cellHeight;
@@ -48,12 +53,13 @@
         self.showsVerticalScrollIndicator = NO;
 		self.delegate = self;
         
-        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//        self.autoresizingMask =  UIViewAutoresizingFlexibleLeftMargin;
         
         [[NSNotificationCenter defaultCenter] addObserver:self 
                                                  selector:@selector(cellSelected:)
                                                      name:@"CellSelected"
                                                    object:nil];
+
     }
     return self;
 }
@@ -85,6 +91,38 @@
     _flowdelegate = flowdelegate;
 }
 
+- (void)adjustViewsForOrientation:(UIInterfaceOrientation)orientation
+{
+    [self resetContentSize:orientation];
+    
+    CGFloat leftOriginX = UIInterfaceOrientationIsPortrait(orientation) ? LeftColumnPortraitOriginX : LeftColumnLandscapeOriginX;
+    CGFloat rightOriginX = UIInterfaceOrientationIsPortrait(orientation) ? RightColumnPortraitOriginX : RightColumnLandscapeOriginX;
+    
+    [self reLayoutCellsIn:self.leftColumn.visibleCells withOriginx:leftOriginX];
+    [self reLayoutCellsIn:self.rightColumn.visibleCells withOriginx:rightOriginX];
+}
+
+- (void)reLayoutCellsIn:(NSMutableArray*)visibleCells withOriginx:(CGFloat)originX
+{
+    for (UIView *cell in visibleCells) {
+        CGRect frame = cell.frame;
+        frame.origin.x = originX;
+        cell.frame = frame;
+    }
+}
+
+- (void)resetContentSize:(UIInterfaceOrientation)orientation
+{
+    CGFloat width = UIInterfaceOrientationIsPortrait(orientation) ? 768 : 1024;
+    CGFloat height = [self heightOfWaterflowView];
+    
+    self.contentSize = CGSizeMake(width, height);
+}
+
+- (UIInterfaceOrientation)currentOrientation
+{
+    return UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? UIInterfaceOrientationPortrait : UIInterfaceOrientationLandscapeLeft;
+}
 
 #pragma mark - Process Notification
 - (void)cellSelected:(NSNotification *)notification
@@ -151,7 +189,7 @@
 {    
     [self prepareLayoutNeedRefresh:YES];
     
-    self.contentSize = CGSizeMake(self.frame.size.width, [self heightOfWaterflowView]);
+    [self resetContentSize:[self currentOrientation]];
     
     [self pageScroll];
 }
@@ -175,9 +213,7 @@
         currentUnit.upperBound = lastUnit ? lastUnit.lowerBound : 0;
         currentUnit.lowerBound = currentUnit.upperBound + height;
         currentUnit.dataIndex = _curObjIndex;
-        
-#warning !!!
-        
+
         currentUnit.imageHeight = 200;
         
         currentUnit.unitIndex = targetColumn.unitContainer.count;
@@ -218,7 +254,7 @@
 
 - (void)layoutCellsInColumnDirection:(ColumnDirection)direction
 {
-    CGFloat origin_x = direction == ColumnDirectionLeft ? 200.0 : 600.0;
+    CGFloat origin_x = [self originXForColumn:direction];
     CGFloat width = 345.0;
     
     WaterflowColumn *column = direction == ColumnDirectionLeft ? self.leftColumn : self.rightColumn;
@@ -322,6 +358,27 @@
             cell = nil;
         }
     }
+}
+
+- (CGFloat)originXForColumn:(ColumnDirection)direction
+{
+    CGFloat result = 0.0;
+    BOOL isPortrait = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
+    if (direction == ColumnDirectionLeft) {
+        result =  isPortrait ? LeftColumnPortraitOriginX : LeftColumnLandscapeOriginX;
+    } else {
+        result =  isPortrait ? RightColumnPortraitOriginX : RightColumnLandscapeOriginX;
+    }
+    
+//    if (isPortrait) {
+//        NSLog(@"Portrait : %f", result);
+//    } else {
+//        NSLog(@"Landscape : %f", result);
+//    }
+//    
+//    NSLog(@"Current contentSize : %f, %f", self.contentSize.width, self.contentSize.height);
+    
+    return result;
 }
 
 - (WaterflowColumn*)selectColumnToInsert

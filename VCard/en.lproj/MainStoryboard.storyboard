@@ -145,7 +145,7 @@
                 <viewController storyboardIdentifier="CardViewController" id="u04-WG-2X6" customClass="CardViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hgq-wm-12w">
                         <rect key="frame" x="0.0" y="0.0" width="362" height="500"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="C7k-Qi-MZW" customClass="BaseCardBackgroundView">
                                 <rect key="frame" x="0.0" y="0.0" width="362" height="379"/>
@@ -296,11 +296,11 @@
                 <viewController storyboardIdentifier="CastViewController" id="qGg-RJ-Vfa" customClass="CastViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uIE-Cv-hbN">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="EbD-7g-wPC" customClass="WaterflowView">
                                 <rect key="frame" x="0.0" y="43" width="768" height="961"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="zqu-Vg-FVk" customClass="BaseNavigationView">

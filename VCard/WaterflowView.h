@@ -64,7 +64,7 @@
 
 - (void)reloadData;
 - (id)dequeueReusableCellWithIdentifier:(NSString *)identifier;
-
+- (void)adjustViewsForOrientation:(UIInterfaceOrientation)orientation;
 - (void)prepareLayoutNeedRefresh:(BOOL)needRefresh;
 
 

@@ -99,7 +99,6 @@
     
     if (doesImageExist) {
         height += imageHeight_;
-        NSLog(@"%@", targetStatus.bmiddlePicURL);
     }
     
     return height;
@@ -192,7 +191,6 @@
         self.repostCardBackground.frame = bgFrame;
         
         [self.repostCardBackground resetHeight:self.repostStatusLabel.frame.size.height + 80];
-        
 
     }
 }

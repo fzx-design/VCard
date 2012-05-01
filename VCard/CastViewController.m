@@ -57,11 +57,6 @@
     // Release any retained subviews of the main view.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 #pragma mark - Initializing Methods
 - (void)setUpWaterflowView
 {
@@ -96,6 +91,11 @@
                        startingAtPage:1 
                                 count:20 
                               feature:0];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
+                                duration:(NSTimeInterval)duration {
+    [self.waterflowView adjustViewsForOrientation:toInterfaceOrientation];
 }
 
 
