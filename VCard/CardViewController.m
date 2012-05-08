@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CardViewController.h"
 #import "UIImageViewAddition.h"
+#import "ResourceProvider.h"
 #import "User.h"
 
 #define MaxCardSize CGSizeMake(326,9999)
@@ -29,13 +30,22 @@ static inline NSRegularExpression * NameRegularExpression() {
     return __nameRegularExpression;
 }
 
-static NSRegularExpression *__parenthesisRegularExpression;
-static inline NSRegularExpression * ParenthesisRegularExpression() {
-    if (!__parenthesisRegularExpression) {
-        __parenthesisRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"#.+?#" options:NSRegularExpressionCaseInsensitive error:nil];
+static NSRegularExpression *__tagRegularExpression;
+static inline NSRegularExpression * TagRegularExpression() {
+    if (!__tagRegularExpression) {
+        __tagRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"#.+?#" options:NSRegularExpressionCaseInsensitive error:nil];
     }
     
-    return __parenthesisRegularExpression;
+    return __tagRegularExpression;
+}
+
+static NSRegularExpression *__urlRegularExpression;
+static inline NSRegularExpression * UrlRegularExpression() {
+    if (!__urlRegularExpression) {
+        __urlRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]" options:NSRegularExpressionCaseInsensitive error:nil];
+    }
+    
+    return __urlRegularExpression;
 }
 
 
@@ -271,58 +281,45 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
 }
 
 - (void)setSummaryText:(NSString *)text toLabel:(TTTAttributedLabel*)label{
-    [self willChangeValueForKey:@"summaryText"];
-    [self didChangeValueForKey:@"summaryText"];
     
     [label setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         NSRange stringRange = NSMakeRange(0, [mutableAttributedString length]);
-        
+
         NSRegularExpression *regexp = NameRegularExpression();
         
-        NSArray *matches = [regexp matchesInString:[mutableAttributedString string] options:0 range:stringRange];
+        [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+            [self configureFontForAttributedString:mutableAttributedString withRange:result.range];
+        }];
         
-        UIFont *systemFont = [UIFont systemFontOfSize:17.0f]; 
-        CTFontRef boldFont = CTFontCreateWithName((__bridge CFStringRef)systemFont.fontName, systemFont.pointSize, NULL);
-        if (boldFont) {
-            for (NSTextCheckingResult *result in matches) {
-                [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:result.range];
-                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)boldFont range:result.range];
-                CFRelease(boldFont);
-                
-                [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:result.range];
-                [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)RegexColor range:result.range];
-            }
-        }
+        regexp = TagRegularExpression();
+        [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+            [self configureFontForAttributedString:mutableAttributedString withRange:result.range];
+        }];
         
-//        if (boldFont) {
-//            [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:nameRange];
-//            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)boldFont range:nameRange];
-//            CFRelease(boldFont);
-//        }
-        
-//        [mutableAttributedString replaceCharactersInRange:nameRange withString:[[[mutableAttributedString string] substringWithRange:nameRange] uppercaseString]];
-        
-        regexp = ParenthesisRegularExpression();
-        [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {            
-            UIFont *italicSystemFont = [UIFont italicSystemFontOfSize:17.0f];
-            CTFontRef italicFont = CTFontCreateWithName((__bridge CFStringRef)italicSystemFont.fontName, italicSystemFont.pointSize, NULL);
-            if (italicFont) {
-                [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:result.range];
-                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)italicFont range:result.range];
-                CFRelease(italicFont);
-                
-                [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:result.range];
-                [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)RegexColor range:result.range];
-            }
+        regexp = UrlRegularExpression();
+        [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+            [self configureFontForAttributedString:mutableAttributedString withRange:result.range];
         }];
         
         return mutableAttributedString;
     }];
     
-    NSRegularExpression *regexp = NameRegularExpression();
-    NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(0, [text length])];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://en.wikipedia.org/wiki/"]];
-    [label addLinkToURL:url withRange:linkRange];
+//    NSRegularExpression *regexp = NameRegularExpression();
+//    NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(0, [text length])];
+//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://en.wikipedia.org/wiki/"]];
+//    [label addLinkToURL:url withRange:linkRange];
+}
+
+- (void)configureFontForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange
+{
+    CTFontRef systemFont = [ResourceProvider regexFont];
+    if (systemFont) {
+        [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:stringRange];
+        [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)systemFont range:stringRange];
+        
+        [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:stringRange];
+        [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)RegexColor range:stringRange];
+    }
 }
 
 

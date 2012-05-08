@@ -10,7 +10,6 @@
 #import "CoreDataViewController.h"
 #import "BaseCardBackgroundView.h"
 #import "CardImageView.h"
-#import "IFTweetLabel.h"
 #import "TTTAttributedLabel.h"
 #import "Status.h"
 
