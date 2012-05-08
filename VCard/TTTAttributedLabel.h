@@ -36,6 +36,7 @@ typedef enum {
  Determines whether the text to which this attribute applies has a strikeout drawn through itself.
  */
 extern NSString * const kTTTStrikeOutAttributeName;
+extern NSString * const kTTTButtonAttributeName;
 
 @protocol TTTAttributedLabelDelegate;
 

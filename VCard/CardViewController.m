@@ -15,9 +15,9 @@
 #define MaxCardSize CGSizeMake(326,9999)
 #define CardSizeUserAvatarHeight 25
 #define CardSizeImageGap 22
-#define CardSizeTextGap 15
+#define CardSizeTextGap 20
 #define CardSizeTopViewHeight 20
-#define CardSizeBottomViewHeight 36
+#define CardSizeBottomViewHeight 45
 
 #define RegexColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]
 
@@ -92,6 +92,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.originalStatusLabel.delegate = self;
+    self.repostStatusLabel.delegate = self;
 }
 
 - (void)viewDidUnload
@@ -118,7 +120,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     height += expectedTextSize.height + CardSizeTextGap;
     
     if (isReposted) {
-        height +=  CardSizeBottomViewHeight + CardSizeUserAvatarHeight - 5;
+        height +=  CardSizeBottomViewHeight + CardSizeUserAvatarHeight;
         expectedTextSize = [status_.repostStatus.text sizeWithFont:[UIFont boldSystemFontOfSize:17.0f]                       
                                     constrainedToSize:MaxCardSize 
                                         lineBreakMode:UILineBreakModeCharacterWrap];
@@ -212,7 +214,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     [self.originalUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
     [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateNormal];
     
-    CGFloat statusViewHeight = self.originalStatusLabel.frame.size.height + 100;
+    CGFloat statusViewHeight = self.originalStatusLabel.frame.size.height + 110;
     
     CGRect statusInfoFrame;
     statusInfoFrame.origin = CGPointMake(0.0, originY);
@@ -240,7 +242,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
   
         self.repostCardBackground.frame = bgFrame;
         
-        [self.repostCardBackground resetHeight:self.repostStatusLabel.frame.size.height + 80];
+        [self.repostCardBackground resetHeight:self.repostStatusLabel.frame.size.height + 100];
 
     }
 }
@@ -259,7 +261,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
     label.textColor = [UIColor colorWithRed:49.0/255 green:42.0/255 blue:37.0/255 alpha:1.0];
     label.lineBreakMode = UILineBreakModeWordWrap;
     label.numberOfLines = 0;
-    label.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+    label.leading = 4.0;
+//    label.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
     
     label.highlightedTextColor = [UIColor whiteColor];
 //    label.shadowColor = [UIColor colorWithWhite:0.87 alpha:1.0];
@@ -267,17 +270,6 @@ static inline NSRegularExpression * UrlRegularExpression() {
     label.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
     
     [self setSummaryText:string toLabel:label];
-    
-//    [label setText:string];
-//    
-//    NSLog(@"%d", label.numberOfLines);
-//    
-//    [label setFont:[UIFont systemFontOfSize:17.0f]];
-//	[label setTextColor:[UIColor colorWithRed:49.0/255 green:42.0/255 blue:37.0/255 alpha:1.0]];
-//	[label setBackgroundColor:[UIColor clearColor]];
-//	[label setNumberOfLines:20];
-//    [label setLinksEnabled:YES];
-//    [label setLineHeight:25];
 }
 
 - (void)setSummaryText:(NSString *)text toLabel:(TTTAttributedLabel*)label{
@@ -304,10 +296,10 @@ static inline NSRegularExpression * UrlRegularExpression() {
         return mutableAttributedString;
     }];
     
-//    NSRegularExpression *regexp = NameRegularExpression();
-//    NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(0, [text length])];
-//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://en.wikipedia.org/wiki/"]];
-//    [label addLinkToURL:url withRange:linkRange];
+    NSRegularExpression *regexp = NameRegularExpression();
+    NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(0, [text length])];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://en.wikipedia.org/wiki/"]];
+    [label addLinkToURL:url withRange:linkRange];
 }
 
 - (void)configureFontForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange
@@ -319,6 +311,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
         
         [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:stringRange];
         [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)RegexColor range:stringRange];
+        
     }
 }
 

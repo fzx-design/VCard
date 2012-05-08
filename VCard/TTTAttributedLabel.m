@@ -25,6 +25,7 @@
 #define kTTTLineBreakWordWrapTextWidthScalingFactor (M_PI / M_E)
 
 NSString * const kTTTStrikeOutAttributeName = @"TTTStrikeOutAttribute";
+NSString * const kTTTButtonAttributeName = @"kTTTButtonAttribute";
 NSString * const kTTTTemporaryAttributesAttributeName = @"TTTTemporaryAttributesAttribute";
 
 static inline CTTextAlignment CTTextAlignmentFromUITextAlignment(UITextAlignment alignment) {
@@ -195,8 +196,9 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     self.links = [NSArray array];
     
     NSMutableDictionary *mutableLinkAttributes = [NSMutableDictionary dictionary];
-    [mutableLinkAttributes setValue:(id)[[UIColor blueColor] CGColor] forKey:(NSString*)kCTForegroundColorAttributeName];
-    [mutableLinkAttributes setValue:[NSNumber numberWithBool:YES] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+    [mutableLinkAttributes setValue:(id)[[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor] forKey:(NSString*)kCTForegroundColorAttributeName];
+    [mutableLinkAttributes setValue:[NSNumber numberWithBool:YES] forKey:(NSString *)kTTTStrikeOutAttributeName];
+    
     self.linkAttributes = [NSDictionary dictionaryWithDictionary:mutableLinkAttributes];
     
     self.textInsets = UIEdgeInsetsZero;
@@ -319,6 +321,10 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     [mutableAttributedString addAttribute:(NSString *)kTTTTemporaryAttributesAttributeName value:(id)[mutableAttributedString attributesAtIndex:range.location effectiveRange:nil] range:range];
     [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:range];
     [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[self.highlightedTextColor CGColor] range:range];
+    
+    [mutableAttributedString removeAttribute:(NSString *)kTTTButtonAttributeName range:range];
+    [mutableAttributedString addAttribute:(NSString *)kTTTButtonAttributeName value:[NSNumber numberWithBool:YES] range:range];
+    
     self.attributedText = mutableAttributedString;
     [self setNeedsDisplay];
 }
@@ -327,6 +333,10 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     NSMutableAttributedString *mutableAttributedString = [self.attributedText mutableCopy];
     [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:range];
     [mutableAttributedString addAttributes:[mutableAttributedString attribute:(NSString *)kTTTTemporaryAttributesAttributeName atIndex:range.location effectiveRange:nil] range:range];
+    
+    [mutableAttributedString removeAttribute:(NSString *)kTTTButtonAttributeName range:range];
+    [mutableAttributedString addAttribute:(NSString *)kTTTButtonAttributeName value:[NSNumber numberWithBool:NO] range:range];
+    
     self.attributedText = mutableAttributedString;
     [self setNeedsDisplay];
 }
@@ -421,7 +431,9 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     CGMutablePathRef path = CGPathCreateMutable();
     
     CGPathAddRect(path, NULL, rect);
-    CTFrameRef frame = CTFramesetterCreateFrame(framesetter, textRange, path, NULL);    
+    CTFrameRef frame = CTFramesetterCreateFrame(framesetter, textRange, path, NULL);
+    
+    [self drawButton:frame inRect:rect context:c];
     
     CFArrayRef lines = CTFrameGetLines(frame);
     NSUInteger numberOfLines = self.numberOfLines > 0 ? MIN(self.numberOfLines, CFArrayGetCount(lines)) : CFArrayGetCount(lines);
@@ -518,7 +530,6 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
         }
     }
 
-    [self drawStrike:frame inRect:rect context:c];
     
     CFRelease(frame);
     CFRelease(path);
@@ -541,6 +552,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
             NSInteger superscriptStyle = [[attributes objectForKey:(id)kCTSuperscriptAttributeName] integerValue];
             
             if (strikeOut) {
+                
                 CGRect runBounds = CGRectZero;
                 CGFloat ascent = 0.0f;
                 CGFloat descent = 0.0f;
@@ -590,6 +602,87 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
         
         lineIndex++;
     }
+}
+
+- (void)drawButton:(CTFrameRef)frame inRect:(CGRect)rect context:(CGContextRef)c {
+    NSArray *lines = (NSArray *)CTFrameGetLines(frame);
+    CGPoint origins[[lines count]];
+    CTFrameGetLineOrigins(frame, CFRangeMake(0, 0), origins);
+    
+    NSUInteger lineIndex = 0;
+    for (id line in lines) {        
+        CGRect lineBounds = CTLineGetImageBounds((CTLineRef)line, c);
+        lineBounds.origin.x = origins[lineIndex].x;
+        lineBounds.origin.y = origins[lineIndex].y;
+        
+        BOOL foundExpression = NO;
+        CGRect buttonFrame = CGRectZero;
+        
+        for (id glyphRun in (NSArray *)CTLineGetGlyphRuns((CTLineRef)line)) {
+            NSDictionary *attributes = (NSDictionary *)CTRunGetAttributes((CTRunRef) glyphRun);
+            BOOL shouldDrawButton = [[attributes objectForKey:kTTTButtonAttributeName] boolValue];
+            
+            if (shouldDrawButton) {
+                
+                CGRect runBounds = CGRectZero;
+                CGFloat ascent = 0.0f;
+                CGFloat descent = 0.0f;
+                
+                runBounds.size.width = CTRunGetTypographicBounds((CTRunRef)glyphRun, CFRangeMake(0, 0), &ascent, &descent, NULL);
+                runBounds.size.height = ascent + descent;
+                
+                CGFloat xOffset = CTLineGetOffsetForStringIndex((CTLineRef)line, CTRunGetStringRange((CTRunRef)glyphRun).location, NULL);
+                runBounds.origin.x = origins[lineIndex].x + rect.origin.x + xOffset;
+                runBounds.origin.y = origins[lineIndex].y + rect.origin.y;
+                runBounds.origin.y -= descent;
+                
+                if (CGRectGetWidth(runBounds) > CGRectGetWidth(lineBounds)) {
+                    runBounds.size.width = CGRectGetWidth(lineBounds);
+                }
+
+                if (!foundExpression) {
+                    buttonFrame = runBounds;
+                    buttonFrame.origin.y -= 1;
+                    buttonFrame.size.height += 4;
+                    buttonFrame.size.width += 4;
+                    buttonFrame.origin.x -= 2;
+                } else {
+                    buttonFrame.size.width += runBounds.size.width;
+                }
+                
+                foundExpression = YES;
+                
+            } else {
+                if (foundExpression) {
+                    [self drawTextSelectionButtonWithRect:buttonFrame];
+                    foundExpression = NO;
+                }
+            }
+        }
+        
+        lineIndex++;
+    }
+}
+
+- (void)drawTextSelectionButtonWithRect:(CGRect)frame
+{
+    CGContextRef context=UIGraphicsGetCurrentContext();
+    CGContextSetRGBStrokeColor(context, 161.0/255, 161.0/255, 161.0/255, 1.0);
+    CGContextSetFillColorWithColor(context, [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]);
+
+    CGRect rrect = frame;
+    CGFloat radius = 10.0; 
+
+    CGFloat minx = CGRectGetMinX(rrect), midx = CGRectGetMidX(rrect), maxx = CGRectGetMaxX(rrect); 
+    CGFloat miny = CGRectGetMinY(rrect), midy = CGRectGetMidY(rrect), maxy = CGRectGetMaxY(rrect); 
+
+    CGContextMoveToPoint(context, minx, midy);
+    CGContextAddArcToPoint(context, minx, miny, midx, miny, radius);
+    CGContextAddArcToPoint(context, maxx, miny, maxx, midy, radius);
+    CGContextAddArcToPoint(context, maxx, maxy, midx, maxy, radius);
+    CGContextAddArcToPoint(context, minx, maxy, minx, midy, radius);
+    CGContextClosePath(context);
+    CGContextDrawPath(context, kCGPathFillStroke);
 }
 
 #pragma mark - TTTAttributedLabel
@@ -704,8 +797,11 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
         }
         
         [self drawFramesetter:self.highlightFramesetter textRange:textRange inRect:textRect context:c];
+        
     } else {
+        
         [self drawFramesetter:self.framesetter textRange:textRange inRect:textRect context:c];
+
     }  
     
     // If we adjusted the font size, set it back to its original size

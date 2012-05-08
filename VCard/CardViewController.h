@@ -16,7 +16,7 @@
 #define StatusImageHeightSmall 200
 #define StatusImageHeightLarge 300
 
-@interface CardViewController : CoreDataViewController {
+@interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate> {
     CardImageView *_statusImageView;
     UIImageView *_repostUserAvatar;
     UIImageView *_originalUserAvatar;
