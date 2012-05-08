@@ -11,6 +11,7 @@
 #import "BaseCardBackgroundView.h"
 #import "CardImageView.h"
 #import "IFTweetLabel.h"
+#import "TTTAttributedLabel.h"
 #import "Status.h"
 
 #define StatusImageHeightSmall 200
@@ -30,8 +31,8 @@
     
     UIView *_statusInfoView;
     
-    IFTweetLabel *_originalStatusLabel;
-    IFTweetLabel *_repostStatusLabel;
+    TTTAttributedLabel *_originalStatusLabel;
+    TTTAttributedLabel *_repostStatusLabel;
     
     BaseCardBackgroundView *_cardBackground;
     BaseCardBackgroundView *_repostCardBackground;
@@ -53,8 +54,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *repostUserNameButton;
 
 @property (nonatomic, strong) IBOutlet UIView *statusInfoView;
-@property (nonatomic, strong) IBOutlet IFTweetLabel *originalStatusLabel;
-@property (nonatomic, strong) IBOutlet IFTweetLabel *repostStatusLabel;
+@property (nonatomic, strong) IBOutlet TTTAttributedLabel *originalStatusLabel;
+@property (nonatomic, strong) IBOutlet TTTAttributedLabel *repostStatusLabel;
 @property (nonatomic, strong) IBOutlet BaseCardBackgroundView *cardBackground;
 @property (nonatomic, strong) IBOutlet BaseCardBackgroundView *repostCardBackground;
 @property (nonatomic, strong) Status *status;

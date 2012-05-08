@@ -18,6 +18,26 @@
 #define CardSizeTopViewHeight 20
 #define CardSizeBottomViewHeight 36
 
+#define RegexColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]
+
+static NSRegularExpression *__nameRegularExpression;
+static inline NSRegularExpression * NameRegularExpression() {
+    if (!__nameRegularExpression) {
+        __nameRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"@([\u4e00-\u9fa5A-Za-z0-9_]*)?" options:NSRegularExpressionCaseInsensitive error:nil];
+    }
+    
+    return __nameRegularExpression;
+}
+
+static NSRegularExpression *__parenthesisRegularExpression;
+static inline NSRegularExpression * ParenthesisRegularExpression() {
+    if (!__parenthesisRegularExpression) {
+        __parenthesisRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"#.+?#" options:NSRegularExpressionCaseInsensitive error:nil];
+    }
+    
+    return __parenthesisRegularExpression;
+}
+
 
 @interface CardViewController () {
     BOOL _doesImageExist;
@@ -68,11 +88,6 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Functional Method
@@ -134,7 +149,6 @@
     _isReposted = self.status.repostStatus != nil;
     
     Status *imageStatus = _isReposted ? self.status.repostStatus : self.status;
-    
     _doesImageExist = imageStatus.bmiddlePicURL && ![imageStatus.bmiddlePicURL isEqualToString:@""];
     
 }
@@ -143,8 +157,6 @@
 {
     self.statusImageView.hidden = !_doesImageExist;
     self.clipImageView.hidden = !_doesImageExist;
-    
-//    Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
     
     if (_doesImageExist) {
         
@@ -157,9 +169,6 @@
         [self.statusImageView resetHeight:self.imageHeight];
         
         [self.statusImageView clearCurrentImage];
-        
-//        [self.statusImageView loadTweetImageFromURL:targetStatus.bmiddlePicURL 
-//                                         completion:nil];
     }
 }
 
@@ -226,7 +235,7 @@
     }
 }
 
-- (void)setStatusTextLabel:(IFTweetLabel*)label withText:(NSString*)string
+- (void)setStatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string
 {
     CGSize expectedTextSize = [string sizeWithFont:[UIFont boldSystemFontOfSize:17.0f]                       
                                             constrainedToSize:MaxCardSize 
@@ -236,12 +245,85 @@
     frame.size = expectedTextSize;
     label.frame = frame;
     
-    [label setFont:[UIFont boldSystemFontOfSize:17.0f]];
-	[label setTextColor:[UIColor colorWithRed:49.0/255 green:42.0/255 blue:37.0/255 alpha:1.0]];
-	[label setBackgroundColor:[UIColor clearColor]];
-	[label setNumberOfLines:20];
-    [label setText:string];
-    [label setLinksEnabled:YES];
+    label.font = [UIFont systemFontOfSize:17.0f];
+    label.textColor = [UIColor colorWithRed:49.0/255 green:42.0/255 blue:37.0/255 alpha:1.0];
+    label.lineBreakMode = UILineBreakModeWordWrap;
+    label.numberOfLines = 0;
+    label.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+    
+    label.highlightedTextColor = [UIColor whiteColor];
+//    label.shadowColor = [UIColor colorWithWhite:0.87 alpha:1.0];
+//    label.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    label.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
+    
+    [self setSummaryText:string toLabel:label];
+    
+//    [label setText:string];
+//    
+//    NSLog(@"%d", label.numberOfLines);
+//    
+//    [label setFont:[UIFont systemFontOfSize:17.0f]];
+//	[label setTextColor:[UIColor colorWithRed:49.0/255 green:42.0/255 blue:37.0/255 alpha:1.0]];
+//	[label setBackgroundColor:[UIColor clearColor]];
+//	[label setNumberOfLines:20];
+//    [label setLinksEnabled:YES];
+//    [label setLineHeight:25];
 }
+
+- (void)setSummaryText:(NSString *)text toLabel:(TTTAttributedLabel*)label{
+    [self willChangeValueForKey:@"summaryText"];
+    [self didChangeValueForKey:@"summaryText"];
+    
+    [label setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+        NSRange stringRange = NSMakeRange(0, [mutableAttributedString length]);
+        
+        NSRegularExpression *regexp = NameRegularExpression();
+        
+        NSArray *matches = [regexp matchesInString:[mutableAttributedString string] options:0 range:stringRange];
+        
+        UIFont *systemFont = [UIFont systemFontOfSize:17.0f]; 
+        CTFontRef boldFont = CTFontCreateWithName((__bridge CFStringRef)systemFont.fontName, systemFont.pointSize, NULL);
+        if (boldFont) {
+            for (NSTextCheckingResult *result in matches) {
+                [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:result.range];
+                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)boldFont range:result.range];
+                CFRelease(boldFont);
+                
+                [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:result.range];
+                [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)RegexColor range:result.range];
+            }
+        }
+        
+//        if (boldFont) {
+//            [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:nameRange];
+//            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)boldFont range:nameRange];
+//            CFRelease(boldFont);
+//        }
+        
+//        [mutableAttributedString replaceCharactersInRange:nameRange withString:[[[mutableAttributedString string] substringWithRange:nameRange] uppercaseString]];
+        
+        regexp = ParenthesisRegularExpression();
+        [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {            
+            UIFont *italicSystemFont = [UIFont italicSystemFontOfSize:17.0f];
+            CTFontRef italicFont = CTFontCreateWithName((__bridge CFStringRef)italicSystemFont.fontName, italicSystemFont.pointSize, NULL);
+            if (italicFont) {
+                [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:result.range];
+                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)italicFont range:result.range];
+                CFRelease(italicFont);
+                
+                [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:result.range];
+                [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)RegexColor range:result.range];
+            }
+        }];
+        
+        return mutableAttributedString;
+    }];
+    
+    NSRegularExpression *regexp = NameRegularExpression();
+    NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(0, [text length])];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://en.wikipedia.org/wiki/"]];
+    [label addLinkToURL:url withRange:linkRange];
+}
+
 
 @end

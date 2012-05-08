@@ -58,7 +58,7 @@
     if (_castViewController == nil) {
         _castViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CastViewController"];
         _castViewController.currentUser = self.currentUser;
-        _castViewController.view.frame = CGRectMake(0, 0, 768, 1004);
+        _castViewController.view.frame = self.view.bounds;
     }
     return _castViewController;
 }
