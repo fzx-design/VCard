@@ -616,6 +616,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
         lineBounds.origin.y = origins[lineIndex].y;
         
         BOOL foundExpression = NO;
+        BOOL expressionEnd = NO;
         CGRect buttonFrame = CGRectZero;
         
         for (id glyphRun in (NSArray *)CTLineGetGlyphRuns((CTLineRef)line)) {
@@ -658,6 +659,11 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
                     foundExpression = NO;
                 }
             }
+        }
+        
+        if (foundExpression) {
+            [self drawTextSelectionButtonWithRect:buttonFrame];
+            foundExpression = NO;
         }
         
         lineIndex++;
