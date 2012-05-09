@@ -8,25 +8,28 @@
 
 #import "BaseCardBackgroundView.h"
 #import "ResourceList.h"
+#import "ResourceProvider.h"
 
 #define HeightTopView 20
 #define HeightBottomView 38
 
+#define CenterTileRect CGRectMake(0.0, 0.0, 362, 54)
+
 @interface BaseCardBackgroundView () {
-    CGImageRef _topImageRef;
-    CGImageRef _bottomImageRef;
-    CGImageRef _centerTileImageRef;
-    
-    UIImage *_centerTileImage;
+//    CGImageRef _topImageRef;
+//    CGImageRef _bottomImageRef;
+//    CGImageRef _centerTileImageRef;
+//    
+//    UIImage *_centerTileImage;
 }
 
 @end
 
 @implementation BaseCardBackgroundView
-
-@synthesize cardTopView = _cardTopView;
-@synthesize cardBottomView = _cardBottomView;
-@synthesize cardCenterView = _cardCenterView;
+//
+//@synthesize cardTopView = _cardTopView;
+//@synthesize cardBottomView = _cardBottomView;
+//@synthesize cardCenterView = _cardCenterView;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -34,6 +37,7 @@
     if (self) {
         // Initialization code
         [self setupBackgroundImageView];
+
     }
     return self;
 }
@@ -43,10 +47,10 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
 //        [self setupBackgroundImageView];
-        _topImageRef = [[UIImage imageNamed:kRLCardTop] CGImage];
-        _bottomImageRef = [[UIImage imageNamed:kRLCardBottom] CGImage];
-        _centerTileImage = [UIImage imageNamed:kRLCardBGUnit];
-        _centerTileImageRef = [_centerTileImage CGImage];
+//        _topImageRef = [[UIImage imageNamed:kRLCardTop] CGImage];
+//        _bottomImageRef = [[UIImage imageNamed:kRLCardBottom] CGImage];
+//        _centerTileImage = [UIImage imageNamed:kRLCardBGUnit];
+//        _centerTileImageRef = [_centerTileImage CGImage];
         
     }
     return self;
@@ -128,12 +132,15 @@
     CGRect topRect = CGRectMake(rect.origin.x, rect.size.height - HeightTopView, rect.size.width,
                                 HeightTopView);
 //    CGImageRef topImageRef = [[UIImage imageNamed:kRLCardTop] CGImage];
-    CGContextDrawImage(currentContext, topRect, _topImageRef);
+
+//    CGContextDrawImage(currentContext, topRect, _topImageRef);
+    CGContextDrawImage(currentContext, topRect, [ResourceProvider topImageRef]);
     
     
     CGRect bottomRect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, HeightBottomView);
 //    CGImageRef bottomImageRef = [[UIImage imageNamed:kRLCardBottom] CGImage];
-    CGContextDrawImage(currentContext, bottomRect, _bottomImageRef);
+//    CGContextDrawImage(currentContext, bottomRect, _bottomImageRef);
+    CGContextDrawImage(currentContext, bottomRect, [ResourceProvider bottomImageRef]);
     
     CGFloat centerHeight = rect.size.height - HeightTopView - HeightBottomView;
     CGRect centerFrame = CGRectMake(rect.origin.x, HeightBottomView, rect.size.width, centerHeight);
@@ -141,8 +148,9 @@
     CGContextClipToRect(currentContext, centerFrame);
 //    CGRect centerRect = CGRectMake(rect.origin.x, centerOriginY, rect.size.width, centerHeight);
 //    UIImage *centerTileImage = [UIImage imageNamed:kRLCardBGUnit];
-    CGRect centerTileRect = CGRectMake(0.0, 0.0, _centerTileImage.size.width, _centerTileImage.size.height);
-    CGContextDrawTiledImage(currentContext, centerTileRect, _centerTileImageRef);
+    CGRect centerTileRect = CenterTileRect;
+//    CGContextDrawTiledImage(currentContext, centerTileRect, _centerTileImageRef);
+    CGContextDrawTiledImage(currentContext, centerTileRect, [ResourceProvider centerTileImageRef]);
     
 //    NSLog(@"%f, %f, %f", topRect.origin.y, centerRect.origin.y, bottomRect.origin.y);
 }

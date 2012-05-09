@@ -7,6 +7,7 @@
 //
 
 #import "ResourceProvider.h"
+#import "ResourceList.h"
 
 @implementation ResourceProvider
 
@@ -15,16 +16,41 @@ static ResourceProvider *sharedResourceProvider = nil;
 @synthesize systemFont;
 @synthesize ctSystemFont;
 
+@synthesize topImageRef;
+@synthesize bottomImageRef;
+@synthesize centerTileImage;
+@synthesize centerTileImageRef;
+
 + (void)initialize
 {
     sharedResourceProvider = [[ResourceProvider alloc] init];
     sharedResourceProvider.systemFont = [UIFont systemFontOfSize:17.0f];
     sharedResourceProvider.ctSystemFont = CTFontCreateWithName((__bridge CFStringRef)sharedResourceProvider.systemFont.fontName, sharedResourceProvider.systemFont.pointSize, NULL);
+    
+    sharedResourceProvider.topImageRef = [[UIImage imageNamed:kRLCardTop] CGImage];
+    sharedResourceProvider.bottomImageRef = [[UIImage imageNamed:kRLCardBottom] CGImage];
+    sharedResourceProvider.centerTileImage = [UIImage imageNamed:kRLCardBGUnit];
+    sharedResourceProvider.centerTileImageRef = [sharedResourceProvider.centerTileImage CGImage];
 }
 
 + (CTFontRef)regexFont
 {
     return sharedResourceProvider.ctSystemFont;
+}
+
++ (CGImageRef)bottomImageRef
+{
+    return sharedResourceProvider.bottomImageRef;
+}
+
++ (CGImageRef)centerTileImageRef
+{
+    return sharedResourceProvider.centerTileImageRef;
+}
+
++ (CGImageRef)topImageRef
+{
+    return sharedResourceProvider.topImageRef;
 }
 
 @end

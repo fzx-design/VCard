@@ -18,7 +18,8 @@
 #define CardSizeTextGap 20
 #define CardSizeTopViewHeight 20
 #define CardSizeBottomViewHeight 20
-#define CardTextLineSpace 0
+#define CardSizeRepostHeightOffset -8
+#define CardTextLineSpace 8
 
 #define RegexColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]
 
@@ -116,7 +117,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     height += [CardViewController heightForCellWithText:status_.text] + CardSizeTextGap;
         
     if (isReposted) {
-        height +=  CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight - 8;
+        height +=  CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight + CardSizeRepostHeightOffset;
         height += [CardViewController heightForCellWithText:status_.repostStatus.text] + CardSizeTextGap;
     }
     
@@ -215,11 +216,9 @@ static inline NSRegularExpression * UrlRegularExpression() {
     Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
 
     [self setStatusTextLabel:self.originalStatusLabel withText:targetStatus.text];
-//    [self.originalUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
+    [self.originalUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
     [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateNormal];
-    
-//    CGFloat statusViewHeight = self.originalStatusLabel.frame.size.height + 90;
-    
+        
     CGFloat statusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
                             CardSizeUserAvatarHeight + CardSizeTextGap + 
                             self.originalStatusLabel.frame.size.height;
@@ -244,7 +243,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
         Status *targetStatus = self.status;
         
         [self setStatusTextLabel:self.repostStatusLabel withText:targetStatus.text];
-//        [self.repostUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
+        [self.repostUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
         [self.repostUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateNormal];
         
         CGRect bgFrame = self.repostCardBackground.frame;

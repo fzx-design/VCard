@@ -14,6 +14,15 @@
 @property (nonatomic, strong) UIFont* systemFont;
 @property (nonatomic, assign) CTFontRef ctSystemFont;
 
+@property (nonatomic, assign) CGImageRef topImageRef;
+@property (nonatomic, assign) CGImageRef bottomImageRef;
+@property (nonatomic, assign) CGImageRef centerTileImageRef;
+
+@property (nonatomic, strong) UIImage *centerTileImage;
+
 + (CTFontRef)regexFont;
++ (CGImageRef)bottomImageRef;
++ (CGImageRef)centerTileImageRef;
++ (CGImageRef)topImageRef;
 
 @end
