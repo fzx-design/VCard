@@ -132,6 +132,10 @@
 	}
     
     Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
+    CGRect frame = cell.frame;
+    frame.size.height = [layoutUnit unitHeight];
+    cell.frame = frame;
+    
     [cell.cardViewController configureCardWithStatus:targetStatus imageHeight:layoutUnit.imageHeight];
 
 	return cell;

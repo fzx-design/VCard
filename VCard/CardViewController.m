@@ -18,6 +18,7 @@
 #define CardSizeTextGap 20
 #define CardSizeTopViewHeight 20
 #define CardSizeBottomViewHeight 45
+#define CardTextLineSpace 6
 
 #define RegexColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]
 
@@ -107,31 +108,34 @@ static inline NSRegularExpression * UrlRegularExpression() {
 + (CGFloat)heightForStatus:(Status*)status_ andImageHeight:(NSInteger)imageHeight_
 {
     BOOL isReposted = status_.repostStatus != nil;
-    
     Status *targetStatus = isReposted ? status_.repostStatus : status_;
+    
     BOOL doesImageExist = targetStatus.bmiddlePicURL && ![targetStatus.bmiddlePicURL isEqualToString:@""];
 
     CGFloat height = CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight;
-    
-    CGSize expectedTextSize = [status_.text sizeWithFont:[UIFont boldSystemFontOfSize:17.0f]                       
-                                 constrainedToSize:MaxCardSize 
-                                     lineBreakMode:UILineBreakModeCharacterWrap];
-    
-    height += expectedTextSize.height + CardSizeTextGap;
-    
-    if (isReposted) {
-        height +=  CardSizeBottomViewHeight + CardSizeUserAvatarHeight;
-        expectedTextSize = [status_.repostStatus.text sizeWithFont:[UIFont boldSystemFontOfSize:17.0f]                       
-                                    constrainedToSize:MaxCardSize 
-                                        lineBreakMode:UILineBreakModeCharacterWrap];
+    height += [CardViewController heightForCellWithText:status_.text] + CardSizeTextGap;
         
-        height += expectedTextSize.height + CardSizeTextGap;
+    if (isReposted) {
+        height +=  CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight;
+        height += [CardViewController heightForCellWithText:status_.text] + CardSizeTextGap;
     }
     
     if (doesImageExist) {
-        height += imageHeight_;
+        height += imageHeight_ + CardSizeImageGap;
     }
     
+    NSLog(@"Design height : %f for status: %@", height, targetStatus.text);
+    
+    return height;
+}
+
++ (CGFloat)heightForCellWithText:(NSString *)text {
+    CGFloat height = 10.0f;
+    height += ceilf([text sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:MaxCardSize lineBreakMode:UILineBreakModeWordWrap].height);
+    CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:MaxCardSize lineBreakMode:UILineBreakModeWordWrap].height);
+    
+    height += ceilf(height / singleLineHeight * CardTextLineSpace);
+        
     return height;
 }
 
@@ -152,6 +156,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
     [self setUpRepostView];
     
     [self setUpStatusImageView];
+    
+    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
     
 }
 
@@ -214,7 +220,11 @@ static inline NSRegularExpression * UrlRegularExpression() {
     [self.originalUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
     [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateNormal];
     
-    CGFloat statusViewHeight = self.originalStatusLabel.frame.size.height + 110;
+//    CGFloat statusViewHeight = self.originalStatusLabel.frame.size.height + 90;
+    
+    CGFloat statusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
+                            CardSizeUserAvatarHeight + CardSizeTextGap + 
+                            self.originalStatusLabel.frame.size.height;
     
     CGRect statusInfoFrame;
     statusInfoFrame.origin = CGPointMake(0.0, originY);
@@ -242,7 +252,11 @@ static inline NSRegularExpression * UrlRegularExpression() {
   
         self.repostCardBackground.frame = bgFrame;
         
-        [self.repostCardBackground resetHeight:self.repostStatusLabel.frame.size.height + 100];
+        CGFloat repostStatusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
+                                        CardSizeUserAvatarHeight + CardSizeTextGap + 
+                                        self.repostStatusLabel.frame.size.height;
+        
+        [self.repostCardBackground resetHeight:repostStatusViewHeight];
 
     }
 }
@@ -253,20 +267,19 @@ static inline NSRegularExpression * UrlRegularExpression() {
                                             constrainedToSize:MaxCardSize 
                                                 lineBreakMode:UILineBreakModeCharacterWrap];
     
+    expectedTextSize.height += 100;
+    
     CGRect frame = label.frame;
-    frame.size = expectedTextSize;
+    frame.size.height = [CardViewController heightForCellWithText:string];
     label.frame = frame;
     
     label.font = [UIFont systemFontOfSize:17.0f];
     label.textColor = [UIColor colorWithRed:49.0/255 green:42.0/255 blue:37.0/255 alpha:1.0];
     label.lineBreakMode = UILineBreakModeWordWrap;
     label.numberOfLines = 0;
-    label.leading = 4.0;
-//    label.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+    label.leading = CardTextLineSpace;
     
     label.highlightedTextColor = [UIColor whiteColor];
-//    label.shadowColor = [UIColor colorWithWhite:0.87 alpha:1.0];
-//    label.shadowOffset = CGSizeMake(0.0f, 1.0f);
     label.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
     
     [self setSummaryText:string toLabel:label];

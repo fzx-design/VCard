@@ -34,6 +34,11 @@
     if (_cardViewController == nil) {
         _cardViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:NULL] instantiateViewControllerWithIdentifier:@"CardViewController"];
         
+        CGRect frame = _cardViewController.view.frame;
+        frame.origin = CGPointMake(0, 20);
+        frame.size = CGSizeMake(362, 500);
+        _cardViewController.view.frame = frame;
+        
         [self addSubview:_cardViewController.view];
     }
     return _cardViewController;

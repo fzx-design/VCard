@@ -616,7 +616,6 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
         lineBounds.origin.y = origins[lineIndex].y;
         
         BOOL foundExpression = NO;
-        BOOL expressionEnd = NO;
         CGRect buttonFrame = CGRectZero;
         
         for (id glyphRun in (NSArray *)CTLineGetGlyphRuns((CTLineRef)line)) {
