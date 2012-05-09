@@ -62,6 +62,17 @@
     
 }
 
+- (void)setCellHeight:(CGFloat)height
+{
+    CGRect frame = self.frame;
+    frame.size.height = height;
+    self.frame = frame;
+    
+    frame = self.cardViewController.view.frame;
+    frame.size.height = height;
+    self.cardViewController.view.frame = frame;
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

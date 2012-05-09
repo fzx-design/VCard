@@ -223,6 +223,13 @@
         [targetColumn addObject:currentUnit];
     }
     
+    for (WaterflowLayoutUnit *unit in self.leftColumn.unitContainer) {
+        NSLog(@"left - %f, upper - %f", [unit unitHeight], [unit upperBound]);
+    }
+    for (WaterflowLayoutUnit *unit in self.rightColumn.unitContainer) {
+        NSLog(@"right - %f, upper - %f", [unit unitHeight], [unit upperBound]);
+    }
+    
 }
 
 - (CGFloat)heightOfWaterflowView

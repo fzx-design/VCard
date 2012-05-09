@@ -25,5 +25,6 @@
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier currentUser:(User*)currentUser_;
 - (void)loadImageAfterScrollingStop;
 - (void)prepareForReuse;
+- (void)setCellHeight:(CGFloat)height;
 
 @end

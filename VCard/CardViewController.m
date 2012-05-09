@@ -117,7 +117,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
         
     if (isReposted) {
         height +=  CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight;
-        height += [CardViewController heightForCellWithText:status_.text] + CardSizeTextGap;
+        height += [CardViewController heightForCellWithText:status_.repostStatus.text] + CardSizeTextGap;
     }
     
     if (doesImageExist) {
@@ -134,7 +134,13 @@ static inline NSRegularExpression * UrlRegularExpression() {
     height += ceilf([text sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:MaxCardSize lineBreakMode:UILineBreakModeWordWrap].height);
     CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:MaxCardSize lineBreakMode:UILineBreakModeWordWrap].height);
     
-    height += ceilf(height / singleLineHeight * CardTextLineSpace);
+    height += ceilf(height / singleLineHeight * CardTextLineSpace) - CardTextLineSpace;
+    
+    if (height > 300) {
+        NSLog(@"!!!");
+    }
+    
+    NSLog(@"text : %@", text);
         
     return height;
 }
@@ -226,10 +232,13 @@ static inline NSRegularExpression * UrlRegularExpression() {
                             CardSizeUserAvatarHeight + CardSizeTextGap + 
                             self.originalStatusLabel.frame.size.height;
     
+    
     CGRect statusInfoFrame;
     statusInfoFrame.origin = CGPointMake(0.0, originY);
     statusInfoFrame.size = CGSizeMake(self.view.frame.size.width, statusViewHeight);
     self.statusInfoView.frame = statusInfoFrame;
+    
+    NSLog(@"ori - principle height :%f ,actual height :%f",[CardViewController heightForCellWithText:targetStatus.text], self.originalStatusLabel.frame.size.height);
     
     [self.cardBackground resetHeight:self.imageHeight + statusViewHeight];
 }
@@ -255,6 +264,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
         CGFloat repostStatusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
                                         CardSizeUserAvatarHeight + CardSizeTextGap + 
                                         self.repostStatusLabel.frame.size.height;
+
+        NSLog(@"principle height :%f ,actual height :%f",[CardViewController heightForCellWithText:targetStatus.text], self.repostStatusLabel.frame.size.height);
         
         [self.repostCardBackground resetHeight:repostStatusViewHeight];
 
@@ -263,12 +274,6 @@ static inline NSRegularExpression * UrlRegularExpression() {
 
 - (void)setStatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string
 {
-    CGSize expectedTextSize = [string sizeWithFont:[UIFont boldSystemFontOfSize:17.0f]                       
-                                            constrainedToSize:MaxCardSize 
-                                                lineBreakMode:UILineBreakModeCharacterWrap];
-    
-    expectedTextSize.height += 100;
-    
     CGRect frame = label.frame;
     frame.size.height = [CardViewController heightForCellWithText:string];
     label.frame = frame;
