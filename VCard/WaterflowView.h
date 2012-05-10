@@ -10,6 +10,7 @@
 #import "WaterflowCell.h"
 #import "WaterflowColumn.h"
 #import "WaterflowLayoutUnit.h"
+#import "PullToRefreshView.h"
 
 @class WaterflowView;
 

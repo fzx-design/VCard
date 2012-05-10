@@ -60,6 +60,10 @@
 #pragma mark - Initializing Methods
 - (void)setUpWaterflowView
 {
+    _pullView = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
+    [_pullView setDelegate:self];
+    [self.waterflowView addSubview:_pullView];
+    
     self.waterflowView.flowdatasource = self;
     self.waterflowView.flowdelegate = self;
     
@@ -91,6 +95,11 @@
                        startingAtPage:1 
                                 count:20 
                               feature:0];
+}
+
+- (void)reloadData
+{
+    WBClient *client = [WBClient client];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
@@ -132,6 +141,9 @@
 	}
     
     Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
+    if (![targetStatus.isFriendsStatusOf isEqualToUser:self.currentUser]) {
+        NSLog(@"user: %@, current user: %@", targetStatus.isFriendsStatusOf.screenName, self.currentUser.screenName);
+    }
     [cell setCellHeight:[layoutUnit unitHeight]];
     [cell.cardViewController configureCardWithStatus:targetStatus imageHeight:layoutUnit.imageHeight];
 

@@ -10,16 +10,16 @@
 
 @interface BaseCardBackgroundView : UIView {
     CGFloat _height;
-    UIImageView *_cardTopView;
-    UIImageView *_cardCenterView;
-    UIImageView *_cardBottomView;
-    
-    UIView *_backgroundImageView;
+//    UIImageView *_cardTopView;
+//    UIImageView *_cardCenterView;
+//    UIImageView *_cardBottomView;
+//    
+//    UIView *_backgroundImageView;
 }
 
-@property (nonatomic, strong) UIImageView *cardTopView;
-@property (nonatomic, strong) UIImageView *cardCenterView;
-@property (nonatomic, strong) UIImageView *cardBottomView;
+//@property (nonatomic, strong) UIImageView *cardTopView;
+//@property (nonatomic, strong) UIImageView *cardCenterView;
+//@property (nonatomic, strong) UIImageView *cardBottomView;
 
 - (void)resetHeight:(CGFloat)height;
 

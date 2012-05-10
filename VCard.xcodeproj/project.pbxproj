@@ -59,6 +59,7 @@
 		18A685171537110B00D58B7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A685161537110B00D58B7D /* QuartzCore.framework */; };
 		18A68522153718BA00D58B7D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A68520153718BA00D58B7D /* icon.png */; };
 		18A68523153718BA00D58B7D /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A68521153718BA00D58B7D /* icon@2x.png */; };
+		18AC828E155B924700AD99C4 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC828B155B924700AD99C4 /* PullToRefreshView.m */; };
 		18DF3734153905A800C783C9 /* BaseNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF3733153905A800C783C9 /* BaseNavigationBar.m */; };
 		18E558E4153EA4AE00ECCA3B /* error_msg_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D4153EA4AE00ECCA3B /* error_msg_bg.png */; };
 		18E558E5153EA4AE00ECCA3B /* error_msg_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D5153EA4AE00ECCA3B /* error_msg_bg@2x.png */; };
@@ -424,6 +425,8 @@
 		18A685161537110B00D58B7D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		18A68520153718BA00D58B7D /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		18A68521153718BA00D58B7D /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		18AC828A155B924700AD99C4 /* PullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshView.h; sourceTree = "<group>"; };
+		18AC828B155B924700AD99C4 /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
 		18DF3732153905A800C783C9 /* BaseNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationBar.h; sourceTree = "<group>"; };
 		18DF3733153905A800C783C9 /* BaseNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationBar.m; sourceTree = "<group>"; };
 		18E558D4153EA4AE00ECCA3B /* error_msg_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error_msg_bg.png; sourceTree = "<group>"; };
@@ -1005,6 +1008,8 @@
 				18047E2F15452CB900651305 /* WaterflowColumn.m */,
 				18047E3115452D7200651305 /* WaterflowLayoutUnit.h */,
 				18047E3215452D7200651305 /* WaterflowLayoutUnit.m */,
+				18AC828A155B924700AD99C4 /* PullToRefreshView.h */,
+				18AC828B155B924700AD99C4 /* PullToRefreshView.m */,
 				1890C6B01535B57A00023A13 /* EasyTableView.h */,
 				1890C6B11535B57A00023A13 /* EasyTableView.m */,
 				181FE5BC1557F9AE006C98ED /* TTTAttributedLabel.h */,
@@ -1783,6 +1788,7 @@
 				189D9DE215496FA300E922D9 /* UIImageViewAddition.m in Sources */,
 				181FE5BE1557F9AE006C98ED /* TTTAttributedLabel.m in Sources */,
 				18ED04AF1558B76200EF6641 /* ResourceProvider.m in Sources */,
+				18AC828E155B924700AD99C4 /* PullToRefreshView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

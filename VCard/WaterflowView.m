@@ -10,9 +10,9 @@
 #import "ResourceList.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define LeftColumnLandscapeOriginX 110
+#define LeftColumnLandscapeOriginX 120
 #define LeftColumnPortraitOriginX 14
-#define RightColumnLandscapeOriginX 530
+#define RightColumnLandscapeOriginX 540
 #define RightColumnPortraitOriginX 389
 
 @implementation WaterflowView
@@ -53,7 +53,7 @@
         self.showsVerticalScrollIndicator = NO;
 		self.delegate = self;
         
-//        self.autoresizingMask =  UIViewAutoresizingFlexibleLeftMargin;
+        
         
         [[NSNotificationCenter defaultCenter] addObserver:self 
                                                  selector:@selector(cellSelected:)
