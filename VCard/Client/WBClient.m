@@ -80,7 +80,8 @@ static NSString *UserID = @"";
 
 + (BOOL)authorized
 {
-    return [[[NSUserDefaults standardUserDefaults] valueForKey:kUserDefaultAuthorized] boolValue];
+    UserID = [[NSUserDefaults standardUserDefaults] valueForKey:kUserDefaultCurrentUserID];
+    return UserID != nil;
 }
 
 - (id)init
@@ -137,6 +138,7 @@ static NSString *UserID = @"";
 	[SFHFKeychainUtils storeUsername:kWBKeychainExpireTime andPassword:[NSString stringWithFormat:@"%lf", _expireTime] forServiceName:serviceName updateExisting:YES error:nil];
     
     [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultAuthorized];
+    [[NSUserDefaults standardUserDefaults] setValue:_userID forKey:kUserDefaultCurrentUserID];
 }
 
 - (void)readAuthorizeDataFromKeychain

@@ -62,6 +62,7 @@
     [self setNotificationSettings];
     
     if ([WBClient authorized]) {
+        self.currentUser = [User userWithID:[WBClient currentUserID] inManagedObjectContext:self.managedObjectContext];
         [self performSegueWithIdentifier:@"ShowRootViewController" sender:self];
     } else {
         [self setupHorizontalView];

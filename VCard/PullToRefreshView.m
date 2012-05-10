@@ -41,14 +41,6 @@
 @implementation PullToRefreshView
 @synthesize delegate, scrollView;
 
-- (void)showActivity:(BOOL)shouldShow animated:(BOOL)animated {
-    
-//    [UIView beginAnimations:nil context:nil];
-//    [UIView setAnimationDuration:(animated ? 0.1f : 0.0)];
-//    reloadArrowView.alpha = shouldShow ? 0.0 : 1.0;
-//    [UIView commitAnimations];
-}
-
 - (void)setImageFlipped:(BOOL)flipped {
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.2f];
@@ -127,22 +119,17 @@
     
 	switch (state) {
 		case PullToRefreshViewStateReady:
-			[self showActivity:NO animated:NO];
             [self setImageFlipped:YES];
             scrollView.contentInset = UIEdgeInsetsZero;
 			break;
             
 		case PullToRefreshViewStateNormal:
-			[self showActivity:NO animated:NO];
             [self setImageFlipped:NO];
 			[self refreshLastUpdatedDate];
             scrollView.contentInset = UIEdgeInsetsZero;
 			break;
             
 		case PullToRefreshViewStateLoading:
-            reloadArrowView.alpha = 0.0;
-            
-			[self showActivity:YES animated:YES];
             [self setImageFlipped:YES];
             scrollView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f, 0.0f);
             [self startLoadingAnimation];
@@ -212,6 +199,12 @@
 	rotationAnimation.toValue = [NSNumber numberWithFloat:2.0 * M_PI];
 	rotationAnimation.repeatCount = 65535;
 	[reloadCircleView.layer addAnimation:rotationAnimation forKey:@"kAnimationLoad"];
+}
+
+- (void)stopLoadingAnimation
+{
+    reloadArrowView.alpha = 1.0;
+    [reloadCircleView.layer removeAllAnimations];
 }
 
 #pragma mark -
