@@ -260,7 +260,7 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    [self loadImageInCells];
+//    [self loadImageInCells];
 }
 
 - (void)loadImageInCells
@@ -276,6 +276,8 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self pageScroll];
+    
+    [self loadImageInCells];
     
     [self checkLoadMore];
 }

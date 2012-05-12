@@ -7,6 +7,7 @@
 //
 
 #import "CastViewController.h"
+#import "UIImageViewAddition.h"
 #import "ResourceList.h"
 #import "WBClient.h"
 #import "Status.h"
@@ -23,6 +24,11 @@
 @implementation CastViewController
 
 @synthesize waterflowView = _waterflowView;
+@synthesize profileImageView = _profileImageView;
+@synthesize searchButton = _searchButton;
+@synthesize groupButton = _groupButton;
+@synthesize createStatusButton = _createStatusButton;
+@synthesize refreshButton = _refreshButton;
 
 #pragma mark - LifeCycle
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -49,6 +55,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLCastViewBGUnit]];
+    [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
+    
     [self.fetchedResultsController performFetch:nil];
     [self setUpWaterflowView];
     [self setUpVariables];

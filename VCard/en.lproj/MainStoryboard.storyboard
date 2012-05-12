@@ -308,6 +308,28 @@
                             <view contentMode="scaleToFill" id="zqu-Vg-FVk" customClass="BaseNavigationView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" image="title_small.png" id="fdO-i9-psq">
+                                        <rect key="frame" x="340" y="8" width="88" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rsR-Rw-A7E">
+                                        <rect key="frame" x="578" y="10" width="36" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="svY-ss-Zy4">
+                                        <rect key="frame" x="7" y="8" width="30" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -319,6 +341,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="profileImageView" destination="svY-ss-Zy4" id="sl5-dR-XYy"/>
                         <outlet property="waterflowView" destination="EbD-7g-wPC" id="1q0-J0-NB6"/>
                     </connections>
                 </viewController>
@@ -337,6 +360,7 @@
         <image name="login_avatar_cover.png" width="247" height="286"/>
         <image name="login_card_bg.png" width="292" height="447"/>
         <image name="title_large.png" width="233" height="74"/>
+        <image name="title_small.png" width="88" height="29"/>
     </resources>
     <classes>
         <class className="BaseCardBackgroundView" superclassName="UIView">
@@ -376,6 +400,11 @@
         <class className="CastViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CastViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="createStatusButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="groupButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="profileImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="refreshButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="searchButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="waterflowView" candidateClass="WaterflowView"/>
             </relationships>
         </class>
