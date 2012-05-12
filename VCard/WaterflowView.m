@@ -170,12 +170,12 @@
 #pragma mark - methods
 - (void)reloadData
 {
-    [self initialize];
+    [self reLayoutNeedRefresh:NO];
 }
 
 - (void)refresh
 {
-    [self initialize];
+    [self reLayoutNeedRefresh:YES];
 }
 
 - (void)recycleVisuableCellsInColumn:(WaterflowColumn *)column
@@ -187,10 +187,10 @@
     }
 }
 
-- (void)initialize
+- (void)reLayoutNeedRefresh:(BOOL)needRefresh
 {
     
-    [self prepareLayoutNeedRefresh:YES];
+    [self prepareLayoutNeedRefresh:needRefresh];
     
     [self resetContentSize:[self currentOrientation]];
     
@@ -282,13 +282,20 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self pageScroll];
+    
+    [self checkLoadMore];
+}
+
+- (void)checkLoadMore
+{
+    if (self.contentOffset.y > self.contentSize.height - 700.0) {
+        [self.flowdatasource flowViewLoadMoreViews];
+    }
 }
 
 - (void)pageScroll
 {
-    NSLog(@"Left: ");
     [self layoutCellsInColumnDirection:ColumnDirectionLeft];
-    NSLog(@"Right: ");
     [self layoutCellsInColumnDirection:ColumnDirectionRight];
 }
 
@@ -401,9 +408,6 @@
         }
     }
     
-    for (WaterflowCell *cell in column.visibleCells) {
-        NSLog(@"offset: %f, cell position: %@", self.contentOffset.y, NSStringFromCGPoint(cell.frame.origin));
-    }
 }
 
 - (CGFloat)originXForColumn:(ColumnDirection)direction

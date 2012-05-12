@@ -76,12 +76,18 @@
     self.waterflowView.flowdatasource = self;
     self.waterflowView.flowdelegate = self;
     
-    [self.waterflowView reloadData];
+    [self.waterflowView refresh];
 }
+
 
 #pragma mark - Data Methods
 - (void)loadMoreData
 {
+    if (_loading) {
+        return;
+    }
+    _loading = YES;
+    
     WBClient *client = [WBClient client];
     
     [client setCompletionBlock:^(WBClient *client) {
@@ -126,7 +132,6 @@
             
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
-            
             [self.waterflowView refresh];
         }
         
@@ -192,6 +197,11 @@
     [cell.cardViewController configureCardWithStatus:targetStatus imageHeight:layoutUnit.imageHeight];
 
 	return cell;
+}
+
+- (void)flowViewLoadMoreViews
+{
+    [self loadMoreData];
 }
 
 - (int)numberOfObjectsInSection

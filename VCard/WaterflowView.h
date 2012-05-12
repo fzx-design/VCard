@@ -20,6 +20,7 @@
 @required
 - (WaterflowCell *)flowView:(WaterflowView *)flowView cellForLayoutUnit:(WaterflowLayoutUnit *)layoutUnit;
 
+- (void)flowViewLoadMoreViews;
 - (NSInteger)numberOfObjectsInSection;
 - (CGFloat)heightForObjectAtIndex:(int)index_ withImageHeight:(NSInteger)imageHeight_;
 

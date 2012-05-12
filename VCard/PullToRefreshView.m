@@ -185,6 +185,7 @@
         [self setState:PullToRefreshViewStateNormal];
         [UIView commitAnimations];
     }
+    [self stopLoadingAnimation];
 }
 
 - (void)startLoadingAnimation
