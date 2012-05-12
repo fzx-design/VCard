@@ -45,6 +45,7 @@
 + (Status *)insertMentionedStatus:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context;
 + (Status *)insertTrendsStatus:(NSDictionary *)dict withString:(NSString*)searchString inManagedObjectContext:(NSManagedObjectContext *)context;
 + (Status *)statusWithID:(NSString *)statudID inManagedObjectContext:(NSManagedObjectContext *)context;
++ (void)deleteObjectsEarlierThan:(NSDate *)updateDate inManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context;
 + (int)countOfStatuseInContext:(NSManagedObjectContext *)context;
 

@@ -189,7 +189,6 @@
 
 - (void)reLayoutNeedRefresh:(BOOL)needRefresh
 {
-    
     [self prepareLayoutNeedRefresh:needRefresh];
     
     [self resetContentSize:[self currentOrientation]];
@@ -219,7 +218,9 @@
         [self.rightColumn clear];
     }
     
-    for (  ; _curObjIndex < [self.flowdatasource numberOfObjectsInSection]; _curObjIndex++) {
+    int numberOfObjectsInSection = [self.flowdatasource numberOfObjectsInSection];
+    
+    for (  ; _curObjIndex < numberOfObjectsInSection; _curObjIndex++) {
         
         WaterflowColumn *targetColumn = [self selectColumnToInsert];
         WaterflowLayoutUnit *currentUnit = [[[WaterflowLayoutUnit alloc] init] autorelease];
@@ -236,13 +237,6 @@
         currentUnit.unitIndex = targetColumn.unitContainer.count;
         
         [targetColumn addObject:currentUnit];
-    }
-    
-    for (WaterflowLayoutUnit *unit in self.leftColumn.unitContainer) {
-        NSLog(@"left - %f, upper - %f, lower - %f", [unit unitHeight], [unit upperBound], [unit lowerBound]);
-    }
-    for (WaterflowLayoutUnit *unit in self.rightColumn.unitContainer) {
-        NSLog(@"right - %f, upper - %f, lower - %f", [unit unitHeight], [unit upperBound], [unit lowerBound]);
     }
     
 }

@@ -58,121 +58,6 @@
     return res;
 }
 
-+ (Status *)insertMentionedStatus:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
-{
-	NSString *statusID = [[dict objectForKey:@"id"] stringValue];
-    
-    if (!statusID || [statusID isEqualToString:@""]) {
-        return nil;
-    }
-    
-    Status *result = [Status statusWithID:statusID inManagedObjectContext:context];
-    if (!result) {
-        result = [NSEntityDescription insertNewObjectForEntityForName:@"Status" inManagedObjectContext:context];
-    }
-    
-    //    result.updateDate = [NSDate date];
-    result.statusID = statusID;
-    
-    NSString *dateString = [dict objectForKey:@"created_at"];
-	result.updateDate = [NSDate dateFromStringRepresentation:dateString];
-    result.createdAt = [NSDate dateFromStringRepresentation:dateString];
-    
-    result.text = [dict objectForKey:@"text"];
-    
-    result.source = [dict objectForKey:@"source"];
-    
-    result.favorited = [NSNumber numberWithBool:[[dict objectForKey:@"favorited"] boolValue]];
-	result.isMentioned = [NSNumber numberWithBool:YES];
-    
-    result.commentsCount = [dict objectForKey:@"comment_count"];
-    result.repostsCount = [dict objectForKey:@"repost_count"];
-    
-    result.thumbnailPicURL = [dict objectForKey:@"thumbnail_pic"];
-    result.bmiddlePicURL = [dict objectForKey:@"bmiddle_pic"];
-    result.originalPicURL = [dict objectForKey:@"original_pic"];
-    
-    NSDictionary* geoDic = (NSDictionary*)[dict objectForKey:@"geo"];
-    if (geoDic && ![[geoDic class] isSubclassOfClass:[NSNull class]]) {
-        result.lat = [[NSNumber alloc] initWithFloat:[[(NSArray*)([geoDic objectForKey:@"coordinates"]) objectAtIndex:0] floatValue]];
-        result.lon = [[NSNumber alloc] initWithFloat:[[(NSArray*)([geoDic objectForKey:@"coordinates"]) objectAtIndex:1] floatValue]];
-    }
-    else {
-        result.lat = 0;
-        result.lon = 0;
-    }
-    
-    NSDictionary *userDict = [dict objectForKey:@"user"];
-    
-    result.author = [User insertUser:userDict inManagedObjectContext:context];
-    
-    NSDictionary* repostedStatusDict = [dict objectForKey:@"retweeted_status"];
-    if (repostedStatusDict) {
-        result.repostStatus = [Status insertStatus:repostedStatusDict inManagedObjectContext:context];
-    }
-    
-    return result;
-}
-
-//+ (Status *)in
-
-+ (Status *)insertTrendsStatus:(NSDictionary *)dict withString:(NSString*)searchString inManagedObjectContext:(NSManagedObjectContext *)context
-{
-	NSString *statusID = [[dict objectForKey:@"id"] stringValue];
-    
-    if (!statusID || [statusID isEqualToString:@""]) {
-        return nil;
-    }
-    
-    Status *result = [Status statusWithID:statusID inManagedObjectContext:context];
-    if (!result) {
-        result = [NSEntityDescription insertNewObjectForEntityForName:@"Status" inManagedObjectContext:context];
-    }
-    
-    //    result.updateDate = [NSDate date];
-    result.statusID = statusID;
-    
-    NSString *dateString = [dict objectForKey:@"created_at"];
-	result.updateDate = [NSDate dateFromStringRepresentation:dateString];
-    result.createdAt = [NSDate dateFromStringRepresentation:dateString];
-    
-    result.text = [dict objectForKey:@"text"];
-    
-    result.source = [dict objectForKey:@"source"];
-    
-    result.favorited = [NSNumber numberWithBool:[[dict objectForKey:@"favorited"] boolValue]];
-	result.isMentioned = [NSNumber numberWithBool:NO];
-	result.searchString = [NSString stringWithString:searchString];
-    
-    result.commentsCount = [dict objectForKey:@"comment_count"];
-    result.repostsCount = [dict objectForKey:@"repost_count"];
-    
-    result.thumbnailPicURL = [dict objectForKey:@"thumbnail_pic"];
-    result.bmiddlePicURL = [dict objectForKey:@"bmiddle_pic"];
-    result.originalPicURL = [dict objectForKey:@"original_pic"];
-    
-    NSDictionary* geoDic = (NSDictionary*)[dict objectForKey:@"geo"];
-    if (geoDic && ![[geoDic class] isSubclassOfClass:[NSNull class]]) {
-        result.lat = [[NSNumber alloc] initWithFloat:[[(NSArray*)([geoDic objectForKey:@"coordinates"]) objectAtIndex:0] floatValue]];
-        result.lon = [[NSNumber alloc] initWithFloat:[[(NSArray*)([geoDic objectForKey:@"coordinates"]) objectAtIndex:1] floatValue]];
-    }
-    else {
-        result.lat = 0;
-        result.lon = 0;
-    }
-    
-    NSDictionary *userDict = [dict objectForKey:@"user"];
-    
-    result.author = [User insertUser:userDict inManagedObjectContext:context];
-    
-    NSDictionary* repostedStatusDict = [dict objectForKey:@"retweeted_status"];
-    if (repostedStatusDict) {
-        result.repostStatus = [Status insertStatus:repostedStatusDict inManagedObjectContext:context];
-    }
-    
-    return result;
-}
-
 + (int)countOfStatuseInContext:(NSManagedObjectContext *)context
 
 {
@@ -188,78 +73,6 @@
     }
     
     return count;
-}
-
-+ (Status *)insertStatus:(NSDictionary *)dict withFeature:(int)feature inManagedObjectContext:(NSManagedObjectContext *)context
-{
-    NSString *statusID = [[dict objectForKey:@"id"] stringValue];
-    
-    if (!statusID || [statusID isEqualToString:@""]) {
-        return nil;
-    }
-    
-    Status *result = [Status statusWithID:statusID inManagedObjectContext:context];
-    if (!result) {
-        result = [NSEntityDescription insertNewObjectForEntityForName:@"Status" inManagedObjectContext:context];
-    }
-    
-    result.updateDate = [NSDate date];
-    
-    result.statusID = statusID;
-    
-    NSString *dateString = [dict objectForKey:@"created_at"];
-    result.createdAt = [NSDate dateFromStringRepresentation:dateString];
-    
-    result.text = [dict objectForKey:@"text"];
-    
-    result.source = [dict objectForKey:@"source"];
-    
-    result.favorited = [NSNumber numberWithBool:[[dict objectForKey:@"favorited"] boolValue]];
-    
-    result.commentsCount = [dict objectForKey:@"comment_count"];
-    result.repostsCount = [dict objectForKey:@"repost_count"];
-    
-    result.thumbnailPicURL = [dict objectForKey:@"thumbnail_pic"];
-    result.bmiddlePicURL = [dict objectForKey:@"bmiddle_pic"];
-    result.originalPicURL = [dict objectForKey:@"original_pic"];
-    
-    switch (feature) {
-        case 1:
-            result.featureOrigin = [NSNumber numberWithBool:YES];
-            break;
-        case 2:
-            result.featurePic = [NSNumber numberWithBool:YES];
-            break;
-        case 3:
-            result.featureVideo = [NSNumber numberWithBool:YES];
-            break;
-        case 4:
-            result.featureMusic = [NSNumber numberWithBool:YES];
-            break;
-        default:
-            break;
-    }
-    
-    NSDictionary* geoDic = (NSDictionary*)[dict objectForKey:@"geo"];
-    if (geoDic && ![[geoDic class] isSubclassOfClass:[NSNull class]]) {
-        result.lat = [[NSNumber alloc] initWithFloat:[[(NSArray*)([geoDic objectForKey:@"coordinates"]) objectAtIndex:0] floatValue]];
-        result.lon = [[NSNumber alloc] initWithFloat:[[(NSArray*)([geoDic objectForKey:@"coordinates"]) objectAtIndex:1] floatValue]];
-    }
-    else {
-        result.lat = 0;
-        result.lon = 0;
-    }
-    
-    NSDictionary *userDict = [dict objectForKey:@"user"];
-    
-    result.author = [User insertUser:userDict inManagedObjectContext:context];
-    
-    NSDictionary* repostedStatusDict = [dict objectForKey:@"retweeted_status"];
-    if (repostedStatusDict) {
-        result.repostStatus = [Status insertStatus:repostedStatusDict inManagedObjectContext:context];
-    }
-    
-    return result;
 }
 
 + (Status *)insertStatus:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
@@ -315,6 +128,25 @@
     }
     
     return result;
+}
+
++ (void)deleteObjectsEarlierThan:(NSDate *)updateDate inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    int totalNumber = [self countOfStatuseInContext:context];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"updateDate > %@", updateDate];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:context];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setPredicate:predicate];
+    [fetchRequest setEntity:entity];
+    
+    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
+    
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
+    
+    totalNumber = [self countOfStatuseInContext:context];
 }
 
 + (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context
