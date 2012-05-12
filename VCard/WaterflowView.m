@@ -170,10 +170,11 @@
 #pragma mark - methods
 - (void)reloadData
 {
-    //remove and recycle all visible cells
-    [self recycleVisuableCellsInColumn:self.leftColumn];
-    [self recycleVisuableCellsInColumn:self.rightColumn];
-    
+    [self initialize];
+}
+
+- (void)refresh
+{
     [self initialize];
 }
 
@@ -182,11 +183,13 @@
     for (id cell in column.visibleCells) {
         [self recycleCellIntoReusableQueue:(WaterflowCell*)cell];
         [cell removeFromSuperview];
+        [cell prepareForReuse];
     }
 }
 
 - (void)initialize
-{    
+{
+    
     [self prepareLayoutNeedRefresh:YES];
     
     [self resetContentSize:[self currentOrientation]];
@@ -200,6 +203,18 @@
 {
     if (needRefresh) {
         _curObjIndex = 0;
+        
+        for (WaterflowCell *cell in self.leftColumn.visibleCells) {
+            [cell removeFromSuperview];
+            [cell prepareForReuse];
+            [self recycleCellIntoReusableQueue:cell];
+        }
+        for (WaterflowCell *cell in self.rightColumn.visibleCells) {
+            [cell removeFromSuperview];
+            [cell prepareForReuse];
+            [self recycleCellIntoReusableQueue:cell];
+        }
+        
         [self.leftColumn clear];
         [self.rightColumn clear];
     }
@@ -224,10 +239,10 @@
     }
     
     for (WaterflowLayoutUnit *unit in self.leftColumn.unitContainer) {
-        NSLog(@"left - %f, upper - %f", [unit unitHeight], [unit upperBound]);
+        NSLog(@"left - %f, upper - %f, lower - %f", [unit unitHeight], [unit upperBound], [unit lowerBound]);
     }
     for (WaterflowLayoutUnit *unit in self.rightColumn.unitContainer) {
-        NSLog(@"right - %f, upper - %f", [unit unitHeight], [unit upperBound]);
+        NSLog(@"right - %f, upper - %f, lower - %f", [unit unitHeight], [unit upperBound], [unit lowerBound]);
     }
     
 }
@@ -271,8 +286,9 @@
 
 - (void)pageScroll
 {
+    NSLog(@"Left: ");
     [self layoutCellsInColumnDirection:ColumnDirectionLeft];
-    
+    NSLog(@"Right: ");
     [self layoutCellsInColumnDirection:ColumnDirectionRight];
 }
 
@@ -384,6 +400,10 @@
             cell = nil;
         }
     }
+    
+    for (WaterflowCell *cell in column.visibleCells) {
+        NSLog(@"offset: %f, cell position: %@", self.contentOffset.y, NSStringFromCGPoint(cell.frame.origin));
+    }
 }
 
 - (CGFloat)originXForColumn:(ColumnDirection)direction
@@ -414,9 +434,11 @@
 
 - (WaterflowLayoutUnit*)currentUnitIndexInColumn:(WaterflowColumn*)column
 {
+    CGFloat _refreshOffset = self.contentOffset.y < 0 ? - self.contentOffset.y : 0;
+    
     WaterflowLayoutUnit *result = nil;
     for (WaterflowLayoutUnit* unit in column.unitContainer) {
-        if ([unit containOffset:self.contentOffset.y]) {
+        if ([unit containOffset:self.contentOffset.y + _refreshOffset]) {
             result = unit;
             break;
         }

@@ -26,8 +26,6 @@
 @end
 
 @protocol WaterflowViewDelegate <NSObject>
-@required
-- (CGFloat)flowView:(WaterflowView *)flowView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 @optional
 - (void)flowView:(WaterflowView *)flowView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 @end
@@ -64,6 +62,7 @@
 
 
 - (void)reloadData;
+- (void)refresh;
 - (id)dequeueReusableCellWithIdentifier:(NSString *)identifier;
 - (void)adjustViewsForOrientation:(UIInterfaceOrientation)orientation;
 - (void)prepareLayoutNeedRefresh:(BOOL)needRefresh;

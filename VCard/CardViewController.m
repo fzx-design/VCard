@@ -155,9 +155,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     [self setUpRepostView];
     
     [self setUpStatusImageView];
-    
-    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
-    
+        
 }
 
 - (void)setUpStatus:(Status*)status_

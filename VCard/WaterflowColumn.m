@@ -41,6 +41,7 @@
 - (void)clear
 {
     [self.unitContainer removeAllObjects];
+    [self.visibleCells removeAllObjects];
 }
 
 - (NSMutableArray*)unitContainer

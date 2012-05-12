@@ -13,7 +13,10 @@
 #import "User.h"
 
 
-@interface CastViewController ()
+@interface CastViewController () {
+    BOOL _loading;
+    NSInteger _nextPage;
+}
 
 @end
 
@@ -36,7 +39,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // Custom initialization
-        [self loadData];
+        [self loadMoreData];
     }
     return self;
 }
@@ -47,8 +50,14 @@
 	// Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLCastViewBGUnit]];
     [self.fetchedResultsController performFetch:nil];
-    
     [self setUpWaterflowView];
+    [self setUpVariables];
+}
+
+- (void)setUpVariables
+{
+    _loading = NO;
+    _nextPage = 1;
 }
 
 - (void)viewDidUnload
@@ -71,7 +80,7 @@
 }
 
 #pragma mark - Data Methods
-- (void)loadData
+- (void)loadMoreData
 {
     WBClient *client = [WBClient client];
     
@@ -92,14 +101,43 @@
     
     [client getFriendsTimelineSinceID:nil 
                                 maxID:nil 
-                       startingAtPage:1 
+                       startingAtPage:_nextPage++
                                 count:20 
                               feature:0];
 }
 
-- (void)reloadData
+- (void)refresh
 {
+    if (_loading) {
+        return;
+    }
+    _loading = YES;
+    
     WBClient *client = [WBClient client];
+    
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSArray *dictArray = client.responseJSONObject;
+            for (NSDictionary *dict in dictArray) {
+                Status *newStatus = nil;
+                newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext];
+                [self.currentUser addFriendsStatusesObject:newStatus];  
+            }
+            
+            [self.managedObjectContext processPendingChanges];
+            [self.fetchedResultsController performFetch:nil];
+            
+            [self.waterflowView refresh];
+        }
+        
+        [_pullView finishedLoading];
+    }];
+    
+    [client getFriendsTimelineSinceID:nil 
+                                maxID:nil 
+                       startingAtPage:_nextPage++
+                                count:20 
+                              feature:0];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
@@ -127,6 +165,12 @@
     return @"CardTableViewCell";
 }
 
+
+#pragma mark - PullToRefreshViewDelegate
+- (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view
+{
+    [self refresh];
+}
 
 #pragma mark - WaterflowDataSource
 
@@ -163,12 +207,6 @@
 
 #pragma mark-
 #pragma mark- WaterflowDelegate
-
--(CGFloat)flowView:(WaterflowView *)flowView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{	
-	return 600;
-    
-}
 
 - (void)flowView:(WaterflowView *)flowView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
