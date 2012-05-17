@@ -20,6 +20,7 @@ static ResourceProvider *sharedResourceProvider = nil;
 @synthesize bottomImageRef;
 @synthesize centerTileImage;
 @synthesize centerTileImageRef;
+@synthesize backgroundTileImageRef;
 
 + (void)initialize
 {
@@ -31,6 +32,8 @@ static ResourceProvider *sharedResourceProvider = nil;
     sharedResourceProvider.bottomImageRef = [[UIImage imageNamed:kRLCardBottom] CGImage];
     sharedResourceProvider.centerTileImage = [UIImage imageNamed:kRLCardBGUnit];
     sharedResourceProvider.centerTileImageRef = [sharedResourceProvider.centerTileImage CGImage];
+    
+    sharedResourceProvider.backgroundTileImageRef = [[UIImage imageNamed:kRLCastViewBGUnit] CGImage];
 }
 
 + (CTFontRef)regexFont
@@ -51,6 +54,11 @@ static ResourceProvider *sharedResourceProvider = nil;
 + (CGImageRef)topImageRef
 {
     return sharedResourceProvider.topImageRef;
+}
+
++ (CGImageRef)backgroundTileImageRef
+{
+    return sharedResourceProvider.backgroundTileImageRef;
 }
 
 @end

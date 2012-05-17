@@ -18,11 +18,14 @@
 @property (nonatomic, assign) CGImageRef bottomImageRef;
 @property (nonatomic, assign) CGImageRef centerTileImageRef;
 
+@property (nonatomic, assign) CGImageRef backgroundTileImageRef;
+
 @property (nonatomic, strong) UIImage *centerTileImage;
 
 + (CTFontRef)regexFont;
 + (CGImageRef)bottomImageRef;
 + (CGImageRef)centerTileImageRef;
 + (CGImageRef)topImageRef;
++ (CGImageRef)backgroundTileImageRef;
 
 @end

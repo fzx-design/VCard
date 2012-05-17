@@ -11,6 +11,7 @@
 #import "WaterflowColumn.h"
 #import "WaterflowLayoutUnit.h"
 #import "PullToRefreshView.h"
+#import "BaseLayoutView.h"
 
 @class WaterflowView;
 
@@ -34,7 +35,7 @@
 ////Waterflow View
 @interface WaterflowView : UIScrollView<UIScrollViewDelegate>
 {
-    NSInteger numberOfColumns ; 
+    NSInteger numberOfColumns; 
     NSInteger currentPage;
 	
 	NSMutableArray *_cellHeight; 
@@ -50,6 +51,9 @@
     NSInteger _curObjIndex;
     NSInteger _leftColumnIndex;
     NSInteger _rightColumnIndex;
+    
+    BaseLayoutView *_backgroundViewA;
+    BaseLayoutView *_backgroundViewB;
 }
 
 @property (nonatomic, retain) NSMutableArray *cellHeight; //array of cells height arrays, count = numberofcolumns, and elements in each single child array represents is a total height from this cell to the top
@@ -60,6 +64,9 @@
 
 @property (nonatomic, retain) WaterflowColumn *leftColumn;
 @property (nonatomic, retain) WaterflowColumn *rightColumn;
+
+@property (nonatomic, retain) BaseLayoutView *backgroundViewA;
+@property (nonatomic, retain) BaseLayoutView *backgroundViewB;
 
 
 - (void)reloadData;

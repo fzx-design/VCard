@@ -24,6 +24,8 @@
 @synthesize flowdatasource =_flowdatasource;
 @synthesize rightColumn = _rightColumn;
 @synthesize leftColumn = _leftColumn;
+@synthesize backgroundViewA = _backgroundViewA;
+@synthesize backgroundViewB = _backgroundViewB;
 
 #pragma mark - Life Cycle
 
@@ -52,9 +54,7 @@
 		self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
 		self.delegate = self;
-        
-        
-        
+                
         [[NSNotificationCenter defaultCenter] addObserver:self 
                                                  selector:@selector(cellSelected:)
                                                      name:@"CellSelected"
@@ -291,6 +291,7 @@
 
 - (void)pageScroll
 {
+    [self adjustBackgroundView];
     [self layoutCellsInColumnDirection:ColumnDirectionLeft];
     [self layoutCellsInColumnDirection:ColumnDirectionRight];
 }
@@ -446,6 +447,46 @@
     return result;
 }
 
+- (void)adjustBackgroundView
+{
+    CGFloat top = self.contentOffset.y;
+    CGFloat bottom = top + self.frame.size.height;
+    
+    if ([self view:self.backgroundViewA containsPoint:top] || [self view:self.backgroundViewA containsPoint:bottom]) {
+        [self adjustView:self.backgroundViewB with:self.backgroundViewA forTop:top bottom:bottom];
+    } else {
+        [self adjustView:self.backgroundViewA with:self.backgroundViewB forTop:top bottom:bottom];
+    }
+}
+
+- (void)adjustView:(UIView *)viewToAdjust with:(UIView *)viewRight forTop:(CGFloat)top bottom:(CGFloat)bottom
+{
+    CGFloat newOriginY;
+    NSLog(@"top - %f", viewToAdjust.frame.origin.y);
+    NSLog(@"bottom - %f", viewToAdjust.frame.origin.x + viewToAdjust.frame.size.height);
+    
+    if (viewToAdjust.frame.origin.y > bottom) {
+        newOriginY = viewRight.frame.origin.y - viewToAdjust.frame.size.height;
+        [self view:viewToAdjust resetOriginY:newOriginY];
+    } else if (viewToAdjust.frame.origin.y + viewToAdjust.frame.size.height < top) {
+        newOriginY = viewRight.frame.origin.y + viewRight.frame.size.height;
+        [self view:viewToAdjust resetOriginY:newOriginY];
+    }
+    
+}
+
+- (void)view:(UIView *)view resetOriginY:(CGFloat)originY
+{
+    CGRect frame = view.frame;
+    frame.origin.y = originY;
+    view.frame = frame;
+}
+
+- (BOOL)view:(UIView *)view containsPoint:(CGFloat)originY
+{
+    return view.frame.origin.y <= originY && view.frame.origin.y + view.frame.size.height > originY;
+}
+
 #pragma mark - Properties
 - (WaterflowColumn*)leftColumn
 {
@@ -463,5 +504,23 @@
     return _rightColumn;
 }
 
+- (BaseLayoutView*)backgroundViewA
+{
+    if (!_backgroundViewA) {
+        _backgroundViewA = [[BaseLayoutView alloc] initWithFrame:self.bounds];
+        [self insertSubview:_backgroundViewA atIndex:0];
+    }
+    return _backgroundViewA;
+}
+
+- (BaseLayoutView*)backgroundViewB
+{
+    if (!_backgroundViewB) {
+        _backgroundViewB = [[BaseLayoutView alloc] initWithFrame:self.bounds];
+        [self view:_backgroundViewB resetOriginY:self.backgroundViewA.frame.origin.y + self.backgroundViewA.frame.size.height];
+        [self insertSubview:_backgroundViewB atIndex:0];
+    }
+    return _backgroundViewB;
+}
 
 @end

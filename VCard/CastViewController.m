@@ -54,7 +54,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLCastViewBGUnit]];
     [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
     
     [self.fetchedResultsController performFetch:nil];
