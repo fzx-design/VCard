@@ -189,15 +189,15 @@ static inline NSRegularExpression * UrlRegularExpression() {
 
 - (void)loadImage
 {
-//    if (_doesImageExist && !_imageAlreadyLoaded) {
-//        
-//        _imageAlreadyLoaded = YES;
-//        
-//        Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
-//        
-//        [self.statusImageView loadTweetImageFromURL:targetStatus.bmiddlePicURL 
-//                                         completion:nil];
-//    }
+    if (_doesImageExist && !_imageAlreadyLoaded) {
+        
+        _imageAlreadyLoaded = YES;
+        
+        Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
+        
+        [self.statusImageView loadTweetImageFromURL:targetStatus.bmiddlePicURL 
+                                         completion:nil];
+    }
 }
 
 - (void)prepareForReuse

@@ -57,7 +57,9 @@
     _centerView.autoresizingMask = UIViewAutoresizingNone;
     _bottomView.autoresizingMask = UIViewAutoresizingNone;
     
-    _centerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLCardImageShadowCenter]];
+    _centerView.image = [[UIImage imageNamed:kRLCardImageShadowCenter] resizableImageWithCapInsets:UIEdgeInsetsZero];
+    
+//    _centerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kRLCardImageShadowCenter]];
     
     [self addSubview:_topView];
     [self addSubview:_centerView];

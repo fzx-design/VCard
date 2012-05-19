@@ -8,6 +8,7 @@
 
 #import "CardImageView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIImageView+URL.h"
 
 @implementation CardImageView
 
@@ -20,6 +21,7 @@
         // Initialization code
         _shadowView = [[CardImageViewShadowView alloc] initWithFrame:frame];
         [self insertSubview:_shadowView atIndex:0];
+        self.imageView.layer.edgeAntialiasingMask = 0;
     }
     return self;
 }
@@ -32,6 +34,7 @@
         [self insertSubview:_shadowView atIndex:0];
         [self insertSubview:self.imageView atIndex:1];
         self.clearsContextBeforeDrawing = YES;
+        self.imageView.layer.edgeAntialiasingMask = 0;
     }
     return self;
 }
@@ -61,7 +64,7 @@
         _imageView = [[UIImageView alloc] initWithFrame:self.frame];
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.clipsToBounds = YES;
-        _imageView.backgroundColor = [UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0];
+        _imageView.backgroundColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0];
         [self insertSubview:_imageView belowSubview:_shadowView];
     }
     return _imageView;
@@ -70,30 +73,33 @@
 - (void)loadImageFromURL:(NSString *)urlString 
               completion:(void (^)())completion
 {
+    [self.imageView kv_cancelImageDownload];
+    NSURL *anImageURL = [NSURL URLWithString:urlString];
+    [self.imageView kv_setImageAtURL:anImageURL];
     
-    self.imageView.image = nil;
-    
-    NSURL *url = [NSURL URLWithString:urlString];
-    
-    dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
-    
-    dispatch_async(downloadQueue, ^{
-        
-        NSData *imageData = [NSData dataWithContentsOfURL:url];
-        UIImage *img = [UIImage imageWithData:imageData];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-			self.imageView.image = nil;
-            self.imageView.image = img;
-            
-            if (completion) {
-                completion();
-            }				
-        });
-        
-    });
-    
-    dispatch_release(downloadQueue);
+//    self.imageView.image = nil;
+//    
+//    NSURL *url = [NSURL URLWithString:urlString];
+//    
+//    dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
+//    
+//    dispatch_async(downloadQueue, ^{
+//        
+//        NSData *imageData = [NSData dataWithContentsOfURL:url];
+//        UIImage *img = [UIImage imageWithData:imageData];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            
+//			self.imageView.image = nil;
+//            self.imageView.image = img;
+//            
+//            if (completion) {
+//                completion();
+//            }				
+//        });
+//        
+//    });
+//    
+//    dispatch_release(downloadQueue);
 	
 }
 
@@ -102,31 +108,34 @@
 {
     
 //    self.backgroundColor = [UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0];
-    self.imageView.image = nil;
-    
-    NSURL *url = [NSURL URLWithString:urlString];
-    
-    dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
-    
-    dispatch_async(downloadQueue, ^{
-        
-        NSData *imageData = [NSData dataWithContentsOfURL:url];
-        UIImage *img = [UIImage imageWithData:imageData];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            if (img != nil) {
-                self.imageView.image = nil;
-                self.imageView.image = img;
-            }
-            
-            if (completion) {
-                completion();
-            }
-        });
-    });
-    
-    dispatch_release(downloadQueue);
+//    self.imageView.image = nil;
+//    
+//    NSURL *url = [NSURL URLWithString:urlString];
+//    
+//    dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
+//    
+//    dispatch_async(downloadQueue, ^{
+//        
+//        NSData *imageData = [NSData dataWithContentsOfURL:url];
+//        UIImage *img = [UIImage imageWithData:imageData];
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            
+//            if (img != nil) {
+//                self.imageView.image = nil;
+//                self.imageView.image = img;
+//            }
+//            
+//            if (completion) {
+//                completion();
+//            }
+//        });
+//    });
+//    
+//    dispatch_release(downloadQueue);
+    [self.imageView kv_cancelImageDownload];
+    NSURL *anImageURL = [NSURL URLWithString:urlString];
+    [self.imageView kv_setImageAtURL:anImageURL];
 	
 }
 

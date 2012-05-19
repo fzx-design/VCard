@@ -222,23 +222,44 @@
     
     for (  ; _curObjIndex < numberOfObjectsInSection; _curObjIndex++) {
         
+        CGFloat imageHeight = [self randomImageHeight];
+        
         WaterflowColumn *targetColumn = [self selectColumnToInsert];
         WaterflowLayoutUnit *currentUnit = [[[WaterflowLayoutUnit alloc] init] autorelease];
         WaterflowLayoutUnit *lastUnit = (WaterflowLayoutUnit*)[targetColumn lastObject];
         
-        CGFloat height = [self.flowdatasource heightForObjectAtIndex:_curObjIndex withImageHeight:200];
+        CGFloat height = [self.flowdatasource heightForObjectAtIndex:_curObjIndex withImageHeight:imageHeight];
         
         currentUnit.upperBound = lastUnit ? lastUnit.lowerBound : 0;
         currentUnit.lowerBound = currentUnit.upperBound + height;
         currentUnit.dataIndex = _curObjIndex;
 
-        currentUnit.imageHeight = 200;
+        currentUnit.imageHeight = imageHeight;
         
         currentUnit.unitIndex = targetColumn.unitContainer.count;
         
         [targetColumn addObject:currentUnit];
     }
     
+}
+
+- (CGFloat)randomImageHeight
+{
+    NSInteger factor = arc4random() % 3;
+    CGFloat imageHeight = 0.0;
+        
+    switch (factor) {
+        case 0:
+            imageHeight = ImageHeightLow;
+            break;
+        case 1:
+            imageHeight = ImageHeightMid;
+            break;
+        default:
+            imageHeight = ImageHeightHigh;
+            break;
+    }
+    return imageHeight;
 }
 
 - (CGFloat)heightOfWaterflowView
@@ -462,8 +483,6 @@
 - (void)adjustView:(UIView *)viewToAdjust with:(UIView *)viewRight forTop:(CGFloat)top bottom:(CGFloat)bottom
 {
     CGFloat newOriginY;
-    NSLog(@"top - %f", viewToAdjust.frame.origin.y);
-    NSLog(@"bottom - %f", viewToAdjust.frame.origin.x + viewToAdjust.frame.size.height);
     
     if (viewToAdjust.frame.origin.y > bottom) {
         newOriginY = viewRight.frame.origin.y - viewToAdjust.frame.size.height;

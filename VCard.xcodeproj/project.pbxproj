@@ -10,6 +10,9 @@
 		1802E7731557913900728B60 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1802E7721557913800728B60 /* CoreText.framework */; };
 		18047E3015452CB900651305 /* WaterflowColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 18047E2F15452CB900651305 /* WaterflowColumn.m */; };
 		18047E3315452D7200651305 /* WaterflowLayoutUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18047E3215452D7200651305 /* WaterflowLayoutUnit.m */; };
+		18145326156753DD00491BED /* KVDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 18145321156753DD00491BED /* KVDownload.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		18145327156753DD00491BED /* KVImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 18145323156753DD00491BED /* KVImageCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		18145328156753DD00491BED /* UIImageView+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 18145325156753DD00491BED /* UIImageView+URL.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		181AB90B15230AC1007A2A51 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90A15230AC1007A2A51 /* UIKit.framework */; };
 		181AB90D15230AC1007A2A51 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90C15230AC1007A2A51 /* Foundation.framework */; };
 		181AB90F15230AC1007A2A51 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90E15230AC1007A2A51 /* CoreGraphics.framework */; };
@@ -329,6 +332,12 @@
 		18047E2F15452CB900651305 /* WaterflowColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterflowColumn.m; sourceTree = "<group>"; };
 		18047E3115452D7200651305 /* WaterflowLayoutUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterflowLayoutUnit.h; sourceTree = "<group>"; };
 		18047E3215452D7200651305 /* WaterflowLayoutUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterflowLayoutUnit.m; sourceTree = "<group>"; };
+		18145320156753DD00491BED /* KVDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVDownload.h; sourceTree = "<group>"; };
+		18145321156753DD00491BED /* KVDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVDownload.m; sourceTree = "<group>"; };
+		18145322156753DD00491BED /* KVImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVImageCache.h; sourceTree = "<group>"; };
+		18145323156753DD00491BED /* KVImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVImageCache.m; sourceTree = "<group>"; };
+		18145324156753DD00491BED /* UIImageView+URL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+URL.h"; sourceTree = "<group>"; };
+		18145325156753DD00491BED /* UIImageView+URL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+URL.m"; sourceTree = "<group>"; };
 		181AB90615230AC1007A2A51 /* VCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		181AB90A15230AC1007A2A51 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		181AB90C15230AC1007A2A51 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -706,6 +715,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		181453161567509200491BED /* KVImageCache */ = {
+			isa = PBXGroup;
+			children = (
+				18145320156753DD00491BED /* KVDownload.h */,
+				18145321156753DD00491BED /* KVDownload.m */,
+				18145322156753DD00491BED /* KVImageCache.h */,
+				18145323156753DD00491BED /* KVImageCache.m */,
+				18145324156753DD00491BED /* UIImageView+URL.h */,
+				18145325156753DD00491BED /* UIImageView+URL.m */,
+			);
+			name = KVImageCache;
+			sourceTree = "<group>";
+		};
 		181AB8FB15230AC1007A2A51 = {
 			isa = PBXGroup;
 			children = (
@@ -861,6 +883,7 @@
 		1850A46F153C08E10001A905 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				181453161567509200491BED /* KVImageCache */,
 				18ED04AD1558B76200EF6641 /* ResourceProvider.h */,
 				18ED04AE1558B76200EF6641 /* ResourceProvider.m */,
 			);
@@ -1734,6 +1757,9 @@
 				181FE5BE1557F9AE006C98ED /* TTTAttributedLabel.m in Sources */,
 				18ED04AF1558B76200EF6641 /* ResourceProvider.m in Sources */,
 				18AC828E155B924700AD99C4 /* PullToRefreshView.m in Sources */,
+				18145326156753DD00491BED /* KVDownload.m in Sources */,
+				18145327156753DD00491BED /* KVImageCache.m in Sources */,
+				18145328156753DD00491BED /* UIImageView+URL.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

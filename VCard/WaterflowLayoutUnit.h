@@ -13,6 +13,12 @@ typedef enum {
     ColumnDirectionRight,
 } ColumnDirection;
 
+typedef enum {
+    ImageHeightLow = 250,
+    ImageHeightMid = 300,
+    ImageHeightHigh = 350,
+} ImageHeight;
+
 @interface WaterflowLayoutUnit : NSObject {
     NSInteger _dataIndex;
     CGFloat _upperBound;

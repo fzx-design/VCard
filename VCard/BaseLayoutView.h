@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BaseLayoutView : UIView
+@interface BaseLayoutView : UIImageView
 
 @end

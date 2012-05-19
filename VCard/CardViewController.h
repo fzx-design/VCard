@@ -13,9 +13,6 @@
 #import "TTTAttributedLabel.h"
 #import "Status.h"
 
-#define StatusImageHeightSmall 200
-#define StatusImageHeightLarge 300
-
 @interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate> {
     CardImageView *_statusImageView;
     UIImageView *_repostUserAvatar;
