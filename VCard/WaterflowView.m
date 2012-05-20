@@ -35,7 +35,7 @@
     if (self) {
         // Initialization code
 		self.showsHorizontalScrollIndicator = NO;
-        self.showsVerticalScrollIndicator = NO;
+        self.showsVerticalScrollIndicator = YES;
 		self.delegate = self;
         
         [[NSNotificationCenter defaultCenter] addObserver:self 
@@ -52,7 +52,7 @@
     if (self) {
         // Initialization code
 		self.showsHorizontalScrollIndicator = NO;
-        self.showsVerticalScrollIndicator = NO;
+        self.showsVerticalScrollIndicator = YES;
 		self.delegate = self;
                 
         [[NSNotificationCenter defaultCenter] addObserver:self 
