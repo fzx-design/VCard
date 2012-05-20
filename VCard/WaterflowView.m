@@ -468,33 +468,35 @@
     return result;
 }
 
+#pragma mark - Adjust Background View
+
 - (void)adjustBackgroundView
 {
     CGFloat top = self.contentOffset.y;
     CGFloat bottom = top + self.frame.size.height;
     
-    if ([self view:self.backgroundViewA containsPoint:top] || [self view:self.backgroundViewA containsPoint:bottom]) {
-        [self adjustView:self.backgroundViewB with:self.backgroundViewA forTop:top bottom:bottom];
-    } else if([self view:self.backgroundViewB containsPoint:top] || [self view:self.backgroundViewB containsPoint:bottom]){
-        [self adjustView:self.backgroundViewA with:self.backgroundViewB forTop:top bottom:bottom];
+    UIView *upperView = nil;
+    UIView *lowerView = nil;
+    BOOL alignToTop = NO;
+    
+    if ((alignToTop = [self view:self.backgroundViewA containsPoint:top]) || [self view:self.backgroundViewB containsPoint:bottom]) {
+        upperView = self.backgroundViewA;
+        lowerView = self.backgroundViewB;
+    } else if((alignToTop = [self view:self.backgroundViewB containsPoint:top]) || [self view:self.backgroundViewA containsPoint:bottom]) {
+        upperView = self.backgroundViewB;
+        lowerView = self.backgroundViewA;
+    }
+    
+    if (upperView && lowerView) {
+        if (alignToTop) {
+            [self view:lowerView resetOriginY:upperView.frame.origin.y + upperView.frame.size.height];
+        } else {
+            [self view:upperView resetOriginY:lowerView.frame.origin.y - lowerView.frame.size.height];
+        }
     } else {
         [self view:self.backgroundViewA resetOriginY:top];
-        [self view:self.backgroundViewB resetOriginY:bottom];
+        [self view:self.backgroundViewB resetOriginY:self.backgroundViewA.frame.origin.y + self.backgroundViewA.frame.size.height];
     }
-}
-
-- (void)adjustView:(UIView *)viewToAdjust with:(UIView *)viewRight forTop:(CGFloat)top bottom:(CGFloat)bottom
-{
-    CGFloat newOriginY;
-    
-    if (viewToAdjust.frame.origin.y > bottom) {
-        newOriginY = viewRight.frame.origin.y - viewToAdjust.frame.size.height;
-        [self view:viewToAdjust resetOriginY:newOriginY];
-    } else if (viewToAdjust.frame.origin.y + viewToAdjust.frame.size.height < top) {
-        newOriginY = viewRight.frame.origin.y + viewRight.frame.size.height;
-        [self view:viewToAdjust resetOriginY:newOriginY];
-    }
-    
 }
 
 - (void)view:(UIView *)view resetOriginY:(CGFloat)originY
@@ -529,7 +531,8 @@
 - (BaseLayoutView*)backgroundViewA
 {
     if (!_backgroundViewA) {
-        _backgroundViewA = [[BaseLayoutView alloc] initWithFrame:self.bounds];
+        _backgroundViewA = [[BaseLayoutView alloc] initWithFrame:CGRectMake(0.0, 0.0, 1024.0, 1024.0)];
+        _backgroundViewA.autoresizingMask = UIViewAutoresizingNone;
         [self insertSubview:_backgroundViewA atIndex:0];
     }
     return _backgroundViewA;
@@ -538,7 +541,8 @@
 - (BaseLayoutView*)backgroundViewB
 {
     if (!_backgroundViewB) {
-        _backgroundViewB = [[BaseLayoutView alloc] initWithFrame:self.bounds];
+        _backgroundViewB = [[BaseLayoutView alloc] initWithFrame:CGRectMake(0.0, 0.0, 1024.0, 1024.0)];
+        _backgroundViewB.autoresizingMask = UIViewAutoresizingNone;
         [self view:_backgroundViewB resetOriginY:self.backgroundViewA.frame.origin.y + self.backgroundViewA.frame.size.height];
         [self insertSubview:_backgroundViewB atIndex:0];
     }
