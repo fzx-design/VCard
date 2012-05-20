@@ -327,7 +327,7 @@
 	
     UIView* content = cell.userSelectionCellViewController.view;
 	
-	content.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//	content.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	content.tag = CELL_CONTENT_TAG;
     
     CGRect prevFrame = content.frame;

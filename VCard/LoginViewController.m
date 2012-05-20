@@ -82,11 +82,14 @@
 	return YES;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self setLogoAndLoginViewWhenRotating];
+}
+
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
 
-    [self setLogoAndLoginViewWhenRotating];
-    
     [self setViewOffsetForEditingMode];
 }
 

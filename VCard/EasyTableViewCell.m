@@ -30,7 +30,7 @@
     if (!_userSelectionCellViewController) {
                 
         _userSelectionCellViewController = [storyboard instantiateViewControllerWithIdentifier:@"UserSelectionCellViewController"];
-        _userSelectionCellViewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//        _userSelectionCellViewController.view.autoresizingMask = UIViewAutoresizingNone ;
         _userSelectionCellViewController.view.tag = CELL_CONTENT_TAG;
 
     }

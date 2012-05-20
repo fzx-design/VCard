@@ -29,9 +29,11 @@ typedef enum {
 
 @implementation UserSelectionCellViewController
 
-@synthesize avatorImageView = _avatorImageView;
+@synthesize avatarImageViewBG = _avatarImageViewBG;
+@synthesize avatarImageView = _avatarImageView;
 @synthesize userNameTextField = _userNameTextField;
 @synthesize userPasswordTextField = _userPasswordTextField;
+@synthesize loginButton = _loginButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,9 +55,13 @@ typedef enum {
     _userNameTextField.delegate = self;
     _userPasswordTextField.delegate = self;
     
-    _avatorImageView.image = [UIImage imageNamed:kRLAvatorPlaceHolder];
-    _avatorImageView.layer.masksToBounds = YES;
-    _avatorImageView.layer.cornerRadius = CornerRadius;
+    _avatarImageView.image = [UIImage imageNamed:kRLAvatarPlaceHolder];
+    _avatarImageView.layer.masksToBounds = YES;
+    _avatarImageView.layer.cornerRadius = CornerRadius;
+    
+    _avatarImageViewBG.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
+    _avatarImageViewBG.layer.masksToBounds = YES;
+    _avatarImageViewBG.layer.cornerRadius = CornerRadius;
     
 }
 
@@ -100,8 +106,21 @@ typedef enum {
     return YES;
 }
 
-#pragma mark -
-
+#pragma mark - 
+- (IBAction)loginButtonClicked:(id)sender
+{
+    WBClient *client = [WBClient client];
+    
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameLoginInfoAuthorized object:nil];
+        } else {
+            NSLog(@"Error!");
+        }
+    }];
+    
+    [client authorizeUsingUserID:self.userNameTextField.text password:self.userPasswordTextField.text];
+}
 
 
 @end

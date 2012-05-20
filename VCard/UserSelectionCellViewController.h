@@ -13,15 +13,17 @@
 #define kNotificationNameLoginInfoAuthorized @"kNotificationNameLoginInfoAuthorized"
 
 @interface UserSelectionCellViewController : UIViewController <UITextFieldDelegate> {
-    UIImageView * _avatorImageView;
+    UIImageView * _avatarImageView;
+    UIImageView * _avatarImageViewBG;
     UITextField * _userNameTextField;
     UITextField * _userPasswordTextField;
-    
+    UIButton *_loginButton;
 }
 
-@property (nonatomic, strong) IBOutlet UIImageView *avatorImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *avatarImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *avatarImageViewBG;
 @property (nonatomic, strong) IBOutlet UITextField *userNameTextField;
 @property (nonatomic, strong) IBOutlet UITextField *userPasswordTextField;
-
+@property (nonatomic, strong) IBOutlet UIButton *loginButton;
 
 @end

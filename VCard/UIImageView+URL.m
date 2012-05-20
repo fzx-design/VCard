@@ -29,6 +29,7 @@
 //
 
 #import "UIImageView+URL.h"
+#import "UIImage+Addition.h"
 
 #import "KVImageCache.h"
 #import "KVDownload.h"
@@ -63,26 +64,46 @@
 }
 
 - (void)kv_setImageAtURL:(NSURL *)imageURL {
-    [self kv_setImageAtURL:imageURL showActivityIndicator:YES activityIndicatorStyle:UIActivityIndicatorViewStyleGray loadingImage:nil notAvailableImage:nil];
+    [self kv_setImageAtURL:imageURL 
+     showActivityIndicator:YES 
+    activityIndicatorStyle:UIActivityIndicatorViewStyleGray 
+              loadingImage:nil 
+         notAvailableImage:nil];
 }
 
-- (void)kv_setImageAtURL:(NSURL *)imageURL showActivityIndicator:(BOOL)showActivityIndicator activityIndicatorStyle:(UIActivityIndicatorViewStyle)indicatorStyle loadingImage:(UIImage *)loadingImage notAvailableImage:(UIImage *)notAvailableImage {
-    [self kv_setImageAtURL:imageURL cacheURL:imageURL showActivityIndicator:showActivityIndicator activityIndicatorStyle:indicatorStyle loadingImage:loadingImage notAvailableImage:notAvailableImage];
+- (void)kv_setImageAtURL:(NSURL *)imageURL 
+   showActivityIndicator:(BOOL)showActivityIndicator 
+  activityIndicatorStyle:(UIActivityIndicatorViewStyle)indicatorStyle 
+            loadingImage:(UIImage *)loadingImage 
+       notAvailableImage:(UIImage *)notAvailableImage 
+{
+    [self kv_setImageAtURL:imageURL 
+                  cacheURL:imageURL 
+     showActivityIndicator:showActivityIndicator 
+    activityIndicatorStyle:indicatorStyle 
+              loadingImage:loadingImage 
+         notAvailableImage:notAvailableImage];
 }
 
-- (void)kv_setImageAtURL:(NSURL *)imageURL cacheURL:(NSURL *)cacheURL showActivityIndicator:(BOOL)showActivityIndicator activityIndicatorStyle:(UIActivityIndicatorViewStyle)indicatorStyle loadingImage:(UIImage *)loadingImage notAvailableImage:(UIImage *)notAvailableImage {
+- (void)kv_setImageAtURL:(NSURL *)imageURL 
+                cacheURL:(NSURL *)cacheURL 
+   showActivityIndicator:(BOOL)showActivityIndicator
+  activityIndicatorStyle:(UIActivityIndicatorViewStyle)indicatorStyle 
+            loadingImage:(UIImage *)loadingImage 
+       notAvailableImage:(UIImage *)notAvailableImage 
+{
     NSAssert([NSThread isMainThread], @"This method should be called from the main thread.");
     // Cancel any previous downloads
     [[KVImageCache defaultCache] cancelDownloadForImageView:self];    
     [self kv_hideActivityIndicator];
     
-    CGSize imageSizeWithBorder = CGSizeMake(loadingImage.size.width + 2, loadingImage.size.height + 2);
+    CGSize imageSizeWithBorder = CGSizeMake(self.frame.size.width + 2, self.frame.size.height + 2);
+    UIImage *tmpImage = [loadingImage imageByScalingAndCroppingForSize:imageSizeWithBorder];
+    
     UIGraphicsBeginImageContext(imageSizeWithBorder);
-    [loadingImage drawInRect:(CGRect){{1, 1}, loadingImage.size}];
+    [tmpImage drawInRect:(CGRect){{1, 1}, self.frame.size}];
     [self setImage:UIGraphicsGetImageFromCurrentImageContext()];
     UIGraphicsEndImageContext();
-    
-//    self.image = loadingImage;
 
     if (!imageURL) {
         self.image = notAvailableImage;
@@ -97,15 +118,13 @@
         if (!image) {
             self.image = notAvailableImage;
         } else {
-            
             CGSize imageSizeWithBorder = CGSizeMake(self.frame.size.width + 2, self.frame.size.height + 2);
+            UIImage *tmpImage = [image imageByScalingAndCroppingForSize:imageSizeWithBorder];
+            
             UIGraphicsBeginImageContext(imageSizeWithBorder);
-//            [image drawInRect:(CGRect){{1, 1}, self.frame.size} blendMode:kCGBlendModeDestinationAtop alpha:1.0];
-            [image drawInRect:(CGRect){{1, 1}, self.frame.size}];
+            [tmpImage drawInRect:(CGRect){{1, 1}, self.frame.size}];
             [self setImage:UIGraphicsGetImageFromCurrentImageContext()];
             UIGraphicsEndImageContext();
-            
-//            self.image = image;
         }
         if (showActivityIndicator) {
             [self performSelectorOnMainThread:@selector(kv_hideActivityIndicator) withObject:nil waitUntilDone:NO];
