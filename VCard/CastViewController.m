@@ -173,8 +173,14 @@
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
-                                duration:(NSTimeInterval)duration {
+                                duration:(NSTimeInterval)duration 
+{
     [self.waterflowView adjustViewsForOrientation:toInterfaceOrientation];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self.waterflowView scrollViewDidScroll:self.waterflowView];
 }
 
 

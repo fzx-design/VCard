@@ -475,8 +475,11 @@
     
     if ([self view:self.backgroundViewA containsPoint:top] || [self view:self.backgroundViewA containsPoint:bottom]) {
         [self adjustView:self.backgroundViewB with:self.backgroundViewA forTop:top bottom:bottom];
-    } else {
+    } else if([self view:self.backgroundViewB containsPoint:top] || [self view:self.backgroundViewB containsPoint:bottom]){
         [self adjustView:self.backgroundViewA with:self.backgroundViewB forTop:top bottom:bottom];
+    } else {
+        [self view:self.backgroundViewA resetOriginY:top];
+        [self view:self.backgroundViewB resetOriginY:bottom];
     }
 }
 
