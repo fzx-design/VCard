@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "CardViewController.h"
 
+#define kReuseIdentifierCardCell  @"kReuseIdentifierCardCell"
+#define kReuseIdentifierDividerCell  @"kReuseIdentifierDividerCell"
+#define kReuseIdentifierEmptyCell  @"kReuseIdentifierEmptyCell"
+
 @interface WaterflowCell : UIView
 {
     NSIndexPath *_indexPath;

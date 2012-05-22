@@ -17,7 +17,8 @@
     if(self = [super initWithReuseIdentifier:reuseIdentifier currentUser:currentUser_])
 	{
 		self.reuseIdentifier = reuseIdentifier;
-        self.autoresizingMask = UIViewAutoresizingNone;
+        self.frame = self.dividerViewController.view.frame;
+        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     }
 	
 	return self;
@@ -30,6 +31,7 @@
         
         CGRect frame = _dividerViewController.view.frame;
         frame.origin = CGPointMake(0, 0);
+        frame.size = CGSizeMake(768, 30);
         _dividerViewController.view.frame = frame;
         
         [self addSubview:_dividerViewController.view];

@@ -113,9 +113,11 @@
 
 - (void)reLayoutCellsIn:(NSMutableArray*)visibleCells withOriginx:(CGFloat)originX
 {
-    for (UIView *cell in visibleCells) {
+    for (WaterflowCell *cell in visibleCells) {
+        CGFloat actualOriginX = [cell.reuseIdentifier isEqualToString:kReuseIdentifierDividerCell] ? 0.0 : originX;
+
         CGRect frame = cell.frame;
-        frame.origin.x = originX;
+        frame.origin.x = actualOriginX;
         cell.frame = frame;
     }
 }
@@ -377,10 +379,16 @@
         CGFloat origin_y = currentUnit.upperBound;
         CGFloat height = [currentUnit unitHeight];
         
+        int actualOriginX = currentUnit.isBlockDivider ? 0 : origin_x;
+        int actualWidth = currentUnit.isBlockDivider ? [self widthOfSceen] : width;
+        
+        if (currentUnit.isBlockDivider) {
+            NSLog(@"actualOriginX: %d, actualWidth: %d", actualOriginX, actualWidth);
+        }
         
         cell = [_flowdatasource flowView:self cellForLayoutUnit:currentUnit];
         cell.indexPath = [NSIndexPath indexPathForRow: currentUnit.unitIndex inSection:direction];
-        cell.frame = CGRectMake(origin_x, origin_y, width, height);
+        cell.frame = CGRectMake(actualOriginX, origin_y, actualWidth, height);
         [self addSubview:cell];
         [column.visibleCells insertObject:cell atIndex:0];
     } else {
@@ -404,9 +412,16 @@
         origin_y = unit.upperBound;
         height = [unit unitHeight];
         
+        int actualOriginX = unit.isBlockDivider ? 0.0 : origin_x;
+        int actualWidth = unit.isBlockDivider ? [self widthOfSceen] : width;
+        
+        if (unit.isBlockDivider) {
+            NSLog(@"actualOriginX: %d, actualWidth: %d", actualOriginX, actualWidth);
+        }
+        
         cell = [self.flowdatasource flowView:self cellForLayoutUnit:unit];
         cell.indexPath = [NSIndexPath indexPathForRow:unit.unitIndex inSection:direction];
-        cell.frame = CGRectMake(origin_x, origin_y , width, height);
+        cell.frame = CGRectMake(actualOriginX, origin_y , actualWidth, height);
         [column.visibleCells insertObject:cell atIndex:0];
         
         [self addSubview:cell];
@@ -443,9 +458,16 @@
         origin_y = unit.upperBound;
         height = [unit unitHeight];
         
+        int actualOriginX = unit.isBlockDivider ? 0.0: origin_x;
+        int actualWidth = unit.isBlockDivider ? [self widthOfSceen] : width;
+        
+        if (unit.isBlockDivider) {
+            NSLog(@"actualOriginX: %d, actualWidth: %d", actualOriginX, actualWidth);
+        }
+        
         cell = [self.flowdatasource flowView:self cellForLayoutUnit:unit];
         cell.indexPath = [NSIndexPath indexPathForRow:unitIndex + 1 inSection:direction];
-        cell.frame = CGRectMake(origin_x, origin_y, width, height);
+        cell.frame = CGRectMake(actualOriginX, origin_y, actualWidth, height);
         [column.visibleCells addObject:cell];
         
         [self addSubview:cell];
@@ -479,6 +501,12 @@
     }
     
     return result;
+}
+
+- (CGFloat)widthOfSceen
+{
+    BOOL isPortrait = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
+    return isPortrait ? 768.0 : 1024.0;
 }
 
 - (WaterflowColumn*)selectColumnToInsert

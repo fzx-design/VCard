@@ -44,6 +44,17 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     NSString *dateString = [formatter stringFromDate:date];
     self.timeLabel.text = dateString;
+    
+    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
+    
+//    [self view:self.leftPattern resetOriginX:];
+}
+
+- (void)view:(UIView *)view resetOriginX:(CGFloat)originX
+{
+    CGRect frame = view.frame;
+    frame.origin.x = originX;
+    view.frame = frame;
 }
 
 @end

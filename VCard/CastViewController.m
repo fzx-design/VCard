@@ -219,11 +219,11 @@
 {
     static NSString *CellIdentifier;
     if (layoutUnit.unitType == UnitTypeCard) {
-        CellIdentifier = @"CardTableViewCell";
+        CellIdentifier = kReuseIdentifierCardCell;
     } else if(layoutUnit.unitType == UnitTypeDivider){
-        CellIdentifier = @"DividerCell";
+        CellIdentifier = kReuseIdentifierDividerCell;
     } else {
-        CellIdentifier = @"EmptyCell";
+        CellIdentifier = kReuseIdentifierEmptyCell;
     }
     
 	WaterflowCell *cell = [flowView_ dequeueReusableCellWithIdentifier:CellIdentifier];

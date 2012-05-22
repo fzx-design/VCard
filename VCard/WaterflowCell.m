@@ -18,7 +18,6 @@
     if(self = [super init])
 	{
 		self.reuseIdentifier = reuseIdentifier;
-        self.autoresizingMask = UIViewAutoresizingNone;
     }
 	
 	return self;
