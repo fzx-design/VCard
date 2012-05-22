@@ -15,6 +15,15 @@
 #define RightColumnLandscapeOriginX 540
 #define RightColumnPortraitOriginX 389
 
+#define SingleBlockHeightLimit 2000
+#define BlockDividerHeight 30
+
+@interface WaterflowView () {
+    NSInteger _nextBlockLimit;
+}
+
+@end
+
 @implementation WaterflowView
 
 @synthesize cellHeight = _cellHeight;
@@ -202,6 +211,7 @@
 {
     if (needRefresh) {
         _curObjIndex = 0;
+        _nextBlockLimit = 0;
         
         for (WaterflowCell *cell in self.leftColumn.visibleCells) {
             [cell removeFromSuperview];
@@ -222,6 +232,8 @@
     
     for (  ; _curObjIndex < numberOfObjectsInSection; _curObjIndex++) {
         
+        [self setBlockDivider:_curObjIndex];
+        
         CGFloat imageHeight = [self randomImageHeight];
         
         WaterflowColumn *targetColumn = [self selectColumnToInsert];
@@ -230,6 +242,8 @@
         
         CGFloat height = [self.flowdatasource heightForObjectAtIndex:_curObjIndex withImageHeight:imageHeight];
         
+        currentUnit.isBlockDivider = NO;
+        currentUnit.unitType = UnitTypeCard;
         currentUnit.upperBound = lastUnit ? lastUnit.lowerBound : 0;
         currentUnit.lowerBound = currentUnit.upperBound + height;
         currentUnit.dataIndex = _curObjIndex;
@@ -241,6 +255,32 @@
         [targetColumn addObject:currentUnit];
     }
     
+}
+
+- (void)setBlockDivider:(NSInteger)dataIndex
+{
+    int currentViewHeight = [self heightOfWaterflowView];
+    if (currentViewHeight >= _nextBlockLimit) {
+        _nextBlockLimit = currentViewHeight + SingleBlockHeightLimit;
+        
+        WaterflowLayoutUnit *dividerUnitLeft = [[[WaterflowLayoutUnit alloc] init] autorelease];
+        WaterflowLayoutUnit *dividerUnitRight = [[[WaterflowLayoutUnit alloc] init] autorelease];
+        
+        dividerUnitLeft.isBlockDivider = YES;
+        dividerUnitLeft.unitType = UnitTypeDivider;
+        dividerUnitLeft.upperBound = currentViewHeight;
+        dividerUnitLeft.lowerBound = currentViewHeight + BlockDividerHeight;
+        dividerUnitLeft.unitIndex = self.leftColumn.unitContainer.count;
+        dividerUnitLeft.dataIndex = dataIndex;
+        [self.leftColumn addObject:dividerUnitLeft];
+        
+        dividerUnitRight.isBlockDivider = YES;
+        dividerUnitRight.unitType = UnitTypeNone;
+        dividerUnitRight.upperBound = currentViewHeight;
+        dividerUnitRight.lowerBound = currentViewHeight + BlockDividerHeight;
+        dividerUnitRight.unitIndex = self.leftColumn.unitContainer.count;
+        [self.rightColumn addObject:dividerUnitRight];
+    }
 }
 
 - (CGFloat)randomImageHeight
@@ -443,6 +483,7 @@
 
 - (WaterflowColumn*)selectColumnToInsert
 {
+    
     WaterflowLayoutUnit *leftUnit = (WaterflowLayoutUnit*)[self.leftColumn lastObject];
     WaterflowLayoutUnit *rightUnit = (WaterflowLayoutUnit*)[self.rightColumn lastObject];
     if (leftUnit == nil) {
@@ -451,6 +492,7 @@
     if (rightUnit == nil) {
         return self.rightColumn;
     }
+    
     return leftUnit.lowerBound < rightUnit.lowerBound ? self.leftColumn : self.rightColumn;
 }
 

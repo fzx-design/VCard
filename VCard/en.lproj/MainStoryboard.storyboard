@@ -204,26 +204,26 @@
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MMS-eP-hXe">
-                                                <rect key="frame" x="271" y="0.0" width="40" height="25"/>
+                                                <rect key="frame" x="271" y="-6" width="40" height="38"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal" image="button_comment.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="highlighted">
+                                                <state key="highlighted" image="button_comment_hover.png">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cB2-kf-m4c">
-                                                <rect key="frame" x="310" y="-4" width="38" height="28"/>
+                                                <rect key="frame" x="309" y="-6" width="40" height="38"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal" image="button_share.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="highlighted">
+                                                <state key="highlighted" image="button_share_hover.png">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
@@ -312,6 +312,49 @@
             </objects>
             <point key="canvasLocation" x="-2676" y="-1086"/>
         </scene>
+        <!--Divider View Controller-->
+        <scene sceneID="xOr-Zz-lin">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tcQ-il-wUK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="DividerViewController" id="06P-hI-xJn" customClass="DividerViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HxY-p6-LU3">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" image="pattern_left.png" id="vFv-0N-czz">
+                                <rect key="frame" x="329" y="0.0" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="center" image="pattern_right.png" id="efo-Nb-Oeh">
+                                <rect key="frame" x="409" y="0.0" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="apS-Qb-5cj">
+                                <rect key="frame" x="367" y="4" width="34" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="leftPattern" destination="vFv-0N-czz" id="9Oj-m4-MIK"/>
+                        <outlet property="rightPattern" destination="efo-Nb-Oeh" id="Kqu-P0-r2p"/>
+                        <outlet property="timeLabel" destination="apS-Qb-5cj" id="5ma-vr-3Cq"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-2201" y="-861"/>
+        </scene>
         <!--Cast View Controller-->
         <scene sceneID="OtA-Oh-wxl">
             <objects>
@@ -373,14 +416,18 @@
     <resources>
         <image name="button_bg_brown.png" width="50" height="30"/>
         <image name="button_comment.png" width="34" height="34"/>
+        <image name="button_comment_hover.png" width="34" height="34"/>
         <image name="button_login_arrow.png" width="25" height="25"/>
         <image name="button_share.png" width="34" height="34"/>
+        <image name="button_share_hover.png" width="34" height="34"/>
         <image name="card_clip.png" width="42" height="59"/>
         <image name="card_comment_thread.png" width="21" height="44"/>
         <image name="card_tag.png" width="62" height="59"/>
         <image name="imageview_placeholder.png" width="175" height="175"/>
         <image name="login_avatar_cover.png" width="247" height="286"/>
         <image name="login_card_bg.png" width="292" height="447"/>
+        <image name="pattern_left.png" width="16" height="12"/>
+        <image name="pattern_right.png" width="16" height="12"/>
         <image name="title_large.png" width="233" height="74"/>
         <image name="title_small.png" width="88" height="29"/>
     </resources>
@@ -435,6 +482,14 @@
         </class>
         <class className="CoreDataViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataViewController.h"/>
+        </class>
+        <class className="DividerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DividerViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="leftPattern" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="rightPattern" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
+            </relationships>
         </class>
         <class className="LoginViewController" superclassName="CoreDataViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>

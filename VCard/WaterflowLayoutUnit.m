@@ -16,6 +16,8 @@
 @synthesize imageHeight = _imageHeight;
 
 @synthesize unitIndex = _unitIndex;
+@synthesize isBlockDivider = _isBlockDivider;
+@synthesize unitType = _unitType;
 
 - (BOOL)containOffset:(CGFloat)offset
 {

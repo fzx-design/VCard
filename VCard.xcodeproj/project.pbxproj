@@ -64,6 +64,9 @@
 		18A68523153718BA00D58B7D /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A68521153718BA00D58B7D /* icon@2x.png */; };
 		18AC828E155B924700AD99C4 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC828B155B924700AD99C4 /* PullToRefreshView.m */; };
 		18DF3734153905A800C783C9 /* BaseNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF3733153905A800C783C9 /* BaseNavigationBar.m */; };
+		18DF3740156B55AC00C56685 /* WaterflowCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF373F156B55AC00C56685 /* WaterflowCardCell.m */; };
+		18DF3744156B59B600C56685 /* WaterflowDividerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF3743156B59B600C56685 /* WaterflowDividerCell.m */; };
+		18DF3747156B5F0600C56685 /* DividerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF3746156B5F0600C56685 /* DividerViewController.m */; };
 		18E558E4153EA4AE00ECCA3B /* error_msg_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D4153EA4AE00ECCA3B /* error_msg_bg.png */; };
 		18E558E5153EA4AE00ECCA3B /* error_msg_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D5153EA4AE00ECCA3B /* error_msg_bg@2x.png */; };
 		18E558E6153EA4AE00ECCA3B /* icon_connection_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D6153EA4AE00ECCA3B /* icon_connection_error.png */; };
@@ -457,6 +460,12 @@
 		18AC828B155B924700AD99C4 /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
 		18DF3732153905A800C783C9 /* BaseNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationBar.h; sourceTree = "<group>"; };
 		18DF3733153905A800C783C9 /* BaseNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationBar.m; sourceTree = "<group>"; };
+		18DF373E156B55AC00C56685 /* WaterflowCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterflowCardCell.h; sourceTree = "<group>"; };
+		18DF373F156B55AC00C56685 /* WaterflowCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterflowCardCell.m; sourceTree = "<group>"; };
+		18DF3742156B59B600C56685 /* WaterflowDividerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterflowDividerCell.h; sourceTree = "<group>"; };
+		18DF3743156B59B600C56685 /* WaterflowDividerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterflowDividerCell.m; sourceTree = "<group>"; };
+		18DF3745156B5F0600C56685 /* DividerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DividerViewController.h; sourceTree = "<group>"; };
+		18DF3746156B5F0600C56685 /* DividerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DividerViewController.m; sourceTree = "<group>"; };
 		18E558D4153EA4AE00ECCA3B /* error_msg_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error_msg_bg.png; sourceTree = "<group>"; };
 		18E558D5153EA4AE00ECCA3B /* error_msg_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_msg_bg@2x.png"; sourceTree = "<group>"; };
 		18E558D6153EA4AE00ECCA3B /* icon_connection_error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_connection_error.png; sourceTree = "<group>"; };
@@ -968,6 +977,8 @@
 				188BA4F31539AAD100344288 /* CardViewController.m */,
 				18E558FC153EAAD300ECCA3B /* CastViewController.h */,
 				18E558FD153EAAD300ECCA3B /* CastViewController.m */,
+				18DF3745156B5F0600C56685 /* DividerViewController.h */,
+				18DF3746156B5F0600C56685 /* DividerViewController.m */,
 				18E558FF153EF55600ECCA3B /* RootViewController.h */,
 				18E55900153EF55600ECCA3B /* RootViewController.m */,
 			);
@@ -1066,6 +1077,10 @@
 			children = (
 				18E55920153F95AB00ECCA3B /* WaterflowCell.h */,
 				18E55921153F95AB00ECCA3B /* WaterflowCell.m */,
+				18DF373E156B55AC00C56685 /* WaterflowCardCell.h */,
+				18DF373F156B55AC00C56685 /* WaterflowCardCell.m */,
+				18DF3742156B59B600C56685 /* WaterflowDividerCell.h */,
+				18DF3743156B59B600C56685 /* WaterflowDividerCell.m */,
 				18E558F5153EA8BB00ECCA3B /* WaterflowView.h */,
 				18E558F6153EA8BB00ECCA3B /* WaterflowView.m */,
 				18047E2E15452CB900651305 /* WaterflowColumn.h */,
@@ -1902,6 +1917,9 @@
 				18145327156753DD00491BED /* KVImageCache.m in Sources */,
 				18145328156753DD00491BED /* UIImageView+URL.m in Sources */,
 				18ED9CE61568BA1900627D8F /* UIImage+Addition.m in Sources */,
+				18DF3740156B55AC00C56685 /* WaterflowCardCell.m in Sources */,
+				18DF3744156B59B600C56685 /* WaterflowDividerCell.m in Sources */,
+				18DF3747156B5F0600C56685 /* DividerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,9 @@
 #import "Status.h"
 #import "User.h"
 
+#import "WaterflowCardCell.h"
+#import "WaterflowDividerCell.h"
+
 
 @interface CastViewController () {
     BOOL _loading;
@@ -214,21 +217,40 @@
 
 - (WaterflowCell*)flowView:(WaterflowView *)flowView_ cellForLayoutUnit:(WaterflowLayoutUnit *)layoutUnit
 {
-    static NSString *CellIdentifier = @"CardTableViewCell";
+    static NSString *CellIdentifier;
+    if (layoutUnit.unitType == UnitTypeCard) {
+        CellIdentifier = @"CardTableViewCell";
+    } else if(layoutUnit.unitType == UnitTypeDivider){
+        CellIdentifier = @"DividerCell";
+    } else {
+        CellIdentifier = @"EmptyCell";
+    }
+    
 	WaterflowCell *cell = [flowView_ dequeueReusableCellWithIdentifier:CellIdentifier];
 	
 	if(cell == nil) {
-		cell = [[WaterflowCell alloc] initWithReuseIdentifier:CellIdentifier currentUser:self.currentUser];
-		cell.cardViewController.currentUser = self.currentUser;
+        if (layoutUnit.unitType == UnitTypeCard) {
+            cell = [[WaterflowCardCell alloc] initWithReuseIdentifier:CellIdentifier currentUser:self.currentUser];
+            ((WaterflowCardCell *)cell).cardViewController.currentUser = self.currentUser;
+        } else if(layoutUnit.unitType == UnitTypeDivider) {
+            cell = [[WaterflowDividerCell alloc] initWithReuseIdentifier:CellIdentifier currentUser:self.currentUser];
+        } else {
+            cell = [[WaterflowCell alloc] initWithReuseIdentifier:CellIdentifier currentUser:self.currentUser];
+        }
 	}
     
-    Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
-    if (![targetStatus.isFriendsStatusOf isEqualToUser:self.currentUser]) {
-        NSLog(@"user: %@, current user: %@", targetStatus.isFriendsStatusOf.screenName, self.currentUser.screenName);
+    if (layoutUnit.unitType == UnitTypeCard) {
+        
+        Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
+        [cell setCellHeight:[layoutUnit unitHeight]];
+        
+        [((WaterflowCardCell *)cell).cardViewController configureCardWithStatus:targetStatus imageHeight:layoutUnit.imageHeight];
+        
+    } else if(layoutUnit.unitType == UnitTypeDivider) {
+        Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
+        [((WaterflowDividerCell *)cell).dividerViewController updateTimeInformation:targetStatus.createdAt];
     }
-    [cell setCellHeight:[layoutUnit unitHeight]];
-    [cell.cardViewController configureCardWithStatus:targetStatus imageHeight:layoutUnit.imageHeight];
-
+    
 	return cell;
 }
 

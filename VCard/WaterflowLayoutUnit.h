@@ -19,6 +19,12 @@ typedef enum {
     ImageHeightHigh = 350,
 } ImageHeight;
 
+typedef enum {
+    UnitTypeCard,
+    UnitTypeDivider,
+    UnitTypeNone,
+} UnitType;
+
 @interface WaterflowLayoutUnit : NSObject {
     NSInteger _dataIndex;
     CGFloat _upperBound;
@@ -26,6 +32,8 @@ typedef enum {
     int _imageHeight;
     
     NSInteger _unitIndex;
+    BOOL _isBlockDivider;
+    UnitType _unitType;
 }
 
 @property (nonatomic, assign) NSInteger dataIndex;
@@ -34,6 +42,8 @@ typedef enum {
 @property (nonatomic, assign) int imageHeight;
 
 @property (nonatomic, assign) NSInteger unitIndex;
+@property (nonatomic, assign) BOOL isBlockDivider;
+@property (nonatomic, assign) UnitType unitType;
 
 - (BOOL)containOffset:(CGFloat)offset;
 - (CGFloat)unitHeight;

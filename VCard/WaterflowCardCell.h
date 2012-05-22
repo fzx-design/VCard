@@ -1,22 +1,20 @@
 //
-//  WaterflowCell.h
+//  WaterflowCardCell.h
 //  VCard
 //
-//  Created by 海山 叶 on 12-4-19.
+//  Created by 海山 叶 on 12-5-22.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WaterflowCell.h"
 #import "CardViewController.h"
 
-@interface WaterflowCell : UIView
-{
-    NSIndexPath *_indexPath;
-    NSString *_reuseIdentifier;
+@interface WaterflowCardCell : WaterflowCell {
+
+    CardViewController *_cardViewController;
 }
 
-@property (nonatomic, retain) NSIndexPath *indexPath;
-@property (nonatomic, retain) NSString *reuseIdentifier;
+@property (nonatomic, strong) CardViewController *cardViewController;
 
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier currentUser:(User*)currentUser_;
 - (void)loadImageAfterScrollingStop;
