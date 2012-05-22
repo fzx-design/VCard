@@ -15,4 +15,6 @@
 
 @property (nonatomic, strong) DividerViewController *dividerViewController;
 
+- (void)resetLayoutAfterRotating;
+
 @end

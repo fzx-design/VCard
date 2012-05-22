@@ -119,6 +119,8 @@
         CGRect frame = cell.frame;
         frame.origin.x = actualOriginX;
         cell.frame = frame;
+        
+        [cell resetLayoutAfterRotating];
     }
 }
 

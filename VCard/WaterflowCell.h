@@ -26,5 +26,6 @@
 - (void)loadImageAfterScrollingStop;
 - (void)prepareForReuse;
 - (void)setCellHeight:(CGFloat)height;
+- (void)resetLayoutAfterRotating;
 
 @end

@@ -39,6 +39,11 @@
     return _dividerViewController;
 }
 
+- (void)resetLayoutAfterRotating
+{
+    [self.dividerViewController resetLayoutAfterRotating];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

@@ -31,7 +31,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(resetLayoutAfterRotating)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
 }
 
 - (void)viewDidUnload
@@ -42,20 +45,32 @@
 
 - (void)updateTimeInformation:(NSDate *)date
 {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    NSString *dateString = [formatter stringFromDate:date];
-    NSTimeInterval interval = [date timeIntervalSinceNow];
+    NSDate *currentDate = [NSDate date];
+    NSTimeInterval interval = [currentDate timeIntervalSinceDate:date];
     
-    NSString *timeString = [date customString];
-    CGFloat timeStringWidth = ceilf([timeString sizeWithFont:[UIFont systemFontOfSize:12.0f] constrainedToSize:CGSizeMake(1000.0, 30.0) lineBreakMode:UILineBreakModeWordWrap].width);
-    [self view:self.timeLabel resetWidth:timeStringWidth];
-    [self view:self.timeLabel resetOriginX:[self currentScreenWidth] / 2 - timeStringWidth / 2 + 3];
-    [self view:self.leftPattern resetOriginX:[self currentScreenWidth] / 2 - timeStringWidth / 2 - 30];
-    [self view:self.rightPattern resetOriginX:[self currentScreenWidth] / 2 + timeStringWidth / 2 + 5];
+    int minutes = floor(interval / 60);
+    
+    NSString *timeString;
+    if (minutes > 60) {
+        timeString = [date customString];
+    } else if (minutes == 0) {
+        timeString = [NSString stringWithFormat:@" 刚刚更新 "];
+    } else {
+        timeString = [NSString stringWithFormat:@"%d 分钟前", minutes];
+    }
     
     self.timeLabel.text = timeString;
-        
-//    [self view:self.leftPattern resetOriginX:];
+    
+    [self resetLayoutAfterRotating];
+}
+
+- (void)resetLayoutAfterRotating
+{
+    CGFloat timeStringWidth = ceilf([self.timeLabel.text sizeWithFont:[UIFont boldSystemFontOfSize:12.0f] constrainedToSize:CGSizeMake(1000.0, 30.0) lineBreakMode:UILineBreakModeWordWrap].width) + 1;
+    [self view:self.timeLabel resetWidth:timeStringWidth];
+    [self view:self.timeLabel resetOriginX:[self currentScreenWidth] / 2 - timeStringWidth / 2 + 4];
+    [self view:self.leftPattern resetOriginX:[self currentScreenWidth] / 2 - timeStringWidth / 2 - 32];
+    [self view:self.rightPattern resetOriginX:[self currentScreenWidth] / 2 + timeStringWidth / 2 + 5];
 }
 
 - (CGFloat)currentScreenWidth
