@@ -15,7 +15,7 @@
 #define RightColumnLandscapeOriginX 540
 #define RightColumnPortraitOriginX 389
 
-#define SingleBlockHeightLimit 2000
+#define SingleBlockHeightLimit 3000
 #define BlockDividerHeight 30
 
 @interface WaterflowView () {
@@ -128,6 +128,7 @@
     CGFloat height = [self heightOfWaterflowView];
     
     self.contentSize = CGSizeMake(width, height);
+    
 }
 
 - (UIInterfaceOrientation)currentOrientation
@@ -200,6 +201,7 @@
 
 - (void)reLayoutNeedRefresh:(BOOL)needRefresh
 {
+    
     [self prepareLayoutNeedRefresh:needRefresh];
     
     [self resetContentSize:[self currentOrientation]];
@@ -249,9 +251,7 @@
         currentUnit.upperBound = lastUnit ? lastUnit.lowerBound : 0;
         currentUnit.lowerBound = currentUnit.upperBound + height;
         currentUnit.dataIndex = _curObjIndex;
-
         currentUnit.imageHeight = imageHeight;
-        
         currentUnit.unitIndex = targetColumn.unitContainer.count;
         
         [targetColumn addObject:currentUnit];
@@ -265,21 +265,23 @@
     if (currentViewHeight >= _nextBlockLimit) {
         _nextBlockLimit = currentViewHeight + SingleBlockHeightLimit;
         
+        int dividerOffset = currentViewHeight == 0 ? 10 : -25;
+        
         WaterflowLayoutUnit *dividerUnitLeft = [[[WaterflowLayoutUnit alloc] init] autorelease];
         WaterflowLayoutUnit *dividerUnitRight = [[[WaterflowLayoutUnit alloc] init] autorelease];
         
         dividerUnitLeft.isBlockDivider = YES;
         dividerUnitLeft.unitType = UnitTypeDivider;
-        dividerUnitLeft.upperBound = currentViewHeight;
-        dividerUnitLeft.lowerBound = currentViewHeight + BlockDividerHeight;
+        dividerUnitLeft.upperBound = currentViewHeight + dividerOffset;
+        dividerUnitLeft.lowerBound = dividerUnitLeft.upperBound + BlockDividerHeight;
         dividerUnitLeft.unitIndex = self.leftColumn.unitContainer.count;
         dividerUnitLeft.dataIndex = dataIndex;
         [self.leftColumn addObject:dividerUnitLeft];
         
         dividerUnitRight.isBlockDivider = YES;
         dividerUnitRight.unitType = UnitTypeNone;
-        dividerUnitRight.upperBound = currentViewHeight;
-        dividerUnitRight.lowerBound = currentViewHeight + BlockDividerHeight;
+        dividerUnitRight.upperBound = currentViewHeight + dividerOffset;
+        dividerUnitRight.lowerBound = dividerUnitRight.upperBound + BlockDividerHeight;
         dividerUnitRight.unitIndex = self.rightColumn.unitContainer.count;
         [self.rightColumn addObject:dividerUnitRight];
     }
@@ -382,10 +384,6 @@
         int actualOriginX = currentUnit.isBlockDivider ? 0 : origin_x;
         int actualWidth = currentUnit.isBlockDivider ? [self widthOfSceen] : width;
         
-        if (currentUnit.isBlockDivider) {
-            NSLog(@"actualOriginX: %d, actualWidth: %d", actualOriginX, actualWidth);
-        }
-        
         cell = [_flowdatasource flowView:self cellForLayoutUnit:currentUnit];
         cell.indexPath = [NSIndexPath indexPathForRow: currentUnit.unitIndex inSection:direction];
         cell.frame = CGRectMake(actualOriginX, origin_y, actualWidth, height);
@@ -414,10 +412,6 @@
         
         int actualOriginX = unit.isBlockDivider ? 0.0 : origin_x;
         int actualWidth = unit.isBlockDivider ? [self widthOfSceen] : width;
-        
-        if (unit.isBlockDivider) {
-            NSLog(@"actualOriginX: %d, actualWidth: %d", actualOriginX, actualWidth);
-        }
         
         cell = [self.flowdatasource flowView:self cellForLayoutUnit:unit];
         cell.indexPath = [NSIndexPath indexPathForRow:unit.unitIndex inSection:direction];
@@ -460,10 +454,6 @@
         
         int actualOriginX = unit.isBlockDivider ? 0.0: origin_x;
         int actualWidth = unit.isBlockDivider ? [self widthOfSceen] : width;
-        
-        if (unit.isBlockDivider) {
-            NSLog(@"actualOriginX: %d, actualWidth: %d", actualOriginX, actualWidth);
-        }
         
         cell = [self.flowdatasource flowView:self cellForLayoutUnit:unit];
         cell.indexPath = [NSIndexPath indexPathForRow:unitIndex + 1 inSection:direction];
@@ -537,12 +527,6 @@
             result = unit;
             break;
         }
-        
-//        if (unit.upperBound < self.contentOffset.y + _refreshOffset) {
-//            result = unit;
-//        } else {
-//            break;
-//        }
     }
     return result;
 }

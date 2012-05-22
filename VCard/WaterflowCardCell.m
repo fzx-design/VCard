@@ -30,7 +30,7 @@
         _cardViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:NULL] instantiateViewControllerWithIdentifier:@"CardViewController"];
         
         CGRect frame = _cardViewController.view.frame;
-        frame.origin = CGPointMake(0, 20);
+        frame.origin = CGPointMake(0, 0);
         frame.size = CGSizeMake(362, 500);
         _cardViewController.view.frame = frame;
         

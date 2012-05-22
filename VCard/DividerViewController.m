@@ -7,6 +7,7 @@
 //
 
 #import "DividerViewController.h"
+#import "NSDateAddition.h"
 
 @interface DividerViewController ()
 
@@ -43,17 +44,37 @@
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     NSString *dateString = [formatter stringFromDate:date];
-    self.timeLabel.text = dateString;
+    NSTimeInterval interval = [date timeIntervalSinceNow];
     
-    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
+    NSString *timeString = [date customString];
+    CGFloat timeStringWidth = ceilf([timeString sizeWithFont:[UIFont systemFontOfSize:12.0f] constrainedToSize:CGSizeMake(1000.0, 30.0) lineBreakMode:UILineBreakModeWordWrap].width);
+    [self view:self.timeLabel resetWidth:timeStringWidth];
+    [self view:self.timeLabel resetOriginX:[self currentScreenWidth] / 2 - timeStringWidth / 2 + 3];
+    [self view:self.leftPattern resetOriginX:[self currentScreenWidth] / 2 - timeStringWidth / 2 - 30];
+    [self view:self.rightPattern resetOriginX:[self currentScreenWidth] / 2 + timeStringWidth / 2 + 5];
     
+    self.timeLabel.text = timeString;
+        
 //    [self view:self.leftPattern resetOriginX:];
+}
+
+- (CGFloat)currentScreenWidth
+{
+    BOOL isPortrait = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);;
+    return isPortrait ? 768.0 : 1024.0;
 }
 
 - (void)view:(UIView *)view resetOriginX:(CGFloat)originX
 {
     CGRect frame = view.frame;
     frame.origin.x = originX;
+    view.frame = frame;
+}
+
+- (void)view:(UIView *)view resetWidth:(CGFloat)width
+{
+    CGRect frame = view.frame;
+    frame.size.width = width;
     view.frame = frame;
 }
 
