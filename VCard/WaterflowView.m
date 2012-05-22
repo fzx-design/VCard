@@ -267,7 +267,7 @@
     if (currentViewHeight >= _nextBlockLimit) {
         _nextBlockLimit = currentViewHeight + SingleBlockHeightLimit;
         
-        int dividerOffset = currentViewHeight == 0 ? 10 : -25;
+        int dividerOffset = currentViewHeight == 0 ? 14 : -25;
         
         WaterflowLayoutUnit *dividerUnitLeft = [[[WaterflowLayoutUnit alloc] init] autorelease];
         WaterflowLayoutUnit *dividerUnitRight = [[[WaterflowLayoutUnit alloc] init] autorelease];

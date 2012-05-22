@@ -45,8 +45,18 @@
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:now];
     [components setHour:0];
-    NSDate *today0am = [calendar dateFromComponents:components];  
+    NSDate *today0am = [calendar dateFromComponents:components];
+    NSDate *date = [NSDate date];
     
+    NSTimeInterval seconds = [date timeIntervalSinceDate:self];
+    int minutes = floor(seconds / 60);
+    if (minutes == 0) {
+        return [NSString stringWithFormat:@" 刚刚更新 "];
+    } else if (minutes < 60){
+        return [NSString stringWithFormat:@"%d 分钟前", minutes];
+    }
+    
+    NSString* dateStr;
     NSTimeInterval time = [today0am timeIntervalSinceDate:self];
     int days = ((int)time)/(3600*24);
     if (time < 0) {
@@ -54,7 +64,6 @@
     }
     days++;
     
-    NSString* dateStr;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"HH:mm" options:0 locale:[NSLocale currentLocale]]];
     NSString* timeStr = [dateFormatter stringFromDate:self];
