@@ -278,7 +278,7 @@
         dividerUnitRight.unitType = UnitTypeNone;
         dividerUnitRight.upperBound = currentViewHeight;
         dividerUnitRight.lowerBound = currentViewHeight + BlockDividerHeight;
-        dividerUnitRight.unitIndex = self.leftColumn.unitContainer.count;
+        dividerUnitRight.unitIndex = self.rightColumn.unitContainer.count;
         [self.rightColumn addObject:dividerUnitRight];
     }
 }
@@ -500,12 +500,21 @@
 {
     CGFloat _refreshOffset = self.contentOffset.y < 0 ? - self.contentOffset.y : 0;
     
-    WaterflowLayoutUnit *result = nil;
+    WaterflowLayoutUnit *result = [column.unitContainer objectAtIndex:0];
     for (WaterflowLayoutUnit* unit in column.unitContainer) {
         if ([unit containOffset:self.contentOffset.y + _refreshOffset]) {
             result = unit;
             break;
+        } else if(unit.upperBound > self.contentOffset.y + _refreshOffset) {
+            result = unit;
+            break;
         }
+        
+//        if (unit.upperBound < self.contentOffset.y + _refreshOffset) {
+//            result = unit;
+//        } else {
+//            break;
+//        }
     }
     return result;
 }
