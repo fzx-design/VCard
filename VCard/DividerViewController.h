@@ -20,6 +20,5 @@
 @property (nonatomic, strong) IBOutlet UILabel *timeLabel;
 
 - (void)updateTimeInformation:(NSDate *)date;
-- (void)resetLayoutAfterRotating;
 
 @end

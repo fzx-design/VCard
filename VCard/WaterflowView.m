@@ -119,8 +119,6 @@
         CGRect frame = cell.frame;
         frame.origin.x = actualOriginX;
         cell.frame = frame;
-        
-        [cell resetLayoutAfterRotating];
     }
 }
 
@@ -519,6 +517,10 @@
 - (WaterflowLayoutUnit*)currentUnitIndexInColumn:(WaterflowColumn*)column
 {
     CGFloat _refreshOffset = self.contentOffset.y < 0 ? - self.contentOffset.y : 0;
+    
+    if (column.unitContainer.count == 0) {
+        return nil;
+    }
     
     WaterflowLayoutUnit *result = [column.unitContainer objectAtIndex:0];
     for (WaterflowLayoutUnit* unit in column.unitContainer) {

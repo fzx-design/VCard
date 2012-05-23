@@ -8,6 +8,7 @@
 
 #import "RootViewController.h"
 #import "WBClient.h"
+#import "ResourceList.h"
 
 @interface RootViewController ()
 
@@ -50,6 +51,7 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
                                 duration:(NSTimeInterval)duration
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameOrientationWillChange object:nil];
     [self.castViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 

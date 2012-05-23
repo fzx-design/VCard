@@ -8,6 +8,7 @@
 
 #import "DividerViewController.h"
 #import "NSDateAddition.h"
+#import "ResourceList.h"
 
 @interface DividerViewController ()
 
@@ -31,9 +32,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.autoresizingMask = UIViewAutoresizingNone;
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(resetLayoutAfterRotating)
-                                                 name:UIDeviceOrientationDidChangeNotification
+                                             selector:@selector(resetLayoutBeforeRotating)
+                                                 name:kNotificationNameOrientationWillChange
                                                object:nil];
 }
 
@@ -47,21 +49,32 @@
 {
     self.timeLabel.text = [date customString];
     
-    [self resetLayoutAfterRotating];
+    [self resetLayout:YES];
 }
 
-- (void)resetLayoutAfterRotating
+- (void)resetLayoutBeforeRotating
+{
+    [self resetLayout:NO];
+}
+
+- (void)resetLayout:(BOOL)didRotate
 {
     CGFloat timeStringWidth = ceilf([self.timeLabel.text sizeWithFont:[UIFont boldSystemFontOfSize:12.0f] constrainedToSize:CGSizeMake(1000.0, 30.0) lineBreakMode:UILineBreakModeWordWrap].width) + 1;
+    
+    CGFloat screenWidth = [self currentScreenWidth:didRotate];
+    
     [self view:self.timeLabel resetWidth:timeStringWidth];
-    [self view:self.timeLabel resetOriginX:[self currentScreenWidth] / 2 - timeStringWidth / 2 + 4];
-    [self view:self.leftPattern resetOriginX:[self currentScreenWidth] / 2 - timeStringWidth / 2 - 28];
-    [self view:self.rightPattern resetOriginX:[self currentScreenWidth] / 2 + timeStringWidth / 2 + 3];
+    [self view:self.timeLabel resetOriginX:screenWidth / 2 - timeStringWidth / 2 + 4];
+    [self view:self.leftPattern resetOriginX:screenWidth / 2 - timeStringWidth / 2 - 28];
+    [self view:self.rightPattern resetOriginX:screenWidth / 2 + timeStringWidth / 2 + 3];
 }
 
-- (CGFloat)currentScreenWidth
+- (CGFloat)currentScreenWidth:(BOOL)didRotate
 {
-    BOOL isPortrait = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);;
+    BOOL isPortrait = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
+    
+    isPortrait  = didRotate ? isPortrait : !isPortrait;
+    
     return isPortrait ? 768.0 : 1024.0;
 }
 
@@ -77,6 +90,11 @@
     CGRect frame = view.frame;
     frame.size.width = width;
     view.frame = frame;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	return YES;
 }
 
 @end

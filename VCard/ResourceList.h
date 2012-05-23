@@ -23,4 +23,7 @@
 #define kRLCardImageShadowCenter @"image_shadow_body.png"
 #define kRLCardImageShadowBottom @"image_shadow_btm.png"
 
+#define kNotificationNameOrientationWillChange @"kNotificationNameOrientationWillChange"
+
+
 #endif

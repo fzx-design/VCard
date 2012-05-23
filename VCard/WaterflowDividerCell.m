@@ -18,7 +18,7 @@
 	{
 		self.reuseIdentifier = reuseIdentifier;
         self.frame = self.dividerViewController.view.frame;
-        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.autoresizingMask = UIViewAutoresizingNone;
     }
 	
 	return self;
@@ -39,10 +39,11 @@
     return _dividerViewController;
 }
 
-- (void)resetLayoutAfterRotating
-{
-    [self.dividerViewController resetLayoutAfterRotating];
-}
+//- (void)resetLayoutAfterRotating
+//{
+//    NSLog(@"current frame: %@", NSStringFromCGRect(self.frame));
+//    [self.dividerViewController resetLayoutAfterRotating];
+//}
 
 /*
 // Only override drawRect: if you perform custom drawing.

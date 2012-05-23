@@ -319,7 +319,7 @@
                 <viewController storyboardIdentifier="DividerViewController" id="06P-hI-xJn" customClass="DividerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HxY-p6-LU3">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="30"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" image="pattern_left.png" id="vFv-0N-czz">
                                 <rect key="frame" x="329" y="-4" width="30" height="30"/>
