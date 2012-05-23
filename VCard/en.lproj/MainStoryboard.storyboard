@@ -167,7 +167,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IFu-b2-IWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="CardViewController" id="u04-WG-2X6" customClass="CardViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hgq-wm-12w">
-                        <rect key="frame" x="0.0" y="0.0" width="362" height="500"/>
+                        <rect key="frame" x="0.0" y="0.0" width="362" height="550"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="C7k-Qi-MZW" customClass="BaseCardBackgroundView">
@@ -201,30 +201,6 @@
                                                 </state>
                                                 <state key="highlighted" title="用户名">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MMS-eP-hXe">
-                                                <rect key="frame" x="271" y="-6" width="40" height="38"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" image="button_comment.png">
-                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <state key="highlighted" image="button_comment_hover.png">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cB2-kf-m4c">
-                                                <rect key="frame" x="309" y="-6" width="40" height="38"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" image="button_share.png">
-                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <state key="highlighted" image="button_share_hover.png">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
                                             <view contentMode="scaleToFill" id="IQX-2v-fUV" customClass="TTTAttributedLabel">
@@ -285,6 +261,50 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cB2-kf-m4c">
+                                <rect key="frame" x="302" y="238" width="40" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="button_share.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" image="button_share_hover.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MMS-eP-hXe">
+                                <rect key="frame" x="264" y="238" width="40" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="button_comment.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" image="button_comment_hover.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="center" image="card_location_pin.png" id="N7e-YO-GHV">
+                                <rect key="frame" x="18" y="523" width="14" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="同济大学苹果俱乐部" lineBreakMode="tailTruncation" minimumFontSize="10" id="Y1f-Ss-MYr">
+                                <rect key="frame" x="40" y="523" width="189" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.72549019609999998" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="5月21日 5:21" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="x7s-cO-Zoz">
+                                <rect key="frame" x="224" y="523" width="118" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" red="0.63137254899999995" green="0.63137254899999995" blue="0.63137254899999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
@@ -297,16 +317,20 @@
                         <outlet property="clipImageView" destination="90L-iK-tu4" id="caY-CA-Mck"/>
                         <outlet property="commentButton" destination="MMS-eP-hXe" id="rbH-dq-kNh"/>
                         <outlet property="favoredImageView" destination="eSu-cV-Lvj" id="Lmx-U8-rZe"/>
+                        <outlet property="locationLabel" destination="Y1f-Ss-MYr" id="Mef-WE-BU3"/>
+                        <outlet property="locationPinImageView" destination="N7e-YO-GHV" id="dZe-eE-a4G"/>
                         <outlet property="originalStatusLabel" destination="IQX-2v-fUV" id="V6q-hS-aws"/>
                         <outlet property="originalUserAvatar" destination="csH-gh-gfc" id="QVu-sy-vZZ"/>
                         <outlet property="originalUserNameButton" destination="Tt5-6T-Hhn" id="XF4-zL-GBS"/>
                         <outlet property="repostButton" destination="cB2-kf-m4c" id="Wm4-gj-Xla"/>
                         <outlet property="repostCardBackground" destination="buk-L8-uIQ" id="tQG-Qx-ZLp"/>
+                        <outlet property="repostStatusInfoView" destination="SO2-Rt-RXt" id="xgv-TN-VGl"/>
                         <outlet property="repostStatusLabel" destination="Mux-IR-mpT" id="6gW-Ol-3kD"/>
                         <outlet property="repostUserAvatar" destination="W1Q-pN-Lvl" id="7Uj-HL-hGO"/>
                         <outlet property="repostUserNameButton" destination="kEL-AV-uHU" id="HVy-JD-MSc"/>
                         <outlet property="statusImageView" destination="JlQ-UP-5aD" id="fdw-1j-qQR"/>
                         <outlet property="statusInfoView" destination="ZwQ-av-DfK" id="jAB-BR-qZQ"/>
+                        <outlet property="timeStampLabel" destination="x7s-cO-Zoz" id="MKe-5q-ats"/>
                     </connections>
                 </viewController>
             </objects>
@@ -422,6 +446,7 @@
         <image name="button_share_hover.png" width="34" height="34"/>
         <image name="card_clip.png" width="42" height="59"/>
         <image name="card_comment_thread.png" width="21" height="44"/>
+        <image name="card_location_pin.png" width="14" height="24"/>
         <image name="card_tag.png" width="62" height="59"/>
         <image name="imageview_placeholder.png" width="175" height="175"/>
         <image name="login_avatar_cover.png" width="247" height="286"/>
@@ -454,16 +479,20 @@
                 <relationship kind="outlet" name="clipImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="favoredImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="locationPinImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="originalStatusLabel" candidateClass="TTTAttributedLabel"/>
                 <relationship kind="outlet" name="originalUserAvatar" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="originalUserNameButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="repostButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="repostCardBackground" candidateClass="BaseCardBackgroundView"/>
+                <relationship kind="outlet" name="repostStatusInfoView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="repostStatusLabel" candidateClass="TTTAttributedLabel"/>
                 <relationship kind="outlet" name="repostUserAvatar" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="repostUserNameButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="statusImageView" candidateClass="CardImageView"/>
                 <relationship kind="outlet" name="statusInfoView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="CastViewController" superclassName="CoreDataTableViewController">

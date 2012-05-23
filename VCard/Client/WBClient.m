@@ -318,6 +318,22 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
+- (void)getAddressFromGeoWithCoordinate:(NSString *)coordinate
+{
+    self.path = @"location/geo/geo_to_address.json";
+	
+    if (coordinate) {
+        [self.params setObject:coordinate forKey:@"coordinate"];
+    }
+    
+    [self setPreCompletionBlock:^(WBClient *client) {
+        NSDictionary *dict = self.responseJSONObject;
+        self.responseJSONObject = [dict objectForKey:@"geos"];
+    }];
+    
+    [self loadNormalRequest];
+}
+
 #pragma mark Request
 
 - (void)loadNormalRequest

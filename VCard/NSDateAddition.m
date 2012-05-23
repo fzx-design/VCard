@@ -33,7 +33,20 @@
 - (NSString *)stringRepresentation
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSDate *now = [NSDate date];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    unsigned int unitFlags = NSYearCalendarUnit;
+    NSDateComponents *dd = [cal components:unitFlags fromDate:now];
+    int currentYear = [dd year];
+    dd = [cal components:unitFlags fromDate:self];
+    int targetYear = [dd year];
+    
+    if (currentYear != targetYear) {
+        [formatter setDateFormat:@"yyyy年M月d日 HH:mm"];
+    } else {
+        [formatter setDateFormat:@"M月d日 HH:mm"];
+    }
     
     NSString *dateStr = [formatter stringFromDate:self];
     return dateStr;

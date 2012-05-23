@@ -2,7 +2,7 @@
 //  Status.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-4-17.
+//  Created by 海山 叶 on 12-5-23.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -11,7 +11,6 @@
 #import "Status.h"
 #import "User.h"
 #import "NSDateAddition.h"
-
 
 @implementation Status
 
@@ -34,6 +33,7 @@
 @dynamic text;
 @dynamic thumbnailPicURL;
 @dynamic updateDate;
+@dynamic location;
 @dynamic author;
 @dynamic comments;
 @dynamic favoritedBy;
@@ -160,6 +160,16 @@
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
     }
+}
+
+- (BOOL)hasLocationInfo
+{
+    return self.lat && self.lon && [self.lat floatValue] != 0 && [self.lon floatValue] != 0;
+}
+
+- (BOOL)locationInfoAlreadyLoaded
+{
+    return self.location && ![self.location isEqualToString:@""];
 }
 
 

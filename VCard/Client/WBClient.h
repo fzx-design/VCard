@@ -110,5 +110,6 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                    startingAtPage:(int)page 
                             count:(int)count
                           feature:(int)feature;
+- (void)getAddressFromGeoWithCoordinate:(NSString *)coordinate;
 
 @end

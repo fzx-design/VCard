@@ -52,6 +52,8 @@
     [self resetLayout:YES];
 }
 
+#pragma mark - Reset The Layout Of The Layout Inside A Divider
+
 - (void)resetLayoutBeforeRotating
 {
     [self resetLayout:NO];

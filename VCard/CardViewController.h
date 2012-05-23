@@ -19,6 +19,11 @@
     UIImageView *_originalUserAvatar;
     UIImageView *_favoredImageView;
     UIImageView *_clipImageView;
+    UIImageView *_locationPinImageView;
+    
+    UILabel *_locationLabel;
+    UILabel *_timeStampLabel;
+    
     
     UIButton *_commentButton;
     UIButton *_repostButton;
@@ -26,6 +31,7 @@
     UIButton *_repostUserNameButton;
     
     UIView *_statusInfoView;
+    UIView *_repostStatusInfoView;
     
     TTTAttributedLabel *_originalStatusLabel;
     TTTAttributedLabel *_repostStatusLabel;
@@ -43,13 +49,18 @@
 @property (nonatomic, strong) IBOutlet UIImageView *originalUserAvatar;
 @property (nonatomic, strong) IBOutlet UIImageView *favoredImageView;
 @property (nonatomic, strong) IBOutlet UIImageView *clipImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *locationPinImageView;
+
+@property (nonatomic, strong) IBOutlet UILabel *locationLabel;
+@property (nonatomic, strong) IBOutlet UILabel *timeStampLabel;
+
 @property (nonatomic, strong) IBOutlet UIButton *commentButton;
 @property (nonatomic, strong) IBOutlet UIButton *repostButton;
-
 @property (nonatomic, strong) IBOutlet UIButton *originalUserNameButton;
 @property (nonatomic, strong) IBOutlet UIButton *repostUserNameButton;
 
 @property (nonatomic, strong) IBOutlet UIView *statusInfoView;
+@property (nonatomic, strong) IBOutlet UIView *repostStatusInfoView;
 @property (nonatomic, strong) IBOutlet TTTAttributedLabel *originalStatusLabel;
 @property (nonatomic, strong) IBOutlet TTTAttributedLabel *repostStatusLabel;
 @property (nonatomic, strong) IBOutlet BaseCardBackgroundView *cardBackground;

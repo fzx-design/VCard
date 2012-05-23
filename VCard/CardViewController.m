@@ -9,8 +9,12 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CardViewController.h"
 #import "UIImageViewAddition.h"
+#import "NSDateAddition.h"
 #import "ResourceProvider.h"
 #import "User.h"
+#import "WBClient.h"
+
+#import "UIView+Resize.h"
 
 #define MaxCardSize CGSizeMake(326,9999)
 #define CardSizeUserAvatarHeight 25
@@ -20,6 +24,8 @@
 #define CardSizeBottomViewHeight 20
 #define CardSizeRepostHeightOffset -8
 #define CardTextLineSpace 8
+#define CardTailHeight 24
+#define CardTailOffset -55
 
 #define RegexColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]
 
@@ -56,6 +62,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
     BOOL _isReposted;
     BOOL _alreadyConfigured;
     BOOL _imageAlreadyLoaded;
+    
+    NSString *previousID;
 }
 
 @end
@@ -67,11 +75,15 @@ static inline NSRegularExpression * UrlRegularExpression() {
 @synthesize originalUserAvatar = _originalUserAvatar;
 @synthesize favoredImageView = _favoredImageView;
 @synthesize clipImageView = _clipImageView;
+@synthesize locationPinImageView = _locationPinImageView;
+@synthesize locationLabel = _locationLabel;
+@synthesize timeStampLabel = _timeStampLabel;
 @synthesize commentButton = _commentButton;
 @synthesize repostButton = _repostButton;
 @synthesize originalUserNameButton = _originalUserNameButton;
 @synthesize repostUserNameButton = _repostUserNameButton;
 @synthesize statusInfoView = _statusInfoView;
+@synthesize repostStatusInfoView = _repostStatusInfoView;
 @synthesize originalStatusLabel = _originalStatusLabel;
 @synthesize repostStatusLabel = _repostStatusLabel;
 @synthesize cardBackground = _cardBackground;
@@ -96,6 +108,9 @@ static inline NSRegularExpression * UrlRegularExpression() {
 	// Do any additional setup after loading the view.
     self.originalStatusLabel.delegate = self;
     self.repostStatusLabel.delegate = self;
+    
+    self.locationLabel.hidden = YES;
+    self.locationPinImageView.hidden = YES;
 }
 
 - (void)viewDidUnload
@@ -109,6 +124,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 + (CGFloat)heightForStatus:(Status*)status_ andImageHeight:(NSInteger)imageHeight_
 {
     BOOL isReposted = status_.repostStatus != nil;
+    BOOL hasCardTail = [status_ hasLocationInfo] || YES;
     Status *targetStatus = isReposted ? status_.repostStatus : status_;
     
     BOOL doesImageExist = targetStatus.bmiddlePicURL && ![targetStatus.bmiddlePicURL isEqualToString:@""];
@@ -123,6 +139,10 @@ static inline NSRegularExpression * UrlRegularExpression() {
     
     if (doesImageExist) {
         height += imageHeight_ + CardSizeImageGap;
+    }
+    
+    if (hasCardTail) {
+        height += CardTailHeight;
     }
     
     return height;
@@ -155,6 +175,10 @@ static inline NSRegularExpression * UrlRegularExpression() {
     [self setUpRepostView];
     
     [self setUpStatusImageView];
+    
+    [self setUpButtonPosition];
+    
+    [self setUpCardTail];
         
 }
 
@@ -204,6 +228,10 @@ static inline NSRegularExpression * UrlRegularExpression() {
 {
     _alreadyConfigured = NO;
     _imageAlreadyLoaded = NO;
+    
+    self.locationPinImageView.hidden = YES;
+    self.locationLabel.hidden = YES;
+    self.locationLabel.text = @"";
 }
 
 - (void)setUpStatusView
@@ -212,7 +240,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     
     CGFloat originY = _doesImageExist ? self.imageHeight + 30 : 20;
     Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
-
+    
     [self setStatusTextLabel:self.originalStatusLabel withText:targetStatus.text];
     [self.originalUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
     [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateNormal];
@@ -224,12 +252,15 @@ static inline NSRegularExpression * UrlRegularExpression() {
         statusViewHeight += CardSizeImageGap;
     }
     
-    CGRect statusInfoFrame;
-    statusInfoFrame.origin = CGPointMake(0.0, originY);
-    statusInfoFrame.size = CGSizeMake(self.view.frame.size.width, statusViewHeight);
-    self.statusInfoView.frame = statusInfoFrame;
+    if (!_isReposted) {
+        statusViewHeight += CardTailHeight;
+    }
+    
+    [self.statusInfoView resetFrameWithOrigin:CGPointMake(0.0, originY) 
+                                         size:CGSizeMake(self.view.frame.size.width, statusViewHeight)];
     
     [self.cardBackground resetHeight:self.imageHeight + statusViewHeight];
+    
 }
 
 - (void)setUpRepostView
@@ -244,19 +275,86 @@ static inline NSRegularExpression * UrlRegularExpression() {
         [self.repostUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
         [self.repostUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateNormal];
         
-        CGRect bgFrame = self.repostCardBackground.frame;
-        bgFrame.origin.x = self.cardBackground.frame.origin.x;
-        bgFrame.origin.y = self.cardBackground.frame.origin.y + self.cardBackground.frame.size.height - 8;
-  
-        self.repostCardBackground.frame = bgFrame;
+        
+        CGPoint newOrigin = CGPointMake(self.cardBackground.frame.origin.x, self.cardBackground.frame.origin.y + self.cardBackground.frame.size.height - 8);
+        [self.repostCardBackground resetOrigin:newOrigin];
         
         CGFloat repostStatusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
                                         CardSizeUserAvatarHeight + CardSizeTextGap + 
                                         self.repostStatusLabel.frame.size.height;
         
+        repostStatusViewHeight += CardTailHeight;
+        
         [self.repostCardBackground resetHeight:repostStatusViewHeight];
 
     }
+}
+
+- (void)setUpButtonPosition
+{
+    CGPoint origin = _isReposted ? self.repostCardBackground.frame.origin : self.statusInfoView.frame.origin;
+    CGFloat offset = _isReposted ? 10.0 : -5.0;
+    
+    [self.repostButton resetOriginY:origin.y + offset];
+    [self.commentButton resetOriginY:origin.y + offset];
+    
+}
+
+- (void)setUpCardTail
+{
+    CGFloat cardTailOriginY = self.view.frame.size.height + CardTailOffset;
+    
+    [self.locationPinImageView resetOriginY:cardTailOriginY + 3];
+    [self.locationLabel resetOriginY:cardTailOriginY];
+    [self.timeStampLabel resetOriginY:cardTailOriginY];
+
+    [self.timeStampLabel setText:[self.status.createdAt stringRepresentation]];
+    
+    [self setUpLocationInfo];
+}
+
+- (void)setUpLocationInfo
+{
+    if ([self.status locationInfoAlreadyLoaded]) {
+        [self showLocationInfo];
+    }
+    
+    if ([self.status hasLocationInfo]) {
+        
+        WBClient *client = [WBClient client];
+        [client setCompletionBlock:^(WBClient *client) {
+            if (!client.hasError) {
+                
+                NSString *locationString;
+                NSArray* array = (NSArray*)client.responseJSONObject;
+                if (array.count > 0) {
+                    NSDictionary *dic = (NSDictionary *)[array objectAtIndex:0];
+                    locationString = [NSString stringWithFormat:@"在 %@%@%@", [dic objectForKey:@"city_name"], [dic objectForKey:@"district_name"], [dic objectForKey:@"name"]];
+                }
+                
+                if ([self.status.statusID isEqualToString:previousID]) {
+                    self.status.location = locationString;
+                } else {
+                    Status *status = [Status statusWithID:[NSString stringWithFormat:previousID] inManagedObjectContext:self.managedObjectContext];
+                    status.location = locationString;
+                }
+                
+                [self showLocationInfo];
+            }
+        }];
+        float lat = [self.status.lat floatValue];
+        float lon = [self.status.lon floatValue];
+        
+        previousID = self.status.statusID;
+        [client getAddressFromGeoWithCoordinate:[[NSString alloc] initWithFormat:@"%f,%f", lon, lat]];
+    }
+}
+
+- (void)showLocationInfo
+{
+    self.locationPinImageView.hidden = NO;
+    self.locationLabel.hidden = NO;
+    self.locationLabel.text = self.status.location;
 }
 
 - (void)setStatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string
@@ -276,6 +374,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
     
     [self setSummaryText:string toLabel:label];
 }
+
+
 
 - (void)setSummaryText:(NSString *)text toLabel:(TTTAttributedLabel*)label{
     
