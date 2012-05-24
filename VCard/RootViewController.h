@@ -11,6 +11,7 @@
 #import "CoreDataViewController.h"
 
 @interface RootViewController : CoreDataViewController {
+    
     CastViewController *_castViewController;
 }
 

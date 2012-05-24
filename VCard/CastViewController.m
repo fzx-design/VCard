@@ -117,8 +117,10 @@
         _loading = NO;
     }];
     
+    Status *lastStatus = (Status *)[self.fetchedResultsController.fetchedObjects lastObject];
+    
     [client getFriendsTimelineSinceID:nil 
-                                maxID:nil 
+                                maxID:lastStatus.statusID
                        startingAtPage:_nextPage++
                                 count:20 
                               feature:0];
@@ -144,21 +146,6 @@
             
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
-
-            for (Status *status in self.fetchedResultsController.fetchedObjects) {
-                NSLog(@"%@ ", status.updateDate);
-            }
-            
-            int newStatusCount = dictArray.count > 0 ? dictArray.count - 1 : 0;
-            Status *latestStatus = (Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:newStatusCount];
-            [Status deleteObjectsEarlierThan:latestStatus.updateDate inManagedObjectContext:self.managedObjectContext];
-            
-            [self.managedObjectContext processPendingChanges];
-            [self.fetchedResultsController performFetch:nil];
-            
-            for (Status *status in self.fetchedResultsController.fetchedObjects) {
-                NSLog(@"updated: %@ ", status.updateDate);
-            }
             
             [self.waterflowView refresh];
             

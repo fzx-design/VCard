@@ -379,7 +379,7 @@
 
 - (void)checkLoadMore
 {
-    if (self.contentOffset.y > self.contentSize.height - 700.0) {
+    if (self.contentOffset.y > self.contentSize.height - 1000.0) {
         [self.flowdatasource flowViewLoadMoreViews];
     }
 }

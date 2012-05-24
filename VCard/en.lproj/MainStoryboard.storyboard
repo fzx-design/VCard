@@ -398,25 +398,65 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" image="title_small.png" id="fdO-i9-psq">
-                                        <rect key="frame" x="340" y="8" width="88" height="29"/>
+                                        <rect key="frame" x="340" y="6" width="88" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rsR-Rw-A7E">
-                                        <rect key="frame" x="578" y="10" width="36" height="38"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="svY-ss-Zy4">
+                                        <rect key="frame" x="7" y="8" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="t4y-pG-ENw">
+                                        <rect key="frame" x="594" y="8" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal">
+                                        <state key="normal" image="button_menu_search.png">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted">
+                                        <state key="selected" image="button_menu_search_hover.png"/>
+                                        <state key="highlighted" image="button_menu_search_hover.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="svY-ss-Zy4">
-                                        <rect key="frame" x="7" y="8" width="30" height="29"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="ZYu-WK-RxK">
+                                        <rect key="frame" x="639" y="8" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="button_menu_drawer.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="button_menu_drawer_hover.png"/>
+                                        <state key="highlighted" image="button_menu_drawer_hover.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="21S-pA-gf9">
+                                        <rect key="frame" x="682" y="8" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="button_menu_new.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="button_menu_new_hover.png"/>
+                                        <state key="highlighted" image="button_menu_new_hover.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="4vP-8Y-zTK">
+                                        <rect key="frame" x="723" y="8" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="button_menu_reload.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="button_menu_reload_hover.png"/>
+                                        <state key="highlighted" image="button_menu_reload_hover.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -429,7 +469,11 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="createStatusButton" destination="21S-pA-gf9" id="QE1-9O-W1W"/>
+                        <outlet property="groupButton" destination="ZYu-WK-RxK" id="8Sc-aY-LvD"/>
                         <outlet property="profileImageView" destination="svY-ss-Zy4" id="sl5-dR-XYy"/>
+                        <outlet property="refreshButton" destination="4vP-8Y-zTK" id="pNX-Dc-pgo"/>
+                        <outlet property="searchButton" destination="t4y-pG-ENw" id="Nyv-At-HDz"/>
                         <outlet property="waterflowView" destination="EbD-7g-wPC" id="1q0-J0-NB6"/>
                     </connections>
                 </viewController>
@@ -442,6 +486,14 @@
         <image name="button_comment.png" width="34" height="34"/>
         <image name="button_comment_hover.png" width="34" height="34"/>
         <image name="button_login_arrow.png" width="25" height="25"/>
+        <image name="button_menu_drawer.png" width="25" height="25"/>
+        <image name="button_menu_drawer_hover.png" width="25" height="25"/>
+        <image name="button_menu_new.png" width="25" height="25"/>
+        <image name="button_menu_new_hover.png" width="25" height="25"/>
+        <image name="button_menu_reload.png" width="25" height="25"/>
+        <image name="button_menu_reload_hover.png" width="25" height="25"/>
+        <image name="button_menu_search.png" width="25" height="25"/>
+        <image name="button_menu_search_hover.png" width="25" height="25"/>
         <image name="button_share.png" width="34" height="34"/>
         <image name="button_share_hover.png" width="34" height="34"/>
         <image name="card_clip.png" width="42" height="59"/>
