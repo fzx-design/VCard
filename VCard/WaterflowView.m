@@ -42,15 +42,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
-		self.showsHorizontalScrollIndicator = NO;
-        self.showsVerticalScrollIndicator = YES;
-		self.delegate = self;
+        [self setUpVariables];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self 
-                                                 selector:@selector(cellSelected:)
-                                                     name:@"CellSelected"
-                                                   object:nil];
+        [self setUpNotification];
     }
     return self;
 }
@@ -59,15 +53,9 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        // Initialization code
-		self.showsHorizontalScrollIndicator = NO;
-        self.showsVerticalScrollIndicator = YES;
-		self.delegate = self;
-                
-        [[NSNotificationCenter defaultCenter] addObserver:self 
-                                                 selector:@selector(cellSelected:)
-                                                     name:@"CellSelected"
-                                                   object:nil];
+        [self setUpVariables];
+        
+        [self setUpNotification];
 
     }
     return self;
@@ -75,9 +63,17 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"CellSelected"
-                                                  object:nil];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self
+                      name:@"CellSelected"
+                    object:nil];
+    [center removeObserver:self
+                      name:kNotificationNameShouldDisableWaterflowScroll
+                    object:nil];
+    [center removeObserver:self
+                      name:kNotificationNameShouldEnableWaterflowScroll
+                    object:nil];
+    
     
     self.cellHeight = nil;
     self.visibleCells = nil;
@@ -88,6 +84,30 @@
     self.leftColumn = nil;
     
     [super dealloc];
+}
+
+- (void)setUpVariables
+{
+    self.showsHorizontalScrollIndicator = NO;
+    self.showsVerticalScrollIndicator = YES;
+    self.delegate = self;
+}
+
+- (void)setUpNotification
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self 
+               selector:@selector(cellSelected:)
+                   name:@"CellSelected"
+                 object:nil];
+    [center addObserver:self 
+               selector:@selector(disableScroll:)
+                   name:kNotificationNameShouldDisableWaterflowScroll
+                 object:nil];
+    [center addObserver:self 
+               selector:@selector(enableScroll:)
+                   name:kNotificationNameShouldEnableWaterflowScroll
+                 object:nil];
 }
 
 - (void)setFlowdatasource:(id<WaterflowViewDatasource>)flowdatasource
@@ -142,6 +162,16 @@
     if ([self.flowdelegate respondsToSelector:@selector(flowView:didSelectRowAtIndexPath:)]) {
         [self.flowdelegate flowView:self didSelectRowAtIndexPath:((WaterflowCell*)notification.object).indexPath];
     }
+}
+
+- (void)disableScroll:(NSNotification *)notification
+{
+    self.scrollEnabled = NO;
+}
+
+- (void)enableScroll:(NSNotification *)notification
+{
+    self.scrollEnabled = YES;
 }
 
 #pragma mark - Reuse Cells

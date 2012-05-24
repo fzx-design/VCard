@@ -78,7 +78,6 @@ extern NSString * const kTTTButtonAttributeName;
     UIEdgeInsets _textInsets;
     TTTAttributedLabelVerticalAlignment _verticalAlignment;
     
-    UITapGestureRecognizer *_tapGestureRecognizer;
 }
 
 ///-----------------------------

@@ -204,7 +204,7 @@
                                                 </state>
                                             </button>
                                             <view contentMode="scaleToFill" id="IQX-2v-fUV" customClass="TTTAttributedLabel">
-                                                <rect key="frame" x="20" y="42" width="326" height="51"/>
+                                                <rect key="frame" x="18" y="42" width="326" height="51"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
@@ -251,7 +251,7 @@
                                                 </state>
                                             </button>
                                             <view contentMode="scaleToFill" id="Mux-IR-mpT" customClass="TTTAttributedLabel">
-                                                <rect key="frame" x="20" y="48" width="326" height="32"/>
+                                                <rect key="frame" x="18" y="48" width="326" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>

@@ -24,6 +24,8 @@
 #define kRLCardImageShadowBottom @"image_shadow_btm.png"
 
 #define kNotificationNameOrientationWillChange @"kNotificationNameOrientationWillChange"
+#define kNotificationNameShouldDisableWaterflowScroll @"kNotificationNameShouldDisableWaterflowScroll"
+#define kNotificationNameShouldEnableWaterflowScroll @"kNotificationNameShouldEnableWaterflowScroll"
 
 
 #endif

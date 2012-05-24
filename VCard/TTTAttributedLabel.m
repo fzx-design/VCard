@@ -84,7 +84,7 @@ static inline NSDictionary * NSAttributedStringAttributesFromLabel(TTTAttributed
     CGFloat lineHeightMultiple = label.lineHeightMultiple;
     CGFloat topMargin = label.textInsets.top;
     CGFloat bottomMargin = label.textInsets.bottom;
-    CGFloat leftMargin = label.textInsets.left;
+    CGFloat leftMargin = label.textInsets.left + 3;
     CGFloat rightMargin = label.textInsets.right;
     CGFloat firstLineIndent = label.firstLineIndent + leftMargin;
 
@@ -99,7 +99,7 @@ static inline NSDictionary * NSAttributedStringAttributesFromLabel(TTTAttributed
     CTParagraphStyleSetting paragraphStyles[9] = {
 		{.spec = kCTParagraphStyleSpecifierAlignment, .valueSize = sizeof(CTTextAlignment), .value = (const void *)&alignment},
 		{.spec = kCTParagraphStyleSpecifierLineBreakMode, .valueSize = sizeof(CTLineBreakMode), .value = (const void *)&lineBreakMode},
-        {.spec = kCTParagraphStyleSpecifierLineSpacing, .valueSize = sizeof(CGFloat), .value = (const void *)&lineSpacing},
+        {.spec = kCTParagraphStyleSpecifierLineSpacingAdjustment, .valueSize = sizeof(CGFloat), .value = (const void *)&lineSpacing},
         {.spec = kCTParagraphStyleSpecifierLineHeightMultiple, .valueSize = sizeof(CGFloat), .value = (const void *)&lineHeightMultiple},
         {.spec = kCTParagraphStyleSpecifierFirstLineHeadIndent, .valueSize = sizeof(CGFloat), .value = (const void *)&firstLineIndent},
         {.spec = kCTParagraphStyleSpecifierParagraphSpacingBefore, .valueSize = sizeof(CGFloat), .value = (const void *)&topMargin},
@@ -130,13 +130,17 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     return mutableAttributedString;
 }
 
-@interface TTTAttributedLabel ()
+@interface TTTAttributedLabel () {
+    BOOL _linkSelected;
+    BOOL _shouldReceiveTouch;
+    NSTextCheckingResult *_previousResult;
+}
+
 @property (readwrite, nonatomic, copy) NSAttributedString *attributedText;
 @property (readwrite, nonatomic, assign) CTFramesetterRef framesetter;
 @property (readwrite, nonatomic, assign) CTFramesetterRef highlightFramesetter;
 @property (readwrite, nonatomic, retain) NSDataDetector *dataDetector;
 @property (readwrite, nonatomic, retain) NSArray *links;
-@property (readwrite, nonatomic, retain) UITapGestureRecognizer *tapGestureRecognizer;
 
 - (void)commonInit;
 - (void)setNeedsFramesetter;
@@ -146,9 +150,8 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 - (NSUInteger)characterIndexAtPoint:(CGPoint)p;
 - (void)drawFramesetter:(CTFramesetterRef)framesetter textRange:(CFRange)textRange inRect:(CGRect)rect context:(CGContextRef)c;
 - (void)drawStrike:(CTFrameRef)frame inRect:(CGRect)rect context:(CGContextRef)c;
-- (void)handleTap:(UITapGestureRecognizer *)gestureRecognizer;
-- (void)temporarilyHighlightSubstringWithRange:(NSRange)range;
-- (void)resetTemporarilyHighlightedSubstringWithRange:(NSRange)range;
+- (void)temporarilyHighlightSubstringWithResult:(NSTextCheckingResult *)result;
+- (void)resetTemporarilyHighlightedSubstringWithResult:(NSTextCheckingResult *)result;
 @end
 
 @implementation TTTAttributedLabel
@@ -167,7 +170,6 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 @synthesize firstLineIndent = _firstLineIndent;
 @synthesize textInsets = _textInsets;
 @synthesize verticalAlignment = _verticalAlignment;
-@synthesize tapGestureRecognizer = _tapGestureRecognizer;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -202,12 +204,8 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     self.linkAttributes = [NSDictionary dictionaryWithDictionary:mutableLinkAttributes];
     
     self.textInsets = UIEdgeInsetsZero;
-    self.clipsToBounds = NO;
     
     self.userInteractionEnabled = YES;
-    self.tapGestureRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)] autorelease];
-    [self.tapGestureRecognizer setDelegate:self];
-    [self addGestureRecognizer:self.tapGestureRecognizer];
 }
 
 - (void)dealloc {
@@ -218,7 +216,6 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     [_dataDetector release];
     [_links release];
     [_linkAttributes release];
-    [_tapGestureRecognizer release];
     [super dealloc];
 }
 
@@ -322,7 +319,12 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 
 #pragma mark -
 
-- (void)temporarilyHighlightSubstringWithRange:(NSRange)range {
+- (void)temporarilyHighlightSubstringWithResult:(NSTextCheckingResult *)result {
+    if (result == nil) {
+        return;
+    }
+    
+    NSRange range = result.range;
     NSMutableAttributedString *mutableAttributedString = [self.attributedText mutableCopy];
     [mutableAttributedString addAttribute:(NSString *)kTTTTemporaryAttributesAttributeName value:(id)[mutableAttributedString attributesAtIndex:range.location effectiveRange:nil] range:range];
     [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:range];
@@ -335,7 +337,12 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     [self setNeedsDisplay];
 }
 
-- (void)resetTemporarilyHighlightedSubstringWithRange:(NSRange)range {
+- (void)resetTemporarilyHighlightedSubstringWithResult:(NSTextCheckingResult *)result {
+    if (result == nil) {
+        return;
+    }
+    
+    NSRange range = result.range;
     NSMutableAttributedString *mutableAttributedString = [self.attributedText mutableCopy];
     [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:range];
     [mutableAttributedString addAttributes:[mutableAttributedString attribute:(NSString *)kTTTTemporaryAttributesAttributeName atIndex:range.location effectiveRange:nil] range:range];
@@ -442,101 +449,8 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     
     [self drawButton:frame inRect:rect context:c];
     
-    CFArrayRef lines = CTFrameGetLines(frame);
-    NSUInteger numberOfLines = self.numberOfLines > 0 ? MIN(self.numberOfLines, CFArrayGetCount(lines)) : CFArrayGetCount(lines);
-    BOOL truncateLastLine = (self.lineBreakMode == UILineBreakModeHeadTruncation || self.lineBreakMode == UILineBreakModeMiddleTruncation || self.lineBreakMode == UILineBreakModeTailTruncation);
+    CTFrameDraw(frame, c);
     
-    CGPoint lineOrigins[numberOfLines];
-    CTFrameGetLineOrigins(frame, CFRangeMake(0, numberOfLines), lineOrigins);
-    
-    for (NSUInteger lineIndex = 0; lineIndex < numberOfLines; lineIndex++) {
-        CGPoint lineOrigin = lineOrigins[lineIndex];
-        CGContextSetTextPosition(c, lineOrigin.x, lineOrigin.y);
-        CTLineRef line = CFArrayGetValueAtIndex(lines, lineIndex);
-        
-        if (lineIndex == numberOfLines - 1 && truncateLastLine) {
-            // Check if the range of text in the last line reaches the end of the full attributed string
-            CFRange lastLineRange = CTLineGetStringRange(line);
-            
-            if (lastLineRange.location + lastLineRange.length < textRange.location + textRange.length) {
-                // Get the attributes of the last character in the line and use them to create the truncation token string
-                NSDictionary *tokenAttributes = [self.attributedText attributesAtIndex:(lastLineRange.location + lastLineRange.length - 1) effectiveRange:NULL];
-                NSAttributedString *tokenString = [[[NSAttributedString alloc] initWithString:@"\u2026" attributes:tokenAttributes] autorelease]; // \u2026 is the Unicode horizontal ellipsis character code
-                CTLineRef truncationToken = CTLineCreateWithAttributedString((CFAttributedStringRef)tokenString);
-                
-                if (lineIndex == 0) {
-                    // There is only one line, do head, middle, or tail truncation
-                                            
-                    // CTFramesetter implicitly performs word wrap when generating a CTFrameRef. If there is too much text to fit in the rect, CTFrameGetVisibleStringRange and CTFrameGetStringRange will differ. CTFrameGetLines returns an array of CTLines that only reflects the range of text from CTFrameGetStringRange. Calling CTLineCreateTruncatedLine on the last CTLine essentially does nothing, since the CTLine is already truncated to fit (by word wrap).
-
-                    // Instead of using the CTLine generated from the CTFramesetter, we directly generate a line from the CTTypesetter within the CTFramesetter.
-                    CTTypesetterRef typesetter = CTFramesetterGetTypesetter(framesetter);
-                    CTLineRef singleLine = CTTypesetterCreateLine(typesetter, textRange);
-
-                    // Create and draw a truncated line
-                    CTLineTruncationType truncationType;
-                    switch (self.lineBreakMode) {
-                        case UILineBreakModeHeadTruncation:
-                            truncationType = kCTLineTruncationStart;
-                            break;
-                        case UILineBreakModeMiddleTruncation:
-                            truncationType = kCTLineTruncationMiddle;
-                            break;
-                        case UILineBreakModeTailTruncation:
-                        default:
-                            truncationType = kCTLineTruncationEnd;
-                            break;
-                    }
-
-                    CTLineRef truncatedLine = CTLineCreateTruncatedLine(singleLine, rect.size.width, truncationType, truncationToken);                        
-                    if (!truncatedLine) {
-                        // If the line is not as wide as the truncationToken, truncatedLine is NULL
-                        truncatedLine = CFRetain(truncationToken);
-                    }
-                    
-                    CTLineDraw(truncatedLine, c);
-                    
-                    CFRelease(truncatedLine);
-                    CFRelease(singleLine);
-                } else {
-                    // There are multiple lines, only do tail truncation
-                    
-                    // CoreText will only truncate if this line is too long, but it needs the truncation token even if it's not, so we need to append one
-                    NSMutableAttributedString *stringWithToken = [[self.attributedText attributedSubstringFromRange:NSMakeRange(lastLineRange.location, lastLineRange.length)] mutableCopy];
-                    if (lastLineRange.length > 0) {
-                        // Remove any newline at the end (we don't want newline space between the text and the truncation token). There can only be one, because the second would be on the next line.
-                        unichar lastCharacter = [[stringWithToken string] characterAtIndex:lastLineRange.length - 1];
-                        if ([[NSCharacterSet newlineCharacterSet] characterIsMember:lastCharacter]) {
-                            [stringWithToken deleteCharactersInRange:NSMakeRange(lastLineRange.length - 1, 1)];
-                        }
-                    }
-                    
-                    [stringWithToken appendAttributedString:tokenString];
-                    CTLineRef stringWithTokenLine = CTLineCreateWithAttributedString((CFAttributedStringRef)stringWithToken);
-                    
-                    // Truncate the line in case it is too long.
-                    CTLineRef truncatedLine = CTLineCreateTruncatedLine(stringWithTokenLine, rect.size.width, kCTLineTruncationEnd, truncationToken);
-                    if (!truncatedLine) {
-                        // If the line is not as wide as the truncationToken, truncatedLine is NULL
-                        truncatedLine = CFRetain(truncationToken);
-                    }
-                    
-                    CTLineDraw(truncatedLine, c);
-                    
-                    CFRelease(truncatedLine);
-                    CFRelease(stringWithTokenLine);
-                    [stringWithToken release];
-                }
-                
-                CFRelease(truncationToken);
-            } else {
-                CTLineDraw(line, c);
-            }
-        } else {
-            CTLineDraw(line, c);
-        }
-    }
-
     
     CFRelease(frame);
     CFRelease(path);
@@ -741,6 +655,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 }
 
 - (void)drawTextInRect:(CGRect)rect {
+    
     if (!self.attributedText) {
         [super drawTextInRect:rect];
         return;
@@ -861,55 +776,109 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 
 #pragma mark - UIGestureRecognizer
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    NSLog(@"frame:%@, touchPoint:%@", NSStringFromCGRect(self.bounds), NSStringFromCGPoint([touch locationInView:self]));
-    
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+//    
+//    NSTextCheckingResult *result = [self linkAtPoint:[touch locationInView:self]];
+//    _shouldReceiveTouch = result != nil;
+//    
+//    if (_shouldReceiveTouch) {
+//        _previousResult = result;
+//        _linkSelected = YES;
+//        [self temporarilyHighlightSubstringWithRange:_previousResult.range];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldDisableWaterflowScroll object:nil];
+//    }
+//    return _shouldReceiveTouch;
+//}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
     NSTextCheckingResult *result = [self linkAtPoint:[touch locationInView:self]];
-    if (!result) {
-        return NO;
+    
+    _shouldReceiveTouch = result != nil;
+    
+    if (_shouldReceiveTouch) {
+        _previousResult = result;
+        _linkSelected = YES;
+        [self temporarilyHighlightSubstringWithResult:_previousResult];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldDisableWaterflowScroll object:nil];
     }
-    
-    [self temporarilyHighlightSubstringWithRange:result.range];
-    
-    return YES;
 }
 
-- (void)handleTap:(UITapGestureRecognizer *)gestureRecognizer {
-    if ([gestureRecognizer state] != UIGestureRecognizerStateEnded) {
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (!_shouldReceiveTouch) {
         return;
     }
     
-    NSTextCheckingResult *result = [self linkAtPoint:[gestureRecognizer locationInView:self]];
-    if (!result || !self.delegate) {
-        return;
+    UITouch *touch = [touches anyObject];
+    NSTextCheckingResult *result = [self linkAtPoint:[touch locationInView:self]];
+    if ([self previousRangeEqualsToRange:result.range]) {
+        if (!_linkSelected) {
+            _linkSelected = YES;
+            [self temporarilyHighlightSubstringWithResult:_previousResult];
+        }
+    } else {
+        if (_linkSelected) {
+            _linkSelected = NO;
+            [self resetTemporarilyHighlightedSubstringWithResult:_previousResult];
+        }
     }
-    
-    switch (result.resultType) {
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self touchEventEnded];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self touchEventEnded];
+}
+
+- (BOOL)previousRangeEqualsToRange:(NSRange)range
+{
+    return range.location == _previousResult.range.location && range.length == _previousResult.range.length;
+}
+
+- (void)touchEventEnded
+{
+    if (_linkSelected) {
+        [self handleTouchEvent];
+    }
+    _linkSelected = NO;
+    _shouldReceiveTouch = NO;
+    [self resetTemporarilyHighlightedSubstringWithResult:_previousResult];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldEnableWaterflowScroll object:nil];
+}
+
+- (void)handleTouchEvent
+{
+    switch (_previousResult.resultType) {
         case NSTextCheckingTypeLink:
             if ([self.delegate respondsToSelector:@selector(attributedLabel:didSelectLinkWithURL:)]) {
-                [self.delegate attributedLabel:self didSelectLinkWithURL:result.URL];
+                [self.delegate attributedLabel:self didSelectLinkWithURL:_previousResult.URL];
             }
             break;
         case NSTextCheckingTypeAddress:
             if ([self.delegate respondsToSelector:@selector(attributedLabel:didSelectLinkWithAddress:)]) {
-                [self.delegate attributedLabel:self didSelectLinkWithAddress:result.addressComponents];
+                [self.delegate attributedLabel:self didSelectLinkWithAddress:_previousResult.addressComponents];
             }
             break;
         case NSTextCheckingTypePhoneNumber:
             if ([self.delegate respondsToSelector:@selector(attributedLabel:didSelectLinkWithPhoneNumber:)]) {
-                [self.delegate attributedLabel:self didSelectLinkWithPhoneNumber:result.phoneNumber];
+                [self.delegate attributedLabel:self didSelectLinkWithPhoneNumber:_previousResult.phoneNumber];
             }
             break;
         case NSTextCheckingTypeDate:
-            if (result.timeZone && [self.delegate respondsToSelector:@selector(attributedLabel:didSelectLinkWithDate:timeZone:duration:)]) {
-                [self.delegate attributedLabel:self didSelectLinkWithDate:result.date timeZone:result.timeZone duration:result.duration];
+            if (_previousResult.timeZone && [self.delegate respondsToSelector:@selector(attributedLabel:didSelectLinkWithDate:timeZone:duration:)]) {
+                [self.delegate attributedLabel:self didSelectLinkWithDate:_previousResult.date timeZone:_previousResult.timeZone duration:_previousResult.duration];
             } else if ([self.delegate respondsToSelector:@selector(attributedLabel:didSelectLinkWithDate:)]) {
-                [self.delegate attributedLabel:self didSelectLinkWithDate:result.date];
+                [self.delegate attributedLabel:self didSelectLinkWithDate:_previousResult.date];
             }
             break;
     }
-    
-    [self resetTemporarilyHighlightedSubstringWithRange:result.range];
+
 }
 
 @end

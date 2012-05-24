@@ -156,7 +156,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     height += ceilf([text sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:MaxCardSize lineBreakMode:UILineBreakModeWordWrap].height);
     CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:MaxCardSize lineBreakMode:UILineBreakModeWordWrap].height);
     
-    height += ceilf(height / singleLineHeight * CardTextLineSpace) - CardTextLineSpace;
+    height += ceilf(height / singleLineHeight * CardTextLineSpace);
         
     return height;
 }
