@@ -109,6 +109,9 @@ static inline NSRegularExpression * UrlRegularExpression() {
     self.originalStatusLabel.delegate = self;
     self.repostStatusLabel.delegate = self;
     
+    self.statusInfoView.clipsToBounds = NO;
+    self.repostStatusInfoView.clipsToBounds = NO;
+    
     self.locationLabel.hidden = YES;
     self.locationPinImageView.hidden = YES;
 }
