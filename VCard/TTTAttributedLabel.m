@@ -202,6 +202,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     self.linkAttributes = [NSDictionary dictionaryWithDictionary:mutableLinkAttributes];
     
     self.textInsets = UIEdgeInsetsZero;
+    self.clipsToBounds = NO;
     
     self.userInteractionEnabled = YES;
     self.tapGestureRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)] autorelease];
@@ -280,7 +281,8 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     return [NSArray arrayWithArray:mutableLinks];
 }
 
-- (void)addLinkWithTextCheckingResult:(NSTextCheckingResult *)result attributes:(NSDictionary *)attributes {
+- (void)addLinkWithTextCheckingResult:(NSTextCheckingResult *)result attributes:(NSDictionary *)attributes
+{
     self.links = [self.links arrayByAddingObject:result];
     
     if (attributes) {
@@ -312,6 +314,10 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 
 - (void)addLinkToDate:(NSDate *)date timeZone:(NSTimeZone *)timeZone duration:(NSTimeInterval)duration withRange:(NSRange)range {
     [self addLinkWithTextCheckingResult:[NSTextCheckingResult dateCheckingResultWithRange:range date:date timeZone:timeZone duration:duration]];
+}
+
+- (void)addQuoteToString:(NSString *)string withRange:(NSRange)range {
+    [self addLinkWithTextCheckingResult:[NSTextCheckingResult quoteCheckingResultWithRange:range replacementString:string]];
 }
 
 #pragma mark -
@@ -364,7 +370,8 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
         return NSNotFound;
     }
     
-    CGRect textRect = [self textRectForBounds:self.bounds limitedToNumberOfLines:self.numberOfLines];
+//    CGRect textRect = [self textRectForBounds:self.bounds limitedToNumberOfLines:self.numberOfLines];
+    CGRect textRect = self.bounds;
     if (!CGRectContainsPoint(textRect, p)) {
         return NSNotFound;
     }
@@ -855,6 +862,8 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 #pragma mark - UIGestureRecognizer
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    NSLog(@"frame:%@, touchPoint:%@", NSStringFromCGRect(self.bounds), NSStringFromCGPoint([touch locationInView:self]));
+    
     NSTextCheckingResult *result = [self linkAtPoint:[touch locationInView:self]];
     if (!result) {
         return NO;

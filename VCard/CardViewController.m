@@ -286,6 +286,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
         repostStatusViewHeight += CardTailHeight;
         
         [self.repostCardBackground resetHeight:repostStatusViewHeight];
+        [self.repostStatusInfoView resetHeight:repostStatusViewHeight];
 
     }
 }
@@ -304,7 +305,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 {
     CGFloat cardTailOriginY = self.view.frame.size.height + CardTailOffset;
     
-    [self.locationPinImageView resetOriginY:cardTailOriginY + 3];
+    [self.locationPinImageView resetOriginY:cardTailOriginY + 2];
     [self.locationLabel resetOriginY:cardTailOriginY];
     [self.timeStampLabel resetOriginY:cardTailOriginY];
 
@@ -402,9 +403,44 @@ static inline NSRegularExpression * UrlRegularExpression() {
     }];
     
     NSRegularExpression *regexp = NameRegularExpression();
-    NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(0, [text length])];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://en.wikipedia.org/wiki/"]];
-    [label addLinkToURL:url withRange:linkRange];
+    
+    NSRange stringRange = NSMakeRange(0, [text length]);
+    [regexp enumerateMatchesInString:text options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        NSRange range = result.range;
+        if (range.length != 1) {
+            range.location++;
+            range.length--;
+            NSString *string = [text substringWithRange:range];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];
+            [label addLinkToURL:url withRange:result.range];
+        }
+    }];
+    
+    regexp = TagRegularExpression();
+    [regexp enumerateMatchesInString:text options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        NSRange range = result.range;
+        if (range.length != 1) {
+            range.location++;
+            range.length -= 2;
+            NSString *string = [text substringWithRange:range];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];
+            [label addLinkToURL:url withRange:result.range];
+        }
+    }];
+    
+    regexp = UrlRegularExpression();
+    [regexp enumerateMatchesInString:text options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        NSRange range = result.range;
+        if (range.length != 1) {
+            NSString *string = [text substringWithRange:range];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];
+            [label addLinkToURL:url withRange:result.range];
+        }
+    }];
+    
+//    NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(0, [text length])];
+//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://en.wikipedia.org/wiki/"]];
+//    [label addLinkToURL:url withRange:linkRange];
 }
 
 - (void)configureFontForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange

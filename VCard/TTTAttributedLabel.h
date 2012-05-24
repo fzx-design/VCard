@@ -206,6 +206,8 @@ extern NSString * const kTTTButtonAttributeName;
  */
 - (void)addLinkToURL:(NSURL *)url withRange:(NSRange)range;
 
+- (void)addQuoteToString:(NSString *)string withRange:(NSRange)range;
+
 /**
  Adds a link to an address for a specified range in the label text.
  
