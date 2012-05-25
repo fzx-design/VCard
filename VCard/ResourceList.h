@@ -23,6 +23,9 @@
 #define kRLCardImageShadowCenter @"image_shadow_body.png"
 #define kRLCardImageShadowBottom @"image_shadow_btm.png"
 
+#define kRLRefreshButtonCircle @"menu_reload_indicator.png"
+#define kRLRefreshButtonHole @"menu_reload_bg.png"
+
 #define kNotificationNameOrientationWillChange @"kNotificationNameOrientationWillChange"
 #define kNotificationNameShouldDisableWaterflowScroll @"kNotificationNameShouldDisableWaterflowScroll"
 #define kNotificationNameShouldEnableWaterflowScroll @"kNotificationNameShouldEnableWaterflowScroll"

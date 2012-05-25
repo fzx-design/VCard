@@ -80,13 +80,13 @@
         reloadHoleView.contentMode = UIViewContentModeCenter;
         [self addSubview:reloadHoleView];
         
-        reloadCircleView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 48.0f, self.frame.size.width, 40.0f)];
+        reloadCircleView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 48.5f, self.frame.size.width, 40.0f)];
         reloadCircleView.image = [UIImage imageNamed:@"reload_circle.png"];
         reloadCircleView.contentMode = UIViewContentModeCenter;
         reloadCircleView.alpha = 0.0;
         [self addSubview:reloadCircleView];
         
-        reloadArrowView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 48.0f, self.frame.size.width, 40.0f)];
+        reloadArrowView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 48.5f, self.frame.size.width, 40.0f)];
         reloadArrowView.image = [UIImage imageNamed:@"reload_arrow_down.png"];
         reloadArrowView.contentMode = UIViewContentModeCenter;
         [self addSubview:reloadArrowView];
@@ -100,18 +100,6 @@
 #pragma mark -
 #pragma mark Setters
 
-- (void)refreshLastUpdatedDate {
-    NSDate *date = [NSDate date];
-    
-	if ([delegate respondsToSelector:@selector(pullToRefreshViewLastUpdated:)])
-		date = [delegate pullToRefreshViewLastUpdated:self];
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setAMSymbol:@"AM"];
-    [formatter setPMSymbol:@"PM"];
-    [formatter setDateFormat:@"MM/dd/yy hh:mm a"];
-}
-
 - (void)setState:(PullToRefreshViewState)state_ {
     state = state_;
     
@@ -123,7 +111,6 @@
             
 		case PullToRefreshViewStateNormal:
             [self setImageFlipped:NO];
-			[self refreshLastUpdatedDate];
             scrollView.contentInset = UIEdgeInsetsZero;
 			break;
             

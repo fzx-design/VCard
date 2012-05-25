@@ -27,6 +27,7 @@
 @implementation CastViewController
 
 @synthesize waterflowView = _waterflowView;
+@synthesize refreshIndicatorView = _refreshIndicatorView;
 @synthesize profileImageView = _profileImageView;
 @synthesize searchButton = _searchButton;
 @synthesize groupButton = _groupButton;
@@ -68,6 +69,7 @@
 {
     _loading = NO;
     _nextPage = 1;
+    _refreshIndicatorView.hidden = YES;
 }
 
 - (void)viewDidUnload
@@ -87,6 +89,29 @@
     self.waterflowView.flowdelegate = self;
     
     [self.waterflowView refresh];
+}
+
+#pragma mark - IBActions
+- (IBAction)refreshButtonPressed:(id)sender
+{
+    _refreshIndicatorView.hidden = NO;
+    [_refreshIndicatorView startLoadingAnimation];
+    
+    [_pullView setState:PullToRefreshViewStateLoading];
+    
+    self.refreshButton.userInteractionEnabled = NO;
+    [self refresh];
+}
+
+- (void)refreshEnded
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        _refreshIndicatorView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        _refreshIndicatorView.hidden = YES;
+        _refreshIndicatorView.alpha = 1.0;
+        self.refreshButton.userInteractionEnabled = YES;
+    }];
 }
 
 
@@ -121,7 +146,7 @@
     
     [client getFriendsTimelineSinceID:nil 
                                 maxID:lastStatus.statusID
-                       startingAtPage:_nextPage++
+                       startingAtPage:0
                                 count:20 
                               feature:0];
 }
@@ -136,6 +161,8 @@
     WBClient *client = [WBClient client];
     
     [client setCompletionBlock:^(WBClient *client) {
+        [self refreshEnded];
+        
         if (!client.hasError) {
             NSArray *dictArray = client.responseJSONObject;
             for (NSDictionary *dict in dictArray) {
@@ -157,7 +184,7 @@
     
     [client getFriendsTimelineSinceID:nil 
                                 maxID:nil 
-                       startingAtPage:_nextPage++
+                       startingAtPage:0
                                 count:20 
                               feature:0];
 }

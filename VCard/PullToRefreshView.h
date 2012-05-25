@@ -50,7 +50,6 @@ typedef enum {
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, weak) id<PullToRefreshViewDelegate> delegate;
 
-- (void)refreshLastUpdatedDate;
 - (void)finishedLoading;
 - (void)setState:(PullToRefreshViewState)state_;
 
