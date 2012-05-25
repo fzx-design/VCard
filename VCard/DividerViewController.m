@@ -34,7 +34,7 @@
     [super viewDidLoad];
     self.view.autoresizingMask = UIViewAutoresizingNone;
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(resetLayoutBeforeRotating)
+                                             selector:@selector(resetLayoutBeforeRotating:)
                                                  name:kNotificationNameOrientationWillChange
                                                object:nil];
 }
@@ -49,34 +49,31 @@
 {
     self.timeLabel.text = [date customString];
     
-    [self resetLayout:YES];
+    [self resetLayout:[self currentScreenWidth]];
 }
 
 #pragma mark - Reset The Layout Of The Layout Inside A Divider
 
-- (void)resetLayoutBeforeRotating
+- (void)resetLayoutBeforeRotating:(NSNotification *)notification
 {
-    [self resetLayout:NO];
+    CGFloat width = [(NSString *)notification.object isEqualToString:kOrientationPortrait] ? 768.0 : 1024;
+    [self resetLayout:width];
 }
 
-- (void)resetLayout:(BOOL)didRotate
+- (void)resetLayout:(CGFloat)width
 {
     CGFloat timeStringWidth = ceilf([self.timeLabel.text sizeWithFont:[UIFont boldSystemFontOfSize:12.0f] constrainedToSize:CGSizeMake(1000.0, 30.0) lineBreakMode:UILineBreakModeWordWrap].width) + 1;
-    
-    CGFloat screenWidth = [self currentScreenWidth:didRotate];
-    
+        
     [self view:self.timeLabel resetWidth:timeStringWidth];
-    [self view:self.timeLabel resetOriginX:screenWidth / 2 - timeStringWidth / 2 + 4];
-    [self view:self.leftPattern resetOriginX:screenWidth / 2 - timeStringWidth / 2 - 28];
-    [self view:self.rightPattern resetOriginX:screenWidth / 2 + timeStringWidth / 2 + 3];
+    [self view:self.timeLabel resetOriginX:width / 2 - timeStringWidth / 2 + 4];
+    [self view:self.leftPattern resetOriginX:width / 2 - timeStringWidth / 2 - 28];
+    [self view:self.rightPattern resetOriginX:width / 2 + timeStringWidth / 2 + 3];
 }
 
-- (CGFloat)currentScreenWidth:(BOOL)didRotate
+- (CGFloat)currentScreenWidth
 {
     BOOL isPortrait = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
-    
-    isPortrait  = didRotate ? isPortrait : !isPortrait;
-    
+        
     return isPortrait ? 768.0 : 1024.0;
 }
 

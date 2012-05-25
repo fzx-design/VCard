@@ -27,5 +27,7 @@
 #define kNotificationNameShouldDisableWaterflowScroll @"kNotificationNameShouldDisableWaterflowScroll"
 #define kNotificationNameShouldEnableWaterflowScroll @"kNotificationNameShouldEnableWaterflowScroll"
 
+#define kOrientationPortrait @"kOrientationPortrait"
+#define kOrientationLandscape @"kOrientationLandscape"
 
 #endif

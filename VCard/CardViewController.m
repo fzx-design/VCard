@@ -32,7 +32,7 @@
 static NSRegularExpression *__nameRegularExpression;
 static inline NSRegularExpression * NameRegularExpression() {
     if (!__nameRegularExpression) {
-        __nameRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"@([\u4e00-\u9fa5A-Za-z0-9_]*)?" options:NSRegularExpressionCaseInsensitive error:nil];
+        __nameRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"@[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*" options:NSRegularExpressionCaseInsensitive error:nil];
     }
     
     return __nameRegularExpression;
@@ -50,7 +50,7 @@ static inline NSRegularExpression * TagRegularExpression() {
 static NSRegularExpression *__urlRegularExpression;
 static inline NSRegularExpression * UrlRegularExpression() {
     if (!__urlRegularExpression) {
-        __urlRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]" options:NSRegularExpressionCaseInsensitive error:nil];
+        __urlRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"https?://[[a-z][A-Z][0-9]\?/%&=.]+" options:NSRegularExpressionCaseInsensitive error:nil];
     }
     
     return __urlRegularExpression;

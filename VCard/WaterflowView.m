@@ -292,10 +292,10 @@
 - (void)setBlockDivider:(NSInteger)dataIndex
 {
     int currentViewHeight = [self heightOfWaterflowView];
-    if (currentViewHeight >= _nextBlockLimit) {
+    if (currentViewHeight >= _nextBlockLimit && [self differenceBetweenColumns] < 300) {
         _nextBlockLimit = currentViewHeight + SingleBlockHeightLimit;
         
-        int dividerOffset = currentViewHeight == 0 ? 14 : -25;
+        int dividerOffset = currentViewHeight == 0 ? 14 : -20;
         
         WaterflowLayoutUnit *dividerUnitLeft = [[[WaterflowLayoutUnit alloc] init] autorelease];
         WaterflowLayoutUnit *dividerUnitRight = [[[WaterflowLayoutUnit alloc] init] autorelease];
@@ -349,6 +349,21 @@
     }
     
     return height;
+}
+
+- (int)differenceBetweenColumns
+{
+    WaterflowLayoutUnit *leftUnit = (WaterflowLayoutUnit*)[self.leftColumn lastObject];
+    WaterflowLayoutUnit *rightUnit = (WaterflowLayoutUnit*)[self.rightColumn lastObject];
+    int leftHeight = 0.0;
+    int rightHeight = 0.0;
+    if (leftUnit) {
+        leftHeight = leftUnit.lowerBound;
+    }
+    if (rightUnit) {
+        rightHeight = rightUnit.lowerBound;
+    }
+    return abs(leftHeight - rightHeight);
 }
  
 #pragma mark - Layout Subviews

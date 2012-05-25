@@ -402,7 +402,11 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="svY-ss-Zy4">
-                                        <rect key="frame" x="7" y="8" width="25" height="25"/>
+                                        <rect key="frame" x="9" y="9" width="24" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topbar_avatar_cover.png" id="Oxn-78-Iar">
+                                        <rect key="frame" x="7" y="8" width="28" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="t4y-pG-ENw">
@@ -507,6 +511,7 @@
         <image name="pattern_right.png" width="16" height="12"/>
         <image name="title_large.png" width="233" height="74"/>
         <image name="title_small.png" width="88" height="29"/>
+        <image name="topbar_avatar_cover.png" width="28" height="28"/>
     </resources>
     <classes>
         <class className="BaseCardBackgroundView" superclassName="UIView">

@@ -51,7 +51,9 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
                                 duration:(NSTimeInterval)duration
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameOrientationWillChange object:nil];
+    NSString *orientation = UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? kOrientationPortrait : kOrientationLandscape;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameOrientationWillChange object:orientation];
     [self.castViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
