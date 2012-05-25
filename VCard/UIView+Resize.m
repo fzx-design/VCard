@@ -24,6 +24,13 @@
     self.frame = frame;
 }
 
+- (void)resetWidth:(CGFloat)width
+{
+    CGRect frame = self.frame;
+    frame.size.width = width;
+    self.frame = frame;
+}
+
 - (void)resetOrigin:(CGPoint)origin
 {
     CGRect frame = self.frame;

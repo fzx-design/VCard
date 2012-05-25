@@ -27,6 +27,7 @@
 //
 
 #import "PullToRefreshView.h"
+#import "UIView+Resize.h"
 
 #define TEXT_COLOR	 [UIColor colorWithRed:(87.0/255.0) green:(108.0/255.0) blue:(137.0/255.0) alpha:1.0]
 #define FLIP_ANIMATION_DURATION 0.18f
@@ -77,20 +78,17 @@
         reloadHoleView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 44.0f, self.frame.size.width, 32.0f)];
         reloadHoleView.image = [UIImage imageNamed:@"reload_hole.png"];
         reloadHoleView.contentMode = UIViewContentModeCenter;
-        reloadHoleView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:reloadHoleView];
         
         reloadCircleView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 48.0f, self.frame.size.width, 40.0f)];
         reloadCircleView.image = [UIImage imageNamed:@"reload_circle.png"];
         reloadCircleView.contentMode = UIViewContentModeCenter;
-        reloadCircleView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         reloadCircleView.alpha = 0.0;
         [self addSubview:reloadCircleView];
         
         reloadArrowView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 48.0f, self.frame.size.width, 40.0f)];
         reloadArrowView.image = [UIImage imageNamed:@"reload_arrow_down.png"];
         reloadArrowView.contentMode = UIViewContentModeCenter;
-        reloadArrowView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:reloadArrowView];
         
 		[self setState:PullToRefreshViewStateNormal];
@@ -206,6 +204,14 @@
 {
     reloadArrowView.alpha = 1.0;
     [reloadCircleView.layer removeAllAnimations];
+}
+
+- (void)resetLayoutToOrientation:(UIInterfaceOrientation)orientation
+{
+    CGFloat width = UIInterfaceOrientationIsPortrait(orientation) ? 768.0 : 1024.0;
+    [reloadHoleView resetWidth:width];
+    [reloadArrowView resetWidth:width];
+    [reloadCircleView resetWidth:width];
 }
 
 #pragma mark -

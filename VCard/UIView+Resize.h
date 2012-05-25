@@ -12,6 +12,8 @@
 
 - (void)resetOriginY:(CGFloat)originY;
 
+- (void)resetWidth:(CGFloat)width;
+
 - (void)resetHeight:(CGFloat)height;
 
 - (void)resetOrigin:(CGPoint)origin;

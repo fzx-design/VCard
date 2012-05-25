@@ -114,6 +114,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
     
     self.locationLabel.hidden = YES;
     self.locationPinImageView.hidden = YES;
+    
+    self.repostUserNameButton.titleLabel.adjustsFontSizeToFitWidth = YES;
 }
 
 - (void)viewDidUnload
@@ -247,6 +249,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     [self setStatusTextLabel:self.originalStatusLabel withText:targetStatus.text];
     [self.originalUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
     [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateNormal];
+    [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateHighlighted];
         
     CGFloat statusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
                             CardSizeUserAvatarHeight + CardSizeTextGap + 
@@ -276,7 +279,11 @@ static inline NSRegularExpression * UrlRegularExpression() {
         
         [self setStatusTextLabel:self.repostStatusLabel withText:targetStatus.text];
         [self.repostUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
-        [self.repostUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateNormal];
+        
+        NSString *screenName = [NSString stringWithFormat:@"%@ 转发并评论了以上卡片", targetStatus.author.screenName];
+        
+        [self.repostUserNameButton setTitle:screenName forState:UIControlStateNormal];
+        [self.repostUserNameButton setTitle:screenName forState:UIControlStateHighlighted];
         
         
         CGPoint newOrigin = CGPointMake(self.cardBackground.frame.origin.x, self.cardBackground.frame.origin.y + self.cardBackground.frame.size.height - 8);
@@ -414,9 +421,6 @@ static inline NSRegularExpression * UrlRegularExpression() {
             range.location++;
             range.length--;
             NSString *string = [text substringWithRange:range];
-//            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];
-//            [label addLinkToURL:url withRange:result.range];
-            
             [label addLinkToPhoneNumber:string withRange:result.range];
         }
     }];
@@ -428,9 +432,6 @@ static inline NSRegularExpression * UrlRegularExpression() {
             range.location++;
             range.length -= 2;
             NSString *string = [text substringWithRange:range];
-//            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];
-//            [label addLinkToURL:url withRange:result.range];
-            
             [label addQuoteToString:string withRange:result.range];
         }
     }];
@@ -442,14 +443,9 @@ static inline NSRegularExpression * UrlRegularExpression() {
             NSString *string = [text substringWithRange:range];
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];
             [label addLinkToURL:url withRange:result.range];
-            
-//            [label addQuoteToString:string withRange:result.range];
         }
     }];
     
-//    NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(0, [text length])];
-//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://en.wikipedia.org/wiki/"]];
-//    [label addLinkToURL:url withRange:linkRange];
 }
 
 - (void)configureFontForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange

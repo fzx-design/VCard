@@ -25,7 +25,7 @@ static ResourceProvider *sharedResourceProvider = nil;
 + (void)initialize
 {
     sharedResourceProvider = [[ResourceProvider alloc] init];
-    sharedResourceProvider.systemFont = [UIFont systemFontOfSize:17.0f];
+    sharedResourceProvider.systemFont = [UIFont boldSystemFontOfSize:17.0f];
     sharedResourceProvider.ctSystemFont = CTFontCreateWithName((__bridge CFStringRef)sharedResourceProvider.systemFont.fontName, sharedResourceProvider.systemFont.pointSize, NULL);
     
     sharedResourceProvider.topImageRef = [[UIImage imageNamed:kRLCardTop] CGImage];

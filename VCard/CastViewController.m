@@ -166,6 +166,7 @@
                                 duration:(NSTimeInterval)duration 
 {
     [self.waterflowView adjustViewsForOrientation:toInterfaceOrientation];
+    [_pullView resetLayoutToOrientation:toInterfaceOrientation];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
