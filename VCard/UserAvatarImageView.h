@@ -13,5 +13,6 @@
 }
 
 - (void)setVerifiedType:(VerifiedType)type;
+- (void)reset;
 
 @end

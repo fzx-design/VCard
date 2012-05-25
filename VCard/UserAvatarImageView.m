@@ -71,4 +71,10 @@
     }
 }
 
+- (void)reset
+{
+    _vipImageView.image = nil;
+    _vipImageView.hidden = YES;
+}
+
 @end

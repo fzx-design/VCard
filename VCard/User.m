@@ -55,9 +55,7 @@
     
     result.updateDate = [NSDate date];
     
-    result.userID = userID;
-    result.screenName = [dict objectForKey:@"screen_name"];
-    
+    result.userID = userID;    
     NSString *dateString = [dict objectForKey:@"created_at"];
     result.createdAt = [NSDate dateFromStringRepresentation:dateString];
     
@@ -68,7 +66,6 @@
     result.verified = [NSNumber numberWithBool:[[dict objectForKey:@"verified"] boolValue]];
     
     result.verifiedType = [dict objectForKey:@"verified_type"];
-    
     result.domainURL = [dict objectForKey:@"domain"];
     result.blogURL = [dict objectForKey:@"url"];
     

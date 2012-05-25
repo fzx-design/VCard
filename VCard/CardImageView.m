@@ -70,69 +70,31 @@
     return _imageView;
 }
 
+- (UIImageView *)gifIcon
+{
+    if (!_imageView) {
+        _imageView = [[UIImageView alloc] initWithFrame:self.frame];
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
+        _imageView.clipsToBounds = YES;
+        _imageView.backgroundColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0];
+        [self insertSubview:_imageView belowSubview:_shadowView];
+    }
+    return _imageView;
+}
+
 - (void)loadImageFromURL:(NSString *)urlString 
               completion:(void (^)())completion
 {
+    
     [self.imageView kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
     [self.imageView kv_setImageAtURL:anImageURL];
-    
-//    self.imageView.image = nil;
-//    
-//    NSURL *url = [NSURL URLWithString:urlString];
-//    
-//    dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
-//    
-//    dispatch_async(downloadQueue, ^{
-//        
-//        NSData *imageData = [NSData dataWithContentsOfURL:url];
-//        UIImage *img = [UIImage imageWithData:imageData];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            
-//			self.imageView.image = nil;
-//            self.imageView.image = img;
-//            
-//            if (completion) {
-//                completion();
-//            }				
-//        });
-//        
-//    });
-//    
-//    dispatch_release(downloadQueue);
 	
 }
 
 - (void)loadTweetImageFromURL:(NSString *)urlString 
                    completion:(void (^)())completion
 {
-    
-//    self.backgroundColor = [UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0];
-//    self.imageView.image = nil;
-//    
-//    NSURL *url = [NSURL URLWithString:urlString];
-//    
-//    dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
-//    
-//    dispatch_async(downloadQueue, ^{
-//        
-//        NSData *imageData = [NSData dataWithContentsOfURL:url];
-//        UIImage *img = [UIImage imageWithData:imageData];
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            
-//            if (img != nil) {
-//                self.imageView.image = nil;
-//                self.imageView.image = img;
-//            }
-//            
-//            if (completion) {
-//                completion();
-//            }
-//        });
-//    });
-//    
-//    dispatch_release(downloadQueue);
     [self.imageView kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
     [self.imageView kv_setImageAtURL:anImageURL];

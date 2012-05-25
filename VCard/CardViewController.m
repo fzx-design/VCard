@@ -237,6 +237,9 @@ static inline NSRegularExpression * UrlRegularExpression() {
     self.locationPinImageView.hidden = YES;
     self.locationLabel.hidden = YES;
     self.locationLabel.text = @"";
+    
+    [self.originalUserAvatar reset];
+    [self.repostUserAvatar reset];
 }
 
 - (void)setUpStatusView
