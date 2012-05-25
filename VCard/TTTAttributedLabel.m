@@ -759,13 +759,19 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 
 - (void)touchEventEnded
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldEnableWaterflowScroll
+                                                        object:nil];
+    if (!_shouldReceiveTouch) {
+        return;
+    }
+    
     if (_linkSelected) {
         [self handleTouchEvent];
     }
     _linkSelected = NO;
     _shouldReceiveTouch = NO;
     [self resetTemporarilyHighlightedSubstringWithResult:_previousResult];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldEnableWaterflowScroll object:nil];
+
 }
 
 - (void)handleTouchEvent
