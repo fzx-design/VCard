@@ -39,7 +39,7 @@
     [self addSubview:_refreshHoleImageView];
     
     _refreshCircleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kRLRefreshButtonCircle]];
-    _refreshCircleImageView.frame = CGRectMake(2.5, 1.5, 18.0, 18.0);
+    _refreshCircleImageView.frame = CGRectMake(2.0, 1.0, 19.0, 19.0);
     [self addSubview:_refreshCircleImageView];
 }
 
