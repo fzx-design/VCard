@@ -2,15 +2,16 @@
 //  User.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-4-17.
+//  Created by 海山 叶 on 12-5-25.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
 #import "User.h"
 #import "Comment.h"
+#import "Status.h"
 #import "User.h"
-#import "NSDateAddition.h"
 
+#import "NSDateAddition.h"
 
 @implementation User
 
@@ -30,6 +31,7 @@
 @dynamic updateDate;
 @dynamic userID;
 @dynamic verified;
+@dynamic verifiedType;
 @dynamic comments;
 @dynamic commentsToMe;
 @dynamic favorites;
@@ -37,7 +39,6 @@
 @dynamic friends;
 @dynamic friendsStatuses;
 @dynamic statuses;
-
 
 + (User *)insertUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -65,6 +66,8 @@
     result.selfDescription = [dict objectForKey:@"description"];
     result.location = [dict objectForKey:@"location"];
     result.verified = [NSNumber numberWithBool:[[dict objectForKey:@"verified"] boolValue]];
+    
+    result.verifiedType = [dict objectForKey:@"verified_type"];
     
     result.domainURL = [dict objectForKey:@"domain"];
     result.blogURL = [dict objectForKey:@"url"];
@@ -115,6 +118,23 @@
 - (BOOL)isEqualToUser:(User *)user
 {
     return [self.userID isEqualToString:user.userID];
+}
+
+- (VerifiedType)verifiedTypeOfUser
+{
+    VerifiedType type = VerifiedTypeNone;
+    int typeValue = [self.verifiedType intValue];
+    
+    if (typeValue == -1) {
+        type = VerifiedTypeNone;
+    } else if (typeValue == 0) {
+        type = VerifiedTypePerson;
+    } else if (typeValue < 200) {
+        type = VerifiedTypeAssociation;
+    } else {
+        type = VerifiedTypeTalent;
+    }
+    return type;
 }
 
 @end

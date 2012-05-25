@@ -14,6 +14,7 @@
 @interface CardImageView : UIView {
     CardImageViewShadowView *_shadowView;
     UIImageView *_imageView;
+    UIImageView *_gifIcon;
 }
 
 @property (nonatomic, strong) UIImageView *imageView;

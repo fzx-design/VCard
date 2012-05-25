@@ -144,6 +144,17 @@
     self.imageView.image = nil;
 }
 
+- (BOOL)checkGif:(NSString*)url
+{
+    if (url == nil) {
+        return NO;
+    }
+    
+    NSString* extName = [url substringFromIndex:([url length] - 3)];
+    
+    return [extName compare:@"gif"] == NSOrderedSame;    
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

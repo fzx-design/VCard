@@ -11,12 +11,13 @@
 #import "BaseCardBackgroundView.h"
 #import "CardImageView.h"
 #import "TTTAttributedLabel.h"
+#import "UserAvatarImageView.h"
 #import "Status.h"
 
 @interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate> {
     CardImageView *_statusImageView;
-    UIImageView *_repostUserAvatar;
-    UIImageView *_originalUserAvatar;
+    UserAvatarImageView *_repostUserAvatar;
+    UserAvatarImageView *_originalUserAvatar;
     UIImageView *_favoredImageView;
     UIImageView *_clipImageView;
     UIImageView *_locationPinImageView;
@@ -45,8 +46,8 @@
 }
 
 @property (nonatomic, strong) IBOutlet CardImageView *statusImageView;
-@property (nonatomic, strong) IBOutlet UIImageView *repostUserAvatar;
-@property (nonatomic, strong) IBOutlet UIImageView *originalUserAvatar;
+@property (nonatomic, strong) IBOutlet UserAvatarImageView *repostUserAvatar;
+@property (nonatomic, strong) IBOutlet UserAvatarImageView *originalUserAvatar;
 @property (nonatomic, strong) IBOutlet UIImageView *favoredImageView;
 @property (nonatomic, strong) IBOutlet UIImageView *clipImageView;
 @property (nonatomic, strong) IBOutlet UIImageView *locationPinImageView;

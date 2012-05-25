@@ -57,6 +57,7 @@
         <attribute name="updateDate" attributeType="Date"/>
         <attribute name="userID" attributeType="String"/>
         <attribute name="verified" optional="YES" attributeType="Boolean"/>
+        <attribute name="verifiedType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comment" inverseName="author" inverseEntity="Comment"/>
         <relationship name="commentsToMe" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="targetUser" inverseEntity="Comment"/>
         <relationship name="favorites" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="favoritedBy" inverseEntity="Status"/>
@@ -68,6 +69,6 @@
     <elements>
         <element name="Comment" positionX="160" positionY="192" width="128" height="195"/>
         <element name="Status" positionX="160" positionY="192" width="128" height="420"/>
-        <element name="User" positionX="160" positionY="192" width="128" height="390"/>
+        <element name="User" positionX="160" positionY="192" width="128" height="405"/>
     </elements>
 </model>

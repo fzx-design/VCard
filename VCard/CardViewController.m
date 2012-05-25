@@ -248,6 +248,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
     
     [self setStatusTextLabel:self.originalStatusLabel withText:targetStatus.text];
     [self.originalUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
+    [self.originalUserAvatar setVerifiedType:[targetStatus.author verifiedTypeOfUser]];
+    
     [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateNormal];
     [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateHighlighted];
         
@@ -279,6 +281,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
         
         [self setStatusTextLabel:self.repostStatusLabel withText:targetStatus.text];
         [self.repostUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
+        [self.repostUserAvatar setVerifiedType:[targetStatus.author verifiedTypeOfUser]];
         
         NSString *screenName = [NSString stringWithFormat:@"%@ 转发并评论了以上卡片", targetStatus.author.screenName];
         

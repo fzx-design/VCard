@@ -187,7 +187,7 @@
                                         <rect key="frame" x="-2" y="242" width="366" height="102"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="imageview_placeholder.png" id="csH-gh-gfc">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="imageview_placeholder.png" id="csH-gh-gfc" customClass="UserAvatarImageView">
                                                 <rect key="frame" x="20" y="0.0" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
@@ -234,7 +234,7 @@
                                         <rect key="frame" x="-2" y="11" width="366" height="89"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="imageview_placeholder.png" id="W1Q-pN-Lvl">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="imageview_placeholder.png" id="W1Q-pN-Lvl" customClass="UserAvatarImageView">
                                                 <rect key="frame" x="20" y="5" width="26" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
@@ -522,6 +522,104 @@
         <image name="title_small.png" width="88" height="29"/>
         <image name="topbar_avatar_cover.png" width="28" height="28"/>
     </resources>
+    <classes>
+        <class className="BaseCardBackgroundView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCardBackgroundView.h"/>
+        </class>
+        <class className="BaseLayoutView" superclassName="UIImageView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseLayoutView.h"/>
+        </class>
+        <class className="BaseNavigationBar" superclassName="UINavigationBar">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationBar.h"/>
+        </class>
+        <class className="BaseNavigationView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationView.h"/>
+        </class>
+        <class className="CardImageView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardImageView.h"/>
+        </class>
+        <class className="CardViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="cardBackground" candidateClass="BaseCardBackgroundView"/>
+                <relationship kind="outlet" name="clipImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="favoredImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="locationPinImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="originalStatusLabel" candidateClass="TTTAttributedLabel"/>
+                <relationship kind="outlet" name="originalUserAvatar" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="originalUserNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="repostButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="repostCardBackground" candidateClass="BaseCardBackgroundView"/>
+                <relationship kind="outlet" name="repostStatusInfoView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="repostStatusLabel" candidateClass="TTTAttributedLabel"/>
+                <relationship kind="outlet" name="repostUserAvatar" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="repostUserNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="statusImageView" candidateClass="CardImageView"/>
+                <relationship kind="outlet" name="statusInfoView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CastViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CastViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="refreshButtonPressed:"/>
+                <relationship kind="outlet" name="createStatusButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="groupButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="profileImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="refreshButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="refreshIndicatorView" candidateClass="RefreshIndicatorView"/>
+                <relationship kind="outlet" name="searchButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="waterflowView" candidateClass="WaterflowView"/>
+            </relationships>
+        </class>
+        <class className="CoreDataTableViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
+        </class>
+        <class className="CoreDataViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataViewController.h"/>
+        </class>
+        <class className="DividerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DividerViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="leftPattern" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="rightPattern" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="LoginViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="RefreshIndicatorView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RefreshIndicatorView.h"/>
+        </class>
+        <class className="RootViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RootViewController.h"/>
+        </class>
+        <class className="TTTAttributedLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TTTAttributedLabel.h"/>
+        </class>
+        <class className="UserAvatarImageView" superclassName="UIImageView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserAvatarImageView.h"/>
+        </class>
+        <class className="UserSelectionCellViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSelectionCellViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="avatarImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="avatarImageViewBG" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="userNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="userPasswordTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="WaterflowView" superclassName="UIScrollView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WaterflowView.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

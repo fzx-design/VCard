@@ -26,11 +26,27 @@
 #define kRLRefreshButtonCircle @"menu_reload_indicator.png"
 #define kRLRefreshButtonHole @"menu_reload_bg.png"
 
+#define kRLIconVerifiedAssociationSmall @"verified_association_small.png"
+#define kRLIconVerifiedAssociationBig @"verified_association_large.png"
+#define kRLIconVerifiedPersonSmall @"verified_person_small.png"
+#define kRLIconVerifiedPersionBig @"verified_person_large.png"
+#define kRLIconVerifiedTalentSmall @"verified_talent_small.png"
+#define kRLIconVerifiedTalentBig @"verified_talent_large.png"
+
+#define kRLIconGif @"icon_gif.png"
+
 #define kNotificationNameOrientationWillChange @"kNotificationNameOrientationWillChange"
 #define kNotificationNameShouldDisableWaterflowScroll @"kNotificationNameShouldDisableWaterflowScroll"
 #define kNotificationNameShouldEnableWaterflowScroll @"kNotificationNameShouldEnableWaterflowScroll"
 
 #define kOrientationPortrait @"kOrientationPortrait"
 #define kOrientationLandscape @"kOrientationLandscape"
+
+typedef enum {
+    VerifiedTypeNone,
+    VerifiedTypePerson,
+    VerifiedTypeAssociation,
+    VerifiedTypeTalent,
+} VerifiedType;
 
 #endif
