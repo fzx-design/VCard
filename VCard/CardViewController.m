@@ -414,8 +414,10 @@ static inline NSRegularExpression * UrlRegularExpression() {
             range.location++;
             range.length--;
             NSString *string = [text substringWithRange:range];
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];
-            [label addLinkToURL:url withRange:result.range];
+//            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];
+//            [label addLinkToURL:url withRange:result.range];
+            
+            [label addLinkToPhoneNumber:string withRange:result.range];
         }
     }];
     
@@ -426,8 +428,10 @@ static inline NSRegularExpression * UrlRegularExpression() {
             range.location++;
             range.length -= 2;
             NSString *string = [text substringWithRange:range];
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];
-            [label addLinkToURL:url withRange:result.range];
+//            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];
+//            [label addLinkToURL:url withRange:result.range];
+            
+            [label addQuoteToString:string withRange:result.range];
         }
     }];
     
@@ -438,6 +442,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
             NSString *string = [text substringWithRange:range];
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];
             [label addLinkToURL:url withRange:result.range];
+            
+//            [label addQuoteToString:string withRange:result.range];
         }
     }];
     

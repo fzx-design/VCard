@@ -287,6 +287,8 @@ extern NSString * const kTTTButtonAttributeName;
  */
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithDate:(NSDate *)date;
 
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithQuate:(NSString *)quate;
+
 /**
  Tells the delegate that the user did select a link to a date with a time zone and duration.
  

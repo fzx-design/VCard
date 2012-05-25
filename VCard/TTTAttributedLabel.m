@@ -149,7 +149,6 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 - (NSTextCheckingResult *)linkAtPoint:(CGPoint)p;
 - (NSUInteger)characterIndexAtPoint:(CGPoint)p;
 - (void)drawFramesetter:(CTFramesetterRef)framesetter textRange:(CFRange)textRange inRect:(CGRect)rect context:(CGContextRef)c;
-- (void)drawStrike:(CTFrameRef)frame inRect:(CGRect)rect context:(CGContextRef)c;
 - (void)temporarilyHighlightSubstringWithResult:(NSTextCheckingResult *)result;
 - (void)resetTemporarilyHighlightedSubstringWithResult:(NSTextCheckingResult *)result;
 @end
@@ -456,75 +455,6 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     CFRelease(path);
 }
 
-- (void)drawStrike:(CTFrameRef)frame inRect:(CGRect)rect context:(CGContextRef)c {
-    NSArray *lines = (NSArray *)CTFrameGetLines(frame);
-    CGPoint origins[[lines count]];
-    CTFrameGetLineOrigins(frame, CFRangeMake(0, 0), origins);
-    
-    NSUInteger lineIndex = 0;
-    for (id line in lines) {        
-        CGRect lineBounds = CTLineGetImageBounds((CTLineRef)line, c);
-        lineBounds.origin.x = origins[lineIndex].x;
-        lineBounds.origin.y = origins[lineIndex].y;
-        
-        for (id glyphRun in (NSArray *)CTLineGetGlyphRuns((CTLineRef)line)) {
-            NSDictionary *attributes = (NSDictionary *)CTRunGetAttributes((CTRunRef) glyphRun);
-            BOOL strikeOut = [[attributes objectForKey:kTTTStrikeOutAttributeName] boolValue];
-            NSInteger superscriptStyle = [[attributes objectForKey:(id)kCTSuperscriptAttributeName] integerValue];
-            
-            if (strikeOut) {
-                
-                CGRect runBounds = CGRectZero;
-                CGFloat ascent = 0.0f;
-                CGFloat descent = 0.0f;
-                
-                runBounds.size.width = CTRunGetTypographicBounds((CTRunRef)glyphRun, CFRangeMake(0, 0), &ascent, &descent, NULL);
-                runBounds.size.height = ascent + descent;
-                
-                CGFloat xOffset = CTLineGetOffsetForStringIndex((CTLineRef)line, CTRunGetStringRange((CTRunRef)glyphRun).location, NULL);
-                runBounds.origin.x = origins[lineIndex].x + rect.origin.x + xOffset;
-                runBounds.origin.y = origins[lineIndex].y + rect.origin.y;
-                runBounds.origin.y -= descent;
-                
-                // Don't draw strikeout too far to the right
-                if (CGRectGetWidth(runBounds) > CGRectGetWidth(lineBounds)) {
-                    runBounds.size.width = CGRectGetWidth(lineBounds);
-                }
-                
-				switch (superscriptStyle) {
-					case 1:
-						runBounds.origin.y -= ascent * 0.47f;
-						break;
-					case -1:
-						runBounds.origin.y += ascent * 0.25f;
-						break;
-					default:
-						break;
-				}
-                
-                // Use text color, or default to black
-                id color = [attributes objectForKey:(id)kCTForegroundColorAttributeName];
-
-                if (color) {
-                    CGContextSetStrokeColorWithColor(c, (CGColorRef)color);
-                } else {
-                    CGContextSetGrayStrokeColor(c, 0.0f, 1.0);
-                }
-                
-                CTFontRef font = CTFontCreateWithName((CFStringRef)self.font.fontName, self.font.pointSize, NULL);
-                CGContextSetLineWidth(c, CTFontGetUnderlineThickness(font));
-                CGFloat y = roundf(runBounds.origin.y + runBounds.size.height / 2.0f);
-                CGContextMoveToPoint(c, runBounds.origin.x, y);
-                CGContextAddLineToPoint(c, runBounds.origin.x + runBounds.size.width, y);
-                
-                CGContextStrokePath(c);
-            }
-        }
-        
-        lineIndex++;
-    }
-}
-
 - (void)drawButton:(CTFrameRef)frame inRect:(CGRect)rect context:(CGContextRef)c {
     NSArray *lines = (NSArray *)CTFrameGetLines(frame);
     CGPoint origins[[lines count]];
@@ -776,20 +706,6 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 
 #pragma mark - UIGestureRecognizer
 
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-//    
-//    NSTextCheckingResult *result = [self linkAtPoint:[touch locationInView:self]];
-//    _shouldReceiveTouch = result != nil;
-//    
-//    if (_shouldReceiveTouch) {
-//        _previousResult = result;
-//        _linkSelected = YES;
-//        [self temporarilyHighlightSubstringWithRange:_previousResult.range];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldDisableWaterflowScroll object:nil];
-//    }
-//    return _shouldReceiveTouch;
-//}
-
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
@@ -867,14 +783,14 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
             break;
         case NSTextCheckingTypePhoneNumber:
             if ([self.delegate respondsToSelector:@selector(attributedLabel:didSelectLinkWithPhoneNumber:)]) {
-                [self.delegate attributedLabel:self didSelectLinkWithPhoneNumber:_previousResult.phoneNumber];
+                NSString *screenName = _previousResult.phoneNumber;
+                [self.delegate attributedLabel:self didSelectLinkWithPhoneNumber:screenName];
             }
             break;
-        case NSTextCheckingTypeDate:
-            if (_previousResult.timeZone && [self.delegate respondsToSelector:@selector(attributedLabel:didSelectLinkWithDate:timeZone:duration:)]) {
-                [self.delegate attributedLabel:self didSelectLinkWithDate:_previousResult.date timeZone:_previousResult.timeZone duration:_previousResult.duration];
-            } else if ([self.delegate respondsToSelector:@selector(attributedLabel:didSelectLinkWithDate:)]) {
-                [self.delegate attributedLabel:self didSelectLinkWithDate:_previousResult.date];
+        case NSTextCheckingTypeQuote:
+            if ([self.delegate respondsToSelector:@selector(attributedLabel:didSelectLinkWithQuate:)]) {
+                NSString *tagName = _previousResult.replacementString;
+                [self.delegate attributedLabel:self didSelectLinkWithPhoneNumber:tagName];
             }
             break;
     }
