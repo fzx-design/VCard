@@ -30,4 +30,6 @@
 
 - (void)clearCurrentImage;
 
+- (void)reset;
+
 @end

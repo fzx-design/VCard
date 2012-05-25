@@ -10,6 +10,13 @@
 
 @implementation UIView (Resize)
 
+- (void)resetOriginX:(CGFloat)originX
+{
+    CGRect frame = self.frame;
+    frame.origin.x = originX;
+    self.frame = frame;
+}
+
 - (void)resetOriginY:(CGFloat)originY
 {
     CGRect frame = self.frame;
@@ -35,6 +42,13 @@
 {
     CGRect frame = self.frame;
     frame.origin = origin;
+    self.frame = frame;
+}
+
+- (void)resetSize:(CGSize)size
+{
+    CGRect frame = self.frame;
+    frame.size = size;
     self.frame = frame;
 }
 

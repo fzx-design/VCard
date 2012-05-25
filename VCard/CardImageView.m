@@ -9,10 +9,12 @@
 #import "CardImageView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+URL.h"
+#import "UIView+Resize.h"
 
 @implementation CardImageView
 
 @synthesize imageView = _imageView;
+@synthesize gifIcon = _gifIcon;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -72,20 +74,21 @@
 
 - (UIImageView *)gifIcon
 {
-    if (!_imageView) {
-        _imageView = [[UIImageView alloc] initWithFrame:self.frame];
-        _imageView.contentMode = UIViewContentModeScaleAspectFill;
-        _imageView.clipsToBounds = YES;
-        _imageView.backgroundColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0];
-        [self insertSubview:_imageView belowSubview:_shadowView];
+    if (!_gifIcon) {
+        _gifIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kRLIconGif]];
+        _gifIcon.contentMode = UIViewContentModeTop;
+        _gifIcon.hidden = YES;
+        
+        [_gifIcon resetSize:CGSizeMake(32.0, 20.0)];
+        [self addSubview:_gifIcon];
     }
-    return _imageView;
+    return _gifIcon;
 }
 
 - (void)loadImageFromURL:(NSString *)urlString 
               completion:(void (^)())completion
 {
-    
+    [self setUpGifIcon:urlString];
     [self.imageView kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
     [self.imageView kv_setImageAtURL:anImageURL];
@@ -95,6 +98,7 @@
 - (void)loadTweetImageFromURL:(NSString *)urlString 
                    completion:(void (^)())completion
 {
+    [self setUpGifIcon:urlString];
     [self.imageView kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
     [self.imageView kv_setImageAtURL:anImageURL];
@@ -104,6 +108,16 @@
 - (void)clearCurrentImage
 {
     self.imageView.image = nil;
+}
+
+- (void)setUpGifIcon:(NSString *)urlString
+{
+    BOOL isGif = [self checkGif:urlString];
+    self.gifIcon.hidden = !isGif;
+    if (isGif) {
+        [self bringSubviewToFront:self.gifIcon];
+        [self.gifIcon resetOrigin:CGPointMake(self.frame.size.width - 50, self.frame.size.height - 40)];
+    }
 }
 
 - (BOOL)checkGif:(NSString*)url
@@ -117,13 +131,9 @@
     return [extName compare:@"gif"] == NSOrderedSame;    
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)reset
 {
-    // Drawing code
+    self.gifIcon.hidden = YES;
 }
-*/
 
 @end

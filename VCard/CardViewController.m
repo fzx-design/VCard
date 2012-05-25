@@ -240,6 +240,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     
     [self.originalUserAvatar reset];
     [self.repostUserAvatar reset];
+    [self.statusImageView reset];
 }
 
 - (void)setUpStatusView
