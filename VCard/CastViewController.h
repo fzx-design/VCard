@@ -8,15 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
+#import "BaseNavigationView.h"
+#import "WaterflowView.h"
 #import "PullToRefreshView.h"
 #import "RefreshIndicatorView.h"
-#import "WaterflowView.h"
+#import "StackViewController.h"
 
 @interface CastViewController : CoreDataTableViewController <WaterflowViewDelegate, WaterflowViewDatasource, PullToRefreshViewDelegate, UIScrollViewDelegate> {
     
-    WaterflowView *_waterflowView;
+    BaseNavigationView *_navigationView;
     PullToRefreshView *_pullView;
+    WaterflowView *_waterflowView;
     RefreshIndicatorView *_refreshIndicatorView;
+    
+    StackViewController *_stackViewController;
     
     UIImageView *_profileImageView;
     UIButton *_searchButton;
@@ -26,14 +31,16 @@
     
 }
 
-@property(nonatomic, strong) IBOutlet WaterflowView *waterflowView;
-@property(nonatomic, strong) IBOutlet RefreshIndicatorView *refreshIndicatorView;
+@property (nonatomic, strong) IBOutlet BaseNavigationView *navigationView;
+@property (nonatomic, strong) IBOutlet WaterflowView *waterflowView;
+@property (nonatomic, strong) IBOutlet RefreshIndicatorView *refreshIndicatorView;
 @property (nonatomic, strong) IBOutlet UIImageView *profileImageView;
 @property (nonatomic, strong) IBOutlet UIButton *searchButton;
 @property (nonatomic, strong) IBOutlet UIButton *groupButton;
 @property (nonatomic, strong) IBOutlet UIButton *createStatusButton;
 @property (nonatomic, strong) IBOutlet UIButton *refreshButton;
 
-- (IBAction)refreshButtonPressed:(id)sender;
+- (IBAction)refreshButtonClicked:(id)sender;
+- (IBAction)groupButtonClicked:(id)sender;
 
 @end

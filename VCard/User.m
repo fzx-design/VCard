@@ -55,7 +55,9 @@
     
     result.updateDate = [NSDate date];
     
-    result.userID = userID;    
+    result.userID = userID;
+    result.screenName = [dict objectForKey:@"screen_name"];
+    
     NSString *dateString = [dict objectForKey:@"created_at"];
     result.createdAt = [NSDate dateFromStringRepresentation:dateString];
     

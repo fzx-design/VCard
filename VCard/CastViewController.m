@@ -8,6 +8,7 @@
 
 #import "CastViewController.h"
 #import "UIImageViewAddition.h"
+#import "UIView+Resize.h"
 #import "ResourceList.h"
 #import "WBClient.h"
 #import "Status.h"
@@ -15,7 +16,6 @@
 
 #import "WaterflowCardCell.h"
 #import "WaterflowDividerCell.h"
-
 
 @interface CastViewController () {
     BOOL _loading;
@@ -26,6 +26,7 @@
 
 @implementation CastViewController
 
+@synthesize navigationView = _navigationView;
 @synthesize waterflowView = _waterflowView;
 @synthesize refreshIndicatorView = _refreshIndicatorView;
 @synthesize profileImageView = _profileImageView;
@@ -92,7 +93,8 @@
 }
 
 #pragma mark - IBActions
-- (IBAction)refreshButtonPressed:(id)sender
+#pragma mark Refresh
+- (IBAction)refreshButtonClicked:(id)sender
 {
     _refreshIndicatorView.hidden = NO;
     [_refreshIndicatorView startLoadingAnimation];
@@ -112,6 +114,30 @@
         _refreshIndicatorView.alpha = 1.0;
         self.refreshButton.userInteractionEnabled = YES;
     }];
+}
+
+#pragma Stack View
+- (IBAction)groupButtonClicked:(id)sender
+{
+    [self createStackView];
+}
+
+- (void)createStackView
+{
+    if (!_stackViewController) {
+        _stackViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewController"];
+        [_stackViewController.view resetOrigin:CGPointMake(0.0, 43.0)];
+        [_stackViewController.view resetSize:self.waterflowView.frame.size];
+        _stackViewController.currentUser = self.currentUser;
+        [self.view insertSubview:_stackViewController.view belowSubview:_navigationView];
+        _stackViewController.view.alpha = 0.0;
+        [UIView animateWithDuration:0.7 animations:^{
+            _stackViewController.view.alpha = 1.0;
+        }];
+    }
+    
+    UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewPageController"];
+    [_stackViewController addViewController:vc];
 }
 
 
