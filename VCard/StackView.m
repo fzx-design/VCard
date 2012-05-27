@@ -76,10 +76,11 @@
         return [_scrollView hitTest:cp withEvent:event];
     }
     
-    int touchedPageIndex = [self touchedPageIndex:point];
+    CGPoint superPoint = [self convertPoint:point toView:self.superview];
+    int touchedPageIndex = [self touchedPageIndex:superPoint];
     if (touchedPageIndex >= 0) {
-        CGPoint subPoint = [self converPoint:point];
         
+        CGPoint subPoint = [self convertPoint:superPoint];
         UIView *pageView = [_delegate viewForPageIndex:touchedPageIndex];
         
         for(UIView *subview in pageView.subviews) {
@@ -95,24 +96,18 @@
     }
 }
 
-- (CGPoint)converPoint:(CGPoint)point
+- (CGPoint)convertPoint:(CGPoint)point
 {
     CGPoint result = point;
     if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-        result.x -= 1024.0 - ScrollViewWidth * 2;
+        if (result.x > ScrollViewWidth) {
+            result.x -= 256.0;
+        } else {
+            result.x = -result.x;
+        }
     }
     return result;
 }
-
-//- (BOOL)touchPoint:(CGPoint)point withEvent:(UIEvent *)event inView:(UIView *)view
-//{
-//    if (view.subviews.count == 0) {
-//        return [view pointInside:point withEvent:event];
-//    }
-//    if () {
-//        <#statements#>
-//    }
-//}
 
 - (int)touchedPageIndex:(CGPoint)point
 {
