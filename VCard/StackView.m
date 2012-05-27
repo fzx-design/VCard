@@ -88,7 +88,6 @@
             if (view) 
                 return view;
         }
-
         return _scrollView;
         
     } else {
