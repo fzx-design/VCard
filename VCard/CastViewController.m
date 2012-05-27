@@ -137,7 +137,7 @@
     }
     
     UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewPageController"];
-    [_stackViewController addViewController:vc];
+    [_stackViewController addViewController:vc replacingOtherView:NO];
 }
 
 

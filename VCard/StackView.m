@@ -7,6 +7,7 @@
 //
 
 #import "StackView.h"
+#import "UIView+Resize.h"
 
 #define PageWidth 430.0
 #define ScrollViewWidth 384.0
@@ -41,6 +42,8 @@
     return self;
 }
 
+#pragma mark - Handle Changes To The Stack
+
 - (void)setUpScrollView
 {
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(self.frame.size.width - ScrollViewWidth, 0.0, ScrollViewWidth, self.frame.size.height)];
@@ -54,7 +57,7 @@
     [self addSubview:_scrollView];
 }
 
-- (void)addNewPage:(UIView *)newPage
+- (void)addNewPage:(UIView *)newPage replacingView:(BOOL)replacing
 {
     int pageNumber = [_delegate pageNumber];
     int width = pageNumber == 1 ? ScrollViewWidth + 1 : ScrollViewWidth * pageNumber;
@@ -64,10 +67,34 @@
     [_scrollView setContentSize:CGSizeMake(width, 705.0)];
     [_scrollView addSubview:newPage];
     
+    if (replacing) {
+        [newPage resetOriginX:newPage.frame.origin.x + ScrollViewWidth];
+        [UIView animateWithDuration:0.3 animations:^{
+            [newPage resetOriginX:newPage.frame.origin.x - ScrollViewWidth];
+        }];
+    }
+    
+    
     [UIView animateWithDuration:0.3 animations:^{
         [_scrollView setContentOffset:CGPointMake(newPage.frame.origin.x, 0.0)];
     }];
 }
+
+- (CGRect)frameForNewView:(int)pageNumber
+{
+    return CGRectMake((pageNumber - 1) * ScrollViewWidth, 0.0, PageWidth, self.frame.size.height);
+}
+
+- (void)removeLastView:(UIView *)lastView
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        [lastView resetOriginX:lastView.frame.origin.x + ScrollViewWidth];
+    } completion:^(BOOL finished) {
+        [lastView removeFromSuperview];
+    }];
+}
+
+#pragma mark - Handle Touch Event
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
@@ -95,19 +122,6 @@
     }
 }
 
-- (CGPoint)convertPoint:(CGPoint)point
-{
-    CGPoint result = point;
-    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-        if (result.x > ScrollViewWidth) {
-            result.x -= 256.0;
-        } else {
-            result.x = -result.x;
-        }
-    }
-    return result;
-}
-
 - (int)touchedPageIndex:(CGPoint)point
 {
     CGFloat screenWidth = UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 1024.0 : 768.0;
@@ -123,16 +137,17 @@
     return touchedPageIndex;
 }
 
-- (CGRect)frameForNewView:(int)pageNumber
+- (CGPoint)convertPoint:(CGPoint)point
 {
-    return CGRectMake((pageNumber - 1) * ScrollViewWidth, 0.0, PageWidth, self.frame.size.height);
+    CGPoint result = point;
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+        if (result.x > ScrollViewWidth) {
+            result.x -= 256.0;
+        } else {
+            result.x = -result.x;
+        }
+    }
+    return result;
 }
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    NSLog(@"scroll view frame: %@", NSStringFromCGRect(scrollView.frame));
-    NSLog(@"content size:%@", NSStringFromCGSize(scrollView.contentSize));
-}
-
 
 @end

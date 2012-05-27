@@ -1015,18 +1015,9 @@
 			isa = PBXGroup;
 			children = (
 				18DBAE471572EEFF00918ED4 /* WaterflowComponent */,
+				18DBAE481572EFAE00918ED4 /* CardView */,
 				1811454A156F56B000B3BF21 /* RefreshIndicatorView.h */,
 				1811454B156F56B100B3BF21 /* RefreshIndicatorView.m */,
-				18AC828A155B924700AD99C4 /* PullToRefreshView.h */,
-				18AC828B155B924700AD99C4 /* PullToRefreshView.m */,
-				181FE5BC1557F9AE006C98ED /* TTTAttributedLabel.h */,
-				181FE5BD1557F9AE006C98ED /* TTTAttributedLabel.m */,
-				1850A455153BE4020001A905 /* CardImageViewShadowView.h */,
-				1850A456153BE4020001A905 /* CardImageViewShadowView.m */,
-				188BA4F71539B3EB00344288 /* CardImageView.h */,
-				188BA4F81539B3EB00344288 /* CardImageView.m */,
-				188BA4F21539AAD100344288 /* CardViewController.h */,
-				188BA4F31539AAD100344288 /* CardViewController.m */,
 				18E558FC153EAAD300ECCA3B /* CastViewController.h */,
 				18E558FD153EAAD300ECCA3B /* CastViewController.m */,
 				18DF3745156B5F0600C56685 /* DividerViewController.h */,
@@ -1080,6 +1071,23 @@
 				18047E3215452D7200651305 /* WaterflowLayoutUnit.m */,
 			);
 			name = WaterflowComponent;
+			sourceTree = "<group>";
+		};
+		18DBAE481572EFAE00918ED4 /* CardView */ = {
+			isa = PBXGroup;
+			children = (
+				18AC828A155B924700AD99C4 /* PullToRefreshView.h */,
+				18AC828B155B924700AD99C4 /* PullToRefreshView.m */,
+				181FE5BC1557F9AE006C98ED /* TTTAttributedLabel.h */,
+				181FE5BD1557F9AE006C98ED /* TTTAttributedLabel.m */,
+				1850A455153BE4020001A905 /* CardImageViewShadowView.h */,
+				1850A456153BE4020001A905 /* CardImageViewShadowView.m */,
+				188BA4F71539B3EB00344288 /* CardImageView.h */,
+				188BA4F81539B3EB00344288 /* CardImageView.m */,
+				188BA4F21539AAD100344288 /* CardViewController.h */,
+				188BA4F31539AAD100344288 /* CardViewController.m */,
+			);
+			name = CardView;
 			sourceTree = "<group>";
 		};
 		18E34C9315706786006DCFF6 /* StackView */ = {

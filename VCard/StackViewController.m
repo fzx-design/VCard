@@ -46,19 +46,23 @@
 {
     StackViewPageController *sender = noitfication.object;
     int senderIndex = sender.pageIndex;
+    BOOL replacingOtherView = NO;
     while (self.controllerStack.count - 1 > senderIndex) {
+        StackViewPageController *lastViewController = [self.controllerStack lastObject];
+        [self.stackView removeLastView:lastViewController.view];
         [self.controllerStack removeLastObject];
+        replacingOtherView = YES;
     }
     
     StackViewPageController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewPageController"];
     vc.pageIndex = _controllerStack.count;
-    [self addViewController:vc];
+    [self addViewController:vc replacingOtherView:replacingOtherView];
 }
 
-- (void)addViewController:(UIViewController *)viewController
+- (void)addViewController:(UIViewController *)viewController replacingOtherView:(BOOL)replacing
 {
     [self.controllerStack addObject:viewController];
-    [self.stackView addNewPage:viewController.view];
+    [self.stackView addNewPage:viewController.view replacingView:replacing];
 }
 
 #pragma mark - Stack View Delegate

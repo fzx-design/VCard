@@ -18,6 +18,6 @@
 @property (nonatomic, strong) StackView *stackView;
 @property (nonatomic, strong) NSMutableArray *controllerStack;
 
-- (void)addViewController:(UIViewController *)viewController;
+- (void)addViewController:(UIViewController *)viewController replacingOtherView:(BOOL)replacing;
 
 @end

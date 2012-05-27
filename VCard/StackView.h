@@ -25,6 +25,7 @@
 @property (nonatomic, retain) UIScrollView *scrollView;
 @property (nonatomic, assign) id<StackViewDelegate> delegate;
 
-- (void)addNewPage:(UIView *)newPage;
+- (void)addNewPage:(UIView *)newPage replacingView:(BOOL)replacing;
+- (void)removeLastView:(UIView *)lastView;
 
 @end
