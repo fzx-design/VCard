@@ -7,6 +7,7 @@
 //
 
 #import "StackViewController.h"
+#import "StackViewPageController.h"
 
 @interface StackViewController ()
 
@@ -29,7 +30,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter]  addObserver:self
+                                              selector:@selector(addNewStackPage:)
+                                                  name:kNotificationNameAddNewStackPage
+                                                object:nil];
 }
 
 - (void)viewDidUnload
@@ -38,16 +42,49 @@
     // Release any retained subviews of the main view.
 }
 
+- (void)addNewStackPage:(NSNotification *)noitfication
+{
+    StackViewPageController *sender = noitfication.object;
+    int senderIndex = sender.pageIndex;
+    while (self.controllerStack.count - 1 > senderIndex) {
+        [self.controllerStack removeLastObject];
+    }
+    
+    StackViewPageController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewPageController"];
+    vc.pageIndex = _controllerStack.count;
+    [self addViewController:vc];
+}
+
 - (void)addViewController:(UIViewController *)viewController
 {
-    [self.stackView addNewPage:viewController.view];
     [self.controllerStack addObject:viewController];
+    [self.stackView addNewPage:viewController.view];
 }
+
+#pragma mark - Stack View Delegate
+
+- (int)pageNumber
+{
+    return self.controllerStack.count;
+}
+
+- (UIView *)viewForPageIndex:(int)index
+{
+    if (index >= self.controllerStack.count) {
+        return nil;
+    }
+    
+    StackViewPageController *vc = [self.controllerStack objectAtIndex:index];
+    return vc.view;
+}
+
+#pragma mark - Property
 
 - (StackView *)stackView
 {
     if (!_stackView) {
         _stackView = [[StackView alloc] initWithFrame:self.view.bounds];
+        _stackView.delegate = self;
         [self.view addSubview:_stackView];
     }
     return _stackView;

@@ -13,6 +13,7 @@
 #define kRLTopBarShadow @"main_bar_shadow.png"
 #define kRLCastViewBGUnit @"castview_bg_unit.png"
 #define kRLStackViewBGUnit @"side_bg.png"
+#define kRLStackViewSideShadow @"stackview_pre_shadow_cover.png"
 
 #define kRLAvatarPlaceHolderBG @"imageview_placeholder.png"
 #define kRLAvatarPlaceHolder @"avatar_placeholder.png"
@@ -38,8 +39,10 @@
 #define kRLIconGif @"icon_gif.png"
 
 #define kNotificationNameOrientationWillChange @"kNotificationNameOrientationWillChange"
+#define kNotificationNameOrientationChanged @"kNotificationNameOrientationChanged"
 #define kNotificationNameShouldDisableWaterflowScroll @"kNotificationNameShouldDisableWaterflowScroll"
 #define kNotificationNameShouldEnableWaterflowScroll @"kNotificationNameShouldEnableWaterflowScroll"
+#define kNotificationNameAddNewStackPage @"kNotificationNameAddNewStackPage"
 
 #define kOrientationPortrait @"kOrientationPortrait"
 #define kOrientationLandscape @"kOrientationLandscape"

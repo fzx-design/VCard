@@ -9,6 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
 
-@interface StackViewPageController : CoreDataTableViewController
+@interface StackViewPageController : CoreDataTableViewController {
+    NSInteger _pageIndex;
+    
+}
+
+@property (nonatomic, assign) NSInteger pageIndex;
+
+@property (nonatomic, strong) IBOutlet UIButton *testButton;
+
+- (IBAction)createNewStackPage:(id)sender;
 
 @end

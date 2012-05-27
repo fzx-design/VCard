@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BaseStackLayoutView : UIImageView
+@interface BaseStackLayoutView : UIImageView {
+    UIImageView *_shadowImageView;
+}
 
 @end

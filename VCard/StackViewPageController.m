@@ -14,6 +14,9 @@
 
 @implementation StackViewPageController
 
+@synthesize pageIndex = _pageIndex;
+@synthesize testButton;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,6 +36,11 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (IBAction)createNewStackPage:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameAddNewStackPage object:self];
 }
 
 

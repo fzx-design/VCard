@@ -25,6 +25,11 @@
     if (self) {
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.image = [[UIImage imageNamed:kRLStackViewBGUnit] resizableImageWithCapInsets:UIEdgeInsetsZero];
+        
+        _shadowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(-164.0, 0.0, 184.0, self.frame.size.height)];
+        _shadowImageView.image = [[UIImage imageNamed:kRLStackViewSideShadow] resizableImageWithCapInsets:UIEdgeInsetsZero];
+        _shadowImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        [self addSubview:_shadowImageView];
     }
     return self;
 }

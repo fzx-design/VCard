@@ -8,11 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol StackViewDelegate <NSObject>
+
+@required
+- (int)pageNumber;
+- (UIView *)viewForPageIndex:(int)index;
+
+@end
+
 @interface StackView : UIView <UIScrollViewDelegate> {
     UIScrollView *_scrollView;
+    
+    __unsafe_unretained id<StackViewDelegate> _delegate;
 }
 
 @property (nonatomic, retain) UIScrollView *scrollView;
+@property (nonatomic, assign) id<StackViewDelegate> delegate;
 
 - (void)addNewPage:(UIView *)newPage;
 

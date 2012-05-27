@@ -59,6 +59,7 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameOrientationChanged object:nil];
     [self.castViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 

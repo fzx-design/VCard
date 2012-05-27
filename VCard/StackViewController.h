@@ -10,7 +10,7 @@
 #import "CoreDataTableViewController.h"
 #import "StackView.h"
 
-@interface StackViewController : CoreDataTableViewController {
+@interface StackViewController : CoreDataTableViewController <StackViewDelegate> {
     StackView *_stackView;
     NSMutableArray *_controllerStack;
 }
