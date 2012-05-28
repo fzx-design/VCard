@@ -17,6 +17,7 @@
 
 @synthesize stackView = _stackView;
 @synthesize controllerStack = _controllerStack;
+@synthesize delegate = _delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.stackView.delegate = self;
     [[NSNotificationCenter defaultCenter]  addObserver:self
                                               selector:@selector(addNewStackPage:)
                                                   name:kNotificationNameAddNewStackPage
@@ -82,17 +84,12 @@
     return vc.view;
 }
 
-#pragma mark - Property
-
-- (StackView *)stackView
+- (void)stackBecomedEmpty
 {
-    if (!_stackView) {
-        _stackView = [[StackView alloc] initWithFrame:self.view.bounds];
-        _stackView.delegate = self;
-        [self.view addSubview:_stackView];
-    }
-    return _stackView;
+    [_delegate clearStack];
 }
+
+#pragma mark - Property
 
 - (NSMutableArray *)controllerStack
 {

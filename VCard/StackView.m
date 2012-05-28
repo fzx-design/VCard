@@ -21,6 +21,7 @@
 
 @implementation StackView
 
+@synthesize returnButton = _returnButton;
 @synthesize scrollView = _scrollView;
 @synthesize delegate = _delegate;
 
@@ -53,6 +54,13 @@
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.delegate = self;
     _scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
+    
+    _returnButton = [[UIButton alloc] initWithFrame:CGRectMake(-256.0, 0.0, 640.0, 961.0)];
+    _returnButton.autoresizingMask = UIViewAutoresizingNone;
+    [_returnButton addTarget:self action:@selector(returnButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_scrollView addSubview:_returnButton];
+    
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
     [self addSubview:_scrollView];
 }
@@ -60,7 +68,7 @@
 - (void)addNewPage:(UIView *)newPage replacingView:(BOOL)replacing
 {
     int pageNumber = [_delegate pageNumber];
-    int width = pageNumber == 1 ? ScrollViewWidth + 1 : ScrollViewWidth * pageNumber;
+    int width = ScrollViewWidth * (pageNumber + 1);
     
     newPage.frame = [self frameForNewView:pageNumber];
     
@@ -82,7 +90,7 @@
 
 - (CGRect)frameForNewView:(int)pageNumber
 {
-    return CGRectMake((pageNumber - 1) * ScrollViewWidth, 0.0, PageWidth, self.frame.size.height);
+    return CGRectMake((pageNumber) * ScrollViewWidth, 0.0, PageWidth, self.frame.size.height);
 }
 
 - (void)removeLastView:(UIView *)lastView
@@ -91,6 +99,36 @@
         [lastView resetOriginX:lastView.frame.origin.x + ScrollViewWidth];
     } completion:^(BOOL finished) {
         [lastView removeFromSuperview];
+    }];
+}
+
+#pragma mark - UIScrollView Delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat offsetX = scrollView.contentOffset.x;
+    if (offsetX < ScrollViewWidth) {
+        CGFloat backgroundAlpha = offsetX / ScrollViewWidth * 0.6;
+        self.superview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:backgroundAlpha];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.x == 0.0) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [self resetOriginX:self.frame.origin.x + 200.0];
+        } completion:^(BOOL finished) {
+            [_delegate stackBecomedEmpty];
+        }];
+    }
+}
+
+- (void)returnButtonClicked
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        _scrollView.contentOffset = CGPointZero;
+    } completion:^(BOOL finished) {
+        [_delegate stackBecomedEmpty];
     }];
 }
 
@@ -118,6 +156,10 @@
         return _scrollView;
         
     } else {
+//        UIView *view = [super hitTest: withEvent:<#event#>];
+        if ([_returnButton pointInside:superPoint withEvent:event]) {
+            return _returnButton;
+        }
         return _scrollView;
     }
 }
@@ -125,7 +167,7 @@
 - (int)touchedPageIndex:(CGPoint)point
 {
     CGFloat screenWidth = UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 1024.0 : 768.0;
-    int currentPageIndex = _scrollView.contentOffset.x / ScrollViewWidth;
+    int currentPageIndex = _scrollView.contentOffset.x / ScrollViewWidth - 1;
     int touchedPageIndex;
     if (point.x > screenWidth - ScrollViewWidth) {
         touchedPageIndex = currentPageIndex;

@@ -129,10 +129,11 @@
         [_stackViewController.view resetOrigin:CGPointMake(0.0, 43.0)];
         [_stackViewController.view resetSize:self.waterflowView.frame.size];
         _stackViewController.currentUser = self.currentUser;
+        _stackViewController.delegate = self;
         [self.view insertSubview:_stackViewController.view belowSubview:_navigationView];
-        _stackViewController.view.alpha = 0.0;
-        [UIView animateWithDuration:0.7 animations:^{
-            _stackViewController.view.alpha = 1.0;
+//        _stackViewController.view.alpha = 0.0;
+        [UIView animateWithDuration:0.3 animations:^{
+            _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         }];
     }
     
@@ -227,7 +228,6 @@
     [self.waterflowView scrollViewDidScroll:self.waterflowView];
 }
 
-
 #pragma mark - CoreDataTableViewController methods
 
 - (void)configureRequest:(NSFetchRequest *)request
@@ -317,6 +317,18 @@
 - (void)flowView:(WaterflowView *)flowView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"did select at %@",indexPath);
+}
+
+#pragma mark - Stack View Controller Delegate
+- (void)clearStack
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        _stackViewController.view.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [_stackViewController.view removeFromSuperview];
+        _stackViewController = nil;
+    }];
+    
 }
 
 @end

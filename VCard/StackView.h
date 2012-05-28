@@ -13,16 +13,18 @@
 @required
 - (int)pageNumber;
 - (UIView *)viewForPageIndex:(int)index;
+- (void)stackBecomedEmpty;
 
 @end
 
 @interface StackView : UIView <UIScrollViewDelegate> {
     UIScrollView *_scrollView;
-    
+    UIButton *_returnButton;
     __unsafe_unretained id<StackViewDelegate> _delegate;
 }
 
-@property (nonatomic, retain) UIScrollView *scrollView;
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIButton *returnButton;
 @property (nonatomic, assign) id<StackViewDelegate> delegate;
 
 - (void)addNewPage:(UIView *)newPage replacingView:(BOOL)replacing;
