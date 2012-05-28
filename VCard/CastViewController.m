@@ -137,7 +137,7 @@
         }];
     }
     
-    UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewPageController"];
+    UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"UserProfileViewController"];
     [_stackViewController addViewController:vc replacingOtherView:NO];
 }
 

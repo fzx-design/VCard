@@ -16,8 +16,5 @@
 
 @property (nonatomic, assign) NSInteger pageIndex;
 
-@property (nonatomic, strong) IBOutlet UIButton *testButton;
-
-- (IBAction)createNewStackPage:(id)sender;
 
 @end

@@ -150,17 +150,13 @@
         
         for(UIView *subview in pageView.subviews) {
             UIView *view = [subview hitTest:subPoint withEvent:event];
-            if (view) 
+            if (view)
                 return view;
         }
         return _scrollView;
         
     } else {
-//        UIView *view = [super hitTest: withEvent:<#event#>];
-        if ([_returnButton pointInside:superPoint withEvent:event]) {
-            return _returnButton;
-        }
-        return _scrollView;
+        return [_returnButton pointInside:superPoint withEvent:event] ? _returnButton : _scrollView;
     }
 }
 

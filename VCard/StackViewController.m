@@ -56,7 +56,7 @@
         replacingOtherView = YES;
     }
     
-    StackViewPageController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewPageController"];
+    StackViewPageController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"UserProfileViewController"];
     vc.pageIndex = _controllerStack.count;
     [self addViewController:vc replacingOtherView:replacingOtherView];
 }

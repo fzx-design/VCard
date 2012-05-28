@@ -78,6 +78,10 @@
 		18A6850D15370F3D00D58B7D /* imageview_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A6850B15370F3D00D58B7D /* imageview_placeholder@2x.png */; };
 		18A685171537110B00D58B7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A685161537110B00D58B7D /* QuartzCore.framework */; };
 		18AC828E155B924700AD99C4 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC828B155B924700AD99C4 /* PullToRefreshView.m */; };
+		18DBAE4B1573156000918ED4 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE4A1573155F00918ED4 /* UserProfileViewController.m */; };
+		18DBAE4E1573206400918ED4 /* FriendProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE4D1573206300918ED4 /* FriendProfileViewController.m */; };
+		18DBAE581573498F00918ED4 /* ProfileRelationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */; };
+		18DBAE5B157349F400918ED4 /* ProfileRelationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE5A157349F400918ED4 /* ProfileRelationTableViewController.m */; };
 		18DF3734153905A800C783C9 /* BaseNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF3733153905A800C783C9 /* BaseNavigationBar.m */; };
 		18DF3740156B55AC00C56685 /* WaterflowCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF373F156B55AC00C56685 /* WaterflowCardCell.m */; };
 		18DF3744156B59B600C56685 /* WaterflowDividerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF3743156B59B600C56685 /* WaterflowDividerCell.m */; };
@@ -495,6 +499,14 @@
 		18A685161537110B00D58B7D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		18AC828A155B924700AD99C4 /* PullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshView.h; sourceTree = "<group>"; };
 		18AC828B155B924700AD99C4 /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
+		18DBAE491573155F00918ED4 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
+		18DBAE4A1573155F00918ED4 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
+		18DBAE4C1573206300918ED4 /* FriendProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendProfileViewController.h; sourceTree = "<group>"; };
+		18DBAE4D1573206300918ED4 /* FriendProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendProfileViewController.m; sourceTree = "<group>"; };
+		18DBAE54157334AC00918ED4 /* ProfileRelationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ProfileRelationTableViewCell.h; sourceTree = "<group>"; };
+		18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileRelationTableViewCell.m; sourceTree = "<group>"; };
+		18DBAE59157349F400918ED4 /* ProfileRelationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileRelationTableViewController.h; sourceTree = "<group>"; };
+		18DBAE5A157349F400918ED4 /* ProfileRelationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileRelationTableViewController.m; sourceTree = "<group>"; };
 		18DF3732153905A800C783C9 /* BaseNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationBar.h; sourceTree = "<group>"; };
 		18DF3733153905A800C783C9 /* BaseNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationBar.m; sourceTree = "<group>"; };
 		18DF373E156B55AC00C56685 /* WaterflowCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterflowCardCell.h; sourceTree = "<group>"; };
@@ -1090,15 +1102,31 @@
 			name = CardView;
 			sourceTree = "<group>";
 		};
+		18DBAE531573348400918ED4 /* TabelViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				18DBAE54157334AC00918ED4 /* ProfileRelationTableViewCell.h */,
+				18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */,
+				18DBAE59157349F400918ED4 /* ProfileRelationTableViewController.h */,
+				18DBAE5A157349F400918ED4 /* ProfileRelationTableViewController.m */,
+			);
+			name = TabelViewCell;
+			sourceTree = "<group>";
+		};
 		18E34C9315706786006DCFF6 /* StackView */ = {
 			isa = PBXGroup;
 			children = (
+				18DBAE531573348400918ED4 /* TabelViewCell */,
 				18E34C94157077CB006DCFF6 /* StackView.h */,
 				18E34C95157077CB006DCFF6 /* StackView.m */,
 				18E34C9715707B9B006DCFF6 /* StackViewController.h */,
 				18E34C9815707B9B006DCFF6 /* StackViewController.m */,
 				18E34C9A157099EE006DCFF6 /* StackViewPageController.h */,
 				18E34C9B157099EE006DCFF6 /* StackViewPageController.m */,
+				18DBAE491573155F00918ED4 /* UserProfileViewController.h */,
+				18DBAE4A1573155F00918ED4 /* UserProfileViewController.m */,
+				18DBAE4C1573206300918ED4 /* FriendProfileViewController.h */,
+				18DBAE4D1573206300918ED4 /* FriendProfileViewController.m */,
 				18E34C9015706660006DCFF6 /* BaseStackLayoutView.h */,
 				18E34C9115706660006DCFF6 /* BaseStackLayoutView.m */,
 			);
@@ -2026,6 +2054,10 @@
 				18E34C96157077CB006DCFF6 /* StackView.m in Sources */,
 				18E34C9915707B9B006DCFF6 /* StackViewController.m in Sources */,
 				18E34C9C157099EE006DCFF6 /* StackViewPageController.m in Sources */,
+				18DBAE4B1573156000918ED4 /* UserProfileViewController.m in Sources */,
+				18DBAE4E1573206400918ED4 /* FriendProfileViewController.m in Sources */,
+				18DBAE581573498F00918ED4 /* ProfileRelationTableViewCell.m in Sources */,
+				18DBAE5B157349F400918ED4 /* ProfileRelationTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

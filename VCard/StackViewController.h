@@ -16,7 +16,7 @@
 
 @end
 
-@interface StackViewController : CoreDataTableViewController <StackViewDelegate> {    
+@interface StackViewController : CoreDataViewController <StackViewDelegate> {    
     StackView *_stackView;
     NSMutableArray *_controllerStack;
     

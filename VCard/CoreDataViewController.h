@@ -10,11 +10,14 @@
 
 @class User;
 
-@interface CoreDataViewController : UIViewController {
+@interface CoreDataViewController : UIViewController <NSFetchedResultsControllerDelegate> {
     NSManagedObjectContext *_managedObjectContext;
+    NSFetchedResultsController *_fetchedResultsController;
     User *_currentUser;
 }
 
+
+@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) User *currentUser;
 

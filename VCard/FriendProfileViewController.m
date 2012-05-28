@@ -1,20 +1,18 @@
 //
-//  StackViewPageController.m
+//  FriendProfileViewController.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-5-26.
+//  Created by 海山 叶 on 12-5-28.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
-#import "StackViewPageController.h"
+#import "FriendProfileViewController.h"
 
-@interface StackViewPageController ()
+@interface FriendProfileViewController ()
 
 @end
 
-@implementation StackViewPageController
-
-@synthesize pageIndex = _pageIndex;
+@implementation FriendProfileViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,5 +35,9 @@
     // Release any retained subviews of the main view.
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
 
 @end

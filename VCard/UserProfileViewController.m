@@ -1,20 +1,20 @@
 //
-//  StackViewPageController.m
+//  UserProfileViewController.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-5-26.
+//  Created by 海山 叶 on 12-5-28.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
-#import "StackViewPageController.h"
+#import "UserProfileViewController.h"
 
-@interface StackViewPageController ()
+@interface UserProfileViewController ()
 
 @end
 
-@implementation StackViewPageController
+@implementation UserProfileViewController
 
-@synthesize pageIndex = _pageIndex;
+@synthesize testButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,5 +37,9 @@
     // Release any retained subviews of the main view.
 }
 
+- (IBAction)createNewStackPage:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameAddNewStackPage object:self];
+}
 
 @end

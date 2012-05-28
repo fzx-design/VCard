@@ -9,10 +9,10 @@
 #import "CoreDataViewController.h"
 
 @interface CoreDataTableViewController : CoreDataViewController<NSFetchedResultsControllerDelegate> {
-    NSFetchedResultsController *_fetchedResultsController;
+    UITableView *_tableView;
 }
 
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
 
 //methods to override
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;

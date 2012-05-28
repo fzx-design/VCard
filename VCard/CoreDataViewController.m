@@ -13,6 +13,7 @@
 @implementation CoreDataViewController
 
 @synthesize managedObjectContext = _managedObjectContext;
+@synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize currentUser = _currentUser;
 
 - (void)setCurrentUser:(User *)currentUser
@@ -25,6 +26,11 @@
     }
 }
 
+- (void)configureRequest:(NSFetchRequest *)request
+{
+    
+}
+
 - (NSManagedObjectContext*)managedObjectContext
 {
     if (_managedObjectContext == nil) {
@@ -32,6 +38,28 @@
         _managedObjectContext = delegate.managedObjectContext;
     }
     return _managedObjectContext;
+}
+
+#pragma mark -
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    if (_fetchedResultsController != nil)
+    {
+        return _fetchedResultsController;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    [self configureRequest:fetchRequest];
+    
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    aFetchedResultsController.delegate = self;
+    self.fetchedResultsController = aFetchedResultsController;
+    
+	[self.fetchedResultsController performFetch:NULL];
+    
+    return _fetchedResultsController;
 }
 
 @end
