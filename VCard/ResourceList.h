@@ -17,6 +17,7 @@
 
 #define kRLAvatarPlaceHolderBG @"imageview_placeholder.png"
 #define kRLAvatarPlaceHolder @"avatar_placeholder.png"
+#define kRLProfileAvatarFrame @"profile_avatar_frame.png"
 
 #define kRLCardBGUnit @"card_bg_body.png"
 #define kRLCardTop @"card_bg_top.png"
@@ -36,6 +37,9 @@
 #define kRLIconVerifiedTalentSmall @"verified_talent_small.png"
 #define kRLIconVerifiedTalentBig @"verified_talent_large.png"
 
+#define kRLIconMale @"icon_male.png"
+#define kRLIconFemale @"icon_female.png"
+
 #define kRLIconGif @"icon_gif.png"
 
 #define kNotificationNameOrientationWillChange @"kNotificationNameOrientationWillChange"
@@ -43,6 +47,7 @@
 #define kNotificationNameShouldDisableWaterflowScroll @"kNotificationNameShouldDisableWaterflowScroll"
 #define kNotificationNameShouldEnableWaterflowScroll @"kNotificationNameShouldEnableWaterflowScroll"
 #define kNotificationNameAddNewStackPage @"kNotificationNameAddNewStackPage"
+#define kNotificationNameUserNameClicked @"kNotificationNameUserNameClicked"
 
 #define kOrientationPortrait @"kOrientationPortrait"
 #define kOrientationLandscape @"kOrientationLandscape"

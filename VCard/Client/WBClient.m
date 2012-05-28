@@ -257,6 +257,13 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
+- (void)getUserByScreenName:(NSString *)screenName_
+{
+    self.path = @"users/show.json";
+    [self.params setObject:screenName_ forKey:@"screen_name"];
+    [self loadNormalRequest];
+}
+
 - (void)authorizeUsingUserID:(NSString *)userID password:(NSString *)password
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_appKey, @"client_id",

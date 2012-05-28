@@ -136,6 +136,7 @@
     
     [relationshipCell.avatarImageView loadImageFromURL:usr.profileImageURL
                                             completion:NULL];
+    [relationshipCell.avatarImageView setVerifiedType:[usr verifiedTypeOfUser]];
 }
 
 - (NSString *)customCellClassName

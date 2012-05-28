@@ -525,11 +525,11 @@
             </objects>
             <point key="canvasLocation" x="-416" y="-1495"/>
         </scene>
-        <!--User Profile View Controller-->
+        <!--Self Profile View Controller-->
         <scene sceneID="dbd-8T-Fec">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FnB-Ta-sAS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="UserProfileViewController" id="m0Z-sD-uNg" customClass="UserProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelfProfileViewController" id="m0Z-sD-uNg" customClass="SelfProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vXz-KM-atp">
                         <rect key="frame" x="0.0" y="0.0" width="431" height="961"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -579,19 +579,15 @@
                                         <rect key="frame" x="50" y="45" width="90" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" image="profile_avatar_frame.png" id="JMr-mn-7aF">
-                                        <rect key="frame" x="29" y="7" width="134" height="160"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" image="icon_location.png" id="5ig-Fn-ShX">
                                         <rect key="frame" x="174" y="68" width="11" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" image="icon_male.png" id="7L6-6S-4Yf">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" id="7L6-6S-4Yf">
                                         <rect key="frame" x="174" y="95" width="12" height="15"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="地点" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Rns-ws-YFG">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="正在载入" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Rns-ws-YFG">
                                         <rect key="frame" x="195" y="64" width="147" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -601,11 +597,11 @@
                                         <size key="shadowOffset" width="0.0" height="1"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="center" image="profile_info_bg.png" id="sgU-tw-qZS">
-                                        <rect key="frame" x="23" y="197" width="384" height="119"/>
+                                        <rect key="frame" x="23" y="206" width="384" height="119"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="joK-Ta-i8Y">
-                                        <rect key="frame" x="44" y="152" width="107" height="37"/>
+                                        <rect key="frame" x="44" y="155" width="107" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" image="button_modify_avatar.png">
@@ -617,25 +613,27 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QaX-fJ-2R5">
-                                        <rect key="frame" x="52" y="242" width="95" height="74"/>
+                                        <rect key="frame" x="52" y="251" width="95" height="74"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" image="button_hover_bg.png"/>
                                         <state key="highlighted" image="button_hover_bg.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aQE-Vb-jos">
-                                        <rect key="frame" x="168" y="242" width="95" height="74"/>
+                                        <rect key="frame" x="168" y="251" width="95" height="74"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" image="button_hover_bg.png"/>
                                         <state key="highlighted" image="button_hover_bg.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -644,7 +642,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="粉丝" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="i2X-Ra-PGy">
-                                        <rect key="frame" x="284" y="284" width="95" height="21"/>
+                                        <rect key="frame" x="284" y="293" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
@@ -653,7 +651,7 @@
                                         <size key="shadowOffset" width="0.0" height="1"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="关注" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Kfm-FK-Vjp">
-                                        <rect key="frame" x="168" y="284" width="95" height="21"/>
+                                        <rect key="frame" x="168" y="293" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
@@ -662,7 +660,7 @@
                                         <size key="shadowOffset" width="0.0" height="1"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="微博" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="gRc-rR-vp1">
-                                        <rect key="frame" x="52" y="284" width="95" height="21"/>
+                                        <rect key="frame" x="52" y="293" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
@@ -671,13 +669,14 @@
                                         <size key="shadowOffset" width="0.0" height="1"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BY2-Hq-BV7">
-                                        <rect key="frame" x="284" y="242" width="95" height="74"/>
+                                        <rect key="frame" x="284" y="251" width="95" height="74"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" image="button_hover_bg.png"/>
                                         <state key="highlighted" image="button_hover_bg.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -686,7 +685,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vj0-FK-0d0">
-                                        <rect key="frame" x="23" y="197" width="192" height="44"/>
+                                        <rect key="frame" x="23" y="206" width="192" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
@@ -698,7 +697,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vVy-wW-YmU">
-                                        <rect key="frame" x="215" y="197" width="192" height="44"/>
+                                        <rect key="frame" x="215" y="206" width="192" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
@@ -709,8 +708,8 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1453" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Zym-TS-IiN">
-                                        <rect key="frame" x="52" y="256" width="95" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Zym-TS-IiN">
+                                        <rect key="frame" x="52" y="265" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="textColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
@@ -718,8 +717,8 @@
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="193304" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="A4z-ng-jR0">
-                                        <rect key="frame" x="284" y="256" width="95" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="A4z-ng-jR0">
+                                        <rect key="frame" x="284" y="265" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -727,8 +726,8 @@
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="225" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="UVb-Yr-5C7">
-                                        <rect key="frame" x="168" y="256" width="95" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="UVb-Yr-5C7">
+                                        <rect key="frame" x="168" y="265" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -736,7 +735,7 @@
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" text="简介" id="ylF-58-aSM">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" editable="NO" text="正在载入" id="ylF-58-aSM">
                                         <rect key="frame" x="188" y="88" width="194" height="101"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -744,7 +743,7 @@
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" text="简介" id="kKn-kG-dHh">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" editable="NO" text="正在载入" id="kKn-kG-dHh">
                                         <rect key="frame" x="188" y="87" width="194" height="101"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -775,6 +774,7 @@
                         <outlet property="discriptionShadowLabel" destination="kKn-kG-dHh" id="qZl-fz-IDT"/>
                         <outlet property="followerCountLabel" destination="A4z-ng-jR0" id="2JS-UC-XQo"/>
                         <outlet property="friendCountLabel" destination="UVb-Yr-5C7" id="sQe-QF-3OS"/>
+                        <outlet property="genderImageView" destination="7L6-6S-4Yf" id="Mhf-bw-Onf"/>
                         <outlet property="locationLabel" destination="Rns-ws-YFG" id="W7S-fy-O6w"/>
                         <outlet property="screenNameLabel" destination="VQT-OI-K9Y" id="S8c-pB-VZa"/>
                         <outlet property="statusCountLabel" destination="Zym-TS-IiN" id="A8h-ay-jdW"/>
@@ -783,6 +783,264 @@
                 </viewController>
             </objects>
             <point key="canvasLocation" x="512" y="-1495"/>
+        </scene>
+        <!--Friend Profile View Controller-->
+        <scene sceneID="iiX-iS-BIb">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cS9-ua-LOH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="FriendProfileViewController" id="Crt-Sg-sLH" customClass="FriendProfileViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="p9I-4h-b7p">
+                        <rect key="frame" x="0.0" y="0.0" width="431" height="961"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="spq-1U-Zes" customClass="BaseStackLayoutView">
+                                <rect key="frame" x="-20" y="0.0" width="431" height="961"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ePU-kn-ihc">
+                                        <rect key="frame" x="179" y="891" width="72" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="createNewStackPage:" destination="Crt-Sg-sLH" eventType="touchUpInside" id="cdi-sB-47J"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MB4-eJ-DND">
+                                        <rect key="frame" x="343" y="8" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="帐户和设置" image="button_paper_light_bg.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="用户名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="MUB-mu-ydS">
+                                        <rect key="frame" x="172" y="33" width="163" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="5dy-U8-qCw" customClass="UserAvatarImageView">
+                                        <rect key="frame" x="50" y="45" width="90" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" image="icon_location.png" id="jzw-VT-pzh">
+                                        <rect key="frame" x="174" y="68" width="11" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" id="xVZ-ao-TRE">
+                                        <rect key="frame" x="174" y="95" width="12" height="15"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="正在载入" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="K1m-ef-bqP">
+                                        <rect key="frame" x="195" y="64" width="147" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" image="following_segements_bg.png" id="gtT-wE-BZ6">
+                                        <rect key="frame" x="23" y="205" width="384" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bKg-UB-Xn6">
+                                        <rect key="frame" x="44" y="154" width="107" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="button_segments.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CIV-UP-uj8">
+                                        <rect key="frame" x="52" y="206" width="95" height="74"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="button_hover_bg.png"/>
+                                        <state key="highlighted" image="button_hover_bg.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bOg-bI-tI8">
+                                        <rect key="frame" x="168" y="206" width="95" height="74"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="button_hover_bg.png"/>
+                                        <state key="highlighted" image="button_hover_bg.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showFriends:" destination="Crt-Sg-sLH" eventType="touchUpInside" id="1xj-wj-1ce"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="粉丝" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="1Uy-EX-tQ2">
+                                        <rect key="frame" x="284" y="248" width="95" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="关注" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="79J-3f-pCC">
+                                        <rect key="frame" x="168" y="248" width="95" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="微博" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="r4K-Rw-d4T">
+                                        <rect key="frame" x="52" y="248" width="95" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lGu-x1-1QO">
+                                        <rect key="frame" x="284" y="206" width="95" height="74"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="button_hover_bg.png"/>
+                                        <state key="highlighted" image="button_hover_bg.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showFollowers:" destination="Crt-Sg-sLH" eventType="touchUpInside" id="2iw-dy-PMO"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="IJT-dN-PsI">
+                                        <rect key="frame" x="52" y="220" width="95" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="KGs-ms-QDR">
+                                        <rect key="frame" x="284" y="220" width="95" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="mpC-ir-UQn">
+                                        <rect key="frame" x="168" y="220" width="95" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" editable="NO" text="正在载入" id="SfH-Vg-eG2">
+                                        <rect key="frame" x="188" y="88" width="194" height="101"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" editable="NO" text="正在载入" id="wXo-Xj-Bpr">
+                                        <rect key="frame" x="188" y="87" width="194" height="101"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="b0I-9f-sZP">
+                                        <rect key="frame" x="119" y="154" width="32" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0p0-SL-twz">
+                                        <rect key="frame" x="35" y="154" width="77" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <size key="titleShadowOffset" width="0.0" height="1"/>
+                                        <state key="normal" title="读取中">
+                                            <color key="titleColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="avatarImageView" destination="5dy-U8-qCw" id="NTx-vR-t7F"/>
+                        <outlet property="backgroundView" destination="spq-1U-Zes" id="Y4T-L7-Ol3"/>
+                        <outlet property="checkFollowersButton" destination="lGu-x1-1QO" id="ks4-PB-2My"/>
+                        <outlet property="checkFriendsButton" destination="bOg-bI-tI8" id="LJk-X0-8xm"/>
+                        <outlet property="checkStatusesButton" destination="CIV-UP-uj8" id="aJl-fX-deJ"/>
+                        <outlet property="discriptionLabel" destination="SfH-Vg-eG2" id="sAG-Qa-sGq"/>
+                        <outlet property="discriptionShadowLabel" destination="wXo-Xj-Bpr" id="Lqq-Mi-fy2"/>
+                        <outlet property="followerCountLabel" destination="KGs-ms-QDR" id="1ae-22-rNP"/>
+                        <outlet property="friendCountLabel" destination="mpC-ir-UQn" id="jJd-Zq-dni"/>
+                        <outlet property="genderImageView" destination="xVZ-ao-TRE" id="iwS-oW-A07"/>
+                        <outlet property="locationLabel" destination="K1m-ef-bqP" id="RzQ-Wo-cy9"/>
+                        <outlet property="relationshipButton" destination="0p0-SL-twz" id="Kqm-hH-C5E"/>
+                        <outlet property="screenNameLabel" destination="MUB-mu-ydS" id="ZF5-vi-fHK"/>
+                        <outlet property="statusCountLabel" destination="IJT-dN-PsI" id="uQ4-cu-BGp"/>
+                        <outlet property="testButton" destination="ePU-kn-ihc" id="CQ7-iq-z8V"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1116" y="-1503"/>
         </scene>
         <!--Profile Relation Table View Controller-->
         <scene sceneID="UTA-0H-Tf9">
@@ -878,7 +1136,9 @@
         <image name="button_menu_search.png" width="25" height="25"/>
         <image name="button_menu_search_hover.png" width="25" height="25"/>
         <image name="button_modify_avatar.png" width="107" height="32"/>
+        <image name="button_paper_light_bg.png" width="50" height="30"/>
         <image name="button_paper_light_long_bg.png" width="78" height="30"/>
+        <image name="button_segments.png" width="107" height="33"/>
         <image name="button_share.png" width="34" height="34"/>
         <image name="button_share_hover.png" width="34" height="34"/>
         <image name="card_clip.png" width="42" height="59"/>
@@ -887,14 +1147,13 @@
         <image name="card_tag.png" width="62" height="59"/>
         <image name="cell_hover.png" width="383" height="42"/>
         <image name="cell_large_bg.png" width="383" height="67"/>
+        <image name="following_segements_bg.png" width="384" height="75"/>
         <image name="icon_location.png" width="11" height="18"/>
-        <image name="icon_male.png" width="12" height="13"/>
         <image name="imageview_placeholder.png" width="175" height="175"/>
         <image name="login_avatar_cover.png" width="247" height="286"/>
         <image name="login_card_bg.png" width="292" height="447"/>
         <image name="pattern_left.png" width="16" height="12"/>
         <image name="pattern_right.png" width="16" height="12"/>
-        <image name="profile_avatar_frame.png" width="134" height="160"/>
         <image name="profile_info_bg.png" width="384" height="119"/>
         <image name="title_large.png" width="233" height="74"/>
         <image name="title_small.png" width="88" height="29"/>
@@ -974,6 +1233,12 @@
                 <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
+        <class className="FriendProfileViewController" superclassName="UserProfileViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendProfileViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="relationshipButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
         <class className="LoginViewController" superclassName="CoreDataViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
             <relationships>
@@ -997,6 +1262,14 @@
         </class>
         <class className="RootViewController" superclassName="CoreDataViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RootViewController.h"/>
+        </class>
+        <class className="SelfProfileViewController" superclassName="UserProfileViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfProfileViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="changeAvatarButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkCommentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkMentionButton" candidateClass="UIButton"/>
+            </relationships>
         </class>
         <class className="StackView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/StackView.h"/>
@@ -1024,16 +1297,14 @@
                 <relationship kind="action" name="showFriends:"/>
                 <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
                 <relationship kind="outlet" name="backgroundView" candidateClass="BaseStackLayoutView"/>
-                <relationship kind="outlet" name="changeAvatarButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkCommentButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkFollowersButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkFriendsButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkMentionButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkStatusesButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="discriptionLabel" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="discriptionShadowLabel" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="followerCountLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="friendCountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="genderImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="statusCountLabel" candidateClass="UILabel"/>

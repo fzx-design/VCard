@@ -468,5 +468,10 @@ static inline NSRegularExpression * UrlRegularExpression() {
     }
 }
 
+#pragma mark - TTTAttributedLabel Delegate
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithPhoneNumber:(NSString *)userName
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:userName];
+}
 
 @end

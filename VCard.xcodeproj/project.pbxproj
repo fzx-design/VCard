@@ -78,7 +78,6 @@
 		18A685171537110B00D58B7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A685161537110B00D58B7D /* QuartzCore.framework */; };
 		18AC828E155B924700AD99C4 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC828B155B924700AD99C4 /* PullToRefreshView.m */; };
 		18DBAE4B1573156000918ED4 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE4A1573155F00918ED4 /* UserProfileViewController.m */; };
-		18DBAE4E1573206400918ED4 /* FriendProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE4D1573206300918ED4 /* FriendProfileViewController.m */; };
 		18DBAE581573498F00918ED4 /* ProfileRelationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */; };
 		18DBAE5B157349F400918ED4 /* ProfileRelationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE5A157349F400918ED4 /* ProfileRelationTableViewController.m */; };
 		18DBAE5E1573758600918ED4 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE5D1573758600918ED4 /* User.m */; };
@@ -88,6 +87,8 @@
 		18DBAE6815737D8500918ED4 /* cell_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DBAE6415737D8400918ED4 /* cell_bg@2x.png */; };
 		18DBAE6915737D8500918ED4 /* cell_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DBAE6515737D8400918ED4 /* cell_bg.png */; };
 		18DBAE6A15737D8500918ED4 /* section_bar_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DBAE6615737D8500918ED4 /* section_bar_bg@2x.png */; };
+		18DBAE6D1573970B00918ED4 /* SelfProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE6C1573970800918ED4 /* SelfProfileViewController.m */; };
+		18DBAE731573978F00918ED4 /* FriendProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE721573977800918ED4 /* FriendProfileViewController.m */; };
 		18DF3734153905A800C783C9 /* BaseNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF3733153905A800C783C9 /* BaseNavigationBar.m */; };
 		18DF3740156B55AC00C56685 /* WaterflowCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF373F156B55AC00C56685 /* WaterflowCardCell.m */; };
 		18DF3744156B59B600C56685 /* WaterflowDividerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF3743156B59B600C56685 /* WaterflowDividerCell.m */; };
@@ -499,8 +500,6 @@
 		18AC828B155B924700AD99C4 /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
 		18DBAE491573155F00918ED4 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
 		18DBAE4A1573155F00918ED4 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
-		18DBAE4C1573206300918ED4 /* FriendProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendProfileViewController.h; sourceTree = "<group>"; };
-		18DBAE4D1573206300918ED4 /* FriendProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendProfileViewController.m; sourceTree = "<group>"; };
 		18DBAE54157334AC00918ED4 /* ProfileRelationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileRelationTableViewCell.h; sourceTree = "<group>"; };
 		18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileRelationTableViewCell.m; sourceTree = "<group>"; };
 		18DBAE59157349F400918ED4 /* ProfileRelationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileRelationTableViewController.h; sourceTree = "<group>"; };
@@ -513,6 +512,10 @@
 		18DBAE6415737D8400918ED4 /* cell_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell_bg@2x.png"; sourceTree = "<group>"; };
 		18DBAE6515737D8400918ED4 /* cell_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell_bg.png; sourceTree = "<group>"; };
 		18DBAE6615737D8500918ED4 /* section_bar_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "section_bar_bg@2x.png"; sourceTree = "<group>"; };
+		18DBAE6B1573970600918ED4 /* SelfProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfProfileViewController.h; sourceTree = "<group>"; };
+		18DBAE6C1573970800918ED4 /* SelfProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfProfileViewController.m; sourceTree = "<group>"; };
+		18DBAE711573976F00918ED4 /* FriendProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendProfileViewController.h; sourceTree = "<group>"; };
+		18DBAE721573977800918ED4 /* FriendProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendProfileViewController.m; sourceTree = "<group>"; };
 		18DF3732153905A800C783C9 /* BaseNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationBar.h; sourceTree = "<group>"; };
 		18DF3733153905A800C783C9 /* BaseNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationBar.m; sourceTree = "<group>"; };
 		18DF373E156B55AC00C56685 /* WaterflowCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterflowCardCell.h; sourceTree = "<group>"; };
@@ -1125,8 +1128,10 @@
 				18E34C9B157099EE006DCFF6 /* StackViewPageController.m */,
 				18DBAE491573155F00918ED4 /* UserProfileViewController.h */,
 				18DBAE4A1573155F00918ED4 /* UserProfileViewController.m */,
-				18DBAE4C1573206300918ED4 /* FriendProfileViewController.h */,
-				18DBAE4D1573206300918ED4 /* FriendProfileViewController.m */,
+				18DBAE6B1573970600918ED4 /* SelfProfileViewController.h */,
+				18DBAE6C1573970800918ED4 /* SelfProfileViewController.m */,
+				18DBAE711573976F00918ED4 /* FriendProfileViewController.h */,
+				18DBAE721573977800918ED4 /* FriendProfileViewController.m */,
 				18E34C9015706660006DCFF6 /* BaseStackLayoutView.h */,
 				18E34C9115706660006DCFF6 /* BaseStackLayoutView.m */,
 			);
@@ -2054,10 +2059,11 @@
 				18E34C9915707B9B006DCFF6 /* StackViewController.m in Sources */,
 				18E34C9C157099EE006DCFF6 /* StackViewPageController.m in Sources */,
 				18DBAE4B1573156000918ED4 /* UserProfileViewController.m in Sources */,
-				18DBAE4E1573206400918ED4 /* FriendProfileViewController.m in Sources */,
 				18DBAE581573498F00918ED4 /* ProfileRelationTableViewCell.m in Sources */,
 				18DBAE5B157349F400918ED4 /* ProfileRelationTableViewController.m in Sources */,
 				18DBAE5E1573758600918ED4 /* User.m in Sources */,
+				18DBAE6D1573970B00918ED4 /* SelfProfileViewController.m in Sources */,
+				18DBAE731573978F00918ED4 /* FriendProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

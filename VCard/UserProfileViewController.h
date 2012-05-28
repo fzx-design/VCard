@@ -24,12 +24,11 @@
     UILabel *_friendCountLabel;
     UILabel *_followerCountLabel;
     
-    UIButton *_changeAvatarButton;
-    UIButton *_checkCommentButton;
-    UIButton *_checkMentionButton;
     UIButton *_checkStatusesButton;
     UIButton *_checkFriendsButton;
     UIButton *_checkFollowersButton;
+    
+    UIImageView *_genderImageView;
     
     
     User *_user;
@@ -39,6 +38,7 @@
 
 @property (nonatomic, strong) IBOutlet UIButton *testButton;
 
+@property (nonatomic, strong) NSString *screenName;
 @property (nonatomic, strong) IBOutlet UserAvatarImageView *avatarImageView;
 @property (nonatomic, strong) IBOutlet BaseStackLayoutView *backgroundView;
 
@@ -49,18 +49,18 @@
 @property (nonatomic, strong) IBOutlet UILabel *statusCountLabel;
 @property (nonatomic, strong) IBOutlet UILabel *friendCountLabel;
 @property (nonatomic, strong) IBOutlet UILabel *followerCountLabel;
-@property (nonatomic, strong) IBOutlet UIButton *changeAvatarButton;
-@property (nonatomic, strong) IBOutlet UIButton *checkCommentButton;
-@property (nonatomic, strong) IBOutlet UIButton *checkMentionButton;
 @property (nonatomic, strong) IBOutlet UIButton *checkStatusesButton;
 @property (nonatomic, strong) IBOutlet UIButton *checkFriendsButton;
 @property (nonatomic, strong) IBOutlet UIButton *checkFollowersButton;
+
+@property (nonatomic, strong) IBOutlet UIImageView *genderImageView;
 
 @property (nonatomic, strong) User *user;
 
 @property (nonatomic, strong) ProfileRelationTableViewController *friendController;
 @property (nonatomic, strong) ProfileRelationTableViewController *followerController;
 
+- (void)setUpViews;
 - (IBAction)createNewStackPage:(id)sender;
 - (IBAction)showFollowers:(id)sender;
 - (IBAction)showFriends:(id)sender;

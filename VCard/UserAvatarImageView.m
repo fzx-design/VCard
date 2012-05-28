@@ -8,8 +8,10 @@
 
 #import "UserAvatarImageView.h"
 
-#define IconBigFrame CGRectMake(100.0, 100.0, 27.0, 27.0)
+#define IconBigFrame CGRectMake(70.0, 72.0, 27.0, 27.0)
 #define IconSmallFrame CGRectMake(17.0, 17.0, 13.0, 14.0)
+
+#define PhotoFrameFrame CGRectMake(-21.0, -38.0, 134.0, 160.0)
 
 @implementation UserAvatarImageView
 
@@ -35,12 +37,16 @@
 {
     if ([self isBigAvatar]) {
         _vipImageView = [[UIImageView alloc] initWithFrame:IconBigFrame];
+        _photoFrameImageView = [[UIImageView alloc] initWithFrame:PhotoFrameFrame];
+        _photoFrameImageView.image = [UIImage imageNamed:kRLProfileAvatarFrame];
         
+        [self addSubview:_photoFrameImageView];
+        [self addSubview:_vipImageView];
     } else {
         _vipImageView = [[UIImageView alloc] initWithFrame:IconSmallFrame];
+        [self addSubview:_vipImageView];
     }
     
-    [self addSubview:_vipImageView];
 }
 
 - (BOOL)isBigAvatar

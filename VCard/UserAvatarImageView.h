@@ -11,6 +11,7 @@
 
 @interface UserAvatarImageView : UIImageView {
     UIImageView *_vipImageView;
+    UIImageView *_photoFrameImageView;
 }
 
 - (void)setVerifiedType:(VerifiedType)type;

@@ -41,7 +41,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -52,6 +51,7 @@
     if (self) {
         // Custom initialization
         [self refresh];
+        [self setUpNotification];
     }
     return self;
 }
@@ -74,6 +74,15 @@
     _refreshIndicatorView.hidden = YES;
 }
 
+- (void)setUpNotification
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(userNameClicked:)
+                   name:kNotificationNameUserNameClicked
+                 object:nil];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -91,6 +100,16 @@
     self.waterflowView.flowdelegate = self;
     
     [self.waterflowView refresh];
+}
+
+- (void)userNameClicked:(NSNotification *)notification
+{
+    NSString *screenName = notification.object;
+    NSString *vcIdentifier = [screenName isEqualToString:self.currentUser.screenName] ? @"SelfProfileViewController" : @"FriendProfileViewController";
+    UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:vcIdentifier];
+    vc.screenName = screenName;
+    
+    [self stackViewPush:vc];
 }
 
 #pragma mark - IBActions
@@ -117,13 +136,13 @@
     }];
 }
 
-#pragma Stack View
+#pragma mark Stack View
 - (IBAction)groupButtonClicked:(id)sender
 {
-    [self createStackView];
+//    [self createStackView];
 }
 
-- (void)createStackView
+- (void)stackViewPush:(UIViewController *)vc
 {
     if (!_stackViewController) {
         _stackViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewController"];
@@ -132,14 +151,11 @@
         _stackViewController.currentUser = self.currentUser;
         _stackViewController.delegate = self;
         [self.view insertSubview:_stackViewController.view belowSubview:_navigationView];
-//        _stackViewController.view.alpha = 0.0;
         [UIView animateWithDuration:0.3 animations:^{
             _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         }];
     }
     
-    UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"UserProfileViewController"];
-    vc.currentUser = self.currentUser;
     [_stackViewController addViewController:vc replacingOtherView:NO];
 }
 
