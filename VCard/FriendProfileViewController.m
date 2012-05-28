@@ -14,6 +14,24 @@
 
 @implementation FriendProfileViewController
 
+@synthesize avatarImageView = _avatarImageView;
+@synthesize screenLabel = _screenLabel;
+@synthesize locationLabel = _locationLabel;
+@synthesize discriptionLabel = _discriptionLabel;
+@synthesize statusCountLabel = _statusCountLabel;
+@synthesize friendCountLabel = _friendCountLabel;
+@synthesize followerCountLabel = _followerCountLabel;
+@synthesize changeAvatarButton = _changeAvatarButton;
+@synthesize checkCommentButton = _checkCommentButton;
+@synthesize checkMentionButton = _checkMentionButton;
+@synthesize checkStatusesButton = _checkStatusesButton;
+@synthesize checkFriendsButton = _checkFriendsButton;
+@synthesize checkFollowersButton = _checkFollowersButton;
+
+@synthesize user = _user;
+@synthesize friendController = _friendController;
+@synthesize followerController = _followerController;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -35,9 +53,27 @@
     // Release any retained subviews of the main view.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+#pragma mark - Properties
+- (ProfileRelationTableViewController *)friendController
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    if (!_friendController) {
+        _friendController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileRelationTableViewController"];
+        _friendController.view.frame = CGRectMake(23.0, 320.0, 384.0, self.view.frame.size.height);
+        _friendController.user = self.currentUser;
+        _friendController.type = RelationshipViewTypeFriends;
+    }
+    return _friendController;
+}
+
+- (ProfileRelationTableViewController *)followerController
+{
+    if (!_followerController) {
+        _followerController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileRelationTableViewController"];
+        _followerController.view.frame = CGRectMake(23.0, 320.0, 384.0, self.view.frame.size.height);
+        _followerController.user = self.currentUser;
+        _friendController.type = RelationshipViewTypeFollowers;
+    }
+    return _followerController;
 }
 
 @end

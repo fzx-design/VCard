@@ -7,12 +7,22 @@
 //
 
 #import "ProfileRelationTableViewController.h"
+#import "ProfileRelationTableViewCell.h"
+#import "UserAvatarImageView.h"
+#import "WBClient.h"
+#import "User.h"
 
-@interface ProfileRelationTableViewController ()
+@interface ProfileRelationTableViewController () {
+    int _nextCursor;
+    BOOL _loading;
+}
 
 @end
 
 @implementation ProfileRelationTableViewController
+
+@synthesize user = _user;
+@synthesize type = _type;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -26,12 +36,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self refresh];
+    _loading = NO;
 }
 
 - (void)viewDidUnload
@@ -41,87 +47,113 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)clearData
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    if (_type == RelationshipViewTypeFriends) {
+        [self.user removeFriends:self.user.friends];
+    }
+    else {
+        [self.user removeFollowers:self.user.followers];
+    }
+    //[self.tableView reloadData];
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (void)refresh
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+	_nextCursor = -1;
+	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (void)loadMoreData
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (_loading == YES) {
+        return;
+    }
+    _loading = YES;
     
-    // Configure the cell...
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSArray *dictArray = [client.responseJSONObject objectForKey:@"users"];
+			
+			if (_nextCursor == -1) {
+				[self clearData];
+			}
+			
+            for (NSDictionary *dict in dictArray) {
+                User *usr = [User insertUser:dict inManagedObjectContext:self.managedObjectContext];
+                if (_type == RelationshipViewTypeFollowers) {
+                    [self.user addFollowersObject:usr];
+                }
+                else {
+                    [self.user addFriendsObject:usr];
+                }
+            }
+            
+            _nextCursor = [[client.responseJSONObject objectForKey:@"next_cursor"] intValue];
+            
+//            if (_nextCursor == 0) {
+//                [self hideLoadMoreDataButton];
+//            }
+//            else {
+//                [self showLoadMoreDataButton];
+//            }
+        }
+        _loading = NO;
+        
+    }];
     
-    return cell;
+    if (_type == RelationshipViewTypeFriends) {
+        [client getFriendsOfUser:self.user.userID cursor:_nextCursor count:20];
+    }
+    else {
+        [client getFollowersOfUser:self.user.userID cursor:_nextCursor count:20];
+    }
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)configureRequest:(NSFetchRequest *)request
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    request.entity = [NSEntityDescription entityForName:@"User"
+                                 inManagedObjectContext:self.managedObjectContext];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updateDate" ascending:YES];
+    if (_type == RelationshipViewTypeFriends) {
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", self.user.friends];
+    }
+    else {
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", self.user.followers];
+    }
+    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    ProfileRelationTableViewCell *relationshipCell = (ProfileRelationTableViewCell *)cell;
+    User *usr = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    relationshipCell.screenNameLabel.text = usr.screenName;
+    
+    NSString *infoString = [NSString stringWithFormat:@"%@ 位粉丝   %@ 条微博", usr.followersCount, usr.statusesCount];
+    relationshipCell.infoLabel.text = infoString;
+    
+    [relationshipCell.avatarImageView loadImageFromURL:usr.profileImageURL
+                                            completion:NULL];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+- (NSString *)customCellClassName
 {
+    return @"ProfileRelationTableViewCell";
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-#pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+//	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    User *usr = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//    UserCardViewController *vc = [[UserCardViewController alloc] initWithUsr:usr];
+//    vc.currentUser = self.currentUser;
+//    vc.modalPresentationStyle = UIModalPresentationCurrentContext;
+//    vc.modalTransitionStyle = self.modalTransitionStyle;
+//	[self.navigationController pushViewController:vc animated:YES];
+//    [vc release];
 }
+
 
 @end

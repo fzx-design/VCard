@@ -179,7 +179,7 @@
 {
     CGPoint result = point;
     if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-        if (result.x > ScrollViewWidth) {
+        if (result.x > 256.0) {
             result.x -= 256.0;
         } else {
             result.x = -result.x;

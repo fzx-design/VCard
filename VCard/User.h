@@ -2,7 +2,7 @@
 //  User.h
 //  VCard
 //
-//  Created by 海山 叶 on 12-5-25.
+//  Created by 海山 叶 on 12-5-28.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -30,6 +30,7 @@
 @property (nonatomic, retain) NSString * userID;
 @property (nonatomic, retain) NSNumber * verified;
 @property (nonatomic, retain) NSNumber * verifiedType;
+@property (nonatomic, retain) NSString * largeAvatarURL;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *commentsToMe;
 @property (nonatomic, retain) NSSet *favorites;

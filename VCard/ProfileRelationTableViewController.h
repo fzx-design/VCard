@@ -9,8 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
 
+typedef enum {
+    RelationshipViewTypeFriends,
+    RelationshipViewTypeFollowers,
+} RelationshipViewType;
+
+@class User;
+
 @interface ProfileRelationTableViewController : CoreDataTableViewController {
-    
+    User *_user;
+    RelationshipViewType _type;
 }
+
+@property (nonatomic, strong) User *user;
+@property (nonatomic, assign) RelationshipViewType type;
 
 @end

@@ -334,6 +334,39 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
+- (void)getFriendsOfUser:(NSString *)userID cursor:(int)cursor count:(int)count
+{
+    self.path = @"friendships/friends.json";
+    if (userID) {
+        [self.params setObject:userID forKey:@"uid"];
+    }
+    if (cursor) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", cursor] forKey:@"cursor"];
+    }
+    if (count) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    }
+    
+    [self loadNormalRequest];
+}
+
+
+- (void)getFollowersOfUser:(NSString *)userID cursor:(int)cursor count:(int)count
+{
+    self.path = @"friendships/followers.json";
+    if (userID) {
+        [self.params setObject:userID forKey:@"uid"];
+    }
+    if (cursor) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", cursor] forKey:@"cursor"];
+    }
+    if (count) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    }
+    
+    [self loadNormalRequest];
+}
+
 #pragma mark Request
 
 - (void)loadNormalRequest

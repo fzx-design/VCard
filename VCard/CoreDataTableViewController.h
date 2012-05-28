@@ -8,7 +8,8 @@
 
 #import "CoreDataViewController.h"
 
-@interface CoreDataTableViewController : CoreDataViewController<NSFetchedResultsControllerDelegate> {
+@interface CoreDataTableViewController : CoreDataViewController<NSFetchedResultsControllerDelegate, 
+UITableViewDelegate, UITableViewDataSource> {
     UITableView *_tableView;
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "CastViewController.h"
+#import "UserProfileViewController.h"
 #import "UIImageViewAddition.h"
 #import "UIView+Resize.h"
 #import "ResourceList.h"
@@ -137,7 +138,8 @@
         }];
     }
     
-    UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"UserProfileViewController"];
+    UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"UserProfileViewController"];
+    vc.currentUser = self.currentUser;
     [_stackViewController addViewController:vc replacingOtherView:NO];
 }
 

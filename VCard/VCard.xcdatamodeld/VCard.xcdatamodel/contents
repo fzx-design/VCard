@@ -49,6 +49,7 @@
         <attribute name="following" optional="YES" attributeType="Boolean"/>
         <attribute name="friendsCount" optional="YES" attributeType="String"/>
         <attribute name="gender" optional="YES" attributeType="String"/>
+        <attribute name="largeAvatarURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String"/>
         <attribute name="profileImageURL" optional="YES" attributeType="String"/>
         <attribute name="screenName" attributeType="String"/>
@@ -69,6 +70,6 @@
     <elements>
         <element name="Comment" positionX="160" positionY="192" width="128" height="195"/>
         <element name="Status" positionX="160" positionY="192" width="128" height="420"/>
-        <element name="User" positionX="160" positionY="192" width="128" height="405"/>
+        <element name="User" positionX="160" positionY="192" width="128" height="420"/>
     </elements>
 </model>

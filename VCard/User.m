@@ -2,7 +2,7 @@
 //  User.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-5-25.
+//  Created by 海山 叶 on 12-5-28.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -12,6 +12,7 @@
 #import "User.h"
 
 #import "NSDateAddition.h"
+
 
 @implementation User
 
@@ -32,6 +33,7 @@
 @dynamic userID;
 @dynamic verified;
 @dynamic verifiedType;
+@dynamic largeAvatarURL;
 @dynamic comments;
 @dynamic commentsToMe;
 @dynamic favorites;
@@ -62,6 +64,7 @@
     result.createdAt = [NSDate dateFromStringRepresentation:dateString];
     
     result.profileImageURL = [dict objectForKey:@"profile_image_url"];
+    result.largeAvatarURL = [dict objectForKey:@"avatar_large"];
     result.gender = [dict objectForKey:@"gender"];
     result.selfDescription = [dict objectForKey:@"description"];
     result.location = [dict objectForKey:@"location"];

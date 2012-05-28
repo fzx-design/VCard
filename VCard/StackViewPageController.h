@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
 
-@interface StackViewPageController : CoreDataTableViewController {
+@interface StackViewPageController : CoreDataViewController {
     NSInteger _pageIndex;
     
 }

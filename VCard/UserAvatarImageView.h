@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIImageViewAddition.h"
 
 @interface UserAvatarImageView : UIImageView {
     UIImageView *_vipImageView;

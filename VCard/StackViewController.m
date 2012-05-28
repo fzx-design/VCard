@@ -58,6 +58,7 @@
     
     StackViewPageController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"UserProfileViewController"];
     vc.pageIndex = _controllerStack.count;
+    vc.currentUser = self.currentUser;
     [self addViewController:vc replacingOtherView:replacingOtherView];
 }
 
