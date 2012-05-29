@@ -11,6 +11,8 @@
 #import "UserAvatarImageView.h"
 #import "WBClient.h"
 #import "User.h"
+#import "UIView+Resize.h"
+
 
 @interface ProfileRelationTableViewController () {
     int _nextCursor;
@@ -37,8 +39,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.autoresizingMask = UIViewAutoresizingNone;
     [self refresh];
     _loading = NO;
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self 
+               selector:@selector(resetLayoutBeforeRotating:) 
+                   name:kNotificationNameOrientationWillChange
+                 object:nil];
 }
 
 - (void)viewDidUnload
@@ -56,7 +65,6 @@
     else {
         [self.user removeFollowers:self.user.followers];
     }
-    //[self.tableView reloadData];
 }
 
 - (void)refresh
@@ -155,6 +163,14 @@
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:usr, kNotificationObjectKeyUser, [NSString stringWithFormat:@"%d", _stackPageIndex], kNotificationObjectKeyIndex, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserCellClicked object:dictionary];
     
+}
+
+#pragma mark - Notification
+- (void)resetLayoutBeforeRotating:(NSNotification *)notification
+{
+    CGFloat screenHeight = [(NSString *)notification.object isEqualToString:kOrientationPortrait] ? 961.0 : 705.0;
+    CGFloat height = screenHeight - self.view.frame.origin.y;
+    [self.tableView resetHeight:height];
 }
 
 
