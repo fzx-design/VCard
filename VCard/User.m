@@ -2,7 +2,7 @@
 //  User.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-5-28.
+//  Created by 海山 叶 on 12-5-29.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -24,6 +24,7 @@
 @dynamic following;
 @dynamic friendsCount;
 @dynamic gender;
+@dynamic largeAvatarURL;
 @dynamic location;
 @dynamic profileImageURL;
 @dynamic screenName;
@@ -33,7 +34,7 @@
 @dynamic userID;
 @dynamic verified;
 @dynamic verifiedType;
-@dynamic largeAvatarURL;
+@dynamic followMe;
 @dynamic comments;
 @dynamic commentsToMe;
 @dynamic favorites;
@@ -41,6 +42,7 @@
 @dynamic friends;
 @dynamic friendsStatuses;
 @dynamic statuses;
+
 
 + (User *)insertUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -80,8 +82,11 @@
     result.favouritesCount = [[dict objectForKey:@"favourites_count"] stringValue];
     
     BOOL following = [[dict objectForKey:@"following"] boolValue];
+    BOOL followMe = [[dict objectForKey:@"follow_me"] boolValue];
     
     result.following = [NSNumber numberWithBool:following];
+    result.followMe = [NSNumber numberWithBool:followMe];
+    
     
     //	NSDictionary *statusDict = [dict objectForKey:@"status"];
     //    

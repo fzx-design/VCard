@@ -47,6 +47,7 @@
         <attribute name="favouritesCount" optional="YES" attributeType="String"/>
         <attribute name="followersCount" optional="YES" attributeType="String"/>
         <attribute name="following" optional="YES" attributeType="Boolean"/>
+        <attribute name="followMe" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="friendsCount" optional="YES" attributeType="String"/>
         <attribute name="gender" optional="YES" attributeType="String"/>
         <attribute name="largeAvatarURL" optional="YES" attributeType="String" syncable="YES"/>

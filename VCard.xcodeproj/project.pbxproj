@@ -80,7 +80,6 @@
 		18DBAE4B1573156000918ED4 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE4A1573155F00918ED4 /* UserProfileViewController.m */; };
 		18DBAE581573498F00918ED4 /* ProfileRelationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */; };
 		18DBAE5B157349F400918ED4 /* ProfileRelationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE5A157349F400918ED4 /* ProfileRelationTableViewController.m */; };
-		18DBAE5E1573758600918ED4 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE5D1573758600918ED4 /* User.m */; };
 		18DBAE61157379E800918ED4 /* cell_large_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DBAE5F157379E800918ED4 /* cell_large_bg.png */; };
 		18DBAE62157379E800918ED4 /* cell_large_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DBAE60157379E800918ED4 /* cell_large_bg@2x.png */; };
 		18DBAE6715737D8500918ED4 /* section_bar_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DBAE6315737D8400918ED4 /* section_bar_bg.png */; };
@@ -99,6 +98,7 @@
 		18E34C96157077CB006DCFF6 /* StackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E34C95157077CB006DCFF6 /* StackView.m */; };
 		18E34C9915707B9B006DCFF6 /* StackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E34C9815707B9B006DCFF6 /* StackViewController.m */; };
 		18E34C9C157099EE006DCFF6 /* StackViewPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E34C9B157099EE006DCFF6 /* StackViewPageController.m */; };
+		18E4AE2F157454A6009A701F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4AE2E157454A6009A701F /* User.m */; };
 		18E558E4153EA4AE00ECCA3B /* error_msg_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D4153EA4AE00ECCA3B /* error_msg_bg.png */; };
 		18E558E5153EA4AE00ECCA3B /* error_msg_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D5153EA4AE00ECCA3B /* error_msg_bg@2x.png */; };
 		18E558E6153EA4AE00ECCA3B /* icon_connection_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D6153EA4AE00ECCA3B /* icon_connection_error.png */; };
@@ -504,8 +504,6 @@
 		18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileRelationTableViewCell.m; sourceTree = "<group>"; };
 		18DBAE59157349F400918ED4 /* ProfileRelationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileRelationTableViewController.h; sourceTree = "<group>"; };
 		18DBAE5A157349F400918ED4 /* ProfileRelationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileRelationTableViewController.m; sourceTree = "<group>"; };
-		18DBAE5C1573758600918ED4 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		18DBAE5D1573758600918ED4 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		18DBAE5F157379E800918ED4 /* cell_large_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell_large_bg.png; sourceTree = "<group>"; };
 		18DBAE60157379E800918ED4 /* cell_large_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell_large_bg@2x.png"; sourceTree = "<group>"; };
 		18DBAE6315737D8400918ED4 /* section_bar_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = section_bar_bg.png; sourceTree = "<group>"; };
@@ -534,6 +532,8 @@
 		18E34C9815707B9B006DCFF6 /* StackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackViewController.m; sourceTree = "<group>"; };
 		18E34C9A157099EE006DCFF6 /* StackViewPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackViewPageController.h; sourceTree = "<group>"; };
 		18E34C9B157099EE006DCFF6 /* StackViewPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackViewPageController.m; sourceTree = "<group>"; };
+		18E4AE2D157454A6009A701F /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		18E4AE2E157454A6009A701F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		18E558D4153EA4AE00ECCA3B /* error_msg_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error_msg_bg.png; sourceTree = "<group>"; };
 		18E558D5153EA4AE00ECCA3B /* error_msg_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_msg_bg@2x.png"; sourceTree = "<group>"; };
 		18E558D6153EA4AE00ECCA3B /* icon_connection_error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_connection_error.png; sourceTree = "<group>"; };
@@ -1008,8 +1008,8 @@
 			isa = PBXGroup;
 			children = (
 				18A6850915370ED900D58B7D /* Basic */,
-				18E707D3153D2C6B0012092E /* CoreData */,
 				181AB93F15230AE6007A2A51 /* Client */,
+				18E707D3153D2C6B0012092E /* CoreData */,
 				18E707F1153D3EDB0012092E /* ViewControllers */,
 				1850A46F153C08E10001A905 /* Tools */,
 			);
@@ -1172,8 +1172,8 @@
 				18E707CB153D2C4D0012092E /* Comment.m */,
 				1811450E156CFFBF00B3BF21 /* Status.h */,
 				1811450F156CFFBF00B3BF21 /* Status.m */,
-				18DBAE5C1573758600918ED4 /* User.h */,
-				18DBAE5D1573758600918ED4 /* User.m */,
+				18E4AE2D157454A6009A701F /* User.h */,
+				18E4AE2E157454A6009A701F /* User.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -2061,9 +2061,9 @@
 				18DBAE4B1573156000918ED4 /* UserProfileViewController.m in Sources */,
 				18DBAE581573498F00918ED4 /* ProfileRelationTableViewCell.m in Sources */,
 				18DBAE5B157349F400918ED4 /* ProfileRelationTableViewController.m in Sources */,
-				18DBAE5E1573758600918ED4 /* User.m in Sources */,
 				18DBAE6D1573970B00918ED4 /* SelfProfileViewController.m in Sources */,
 				18DBAE731573978F00918ED4 /* FriendProfileViewController.m in Sources */,
+				18E4AE2F157454A6009A701F /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

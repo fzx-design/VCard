@@ -1005,7 +1005,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0p0-SL-twz">
-                                        <rect key="frame" x="35" y="154" width="77" height="36"/>
+                                        <rect key="frame" x="47" y="154" width="68" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <size key="titleShadowOffset" width="0.0" height="1"/>

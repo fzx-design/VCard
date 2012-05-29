@@ -32,9 +32,10 @@
         [self loadUser];
     } else {
         [super setUpViews];
+        [self setUpSpecificView];
     }
-    [self setUpSpecificView];
 }
+
 
 - (void)loadUser
 {
@@ -45,6 +46,7 @@
             NSDictionary *userDict = client.responseJSONObject;
             self.user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext];
             [super setUpViews];
+            [self setUpSpecificView];
         }
     }];
     
@@ -53,7 +55,18 @@
 
 - (void)setUpSpecificView
 {
-    NSString *relationShip = self.user.following ? @"已关注" : @"关注";
+    BOOL following = [self.user.following boolValue];
+    BOOL followMe = [self.user.followMe boolValue];
+    
+    NSString *relationShip = nil;
+    if (!following) {
+        relationShip = @"关注";
+    } else if(!followMe){
+        relationShip = @"已关注";
+    } else {
+        relationShip = @" 互相关注";
+    }
+    
     [_relationshipButton setTitle:relationShip forState:UIControlStateNormal];
     [_relationshipButton setTitle:relationShip forState:UIControlStateHighlighted];
 }
