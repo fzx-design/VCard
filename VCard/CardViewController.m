@@ -256,6 +256,9 @@ static inline NSRegularExpression * UrlRegularExpression() {
     
     [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateNormal];
     [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateHighlighted];
+    
+    //Save the screen name
+    [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateDisabled];
         
     CGFloat statusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
                             CardSizeUserAvatarHeight + CardSizeTextGap + 
@@ -291,6 +294,9 @@ static inline NSRegularExpression * UrlRegularExpression() {
         
         [self.repostUserNameButton setTitle:screenName forState:UIControlStateNormal];
         [self.repostUserNameButton setTitle:screenName forState:UIControlStateHighlighted];
+        
+        //Save the screen name
+        [self.repostUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateDisabled];
         
         
         CGPoint newOrigin = CGPointMake(self.cardBackground.frame.origin.x, self.cardBackground.frame.origin.y + self.cardBackground.frame.size.height - 8);
@@ -466,6 +472,13 @@ static inline NSRegularExpression * UrlRegularExpression() {
         [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)RegexColor range:stringRange];
         
     }
+}
+
+#pragma mark - IBActions
+- (IBAction)nameButtonClicked:(id)sender
+{
+    NSString *userName = [((UIButton *)sender) titleForState:UIControlStateDisabled];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:userName];
 }
 
 #pragma mark - TTTAttributedLabel Delegate

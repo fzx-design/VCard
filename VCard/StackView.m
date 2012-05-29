@@ -82,7 +82,6 @@
         }];
     }
     
-    
     [UIView animateWithDuration:0.3 animations:^{
         [_scrollView setContentOffset:CGPointMake(newPage.frame.origin.x, 0.0)];
     }];

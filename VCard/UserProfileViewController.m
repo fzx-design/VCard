@@ -7,6 +7,7 @@
 //
 
 #import "UserProfileViewController.h"
+#import "UIView+Resize.h"
 #import "User.h"
 
 @interface UserProfileViewController ()
@@ -65,9 +66,10 @@
     [_friendCountLabel setText:self.user.friendsCount];
     [_followerCountLabel setText:self.user.followersCount];
     
-    NSLog(@"%@", self.user.gender);
     NSString *genderImage = [self.user.gender isEqualToString:@"f"] ? kRLIconFemale : kRLIconMale;
-    [_genderImageView setImage:[UIImage imageNamed:genderImage]];
+    UIImage *image = [UIImage imageNamed:genderImage];
+    [_genderImageView resetSize:image.size];
+    [_genderImageView setImage:image];
 }
 
 - (void)viewDidUnload
@@ -114,6 +116,7 @@
         _friendController.view.frame = [self frameForTableView];
         _friendController.user = self.user;
         _friendController.type = RelationshipViewTypeFriends;
+        _friendController.stackPageIndex = self.pageIndex;
     }
     return _friendController;
 }
@@ -125,6 +128,7 @@
         _followerController.view.frame = [self frameForTableView];
         _followerController.user = self.user;
         _followerController.type = RelationshipViewTypeFollowers;
+        _followerController.stackPageIndex = self.pageIndex;
     }
     return _followerController;
 }

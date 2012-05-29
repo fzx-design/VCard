@@ -19,9 +19,13 @@ typedef enum {
 @interface ProfileRelationTableViewController : CoreDataTableViewController {
     User *_user;
     RelationshipViewType _type;
+    
+    int _stackPageIndex;
 }
 
 @property (nonatomic, strong) User *user;
 @property (nonatomic, assign) RelationshipViewType type;
+
+@property (nonatomic, assign) int stackPageIndex;
 
 @end

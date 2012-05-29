@@ -202,6 +202,9 @@
                                                 <state key="highlighted" title="用户名">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="nameButtonClicked:" destination="u04-WG-2X6" eventType="touchUpInside" id="Dsg-yi-4Ua"/>
+                                                </connections>
                                             </button>
                                             <view contentMode="scaleToFill" id="IQX-2v-fUV" customClass="TTTAttributedLabel">
                                                 <rect key="frame" x="18" y="42" width="326" height="51"/>
@@ -249,6 +252,9 @@
                                                 <state key="highlighted" title="用户名">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="nameButtonClicked:" destination="u04-WG-2X6" eventType="touchUpInside" id="6R0-rc-5H2"/>
+                                                </connections>
                                             </button>
                                             <view contentMode="scaleToFill" id="Mux-IR-mpT" customClass="TTTAttributedLabel">
                                                 <rect key="frame" x="18" y="48" width="326" height="32"/>
@@ -1051,7 +1057,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="384" height="961"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="66" sectionHeaderHeight="22" sectionFooterHeight="22" id="hML-yX-4DC">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="66" sectionHeaderHeight="22" sectionFooterHeight="22" id="hML-yX-4DC">
                                 <rect key="frame" x="0.0" y="0.0" width="384" height="961"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1181,6 +1187,7 @@
         <class className="CardViewController" superclassName="CoreDataViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CardViewController.h"/>
             <relationships>
+                <relationship kind="action" name="nameButtonClicked:"/>
                 <relationship kind="outlet" name="cardBackground" candidateClass="BaseCardBackgroundView"/>
                 <relationship kind="outlet" name="clipImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>

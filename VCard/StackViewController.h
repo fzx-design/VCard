@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
+#import "StackViewPageController.h"
 #import "StackView.h"
 
 @protocol StackViewControllerDelegate <NSObject>
@@ -28,6 +29,7 @@
 
 @property (nonatomic, assign) id<StackViewControllerDelegate> delegate;
 
+- (void)insertStackPage:(StackViewPageController *)vc atIndex:(int)targetIndex;
 - (void)addViewController:(UIViewController *)viewController replacingOtherView:(BOOL)replacing;
 
 @end

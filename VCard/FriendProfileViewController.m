@@ -28,7 +28,11 @@
     [super viewDidLoad];
     [_screenNameLabel setText:self.screenName];
     
-    [self loadUser];
+    if (self.user == nil) {
+        [self loadUser];
+    } else {
+        [super setUpViews];
+    }
     [self setUpSpecificView];
 }
 

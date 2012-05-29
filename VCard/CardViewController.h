@@ -70,6 +70,8 @@
 
 @property (nonatomic, assign) NSInteger imageHeight;
 
+- (IBAction)nameButtonClicked:(id)sender;
+
 + (CGFloat)heightForStatus:(Status*)status_ andImageHeight:(NSInteger)imageHeight_;
 
 - (void)configureCardWithStatus:(Status*)status_ imageHeight:(CGFloat)imageHeight_;

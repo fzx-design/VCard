@@ -62,10 +62,25 @@
     [self addViewController:vc replacingOtherView:replacingOtherView];
 }
 
-- (void)addViewController:(UIViewController *)viewController replacingOtherView:(BOOL)replacing
+- (void)insertStackPage:(StackViewPageController *)vc atIndex:(int)targetIndex
 {
-    [self.controllerStack addObject:viewController];
-    [self.stackView addNewPage:viewController.view replacingView:replacing];
+    BOOL replacingOtherView = NO;
+    while (self.controllerStack.count - 1 > targetIndex) {
+        StackViewPageController *lastViewController = [self.controllerStack lastObject];
+        [self.stackView removeLastView:lastViewController.view];
+        [self.controllerStack removeLastObject];
+        replacingOtherView = YES;
+    }
+    
+    vc.pageIndex = _controllerStack.count;
+    vc.currentUser = self.currentUser;
+    [self addViewController:vc replacingOtherView:replacingOtherView];
+}
+
+- (void)addViewController:(StackViewPageController *)vc replacingOtherView:(BOOL)replacing
+{
+    [self.controllerStack addObject:vc];
+    [self.stackView addNewPage:vc.view replacingView:replacing];
 }
 
 #pragma mark - Stack View Delegate

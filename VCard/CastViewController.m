@@ -81,6 +81,10 @@
                selector:@selector(userNameClicked:)
                    name:kNotificationNameUserNameClicked
                  object:nil];
+    [center addObserver:self
+               selector:@selector(userCellClicked:)
+                   name:kNotificationNameUserCellClicked
+                 object:nil];
 }
 
 - (void)viewDidUnload
@@ -107,9 +111,27 @@
     NSString *screenName = notification.object;
     NSString *vcIdentifier = [screenName isEqualToString:self.currentUser.screenName] ? @"SelfProfileViewController" : @"FriendProfileViewController";
     UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:vcIdentifier];
+    vc.currentUser = self.currentUser;
     vc.screenName = screenName;
     
-    [self stackViewPush:vc];
+    [self stackViewAtIndex:0 push:vc];
+}
+
+- (void)userCellClicked:(NSNotification *)notification
+{
+    NSDictionary *dictionary = notification.object;
+    
+//    User *targetUser = notification.object;
+    User *targetUser = [dictionary valueForKey:kNotificationObjectKeyUser];
+    NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
+    int index = [indexString intValue];
+    
+    NSString *vcIdentifier = [targetUser.screenName isEqualToString:self.currentUser.screenName] ? @"SelfProfileViewController" : @"FriendProfileViewController";
+    
+    UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:vcIdentifier];
+    vc.user = targetUser;
+    
+    [self stackViewAtIndex:index push:vc];
 }
 
 #pragma mark - IBActions
@@ -142,9 +164,10 @@
 //    [self createStackView];
 }
 
-- (void)stackViewPush:(UIViewController *)vc
+- (void)stackViewAtIndex:(int)index push:(StackViewPageController *)vc
 {
-    if (!_stackViewController) {
+    BOOL stackViewExists = _stackViewController != nil;
+    if (!stackViewExists) {
         _stackViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewController"];
         [_stackViewController.view resetOrigin:CGPointMake(0.0, 43.0)];
         [_stackViewController.view resetSize:self.waterflowView.frame.size];
@@ -154,9 +177,11 @@
         [UIView animateWithDuration:0.3 animations:^{
             _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         }];
+        [_stackViewController addViewController:vc replacingOtherView:stackViewExists];
+    } else {
+        [_stackViewController insertStackPage:vc atIndex:index];
     }
     
-    [_stackViewController addViewController:vc replacingOtherView:NO];
 }
 
 

@@ -23,6 +23,7 @@
 
 @synthesize user = _user;
 @synthesize type = _type;
+@synthesize stackPageIndex = _stackPageIndex;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -146,14 +147,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    User *usr = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    UserCardViewController *vc = [[UserCardViewController alloc] initWithUsr:usr];
-//    vc.currentUser = self.currentUser;
-//    vc.modalPresentationStyle = UIModalPresentationCurrentContext;
-//    vc.modalTransitionStyle = self.modalTransitionStyle;
-//	[self.navigationController pushViewController:vc animated:YES];
-//    [vc release];
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    User *usr = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:usr, kNotificationObjectKeyUser, [NSString stringWithFormat:@"%d", _stackPageIndex], kNotificationObjectKeyIndex, nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserCellClicked object:dictionary];
+    
 }
 
 

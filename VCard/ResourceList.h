@@ -48,6 +48,10 @@
 #define kNotificationNameShouldEnableWaterflowScroll @"kNotificationNameShouldEnableWaterflowScroll"
 #define kNotificationNameAddNewStackPage @"kNotificationNameAddNewStackPage"
 #define kNotificationNameUserNameClicked @"kNotificationNameUserNameClicked"
+#define kNotificationNameUserCellClicked @"kNotificationNameUserCellClicked"
+
+#define kNotificationObjectKeyUser @"kNotificationObjectKeyUser"
+#define kNotificationObjectKeyIndex @"kNotificationObjectKeyIndex"
 
 #define kOrientationPortrait @"kOrientationPortrait"
 #define kOrientationLandscape @"kOrientationLandscape"
