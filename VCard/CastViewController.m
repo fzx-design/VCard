@@ -121,7 +121,6 @@
 {
     NSDictionary *dictionary = notification.object;
     
-//    User *targetUser = notification.object;
     User *targetUser = [dictionary valueForKey:kNotificationObjectKeyUser];
     NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
     int index = [indexString intValue];

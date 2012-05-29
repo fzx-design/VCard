@@ -14,8 +14,7 @@
               completion:(void (^)())completion
 {
     
-    self.image = nil;
-	self.backgroundColor = [UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0];
+    self.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
     
     NSURL *url = [NSURL URLWithString:urlString];
     
@@ -48,8 +47,7 @@
               completion:(void (^)())completion
 {
     
-	self.backgroundColor = [UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0];
-    self.image = nil;
+	self.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
     
     NSURL *url = [NSURL URLWithString:urlString];
     

@@ -68,7 +68,6 @@
     
     NSString *genderImage = [self.user.gender isEqualToString:@"f"] ? kRLIconFemale : kRLIconMale;
     UIImage *image = [UIImage imageNamed:genderImage];
-    [_genderImageView resetSize:image.size];
     [_genderImageView setImage:image];
 }
 
