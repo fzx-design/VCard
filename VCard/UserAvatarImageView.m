@@ -28,6 +28,7 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        self.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
         [self setUpVIPImageView];
     }
     return self;
@@ -40,12 +41,18 @@
         _photoFrameImageView = [[UIImageView alloc] initWithFrame:PhotoFrameFrame];
         _photoFrameImageView.image = [UIImage imageNamed:kRLProfileAvatarFrame];
         
+        _photoFrameImageView.opaque = YES;
+        
         [self addSubview:_photoFrameImageView];
         [self addSubview:_vipImageView];
     } else {
         _vipImageView = [[UIImageView alloc] initWithFrame:IconSmallFrame];
+        
         [self addSubview:_vipImageView];
     }
+    
+    _vipImageView.opaque = YES;
+    self.opaque = YES;
     
 }
 

@@ -50,6 +50,9 @@
 #define kNotificationNameUserNameClicked @"kNotificationNameUserNameClicked"
 #define kNotificationNameUserCellClicked @"kNotificationNameUserCellClicked"
 
+#define kNotificationNameStackViewCoveredWholeScreen @"kNotificationNameStackViewCoveredWholeScreen"
+#define kNotificationNameStackViewDoNotCoverWholeScreen @"kNotificationNameStackViewDoNotCoverWholeScreen"
+
 #define kNotificationObjectKeyUser @"kNotificationObjectKeyUser"
 #define kNotificationObjectKeyIndex @"kNotificationObjectKeyIndex"
 

@@ -99,6 +99,11 @@
 		18E34C9915707B9B006DCFF6 /* StackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E34C9815707B9B006DCFF6 /* StackViewController.m */; };
 		18E34C9C157099EE006DCFF6 /* StackViewPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E34C9B157099EE006DCFF6 /* StackViewPageController.m */; };
 		18E4AE2F157454A6009A701F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4AE2E157454A6009A701F /* User.m */; };
+		18E4AE36157458F5009A701F /* RefreshableCoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4AE35157458F5009A701F /* RefreshableCoreDataTableViewController.m */; };
+		18E4AE3B15748C7A009A701F /* side_bg_user.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E4AE3715748C7A009A701F /* side_bg_user.png */; };
+		18E4AE3C15748C7A009A701F /* side_bg_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E4AE3815748C7A009A701F /* side_bg_profile@2x.png */; };
+		18E4AE3D15748C7A009A701F /* side_bg_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E4AE3915748C7A009A701F /* side_bg_profile.png */; };
+		18E4AE3E15748C7A009A701F /* side_bg_user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E4AE3A15748C7A009A701F /* side_bg_user@2x.png */; };
 		18E558E4153EA4AE00ECCA3B /* error_msg_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D4153EA4AE00ECCA3B /* error_msg_bg.png */; };
 		18E558E5153EA4AE00ECCA3B /* error_msg_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D5153EA4AE00ECCA3B /* error_msg_bg@2x.png */; };
 		18E558E6153EA4AE00ECCA3B /* icon_connection_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D6153EA4AE00ECCA3B /* icon_connection_error.png */; };
@@ -534,6 +539,12 @@
 		18E34C9B157099EE006DCFF6 /* StackViewPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackViewPageController.m; sourceTree = "<group>"; };
 		18E4AE2D157454A6009A701F /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		18E4AE2E157454A6009A701F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		18E4AE34157458F5009A701F /* RefreshableCoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshableCoreDataTableViewController.h; sourceTree = "<group>"; };
+		18E4AE35157458F5009A701F /* RefreshableCoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshableCoreDataTableViewController.m; sourceTree = "<group>"; };
+		18E4AE3715748C7A009A701F /* side_bg_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = side_bg_user.png; sourceTree = "<group>"; };
+		18E4AE3815748C7A009A701F /* side_bg_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "side_bg_profile@2x.png"; sourceTree = "<group>"; };
+		18E4AE3915748C7A009A701F /* side_bg_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = side_bg_profile.png; sourceTree = "<group>"; };
+		18E4AE3A15748C7A009A701F /* side_bg_user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "side_bg_user@2x.png"; sourceTree = "<group>"; };
 		18E558D4153EA4AE00ECCA3B /* error_msg_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error_msg_bg.png; sourceTree = "<group>"; };
 		18E558D5153EA4AE00ECCA3B /* error_msg_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_msg_bg@2x.png"; sourceTree = "<group>"; };
 		18E558D6153EA4AE00ECCA3B /* icon_connection_error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_connection_error.png; sourceTree = "<group>"; };
@@ -1105,21 +1116,23 @@
 			name = CardView;
 			sourceTree = "<group>";
 		};
-		18DBAE531573348400918ED4 /* TabelViewCell */ = {
+		18DBAE531573348400918ED4 /* TabelView */ = {
 			isa = PBXGroup;
 			children = (
 				18DBAE54157334AC00918ED4 /* ProfileRelationTableViewCell.h */,
 				18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */,
 				18DBAE59157349F400918ED4 /* ProfileRelationTableViewController.h */,
 				18DBAE5A157349F400918ED4 /* ProfileRelationTableViewController.m */,
+				18E4AE34157458F5009A701F /* RefreshableCoreDataTableViewController.h */,
+				18E4AE35157458F5009A701F /* RefreshableCoreDataTableViewController.m */,
 			);
-			name = TabelViewCell;
+			name = TabelView;
 			sourceTree = "<group>";
 		};
 		18E34C9315706786006DCFF6 /* StackView */ = {
 			isa = PBXGroup;
 			children = (
-				18DBAE531573348400918ED4 /* TabelViewCell */,
+				18DBAE531573348400918ED4 /* TabelView */,
 				18E34C94157077CB006DCFF6 /* StackView.h */,
 				18E34C95157077CB006DCFF6 /* StackView.m */,
 				18E34C9715707B9B006DCFF6 /* StackViewController.h */,
@@ -1546,6 +1559,10 @@
 		18EA4F3315346DFD005ED94F /* stack view */ = {
 			isa = PBXGroup;
 			children = (
+				18E4AE3715748C7A009A701F /* side_bg_user.png */,
+				18E4AE3815748C7A009A701F /* side_bg_profile@2x.png */,
+				18E4AE3915748C7A009A701F /* side_bg_profile.png */,
+				18E4AE3A15748C7A009A701F /* side_bg_user@2x.png */,
 				188A12C2153961AE003F00F1 /* silver_pin.png */,
 				188A12C3153961AE003F00F1 /* silver_pin@2x.png */,
 				18EA503A1534711A005ED94F /* cell_hover.png */,
@@ -1970,6 +1987,10 @@
 				18DBAE6815737D8500918ED4 /* cell_bg@2x.png in Resources */,
 				18DBAE6915737D8500918ED4 /* cell_bg.png in Resources */,
 				18DBAE6A15737D8500918ED4 /* section_bar_bg@2x.png in Resources */,
+				18E4AE3B15748C7A009A701F /* side_bg_user.png in Resources */,
+				18E4AE3C15748C7A009A701F /* side_bg_profile@2x.png in Resources */,
+				18E4AE3D15748C7A009A701F /* side_bg_profile.png in Resources */,
+				18E4AE3E15748C7A009A701F /* side_bg_user@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2064,6 +2085,7 @@
 				18DBAE6D1573970B00918ED4 /* SelfProfileViewController.m in Sources */,
 				18DBAE731573978F00918ED4 /* FriendProfileViewController.m in Sources */,
 				18E4AE2F157454A6009A701F /* User.m in Sources */,
+				18E4AE36157458F5009A701F /* RefreshableCoreDataTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

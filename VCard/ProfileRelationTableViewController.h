@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CoreDataTableViewController.h"
+#import "RefreshableCoreDataTableViewController.h"
 
 typedef enum {
     RelationshipViewTypeFriends,
@@ -16,7 +16,7 @@ typedef enum {
 
 @class User;
 
-@interface ProfileRelationTableViewController : CoreDataTableViewController {
+@interface ProfileRelationTableViewController : RefreshableCoreDataTableViewController {
     User *_user;
     RelationshipViewType _type;
     
@@ -25,7 +25,8 @@ typedef enum {
 
 @property (nonatomic, strong) User *user;
 @property (nonatomic, assign) RelationshipViewType type;
-
 @property (nonatomic, assign) int stackPageIndex;
+
+- (void)refresh;
 
 @end

@@ -100,6 +100,8 @@
 //                [self showLoadMoreDataButton];
 //            }
         }
+        
+        [_pullView finishedLoading];
         _loading = NO;
         
     }];

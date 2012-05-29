@@ -15,6 +15,7 @@
 
 @interface StackView () {
     NSInteger _currentPageIndex;
+    BOOL _covered;
 }
 
 @end
@@ -30,6 +31,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setUpScrollView];
+        _covered = NO;
     }
     return self;
 }
@@ -39,6 +41,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self setUpScrollView];
+        _covered = NO;
     }
     return self;
 }
@@ -76,9 +79,14 @@
     [_scrollView addSubview:newPage];
     
     if (replacing) {
+        
+        [self sendShowBGNotification];
+        
         [newPage resetOriginX:newPage.frame.origin.x + ScrollViewWidth];
         [UIView animateWithDuration:0.3 animations:^{
             [newPage resetOriginX:newPage.frame.origin.x - ScrollViewWidth];
+        } completion:^(BOOL finished) {
+            [self sendHideBGNotification];
         }];
     }
     
@@ -108,6 +116,31 @@
     if (offsetX < ScrollViewWidth) {
         CGFloat backgroundAlpha = offsetX / ScrollViewWidth * 0.6;
         self.superview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:backgroundAlpha];
+    }
+    
+    CGFloat leftMargin = UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 256.0 : 0.0;
+    
+    if (scrollView.contentOffset.x >= 2 * ScrollViewWidth + leftMargin && 
+        scrollView.contentOffset.x < scrollView.contentSize.width - ScrollViewWidth) {
+        [self sendHideBGNotification];
+    } else {
+        [self sendShowBGNotification];
+    }
+}
+
+- (void)sendShowBGNotification
+{
+    if (_covered) {
+        _covered = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameStackViewDoNotCoverWholeScreen object:nil];
+    }
+}
+
+- (void)sendHideBGNotification
+{
+    if (!_covered) {
+        _covered = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameStackViewCoveredWholeScreen object:nil];
     }
 }
 

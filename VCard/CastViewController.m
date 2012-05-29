@@ -85,6 +85,14 @@
                selector:@selector(userCellClicked:)
                    name:kNotificationNameUserCellClicked
                  object:nil];
+    [center addObserver:self
+               selector:@selector(hideWaterflowView)
+                   name:kNotificationNameStackViewCoveredWholeScreen
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(showWaterflowView)
+                   name:kNotificationNameStackViewDoNotCoverWholeScreen
+                 object:nil];
 }
 
 - (void)viewDidUnload
@@ -133,6 +141,18 @@
     [self stackViewAtIndex:index push:vc];
 }
 
+- (void)hideWaterflowView
+{
+    self.waterflowView.alpha = 0.0;
+    _stackViewController.view.backgroundColor = [UIColor clearColor];
+}
+
+- (void)showWaterflowView
+{
+    self.waterflowView.alpha = 1.0;
+    _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+}
+
 #pragma mark - IBActions
 #pragma mark Refresh
 - (IBAction)refreshButtonClicked:(id)sender
@@ -173,6 +193,7 @@
         _stackViewController.currentUser = self.currentUser;
         _stackViewController.delegate = self;
         [self.view insertSubview:_stackViewController.view belowSubview:_navigationView];
+        
         [UIView animateWithDuration:0.3 animations:^{
             _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         }];
