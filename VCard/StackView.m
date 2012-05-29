@@ -86,7 +86,7 @@
         [UIView animateWithDuration:0.3 animations:^{
             [newPage resetOriginX:newPage.frame.origin.x - ScrollViewWidth];
         } completion:^(BOOL finished) {
-            [self sendHideBGNotification];
+            [self scrollViewDidScroll:_scrollView];
         }];
     }
     

@@ -7,6 +7,7 @@
 //
 
 #import "RefreshableCoreDataTableViewController.h"
+#import "UIView+Resize.h"
 
 @interface RefreshableCoreDataTableViewController ()
 
@@ -26,6 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.tableView resetWidth:384.0];
     _pullView = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *)self.tableView];
     [_pullView setDelegate:self];
     [self.tableView addSubview:_pullView];
@@ -46,6 +48,13 @@
 - (void)refresh
 {
     //To override
+}
+
+- (void)resetFrame:(CGRect)frame
+{
+    self.view.frame = frame;
+    self.tableView.frame = frame;
+    [_pullView resetWidth:frame.size.width];
 }
 
 #pragma mark - PullToRefreshViewDelegate

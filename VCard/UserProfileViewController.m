@@ -113,6 +113,7 @@
     if (!_friendController) {
         _friendController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileRelationTableViewController"];
         _friendController.view.frame = [self frameForTableView];
+        _friendController.tableView.frame = [self frameForTableView];
         _friendController.user = self.user;
         _friendController.type = RelationshipViewTypeFriends;
         _friendController.stackPageIndex = self.pageIndex;
@@ -125,6 +126,7 @@
     if (!_followerController) {
         _followerController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileRelationTableViewController"];
         _followerController.view.frame = [self frameForTableView];
+        _followerController.tableView.frame = [self frameForTableView];
         _followerController.user = self.user;
         _followerController.type = RelationshipViewTypeFollowers;
         _followerController.stackPageIndex = self.pageIndex;

@@ -10,10 +10,10 @@
 #import "PullToRefreshView.h"
 
 @interface RefreshableCoreDataTableViewController : CoreDataTableViewController <PullToRefreshViewDelegate> {
-    
     PullToRefreshView *_pullView;
 }
 
 - (void)refresh;
+- (void)resetFrame:(CGRect)frame;
 
 @end
