@@ -72,6 +72,8 @@
     _loading = NO;
     _nextPage = 1;
     _refreshIndicatorView.hidden = YES;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewUserInfo)];
+    [_profileImageView addGestureRecognizer:tapGesture];
 }
 
 - (void)setUpNotification
@@ -181,6 +183,15 @@
 - (IBAction)groupButtonClicked:(id)sender
 {
 //    [self createStackView];
+}
+
+- (void)viewUserInfo
+{
+    UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfProfileViewController"];
+    vc.currentUser = self.currentUser;
+    vc.screenName = self.currentUser.screenName;
+    
+    [self stackViewAtIndex:0 push:vc];
 }
 
 - (void)stackViewAtIndex:(int)index push:(StackViewPageController *)vc

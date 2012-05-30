@@ -140,8 +140,9 @@
         if (!client.hasError) {
             NSDictionary *userDict = client.responseJSONObject;
             self.currentUser = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext];
-            
             [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
         }
     }];
     

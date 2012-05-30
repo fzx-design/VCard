@@ -49,6 +49,7 @@
 #define kNotificationNameAddNewStackPage @"kNotificationNameAddNewStackPage"
 #define kNotificationNameUserNameClicked @"kNotificationNameUserNameClicked"
 #define kNotificationNameUserCellClicked @"kNotificationNameUserCellClicked"
+#define kNotificationNameShouldSaveContext @"kNotificationNameShouldSaveContext"
 
 #define kNotificationNameStackViewCoveredWholeScreen @"kNotificationNameStackViewCoveredWholeScreen"
 #define kNotificationNameStackViewDoNotCoverWholeScreen @"kNotificationNameStackViewDoNotCoverWholeScreen"

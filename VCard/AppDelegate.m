@@ -30,7 +30,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];   
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(saveContext) 
+                                                 name:kNotificationNameShouldSaveContext 
+                                               object:nil];
     
     return YES;
 }
