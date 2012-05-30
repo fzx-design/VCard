@@ -45,6 +45,10 @@
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self 
+               selector:@selector(resetLayoutAfterRotating:) 
+                   name:kNotificationNameOrientationChanged
+                 object:nil];
+    [center addObserver:self 
                selector:@selector(resetLayoutBeforeRotating:) 
                    name:kNotificationNameOrientationWillChange
                  object:nil];
@@ -168,9 +172,18 @@
 #pragma mark - Notification
 - (void)resetLayoutBeforeRotating:(NSNotification *)notification
 {
-    CGFloat screenHeight = [(NSString *)notification.object isEqualToString:kOrientationPortrait] ? 961.0 : 705.0;
-    CGFloat height = screenHeight - self.view.frame.origin.y;
-    [self.tableView resetHeight:height];
+    if ([(NSString *)notification.object isEqualToString:kOrientationPortrait]) {
+        CGFloat height = 961.0 - self.view.frame.origin.y;
+        [self.tableView resetHeight:height];
+    }    
+}
+
+- (void)resetLayoutAfterRotating:(NSNotification *)notification
+{
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+        CGFloat height = 705.0 - self.view.frame.origin.y;
+        [self.tableView resetHeight:height];
+    }    
 }
 
 
