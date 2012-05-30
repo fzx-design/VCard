@@ -35,6 +35,7 @@
 @synthesize groupButton = _groupButton;
 @synthesize createStatusButton = _createStatusButton;
 @synthesize refreshButton = _refreshButton;
+@synthesize showProfileButton = _showProfileButton;
 
 #pragma mark - LifeCycle
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -72,8 +73,6 @@
     _loading = NO;
     _nextPage = 1;
     _refreshIndicatorView.hidden = YES;
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewUserInfo)];
-    [_profileImageView addGestureRecognizer:tapGesture];
 }
 
 - (void)setUpNotification
@@ -185,7 +184,7 @@
 //    [self createStackView];
 }
 
-- (void)viewUserInfo
+- (IBAction)showProfileButtonClicked:(id)sender
 {
     UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfProfileViewController"];
     vc.currentUser = self.currentUser;

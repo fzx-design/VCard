@@ -28,7 +28,7 @@
     UIButton *_groupButton;
     UIButton *_createStatusButton;
     UIButton *_refreshButton;
-    
+    UIButton *_showProfileButton;
 }
 
 @property (nonatomic, strong) IBOutlet BaseNavigationView *navigationView;
@@ -39,7 +39,9 @@
 @property (nonatomic, strong) IBOutlet UIButton *groupButton;
 @property (nonatomic, strong) IBOutlet UIButton *createStatusButton;
 @property (nonatomic, strong) IBOutlet UIButton *refreshButton;
+@property (nonatomic, strong) IBOutlet UIButton *showProfileButton;
 
+- (IBAction)showProfileButtonClicked:(id)sender;
 - (IBAction)refreshButtonClicked:(id)sender;
 - (IBAction)groupButtonClicked:(id)sender;
 

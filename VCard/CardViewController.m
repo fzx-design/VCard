@@ -116,6 +116,12 @@ static inline NSRegularExpression * UrlRegularExpression() {
     self.locationPinImageView.hidden = YES;
     
     self.repostUserNameButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    
+    UITapGestureRecognizer *originalTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewUserInfo)];
+    [self.originalUserAvatar addGestureRecognizer:originalTapGesture];
+    
+    UITapGestureRecognizer *repostTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewUserInfo)];
+    [self.originalUserAvatar addGestureRecognizer:repostTapGesture];
 }
 
 - (void)viewDidUnload
