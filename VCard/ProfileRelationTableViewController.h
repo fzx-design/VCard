@@ -17,15 +17,19 @@ typedef enum {
 @class User;
 
 @interface ProfileRelationTableViewController : RefreshableCoreDataTableViewController {
+    int _stackPageIndex;
+    
     User *_user;
     RelationshipViewType _type;
-    
-    int _stackPageIndex;
+    BaseLayoutView *_backgroundView;
 }
+
+
+@property (nonatomic, assign) int stackPageIndex;
 
 @property (nonatomic, strong) User *user;
 @property (nonatomic, assign) RelationshipViewType type;
-@property (nonatomic, assign) int stackPageIndex;
+@property (nonatomic, retain) BaseLayoutView *backgroundView;
 
 - (void)refresh;
 

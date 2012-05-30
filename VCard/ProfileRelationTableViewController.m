@@ -26,6 +26,7 @@
 @synthesize user = _user;
 @synthesize type = _type;
 @synthesize stackPageIndex = _stackPageIndex;
+@synthesize backgroundView = _backgroundView;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -104,13 +105,6 @@
             }
             
             _nextCursor = [[client.responseJSONObject objectForKey:@"next_cursor"] intValue];
-            
-//            if (_nextCursor == 0) {
-//                [self hideLoadMoreDataButton];
-//            }
-//            else {
-//                [self showLoadMoreDataButton];
-//            }
         }
         
         [_pullView finishedLoading];
@@ -169,13 +163,43 @@
     
 }
 
+#pragma mark - UIScrollView delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self resetBackgroundView];
+}
+
+- (void)resetBackgroundView
+{
+    if (self.tableView.contentSize.height - self.tableView.contentOffset.y < self.tableView.frame.size.height) {
+        self.backgroundView.alpha = 1.0;
+        [self.backgroundView resetOriginY:self.tableView.contentSize.height];
+        [self.tableView sendSubviewToBack:self.backgroundView];
+    } else {
+        self.backgroundView.alpha = 0.0;
+        return;
+    }
+}
+
+
+#pragma mark - Properties
+- (BaseLayoutView*)backgroundView
+{
+    if (!_backgroundView) {
+        _backgroundView = [[BaseLayoutView alloc] initWithFrame:CGRectMake(0.0, 0.0, 384.0, 2000.0)];
+        _backgroundView.autoresizingMask = UIViewAutoresizingNone;
+        [self.tableView insertSubview:_backgroundView atIndex:0];
+    }
+    return _backgroundView;
+}
+
 #pragma mark - Notification
 - (void)resetLayoutBeforeRotating:(NSNotification *)notification
 {
     if ([(NSString *)notification.object isEqualToString:kOrientationPortrait]) {
         CGFloat height = 961.0 - self.view.frame.origin.y;
         [self.tableView resetHeight:height];
-    }    
+    }
 }
 
 - (void)resetLayoutAfterRotating:(NSNotification *)notification

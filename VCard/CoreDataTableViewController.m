@@ -40,10 +40,7 @@
     return nil;
 }
 
-- (void)resetTableViewLayout
-{
-    
-}
+
 
 #pragma mark -
 
@@ -138,8 +135,6 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     //    [self.tableView endUpdates];
 	[self.tableView reloadData];
-    
-    [self resetTableViewLayout];
 }
 
 

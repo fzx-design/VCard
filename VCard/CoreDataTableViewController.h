@@ -20,6 +20,4 @@ UITableViewDelegate, UITableViewDataSource> {
 - (void)configureRequest:(NSFetchRequest *)request;
 - (NSString *)customCellClassName;
 
-- (void)resetTableViewLayout;
-
 @end

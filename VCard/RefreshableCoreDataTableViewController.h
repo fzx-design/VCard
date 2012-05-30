@@ -11,16 +11,11 @@
 #import "BaseLayoutView.h"
 
 @interface RefreshableCoreDataTableViewController : CoreDataTableViewController <PullToRefreshViewDelegate, UIScrollViewDelegate, UITableViewDelegate> {
+    
     PullToRefreshView *_pullView;
     
-    BaseLayoutView *_backgroundViewA;
-    BaseLayoutView *_backgroundViewB;
 }
 
-@property (nonatomic, retain) BaseLayoutView *backgroundViewA;
-@property (nonatomic, retain) BaseLayoutView *backgroundViewB;
-
 - (void)refresh;
-- (void)resetTableViewLayout;
 
 @end
