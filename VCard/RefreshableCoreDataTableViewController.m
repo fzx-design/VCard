@@ -29,10 +29,14 @@
 {
     [super viewDidLoad];
     [self.tableView resetWidth:384.0];
-    _pullView = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *)self.tableView];
+    _pullView = [[PullToRefreshView alloc] initWithScrollView:self.tableView];
     [_pullView setDelegate:self];
     
+    _loadMoreView = [[LoadMoreView alloc] initWithScrollView:self.tableView];
+    [_loadMoreView setDelegate:self];
+    
     [self.tableView addSubview:_pullView];
+    [self.tableView addSubview:_loadMoreView];
 }
 
 - (void)viewDidUnload
@@ -41,12 +45,12 @@
     // Release any retained subviews of the main view.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)refresh
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    //To override
 }
 
-- (void)refresh
+- (void)loadMore
 {
     //To override
 }
@@ -57,4 +61,11 @@
 {
     [self refresh];
 }
+
+#pragma mark - LoadMoreViewDelegate
+- (void)loadMoreViewShouldLoadMoreView:(LoadMoreView *)view
+{
+    [self loadMore];
+}
+
 @end

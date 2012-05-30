@@ -91,7 +91,17 @@
         reloadArrowView.contentMode = UIViewContentModeCenter;
         [self addSubview:reloadArrowView];
         
+        iconView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 98.5f, self.frame.size.width, 40.0f)];
+        iconView.image = [UIImage imageNamed:@"mondev_logo_gloom.png"];
+        iconView.contentMode = UIViewContentModeCenter;
+        [self addSubview:iconView];
+        
 		[self setState:PullToRefreshViewStateNormal];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(resetLayoutToOrientation:)
+                                                     name:kNotificationNameOrientationWillChange
+                                                   object:nil];
     }
     
     return self;
@@ -103,20 +113,25 @@
 - (void)setState:(PullToRefreshViewState)state_ {
     state = state_;
     
+    UIEdgeInsets inset = self.scrollView.contentInset;
+    
 	switch (state) {
 		case PullToRefreshViewStateReady:
             [self setImageFlipped:YES];
-            scrollView.contentInset = UIEdgeInsetsZero;
+            inset.top = 0.0;
+            scrollView.contentInset = inset;
 			break;
             
 		case PullToRefreshViewStateNormal:
             [self setImageFlipped:NO];
-            scrollView.contentInset = UIEdgeInsetsZero;
+            inset.top = 0.0;
+            scrollView.contentInset = inset;
 			break;
             
 		case PullToRefreshViewStateLoading:
             [self setImageFlipped:YES];
-            scrollView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f, 0.0f);
+            inset.top = 60.0;
+            scrollView.contentInset = inset;
             [self startLoadingAnimation];
 			break;
             
@@ -193,12 +208,14 @@
     [reloadCircleView.layer removeAllAnimations];
 }
 
-- (void)resetLayoutToOrientation:(UIInterfaceOrientation)orientation
+- (void)resetLayoutToOrientation:(NSNotification *)notification
 {
-    CGFloat width = UIInterfaceOrientationIsPortrait(orientation) ? 768.0 : 1024.0;
+    CGFloat width = [(NSString *)notification.object isEqualToString:kOrientationPortrait] ? 768.0 : 1024;
+    
     [reloadHoleView resetWidth:width];
     [reloadArrowView resetWidth:width];
     [reloadCircleView resetWidth:width];
+    [iconView resetWidth:width];
 }
 
 #pragma mark -

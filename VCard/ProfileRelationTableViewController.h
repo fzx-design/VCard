@@ -32,5 +32,6 @@ typedef enum {
 @property (nonatomic, retain) BaseLayoutView *backgroundView;
 
 - (void)refresh;
+- (void)loadMore;
 
 @end

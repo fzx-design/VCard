@@ -359,6 +359,7 @@
 		18F1E4DF1574F47200EB71DD /* side_tableview_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F1E4DD1574F47200EB71DD /* side_tableview_bg.png */; };
 		18F1E4EB15760D5E00EB71DD /* mondev_logo_gloom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F1E4E915760D5E00EB71DD /* mondev_logo_gloom@2x.png */; };
 		18F1E4EC15760D5E00EB71DD /* mondev_logo_gloom.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F1E4EA15760D5E00EB71DD /* mondev_logo_gloom.png */; };
+		18F1E4EF15760FA300EB71DD /* LoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1E4EE15760FA200EB71DD /* LoadMoreView.m */; };
 		E135F7DB155E6196008494D8 /* button_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C3155E6196008494D8 /* button_delete.png */; };
 		E135F7DC155E6196008494D8 /* button_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C4155E6196008494D8 /* button_delete@2x.png */; };
 		E135F7DD155E6196008494D8 /* button_done_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C5155E6196008494D8 /* button_done_bg.png */; };
@@ -815,6 +816,8 @@
 		18F1E4DD1574F47200EB71DD /* side_tableview_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = side_tableview_bg.png; sourceTree = "<group>"; };
 		18F1E4E915760D5E00EB71DD /* mondev_logo_gloom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mondev_logo_gloom@2x.png"; sourceTree = "<group>"; };
 		18F1E4EA15760D5E00EB71DD /* mondev_logo_gloom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mondev_logo_gloom.png; sourceTree = "<group>"; };
+		18F1E4ED15760FA200EB71DD /* LoadMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreView.h; sourceTree = "<group>"; };
+		18F1E4EE15760FA200EB71DD /* LoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadMoreView.m; sourceTree = "<group>"; };
 		E135F7C3155E6196008494D8 /* button_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_delete.png; sourceTree = "<group>"; };
 		E135F7C4155E6196008494D8 /* button_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_delete@2x.png"; sourceTree = "<group>"; };
 		E135F7C5155E6196008494D8 /* button_done_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_done_bg.png; sourceTree = "<group>"; };
@@ -1050,12 +1053,12 @@
 			children = (
 				18DBAE471572EEFF00918ED4 /* WaterflowComponent */,
 				18DBAE481572EFAE00918ED4 /* CardView */,
-				1811454A156F56B000B3BF21 /* RefreshIndicatorView.h */,
-				1811454B156F56B100B3BF21 /* RefreshIndicatorView.m */,
 				18E558FC153EAAD300ECCA3B /* CastViewController.h */,
 				18E558FD153EAAD300ECCA3B /* CastViewController.m */,
 				18DF3745156B5F0600C56685 /* DividerViewController.h */,
 				18DF3746156B5F0600C56685 /* DividerViewController.m */,
+				1811454A156F56B000B3BF21 /* RefreshIndicatorView.h */,
+				1811454B156F56B100B3BF21 /* RefreshIndicatorView.m */,
 				18E558FF153EF55600ECCA3B /* RootViewController.h */,
 				18E55900153EF55600ECCA3B /* RootViewController.m */,
 			);
@@ -1110,8 +1113,6 @@
 		18DBAE481572EFAE00918ED4 /* CardView */ = {
 			isa = PBXGroup;
 			children = (
-				18AC828A155B924700AD99C4 /* PullToRefreshView.h */,
-				18AC828B155B924700AD99C4 /* PullToRefreshView.m */,
 				181FE5BC1557F9AE006C98ED /* TTTAttributedLabel.h */,
 				181FE5BD1557F9AE006C98ED /* TTTAttributedLabel.m */,
 				1850A455153BE4020001A905 /* CardImageViewShadowView.h */,
@@ -1127,6 +1128,8 @@
 		18DBAE531573348400918ED4 /* TabelView */ = {
 			isa = PBXGroup;
 			children = (
+				18F1E4ED15760FA200EB71DD /* LoadMoreView.h */,
+				18F1E4EE15760FA200EB71DD /* LoadMoreView.m */,
 				18DBAE54157334AC00918ED4 /* ProfileRelationTableViewCell.h */,
 				18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */,
 				18DBAE59157349F400918ED4 /* ProfileRelationTableViewController.h */,
@@ -1232,6 +1235,8 @@
 		18E707F2153D3EEF0012092E /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				18AC828A155B924700AD99C4 /* PullToRefreshView.h */,
+				18AC828B155B924700AD99C4 /* PullToRefreshView.m */,
 				18DF3732153905A800C783C9 /* BaseNavigationBar.h */,
 				18DF3733153905A800C783C9 /* BaseNavigationBar.m */,
 				18E558F9153EA9D000ECCA3B /* BaseNavigationView.h */,
@@ -2102,6 +2107,7 @@
 				18DBAE731573978F00918ED4 /* FriendProfileViewController.m in Sources */,
 				18E4AE2F157454A6009A701F /* User.m in Sources */,
 				18E4AE36157458F5009A701F /* RefreshableCoreDataTableViewController.m in Sources */,
+				18F1E4EF15760FA300EB71DD /* LoadMoreView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1050,7 +1050,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="cell_hover.png" id="961-kg-a48">
-                                            <rect key="frame" x="0.0" y="-3" width="385" height="72"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="385" height="66"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="imageview_placeholder.png" id="CWq-oG-12y" customClass="UserAvatarImageView">

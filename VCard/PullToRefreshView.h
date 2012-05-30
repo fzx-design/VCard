@@ -45,6 +45,7 @@ typedef enum {
     UIImageView *reloadHoleView;
     UIImageView *reloadCircleView;
     UIImageView *reloadArrowView;
+    UIImageView *iconView;
 }
 
 @property (nonatomic, weak) UIScrollView *scrollView;
@@ -54,12 +55,10 @@ typedef enum {
 - (void)setState:(PullToRefreshViewState)state_;
 
 - (id)initWithScrollView:(UIScrollView *)scrollView;
-- (void)resetLayoutToOrientation:(UIInterfaceOrientation)orientation;
 
 @end
 
 @protocol PullToRefreshViewDelegate <NSObject>
 @optional
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view;
-- (NSDate *)pullToRefreshViewLastUpdated:(PullToRefreshView *)view;
 @end

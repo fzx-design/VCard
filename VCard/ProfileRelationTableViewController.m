@@ -17,6 +17,7 @@
 @interface ProfileRelationTableViewController () {
     int _nextCursor;
     BOOL _loading;
+    BOOL _hasMoreViews;
 }
 
 @end
@@ -43,6 +44,7 @@
     self.view.autoresizingMask = UIViewAutoresizingNone;
     [self refresh];
     _loading = NO;
+    _hasMoreViews = YES;
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self 
@@ -62,6 +64,19 @@
     // e.g. self.myOutlet = nil;
 }
 
+#pragma mark - Data Operation
+
+- (void)refresh
+{
+	_nextCursor = -1;
+	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
+}
+
+- (void)loadMore
+{
+    [self loadMoreData];
+}
+
 - (void)clearData
 {
     if (_type == RelationshipViewTypeFriends) {
@@ -70,12 +85,6 @@
     else {
         [self.user removeFollowers:self.user.followers];
     }
-}
-
-- (void)refresh
-{
-	_nextCursor = -1;
-	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
 }
 
 - (void)loadMoreData
@@ -105,8 +114,8 @@
             }
             
             _nextCursor = [[client.responseJSONObject objectForKey:@"next_cursor"] intValue];
+            _hasMoreViews = _nextCursor != 0;
         }
-        
         [_pullView finishedLoading];
         _loading = NO;
         
@@ -119,6 +128,8 @@
         [client getFollowersOfUser:self.user.userID cursor:_nextCursor count:20];
     }
 }
+
+#pragma mark - Core Data Table View Method
 
 - (void)configureRequest:(NSFetchRequest *)request
 {
@@ -155,22 +166,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
     User *usr = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:usr, kNotificationObjectKeyUser, [NSString stringWithFormat:@"%d", _stackPageIndex], kNotificationObjectKeyIndex, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserCellClicked object:dictionary];
-    
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self resetBackgroundView];
 }
 
 #pragma mark - UIScrollView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self resetBackgroundView];
+    if (_hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
+        [self loadMoreData];
+    }
 }
 
 - (void)resetBackgroundView
 {
+    [_loadMoreView finishedLoading:_hasMoreViews];
     if (self.tableView.contentSize.height - self.tableView.contentOffset.y < self.tableView.frame.size.height) {
         self.backgroundView.alpha = 1.0;
         [self.backgroundView resetOriginY:self.tableView.contentSize.height];
@@ -180,7 +198,6 @@
         return;
     }
 }
-
 
 #pragma mark - Properties
 - (BaseLayoutView*)backgroundView
