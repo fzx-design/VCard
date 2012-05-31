@@ -15,6 +15,8 @@
 
 @implementation RefreshableCoreDataTableViewController
 
+@synthesize user = _user;
+@synthesize stackPageIndex = _stackPageIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,6 +39,16 @@
     
     [self.tableView addSubview:_pullView];
     [self.tableView addSubview:_loadMoreView];
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self 
+               selector:@selector(resetLayoutAfterRotating:) 
+                   name:kNotificationNameOrientationChanged
+                 object:nil];
+    [center addObserver:self 
+               selector:@selector(resetLayoutBeforeRotating:) 
+                   name:kNotificationNameOrientationWillChange
+                 object:nil];
 }
 
 - (void)viewDidUnload
@@ -66,6 +78,23 @@
 - (void)loadMoreViewShouldLoadMoreView:(LoadMoreView *)view
 {
     [self loadMore];
+}
+
+#pragma mark - Notification
+- (void)resetLayoutBeforeRotating:(NSNotification *)notification
+{
+    if ([(NSString *)notification.object isEqualToString:kOrientationPortrait]) {
+        CGFloat height = 961.0 - self.view.frame.origin.y;
+        [self.tableView resetHeight:height];
+    }
+}
+
+- (void)resetLayoutAfterRotating:(NSNotification *)notification
+{
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+        CGFloat height = 705.0 - self.view.frame.origin.y;
+        [self.tableView resetHeight:height];
+    }    
 }
 
 @end

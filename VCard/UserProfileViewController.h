@@ -9,6 +9,7 @@
 #import "CoreDataTableViewController.h"
 #import "StackViewPageController.h"
 #import "ProfileRelationTableViewController.h"
+#import "ProfileStatusTableViewController.h"
 #import "BaseStackLayoutView.h"
 #import "UserAvatarImageView.h"
 
@@ -34,6 +35,7 @@
     User *_user;
     ProfileRelationTableViewController *_friendController;
     ProfileRelationTableViewController *_followerController;
+    ProfileStatusTableViewController *_statusController;
 }
 
 @property (nonatomic, strong) IBOutlet UIButton *testButton;
@@ -59,10 +61,12 @@
 
 @property (nonatomic, strong) ProfileRelationTableViewController *friendController;
 @property (nonatomic, strong) ProfileRelationTableViewController *followerController;
+@property (nonatomic, strong) ProfileStatusTableViewController *statusController;
 
 - (void)setUpViews;
 - (IBAction)createNewStackPage:(id)sender;
 - (IBAction)showFollowers:(id)sender;
 - (IBAction)showFriends:(id)sender;
+- (IBAction)showStatuses:(id)sender;
 
 @end

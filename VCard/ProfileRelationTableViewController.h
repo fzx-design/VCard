@@ -14,20 +14,15 @@ typedef enum {
     RelationshipViewTypeFollowers,
 } RelationshipViewType;
 
-@class User;
 
 @interface ProfileRelationTableViewController : RefreshableCoreDataTableViewController {
-    int _stackPageIndex;
     
-    User *_user;
     RelationshipViewType _type;
     BaseLayoutView *_backgroundView;
 }
 
 
-@property (nonatomic, assign) int stackPageIndex;
 
-@property (nonatomic, strong) User *user;
 @property (nonatomic, assign) RelationshipViewType type;
 @property (nonatomic, retain) BaseLayoutView *backgroundView;
 

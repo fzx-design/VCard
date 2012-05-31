@@ -2,7 +2,7 @@
 //  Status.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-5-23.
+//  Created by 海山 叶 on 12-5-31.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -24,6 +24,7 @@
 @dynamic featureVideo;
 @dynamic isMentioned;
 @dynamic lat;
+@dynamic location;
 @dynamic lon;
 @dynamic originalPicURL;
 @dynamic repostsCount;
@@ -33,7 +34,10 @@
 @dynamic text;
 @dynamic thumbnailPicURL;
 @dynamic updateDate;
-@dynamic location;
+@dynamic cardSizeImageHeight;
+@dynamic cardSizeCardHeight;
+@dynamic forTableView;
+@dynamic forCastView;
 @dynamic author;
 @dynamic comments;
 @dynamic favoritedBy;
@@ -121,7 +125,7 @@
     NSDictionary *userDict = [dict objectForKey:@"user"];
     
     result.author = [User insertUser:userDict inManagedObjectContext:context];
-    
+        
     NSDictionary* repostedStatusDict = [dict objectForKey:@"retweeted_status"];
     if (repostedStatusDict) {
         result.repostStatus = [Status insertStatus:repostedStatusDict inManagedObjectContext:context];

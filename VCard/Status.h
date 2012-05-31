@@ -2,7 +2,7 @@
 //  Status.h
 //  VCard
 //
-//  Created by 海山 叶 on 12-5-23.
+//  Created by 海山 叶 on 12-5-31.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -23,6 +23,7 @@
 @property (nonatomic, retain) NSNumber * featureVideo;
 @property (nonatomic, retain) NSNumber * isMentioned;
 @property (nonatomic, retain) NSNumber * lat;
+@property (nonatomic, retain) NSString * location;
 @property (nonatomic, retain) NSNumber * lon;
 @property (nonatomic, retain) NSString * originalPicURL;
 @property (nonatomic, retain) NSString * repostsCount;
@@ -32,7 +33,10 @@
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) NSString * thumbnailPicURL;
 @property (nonatomic, retain) NSDate * updateDate;
-@property (nonatomic, retain) NSString * location;
+@property (nonatomic, retain) NSNumber * cardSizeImageHeight;
+@property (nonatomic, retain) NSNumber * cardSizeCardHeight;
+@property (nonatomic, retain) NSNumber * forTableView;
+@property (nonatomic, retain) NSNumber * forCastView;
 @property (nonatomic, retain) User *author;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) User *favoritedBy;

@@ -37,6 +37,7 @@
 @synthesize user = _user;
 @synthesize friendController = _friendController;
 @synthesize followerController = _followerController;
+@synthesize statusController = _statusController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -89,6 +90,7 @@
     self.checkFriendsButton.selected = NO;
     [self.backgroundView addSubview:self.followerController.view];
     [self.friendController.view removeFromSuperview];
+    [self.statusController.view removeFromSuperview];
 }
 
 - (IBAction)showFriends:(id)sender
@@ -98,6 +100,17 @@
     self.checkFriendsButton.selected = YES;
     [self.backgroundView addSubview:self.friendController.view];
     [self.followerController.view removeFromSuperview];
+    [self.statusController.view removeFromSuperview];
+}
+
+- (IBAction)showStatuses:(id)sender
+{
+    self.checkFollowersButton.selected = NO;
+    self.checkStatusesButton.selected = YES;
+    self.checkFriendsButton.selected = NO;
+    [self.backgroundView addSubview:self.statusController.view];
+    [self.followerController.view removeFromSuperview];
+    [self.friendController.view removeFromSuperview];
 }
 
 - (CGRect)frameForTableView
@@ -134,5 +147,16 @@
     return _followerController;
 }
 
+- (ProfileStatusTableViewController *)statusController
+{
+    if (!_statusController) {
+        _statusController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileStatusTableViewController"];
+        _statusController.user = self.user;
+        _statusController.stackPageIndex = self.pageIndex;
+        _statusController.view.frame = [self frameForTableView];
+        _statusController.tableView.frame = [self frameForTableView];
+    }
+    return _statusController;
+}
 
 @end

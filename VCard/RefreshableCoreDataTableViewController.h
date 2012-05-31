@@ -11,11 +11,20 @@
 #import "LoadMoreView.h"
 #import "BaseLayoutView.h"
 
+@class User;
+
 @interface RefreshableCoreDataTableViewController : CoreDataTableViewController <PullToRefreshViewDelegate, LoadMoreViewDelegate, UIScrollViewDelegate, UITableViewDelegate> {
     
+    int _stackPageIndex;
     PullToRefreshView *_pullView;
     LoadMoreView *_loadMoreView;
+    
+    User *_user;
+    BOOL _hasMoreViews;
 }
+
+@property (nonatomic, assign) int stackPageIndex;
+@property (nonatomic, strong) User *user;
 
 - (void)refresh;
 - (void)loadMore;

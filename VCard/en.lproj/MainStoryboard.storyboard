@@ -629,6 +629,9 @@
                                         <state key="highlighted" image="button_hover_bg.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="showStatuses:" destination="m0Z-sD-uNg" eventType="touchUpInside" id="PQI-XO-93o"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aQE-Vb-jos">
                                         <rect key="frame" x="168" y="251" width="95" height="74"/>
@@ -874,6 +877,9 @@
                                         <state key="highlighted" image="button_hover_bg.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="showStatuses:" destination="Crt-Sg-sLH" eventType="touchUpInside" id="BTg-cK-saM"/>
+                                        </connections>
                                     </button>
                                     <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bOg-bI-tI8">
                                         <rect key="frame" x="168" y="206" width="95" height="74"/>
@@ -1109,6 +1115,39 @@
             </objects>
             <point key="canvasLocation" x="320" y="-375"/>
         </scene>
+        <!--Profile Status Table View Controller-->
+        <scene sceneID="lVn-a9-Brw">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NQc-zB-cUS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="ProfileStatusTableViewController" id="sdi-B2-IlV" customClass="ProfileStatusTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="735" sectionHeaderHeight="22" sectionFooterHeight="22" id="YgW-eb-bqv">
+                        <rect key="frame" x="0.0" y="0.0" width="384" height="961"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProfileStatusTableViewCell" rowHeight="735" id="IH6-jE-dWi" customClass="ProfileStatusTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="384" height="735"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="384" height="734"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="YgW-eb-bqv" id="ghX-q3-N1c"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="886" y="-375"/>
+        </scene>
     </scenes>
     <resources>
         <image name="button_bg_brown.png" width="50" height="30"/>
@@ -1249,6 +1288,12 @@
         <class className="ProfileRelationTableViewController" superclassName="RefreshableCoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileRelationTableViewController.h"/>
         </class>
+        <class className="ProfileStatusTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileStatusTableViewCell.h"/>
+        </class>
+        <class className="ProfileStatusTableViewController" superclassName="RefreshableCoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileStatusTableViewController.h"/>
+        </class>
         <class className="RefreshIndicatorView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RefreshIndicatorView.h"/>
         </class>
@@ -1290,6 +1335,7 @@
                 <relationship kind="action" name="createNewStackPage:"/>
                 <relationship kind="action" name="showFollowers:"/>
                 <relationship kind="action" name="showFriends:"/>
+                <relationship kind="action" name="showStatuses:"/>
                 <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
                 <relationship kind="outlet" name="backgroundView" candidateClass="BaseStackLayoutView"/>
                 <relationship kind="outlet" name="checkFollowersButton" candidateClass="UIButton"/>

@@ -231,12 +231,12 @@
             for (NSDictionary *dict in dictArray) {
                 Status *newStatus = nil;
                 newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext];
+                newStatus.forCastView = [NSNumber numberWithBool:YES];
                 [self.currentUser addFriendsStatusesObject:newStatus];  
             }
             
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
-            
             
             [self.waterflowView reloadData];
         }
@@ -270,6 +270,7 @@
             for (NSDictionary *dict in dictArray) {
                 Status *newStatus = nil;
                 newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext];
+                newStatus.forCastView = [NSNumber numberWithBool:YES];
                 [self.currentUser addFriendsStatusesObject:newStatus];
             }
             
@@ -282,7 +283,6 @@
                 [self.managedObjectContext processPendingChanges];
                 [self.fetchedResultsController performFetch:nil];
             }
-            
             
             [self.waterflowView refresh];
             

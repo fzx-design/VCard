@@ -111,6 +111,12 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                    startingAtPage:(int)page 
                             count:(int)count
                           feature:(int)feature;
+- (void)getUserTimeline:(NSString *)userID 
+				SinceID:(NSString *)sinceID 
+                  maxID:(NSString *)maxID 
+		 startingAtPage:(int)page 
+				  count:(int)count
+                feature:(int)feature;
 - (void)getAddressFromGeoWithCoordinate:(NSString *)coordinate;
 
 - (void)getFriendsOfUser:(NSString *)userID cursor:(int)cursor count:(int)count;

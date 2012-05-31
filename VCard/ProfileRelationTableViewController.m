@@ -16,16 +16,13 @@
 
 @interface ProfileRelationTableViewController () {
     int _nextCursor;
-    BOOL _hasMoreViews;
 }
 
 @end
 
 @implementation ProfileRelationTableViewController
 
-@synthesize user = _user;
 @synthesize type = _type;
-@synthesize stackPageIndex = _stackPageIndex;
 @synthesize backgroundView = _backgroundView;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -44,16 +41,6 @@
     [self refresh];
     _loading = NO;
     _hasMoreViews = YES;
-    
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self 
-               selector:@selector(resetLayoutAfterRotating:) 
-                   name:kNotificationNameOrientationChanged
-                 object:nil];
-    [center addObserver:self 
-               selector:@selector(resetLayoutBeforeRotating:) 
-                   name:kNotificationNameOrientationWillChange
-                 object:nil];
 }
 
 - (void)viewDidUnload
@@ -213,23 +200,5 @@
     }
     return _backgroundView;
 }
-
-#pragma mark - Notification
-- (void)resetLayoutBeforeRotating:(NSNotification *)notification
-{
-    if ([(NSString *)notification.object isEqualToString:kOrientationPortrait]) {
-        CGFloat height = 961.0 - self.view.frame.origin.y;
-        [self.tableView resetHeight:height];
-    }
-}
-
-- (void)resetLayoutAfterRotating:(NSNotification *)notification
-{
-    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-        CGFloat height = 705.0 - self.view.frame.origin.y;
-        [self.tableView resetHeight:height];
-    }    
-}
-
 
 @end

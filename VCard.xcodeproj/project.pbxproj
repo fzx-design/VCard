@@ -11,7 +11,6 @@
 		18047E3015452CB900651305 /* WaterflowColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 18047E2F15452CB900651305 /* WaterflowColumn.m */; };
 		18047E3315452D7200651305 /* WaterflowLayoutUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18047E3215452D7200651305 /* WaterflowLayoutUnit.m */; };
 		18114508156CDB9E00B3BF21 /* UIView+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 18114507156CDB9E00B3BF21 /* UIView+Resize.m */; };
-		18114510156CFFBF00B3BF21 /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811450F156CFFBF00B3BF21 /* Status.m */; };
 		18114533156E20AB00B3BF21 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18114531156E20AB00B3BF21 /* icon@2x.png */; };
 		18114534156E20AB00B3BF21 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 18114532156E20AB00B3BF21 /* icon.png */; };
 		18114546156F564C00B3BF21 /* menu_reload_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18114542156F564C00B3BF21 /* menu_reload_bg.png */; };
@@ -360,6 +359,9 @@
 		18F1E4EB15760D5E00EB71DD /* mondev_logo_gloom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F1E4E915760D5E00EB71DD /* mondev_logo_gloom@2x.png */; };
 		18F1E4EC15760D5E00EB71DD /* mondev_logo_gloom.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F1E4EA15760D5E00EB71DD /* mondev_logo_gloom.png */; };
 		18F1E4EF15760FA300EB71DD /* LoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1E4EE15760FA200EB71DD /* LoadMoreView.m */; };
+		18F1E4FD15773B4B00EB71DD /* ProfileStatusTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1E4FC15773B4B00EB71DD /* ProfileStatusTableViewController.m */; };
+		18F1E50415773F7300EB71DD /* ProfileStatusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1E50315773F7300EB71DD /* ProfileStatusTableViewCell.m */; };
+		18F1E5071577452B00EB71DD /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1E5061577452600EB71DD /* Status.m */; };
 		E135F7DB155E6196008494D8 /* button_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C3155E6196008494D8 /* button_delete.png */; };
 		E135F7DC155E6196008494D8 /* button_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C4155E6196008494D8 /* button_delete@2x.png */; };
 		E135F7DD155E6196008494D8 /* button_done_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C5155E6196008494D8 /* button_done_bg.png */; };
@@ -404,8 +406,6 @@
 		18047E3215452D7200651305 /* WaterflowLayoutUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterflowLayoutUnit.m; sourceTree = "<group>"; };
 		18114506156CDB9E00B3BF21 /* UIView+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Resize.h"; sourceTree = "<group>"; };
 		18114507156CDB9E00B3BF21 /* UIView+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Resize.m"; sourceTree = "<group>"; };
-		1811450E156CFFBF00B3BF21 /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
-		1811450F156CFFBF00B3BF21 /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
 		18114531156E20AB00B3BF21 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		18114532156E20AB00B3BF21 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		18114542156F564C00B3BF21 /* menu_reload_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_reload_bg.png; sourceTree = "<group>"; };
@@ -818,6 +818,12 @@
 		18F1E4EA15760D5E00EB71DD /* mondev_logo_gloom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mondev_logo_gloom.png; sourceTree = "<group>"; };
 		18F1E4ED15760FA200EB71DD /* LoadMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreView.h; sourceTree = "<group>"; };
 		18F1E4EE15760FA200EB71DD /* LoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadMoreView.m; sourceTree = "<group>"; };
+		18F1E4FB15773B4B00EB71DD /* ProfileStatusTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileStatusTableViewController.h; sourceTree = "<group>"; };
+		18F1E4FC15773B4B00EB71DD /* ProfileStatusTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileStatusTableViewController.m; sourceTree = "<group>"; };
+		18F1E50215773F7200EB71DD /* ProfileStatusTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileStatusTableViewCell.h; sourceTree = "<group>"; };
+		18F1E50315773F7300EB71DD /* ProfileStatusTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileStatusTableViewCell.m; sourceTree = "<group>"; };
+		18F1E5051577452300EB71DD /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
+		18F1E5061577452600EB71DD /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
 		E135F7C3155E6196008494D8 /* button_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_delete.png; sourceTree = "<group>"; };
 		E135F7C4155E6196008494D8 /* button_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_delete@2x.png"; sourceTree = "<group>"; };
 		E135F7C5155E6196008494D8 /* button_done_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_done_bg.png; sourceTree = "<group>"; };
@@ -1128,14 +1134,12 @@
 		18DBAE531573348400918ED4 /* TabelView */ = {
 			isa = PBXGroup;
 			children = (
-				18F1E4ED15760FA200EB71DD /* LoadMoreView.h */,
-				18F1E4EE15760FA200EB71DD /* LoadMoreView.m */,
-				18DBAE54157334AC00918ED4 /* ProfileRelationTableViewCell.h */,
-				18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */,
-				18DBAE59157349F400918ED4 /* ProfileRelationTableViewController.h */,
-				18DBAE5A157349F400918ED4 /* ProfileRelationTableViewController.m */,
+				18F1E4FA15773A2200EB71DD /* StatusTableView */,
+				18F1E4F8157739F300EB71DD /* RelationTableView */,
 				18E4AE34157458F5009A701F /* RefreshableCoreDataTableViewController.h */,
 				18E4AE35157458F5009A701F /* RefreshableCoreDataTableViewController.m */,
+				18F1E4ED15760FA200EB71DD /* LoadMoreView.h */,
+				18F1E4EE15760FA200EB71DD /* LoadMoreView.m */,
 			);
 			name = TabelView;
 			sourceTree = "<group>";
@@ -1194,8 +1198,8 @@
 			children = (
 				18E707CA153D2C4D0012092E /* Comment.h */,
 				18E707CB153D2C4D0012092E /* Comment.m */,
-				1811450E156CFFBF00B3BF21 /* Status.h */,
-				1811450F156CFFBF00B3BF21 /* Status.m */,
+				18F1E5051577452300EB71DD /* Status.h */,
+				18F1E5061577452600EB71DD /* Status.m */,
 				18E4AE2D157454A6009A701F /* User.h */,
 				18E4AE2E157454A6009A701F /* User.m */,
 			);
@@ -1629,6 +1633,28 @@
 			);
 			name = default;
 			path = ../VCard;
+			sourceTree = "<group>";
+		};
+		18F1E4F8157739F300EB71DD /* RelationTableView */ = {
+			isa = PBXGroup;
+			children = (
+				18DBAE54157334AC00918ED4 /* ProfileRelationTableViewCell.h */,
+				18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */,
+				18DBAE59157349F400918ED4 /* ProfileRelationTableViewController.h */,
+				18DBAE5A157349F400918ED4 /* ProfileRelationTableViewController.m */,
+			);
+			name = RelationTableView;
+			sourceTree = "<group>";
+		};
+		18F1E4FA15773A2200EB71DD /* StatusTableView */ = {
+			isa = PBXGroup;
+			children = (
+				18F1E50215773F7200EB71DD /* ProfileStatusTableViewCell.h */,
+				18F1E50315773F7300EB71DD /* ProfileStatusTableViewCell.m */,
+				18F1E4FB15773B4B00EB71DD /* ProfileStatusTableViewController.h */,
+				18F1E4FC15773B4B00EB71DD /* ProfileStatusTableViewController.m */,
+			);
+			name = StatusTableView;
 			sourceTree = "<group>";
 		};
 		18F95302155E5DC300E53C30 /* topbar */ = {
@@ -2093,7 +2119,6 @@
 				18DF3744156B59B600C56685 /* WaterflowDividerCell.m in Sources */,
 				18DF3747156B5F0600C56685 /* DividerViewController.m in Sources */,
 				18114508156CDB9E00B3BF21 /* UIView+Resize.m in Sources */,
-				18114510156CFFBF00B3BF21 /* Status.m in Sources */,
 				1811454C156F56B200B3BF21 /* RefreshIndicatorView.m in Sources */,
 				18114553156F665900B3BF21 /* UserAvatarImageView.m in Sources */,
 				18E34C9215706661006DCFF6 /* BaseStackLayoutView.m in Sources */,
@@ -2108,6 +2133,9 @@
 				18E4AE2F157454A6009A701F /* User.m in Sources */,
 				18E4AE36157458F5009A701F /* RefreshableCoreDataTableViewController.m in Sources */,
 				18F1E4EF15760FA300EB71DD /* LoadMoreView.m in Sources */,
+				18F1E4FD15773B4B00EB71DD /* ProfileStatusTableViewController.m in Sources */,
+				18F1E50415773F7300EB71DD /* ProfileStatusTableViewCell.m in Sources */,
+				18F1E5071577452B00EB71DD /* Status.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

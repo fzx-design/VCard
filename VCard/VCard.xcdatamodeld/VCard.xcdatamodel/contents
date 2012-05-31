@@ -14,6 +14,8 @@
     </entity>
     <entity name="Status" representedClassName="Status" syncable="YES">
         <attribute name="bmiddlePicURL" optional="YES" attributeType="String"/>
+        <attribute name="cardSizeCardHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="cardSizeImageHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="commentsCount" optional="YES" attributeType="String"/>
         <attribute name="createdAt" attributeType="Date"/>
         <attribute name="favorited" optional="YES" attributeType="Boolean"/>
@@ -21,6 +23,8 @@
         <attribute name="featureOrigin" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="featurePic" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="featureVideo" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="forCastView" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="forTableView" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="isMentioned" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>

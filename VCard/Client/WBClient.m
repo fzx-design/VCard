@@ -374,6 +374,35 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
+- (void)getUserTimeline:(NSString *)userID 
+				SinceID:(NSString *)sinceID 
+                  maxID:(NSString *)maxID 
+		 startingAtPage:(int)page 
+				  count:(int)count
+                feature:(int)feature
+{
+    self.path = @"statuses/user_timeline.json";
+    [self.params setObject:userID forKey:@"uid"];
+	
+    if (sinceID) {
+        [self.params setObject:sinceID forKey:@"since_id"];
+    }
+    if (maxID) {
+        [self.params setObject:maxID forKey:@"max_id"];
+    }
+    if (page > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+    }
+    if (count > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    }
+    if (feature > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", feature] forKey:@"feature"];
+    }
+    
+    [self loadNormalRequest];
+}
+
 #pragma mark Request
 
 - (void)loadNormalRequest
