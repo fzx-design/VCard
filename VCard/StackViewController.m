@@ -32,16 +32,25 @@
 {
     [super viewDidLoad];
     self.stackView.delegate = self;
-    [[NSNotificationCenter defaultCenter]  addObserver:self
-                                              selector:@selector(addNewStackPage:)
-                                                  name:kNotificationNameAddNewStackPage
-                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(addNewStackPage:)
+                                                 name:kNotificationNameAddNewStackPage
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(stackViewSendShowBGNotification) 
+                                                 name:kNotificationNameOrientationWillChange 
+                                               object:nil];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)stackViewSendShowBGNotification
+{
+    [self.stackView sendShowBGNotification];
 }
 
 - (void)addNewStackPage:(NSNotification *)noitfication

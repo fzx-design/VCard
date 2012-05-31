@@ -66,11 +66,6 @@
     
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
     [self addSubview:_scrollView];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(sendShowBGNotification) 
-                                                 name:kNotificationNameOrientationWillChange 
-                                               object:nil];
 }
 
 - (void)addNewPage:(UIView *)newPage replacingView:(BOOL)replacing

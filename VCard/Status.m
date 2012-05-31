@@ -134,7 +134,8 @@
 {
     int totalNumber = [self countOfStatuseInContext:context];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"updateDate > %@", updateDate];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(updateDate <= %@)", updateDate];
+    
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:context];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setPredicate:predicate];
@@ -149,17 +150,9 @@
     totalNumber = [self countOfStatuseInContext:context];
 }
 
-+ (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context
++ (void)deleteObject:(Status *)object inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    
-    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
-    
-    for (NSManagedObject *managedObject in items) {
-        [context deleteObject:managedObject];
-    }
+    [context deleteObject:object];
 }
 
 - (BOOL)hasLocationInfo

@@ -29,5 +29,6 @@
 
 - (void)addNewPage:(UIView *)newPage replacingView:(BOOL)replacing;
 - (void)removeLastView:(UIView *)lastView;
+- (void)sendShowBGNotification;
 
 @end

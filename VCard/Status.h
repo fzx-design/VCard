@@ -47,6 +47,8 @@
 + (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context;
 + (int)countOfStatuseInContext:(NSManagedObjectContext *)context;
 
++ (void)deleteObject:(Status *)object inManagedObjectContext:(NSManagedObjectContext *)context;
+
 - (BOOL)hasLocationInfo;
 - (BOOL)locationInfoAlreadyLoaded;
 

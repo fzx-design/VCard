@@ -236,6 +236,8 @@
             
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
+            
+            
             [self.waterflowView reloadData];
         }
         
@@ -273,6 +275,14 @@
             
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
+            
+            int count = self.fetchedResultsController.fetchedObjects.count - 1;
+            for (int i = dictArray.count - 1;i < count ; i++) {
+                [Status deleteObject:(Status *)[self.fetchedResultsController.fetchedObjects lastObject] inManagedObjectContext:self.managedObjectContext];
+                [self.managedObjectContext processPendingChanges];
+                [self.fetchedResultsController performFetch:nil];
+            }
+            
             
             [self.waterflowView refresh];
             
