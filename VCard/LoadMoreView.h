@@ -28,6 +28,10 @@ typedef enum {
 
 - (void)setState:(LoadMoreViewState)state_;
 - (void)finishedLoading:(BOOL)hasMoreViews;
+- (void)startLoadingAnimation;
+- (void)stopLoadingAnimation;
+- (void)resetPosition;
+
 - (id)initWithScrollView:(UIScrollView *)scrollView;
 
 @property (nonatomic, weak) UIScrollView *scrollView;

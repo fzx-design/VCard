@@ -150,6 +150,19 @@
     totalNumber = [self countOfStatuseInContext:context];
 }
 
++ (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    
+    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
+    
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
+}
+
 + (void)deleteObject:(Status *)object inManagedObjectContext:(NSManagedObjectContext *)context
 {
     [context deleteObject:object];

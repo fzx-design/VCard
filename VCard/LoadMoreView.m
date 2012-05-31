@@ -56,6 +56,16 @@
     } else {
         [self setState:LoadMoreViewStateHidden];
     }
+    [_activityView stopAnimating];
+}
+
+- (void)resetPosition
+{
+    if (_state == LoadMoreViewStateHidden) {
+        [self stopLoadingAnimation];
+    } else {
+        [self startLoadingAnimation];
+    }
     [self resetOriginY:self.scrollView.contentSize.height];
 }
 

@@ -16,7 +16,6 @@
 
 @interface ProfileRelationTableViewController () {
     int _nextCursor;
-    BOOL _loading;
     BOOL _hasMoreViews;
 }
 
@@ -113,9 +112,14 @@
                 }
             }
             
+            [self.managedObjectContext processPendingChanges];
+            [self.fetchedResultsController performFetch:nil];
+            
             _nextCursor = [[client.responseJSONObject objectForKey:@"next_cursor"] intValue];
             _hasMoreViews = _nextCursor != 0;
         }
+        
+        [_loadMoreView finishedLoading:_hasMoreViews];
         [_pullView finishedLoading];
         _loading = NO;
         
@@ -177,6 +181,7 @@
     [self resetBackgroundView];
 }
 
+
 #pragma mark - UIScrollView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -188,14 +193,13 @@
 
 - (void)resetBackgroundView
 {
-    [_loadMoreView finishedLoading:_hasMoreViews];
     if (self.tableView.contentSize.height - self.tableView.contentOffset.y < self.tableView.frame.size.height) {
         self.backgroundView.alpha = 1.0;
         [self.backgroundView resetOriginY:self.tableView.contentSize.height];
         [self.tableView sendSubviewToBack:self.backgroundView];
+        [_loadMoreView resetPosition];
     } else {
         self.backgroundView.alpha = 0.0;
-        return;
     }
 }
 

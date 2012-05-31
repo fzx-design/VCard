@@ -11,6 +11,7 @@
 @interface CoreDataTableViewController : CoreDataViewController<NSFetchedResultsControllerDelegate, 
 UITableViewDelegate, UITableViewDataSource> {
     UITableView *_tableView;
+    BOOL _loading;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
