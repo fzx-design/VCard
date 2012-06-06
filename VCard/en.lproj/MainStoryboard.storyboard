@@ -1042,7 +1042,72 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1116" y="-1503"/>
+            <point key="canvasLocation" x="1084" y="-1503"/>
+        </scene>
+        <!--Comment View Controller-->
+        <scene sceneID="Vbm-f3-rc6">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ukh-Lq-tgS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="CommentViewController" id="Mdv-PJ-exh" customClass="CommentViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ibP-9x-rHj">
+                        <rect key="frame" x="0.0" y="0.0" width="431" height="961"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="dI3-9h-cDc" customClass="BaseStackLayoutView">
+                                <rect key="frame" x="-20" y="0.0" width="431" height="961"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yMl-WM-GLB">
+                                        <rect key="frame" x="36" y="14" width="78" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <size key="titleShadowOffset" width="0.0" height="1"/>
+                                        <state key="normal" title="只查看作者" backgroundImage="button_paper_light_long_bg.png">
+                                            <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="juA-gb-59L">
+                                        <rect key="frame" x="348" y="14" width="78" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <size key="titleShadowOffset" width="0.0" height="1"/>
+                                        <state key="normal" title="发表评论" backgroundImage="button_paper_dark_long_bg.png">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="6CP-42-ocG">
+                                        <rect key="frame" x="189" y="18" width="77" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="backgroundView" destination="dI3-9h-cDc" id="S5F-97-Wne"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1648" y="-1503"/>
         </scene>
         <!--Profile Relation Table View Controller-->
         <scene sceneID="UTA-0H-Tf9">
@@ -1148,6 +1213,38 @@
             </objects>
             <point key="canvasLocation" x="886" y="-375"/>
         </scene>
+        <!--Profile Comment Table View Controller-->
+        <scene sceneID="FoA-qr-T63">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0V2-xc-Pt8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="ProfileCommentTableViewController" id="1mF-j7-1Sc" customClass="ProfileCommentTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="148" sectionHeaderHeight="22" sectionFooterHeight="22" id="XtD-kf-r79">
+                        <rect key="frame" x="0.0" y="0.0" width="384" height="961"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="150" id="aqU-X2-YS6">
+                                <rect key="frame" x="0.0" y="22" width="384" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="384" height="149"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="XtD-kf-r79" id="yaT-h0-93Y"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1466" y="-375"/>
+        </scene>
     </scenes>
     <resources>
         <image name="button_bg_brown.png" width="50" height="30"/>
@@ -1164,6 +1261,7 @@
         <image name="button_menu_search.png" width="25" height="25"/>
         <image name="button_menu_search_hover.png" width="25" height="25"/>
         <image name="button_modify_avatar.png" width="107" height="32"/>
+        <image name="button_paper_dark_long_bg.png" width="78" height="30"/>
         <image name="button_paper_light_bg.png" width="50" height="30"/>
         <image name="button_paper_light_long_bg.png" width="78" height="30"/>
         <image name="button_segments.png" width="107" height="33"/>
@@ -1187,185 +1285,6 @@
         <image name="title_small.png" width="88" height="29"/>
         <image name="topbar_avatar_cover.png" width="28" height="28"/>
     </resources>
-    <classes>
-        <class className="BaseCardBackgroundView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCardBackgroundView.h"/>
-        </class>
-        <class className="BaseLayoutView" superclassName="UIImageView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseLayoutView.h"/>
-        </class>
-        <class className="BaseNavigationBar" superclassName="UINavigationBar">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationBar.h"/>
-        </class>
-        <class className="BaseNavigationView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationView.h"/>
-        </class>
-        <class className="BaseStackLayoutView" superclassName="UIImageView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseStackLayoutView.h"/>
-        </class>
-        <class className="CardImageView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardImageView.h"/>
-        </class>
-        <class className="CardViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="nameButtonClicked:"/>
-                <relationship kind="outlet" name="cardBackground" candidateClass="BaseCardBackgroundView"/>
-                <relationship kind="outlet" name="clipImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="favoredImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="locationPinImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="originalStatusLabel" candidateClass="TTTAttributedLabel"/>
-                <relationship kind="outlet" name="originalUserAvatar" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="originalUserNameButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="repostButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="repostCardBackground" candidateClass="BaseCardBackgroundView"/>
-                <relationship kind="outlet" name="repostStatusInfoView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="repostStatusLabel" candidateClass="TTTAttributedLabel"/>
-                <relationship kind="outlet" name="repostUserAvatar" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="repostUserNameButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="statusImageView" candidateClass="CardImageView"/>
-                <relationship kind="outlet" name="statusInfoView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="CastViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CastViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="groupButtonClicked:"/>
-                <relationship kind="action" name="refreshButtonClicked:"/>
-                <relationship kind="action" name="showProfileButtonClicked:"/>
-                <relationship kind="outlet" name="createStatusButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="groupButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="navigationView" candidateClass="BaseNavigationView"/>
-                <relationship kind="outlet" name="profileImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="refreshButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="refreshIndicatorView" candidateClass="RefreshIndicatorView"/>
-                <relationship kind="outlet" name="searchButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="showProfileButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="waterflowView" candidateClass="WaterflowView"/>
-            </relationships>
-        </class>
-        <class className="CoreDataTableViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="CoreDataViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataViewController.h"/>
-        </class>
-        <class className="DividerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DividerViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="leftPattern" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="rightPattern" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="FriendProfileViewController" superclassName="UserProfileViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendProfileViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="relationshipButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="LoginViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="ProfileRelationTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileRelationTableViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="cellSelectionImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="infoLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="ProfileRelationTableViewController" superclassName="RefreshableCoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileRelationTableViewController.h"/>
-        </class>
-        <class className="ProfileStatusTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileStatusTableViewCell.h"/>
-        </class>
-        <class className="ProfileStatusTableViewController" superclassName="RefreshableCoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileStatusTableViewController.h"/>
-        </class>
-        <class className="RefreshIndicatorView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RefreshIndicatorView.h"/>
-        </class>
-        <class className="RefreshableCoreDataTableViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RefreshableCoreDataTableViewController.h"/>
-        </class>
-        <class className="RootViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RootViewController.h"/>
-        </class>
-        <class className="SelfProfileViewController" superclassName="UserProfileViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfProfileViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="changeAvatarButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkCommentButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkMentionButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="StackView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackView.h"/>
-        </class>
-        <class className="StackViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="stackView" candidateClass="StackView"/>
-            </relationships>
-        </class>
-        <class className="StackViewPageController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackViewPageController.h"/>
-        </class>
-        <class className="TTTAttributedLabel" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TTTAttributedLabel.h"/>
-        </class>
-        <class className="UserAvatarImageView" superclassName="UIImageView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserAvatarImageView.h"/>
-        </class>
-        <class className="UserProfileViewController" superclassName="StackViewPageController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="createNewStackPage:"/>
-                <relationship kind="action" name="showFollowers:"/>
-                <relationship kind="action" name="showFriends:"/>
-                <relationship kind="action" name="showStatuses:"/>
-                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="backgroundView" candidateClass="BaseStackLayoutView"/>
-                <relationship kind="outlet" name="checkFollowersButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkFriendsButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkStatusesButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="discriptionLabel" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="discriptionShadowLabel" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="followerCountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="friendCountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="genderImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="statusCountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="testButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="UserSelectionCellViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSelectionCellViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="avatarImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="avatarImageViewBG" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="userNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="userPasswordTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="WaterflowView" superclassName="UIScrollView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WaterflowView.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

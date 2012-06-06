@@ -1,21 +1,14 @@
 //
-//  StackViewPageController.m
+//  CommentViewController.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-5-26.
+//  Created by 海山 叶 on 12-5-31.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
-#import "StackViewPageController.h"
+#import "CommentViewController.h"
 
-@interface StackViewPageController ()
-
-@end
-
-@implementation StackViewPageController
-
-@synthesize pageIndex = _pageIndex;
-@synthesize backgroundView = _backgroundView;
+@implementation CommentViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,7 +22,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+}
+
+- (void)setUpViews
+{
+
 }
 
 - (void)viewDidUnload
@@ -37,6 +35,5 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
-
 
 @end

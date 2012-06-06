@@ -15,7 +15,6 @@
 
 @interface UserProfileViewController : StackViewPageController {
     UserAvatarImageView *_avatarImageView;
-    BaseStackLayoutView *_backgroundView;
     
     UILabel *_screenNameLabel;
     UILabel *_locationLabel;
@@ -42,7 +41,6 @@
 
 @property (nonatomic, strong) NSString *screenName;
 @property (nonatomic, strong) IBOutlet UserAvatarImageView *avatarImageView;
-@property (nonatomic, strong) IBOutlet BaseStackLayoutView *backgroundView;
 
 @property (nonatomic, strong) IBOutlet UILabel *screenNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *locationLabel;

@@ -20,7 +20,6 @@
 
 @synthesize screenName;
 @synthesize avatarImageView = _avatarImageView;
-@synthesize backgroundView = _backgroundView;
 @synthesize screenNameLabel = _screenNameLabel;
 @synthesize locationLabel = _locationLabel;
 @synthesize discriptionLabel = _discriptionLabel;

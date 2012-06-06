@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
+#import "BaseStackLayoutView.h"
 
 @interface StackViewPageController : CoreDataViewController {
     NSInteger _pageIndex;
+    BaseStackLayoutView *_backgroundView;
     
 }
 
 @property (nonatomic, assign) NSInteger pageIndex;
+@property (nonatomic, strong) IBOutlet BaseStackLayoutView *backgroundView;
 
 
 @end
