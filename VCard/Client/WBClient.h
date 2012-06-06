@@ -102,6 +102,10 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 
 
 - (void)sendWeiBoWithText:(NSString *)text image:(UIImage *)image;
+- (void)sendWeiBoWithText:(NSString *)text 
+                    image:(UIImage *)image
+               longtitude:(NSString *)longtitude 
+                 latitude:(NSString *)latitude;
 
 - (void)authorizeUsingUserID:(NSString *)userID password:(NSString *)password;
 - (void)getUser:(NSString *)userID_;
@@ -121,5 +125,8 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 
 - (void)getFriendsOfUser:(NSString *)userID cursor:(int)cursor count:(int)count;
 - (void)getFollowersOfUser:(NSString *)userID cursor:(int)cursor count:(int)count;
+
+- (void)getAtUsersSuggestions:(NSString *)q;
+- (void)getTopicSuggestions:(NSString *)q;
 
 @end

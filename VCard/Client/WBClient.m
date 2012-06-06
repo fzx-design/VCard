@@ -222,32 +222,46 @@ static NSString *UserID = @"";
     return NO;
 }
 
-- (void)sendWeiBoWithText:(NSString *)text image:(UIImage *)image
-{
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:2];
+- (void)sendWeiBoWithText:(NSString *)text 
+                    image:(UIImage *)image
+               longtitude:(NSString *)longtitude 
+                 latitude:(NSString *)latitude {
+    if(image) {
+        self.path = @"statuses/upload.json";
+        //NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+		[self.params setObject:image forKey:@"pic"];
+        self.postDataType = kWBRequestPostDataTypeMultipart;
+    } else {
+        self.path = @"statuses/update.json";
+        self.postDataType = kWBRequestPostDataTypeNormal;
+    }
     
-    //NSString *sendText = [text URLEncodedString];
+    [self.params setObject:(text ? text : @"") forKey:@"status"];
+    if(longtitude && latitude) {
+        [self.params setObject:longtitude forKey:@"long"];
+        [self.params setObject:latitude forKey:@"lat"];
+    }
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];
     
-	[params setObject:(text ? text : @"") forKey:@"status"];
-	
-//    if (image)
-//    {
-//		[params setObject:image forKey:@"pic"];
-//        
-//        [self loadRequestWithMethodName:@"statuses/upload.json"
-//                             httpMethod:@"POST"
-//                                 params:params
-//                           postDataType:kWBRequestPostDataTypeMultipart
-//                       httpHeaderFields:nil];
-//    }
-//    else
-//    {
-//        [self loadRequestWithMethodName:@"statuses/update.json"
-//                             httpMethod:@"POST"
-//                                 params:params
-//                           postDataType:kWBRequestPostDataTypeNormal
-//                       httpHeaderFields:nil];
-//    }
+}
+
+- (void)sendWeiBoWithText:(NSString *)text image:(UIImage *)image {
+    [self sendWeiBoWithText:text image:image longtitude:nil latitude:nil];
+}
+
+- (void)getAtUsersSuggestions:(NSString *)q {
+    self.path = @"search/suggestions/at_users.json";
+    // 0 for friends, 1 for followers
+    [self.params setObject:@"0" forKey:@"type"];
+    [self.params setObject:q forKey:@"q"];
+    [self loadNormalRequest];
+}
+
+- (void)getTopicSuggestions:(NSString *)q {
+    self.path = @"search/suggestions/statuses.json";
+    [self.params setObject:q forKey:@"q"];
+    [self loadNormalRequest];
 }
 
 - (void)getUser:(NSString *)userID_
@@ -449,6 +463,5 @@ static NSString *UserID = @"";
     [self reportCompletion];
     [self autorelease];
 }
-
 
 @end

@@ -7,9 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIImage+ProportionalFill.h"
 
 @interface UIImage (Addition)
 
+- (UIImage *)rotateAdjustImage;
+- (UIImage *)brightness:(CGFloat)brightness contrast:(CGFloat)contrast;
+- (UIImage *)imageAtRect:(CGRect)rect;
+- (UIImage *)imageByScalingProportionallyToMinimumSize:(CGSize)targetSize;
+- (UIImage *)imageByScalingProportionallyToSize:(CGSize)targetSize;
+- (UIImage *)imageByScalingToSize:(CGSize)targetSize;
+- (UIImage *)imageRotatedByRadians:(CGFloat)radians;
+- (UIImage *)imageRotatedByDegrees:(CGFloat)degrees;
+
 - (UIImage*)imageByScalingAndCroppingForSize:(CGSize)targetSize;
+- (UIImage*)scaleImageToSize:(CGSize)newSize;
 
 @end

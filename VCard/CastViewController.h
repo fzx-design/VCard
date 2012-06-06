@@ -44,5 +44,6 @@
 - (IBAction)showProfileButtonClicked:(id)sender;
 - (IBAction)refreshButtonClicked:(id)sender;
 - (IBAction)groupButtonClicked:(id)sender;
+- (IBAction)didClickCreateStatusButton:(UIButton *)sender;
 
 @end

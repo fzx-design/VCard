@@ -18,6 +18,9 @@
 #import "WaterflowCardCell.h"
 #import "WaterflowDividerCell.h"
 
+#import "PostViewController.h"
+#import "UIApplication+Addition.h"
+
 @interface CastViewController () {
     BOOL _loading;
     NSInteger _nextPage;
@@ -176,6 +179,13 @@
         _refreshIndicatorView.alpha = 1.0;
         self.refreshButton.userInteractionEnabled = YES;
     }];
+}
+
+#pragma mark Post
+
+- (IBAction)didClickCreateStatusButton:(UIButton *)sender {
+    PostViewController *vc = [[PostViewController alloc] init];
+    [UIApplication presentModalViewController:vc animated:YES];
 }
 
 #pragma mark Stack View
