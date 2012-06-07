@@ -8,9 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol EmoticonsViewControllerDelegate;
 @interface EmoticonsViewController : UIViewController <UIScrollViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UIPageControl *pageControl;
+@property (nonatomic, strong) id<EmoticonsViewControllerDelegate> delegate;
+
+@end
+
+@protocol EmoticonsViewControllerDelegate <NSObject>
+
+- (void)didClickEmoticonsButtonWithInfoKey:(NSString *)key;
+
+@end
+
+@interface EmoticonsButton : UIButton
+
+@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, assign) NSString *infoKeyName;
 
 @end

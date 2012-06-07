@@ -2330,6 +2330,8 @@
 				E1097CFC157F99E700BD0640 /* PostAtHintView.m */,
 				E1097CFD157F99E700BD0640 /* PostHintView.h */,
 				E1097CFE157F99E700BD0640 /* PostHintView.m */,
+				E1599CC71580CD7300B9AE72 /* PostRootView.h */,
+				E1599CC81580CD7400B9AE72 /* PostRootView.m */,
 				E1097CFF157F99E700BD0640 /* PostTopicHintCell.h */,
 				E1097D00157F99E700BD0640 /* PostTopicHintCell.m */,
 				E1097D01157F99E700BD0640 /* PostTopicHintCell.xib */,
@@ -2338,8 +2340,6 @@
 				E1097D04157F99E700BD0640 /* PostViewController.h */,
 				E1097D05157F99E700BD0640 /* PostViewController.m */,
 				E1097D06157F99E700BD0640 /* PostViewController.xib */,
-				E1599CC71580CD7300B9AE72 /* PostRootView.h */,
-				E1599CC81580CD7400B9AE72 /* PostRootView.m */,
 			);
 			name = Post;
 			sourceTree = "<group>";

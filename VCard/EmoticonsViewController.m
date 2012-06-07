@@ -21,6 +21,7 @@
 
 @synthesize scrollView = _scrollView;
 @synthesize pageControl = _pageControl;
+@synthesize delegate = _delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -73,17 +74,27 @@
     for(int page = 0; page < pageCount; page++) {
         for(int row = 0; row < SCROLL_VIEW_ROW_COUNT; row++) {
             for(int column = 0; column < SCROLL_VIEW_COLUMN_COUNT; column++) {
-                int index = page * emoticonsPerPage + row * SCROLL_VIEW_ROW_COUNT + column;
+                int index = page * emoticonsPerPage + row * SCROLL_VIEW_COLUMN_COUNT + column;
                 if(index >= emoticonsCount)
                     break;
                 EmoticonsInfo *info = [emoticonsInfoArray objectAtIndex:index];
-                UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:info.imageFileName]];
-                imageView.center = CGPointMake(scrollViewWidth * page + scrollViewWidth / SCROLL_VIEW_COLUMN_COUNT * (column + 0.5f), scrollViewHeight / SCROLL_VIEW_ROW_COUNT * (row + 0.5f));
-                
-                [self.scrollView addSubview:imageView];
+                UIImage *buttonImage = [UIImage imageNamed:info.imageFileName];
+                EmoticonsButton *button = [[EmoticonsButton alloc] initWithFrame:CGRectMake(0, 0, buttonImage.size.width, buttonImage.size.height)];
+                [button setImage:buttonImage forState:UIControlStateNormal];
+                button.center = CGPointMake(scrollViewWidth * page + scrollViewWidth / SCROLL_VIEW_COLUMN_COUNT * (column + 0.5f), scrollViewHeight / SCROLL_VIEW_ROW_COUNT * (row + 0.5f));
+                button.index = index;
+                button.infoKeyName = info.keyName;
+                [button addTarget:self action:@selector(didClickEmoticonsButton:) forControlEvents:UIControlEventTouchUpInside];
+                [self.scrollView addSubview:button];
             }
         }
     }
+}
+
+#pragma mark - IBActions
+
+- (void)didClickEmoticonsButton:(EmoticonsButton *)button {
+    [self.delegate didClickEmoticonsButtonWithInfoKey:[NSString stringWithFormat:@"[%@]", button.infoKeyName]];
 }
 
 #pragma mark - UIScrollView delegate
@@ -93,5 +104,12 @@
     NSInteger page = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
     self.pageControl.currentPage = page;
 }
+
+@end
+
+@implementation EmoticonsButton
+
+@synthesize index = _index;
+@synthesize infoKeyName = _infoKeyName;
 
 @end

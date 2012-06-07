@@ -83,7 +83,6 @@ static EmoticonsInfoReader *readerInstance;
         EmoticonsInfo *info2 = (EmoticonsInfo *)obj2;
         return info1.priorityLevel.integerValue - info2.priorityLevel.integerValue;
     }];
-    NSLog(@"array %@", array);
     return array;
 }
 
