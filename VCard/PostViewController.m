@@ -40,6 +40,7 @@ typedef enum {
 @property (nonatomic, assign) HintViewType currentHintViewType;
 @property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic, strong) EmoticonsViewController *emoticonsViewController;
+@property (nonatomic, readonly) PostRootView *postRootView;
 
 @end
 
@@ -86,6 +87,7 @@ typedef enum {
     self.navActivityView.hidden = YES;
     self.navLabel.text = @"";
     _functionRightViewInitFrame = self.functionRightView.frame;
+    self.postRootView.delegate = self;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -157,6 +159,10 @@ typedef enum {
 }
 
 #pragma mark - Logic methods
+
+- (PostRootView *)postRootView {
+    return (PostRootView *)self.view;
+}
 
 - (EmoticonsViewController *)emoticonsViewController {
     if(!_emoticonsViewController) {
@@ -262,6 +268,7 @@ typedef enum {
 
 - (void)presentAtHintView {
     [self dismissHintView];
+    [self dismissEmoticonsView];
     CGPoint cursorPos = self.cursorPos;
     if(CGPointEqualToPoint(cursorPos, CGPointZero))
         return;
@@ -274,6 +281,7 @@ typedef enum {
 
 - (void)presentTopicHintView {
     [self dismissHintView];
+    [self dismissEmoticonsView];
     CGPoint cursorPos = self.cursorPos;
     if(CGPointEqualToPoint(cursorPos, CGPointZero))
         return;
@@ -343,8 +351,8 @@ typedef enum {
     [currentHintView fadeOutWithCompletion:^{
         [currentHintView removeFromSuperview];
     }];
-    [self.atButton setSelected:NO];
-    [self.topicButton setSelected:NO];
+    self.atButton.selected = NO;
+    self.topicButton.selected = NO;
     _needFillPoundSign = NO;
 }
 
@@ -387,6 +395,29 @@ typedef enum {
     }];
 }
 
+- (void)dismissEmoticonsView {
+    NSLog(@"dismiss emoticons view");
+    self.postRootView.observingViewTag = PostRootViewSubviewTagNone;
+    [self.emoticonsViewController.view fadeOutWithCompletion:^{
+        [self.emoticonsViewController.view removeFromSuperview];
+    }];
+    self.emoticonsButton.selected = NO;
+}
+
+- (void)presentEmoticonsView {
+    NSLog(@"present emoticons view");
+    [self dismissHintView];
+    self.postRootView.observingViewTag = PostRootViewSubviewTagEmoticons;
+    EmoticonsViewController *vc = self.emoticonsViewController;
+    vc.view.alpha = 1;
+    CGRect frame = vc.view.frame;
+    frame.origin = self.cursorPos;
+    vc.view.frame = frame;
+    vc.view.tag = PostRootViewSubviewTagEmoticons;
+    [self.postView addSubview:vc.view];
+    self.emoticonsButton.selected = YES;
+}
+
 #pragma mark - IBActions
 
 - (IBAction)didClickMotionsButton:(UIButton *)sender {
@@ -424,7 +455,8 @@ typedef enum {
         self.textView.selectedRange = range;
         NSLog(@"hint range:(%d, %d)", self.currentHintStringRange.location, self.currentHintStringRange.length);
     } else {
-        self.textView.selectedRange = NSMakeRange(self.textView.selectedRange.location + 1, 0);
+        if(!_needFillPoundSign)
+            self.textView.selectedRange = NSMakeRange(self.textView.selectedRange.location + 1, 0);
         [self dismissHintView];
     }
     sender.selected = select;
@@ -433,15 +465,9 @@ typedef enum {
 - (IBAction)didClickEmoticonsButton:(UIButton *)sender {
     BOOL select = !sender.isSelected;
     if(select) {
-        EmoticonsViewController *vc = self.emoticonsViewController;
-        CGRect frame = vc.view.frame;
-        frame.origin = self.cursorPos;
-        vc.view.frame = frame;
-        [self.postView addSubview:vc.view];
+        [self presentEmoticonsView];
     } else {
-        [self.emoticonsViewController.view fadeOutWithCompletion:^{
-            [self.emoticonsViewController.view removeFromSuperview];
-        }];
+        [self dismissEmoticonsView];
     }
     sender.selected = select;
 }
@@ -462,7 +488,7 @@ typedef enum {
         _located = NO;
         [self hideNavLocationLabel];
     }
-    
+    sender.selected = select;
 }
 
 - (IBAction)didClickPostButton:(UIButton *)sender {
@@ -604,6 +630,15 @@ typedef enum {
     [client getAddressFromGeoWithCoordinate:[[NSString alloc] initWithFormat:@"%f,%f", lon, lat]];
     
     _located = YES;
+}
+
+#pragma mark - PostRootView delegate
+
+- (void)postRootView:(PostRootView *)view didObserveTouchOtherView:(UIView *)otherView {
+    NSLog(@"touch other view");
+    if(otherView == self.emoticonsButton)
+        return;
+    [self dismissEmoticonsView];
 }
 
 @end

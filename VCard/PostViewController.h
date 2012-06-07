@@ -10,8 +10,9 @@
 #import "MotionsViewController.h"
 #import "PostAtHintView.h"
 #import <CoreLocation/CoreLocation.h>
+#import "PostRootView.h"
 
-@interface PostViewController : UIViewController <MotionsViewControllerDelegate, UITextViewDelegate, PostHintViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate> {
+@interface PostViewController : UIViewController <MotionsViewControllerDelegate, UITextViewDelegate, PostHintViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, PostRootViewDelegate> {
     BOOL _keyboardHidden;
     BOOL _located;
     CLLocationCoordinate2D _location2D;

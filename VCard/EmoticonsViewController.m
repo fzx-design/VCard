@@ -8,6 +8,7 @@
 
 #import "EmoticonsViewController.h"
 #import "EmoticonsInfoReader.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define SCROLL_VIEW_ROW_COUNT       3
 #define SCROLL_VIEW_COLUMN_COUNT    5
@@ -35,6 +36,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self configureScrollView];
+    [self configureBorder];
 }
 
 - (void)viewDidUnload
@@ -47,6 +49,14 @@
 }
 
 #pragma mark - UI methods
+
+- (void)configureBorder {
+    self.view.layer.cornerRadius = 12.0f;
+    self.view.layer.shadowOffset = CGSizeMake(0, 10);
+    self.view.layer.shadowRadius = 12.0f;
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.view.layer.shadowOpacity = 0.5f;
+}
 
 - (void)configureScrollView {
     NSInteger emoticonsPerPage = SCROLL_VIEW_ROW_COUNT * SCROLL_VIEW_COLUMN_COUNT;
@@ -74,6 +84,14 @@
             }
         }
     }
+}
+
+#pragma mark - UIScrollView delegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    NSInteger page = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
+    self.pageControl.currentPage = page;
 }
 
 @end
