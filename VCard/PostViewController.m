@@ -543,15 +543,17 @@ typedef enum {
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    if(self.currentHintView) {
+    if([self.currentHintView isKindOfClass:[PostHintView class]]) {
         NSLog(@"text view selected range:%@", NSStringFromRange(self.textView.selectedRange));
         NSInteger length = self.textView.selectedRange.location - self.currentHintStringRange.location;
-        if(length < 0 && [self.currentHintView isKindOfClass:[PostHintView class]])
+        if(length < 0)
             [self dismissHintView];
         else {
             self.currentHintStringRange = NSMakeRange(self.currentHintStringRange.location, length);
             NSLog(@"hint range:(%d, %d)", self.currentHintStringRange.location, self.currentHintStringRange.length);
         }
+    } else if(self.currentHintView) {
+        self.currentHintStringRange = NSMakeRange(self.textView.selectedRange.location, 0);
     }
     [self updateTextCount];
     [self updateCurrentHintView];
