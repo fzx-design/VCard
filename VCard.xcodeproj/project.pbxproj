@@ -513,8 +513,8 @@
 		E1097E98157F9CE500BD0640 /* shachenbao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097DC8157F9CE400BD0640 /* shachenbao@2x.png */; };
 		E1097E99157F9CE500BD0640 /* shangxin.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097DC9157F9CE400BD0640 /* shangxin.png */; };
 		E1097E9A157F9CE500BD0640 /* shangxin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097DCA157F9CE400BD0640 /* shangxin@2x.png */; };
-		E1097E9B157F9CE500BD0640 /* shengbin.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097DCB157F9CE400BD0640 /* shengbin.png */; };
-		E1097E9C157F9CE500BD0640 /* shengbin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097DCC157F9CE400BD0640 /* shengbin@2x.png */; };
+		E1097E9B157F9CE500BD0640 /* shengbing.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097DCB157F9CE400BD0640 /* shengbing.png */; };
+		E1097E9C157F9CE500BD0640 /* shengbing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097DCC157F9CE400BD0640 /* shengbing@2x.png */; };
 		E1097E9D157F9CE500BD0640 /* shenma.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097DCD157F9CE400BD0640 /* shenma.png */; };
 		E1097E9E157F9CE500BD0640 /* shenma@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097DCE157F9CE400BD0640 /* shenma@2x.png */; };
 		E1097E9F157F9CE500BD0640 /* shiwang.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097DCF157F9CE400BD0640 /* shiwang.png */; };
@@ -1266,8 +1266,8 @@
 		E1097DC8157F9CE400BD0640 /* shachenbao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shachenbao@2x.png"; sourceTree = "<group>"; };
 		E1097DC9157F9CE400BD0640 /* shangxin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shangxin.png; sourceTree = "<group>"; };
 		E1097DCA157F9CE400BD0640 /* shangxin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shangxin@2x.png"; sourceTree = "<group>"; };
-		E1097DCB157F9CE400BD0640 /* shengbin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shengbin.png; sourceTree = "<group>"; };
-		E1097DCC157F9CE400BD0640 /* shengbin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shengbin@2x.png"; sourceTree = "<group>"; };
+		E1097DCB157F9CE400BD0640 /* shengbing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shengbing.png; sourceTree = "<group>"; };
+		E1097DCC157F9CE400BD0640 /* shengbing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shengbing@2x.png"; sourceTree = "<group>"; };
 		E1097DCD157F9CE400BD0640 /* shenma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shenma.png; sourceTree = "<group>"; };
 		E1097DCE157F9CE400BD0640 /* shenma@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shenma@2x.png"; sourceTree = "<group>"; };
 		E1097DCF157F9CE400BD0640 /* shiwang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shiwang.png; sourceTree = "<group>"; };
@@ -2474,8 +2474,8 @@
 				E1097DC8157F9CE400BD0640 /* shachenbao@2x.png */,
 				E1097DC9157F9CE400BD0640 /* shangxin.png */,
 				E1097DCA157F9CE400BD0640 /* shangxin@2x.png */,
-				E1097DCB157F9CE400BD0640 /* shengbin.png */,
-				E1097DCC157F9CE400BD0640 /* shengbin@2x.png */,
+				E1097DCB157F9CE400BD0640 /* shengbing.png */,
+				E1097DCC157F9CE400BD0640 /* shengbing@2x.png */,
 				E1097DCD157F9CE400BD0640 /* shenma.png */,
 				E1097DCE157F9CE400BD0640 /* shenma@2x.png */,
 				E1097DCF157F9CE400BD0640 /* shiwang.png */,
@@ -3068,8 +3068,8 @@
 				E1097E98157F9CE500BD0640 /* shachenbao@2x.png in Resources */,
 				E1097E99157F9CE500BD0640 /* shangxin.png in Resources */,
 				E1097E9A157F9CE500BD0640 /* shangxin@2x.png in Resources */,
-				E1097E9B157F9CE500BD0640 /* shengbin.png in Resources */,
-				E1097E9C157F9CE500BD0640 /* shengbin@2x.png in Resources */,
+				E1097E9B157F9CE500BD0640 /* shengbing.png in Resources */,
+				E1097E9C157F9CE500BD0640 /* shengbing@2x.png in Resources */,
 				E1097E9D157F9CE500BD0640 /* shenma.png in Resources */,
 				E1097E9E157F9CE500BD0640 /* shenma@2x.png in Resources */,
 				E1097E9F157F9CE500BD0640 /* shiwang.png in Resources */,
