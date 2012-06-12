@@ -351,6 +351,7 @@ typedef enum {
     self.currentHintView = nil;
     [currentHintView fadeOutWithCompletion:^{
         [currentHintView removeFromSuperview];
+        self.emoticonsViewController = nil;
     }];
     self.atButton.selected = NO;
     self.topicButton.selected = NO;

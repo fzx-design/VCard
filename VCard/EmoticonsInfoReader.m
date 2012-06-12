@@ -17,6 +17,7 @@ static EmoticonsInfoReader *readerInstance;
 
 #define MAX_EMOTICONS_PRIORITY_LEVEL        1000000
 #define EMOTICONS_PRIORITY_LEVEL_INTERVAL   100
+#define EMOTICONS_COUNT                     104
 
 @interface EmoticonsInfoReader()
 
@@ -40,26 +41,45 @@ static EmoticonsInfoReader *readerInstance;
 - (id)init {
     self = [super init];
     if(self) {
-        [self readPlist];
+        //[self readPlist];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSDictionary *dict = [defaults dictionaryForKey:kEmoticonsInfoDict];
-        if(dict)
+        if(dict) {
             self.originEmoticonsInfoDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+            [self generateEmoticonsInfoDict];
+        }
         else 
             [self readPlist];
-        
-        self.emoticonsInfoDict = [NSMutableDictionary dictionaryWithCapacity:self.originEmoticonsInfoDict.count];
-        [self.originEmoticonsInfoDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            EmoticonsInfo *info = [[EmoticonsInfo alloc] initWithDict:obj andKey:key];
-            [self.emoticonsInfoDict setObject:info forKey:key];
-        }];
     }
     return self;
+}
+
+- (void)generateEmoticonsInfoDict {
+    self.emoticonsInfoDict = [NSMutableDictionary dictionaryWithCapacity:self.originEmoticonsInfoDict.count];
+    [self.originEmoticonsInfoDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        EmoticonsInfo *info = [[EmoticonsInfo alloc] initWithDict:obj andKey:key];
+        [self.emoticonsInfoDict setObject:info forKey:key];
+    }];
 }
 
 - (void)readPlist {
     NSString *configFilePath = [[NSBundle mainBundle] pathForResource:@"EmoticonsInfo" ofType:@"plist"];  
     self.originEmoticonsInfoDict = [[[NSMutableDictionary alloc] initWithContentsOfFile:configFilePath] objectForKey:kEmoticonsInfoDict];
+    
+    self.emoticonsInfoDict = [NSMutableDictionary dictionaryWithCapacity:self.originEmoticonsInfoDict.count];
+    [self.originEmoticonsInfoDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        EmoticonsInfo *info = [[EmoticonsInfo alloc] initWithDict:obj andKey:key];
+        info.priorityLevel = EMOTICONS_COUNT - info.priorityLevel;
+        [self.emoticonsInfoDict setObject:info forKey:key];
+    }];
+    
+    [self.emoticonsInfoDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        EmoticonsInfo *info = obj;
+        NSMutableDictionary *originInfo = [NSMutableDictionary dictionaryWithDictionary:[self.originEmoticonsInfoDict objectForKey:key]];
+        [originInfo setObject:[NSNumber numberWithInteger:info.priorityLevel] forKey:kPriorityLevel];
+        [self.originEmoticonsInfoDict setObject:originInfo forKey:key];
+    }];
+    
     [self userDefaultsSynchronize];
 }
 
@@ -81,25 +101,31 @@ static EmoticonsInfoReader *readerInstance;
     [array sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         EmoticonsInfo *info1 = (EmoticonsInfo *)obj1;
         EmoticonsInfo *info2 = (EmoticonsInfo *)obj2;
-        return info1.priorityLevel.integerValue - info2.priorityLevel.integerValue;
+        return info2.priorityLevel - info1.priorityLevel;
     }];
     return array;
 }
 
 - (void)addEmoticonsPriorityLevelForKey:(NSString *)key {
     EmoticonsInfo *info = [self.emoticonsInfoDict objectForKey:key];
-    info.priorityLevel = [NSNumber numberWithInteger:info.priorityLevel.integerValue + EMOTICONS_PRIORITY_LEVEL_INTERVAL];
+    info.priorityLevel = info.priorityLevel + EMOTICONS_PRIORITY_LEVEL_INTERVAL;
     [self.emoticonsInfoDict setObject:info forKey:key];
-    if(info.priorityLevel.integerValue > MAX_EMOTICONS_PRIORITY_LEVEL) {
-        __block NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithCapacity:self.emoticonsInfoDict.count];
+    NSMutableDictionary *originInfo = [NSMutableDictionary dictionaryWithDictionary:[self.originEmoticonsInfoDict objectForKey:key]];
+    [originInfo setObject:[NSNumber numberWithInteger:info.priorityLevel] forKey:kPriorityLevel];
+    [self.originEmoticonsInfoDict setObject:originInfo forKey:key];
+    
+    NSLog(@"key:%@, priority level:%d", key, info.priorityLevel);
+    
+    if(info.priorityLevel > MAX_EMOTICONS_PRIORITY_LEVEL) {
         [self.emoticonsInfoDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            EmoticonsInfo *item = (EmoticonsInfo *)item;
-            item.priorityLevel = [NSNumber numberWithInteger:item.priorityLevel.integerValue / 2];
-            [newDict setObject:item forKey:key];
+            EmoticonsInfo *item = obj;
+            item.priorityLevel = item.priorityLevel / 2;
+            
+            NSMutableDictionary *originInfo = [NSMutableDictionary dictionaryWithDictionary:[self.originEmoticonsInfoDict objectForKey:key]];
+            [originInfo setObject:[NSNumber numberWithInteger:item.priorityLevel] forKey:kPriorityLevel];
+            [self.originEmoticonsInfoDict setObject:originInfo forKey:key];
         }];
-        self.emoticonsInfoDict = newDict;
     }
-    [self userDefaultsSynchronize];
 }
 
 @end
@@ -115,7 +141,8 @@ static EmoticonsInfoReader *readerInstance;
     if(self) {
         self.keyName = key;
         self.imageFileName = [dict objectForKey:kImageFileName];
-        self.priorityLevel = [dict objectForKey:kPriorityLevel];
+        NSNumber *level = [dict objectForKey:kPriorityLevel];
+        self.priorityLevel = level.integerValue;
     }
     return self;
 }

@@ -16,6 +16,7 @@
 - (EmoticonsInfo *)emoticonsInfoForKey:(NSString *)key;
 - (NSArray *)emoticonsInfoArray;
 - (void)addEmoticonsPriorityLevelForKey:(NSString *)key;
+- (void)userDefaultsSynchronize;
 
 @end
 
@@ -23,7 +24,7 @@
 
 @property (nonatomic, strong) NSString *keyName;
 @property (nonatomic, strong) NSString *imageFileName;
-@property (nonatomic, assign) NSNumber *priorityLevel;
+@property (nonatomic, assign) NSInteger priorityLevel;
 
 - (id)initWithDict:(NSDictionary *)dict andKey:(NSString *)key;
 

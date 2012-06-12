@@ -36,6 +36,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [[EmoticonsInfoReader sharedReader] userDefaultsSynchronize]; 
     [self configureScrollView];
     [self configureBorder];
 }
@@ -95,6 +96,7 @@
 
 - (void)didClickEmoticonsButton:(EmoticonsButton *)button {
     [self.delegate didClickEmoticonsButtonWithInfoKey:[NSString stringWithFormat:@"[%@]", button.infoKeyName]];
+    [[EmoticonsInfoReader sharedReader] addEmoticonsPriorityLevelForKey:button.infoKeyName];
 }
 
 #pragma mark - UIScrollView delegate
