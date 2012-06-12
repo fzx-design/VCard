@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rLP-Ra-ZR8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2541" systemVersion="12A239" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rLP-Ra-ZR8">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1875"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="jCw-kM-Udw">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cHR-7n-pWN" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="rLP-Ra-ZR8" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="bUl-ex-2I2"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -20,13 +17,13 @@
                         <segue destination="2" kind="relationship" relationship="rootViewController" id="bFM-he-SsP"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cHR-7n-pWN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3336" y="-363"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
                 <viewController id="2" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5" customClass="BaseLayoutView">
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
@@ -68,13 +65,13 @@
                         <segue destination="iUP-hU-wvp" kind="custom" identifier="ShowRootViewController" id="57r-b5-YRm"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2285" y="-363"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="ilv-Xw-sI2">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="AMF-ee-j0K" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="RootViewController" id="iUP-hU-wvp" customClass="RootViewController" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="ZYc-Qk-lY0">
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
@@ -86,13 +83,13 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AMF-ee-j0K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1309" y="-363"/>
         </scene>
         <!--User Selection Cell View Controller-->
         <scene sceneID="vG5-fM-QwH">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ohr-bI-qmJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="UserSelectionCellViewController" autoresizesArchivedViewToFullSize="NO" id="iuS-DR-Cnr" customClass="UserSelectionCellViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="center" id="cMx-VV-zFN">
                         <rect key="frame" x="0.0" y="0.0" width="292" height="447"/>
@@ -117,16 +114,16 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="新浪帐号" minimumFontSize="17" clearButtonMode="whileEditing" id="jHm-wl-Ze3">
                                 <rect key="frame" x="44" y="311" width="204" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" minimumFontSize="17" id="QQD-Eu-E7R">
                                 <rect key="frame" x="44" y="349" width="204" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="join" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="join" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="17e-pt-CnG">
                                 <rect key="frame" x="217" y="356" width="32" height="32"/>
@@ -158,13 +155,13 @@
                         <outlet property="userPasswordTextField" destination="QQD-Eu-E7R" id="H22-5J-hfh"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ohr-bI-qmJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3098" y="-1092"/>
         </scene>
         <!--Card View Controller-->
         <scene sceneID="cow-Ge-Jm5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IFu-b2-IWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="CardViewController" id="u04-WG-2X6" customClass="CardViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hgq-wm-12w">
                         <rect key="frame" x="0.0" y="0.0" width="362" height="550"/>
@@ -295,21 +292,21 @@
                                 <rect key="frame" x="18" y="523" width="14" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="同济大学苹果俱乐部" lineBreakMode="tailTruncation" minimumFontSize="10" id="Y1f-Ss-MYr">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" minimumFontSize="10" text="同济大学苹果俱乐部" autoshrinkMode="minimumFontSize" id="Y1f-Ss-MYr">
                                 <rect key="frame" x="40" y="523" width="189" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.72549019609999998" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="textColor" red="0.72549019609999998" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="deviceRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="5月21日 5:21" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="x7s-cO-Zoz">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="5月21日 5:21" textAlignment="right" autoshrinkMode="minimumFontSize" id="x7s-cO-Zoz">
                                 <rect key="frame" x="224" y="523" width="118" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" red="0.63137254899999995" green="0.63137254899999995" blue="0.63137254899999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.63137254899999995" green="0.63137254899999995" blue="0.63137254899999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -339,13 +336,13 @@
                         <outlet property="timeStampLabel" destination="x7s-cO-Zoz" id="MKe-5q-ats"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IFu-b2-IWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2676" y="-1086"/>
         </scene>
         <!--Divider View Controller-->
         <scene sceneID="xOr-Zz-lin">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tcQ-il-wUK" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="DividerViewController" id="06P-hI-xJn" customClass="DividerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HxY-p6-LU3">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="30"/>
@@ -359,15 +356,15 @@
                                 <rect key="frame" x="409" y="-4" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="apS-Qb-5cj">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Label" autoshrinkMode="minimumFontSize" id="apS-Qb-5cj">
                                 <rect key="frame" x="367" y="0.0" width="34" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
+                                <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -382,13 +379,13 @@
                         <outlet property="timeLabel" destination="apS-Qb-5cj" id="5ma-vr-3Cq"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tcQ-il-wUK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2201" y="-861"/>
         </scene>
         <!--Cast View Controller-->
         <scene sceneID="OtA-Oh-wxl">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VLQ-ZQ-gkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="CastViewController" id="qGg-RJ-Vfa" customClass="CastViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uIE-Cv-hbN">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
@@ -515,13 +512,13 @@
                         <outlet property="waterflowView" destination="EbD-7g-wPC" id="1q0-J0-NB6"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VLQ-ZQ-gkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1309" y="-1503"/>
         </scene>
         <!--Stack View Controller-->
         <scene sceneID="FnC-xg-zPH">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="b8M-0f-oMD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="StackViewController" id="btu-gV-8i1" customClass="StackViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aBB-Nw-SOA">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="961"/>
@@ -543,13 +540,13 @@
                         <outlet property="stackView" destination="TDJ-9u-JTU" id="lbi-kR-zw7"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b8M-0f-oMD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-416" y="-1495"/>
         </scene>
         <!--Self Profile View Controller-->
         <scene sceneID="dbd-8T-Fec">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FnB-Ta-sAS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SelfProfileViewController" id="m0Z-sD-uNg" customClass="SelfProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vXz-KM-atp">
                         <rect key="frame" x="0.0" y="0.0" width="431" height="961"/>
@@ -573,15 +570,15 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="用户名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="VQT-OI-K9Y">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="用户名" autoshrinkMode="minimumFontSize" id="VQT-OI-K9Y">
                                         <rect key="frame" x="172" y="33" width="103" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" red="0.37647058823529411" green="0.37647058823529411" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.37647058823529411" green="0.37647058823529411" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="hrr-cU-C2p" customClass="UserAvatarImageView">
                                         <rect key="frame" x="50" y="45" width="90" height="90"/>
@@ -595,14 +592,14 @@
                                         <rect key="frame" x="173" y="95" width="15" height="15"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="正在载入" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Rns-ws-YFG">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="正在载入" autoshrinkMode="minimumFontSize" id="Rns-ws-YFG">
                                         <rect key="frame" x="195" y="64" width="147" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="center" image="profile_info_bg.png" id="sgU-tw-qZS">
                                         <rect key="frame" x="23" y="206" width="384" height="119"/>
@@ -652,32 +649,32 @@
                                             <action selector="showFriends:" destination="m0Z-sD-uNg" eventType="touchUpInside" id="GuI-fE-HPM"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="粉丝" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="i2X-Ra-PGy">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="粉丝" textAlignment="center" autoshrinkMode="minimumFontSize" id="i2X-Ra-PGy">
                                         <rect key="frame" x="284" y="293" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="关注" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Kfm-FK-Vjp">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="关注" textAlignment="center" autoshrinkMode="minimumFontSize" id="Kfm-FK-Vjp">
                                         <rect key="frame" x="168" y="293" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="微博" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="gRc-rR-vp1">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="微博" textAlignment="center" autoshrinkMode="minimumFontSize" id="gRc-rR-vp1">
                                         <rect key="frame" x="52" y="293" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BY2-Hq-BV7">
                                         <rect key="frame" x="284" y="251" width="95" height="74"/>
@@ -719,48 +716,48 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Zym-TS-IiN">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="0" textAlignment="center" autoshrinkMode="minimumFontSize" id="Zym-TS-IiN">
                                         <rect key="frame" x="52" y="265" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <color key="textColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="A4z-ng-jR0">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="0" textAlignment="center" autoshrinkMode="minimumFontSize" id="A4z-ng-jR0">
                                         <rect key="frame" x="284" y="265" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="UVb-Yr-5C7">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="0" textAlignment="center" autoshrinkMode="minimumFontSize" id="UVb-Yr-5C7">
                                         <rect key="frame" x="168" y="265" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" editable="NO" id="ylF-58-aSM">
                                         <rect key="frame" x="186" y="88" width="194" height="101"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" editable="NO" id="kKn-kG-dHh">
                                         <rect key="frame" x="186" y="87" width="194" height="101"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <color key="textColor" red="0.37647058823529411" green="0.37647058823529411" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -791,13 +788,13 @@
                         <outlet property="statusCountLabel" destination="Zym-TS-IiN" id="A8h-ay-jdW"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FnB-Ta-sAS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="512" y="-1495"/>
         </scene>
         <!--Friend Profile View Controller-->
         <scene sceneID="iiX-iS-BIb">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cS9-ua-LOH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="FriendProfileViewController" id="Crt-Sg-sLH" customClass="FriendProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="p9I-4h-b7p">
                         <rect key="frame" x="0.0" y="0.0" width="431" height="961"/>
@@ -820,15 +817,15 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="用户名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="MUB-mu-ydS">
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="用户名" autoshrinkMode="minimumFontSize" id="MUB-mu-ydS">
                                         <rect key="frame" x="172" y="33" width="163" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="5dy-U8-qCw" customClass="UserAvatarImageView">
                                         <rect key="frame" x="50" y="45" width="90" height="90"/>
@@ -842,15 +839,15 @@
                                         <rect key="frame" x="172" y="95" width="15" height="15"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="正在载入" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="K1m-ef-bqP">
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="正在载入" autoshrinkMode="minimumFontSize" id="K1m-ef-bqP">
                                         <rect key="frame" x="193" y="64" width="147" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" image="following_segements_bg.png" id="gtT-wE-BZ6">
                                         <rect key="frame" x="23" y="205" width="384" height="75"/>
@@ -916,81 +913,81 @@
                                             <action selector="showFollowers:" destination="Crt-Sg-sLH" eventType="touchUpInside" id="2iw-dy-PMO"/>
                                         </connections>
                                     </button>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="粉丝" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="1Uy-EX-tQ2">
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="粉丝" textAlignment="center" autoshrinkMode="minimumFontSize" id="1Uy-EX-tQ2">
                                         <rect key="frame" x="284" y="248" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                     </label>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="关注" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="79J-3f-pCC">
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="关注" textAlignment="center" autoshrinkMode="minimumFontSize" id="79J-3f-pCC">
                                         <rect key="frame" x="168" y="248" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                     </label>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="微博" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="r4K-Rw-d4T">
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="微博" textAlignment="center" autoshrinkMode="minimumFontSize" id="r4K-Rw-d4T">
                                         <rect key="frame" x="52" y="248" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                     </label>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="IJT-dN-PsI">
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="0" textAlignment="center" autoshrinkMode="minimumFontSize" id="IJT-dN-PsI">
                                         <rect key="frame" x="52" y="220" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                     </label>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="KGs-ms-QDR">
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="0" textAlignment="center" autoshrinkMode="minimumFontSize" id="KGs-ms-QDR">
                                         <rect key="frame" x="284" y="220" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                     </label>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="mpC-ir-UQn">
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="0" textAlignment="center" autoshrinkMode="minimumFontSize" id="mpC-ir-UQn">
                                         <rect key="frame" x="168" y="220" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" editable="NO" id="SfH-Vg-eG2">
                                         <rect key="frame" x="186" y="88" width="194" height="101"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" editable="NO" id="wXo-Xj-Bpr">
                                         <rect key="frame" x="186" y="87" width="194" height="101"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="b0I-9f-sZP">
                                         <rect key="frame" x="119" y="154" width="32" height="36"/>
@@ -1044,13 +1041,13 @@
                         <outlet property="statusCountLabel" destination="IJT-dN-PsI" id="uQ4-cu-BGp"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cS9-ua-LOH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1084" y="-1503"/>
         </scene>
         <!--Comment View Controller-->
         <scene sceneID="Vbm-f3-rc6">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ukh-Lq-tgS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="CommentViewController" id="Mdv-PJ-exh" customClass="CommentViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ibP-9x-rHj">
                         <rect key="frame" x="0.0" y="0.0" width="431" height="961"/>
@@ -1086,14 +1083,14 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="6CP-42-ocG">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Label" textAlignment="center" autoshrinkMode="minimumFontSize" id="6CP-42-ocG">
                                         <rect key="frame" x="189" y="18" width="77" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
+                                        <color key="textColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1109,13 +1106,13 @@
                         <outlet property="backgroundView" destination="dI3-9h-cDc" id="S5F-97-Wne"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ukh-Lq-tgS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1648" y="-1503"/>
         </scene>
         <!--Profile Relation Table View Controller-->
         <scene sceneID="UTA-0H-Tf9">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zce-CM-zgd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ProfileRelationTableViewController" id="nfz-SQ-1pw" customClass="ProfileRelationTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="66" sectionHeaderHeight="22" sectionFooterHeight="22" id="hML-yX-4DC">
                         <rect key="frame" x="0.0" y="0.0" width="384" height="961"/>
@@ -1141,23 +1138,23 @@
                                             <rect key="frame" x="9" y="9" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="李开复" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="EnC-e9-GeP">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="李开复" autoshrinkMode="minimumFontSize" id="EnC-e9-GeP">
                                             <rect key="frame" x="47" y="11" width="227" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                            <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <size key="shadowOffset" width="0.0" height="1"/>
+                                            <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="4hW-L7-Nc4">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Label" autoshrinkMode="minimumFontSize" id="4hW-L7-Nc4">
                                             <rect key="frame" x="47" y="36" width="227" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                            <color key="textColor" red="0.68235294120000001" green="0.68235294120000001" blue="0.68235294120000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <size key="shadowOffset" width="0.0" height="1"/>
+                                            <color key="textColor" red="0.68235294120000001" green="0.68235294120000001" blue="0.68235294120000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1180,13 +1177,13 @@
                         <outlet property="tableView" destination="hML-yX-4DC" id="JS8-U8-Obq"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zce-CM-zgd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="320" y="-375"/>
         </scene>
         <!--Profile Status Table View Controller-->
         <scene sceneID="lVn-a9-Brw">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NQc-zB-cUS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ProfileStatusTableViewController" id="sdi-B2-IlV" customClass="ProfileStatusTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="735" sectionHeaderHeight="22" sectionFooterHeight="22" id="YgW-eb-bqv">
                         <rect key="frame" x="0.0" y="0.0" width="384" height="961"/>
@@ -1213,13 +1210,13 @@
                         <outlet property="tableView" destination="YgW-eb-bqv" id="ghX-q3-N1c"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NQc-zB-cUS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="886" y="-375"/>
         </scene>
         <!--Profile Comment Table View Controller-->
         <scene sceneID="FoA-qr-T63">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0V2-xc-Pt8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ProfileCommentTableViewController" id="1mF-j7-1Sc" customClass="ProfileCommentTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="148" sectionHeaderHeight="22" sectionFooterHeight="22" id="XtD-kf-r79">
                         <rect key="frame" x="0.0" y="0.0" width="384" height="961"/>
@@ -1245,6 +1242,7 @@
                         <outlet property="tableView" destination="XtD-kf-r79" id="yaT-h0-93Y"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0V2-xc-Pt8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1466" y="-375"/>
         </scene>
@@ -1288,194 +1286,6 @@
         <image name="title_small.png" width="88" height="29"/>
         <image name="topbar_avatar_cover.png" width="28" height="28"/>
     </resources>
-    <classes>
-        <class className="BaseCardBackgroundView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCardBackgroundView.h"/>
-        </class>
-        <class className="BaseLayoutView" superclassName="UIImageView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseLayoutView.h"/>
-        </class>
-        <class className="BaseNavigationBar" superclassName="UINavigationBar">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationBar.h"/>
-        </class>
-        <class className="BaseNavigationView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationView.h"/>
-        </class>
-        <class className="BaseStackLayoutView" superclassName="UIImageView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseStackLayoutView.h"/>
-        </class>
-        <class className="CardImageView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardImageView.h"/>
-        </class>
-        <class className="CardViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="nameButtonClicked:"/>
-                <relationship kind="outlet" name="cardBackground" candidateClass="BaseCardBackgroundView"/>
-                <relationship kind="outlet" name="clipImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="favoredImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="locationPinImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="originalStatusLabel" candidateClass="TTTAttributedLabel"/>
-                <relationship kind="outlet" name="originalUserAvatar" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="originalUserNameButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="repostButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="repostCardBackground" candidateClass="BaseCardBackgroundView"/>
-                <relationship kind="outlet" name="repostStatusInfoView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="repostStatusLabel" candidateClass="TTTAttributedLabel"/>
-                <relationship kind="outlet" name="repostUserAvatar" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="repostUserNameButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="statusImageView" candidateClass="CardImageView"/>
-                <relationship kind="outlet" name="statusInfoView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="CastViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CastViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickCreateStatusButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="groupButtonClicked:"/>
-                <relationship kind="action" name="refreshButtonClicked:"/>
-                <relationship kind="action" name="showProfileButtonClicked:"/>
-                <relationship kind="outlet" name="createStatusButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="groupButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="navigationView" candidateClass="BaseNavigationView"/>
-                <relationship kind="outlet" name="profileImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="refreshButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="refreshIndicatorView" candidateClass="RefreshIndicatorView"/>
-                <relationship kind="outlet" name="searchButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="showProfileButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="waterflowView" candidateClass="WaterflowView"/>
-            </relationships>
-        </class>
-        <class className="CommentViewController" superclassName="StackViewPageController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentViewController.h"/>
-        </class>
-        <class className="CoreDataTableViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="CoreDataViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataViewController.h"/>
-        </class>
-        <class className="DividerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DividerViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="leftPattern" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="rightPattern" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="FriendProfileViewController" superclassName="UserProfileViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendProfileViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="relationshipButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="LoginViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="ProfileCommentTableViewController" superclassName="RefreshableCoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileCommentTableViewController.h"/>
-        </class>
-        <class className="ProfileRelationTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileRelationTableViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="cellSelectionImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="infoLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="ProfileRelationTableViewController" superclassName="RefreshableCoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileRelationTableViewController.h"/>
-        </class>
-        <class className="ProfileStatusTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileStatusTableViewCell.h"/>
-        </class>
-        <class className="ProfileStatusTableViewController" superclassName="RefreshableCoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileStatusTableViewController.h"/>
-        </class>
-        <class className="RefreshIndicatorView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RefreshIndicatorView.h"/>
-        </class>
-        <class className="RefreshableCoreDataTableViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RefreshableCoreDataTableViewController.h"/>
-        </class>
-        <class className="RootViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RootViewController.h"/>
-        </class>
-        <class className="SelfProfileViewController" superclassName="UserProfileViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfProfileViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="changeAvatarButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkCommentButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkMentionButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="StackView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackView.h"/>
-        </class>
-        <class className="StackViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="stackView" candidateClass="StackView"/>
-            </relationships>
-        </class>
-        <class className="StackViewPageController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackViewPageController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="backgroundView" candidateClass="BaseStackLayoutView"/>
-            </relationships>
-        </class>
-        <class className="TTTAttributedLabel" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TTTAttributedLabel.h"/>
-        </class>
-        <class className="UserAvatarImageView" superclassName="UIImageView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserAvatarImageView.h"/>
-        </class>
-        <class className="UserProfileViewController" superclassName="StackViewPageController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="createNewStackPage:"/>
-                <relationship kind="action" name="showFollowers:"/>
-                <relationship kind="action" name="showFriends:"/>
-                <relationship kind="action" name="showStatuses:"/>
-                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="checkFollowersButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkFriendsButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkStatusesButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="discriptionLabel" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="discriptionShadowLabel" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="followerCountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="friendCountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="genderImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="statusCountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="testButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="UserSelectionCellViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSelectionCellViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="avatarImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="avatarImageViewBG" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="userNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="userPasswordTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="WaterflowView" superclassName="UIScrollView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WaterflowView.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

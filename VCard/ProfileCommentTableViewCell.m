@@ -10,6 +10,15 @@
 
 @implementation ProfileCommentTableViewCell
 
+@synthesize avatarImageView = _avatarImageView;
+@synthesize baseCardBackgroundView = _baseCardBackgroundView;
+@synthesize screenNameButton = _screenNameButton;
+@synthesize commentButton = _commentButton;
+@synthesize moreActionButton = _moreActionButton;
+@synthesize leftThreadImageView = _leftThreadImageView;
+@synthesize rightThreadImageView = _rightThreadImageView;
+
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

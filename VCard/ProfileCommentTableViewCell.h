@@ -7,7 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserAvatarImageView.h"
+#import "BaseCardBackgroundView.h"
 
-@interface ProfileCommentTableViewCell : UITableViewCell
+@interface ProfileCommentTableViewCell : UITableViewCell {
+    UserAvatarImageView *_avatarImageView;
+    BaseCardBackgroundView *_baseCardBackgroundView;
+    
+    UIButton *_screenNameButton;
+    UIButton *_commentButton;
+    UIButton *_moreActionButton;
+    UIImageView *_leftThreadImageView;
+    UIImageView *_rightThreadImageView;
+}
+
+@property (nonatomic, strong) IBOutlet UserAvatarImageView *avatarImageView;
+@property (nonatomic, strong) IBOutlet BaseCardBackgroundView *baseCardBackgroundView;
+@property (nonatomic, strong) IBOutlet UIButton *screenNameButton;
+@property (nonatomic, strong) IBOutlet UIButton *commentButton;
+@property (nonatomic, strong) IBOutlet UIButton *moreActionButton;
+@property (nonatomic, strong) IBOutlet UIImageView *leftThreadImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *rightThreadImageView;
 
 @end
