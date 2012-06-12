@@ -80,6 +80,7 @@
     [self configureCaptureSession];
     [self configureUI];
     if(self.originImage != nil) {
+        [self configureEditImage:self.originImage];
         [self showEditViewAnimated:NO];
     }
     else 
@@ -110,7 +111,7 @@
 - (id)initWithImage:(UIImage *)image {
     self = [super init]; 
     if(self) {
-        [self configureEditImage:image];
+        self.originImage = image;
     }
     return self;
 }
@@ -268,7 +269,6 @@
     else {
         self.filterImageView.alpha = 0;
         [self performSelector:@selector(configureFilterImageView:) withObject:self.originImage afterDelay:0.5f];
-        [self.filterImageView performSelector:@selector(fadeIn) withObject:nil afterDelay:0.7f];
     }
     
     if(animated)
@@ -333,7 +333,12 @@
             [self.captureSession startRunning];
             [self.cameraPreviewView.layer addSublayer:self.previewLayer];
             self.filterImageView.hidden = YES;
-            [self hideCameraCoverAnimation];
+            
+            if(self.previewLayer == nil) {
+                [self openCamera];
+            } else {
+                [self hideCameraCoverAnimation];
+            }
         }];
     }];
 }
@@ -400,14 +405,18 @@
     NSLog(@"filter image width:%f, height:%f", image.size.width, image.size.height);
     [self.filterImageView setImage:aspectFillImage];
     [self.filterImageView setNeedsDisplay];
+    
+    if(self.filterImageView.alpha == 0)
+        [self.filterImageView fadeIn];
 }
 
 - (void)configureEditImage:(UIImage *)image {
-    image = [image rotateAdjustImage];
-    self.capturedImageView.image = image;
-    self.originImage = image;
-    self.modifiedImage = image;
+    UIImage *adjustImage = [image rotateAdjustImage];
+    self.capturedImageView.image = adjustImage;
+    self.originImage = adjustImage;
+    self.modifiedImage = adjustImage;
     NSLog(@"origin image width:%f, height:%f", image.size.width, image.size.height);
+    NSLog(@"scale factor:%f", self.capturedImageView.contentScaleFactor);
 }
 
 - (void)configureShotImage:(UIImage *)image {
@@ -509,7 +518,6 @@
     
     self.cropButton.hidden = YES;
     self.finishCropButton.hidden = NO;
-    
     
     self.cropImageViewController = [[CropImageViewController alloc] initWithImage:self.modifiedImage filteredImage:self.filteredImage];
     self.cropImageViewController.view.frame = self.filterImageView.frame;
