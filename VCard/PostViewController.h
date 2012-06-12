@@ -13,7 +13,8 @@
 #import "PostRootView.h"
 #import "EmoticonsViewController.h"
 
-@interface PostViewController : UIViewController <MotionsViewControllerDelegate, UITextViewDelegate, PostHintViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, PostRootViewDelegate, EmoticonsViewControllerDelegate> {
+@protocol PostViewControllerDelegate;
+@interface PostViewController : UIViewController <MotionsViewControllerDelegate, UITextViewDelegate, PostHintViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, PostRootViewDelegate, EmoticonsViewControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
     BOOL _keyboardHidden;
     BOOL _located;
     CLLocationCoordinate2D _location2D;
@@ -31,10 +32,13 @@
 @property (nonatomic, strong) IBOutlet UIButton     *atButton;
 @property (nonatomic, strong) IBOutlet UIButton     *emoticonsButton;
 @property (nonatomic, strong) IBOutlet UIButton     *topicButton;
+@property (nonatomic, strong) IBOutlet UIButton     *motionsButton;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *navActivityView;
 @property (nonatomic, strong) IBOutlet UILabel *navLabel;
 @property (nonatomic, strong) IBOutlet UIView *functionLeftView;
 @property (nonatomic, strong) IBOutlet UIView *functionRightView;
+
+@property (nonatomic, weak) id<PostViewControllerDelegate> delegate;
 
 - (IBAction)didClickMotionsButton:(UIButton *)sender;
 - (IBAction)didClickReturnButton:(UIButton *)sender;
@@ -43,5 +47,12 @@
 - (IBAction)didClickTopicButton:(UIButton *)sender;
 - (IBAction)didClickEmoticonsButton:(UIButton *)sender;
 - (IBAction)didClickNavButton:(UIButton *)sender;
+
+@end
+
+@protocol PostViewControllerDelegate <NSObject>
+
+- (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message;
+- (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message;
 
 @end

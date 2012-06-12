@@ -7,6 +7,7 @@
 //
 
 #import "PostViewController.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 #import "UIApplication+Addition.h"
 #import "PostAtHintView.h"
 #import "PostTopicHintView.h"
@@ -29,6 +30,12 @@ typedef enum {
     HintViewTypeTopic,
 } HintViewType;
 
+typedef enum {
+    ActionSheetTypeNone,
+    ActionSheetTypeDestruct,
+    ActionSheetTypeMotions,
+} ActionSheetType;
+
 @interface PostViewController ()
 
 @property (nonatomic, assign) CGFloat keyboardHeight;
@@ -40,6 +47,8 @@ typedef enum {
 @property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic, strong) EmoticonsViewController *emoticonsViewController;
 @property (nonatomic, readonly) PostRootView *postRootView;
+@property (nonatomic, assign) ActionSheetType currentActionSheetType;
+@property (nonatomic, strong) UIPopoverController *popoverController;
 
 @end
 
@@ -52,12 +61,14 @@ typedef enum {
 @synthesize textContainerView = _textContainerView;
 @synthesize navButton = _navButton;
 @synthesize atButton = _atButton;
+@synthesize motionsButton = _motionsButton;
 @synthesize emoticonsButton = _emoticonsButton;
 @synthesize topicButton = _topicButton;
 @synthesize navActivityView = _navActivityView;
 @synthesize navLabel = _navLabel;
 @synthesize functionLeftView = _functionLeftView;
 @synthesize functionRightView = _functionRightView;
+@synthesize delegate = _delegate;
 
 @synthesize keyboardHeight = _keyboardHeight;
 @synthesize currentHintView = _currentHintView;
@@ -66,6 +77,8 @@ typedef enum {
 @synthesize currentHintViewType = _currentHintViewType;
 @synthesize locationManager = locationManager;
 @synthesize emoticonsViewController = _emoticonsViewController;
+@synthesize currentActionSheetType = _currentActionSheetType;
+@synthesize popoverController = _pc;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -110,6 +123,7 @@ typedef enum {
     self.navLabel = nil;
     self.functionLeftView = nil;
     self.functionRightView = nil;
+    self.motionsButton = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -418,13 +432,23 @@ typedef enum {
 #pragma mark - IBActions
 
 - (IBAction)didClickMotionsButton:(UIButton *)sender {
-    MotionsViewController *vc = [[MotionsViewController alloc] init];
-    vc.delegate = self;
-    [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+															 delegate:self 
+													cancelButtonTitle:nil 
+											   destructiveButtonTitle:nil
+													otherButtonTitles:@"使用相册", @"使用相机",  nil];
+	[actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+    self.currentActionSheetType = ActionSheetTypeMotions;
 }
 
 - (IBAction)didClickReturnButton:(UIButton *)sender {
-    [self dismissView];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
+															 delegate:self 
+													cancelButtonTitle:nil 
+											   destructiveButtonTitle:@"确认关闭"
+													otherButtonTitles:nil];
+	[actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+    self.currentActionSheetType = ActionSheetTypeDestruct;
 }
 
 - (IBAction)didClickAtButton:(UIButton *)sender {
@@ -496,8 +520,10 @@ typedef enum {
         [sender setTitle:@"发表" forState:UIControlStateNormal];
         if(!client.hasError) {
             NSLog(@"post succeeded");
+            [self.delegate postViewController:self didPostMessage:self.textView.text];
         } else {
             NSLog(@"post failed");
+            [self.delegate postViewController:self didFailPostMessage:self.textView.text];
         }
     }];
     if(!_located)
@@ -634,7 +660,7 @@ typedef enum {
 #pragma mark - PostRootView delegate
 
 - (void)postRootView:(PostRootView *)view didObserveTouchOtherView:(UIView *)otherView {
-    NSLog(@"touch other view");
+    //NSLog(@"touch other view");
     if(otherView == self.emoticonsButton)
         return;
     [self dismissHintView];
@@ -644,6 +670,55 @@ typedef enum {
 
 - (void)didClickEmoticonsButtonWithInfoKey:(NSString *)key {
     [self replaceHintWithResult:key];
+}
+
+#pragma mark - UIActionSheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	if(self.currentActionSheetType == ActionSheetTypeDestruct) {
+        if(buttonIndex == actionSheet.destructiveButtonIndex)
+            [self dismissView];
+	} else if(self.currentActionSheetType == ActionSheetTypeMotions) {
+        if(buttonIndex == 1) {
+            MotionsViewController *vc = [[MotionsViewController alloc] init];
+            vc.delegate = self;
+            [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+        } else if(buttonIndex == 0) {
+            
+            UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+            ipc.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
+            ipc.delegate = self;
+            ipc.allowsEditing = NO;
+            
+            UIPopoverController *pc = [[UIPopoverController alloc] initWithContentViewController:ipc];
+            self.popoverController = pc;
+            pc.delegate = self;
+            [pc presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton
+              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            
+        }
+    }
+}
+
+#pragma mark -
+#pragma mark UIImagePickerController delegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [self.popoverController dismissPopoverAnimated:YES];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:image];
+    vc.delegate = self;
+    [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+    
+    self.popoverController = nil;
+}
+
+#pragma mark -
+#pragma mark UIPopoverController delegate 
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+    self.popoverController = nil;
 }
 
 @end

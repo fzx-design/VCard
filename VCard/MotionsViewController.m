@@ -79,7 +79,11 @@
     // Do any additional setup after loading the view from its nib.
     [self configureCaptureSession];
     [self configureUI];
-    self.view.userInteractionEnabled = NO;
+    if(self.originImage != nil) {
+        [self showEditViewAnimated:NO];
+    }
+    else 
+        self.view.userInteractionEnabled = NO;
 }
 
 - (void)viewDidUnload
@@ -103,8 +107,17 @@
     self.finishCropButton = nil;
 }
 
+- (id)initWithImage:(UIImage *)image {
+    self = [super init]; 
+    if(self) {
+        [self configureEditImage:image];
+    }
+    return self;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
-    [self openCamera];
+    if(self.originImage == nil)
+        [self openCamera]; 
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -162,7 +175,6 @@
             }
         }
     }
-    
     return result;
 }
 
@@ -185,7 +197,7 @@
 
 - (void)startShot {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        AVCaptureVideoPreviewLayer* previewLayer = [AVCaptureVideoPreviewLayer layerWithSession: self.captureSession];
+        AVCaptureVideoPreviewLayer* previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
         previewLayer.frame = self.cameraPreviewView.bounds;
         previewLayer.videoGravity= AVLayerVideoGravityResizeAspectFill;
         if(previewLayer.orientationSupported) {
@@ -248,12 +260,32 @@
     [self.contrastSlider setThumbImage:[UIImage imageNamed:@"slider_thumb.png"] forState:UIControlStateNormal];
 }
 
-- (void)showEditView {
+- (void)showEditViewAnimated:(BOOL)animated {
     self.filterImageView.hidden = NO;
     [self.filterImageView initializeParameter];
-    [self configureFilterImageView:self.originImage];
+    if(animated)
+        [self configureFilterImageView:self.originImage];
+    else {
+        self.filterImageView.alpha = 0;
+        [self performSelector:@selector(configureFilterImageView:) withObject:self.originImage afterDelay:0.5f];
+        [self.filterImageView performSelector:@selector(fadeIn) withObject:nil afterDelay:0.7f];
+    }
     
-    [self showEditViewAnimation];
+    if(animated)
+        [self showEditViewAnimation];
+    else {
+        CGRect newFrame = self.shotView.frame;
+        newFrame.origin.x = 1024;
+        self.shotView.frame = newFrame;
+
+        newFrame.origin.x = 1024 - newFrame.size.width;
+        self.editView.frame = newFrame;
+        
+        self.editView.hidden = NO;
+        self.capturedImageEditView.hidden = NO;
+        self.capturedImageEditView.alpha = 1;
+    }
+    
     [self.previewLayer removeFromSuperlayer];
     [self.captureSession stopRunning];
     [self hideCameraCoverAnimation];
@@ -448,7 +480,7 @@
             NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
             UIImage *image = [[UIImage alloc] initWithData:imageData];
             [self configureShotImage:image];
-            [self showEditView];
+            [self showEditViewAnimated:YES];
         }
         else {
             NSLog(@"error:%@", error.localizedDescription);
@@ -604,7 +636,7 @@
     [self.popoverController dismissPopoverAnimated:YES];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [self configureEditImage:image];
-    [self showEditView];
+    [self showEditViewAnimated:YES];
     self.popoverController = nil;
 }
 
