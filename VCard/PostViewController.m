@@ -359,13 +359,12 @@ typedef enum {
 }
 
 - (void)dismissHintView {
-    NSLog(@"dismiss hint view");
+    //NSLog(@"dismiss hint view");
     self.currentHintStringRange = NSMakeRange(0, 0);
     UIView *currentHintView = self.currentHintView;
     self.currentHintView = nil;
     [currentHintView fadeOutWithCompletion:^{
         [currentHintView removeFromSuperview];
-        self.emoticonsViewController = nil;
     }];
     self.atButton.selected = NO;
     self.topicButton.selected = NO;
@@ -414,8 +413,9 @@ typedef enum {
 }
 
 - (void)presentEmoticonsView {
-    NSLog(@"present emoticons view");
+    //NSLog(@"present emoticons view");
     [self dismissHintView];
+    _emoticonsViewController = nil;
     self.postRootView.observingViewTag = PostRootViewSubviewTagEmoticons;
     EmoticonsViewController *vc = self.emoticonsViewController;
     vc.view.alpha = 1;
@@ -695,7 +695,6 @@ typedef enum {
             pc.delegate = self;
             [pc presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton
               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-            
         }
     }
 }
