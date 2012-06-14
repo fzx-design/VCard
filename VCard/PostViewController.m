@@ -264,6 +264,8 @@ typedef enum {
     [self.textView replaceRange:textRange withText:replaceText];
     
     NSRange range = NSMakeRange(location + replaceText.length, 0);
+    if([self.currentHintView isMemberOfClass:[PostTopicHintView class]])
+        range.location += 1;
     self.textView.selectedRange = range;
     self.currentHintStringRange = range;
     if([self.currentHintView isKindOfClass:[PostHintView class]])

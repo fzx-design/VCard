@@ -449,8 +449,7 @@
         [sender setThumbImage:[UIImage imageNamed:@"slider_thumb.png"] forState:UIControlStateNormal];
     }
     if(sender == self.solarSlider) {
-        float value = sender.value * 2 - 1;
-        value = value > 0 ? value / 5 : value / 2;
+        float value = sender.value;
         self.filterImageView.brightnessValues = value;
     }
     else if(sender == self.contrastSlider) {
