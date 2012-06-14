@@ -72,7 +72,7 @@
 // An empty implementation adversely affects performance during animation.
 
 - (void)drawImage {
-    NSLog(@"draw filter image");
+    NSLog(@"draw filter image with brightness:%f, contrast:%f", self.brightnessValues, self.contrastValue);
     [self.colorControlFilter setDefaults];
     [self.colorControlFilter setValue:self.ciimage forKey:@"inputImage"];
     [self.colorControlFilter setValue:[NSNumber numberWithFloat:self.contrastValue]

@@ -319,9 +319,14 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     CIFilter *filter = [CIFilter filterWithName:@"CIColorControls"];
     [filter setDefaults];
     [filter setValue:[CIImage imageWithCGImage:self.CGImage] forKey:@"inputImage"];
-    [filter setValue:[NSNumber numberWithFloat:brightnessValues] forKey:@"inputBrightness"];
     [filter setValue:[NSNumber numberWithFloat:contrastValue] forKey:@"inputContrast"];
     CIImage *outputCIImage = [filter outputImage];
+    
+    filter = [CIFilter filterWithName:@"CIHightlightShadowAdjust"];
+    [filter setDefaults];
+    [filter setValue:outputCIImage forKey:@"inputImage"];
+    [filter setValue:[NSNumber numberWithFloat:brightnessValues] forKey:@"inputShadowAmount"];
+    outputCIImage = [filter outputImage];
     
     CIContext *context = [CIContext contextWithOptions:nil];
     CGImageRef ref = [context createCGImage:outputCIImage fromRect:outputCIImage.extent];

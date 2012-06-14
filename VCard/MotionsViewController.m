@@ -269,10 +269,13 @@
     else {
         self.filterImageView.alpha = 0;
         [self performSelector:@selector(configureFilterImageView:) withObject:self.originImage afterDelay:0.5f];
+        [self performSelector:@selector(hideCameraCoverAnimation) withObject:nil afterDelay:0.5f];
     }
     
-    if(animated)
+    if(animated) {
         [self showEditViewAnimation];
+        [self hideCameraCoverAnimation];
+    }
     else {
         CGRect newFrame = self.shotView.frame;
         newFrame.origin.x = 1024;
@@ -288,7 +291,6 @@
     
     [self.previewLayer removeFromSuperlayer];
     [self.captureSession stopRunning];
-    [self hideCameraCoverAnimation];
 }
 
 #pragma mark -
@@ -449,7 +451,7 @@
         [sender setThumbImage:[UIImage imageNamed:@"slider_thumb.png"] forState:UIControlStateNormal];
     }
     if(sender == self.solarSlider) {
-        float value = sender.value;
+        float value = sender.value * 2 - 1;
         self.filterImageView.brightnessValues = value;
     }
     else if(sender == self.contrastSlider) {
