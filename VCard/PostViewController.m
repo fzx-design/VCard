@@ -47,6 +47,7 @@ typedef enum {
 @property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic, strong) EmoticonsViewController *emoticonsViewController;
 @property (nonatomic, readonly) PostRootView *postRootView;
+@property (nonatomic, strong) UIActionSheet *actionSheet;
 @property (nonatomic, assign) ActionSheetType currentActionSheetType;
 @property (nonatomic, strong) UIPopoverController *popoverController;
 
@@ -78,6 +79,8 @@ typedef enum {
 @synthesize locationManager = locationManager;
 @synthesize emoticonsViewController = _emoticonsViewController;
 @synthesize currentActionSheetType = _currentActionSheetType;
+@synthesize actionSheet = _actionSheet;
+@synthesize cancelButton = _cancelButton;
 @synthesize popoverController = _pc;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -101,8 +104,10 @@ typedef enum {
     _functionRightViewInitFrame = self.functionRightView.frame;
     self.postRootView.delegate = self;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(deviceRotateDidChanged:) name:kNotificationNameOrientationChanged object:nil];
+    [center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewDidUnload
@@ -124,6 +129,7 @@ typedef enum {
     self.functionLeftView = nil;
     self.functionRightView = nil;
     self.motionsButton = nil;
+    self.cancelButton = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -131,6 +137,15 @@ typedef enum {
 }
 
 #pragma mark - Notification handlers
+
+- (void)deviceRotateDidChanged:(NSNotification *)notification {
+    if(self.actionSheet) {
+        [self.actionSheet dismissWithClickedButtonIndex:-1 animated:NO];
+    }
+    if(self.popoverController) {
+        [self.popoverController presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+}
 
 - (void)keyboardWillShow:(NSNotification *)notification {
     NSDictionary *info = [notification userInfo];
@@ -216,6 +231,7 @@ typedef enum {
         //NSLog(@"text scroll view offset y:%f", textScrollViewOffsetY);
         cursorPos.y += self.textContainerView.frame.origin.y + self.textView.frame.origin.y + HINT_VIEW_OFFSET.height - textScrollViewOffsetY;
     }
+    //NSLog(@"cursor pos(%@)", NSStringFromCGPoint(cursorPos));
     return cursorPos;
 }
 
@@ -427,6 +443,7 @@ typedef enum {
     self.currentHintView = (PostHintView *)vc.view;
     self.emoticonsButton.selected = YES;
     self.currentHintStringRange = NSMakeRange(self.textView.selectedRange.location, 0);
+    [self checkCurrentHintViewFrame];
 }
 
 #pragma mark - IBActions
@@ -439,6 +456,7 @@ typedef enum {
 													otherButtonTitles:@"使用相册", @"使用相机",  nil];
 	[actionSheet showFromRect:sender.bounds inView:sender animated:YES];
     self.currentActionSheetType = ActionSheetTypeMotions;
+    self.actionSheet = actionSheet;
 }
 
 - (IBAction)didClickReturnButton:(UIButton *)sender {
@@ -449,6 +467,7 @@ typedef enum {
 													otherButtonTitles:nil];
 	[actionSheet showFromRect:sender.bounds inView:sender animated:YES];
     self.currentActionSheetType = ActionSheetTypeDestruct;
+    self.actionSheet = actionSheet;
 }
 
 - (IBAction)didClickAtButton:(UIButton *)sender {
@@ -697,6 +716,9 @@ typedef enum {
               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
     }
+    NSLog(@"dismiss action sheet");
+    self.actionSheet = nil;
+    self.currentActionSheetType = ActionSheetTypeNone;
 }
 
 #pragma mark -

@@ -33,6 +33,7 @@
 @property (nonatomic, strong) IBOutlet UIButton     *emoticonsButton;
 @property (nonatomic, strong) IBOutlet UIButton     *topicButton;
 @property (nonatomic, strong) IBOutlet UIButton     *motionsButton;
+@property (nonatomic, strong) IBOutlet UIButton     *cancelButton;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *navActivityView;
 @property (nonatomic, strong) IBOutlet UILabel *navLabel;
 @property (nonatomic, strong) IBOutlet UIView *functionLeftView;
