@@ -139,12 +139,7 @@ typedef enum {
 #pragma mark - Notification handlers
 
 - (void)deviceRotateDidChanged:(NSNotification *)notification {
-    if(self.actionSheet) {
-        [self.actionSheet dismissWithClickedButtonIndex:-1 animated:NO];
-    }
-    if(self.popoverController) {
-        [self.popoverController presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    }
+    [self dismissPopover];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -184,6 +179,8 @@ typedef enum {
     } completion:^(BOOL finished) {
         _keyboardHidden = finished;
     }];
+    
+    [self dismissPopover];
 }
 
 #pragma mark - Logic methods
@@ -273,6 +270,16 @@ typedef enum {
 }
 
 #pragma mark - UI methods
+
+- (void)dismissPopover {
+    if(self.actionSheet) {
+        [self.actionSheet dismissWithClickedButtonIndex:-1 animated:NO];
+    }
+    if(self.popoverController) {
+        [self.popoverController dismissPopoverAnimated:YES];
+        self.popoverController = nil;
+    }
+}
 
 - (void)configureTextView {
     self.textView.text = @"";
@@ -456,6 +463,14 @@ typedef enum {
 													cancelButtonTitle:nil 
 											   destructiveButtonTitle:nil
 													otherButtonTitles:@"使用相册", @"使用相机",  nil];
+    if(self.motionsImageView.image) {
+        [actionSheet addButtonWithTitle:@"修改图片"];
+        [actionSheet addButtonWithTitle:@"清除图片"];
+    }
+    if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)
+       && self.motionsImageView.image) {
+        [self.textView resignFirstResponder];
+    }
 	[actionSheet showFromRect:sender.bounds inView:sender animated:YES];
     self.currentActionSheetType = ActionSheetTypeMotions;
     self.actionSheet = actionSheet;
@@ -700,11 +715,7 @@ typedef enum {
         if(buttonIndex == actionSheet.destructiveButtonIndex)
             [self dismissView];
 	} else if(self.currentActionSheetType == ActionSheetTypeMotions) {
-        if(buttonIndex == 1) {
-            MotionsViewController *vc = [[MotionsViewController alloc] init];
-            vc.delegate = self;
-            [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
-        } else if(buttonIndex == 0) {
+        if(buttonIndex == 0) {
             
             UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
             ipc.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
@@ -713,9 +724,23 @@ typedef enum {
             
             UIPopoverController *pc = [[UIPopoverController alloc] initWithContentViewController:ipc];
             self.popoverController = pc;
+            self.popoverController.contentViewController.view.autoresizingMask = !UIViewAutoresizingFlexibleTopMargin;
             pc.delegate = self;
             [pc presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton
               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        } else if(buttonIndex == 1) {
+            MotionsViewController *vc = [[MotionsViewController alloc] init];
+            vc.delegate = self;
+            [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+        } else if(buttonIndex == 2) {
+            MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:self.motionsImageView.image];
+            vc.delegate = self;
+            [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+        } else if(buttonIndex == 3) {
+            [self.motionsImageView fadeOutWithCompletion:^{
+                self.motionsImageView.image = nil;
+                self.motionsImageView.alpha = 1;
+            }];
         }
     }
     NSLog(@"dismiss action sheet");
@@ -741,6 +766,7 @@ typedef enum {
 #pragma mark UIPopoverController delegate 
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+    NSLog(@"dismiss popover");
     self.popoverController = nil;
 }
 
