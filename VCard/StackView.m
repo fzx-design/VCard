@@ -151,6 +151,7 @@
         [UIView animateWithDuration:0.3 animations:^{
             [self resetOriginX:self.frame.origin.x + 200.0];
         } completion:^(BOOL finished) {
+            // TODO: Crashed
             [_delegate stackBecomedEmpty];
         }];
     }

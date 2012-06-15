@@ -209,6 +209,7 @@
     if (!stackViewExists) {
         _stackViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewController"];
         [_stackViewController.view resetOrigin:CGPointMake(0.0, 43.0)];
+//        [_stackViewController.view resetSize:CGSizeMake(384.0, 748.0 - 43.0)];
         [_stackViewController.view resetSize:self.waterflowView.frame.size];
         _stackViewController.currentUser = self.currentUser;
         _stackViewController.delegate = self;

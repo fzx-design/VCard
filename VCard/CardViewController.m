@@ -230,7 +230,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
         
         Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
         
-        [self.statusImageView loadTweetImageFromURL:targetStatus.bmiddlePicURL 
+        [self.statusImageView loadTweetImageFromURL:targetStatus.originalPicURL
                                          completion:nil];
     }
 }

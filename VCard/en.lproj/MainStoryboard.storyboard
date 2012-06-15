@@ -1135,7 +1135,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="imageview_placeholder.png" id="CWq-oG-12y" customClass="UserAvatarImageView">
-                                            <rect key="frame" x="9" y="9" width="25" height="25"/>
+                                            <rect key="frame" x="9" y="11" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="李开复" autoshrinkMode="minimumFontSize" id="EnC-e9-GeP">

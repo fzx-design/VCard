@@ -119,13 +119,13 @@
 				{
 					NSData* imageData = UIImagePNGRepresentation((UIImage *)dataParam);
 					[WBRequest appendUTF8Body:body dataString:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"file.png\"\r\n", key]];
-					[WBRequest appendUTF8Body:body dataString:[NSString stringWithString:@"Content-Type: image/png\r\nContent-Transfer-Encoding: binary\r\n\r\n"]];
+					[WBRequest appendUTF8Body:body dataString:@"Content-Type: image/png\r\nContent-Transfer-Encoding: binary\r\n\r\n"];
 					[body appendData:imageData];
 				} 
 				else if ([dataParam isKindOfClass:[NSData class]]) 
 				{
 					[WBRequest appendUTF8Body:body dataString:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n", key]];
-					[WBRequest appendUTF8Body:body dataString:[NSString stringWithString:@"Content-Type: content/unknown\r\nContent-Transfer-Encoding: binary\r\n\r\n"]];
+					[WBRequest appendUTF8Body:body dataString:@"Content-Type: content/unknown\r\nContent-Transfer-Encoding: binary\r\n\r\n"];
 					[body appendData:(NSData*)dataParam];
 				}
 				[WBRequest appendUTF8Body:body dataString:bodySuffixString];

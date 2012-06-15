@@ -115,20 +115,44 @@
     }
     
     [[KVImageCache defaultCache] loadImageAtURL:imageURL cacheURL:cacheURL imageView:self withHandler:^(UIImage * image) {
-        if (!image) {
-            self.image = notAvailableImage;
-        } else {
-            CGSize imageSizeWithBorder = CGSizeMake(self.frame.size.width + 2, self.frame.size.height + 2);
-            UIImage *tmpImage = [image imageByScalingAndCroppingForSize:imageSizeWithBorder];
+        
+        dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
+        
+        dispatch_async(downloadQueue, ^{
             
-            UIGraphicsBeginImageContext(imageSizeWithBorder);
-            [tmpImage drawInRect:(CGRect){{1, 1}, self.frame.size}];
-            [self setImage:UIGraphicsGetImageFromCurrentImageContext()];
-            UIGraphicsEndImageContext();
-        }
-        if (showActivityIndicator) {
-            [self performSelectorOnMainThread:@selector(kv_hideActivityIndicator) withObject:nil waitUntilDone:NO];
-        }
+            UIImage *targetImage = nil;
+            
+            NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+            if (!image) {
+                self.image = notAvailableImage;
+            } else {
+                CGSize imageSizeWithBorder = CGSizeMake(self.frame.size.width + 2, self.frame.size.height + 2);
+                UIImage *tmpImage = [image imageByScalingAndCroppingForSize:imageSizeWithBorder];
+                
+                UIGraphicsBeginImageContext(imageSizeWithBorder);
+                [tmpImage drawInRect:(CGRect){{1, 1}, self.frame.size}];
+                targetImage = UIGraphicsGetImageFromCurrentImageContext();
+                UIGraphicsEndImageContext();
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (!image) {
+                    self.image = notAvailableImage;
+                } else {
+                    [self setImage:targetImage];
+                }
+                
+                if (showActivityIndicator) {
+                    [self performSelectorOnMainThread:@selector(kv_hideActivityIndicator) withObject:nil waitUntilDone:NO];
+                }
+            });
+            [pool release];
+            
+        });
+        
+        dispatch_release(downloadQueue);
+        
+
      }];
 }
 

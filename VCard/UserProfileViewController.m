@@ -55,6 +55,8 @@
 
 - (void)setUpViews
 {
+    self.view.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+    
     [_avatarImageView loadImageFromURL:self.user.largeAvatarURL completion:nil];
     [_avatarImageView setVerifiedType:[self.user verifiedTypeOfUser]];
     
