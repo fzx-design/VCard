@@ -8,6 +8,7 @@
 
 #import "PostViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <QuartzCore/QuartzCore.h>
 #import "UIApplication+Addition.h"
 #import "PostAtHintView.h"
 #import "PostTopicHintView.h"
@@ -50,6 +51,7 @@ typedef enum {
 @property (nonatomic, strong) UIActionSheet *actionSheet;
 @property (nonatomic, assign) ActionSheetType currentActionSheetType;
 @property (nonatomic, strong) UIPopoverController *popoverController;
+@property (nonatomic, strong) UIImage *motionsOriginalImage;
 
 @end
 
@@ -82,6 +84,7 @@ typedef enum {
 @synthesize actionSheet = _actionSheet;
 @synthesize cancelButton = _cancelButton;
 @synthesize popoverController = _pc;
+@synthesize motionsOriginalImage = _motionsOriginalImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -267,6 +270,25 @@ typedef enum {
     self.currentHintStringRange = range;
     if([self.currentHintView isKindOfClass:[PostHintView class]])
         [self dismissHintView];
+}
+
+- (void)setMotionsImage:(UIImage *)image {
+    CGRect imageViewRect = CGRectMake(0, 0, self.motionsImageView.frame.size.width, self.motionsImageView.frame.size.height);
+    CGRect imageRect;
+    if(image.size.width > image.size.height) {
+        imageRect = CGRectMake((image.size.width - image.size.height) / 2, 0, image.size.height, image.size.height);
+    } else {
+        imageRect = CGRectMake(0, (image.size.height - image.size.width) / 2, image.size.width, image.size.width);
+    }
+    UIImage *optimizedImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(image.CGImage, imageRect)];
+    
+    UIGraphicsBeginImageContext(imageViewRect.size);
+    [optimizedImage drawInRect:CGRectMake(2, 2, imageViewRect.size.width - 4, imageViewRect.size.height - 4)];
+    optimizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    self.motionsImageView.image = optimizedImage;
+    self.motionsOriginalImage = image;
 }
 
 #pragma mark - UI methods
@@ -563,11 +585,11 @@ typedef enum {
         }
     }];
     if(!_located)
-        [client sendWeiBoWithText:self.textView.text image:self.motionsImageView.image];
+        [client sendWeiBoWithText:self.textView.text image:self.motionsOriginalImage];
     else {
         NSString *lat = [NSString stringWithFormat:@"%f", _location2D.latitude];
         NSString *lon = [NSString stringWithFormat:@"%f", _location2D.longitude];
-        [client sendWeiBoWithText:self.textView.text image:self.motionsImageView.image longtitude:lon latitude:lat];
+        [client sendWeiBoWithText:self.textView.text image:self.motionsOriginalImage longtitude:lon latitude:lat];
     }
     [self dismissView];
 }
@@ -579,7 +601,7 @@ typedef enum {
 }
 
 - (void)motionViewControllerDidFinish:(UIImage *)image {
-    self.motionsImageView.image = image;
+    [self setMotionsImage:image];
     [[UIApplication sharedApplication].rootViewController dismissModalViewControllerAnimated:YES];
 }
 
@@ -733,12 +755,13 @@ typedef enum {
             vc.delegate = self;
             [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
         } else if(buttonIndex == 2) {
-            MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:self.motionsImageView.image];
+            MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:self.motionsOriginalImage];
             vc.delegate = self;
             [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
         } else if(buttonIndex == 3) {
             [self.motionsImageView fadeOutWithCompletion:^{
                 self.motionsImageView.image = nil;
+                self.motionsOriginalImage = nil;
                 self.motionsImageView.alpha = 1;
             }];
         }
