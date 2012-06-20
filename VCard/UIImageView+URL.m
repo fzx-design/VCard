@@ -136,9 +136,7 @@
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (!image) {
-                    self.image = notAvailableImage;
-                } else {
+                if (image) {
                     [self setImage:targetImage];
                 }
                 
