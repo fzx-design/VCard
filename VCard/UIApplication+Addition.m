@@ -84,12 +84,10 @@ static UIView *_backView;
         frame.origin.y = self.screenSize.height;
         _modalViewController.view.frame = frame;
     } completion:^(BOOL finished) {
-        if (finished) {
-			[_backView removeFromSuperview];
-            _backView = nil;
-            [_modalViewController.view removeFromSuperview];
-            _modalViewController = nil;
-		}
+        [_backView removeFromSuperview];
+        _backView = nil;
+        [_modalViewController.view removeFromSuperview];
+        _modalViewController = nil;
     }];
 }
 

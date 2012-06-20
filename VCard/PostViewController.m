@@ -22,6 +22,11 @@
 #define HINT_VIEW_BORDER_MAX_Y  (self.postView.frame.size.height - 10)
 #define HINT_VIEW_BORDER_MAX_X  self.postView.frame.size.width
 
+#define MOTIONS_ACTION_SHEET_SHOOT_INDEX    0
+#define MOTIONS_ACTION_SHEET_ALBUM_INDEX    1
+#define MOTIONS_ACTION_SHEET_EDIT_INDEX     2
+#define MOTIONS_ACTION_SHEET_CLEAR_INDEX    3
+
 static NSString *weiboAtRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_\\s]*";
 static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
 
@@ -480,14 +485,20 @@ typedef enum {
 #pragma mark - IBActions
 
 - (IBAction)didClickMotionsButton:(UIButton *)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-															 delegate:self 
-													cancelButtonTitle:nil 
-											   destructiveButtonTitle:nil
-													otherButtonTitles:@"使用相册", @"使用相机",  nil];
+    UIActionSheet *actionSheet = nil;
     if(self.motionsImageView.image) {
-        [actionSheet addButtonWithTitle:@"修改图片"];
-        [actionSheet addButtonWithTitle:@"清除图片"];
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                  delegate:self 
+                                         cancelButtonTitle:nil 
+                                    destructiveButtonTitle:nil
+                                         otherButtonTitles:@"重新拍照", @"重新选取照片", @"编辑", @"清除", nil];
+        actionSheet.destructiveButtonIndex = MOTIONS_ACTION_SHEET_CLEAR_INDEX;
+    } else {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                  delegate:self 
+                                         cancelButtonTitle:nil 
+                                    destructiveButtonTitle:nil
+                                         otherButtonTitles:@"拍照", @"选取照片",  nil];
     }
     if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)
        && self.motionsImageView.image) {
@@ -502,7 +513,7 @@ typedef enum {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
 															 delegate:self 
 													cancelButtonTitle:nil 
-											   destructiveButtonTitle:@"确认关闭"
+											   destructiveButtonTitle:@"关闭"
 													otherButtonTitles:nil];
 	[actionSheet showFromRect:sender.bounds inView:sender animated:YES];
     self.currentActionSheetType = ActionSheetTypeDestruct;
@@ -684,7 +695,7 @@ typedef enum {
     [manager stopUpdatingLocation];
     self.locationManager = nil;
     _location2D = newLocation.coordinate; 
-
+    
     if(_located)
         return;
     
@@ -737,7 +748,7 @@ typedef enum {
         if(buttonIndex == actionSheet.destructiveButtonIndex)
             [self dismissView];
 	} else if(self.currentActionSheetType == ActionSheetTypeMotions) {
-        if(buttonIndex == 0) {
+        if(buttonIndex == MOTIONS_ACTION_SHEET_ALBUM_INDEX) {
             
             UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
             ipc.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
@@ -750,15 +761,15 @@ typedef enum {
             pc.delegate = self;
             [pc presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton
               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        } else if(buttonIndex == 1) {
+        } else if(buttonIndex == MOTIONS_ACTION_SHEET_SHOOT_INDEX) {
             MotionsViewController *vc = [[MotionsViewController alloc] init];
             vc.delegate = self;
             [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
-        } else if(buttonIndex == 2) {
+        } else if(buttonIndex == MOTIONS_ACTION_SHEET_EDIT_INDEX) {
             MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:self.motionsOriginalImage];
             vc.delegate = self;
             [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
-        } else if(buttonIndex == 3) {
+        } else if(buttonIndex == MOTIONS_ACTION_SHEET_CLEAR_INDEX) {
             [self.motionsImageView fadeOutWithCompletion:^{
                 self.motionsImageView.image = nil;
                 self.motionsOriginalImage = nil;
