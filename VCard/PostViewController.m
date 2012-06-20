@@ -22,7 +22,7 @@
 #define HINT_VIEW_BORDER_MAX_Y  (self.postView.frame.size.height - 10)
 #define HINT_VIEW_BORDER_MAX_X  self.postView.frame.size.width
 #define FOLD_PAPER_ANIMATION_DURATION 0.5f
-#define FOLD_PAPER_SCALE_RATIO 0.001f
+#define FOLD_PAPER_SCALE_RATIO 0.01f
 
 #define MOTIONS_ACTION_SHEET_SHOOT_INDEX    0
 #define MOTIONS_ACTION_SHEET_ALBUM_INDEX    1
@@ -341,8 +341,8 @@ typedef enum {
 }
 
 - (CGPoint)startButtonCenter {
-    return CGPointMake(self.startButtonFrame.origin.x + self.startButtonFrame.size.width / 2 + 5,
-                       self.startButtonFrame.origin.y + self.startButtonFrame.size.height / 2 - 2);
+    return CGPointMake(self.startButtonFrame.origin.x + self.startButtonFrame.size.width / 2,
+                       self.startButtonFrame.origin.y + self.startButtonFrame.size.height / 2);
 }
 
 #pragma mark - UI methods
@@ -351,14 +351,20 @@ typedef enum {
     CGPoint originalCenter = self.paperImageHolderView.center;
     self.paperImageHolderView.center = self.startButtonCenter;
     self.paperImageHolderView.transform = CGAffineTransformMakeScale(FOLD_PAPER_SCALE_RATIO, FOLD_PAPER_SCALE_RATIO);
-    [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION animations:^{
+    [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION 
+                          delay:0
+                        options:UIViewAnimationCurveEaseOut 
+                     animations:^{
         self.paperImageHolderView.center = originalCenter;
         self.paperImageHolderView.transform = CGAffineTransformIdentity;
-    }];
+    } completion:nil];
 }
 
 - (void)moveToStartButtonAnimation {
-    [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION animations:^{
+    [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION
+                          delay:0
+                        options:UIViewAnimationCurveEaseIn
+                     animations:^{
         self.paperImageHolderView.center = self.startButtonCenter;
         self.paperImageHolderView.transform = CGAffineTransformMakeScale(FOLD_PAPER_SCALE_RATIO, FOLD_PAPER_SCALE_RATIO);
     } completion:^(BOOL finished) {
@@ -385,7 +391,6 @@ typedef enum {
 	[animation setToValue:[NSNumber numberWithDouble:0]];
     [animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
-    
 	[self.leftPaperImageView.layer addAnimation:animation forKey:nil];
     
     animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
@@ -393,16 +398,19 @@ typedef enum {
 	[animation setToValue:[NSNumber numberWithDouble:0]];
     [animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
-    
 	[self.rightPaperImageView.layer addAnimation:animation forKey:nil];
+    
     [CATransaction commit];
     
     self.leftPaperGloomImageView.alpha = 0.7f;
     self.rightPaperGloomImageView.alpha = 0.7f;
-    [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION animations:^{
+    [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION
+                          delay:0
+                        options:UIViewAnimationCurveEaseOut
+                     animations:^{
         self.leftPaperGloomImageView.alpha = 0;
         self.rightPaperGloomImageView.alpha = 0;
-    }];
+    } completion:nil];
 }
 
 - (void)foldPaperAnimation {
@@ -410,24 +418,17 @@ typedef enum {
     self.postView.hidden = YES;
     self.paperImageHolderView.hidden = NO;
     
-    [UIView animateWithDuration:0.1f 
-                          delay:FOLD_PAPER_ANIMATION_DURATION - 0.1f 
-                        options:UIViewAnimationCurveEaseOut animations:^{
-        self.view.alpha = 0;
-    } completion:nil];
-    
     [CATransaction begin];
     [CATransaction setValue:[NSNumber numberWithFloat:FOLD_PAPER_ANIMATION_DURATION] forKey: kCATransactionAnimationDuration];
     
     double factor = - 1 * M_PI / 180;
     
 	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:@"easeInEaseOut"]];
+    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:@"easeIn"]];
 	[animation setFromValue:[NSNumber numberWithDouble:0]];
 	[animation setToValue:[NSNumber numberWithDouble:-90 * factor]];
     [animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
-    
 	[self.leftPaperImageView.layer addAnimation:animation forKey:nil];
     
     animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
@@ -435,8 +436,8 @@ typedef enum {
 	[animation setToValue:[NSNumber numberWithDouble:90 * factor]];
     [animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
-    
 	[self.rightPaperImageView.layer addAnimation:animation forKey:nil];
+    
     [CATransaction commit];
     
     self.leftPaperGloomImageView.alpha = 0;
