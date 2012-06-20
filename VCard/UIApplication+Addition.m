@@ -28,8 +28,8 @@ static UIView *_backView;
     [[UIApplication sharedApplication] presentModalViewController:vc animated:animated];
 }
 
-+ (void)dismissModalViewController {
-    [[UIApplication sharedApplication] dismissModalViewController];
++ (void)dismissModalViewControllerAnimated:(BOOL)animated {
+    [[UIApplication sharedApplication] dismissModalViewControllerAnimated:animated];
 }
 
 - (CGSize)screenSize {
@@ -65,30 +65,42 @@ static UIView *_backView;
             CGRect frame = vc.view.frame;
             frame.origin.y = 20;
             vc.view.frame = frame;
-            _backView.alpha = 0.6f;
         } completion:nil];
     }
     else {
         CGRect frame = vc.view.frame;
         frame.origin.y = 20;
         vc.view.frame = frame;
-        _backView.alpha = 0.6f;
     }
     
+    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        _backView.alpha = 0.6f;
+    } completion:nil];
+
 }
 
-- (void)dismissModalViewController {
-    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        _backView.alpha = 0.0;
-        CGRect frame = _modalViewController.view.frame;
-        frame.origin.y = self.screenSize.height;
-        _modalViewController.view.frame = frame;
-    } completion:^(BOOL finished) {
-        [_backView removeFromSuperview];
-        _backView = nil;
-        [_modalViewController.view removeFromSuperview];
-        _modalViewController = nil;
-    }];
+- (void)dismissModalViewControllerAnimated:(BOOL)animated {
+    if(animated) {
+        [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            _backView.alpha = 0.0;
+            CGRect frame = _modalViewController.view.frame;
+            frame.origin.y = self.screenSize.height;
+            _modalViewController.view.frame = frame;
+        } completion:^(BOOL finished) {
+            [_backView removeFromSuperview];
+            _backView = nil;
+            [_modalViewController.view removeFromSuperview];
+            _modalViewController = nil;
+        }];
+    } else {
+        [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            _backView.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [_backView removeFromSuperview];
+            _backView = nil;
+            _modalViewController = nil;
+        }];
+    }
 }
 
 @end

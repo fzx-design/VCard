@@ -20,6 +20,7 @@
     CLLocationCoordinate2D _location2D;
     BOOL _needFillPoundSign;
     CGRect _functionRightViewInitFrame;
+    BOOL _playingFoldPaperAnimation;
 }
 
 @property (nonatomic, strong) IBOutlet UIImageView  *motionsImageView;
@@ -39,6 +40,12 @@
 @property (nonatomic, strong) IBOutlet UIView *functionLeftView;
 @property (nonatomic, strong) IBOutlet UIView *functionRightView;
 
+@property (nonatomic, strong) IBOutlet UIImageView *leftPaperImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *rightPaperImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *leftPaperGloomImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *rightPaperGloomImageView;
+@property (nonatomic, strong) IBOutlet UIView *paperImageHolderView;
+
 @property (nonatomic, weak) id<PostViewControllerDelegate> delegate;
 
 - (IBAction)didClickMotionsButton:(UIButton *)sender;
@@ -48,11 +55,14 @@
 - (IBAction)didClickTopicButton:(UIButton *)sender;
 - (IBAction)didClickEmoticonsButton:(UIButton *)sender;
 - (IBAction)didClickNavButton:(UIButton *)sender;
+- (void)showViewFromRect:(CGRect)rect;
+- (void)dismissViewToRect:(CGRect)rect;
 
 @end
 
 @protocol PostViewControllerDelegate <NSObject>
 
+- (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message;
 - (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message;
 - (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message;
 

@@ -21,6 +21,8 @@
 #define HINT_VIEW_ORIGIN_MAX_Y  234
 #define HINT_VIEW_BORDER_MAX_Y  (self.postView.frame.size.height - 10)
 #define HINT_VIEW_BORDER_MAX_X  self.postView.frame.size.width
+#define FOLD_PAPER_ANIMATION_DURATION 0.5f
+#define FOLD_PAPER_SCALE_RATIO 0.001f
 
 #define MOTIONS_ACTION_SHEET_SHOOT_INDEX    0
 #define MOTIONS_ACTION_SHEET_ALBUM_INDEX    1
@@ -57,6 +59,8 @@ typedef enum {
 @property (nonatomic, assign) ActionSheetType currentActionSheetType;
 @property (nonatomic, strong) UIPopoverController *popoverController;
 @property (nonatomic, strong) UIImage *motionsOriginalImage;
+@property (nonatomic, assign) CGRect startButtonFrame;
+@property (nonatomic, readonly) CGPoint startButtonCenter;
 
 @end
 
@@ -77,6 +81,11 @@ typedef enum {
 @synthesize functionLeftView = _functionLeftView;
 @synthesize functionRightView = _functionRightView;
 @synthesize delegate = _delegate;
+@synthesize leftPaperImageView = _leftPaperImageView;
+@synthesize rightPaperImageView = _rightPaperImageView;
+@synthesize paperImageHolderView = _paperImageHolderView;
+@synthesize leftPaperGloomImageView = _leftPaperGloomImageView;
+@synthesize rightPaperGloomImageView = _rightPaperGloomImageView;
 
 @synthesize keyboardHeight = _keyboardHeight;
 @synthesize currentHintView = _currentHintView;
@@ -90,6 +99,7 @@ typedef enum {
 @synthesize cancelButton = _cancelButton;
 @synthesize popoverController = _pc;
 @synthesize motionsOriginalImage = _motionsOriginalImage;
+@synthesize startButtonFrame = _startButtonFrame;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -107,6 +117,7 @@ typedef enum {
     [self configureViewFrame];
     [self configureMotionsImageView];
     [self configureTextView];
+    
     self.navActivityView.hidden = YES;
     self.navLabel.text = @"";
     _functionRightViewInitFrame = self.functionRightView.frame;
@@ -116,6 +127,9 @@ typedef enum {
     [center addObserver:self selector:@selector(deviceRotateDidChanged:) name:kNotificationNameOrientationChanged object:nil];
     [center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [self unfoldPaperAnimation];
+    [self moveFromStartButtonAnimation];
 }
 
 - (void)viewDidUnload
@@ -138,6 +152,9 @@ typedef enum {
     self.functionRightView = nil;
     self.motionsButton = nil;
     self.cancelButton = nil;
+    self.leftPaperImageView = nil;
+    self.rightPaperImageView = nil;
+    self.paperImageHolderView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -171,11 +188,14 @@ typedef enum {
         float animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
         [UIView animateWithDuration:animationDuration animations:^{
             self.postView.center = CGPointMake(self.postView.center.x, (screenSize.height - keyboardHeight) / 2);
+            self.paperImageHolderView.center = self.postView.center;
         } completion:^(BOOL finished) {
             _keyboardHidden = !finished;
         }];
-    } else 
+    } else {
         self.postView.center = CGPointMake(self.postView.center.x, (screenSize.height - keyboardHeight) / 2);
+        self.paperImageHolderView.center = self.postView.center;
+    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -184,6 +204,8 @@ typedef enum {
     CGSize screenSize = [UIApplication sharedApplication].screenSize;
     [UIView animateWithDuration:animationDuration animations:^{
         self.postView.center = CGPointMake(self.postView.center.x, screenSize.height / 2);
+        if(_playingFoldPaperAnimation == NO)
+            self.paperImageHolderView.center = self.postView.center;
     } completion:^(BOOL finished) {
         _keyboardHidden = finished;
     }];
@@ -296,7 +318,134 @@ typedef enum {
     self.motionsOriginalImage = image;
 }
 
+- (void)configurePaperHolderImageView {
+    UIGraphicsBeginImageContext(self.postView.bounds.size);
+    [self.postView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    CGRect leftRect = CGRectMake(0, 0, viewImage.size.width / 2, viewImage.size.height);
+    CGRect rightRect = CGRectMake(viewImage.size.width / 2, 0, viewImage.size.width / 2, viewImage.size.height);
+    UIImage *leftImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, leftRect)];
+    UIImage *rightImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, rightRect)];
+    
+    self.leftPaperImageView.image = leftImage;
+    self.rightPaperImageView.image = rightImage;
+    
+    CATransform3D transform = CATransform3DIdentity;
+    transform.m34 = 1.0 / -1500;
+    self.leftPaperImageView.layer.transform = transform;
+    self.rightPaperImageView.layer.transform = transform;
+    self.leftPaperImageView.layer.anchorPoint = CGPointMake(1, 0.5f);
+    self.rightPaperImageView.layer.anchorPoint = CGPointMake(0, 0.5f);
+}
+
+- (CGPoint)startButtonCenter {
+    return CGPointMake(self.startButtonFrame.origin.x + self.startButtonFrame.size.width / 2 + 5,
+                       self.startButtonFrame.origin.y + self.startButtonFrame.size.height / 2 - 2);
+}
+
 #pragma mark - UI methods
+
+- (void)moveFromStartButtonAnimation {
+    CGPoint originalCenter = self.paperImageHolderView.center;
+    self.paperImageHolderView.center = self.startButtonCenter;
+    self.paperImageHolderView.transform = CGAffineTransformMakeScale(FOLD_PAPER_SCALE_RATIO, FOLD_PAPER_SCALE_RATIO);
+    [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION animations:^{
+        self.paperImageHolderView.center = originalCenter;
+        self.paperImageHolderView.transform = CGAffineTransformIdentity;
+    }];
+}
+
+- (void)moveToStartButtonAnimation {
+    [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION animations:^{
+        self.paperImageHolderView.center = self.startButtonCenter;
+        self.paperImageHolderView.transform = CGAffineTransformMakeScale(FOLD_PAPER_SCALE_RATIO, FOLD_PAPER_SCALE_RATIO);
+    } completion:^(BOOL finished) {
+        [self.view removeFromSuperview];
+    }];
+}
+
+- (void)unfoldPaperAnimation {
+    [self configurePaperHolderImageView];    
+    self.postView.hidden = YES;
+    
+    [CATransaction begin];
+    [CATransaction setValue:[NSNumber numberWithFloat:FOLD_PAPER_ANIMATION_DURATION] forKey: kCATransactionAnimationDuration];
+    [CATransaction setCompletionBlock:^{
+		self.postView.hidden = NO;
+        self.paperImageHolderView.hidden = YES;
+	}];
+    
+    double factor = - 1 * M_PI / 180;
+    
+	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:@"easeOut"]];
+	[animation setFromValue:[NSNumber numberWithDouble:-90 * factor]];
+	[animation setToValue:[NSNumber numberWithDouble:0]];
+    [animation setFillMode:kCAFillModeForwards];
+	[animation setRemovedOnCompletion:NO];
+    
+	[self.leftPaperImageView.layer addAnimation:animation forKey:nil];
+    
+    animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+	[animation setFromValue:[NSNumber numberWithDouble:90 * factor]];
+	[animation setToValue:[NSNumber numberWithDouble:0]];
+    [animation setFillMode:kCAFillModeForwards];
+	[animation setRemovedOnCompletion:NO];
+    
+	[self.rightPaperImageView.layer addAnimation:animation forKey:nil];
+    [CATransaction commit];
+    
+    self.leftPaperGloomImageView.alpha = 0.7f;
+    self.rightPaperGloomImageView.alpha = 0.7f;
+    [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION animations:^{
+        self.leftPaperGloomImageView.alpha = 0;
+        self.rightPaperGloomImageView.alpha = 0;
+    }];
+}
+
+- (void)foldPaperAnimation {
+    [self configurePaperHolderImageView];
+    self.postView.hidden = YES;
+    self.paperImageHolderView.hidden = NO;
+    
+    [UIView animateWithDuration:0.1f 
+                          delay:FOLD_PAPER_ANIMATION_DURATION - 0.1f 
+                        options:UIViewAnimationCurveEaseOut animations:^{
+        self.view.alpha = 0;
+    } completion:nil];
+    
+    [CATransaction begin];
+    [CATransaction setValue:[NSNumber numberWithFloat:FOLD_PAPER_ANIMATION_DURATION] forKey: kCATransactionAnimationDuration];
+    
+    double factor = - 1 * M_PI / 180;
+    
+	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:@"easeInEaseOut"]];
+	[animation setFromValue:[NSNumber numberWithDouble:0]];
+	[animation setToValue:[NSNumber numberWithDouble:-90 * factor]];
+    [animation setFillMode:kCAFillModeForwards];
+	[animation setRemovedOnCompletion:NO];
+    
+	[self.leftPaperImageView.layer addAnimation:animation forKey:nil];
+    
+    animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+	[animation setFromValue:[NSNumber numberWithDouble:0]];
+	[animation setToValue:[NSNumber numberWithDouble:90 * factor]];
+    [animation setFillMode:kCAFillModeForwards];
+	[animation setRemovedOnCompletion:NO];
+    
+	[self.rightPaperImageView.layer addAnimation:animation forKey:nil];
+    [CATransaction commit];
+    
+    self.leftPaperGloomImageView.alpha = 0;
+    self.rightPaperGloomImageView.alpha = 0;
+    [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION animations:^{
+        self.leftPaperGloomImageView.alpha = 0.7f;
+        self.rightPaperGloomImageView.alpha = 0.7f;
+    }];
+}
 
 - (void)dismissPopover {
     if(self.actionSheet) {
@@ -324,8 +473,10 @@ typedef enum {
     self.motionsImageView.transform = CGAffineTransformMakeRotation(6 * M_PI / 180);
 }
 
-- (void)dismissView {
-    [UIApplication dismissModalViewController];
+- (void)dismissViewAnimated:(BOOL)animated {
+    [UIApplication dismissModalViewControllerAnimated:animated];
+    if(animated == NO)
+        _playingFoldPaperAnimation = YES;
     [self.textView resignFirstResponder];
 }
 
@@ -482,6 +633,18 @@ typedef enum {
     [self checkCurrentHintViewFrame];
 }
 
+- (void)showViewFromRect:(CGRect)rect {
+    self.startButtonFrame = rect;
+    [UIApplication presentModalViewController:self animated:NO];
+}
+
+- (void)dismissViewToRect:(CGRect)rect {
+    self.startButtonFrame = rect;
+    [self moveToStartButtonAnimation];
+    [self foldPaperAnimation];
+    [self dismissViewAnimated:NO];
+}
+
 #pragma mark - IBActions
 
 - (IBAction)didClickMotionsButton:(UIButton *)sender {
@@ -510,6 +673,10 @@ typedef enum {
 }
 
 - (IBAction)didClickReturnButton:(UIButton *)sender {
+    if([self.textView.text isEqualToString:@""] && self.motionsImageView.image == nil) {
+        [self dismissViewAnimated:YES];
+        return;
+    }
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
 															 delegate:self 
 													cancelButtonTitle:nil 
@@ -602,7 +769,7 @@ typedef enum {
         NSString *lon = [NSString stringWithFormat:@"%f", _location2D.longitude];
         [client sendWeiBoWithText:self.textView.text image:self.motionsOriginalImage longtitude:lon latitude:lat];
     }
-    [self dismissView];
+    [self.delegate postViewController:self willPostMessage:self.textView.text];
 }
 
 #pragma mark - MotionsViewController delegate
@@ -746,7 +913,7 @@ typedef enum {
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if(self.currentActionSheetType == ActionSheetTypeDestruct) {
         if(buttonIndex == actionSheet.destructiveButtonIndex)
-            [self dismissView];
+            [self dismissViewAnimated:YES];
 	} else if(self.currentActionSheetType == ActionSheetTypeMotions) {
         if(buttonIndex == MOTIONS_ACTION_SHEET_ALBUM_INDEX) {
             

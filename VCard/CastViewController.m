@@ -14,11 +14,8 @@
 #import "WBClient.h"
 #import "Status.h"
 #import "User.h"
-
 #import "WaterflowCardCell.h"
 #import "WaterflowDividerCell.h"
-
-#import "PostViewController.h"
 #import "UIApplication+Addition.h"
 
 @interface CastViewController () {
@@ -159,6 +156,7 @@
 
 #pragma mark - IBActions
 #pragma mark Refresh
+
 - (IBAction)refreshButtonClicked:(id)sender
 {
     _refreshIndicatorView.hidden = NO;
@@ -185,7 +183,8 @@
 
 - (IBAction)didClickCreateStatusButton:(UIButton *)sender {
     PostViewController *vc = [[PostViewController alloc] init];
-    [UIApplication presentModalViewController:vc animated:YES];
+    vc.delegate = self;
+    [vc showViewFromRect:sender.frame];
 }
 
 #pragma mark Stack View
@@ -420,6 +419,20 @@
         [_stackViewController.view removeFromSuperview];
         _stackViewController = nil;
     }];
+    
+}
+
+#pragma mark - PostViewController Delegate
+
+- (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message {
+    [vc dismissViewToRect:self.createStatusButton.frame];
+}
+
+- (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {
     
 }
 
