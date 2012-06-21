@@ -87,14 +87,15 @@
             [newPage resetOriginX:newPage.frame.origin.x - ScrollViewWidth];
         } completion:^(BOOL finished) {
             [self scrollViewDidScroll:_scrollView];
-            if (completion) {
-                completion();
-            }
         }];
     }
     
     [UIView animateWithDuration:0.3 animations:^{
         [_scrollView setContentOffset:CGPointMake(newPage.frame.origin.x, 0.0)];
+    } completion:^(BOOL finished) {
+        if (completion) {
+            completion();
+        }
     }];
 }
 

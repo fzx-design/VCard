@@ -37,7 +37,6 @@
 {
     [super viewDidLoad];
     self.view.autoresizingMask = UIViewAutoresizingNone;
-//    [self refresh];
     _loading = NO;
     _hasMoreViews = YES;
 }
@@ -182,7 +181,5 @@
         [self loadMoreData];
     }
 }
-
-#pragma mark - Properties
 
 @end

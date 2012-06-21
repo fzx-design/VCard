@@ -144,8 +144,13 @@
         [_pullView finishedLoading];
         _loading = NO;
     }];
+    
+    if (self.user.userID == nil) {
+        //TODO: Report Bug
+        return;
+    }
         
-    [client getUserTimeline:self.user.userID 
+    [client getUserTimeline:self.user.userID
                     SinceID:nil 
                       maxID:nil
              startingAtPage:0 
