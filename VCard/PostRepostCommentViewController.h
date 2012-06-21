@@ -1,5 +1,5 @@
 //
-//  PostCommentViewController.h
+//  PostRepostCommentViewController.h
 //  VCard
 //
 //  Created by 紫川 王 on 12-6-21.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PostViewController.h"
 
-@interface PostCommentViewController : PostViewController
+@interface PostRepostCommentViewController : PostViewController
 
 - (id)initWithWeiboID:(NSString *)weiboID weiboOwnerName:(NSString *)ownerName;
 

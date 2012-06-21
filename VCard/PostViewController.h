@@ -56,6 +56,7 @@ typedef enum {
 
 @property (nonatomic, strong) UIImage *motionsOriginalImage;
 @property (nonatomic, weak)   id<PostViewControllerDelegate> delegate;
+@property (nonatomic, assign) PostViewControllerType type;
 
 + (id)getPostViewControllerViewWithType:(PostViewControllerType)type 
                                delegate:(id<PostViewControllerDelegate>) delegate

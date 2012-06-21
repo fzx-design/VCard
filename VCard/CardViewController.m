@@ -15,7 +15,6 @@
 #import "WBClient.h"
 #import "UIApplication+Addition.h"
 #import "UIView+Resize.h"
-#import "PostViewController.h"
 
 #define MaxCardSize CGSizeMake(326,9999)
 #define CardSizeUserAvatarHeight 25
@@ -495,7 +494,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     NSString *targetStatusID = self.status.statusID;
     CGRect frame = [self.view convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
     
-    PostViewController *vc = [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeComment 
+    PostViewController *vc = [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeComment
                                                                           delegate:self
                                                                            weiboID:targetStatusID
                                                                     weiboOwnerName:targetUserName];
@@ -519,6 +518,27 @@ static inline NSRegularExpression * UrlRegularExpression() {
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithPhoneNumber:(NSString *)userName
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:userName];
+}
+
+#pragma mark - PostViewController Delegate
+
+- (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message {
+    [vc dismissViewUpwards];
+}
+
+- (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
+    if(vc.type == PostViewControllerTypeComment)
+        [vc dismissViewToRect:[self.view convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
+    else
+        [vc dismissViewToRect:[self.view convertRect:self.repostButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
 }
 
 @end

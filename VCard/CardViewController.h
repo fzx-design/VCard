@@ -13,8 +13,9 @@
 #import "TTTAttributedLabel.h"
 #import "UserAvatarImageView.h"
 #import "Status.h"
+#import "PostViewController.h"
 
-@interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate> {
+@interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate, PostViewControllerDelegate> {
     CardImageView *_statusImageView;
     UserAvatarImageView *_repostUserAvatar;
     UserAvatarImageView *_originalUserAvatar;

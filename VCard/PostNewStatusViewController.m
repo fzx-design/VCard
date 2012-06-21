@@ -20,7 +20,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:@"PostViewController" bundle:nil];
     if (self) {
         // Custom initialization
     }
@@ -29,10 +29,12 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
     self.functionLeftCheckmarkView.hidden = YES;
     self.functionLeftNavView.hidden = NO;
+    
+    [super viewDidLoad];
+	// Do any additional setup after loading the view.
+    
 }
 
 - (void)viewDidUnload
@@ -159,7 +161,6 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         NSLog(@"post finish:%@", client.responseJSONObject);
-        [sender setTitle:@"发表" forState:UIControlStateNormal];
         if(!client.hasError) {
             NSLog(@"post succeeded");
             [self.delegate postViewController:self didPostMessage:self.textView.text];

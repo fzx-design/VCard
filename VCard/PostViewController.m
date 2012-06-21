@@ -15,8 +15,7 @@
 #import "UIView+Addition.h"
 #import "WBClient.h"
 #import "PostNewStatusViewController.h"
-#import "PostRepostViewController.h"
-#import "PostCommentViewController.h"
+#import "PostRepostCommentViewController.h"
 
 #define WEIBO_TEXT_MAX_LENGTH   140
 #define HINT_VIEW_OFFSET        CGSizeMake(-16, 27)
@@ -28,6 +27,7 @@
 #define FOLD_PAPER_ANIMATION_DURATION   0.5f
 #define UNFOLD_PAPER_ANIMATION_DURATION 0.3f
 #define FOLD_PAPER_SCALE_RATIO          0.01f
+#define PAPER_GLOOM_ALPHA               0.5f
 
 #define MOTIONS_ACTION_SHEET_SHOOT_INDEX    0
 #define MOTIONS_ACTION_SHEET_ALBUM_INDEX    1
@@ -94,6 +94,7 @@ typedef enum {
 @synthesize topBarLabel = _topBarLabel;
 @synthesize repostCommentLabel = _repostCommentLabel;
 @synthesize motionsView = _motionsView;
+@synthesize type = _type;
 
 @synthesize keyboardHeight = _keyboardHeight;
 @synthesize currentHintView = _currentHintView;
@@ -115,11 +116,11 @@ typedef enum {
     PostViewController *vc = nil;
     if(type == PostViewControllerTypeNewStatus) {
         vc = [[PostNewStatusViewController alloc] init];
-    } else if(type == PostViewControllerTypeComment) {
-        vc = [[PostCommentViewController alloc] initWithWeiboID:weiboID weiboOwnerName:ownerName];
-    } else if(type == PostViewControllerTypeRepost) {
-        vc = [[PostRepostViewController alloc] initWithWeiboID:weiboID weiboOwnerName:ownerName];
+    } else {
+        vc = [[PostRepostCommentViewController alloc] initWithWeiboID:weiboID weiboOwnerName:ownerName];
     }
+    vc.type = type;
+    vc.delegate = delegate;
     return vc;
 }
 
@@ -606,8 +607,8 @@ typedef enum {
     
     [CATransaction commit];
     
-    self.leftPaperGloomImageView.alpha = 0.7f;
-    self.rightPaperGloomImageView.alpha = 0.7f;
+    self.leftPaperGloomImageView.alpha = PAPER_GLOOM_ALPHA;
+    self.rightPaperGloomImageView.alpha = PAPER_GLOOM_ALPHA;
     [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION - 0.2f
                           delay:0.2f
                         options:UIViewAnimationCurveEaseOut
@@ -647,8 +648,8 @@ typedef enum {
     self.leftPaperGloomImageView.alpha = 0;
     self.rightPaperGloomImageView.alpha = 0;
     [UIView animateWithDuration:UNFOLD_PAPER_ANIMATION_DURATION - 0.1f animations:^{
-        self.leftPaperGloomImageView.alpha = 0.7f;
-        self.rightPaperGloomImageView.alpha = 0.7f;
+        self.leftPaperGloomImageView.alpha = PAPER_GLOOM_ALPHA;
+        self.rightPaperGloomImageView.alpha = PAPER_GLOOM_ALPHA;
     }];
 }
 
@@ -743,8 +744,6 @@ typedef enum {
 }
 
 - (IBAction)didClickRepostCommentCheckmarkButton:(UIButton *)sender {
-    BOOL select = !sender.isSelected;
-    sender.selected = select;
 }
 
 #pragma mark - MotionsViewController delegate
