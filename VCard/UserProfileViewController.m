@@ -81,6 +81,11 @@
     [self setCheckButtonEnabled:YES];
 }
 
+- (void)initialLoad
+{
+    [self.statusController refresh];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -104,9 +109,12 @@
     self.checkFollowersButton.selected = YES;
     self.checkStatusesButton.selected = NO;
     self.checkFriendsButton.selected = NO;
+    
     [self.backgroundView addSubview:self.followerController.view];
-    [self.friendController.view removeFromSuperview];
     [self.statusController.view removeFromSuperview];
+    if (_friendController) {
+        [self.friendController.view removeFromSuperview];
+    }
 }
 
 - (IBAction)showFriends:(id)sender
@@ -115,8 +123,10 @@
     self.checkStatusesButton.selected = NO;
     self.checkFriendsButton.selected = YES;
     [self.backgroundView addSubview:self.friendController.view];
-    [self.followerController.view removeFromSuperview];
     [self.statusController.view removeFromSuperview];
+    if (_followerController) {
+        [self.followerController.view removeFromSuperview];
+    }
 }
 
 - (IBAction)showStatuses:(id)sender
@@ -125,8 +135,12 @@
     self.checkStatusesButton.selected = YES;
     self.checkFriendsButton.selected = NO;
     [self.backgroundView addSubview:self.statusController.view];
-    [self.followerController.view removeFromSuperview];
-    [self.friendController.view removeFromSuperview];
+    if (_followerController) {
+        [self.followerController.view removeFromSuperview];
+    }
+    if (_friendController) {
+        [self.friendController.view removeFromSuperview];
+    }
 }
 
 - (CGRect)frameForTableView
@@ -146,6 +160,7 @@
         _friendController.user = self.user;
         _friendController.type = RelationshipViewTypeFriends;
         _friendController.stackPageIndex = self.pageIndex;
+        [_friendController refresh];
     }
     return _friendController;
 }
@@ -159,6 +174,7 @@
         _followerController.user = self.user;
         _followerController.type = RelationshipViewTypeFollowers;
         _followerController.stackPageIndex = self.pageIndex;
+        [_followerController refresh];
     }
     return _followerController;
 }

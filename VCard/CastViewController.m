@@ -78,7 +78,7 @@
     _loading = NO;
     _nextPage = 1;
     _refreshIndicatorView.hidden = YES;
-    _coverView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _coverView = [[UIView alloc] initWithFrame:CGRectMake(1024.0, 0.0, 0.0, 0.0)];
     _coverView.backgroundColor = [UIColor blackColor];
     _coverView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
 }

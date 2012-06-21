@@ -39,5 +39,10 @@
     // Release any retained subviews of the main view.
 }
 
+//To be overloaded
+- (void)initialLoad
+{
+    
+}
 
 @end

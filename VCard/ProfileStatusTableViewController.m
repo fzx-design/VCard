@@ -39,7 +39,7 @@
 {
     [super viewDidLoad];
     self.view.autoresizingMask = UIViewAutoresizingNone;
-    [self refresh];
+//    [self refresh];
     _loading = NO;
     _hasMoreViews = YES;
     

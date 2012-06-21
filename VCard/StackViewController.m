@@ -70,8 +70,6 @@
     }
     
     StackViewPageController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfProfileViewController"];
-    [vc.view resetWidth:384.0];
-    [vc.backgroundView resetWidth:431.0];
     vc.pageIndex = _controllerStack.count;
     vc.currentUser = self.currentUser;
     [self addViewController:vc replacingOtherView:replacingOtherView];
@@ -95,7 +93,9 @@
 - (void)addViewController:(StackViewPageController *)vc replacingOtherView:(BOOL)replacing
 {
     [self.controllerStack addObject:vc];
-    [self.stackView addNewPage:vc.view replacingView:replacing];
+    [self.stackView addNewPage:vc.view replacingView:replacing completion:^{
+        [vc initialLoad];
+    }];
 }
 
 #pragma mark - Stack View Delegate

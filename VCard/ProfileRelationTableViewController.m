@@ -38,7 +38,7 @@
 {
     [super viewDidLoad];
     self.view.autoresizingMask = UIViewAutoresizingNone;
-    [self refresh];
+//    [self refresh];
     _loading = NO;
     _hasMoreViews = YES;
 }
@@ -161,6 +161,17 @@
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:usr, kNotificationObjectKeyUser, [NSString stringWithFormat:@"%d", _stackPageIndex], kNotificationObjectKeyIndex, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserCellClicked object:dictionary];
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell =  [tableView cellForRowAtIndexPath:indexPath];
+    cell.selected = YES;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath

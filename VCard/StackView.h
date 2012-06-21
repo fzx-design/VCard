@@ -15,6 +15,7 @@
 - (UIView *)viewForPageIndex:(int)index;
 - (void)stackBecomedEmpty;
 - (void)stackViewDidScroll;
+//- (void)stack
 
 @end
 
@@ -28,7 +29,9 @@
 @property (nonatomic, strong) UIButton *returnButton;
 @property (nonatomic, assign) id<StackViewDelegate> delegate;
 
-- (void)addNewPage:(UIView *)newPage replacingView:(BOOL)replacing;
+- (void)addNewPage:(UIView *)newPage
+     replacingView:(BOOL)replacing
+        completion:(void (^)())completion;
 - (void)removeLastView:(UIView *)lastView;
 - (void)sendShowBGNotification;
 

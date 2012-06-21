@@ -68,7 +68,7 @@
     [self addSubview:_scrollView];
 }
 
-- (void)addNewPage:(UIView *)newPage replacingView:(BOOL)replacing
+- (void)addNewPage:(UIView *)newPage replacingView:(BOOL)replacing completion:(void (^)())completion
 {
     int pageNumber = [_delegate pageNumber];
     int width = ScrollViewWidth * (pageNumber + 1);
@@ -87,6 +87,9 @@
             [newPage resetOriginX:newPage.frame.origin.x - ScrollViewWidth];
         } completion:^(BOOL finished) {
             [self scrollViewDidScroll:_scrollView];
+            if (completion) {
+                completion();
+            }
         }];
     }
     
