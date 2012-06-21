@@ -23,7 +23,6 @@
 @implementation ProfileRelationTableViewController
 
 @synthesize type = _type;
-@synthesize backgroundView = _backgroundView;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -106,6 +105,7 @@
             _hasMoreViews = _nextCursor != 0;
         }
         
+        [self adjustBackgroundView];
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_pullView finishedLoading];
         _loading = NO;
@@ -174,42 +174,15 @@
     cell.selected = YES;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self resetBackgroundView];
-}
-
-
 #pragma mark - UIScrollView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self resetBackgroundView];
+    [super scrollViewDidScroll:scrollView];
     if (_hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
         [self loadMoreData];
     }
 }
 
-- (void)resetBackgroundView
-{
-    if (self.tableView.contentSize.height - self.tableView.contentOffset.y < self.tableView.frame.size.height) {
-        self.backgroundView.alpha = 1.0;
-        [self.backgroundView resetOriginY:self.tableView.contentSize.height];
-        [self.tableView sendSubviewToBack:self.backgroundView];
-        [_loadMoreView resetPosition];
-    } else {
-        self.backgroundView.alpha = 0.0;
-    }
-}
-
 #pragma mark - Properties
-- (BaseLayoutView*)backgroundView
-{
-    if (!_backgroundView) {
-        _backgroundView = [[BaseLayoutView alloc] initWithFrame:CGRectMake(0.0, 0.0, 384.0, 2000.0)];
-        _backgroundView.autoresizingMask = UIViewAutoresizingNone;
-        [self.tableView insertSubview:_backgroundView atIndex:0];
-    }
-    return _backgroundView;
-}
 
 @end

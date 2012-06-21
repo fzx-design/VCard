@@ -16,15 +16,12 @@ typedef enum {
 
 
 @interface ProfileRelationTableViewController : RefreshableCoreDataTableViewController {
-    
     RelationshipViewType _type;
-    BaseLayoutView *_backgroundView;
 }
 
 
 
 @property (nonatomic, assign) RelationshipViewType type;
-@property (nonatomic, retain) BaseLayoutView *backgroundView;
 
 - (void)refresh;
 - (void)loadMore;

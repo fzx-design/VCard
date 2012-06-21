@@ -9,12 +9,8 @@
 #import "RefreshableCoreDataTableViewController.h"
 
 @interface ProfileStatusTableViewController : RefreshableCoreDataTableViewController {
-    BaseLayoutView *_backgroundViewA;
-    BaseLayoutView *_backgroundViewB;
-}
 
-@property (nonatomic, retain) BaseLayoutView *backgroundViewA;
-@property (nonatomic, retain) BaseLayoutView *backgroundViewB;
+}
 
 - (void)refresh;
 - (void)loadMore;

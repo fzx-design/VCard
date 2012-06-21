@@ -28,5 +28,6 @@
 
 - (void)refresh;
 - (void)loadMore;
+- (void)adjustBackgroundView;
 
 @end

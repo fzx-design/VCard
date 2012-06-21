@@ -23,9 +23,6 @@
 
 @implementation ProfileStatusTableViewController
 
-@synthesize backgroundViewA = _backgroundViewA;
-@synthesize backgroundViewB = _backgroundViewB;
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super init];
@@ -94,6 +91,7 @@
             _hasMoreViews = dictArray.count == 20;
         }
         
+        [self adjustBackgroundView];
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_pullView finishedLoading];
         _loading = NO;
@@ -142,8 +140,7 @@
             [self.fetchedResultsController performFetch:nil];
         }
         
-        NSLog(@"%d",self.fetchedResultsController.fetchedObjects.count);
-        
+        [self adjustBackgroundView];
         [_pullView finishedLoading];
         _loading = NO;
     }];
@@ -180,47 +177,6 @@
     return imageHeight;
 }
 
-
-- (void)adjustBackgroundView
-{
-    CGFloat top = self.tableView.contentOffset.y;
-    CGFloat bottom = top + self.tableView.frame.size.height;
-    
-    UIView *upperView = nil;
-    UIView *lowerView = nil;
-    BOOL alignToTop = NO;
-    
-    if ((alignToTop = [self view:self.backgroundViewA containsPoint:top]) || [self view:self.backgroundViewB containsPoint:bottom]) {
-        upperView = self.backgroundViewA;
-        lowerView = self.backgroundViewB;
-    } else if((alignToTop = [self view:self.backgroundViewB containsPoint:top]) || [self view:self.backgroundViewA containsPoint:bottom]) {
-        upperView = self.backgroundViewB;
-        lowerView = self.backgroundViewA;
-    }
-    
-    if (upperView && lowerView) {
-        if (alignToTop) {
-            [lowerView resetOriginY:upperView.frame.origin.y + upperView.frame.size.height];
-        } else {
-            [upperView resetOriginY:lowerView.frame.origin.y - lowerView.frame.size.height];
-        }
-    } else {
-        [self.backgroundViewA resetOriginY:top];
-        [self.backgroundViewB resetOriginY:self.backgroundViewA.frame.origin.y + self.backgroundViewA.frame.size.height];
-    }
-    
-    [self.tableView sendSubviewToBack:self.backgroundViewA];
-    [self.tableView sendSubviewToBack:self.backgroundViewB];
-    
-    [_loadMoreView resetPosition];
-}
-
-- (BOOL)view:(UIView *)view containsPoint:(CGFloat)originY
-{
-    return view.frame.origin.y <= originY && view.frame.origin.y + view.frame.size.height > originY;
-}
-
-
 #pragma mark - Core Data TableView Controller Delegate
 - (void)configureRequest:(NSFetchRequest *)request
 {
@@ -256,7 +212,8 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self adjustBackgroundView];
+//    [self adjustBackgroundView];
+    [super scrollViewDidScroll:scrollView];
     for (ProfileStatusTableViewCell *cell in self.tableView.visibleCells) {
         [cell loadImageAfterScrollingStop];
     }
@@ -265,26 +222,6 @@
     }
 }
 
-#pragma mark - Properties
-- (BaseLayoutView*)backgroundViewA
-{
-    if (!_backgroundViewA) {
-        _backgroundViewA = [[BaseLayoutView alloc] initWithFrame:CGRectMake(0.0, 0.0, 384.0, 1024.0)];
-        _backgroundViewA.autoresizingMask = UIViewAutoresizingNone;
-        [self.tableView insertSubview:_backgroundViewA atIndex:0];
-    }
-    return _backgroundViewA;
-}
 
-- (BaseLayoutView*)backgroundViewB
-{
-    if (!_backgroundViewB) {
-        _backgroundViewB = [[BaseLayoutView alloc] initWithFrame:CGRectMake(0.0, 0.0, 384.0, 1024.0)];
-        _backgroundViewB.autoresizingMask = UIViewAutoresizingNone;
-        [_backgroundViewB resetOriginY:self.backgroundViewA.frame.origin.y + self.backgroundViewA.frame.size.height];
-        [self.tableView insertSubview:_backgroundViewB atIndex:0];
-    }
-    return _backgroundViewB;
-}
 
 @end
