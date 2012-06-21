@@ -129,7 +129,13 @@
                 CGSize imageSizeWithBorder = CGSizeMake(self.frame.size.width + 2, self.frame.size.height + 2);
                 UIImage *tmpImage = [image imageByScalingAndCroppingForSize:imageSizeWithBorder];
                 
-                UIGraphicsBeginImageContext(imageSizeWithBorder);
+//                UIGraphicsBeginImageContext(imageSizeWithBorder);
+                
+                if (UIGraphicsBeginImageContextWithOptions != NULL) {
+                    UIGraphicsBeginImageContextWithOptions(imageSizeWithBorder, NO, 0.0);
+                } else {
+                    UIGraphicsBeginImageContext(imageSizeWithBorder);
+                }
                 [tmpImage drawInRect:(CGRect){{1, 1}, self.frame.size}];
                 targetImage = UIGraphicsGetImageFromCurrentImageContext();
                 UIGraphicsEndImageContext();

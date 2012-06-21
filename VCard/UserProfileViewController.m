@@ -50,6 +50,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor blackColor];
     [self setCheckButtonEnabled:NO];
 }
 
@@ -71,6 +72,9 @@
     NSString *genderImage = [self.user.gender isEqualToString:@"f"] ? kRLIconFemale : kRLIconMale;
     UIImage *image = [UIImage imageNamed:genderImage];
     [_genderImageView setImage:image];
+    
+    [self.view resetWidth:384.0];
+    [self.backgroundView resetWidth:431.0];
     
     [self showStatuses:nil];
     

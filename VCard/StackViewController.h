@@ -14,6 +14,7 @@
 @protocol StackViewControllerDelegate <NSObject>
 
 - (void)clearStack;
+- (void)stackViewScrolledWithOffset:(CGFloat)offset width:(CGFloat)width;
 
 @end
 

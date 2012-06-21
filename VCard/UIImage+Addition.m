@@ -363,7 +363,12 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
         }
     }       
     
-    UIGraphicsBeginImageContext(targetSize); // this will crop
+//    UIGraphicsBeginImageContext(targetSize); // this will crop
+    if (UIGraphicsBeginImageContextWithOptions != NULL) {
+        UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.0);
+    } else {
+        UIGraphicsBeginImageContext(targetSize);
+    }
     
     CGRect thumbnailRect = CGRectZero;
     thumbnailRect.origin = thumbnailPoint;

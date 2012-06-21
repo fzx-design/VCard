@@ -8,6 +8,7 @@
 
 #import "StackViewController.h"
 #import "StackViewPageController.h"
+#import "UIView+Resize.h"
 
 @interface StackViewController ()
 
@@ -40,6 +41,9 @@
                                              selector:@selector(stackViewSendShowBGNotification) 
                                                  name:kNotificationNameOrientationWillChange 
                                                object:nil];
+    
+    //FIXME: Debug
+//    self.view.backgroundColor = [UIColor blackColor];
 }
 
 - (void)viewDidUnload
@@ -66,6 +70,8 @@
     }
     
     StackViewPageController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfProfileViewController"];
+    [vc.view resetWidth:384.0];
+    [vc.backgroundView resetWidth:431.0];
     vc.pageIndex = _controllerStack.count;
     vc.currentUser = self.currentUser;
     [self addViewController:vc replacingOtherView:replacingOtherView];
@@ -112,6 +118,11 @@
 - (void)stackBecomedEmpty
 {
     [_delegate clearStack];
+}
+
+- (void)stackViewDidScroll
+{
+    [_delegate stackViewScrolledWithOffset:_stackView.scrollView.contentOffset.x width:_stackView.scrollView.contentSize.width - 384.0];
 }
 
 #pragma mark - Property

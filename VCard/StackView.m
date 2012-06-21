@@ -97,7 +97,7 @@
 
 - (CGRect)frameForNewView:(int)pageNumber
 {
-    return CGRectMake((pageNumber) * ScrollViewWidth, 0.0, PageWidth, self.frame.size.height);
+    return CGRectMake((pageNumber) * ScrollViewWidth, 0.0, 384.0, self.frame.size.height);
 }
 
 - (void)removeLastView:(UIView *)lastView
@@ -126,6 +126,8 @@
     } else {
         [self sendShowBGNotification];
     }
+    
+    [_delegate stackViewDidScroll];
 }
      
 
@@ -151,7 +153,7 @@
         [UIView animateWithDuration:0.3 animations:^{
             [self resetOriginX:self.frame.origin.x + 200.0];
         } completion:^(BOOL finished) {
-            // TODO: Crashed
+            //FIXME: Crashed
             [_delegate stackBecomedEmpty];
         }];
     }

@@ -7,6 +7,7 @@
 //
 
 #import "StackViewPageController.h"
+#import "UIView+Resize.h"
 
 @interface StackViewPageController ()
 
@@ -29,7 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.
 }
 
 - (void)viewDidUnload

@@ -26,6 +26,8 @@
     NSInteger _nextPage;
 }
 
+@property (nonatomic, strong) UIView *coverView;
+
 @end
 
 @implementation CastViewController
@@ -76,6 +78,9 @@
     _loading = NO;
     _nextPage = 1;
     _refreshIndicatorView.hidden = YES;
+    _coverView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _coverView.backgroundColor = [UIColor blackColor];
+    _coverView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
 }
 
 - (void)setUpNotification
@@ -140,6 +145,7 @@
     NSString *vcIdentifier = [targetUser.screenName isEqualToString:self.currentUser.screenName] ? @"SelfProfileViewController" : @"FriendProfileViewController";
     
     UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:vcIdentifier];
+    vc.currentUser = self.currentUser;
     vc.user = targetUser;
     
     [self stackViewAtIndex:index push:vc];
@@ -147,13 +153,13 @@
 
 - (void)hideWaterflowView
 {
-    self.waterflowView.alpha = 0.0;
-    _stackViewController.view.backgroundColor = [UIColor clearColor];
+//    self.waterflowView.alpha = 0.0;
+//    _stackViewController.view.backgroundColor = [UIColor clearColor];
 }
 
 - (void)showWaterflowView
 {
-    self.waterflowView.alpha = 1.0;
+//    self.waterflowView.alpha = 1.0;
     _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
 }
 
@@ -197,6 +203,8 @@
 - (IBAction)showProfileButtonClicked:(id)sender
 {
     UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfProfileViewController"];
+    [vc.view resetWidth:384.0];
+    [vc.backgroundView resetWidth:431.0];
     vc.currentUser = self.currentUser;
     vc.screenName = self.currentUser.screenName;
     
@@ -208,12 +216,15 @@
     BOOL stackViewExists = _stackViewController != nil;
     if (!stackViewExists) {
         _stackViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewController"];
+        
         [_stackViewController.view resetOrigin:CGPointMake(0.0, 43.0)];
-//        [_stackViewController.view resetSize:CGSizeMake(384.0, 748.0 - 43.0)];
         [_stackViewController.view resetSize:self.waterflowView.frame.size];
         _stackViewController.currentUser = self.currentUser;
         _stackViewController.delegate = self;
-        [self.view insertSubview:_stackViewController.view belowSubview:_navigationView];
+        
+        [self.view insertSubview:_coverView belowSubview:_navigationView];
+        
+        [self.view insertSubview:_stackViewController.view aboveSubview:_coverView];
         
         [UIView animateWithDuration:0.3 animations:^{
             _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
@@ -415,13 +426,23 @@
 #pragma mark - Stack View Controller Delegate
 - (void)clearStack
 {
+    [_coverView removeFromSuperview];
     [UIView animateWithDuration:0.3 animations:^{
         _stackViewController.view.alpha = 0.0;
     } completion:^(BOOL finished) {
         [_stackViewController.view removeFromSuperview];
         _stackViewController = nil;
     }];
-    
+}
+
+- (void)stackViewScrolledWithOffset:(CGFloat)scrollViewOffsetX width:(CGFloat)scrollViewWidth
+{
+    CGFloat screenWidth = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? 768.0 : 1024.0;
+    CGFloat screenHeight = screenWidth == 768.0 ? 1024.0 : 768.0;
+    CGFloat originX = screenWidth - scrollViewOffsetX;
+    CGFloat width = scrollViewWidth > screenWidth ? screenWidth : scrollViewWidth;
+
+    [_coverView setFrame:CGRectMake(originX, 0.0, width, screenHeight)];
 }
 
 @end

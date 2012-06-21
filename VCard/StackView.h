@@ -14,6 +14,7 @@
 - (int)pageNumber;
 - (UIView *)viewForPageIndex:(int)index;
 - (void)stackBecomedEmpty;
+- (void)stackViewDidScroll;
 
 @end
 
