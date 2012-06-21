@@ -425,7 +425,7 @@
 #pragma mark - PostViewController Delegate
 
 - (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message {
-    [vc dismissViewToRect:self.createStatusButton.frame];
+    [vc dismissViewUpwards];
 }
 
 - (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
@@ -434,6 +434,10 @@
 
 - (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {
     
+}
+
+- (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
+    [vc dismissViewToRect:self.createStatusButton.frame];
 }
 
 @end

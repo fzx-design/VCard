@@ -57,12 +57,14 @@
 - (IBAction)didClickNavButton:(UIButton *)sender;
 - (void)showViewFromRect:(CGRect)rect;
 - (void)dismissViewToRect:(CGRect)rect;
+- (void)dismissViewUpwards;
 
 @end
 
 @protocol PostViewControllerDelegate <NSObject>
 
 - (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message;
+- (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message;
 - (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message;
 - (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message;
 
