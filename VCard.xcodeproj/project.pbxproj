@@ -657,6 +657,9 @@
 		E1599CC91580CD7400B9AE72 /* PostRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1599CC81580CD7400B9AE72 /* PostRootView.m */; };
 		E1998AF315919BA400BBAC55 /* post_paper_gloom_left.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF115919BA400BBAC55 /* post_paper_gloom_left.png */; };
 		E1998AF415919BA400BBAC55 /* post_paper_gloom_right.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF215919BA400BBAC55 /* post_paper_gloom_right.png */; };
+		E1998AF81592EB5400BBAC55 /* PostNewStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */; };
+		E1998AFB1592EB9F00BBAC55 /* PostRepostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1998AFA1592EB9F00BBAC55 /* PostRepostViewController.m */; };
+		E1998AFE1592EBAD00BBAC55 /* PostReplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1998AFD1592EBAD00BBAC55 /* PostReplyViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1413,6 +1416,12 @@
 		E1599CC81580CD7400B9AE72 /* PostRootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostRootView.m; sourceTree = "<group>"; };
 		E1998AF115919BA400BBAC55 /* post_paper_gloom_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post_paper_gloom_left.png; sourceTree = "<group>"; };
 		E1998AF215919BA400BBAC55 /* post_paper_gloom_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post_paper_gloom_right.png; sourceTree = "<group>"; };
+		E1998AF61592EB5400BBAC55 /* PostNewStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostNewStatusViewController.h; sourceTree = "<group>"; };
+		E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostNewStatusViewController.m; sourceTree = "<group>"; };
+		E1998AF91592EB9E00BBAC55 /* PostRepostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostRepostViewController.h; sourceTree = "<group>"; };
+		E1998AFA1592EB9F00BBAC55 /* PostRepostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostRepostViewController.m; sourceTree = "<group>"; };
+		E1998AFC1592EBAD00BBAC55 /* PostReplyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostReplyViewController.h; sourceTree = "<group>"; };
+		E1998AFD1592EBAD00BBAC55 /* PostReplyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostReplyViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2346,6 +2355,12 @@
 				E1097D04157F99E700BD0640 /* PostViewController.h */,
 				E1097D05157F99E700BD0640 /* PostViewController.m */,
 				E1097D06157F99E700BD0640 /* PostViewController.xib */,
+				E1998AF61592EB5400BBAC55 /* PostNewStatusViewController.h */,
+				E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */,
+				E1998AF91592EB9E00BBAC55 /* PostRepostViewController.h */,
+				E1998AFA1592EB9F00BBAC55 /* PostRepostViewController.m */,
+				E1998AFC1592EBAD00BBAC55 /* PostReplyViewController.h */,
+				E1998AFD1592EBAD00BBAC55 /* PostReplyViewController.m */,
 			);
 			name = Post;
 			sourceTree = "<group>";
@@ -3314,6 +3329,9 @@
 				E1097D48157F9AD700BD0640 /* UIImageView+ContentScale.m in Sources */,
 				E1097D4B157F9BBF00BD0640 /* UIView+Addition.m in Sources */,
 				E1599CC91580CD7400B9AE72 /* PostRootView.m in Sources */,
+				E1998AF81592EB5400BBAC55 /* PostNewStatusViewController.m in Sources */,
+				E1998AFB1592EB9F00BBAC55 /* PostRepostViewController.m in Sources */,
+				E1998AFE1592EBAD00BBAC55 /* PostReplyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

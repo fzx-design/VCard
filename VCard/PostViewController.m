@@ -14,13 +14,17 @@
 #import "PostTopicHintView.h"
 #import "UIView+Addition.h"
 #import "WBClient.h"
+#import "PostNewStatusViewController.h"
+#import "PostRepostViewController.h"
+#import "PostReplyViewController.h"
 
 #define WEIBO_TEXT_MAX_LENGTH   140
-#define HINT_VIEW_OFFSET    CGSizeMake(-16, 27)
+#define HINT_VIEW_OFFSET        CGSizeMake(-16, 27)
 #define HINT_VIEW_ORIGIN_MIN_Y  108
 #define HINT_VIEW_ORIGIN_MAX_Y  234
 #define HINT_VIEW_BORDER_MAX_Y  (self.postView.frame.size.height - 10)
 #define HINT_VIEW_BORDER_MAX_X  self.postView.frame.size.width
+
 #define FOLD_PAPER_ANIMATION_DURATION   0.5f
 #define UNFOLD_PAPER_ANIMATION_DURATION 0.3f
 #define FOLD_PAPER_SCALE_RATIO          0.01f
@@ -53,13 +57,11 @@ typedef enum {
 @property (nonatomic, assign) NSRange currentHintStringRange;
 @property (nonatomic, readonly) NSString *currentHintString;
 @property (nonatomic, assign) HintViewType currentHintViewType;
-@property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic, strong) EmoticonsViewController *emoticonsViewController;
 @property (nonatomic, readonly) PostRootView *postRootView;
 @property (nonatomic, strong) UIActionSheet *actionSheet;
 @property (nonatomic, assign) ActionSheetType currentActionSheetType;
 @property (nonatomic, strong) UIPopoverController *popoverController;
-@property (nonatomic, strong) UIImage *motionsOriginalImage;
 @property (nonatomic, assign) CGRect startButtonFrame;
 @property (nonatomic, readonly) CGPoint startButtonCenter;
 
@@ -77,9 +79,11 @@ typedef enum {
 @synthesize motionsButton = _motionsButton;
 @synthesize emoticonsButton = _emoticonsButton;
 @synthesize topicButton = _topicButton;
+@synthesize checkmarkButton = _checkmarkButton;
 @synthesize navActivityView = _navActivityView;
 @synthesize navLabel = _navLabel;
-@synthesize functionLeftView = _functionLeftView;
+@synthesize functionLeftNavView = _functionLeftNavView;
+@synthesize functionLeftCheckmarkView = _functionLeftCheckmarkView;
 @synthesize functionRightView = _functionRightView;
 @synthesize delegate = _delegate;
 @synthesize leftPaperImageView = _leftPaperImageView;
@@ -87,13 +91,14 @@ typedef enum {
 @synthesize paperImageHolderView = _paperImageHolderView;
 @synthesize leftPaperGloomImageView = _leftPaperGloomImageView;
 @synthesize rightPaperGloomImageView = _rightPaperGloomImageView;
+@synthesize topBarLabel = _topBarLabel;
+@synthesize repostReplyLabel = _repostReplyLabel;
 
 @synthesize keyboardHeight = _keyboardHeight;
 @synthesize currentHintView = _currentHintView;
 @synthesize currentHintStringRange = _currentHintStringRange;
 @synthesize currentHintString = _currentHintString;
 @synthesize currentHintViewType = _currentHintViewType;
-@synthesize locationManager = locationManager;
 @synthesize emoticonsViewController = _emoticonsViewController;
 @synthesize currentActionSheetType = _currentActionSheetType;
 @synthesize actionSheet = _actionSheet;
@@ -101,6 +106,18 @@ typedef enum {
 @synthesize popoverController = _pc;
 @synthesize motionsOriginalImage = _motionsOriginalImage;
 @synthesize startButtonFrame = _startButtonFrame;
+
++ (id)getPostViewControllerViewWithType:(PostViewControllerType)type {
+    PostViewController *vc = nil;
+    if(type == PostViewControllerTypeNewStatus) {
+        vc = [[PostNewStatusViewController alloc] init];
+    } else if(type == PostViewControllerTypeReply) {
+        vc = [[PostReplyViewController alloc] init];
+    } else if(type == PostViewControllerTypeRepost) {
+        vc = [[PostRepostViewController alloc] init];
+    }
+    return vc;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -149,13 +166,17 @@ typedef enum {
     self.topicButton = nil;
     self.navActivityView = nil;
     self.navLabel = nil;
-    self.functionLeftView = nil;
+    self.functionLeftNavView = nil;
+    self.functionLeftCheckmarkView = nil;
     self.functionRightView = nil;
     self.motionsButton = nil;
     self.cancelButton = nil;
     self.leftPaperImageView = nil;
     self.rightPaperImageView = nil;
     self.paperImageHolderView = nil;
+    self.topBarLabel = nil;
+    self.checkmarkButton = nil;
+    self.repostReplyLabel = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -478,45 +499,6 @@ typedef enum {
     self.postRootView.observingViewTag = PostRootViewSubviewTagNone;
 }
 
-- (void)showNavLocationLabel:(NSString *)place {
-    self.navLabel.text = place;
-    [self.navLabel sizeToFit];
-    __block CGRect frame = self.navLabel.frame;
-    CGFloat width = frame.size.width;
-    frame.size.width = 0;
-    self.navLabel.frame = frame;
-    self.navButton.userInteractionEnabled = NO;
-    [UIView animateWithDuration:0.3f animations:^{
-        frame.size.width = width;
-        self.navLabel.frame = frame;
-        
-        CGRect rightFuncViewFrame = self.functionRightView.frame;
-        rightFuncViewFrame.origin.x = _functionRightViewInitFrame.origin.x + width;
-        self.functionRightView.frame = rightFuncViewFrame;
-    } completion:^(BOOL finished) {
-        self.navButton.userInteractionEnabled = YES;
-    }];
-}
-
-- (void)hideNavLocationLabel {
-    if(self.navLabel.text.length == 0)
-        return;
-    __block CGRect frame = self.navLabel.frame;
-    self.navLabel.frame = frame;
-    self.navButton.userInteractionEnabled = NO;
-    [UIView animateWithDuration:0.3f animations:^{
-        frame.size.width = 0;
-        self.navLabel.frame = frame;
-        
-        CGRect rightFuncViewFrame = self.functionRightView.frame;
-        rightFuncViewFrame.origin.x = _functionRightViewInitFrame.origin.x;
-        self.functionRightView.frame = rightFuncViewFrame;
-    } completion:^(BOOL finished) {
-        self.navLabel.text = @"";
-        self.navButton.userInteractionEnabled = YES;
-    }];
-}
-
 - (void)presentEmoticonsView {
     //NSLog(@"present emoticons view");
     [self dismissHintView];
@@ -692,7 +674,7 @@ typedef enum {
     self.actionSheet = actionSheet;
 }
 
-- (IBAction)didClickReturnButton:(UIButton *)sender {
+- (IBAction)didClickCancelButton:(UIButton *)sender {
     if([self.textView.text isEqualToString:@""] && self.motionsImageView.image == nil) {
         [self.delegate postViewController:self willDropMessage:self.textView.text];
         return;
@@ -750,46 +732,14 @@ typedef enum {
 }
 
 - (IBAction)didClickNavButton:(UIButton *)sender {
-    BOOL select = !sender.isSelected;
-    if(select) {
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        self.locationManager.distanceFilter = kCLDistanceFilterNone;
-        [self.locationManager startUpdatingLocation];
-        
-        self.navButton.hidden = YES;
-        self.navActivityView.hidden = NO;
-        [self.navActivityView startAnimating];
-    } else {
-        _located = NO;
-        [self hideNavLocationLabel];
-    }
-    sender.selected = select;
 }
 
 - (IBAction)didClickPostButton:(UIButton *)sender {
-    sender.userInteractionEnabled = NO;
-    WBClient *client = [WBClient client];
-    [client setCompletionBlock:^(WBClient *client) {
-        NSLog(@"post finish:%@", client.responseJSONObject);
-        [sender setTitle:@"发表" forState:UIControlStateNormal];
-        if(!client.hasError) {
-            NSLog(@"post succeeded");
-            [self.delegate postViewController:self didPostMessage:self.textView.text];
-        } else {
-            NSLog(@"post failed");
-            [self.delegate postViewController:self didFailPostMessage:self.textView.text];
-        }
-    }];
-    if(!_located)
-        [client sendWeiBoWithText:self.textView.text image:self.motionsOriginalImage];
-    else {
-        NSString *lat = [NSString stringWithFormat:@"%f", _location2D.latitude];
-        NSString *lon = [NSString stringWithFormat:@"%f", _location2D.longitude];
-        [client sendWeiBoWithText:self.textView.text image:self.motionsOriginalImage longtitude:lon latitude:lat];
-    }
-    [self.delegate postViewController:self willPostMessage:self.textView.text];
+}
+
+- (IBAction)didClickRepostReplyCheckmarkButton:(UIButton *)sender {
+    BOOL select = !sender.isSelected;
+    sender.selected = select;
 }
 
 #pragma mark - MotionsViewController delegate
@@ -864,53 +814,6 @@ typedef enum {
     if(scrollView == self.textView) {
         [self updateCurrentHintViewFrame];
     }
-}
-
-#pragma mark - CLLocationManager delegate
-
-- (void)locationManager:(CLLocationManager *)manager
-       didFailWithError:(NSError *)error {
-    self.navButton.hidden = NO;
-    self.navActivityView.hidden = YES;
-    [self.navActivityView stopAnimating];
-    self.navButton.selected = NO;
-}
-
-- (void)locationManager:(CLLocationManager *)manager
-	didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation {
-    [manager stopUpdatingLocation];
-    self.locationManager = nil;
-    _location2D = newLocation.coordinate; 
-    
-    if(_located)
-        return;
-    
-    WBClient *client = [WBClient client];
-    [client setCompletionBlock:^(WBClient *client) {
-        if(!client.hasError) {
-            NSString *locationString;
-            NSArray* array = (NSArray*)client.responseJSONObject;
-            if (array.count > 0) {
-                NSDictionary *dict = [array objectAtIndex:0];
-                NSLog(@"location dict:%@", dict);
-                locationString = [NSString stringWithFormat:@"%@%@%@", [dict objectForKey:@"city_name"], [dict objectForKey:@"district_name"], [dict objectForKey:@"name"]];
-            }
-            [self showNavLocationLabel:locationString];
-        } else {
-            self.navButton.selected = NO;
-        }
-        
-        [self.navActivityView stopAnimating];
-        self.navButton.hidden = NO;
-        self.navActivityView.hidden = YES;
-    }];
-    
-    float lat = _location2D.latitude;
-    float lon = _location2D.longitude;
-    [client getAddressFromGeoWithCoordinate:[[NSString alloc] initWithFormat:@"%f,%f", lon, lat]];
-    
-    _located = YES;
 }
 
 #pragma mark - PostRootView delegate
