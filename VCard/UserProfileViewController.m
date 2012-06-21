@@ -50,7 +50,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+    [self setCheckButtonEnabled:NO];
 }
 
 - (void)setUpViews
@@ -71,12 +71,23 @@
     NSString *genderImage = [self.user.gender isEqualToString:@"f"] ? kRLIconFemale : kRLIconMale;
     UIImage *image = [UIImage imageNamed:genderImage];
     [_genderImageView setImage:image];
+    
+    [self showStatuses:nil];
+    
+    [self setCheckButtonEnabled:YES];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)setCheckButtonEnabled:(BOOL)enabled
+{
+    _checkFollowersButton.userInteractionEnabled = enabled;
+    _checkFriendsButton.userInteractionEnabled = enabled;
+    _checkStatusesButton.userInteractionEnabled = enabled;
 }
 
 - (IBAction)createNewStackPage:(id)sender
