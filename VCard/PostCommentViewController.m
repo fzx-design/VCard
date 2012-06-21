@@ -1,21 +1,22 @@
 //
-//  PostRepostViewController.m
+//  PostCommentViewController.m
 //  VCard
 //
 //  Created by 紫川 王 on 12-6-21.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
-#import "PostRepostViewController.h"
+#import "PostCommentViewController.h"
+#import "WBClient.h"
 
-@interface PostRepostViewController ()
+@interface PostCommentViewController ()
 
 @property (nonatomic, strong) NSString *weiboOwnerName;
 @property (nonatomic, strong) NSString *weiboID;
 
 @end
 
-@implementation PostRepostViewController
+@implementation PostCommentViewController
 
 @synthesize weiboOwnerName = _weiboOwnerName;
 @synthesize weiboID = _weiboID;
@@ -45,10 +46,13 @@
     // Release any retained subviews of the main view.
 }
 
-#pragma mark - IBActions
-
 - (IBAction)didClickPostButton:(UIButton *)sender {
     sender.userInteractionEnabled = NO;
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        ;
+    }];
+    [client sendCommentWithText:self.textView.text originWeiboID:nil commentOrigin:NO];
 }
 
 @end

@@ -10,6 +10,12 @@
 
 #import "WBRequest.h"
 
+typedef enum {
+    RepostWeiboTypeNoComment,
+    RepostWeiboTypeCommentCurrent,
+    RepostWeiboTypeCommentOrigin,
+    RepostWeiboTypeCommentBoth,
+} RepostWeiboType;
 
 @class WBClient;
 
@@ -106,6 +112,12 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                     image:(UIImage *)image
                longtitude:(NSString *)longtitude 
                  latitude:(NSString *)latitude;
+- (void)sendRepostWithText:(NSString *)text
+             originWeiboID:(NSString *)originID 
+               commentType:(RepostWeiboType)type;
+- (void)sendCommentWithText:(NSString *)text
+              originWeiboID:(NSString *)originID 
+               commentOrigin:(BOOL)repost;
 
 - (void)authorizeUsingUserID:(NSString *)userID password:(NSString *)password;
 - (void)getUser:(NSString *)userID_;

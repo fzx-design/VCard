@@ -11,4 +11,6 @@
 
 @interface PostRepostViewController : PostViewController
 
+- (id)initWithWeiboID:(NSString *)weiboID weiboOwnerName:(NSString *)ownerName;
+
 @end

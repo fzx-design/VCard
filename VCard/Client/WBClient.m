@@ -236,7 +236,11 @@ static NSString *UserID = @"";
         self.postDataType = kWBRequestPostDataTypeNormal;
     }
     
-    [self.params setObject:(text ? text : @"") forKey:@"status"];
+    if(image)
+        [self.params setObject:(text ? text : @"分享微博") forKey:@"status"];
+    else
+        [self.params setObject:(text ? text : @"发表微博") forKey:@"status"];
+    
     if(longtitude && latitude) {
         [self.params setObject:longtitude forKey:@"long"];
         [self.params setObject:latitude forKey:@"lat"];
@@ -248,6 +252,30 @@ static NSString *UserID = @"";
 
 - (void)sendWeiBoWithText:(NSString *)text image:(UIImage *)image {
     [self sendWeiBoWithText:text image:image longtitude:nil latitude:nil];
+}
+
+- (void)sendRepostWithText:(NSString *)text
+             originWeiboID:(NSString *)originID 
+             commentType:(RepostWeiboType)type {
+    self.path = @"statuses/repost.json";
+    [self.params setObject:(text ? text : @"") forKey:@"status"];
+    [self.params setObject:originID forKey:@"id"];
+    [self.params setObject:[NSString stringWithFormat:@"%d", type] forKey:@"is_comment"];
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];
+}
+
+- (void)sendCommentWithText:(NSString *)text
+             originWeiboID:(NSString *)originID 
+               commentOrigin:(BOOL)commentOrigin {
+    self.path = @"comments/create.json";
+    [self.params setObject:(text ? text : @"") forKey:@"comment"];
+    [self.params setObject:originID forKey:@"id"];
+    [self.params setObject:[NSString stringWithFormat:@"%d", commentOrigin] forKey:@"comment_ori"];
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];
 }
 
 - (void)getAtUsersSuggestions:(NSString *)q {

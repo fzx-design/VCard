@@ -71,6 +71,8 @@
 @property (nonatomic, assign) NSInteger imageHeight;
 
 - (IBAction)nameButtonClicked:(id)sender;
+- (IBAction)didClickCommentButton:(UIButton *)sender;
+- (IBAction)didClickRepostButton:(UIButton *)sender;
 
 + (CGFloat)heightForStatus:(Status*)status_ andImageHeight:(NSInteger)imageHeight_;
 

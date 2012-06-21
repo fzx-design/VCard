@@ -15,7 +15,7 @@
 typedef enum {
     PostViewControllerTypeNewStatus,
     PostViewControllerTypeRepost,
-    PostViewControllerTypeReply,
+    PostViewControllerTypeComment,
 } PostViewControllerType;
 
 @protocol PostViewControllerDelegate;
@@ -44,8 +44,9 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UIView       *functionLeftNavView;
 @property (nonatomic, strong) IBOutlet UIView       *functionLeftCheckmarkView;
 @property (nonatomic, strong) IBOutlet UIView       *functionRightView;
+@property (nonatomic, strong) IBOutlet UIView       *motionsView;     
 @property (nonatomic, strong) IBOutlet UILabel      *topBarLabel;
-@property (nonatomic, strong) IBOutlet UILabel      *repostReplyLabel;
+@property (nonatomic, strong) IBOutlet UILabel      *repostCommentLabel;
 
 @property (nonatomic, strong) IBOutlet UIImageView  *leftPaperImageView;
 @property (nonatomic, strong) IBOutlet UIImageView  *rightPaperImageView;
@@ -56,7 +57,10 @@ typedef enum {
 @property (nonatomic, strong) UIImage *motionsOriginalImage;
 @property (nonatomic, weak)   id<PostViewControllerDelegate> delegate;
 
-+ (id)getPostViewControllerViewWithType:(PostViewControllerType)type;
++ (id)getPostViewControllerViewWithType:(PostViewControllerType)type 
+                               delegate:(id<PostViewControllerDelegate>) delegate
+                                weiboID:(NSString *)weiboID
+                         weiboOwnerName:(NSString *)ownerName;
 
 - (IBAction)didClickMotionsButton:(UIButton *)sender;
 - (IBAction)didClickCancelButton:(UIButton *)sender;
@@ -65,7 +69,7 @@ typedef enum {
 - (IBAction)didClickTopicButton:(UIButton *)sender;
 - (IBAction)didClickEmoticonsButton:(UIButton *)sender;
 - (IBAction)didClickNavButton:(UIButton *)sender;
-- (IBAction)didClickRepostReplyCheckmarkButton:(UIButton *)sender;
+- (IBAction)didClickRepostCommentCheckmarkButton:(UIButton *)sender;
 
 - (void)showViewFromRect:(CGRect)rect;
 - (void)dismissViewToRect:(CGRect)rect;

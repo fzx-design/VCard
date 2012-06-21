@@ -13,8 +13,9 @@
 #import "ResourceProvider.h"
 #import "User.h"
 #import "WBClient.h"
-
+#import "UIApplication+Addition.h"
 #import "UIView+Resize.h"
+#import "PostViewController.h"
 
 #define MaxCardSize CGSizeMake(326,9999)
 #define CardSizeUserAvatarHeight 25
@@ -481,10 +482,37 @@ static inline NSRegularExpression * UrlRegularExpression() {
 }
 
 #pragma mark - IBActions
+
 - (IBAction)nameButtonClicked:(id)sender
 {
     NSString *userName = [((UIButton *)sender) titleForState:UIControlStateDisabled];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:userName];
+}
+
+- (IBAction)didClickCommentButton:(UIButton *)sender
+{
+    NSString *targetUserName = self.status.author.screenName;
+    NSString *targetStatusID = self.status.statusID;
+    CGRect frame = [self.view convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    
+    PostViewController *vc = [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeComment 
+                                                                          delegate:self
+                                                                           weiboID:targetStatusID
+                                                                    weiboOwnerName:targetUserName];
+    [vc showViewFromRect:frame];
+}
+
+- (IBAction)didClickRepostButton:(UIButton *)sender
+{
+    NSString *targetUserName = self.status.author.screenName;
+    NSString *targetStatusID = self.status.statusID;
+    CGRect frame = [self.view convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    
+    PostViewController *vc = [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeRepost
+                                                                          delegate:self
+                                                                           weiboID:targetStatusID
+                                                                    weiboOwnerName:targetUserName];
+    [vc showViewFromRect:frame];
 }
 
 #pragma mark - TTTAttributedLabel Delegate

@@ -16,7 +16,7 @@
 #import "WBClient.h"
 #import "PostNewStatusViewController.h"
 #import "PostRepostViewController.h"
-#import "PostReplyViewController.h"
+#import "PostCommentViewController.h"
 
 #define WEIBO_TEXT_MAX_LENGTH   140
 #define HINT_VIEW_OFFSET        CGSizeMake(-16, 27)
@@ -92,7 +92,8 @@ typedef enum {
 @synthesize leftPaperGloomImageView = _leftPaperGloomImageView;
 @synthesize rightPaperGloomImageView = _rightPaperGloomImageView;
 @synthesize topBarLabel = _topBarLabel;
-@synthesize repostReplyLabel = _repostReplyLabel;
+@synthesize repostCommentLabel = _repostCommentLabel;
+@synthesize motionsView = _motionsView;
 
 @synthesize keyboardHeight = _keyboardHeight;
 @synthesize currentHintView = _currentHintView;
@@ -107,14 +108,17 @@ typedef enum {
 @synthesize motionsOriginalImage = _motionsOriginalImage;
 @synthesize startButtonFrame = _startButtonFrame;
 
-+ (id)getPostViewControllerViewWithType:(PostViewControllerType)type {
++ (id)getPostViewControllerViewWithType:(PostViewControllerType)type 
+                               delegate:(id<PostViewControllerDelegate>) delegate
+                                weiboID:(NSString *)weiboID
+                         weiboOwnerName:(NSString *)ownerName {
     PostViewController *vc = nil;
     if(type == PostViewControllerTypeNewStatus) {
         vc = [[PostNewStatusViewController alloc] init];
-    } else if(type == PostViewControllerTypeReply) {
-        vc = [[PostReplyViewController alloc] init];
+    } else if(type == PostViewControllerTypeComment) {
+        vc = [[PostCommentViewController alloc] initWithWeiboID:weiboID weiboOwnerName:ownerName];
     } else if(type == PostViewControllerTypeRepost) {
-        vc = [[PostRepostViewController alloc] init];
+        vc = [[PostRepostViewController alloc] initWithWeiboID:weiboID weiboOwnerName:ownerName];
     }
     return vc;
 }
@@ -176,7 +180,8 @@ typedef enum {
     self.paperImageHolderView = nil;
     self.topBarLabel = nil;
     self.checkmarkButton = nil;
-    self.repostReplyLabel = nil;
+    self.repostCommentLabel = nil;
+    self.motionsView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -737,7 +742,7 @@ typedef enum {
 - (IBAction)didClickPostButton:(UIButton *)sender {
 }
 
-- (IBAction)didClickRepostReplyCheckmarkButton:(UIButton *)sender {
+- (IBAction)didClickRepostCommentCheckmarkButton:(UIButton *)sender {
     BOOL select = !sender.isSelected;
     sender.selected = select;
 }
