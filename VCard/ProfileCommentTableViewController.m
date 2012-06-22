@@ -8,7 +8,7 @@
 
 #import "ProfileCommentTableViewController.h"
 #import "ProfileCommentTableViewCell.h"
-#import "ProfileStatusTableViewCell.h"
+#import "ProfileCommentStatusTableCell.h"
 #import "WBClient.h"
 #import "Comment.h"
 #import "User.h"
@@ -30,6 +30,7 @@
     self.view.autoresizingMask = UIViewAutoresizingNone;
     _loading = NO;
     _hasMoreViews = YES;
+    _viewingUserType = ViewingUserTypeAll;
 }
 
 - (void)viewDidUnload
@@ -115,11 +116,15 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        ProfileStatusTableViewCell *statusCell = (ProfileStatusTableViewCell *)cell;
+        ProfileCommentStatusTableCell *statusCell = (ProfileCommentStatusTableCell *)cell;
         Status *targetStatus = self.status;
         
         [statusCell setCellHeight:targetStatus.cardSizeCardHeight.floatValue];
         [statusCell.cardViewController configureCardWithStatus:targetStatus imageHeight:targetStatus.cardSizeImageHeight.floatValue];
+        
+        BOOL hasContent = self.fetchedResultsController.fetchedObjects.count > 0;
+        [statusCell resetDividerViewWithViewingType:_viewingUserType
+                                         hasContent:hasContent];
     
     } else {
         ProfileCommentTableViewCell *commentCell = (ProfileCommentTableViewCell *)cell;
@@ -137,7 +142,7 @@
 
 - (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
 {
-    return indexPath.row == 0 ? @"ProfileStatusTableViewCell" : @"ProfileCommentTableViewCell";
+    return indexPath.row == 0 ? @"ProfileCommentStatusTableCell" : @"ProfileCommentTableViewCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -163,7 +168,7 @@
 {
     CGFloat height = 0.0;
     if (indexPath.row == 0) {
-        height = self.status.cardSizeCardHeight.floatValue;
+        height = self.status.cardSizeCardHeight.floatValue + 30;
     } else {
         Comment *comment = (Comment *)self.fetchedResultsController.fetchedObjects[indexPath.row - 1];
         height = comment.commentHeight.floatValue + 24.0;

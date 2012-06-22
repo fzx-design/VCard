@@ -1220,15 +1220,48 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProfileStatusTableViewCell" rowHeight="735" id="hb6-Jx-JSu" customClass="ProfileStatusTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProfileCommentStatusTableCell" rowHeight="735" id="hb6-Jx-JSu" customClass="ProfileCommentStatusTableCell">
                                 <rect key="frame" x="0.0" y="22" width="384" height="735"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="384" height="734"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" id="4WC-WC-dfa">
+                                            <rect key="frame" x="0.0" y="333" width="384" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="无评论" textAlignment="center" autoshrinkMode="minimumFontSize" id="6Ub-P5-WK6">
+                                                    <rect key="frame" x="132" y="8" width="120" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <size key="shadowOffset" width="0.0" height="1"/>
+                                                    <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" image="pattern_left.png" id="3ea-3m-eec">
+                                                    <rect key="frame" x="144" y="5" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" image="pattern_right.png" id="A38-xM-uDa">
+                                                    <rect key="frame" x="210" y="5" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="6Ub-P5-WK6" id="lJa-fL-itp"/>
+                                    <outlet property="dividerView" destination="4WC-WC-dfa" id="KU1-bp-CG3"/>
+                                    <outlet property="leftpatternImageView" destination="3ea-3m-eec" id="YI6-q9-RVt"/>
+                                    <outlet property="rightpatternImageView" destination="A38-xM-uDa" id="Yw2-Xd-YnC"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProfileCommentTableViewCell" rowHeight="150" id="aqU-X2-YS6" customClass="ProfileCommentTableViewCell">
                                 <rect key="frame" x="0.0" y="757" width="384" height="150"/>
@@ -1478,6 +1511,15 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="ProfileCommentStatusTableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileCommentStatusTableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dividerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="leftpatternImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="rightpatternImageView" candidateClass="UIImageView"/>
             </relationships>
         </class>
         <class className="ProfileCommentTableViewCell" superclassName="UITableViewCell">

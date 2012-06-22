@@ -9,11 +9,17 @@
 #import "RefreshableCoreDataTableViewController.h"
 #import "Status.h"
 
+typedef enum {
+    ViewingUserTypeAll,
+    ViewingUserTypeFollowing,
+} ViewingUserType;
+
 @interface ProfileCommentTableViewController : RefreshableCoreDataTableViewController {
     int _nextCursor;
     int _page;
 }
 
 @property (nonatomic, strong) Status *status;
+@property (nonatomic, assign) ViewingUserType viewingUserType;
 
 @end

@@ -81,6 +81,7 @@
 		18C1903615945D1700DA1A6A /* comments_thread_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903215945D1700DA1A6A /* comments_thread_down@2x.png */; };
 		18C1903715945D1700DA1A6A /* comments_thread_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903315945D1700DA1A6A /* comments_thread_up.png */; };
 		18C1903815945D1700DA1A6A /* comments_thread_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903415945D1700DA1A6A /* comments_thread_up@2x.png */; };
+		18C1903B15946C5F00DA1A6A /* ProfileCommentStatusTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1903A15946C5E00DA1A6A /* ProfileCommentStatusTableCell.m */; };
 		18DBAE4B1573156000918ED4 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE4A1573155F00918ED4 /* UserProfileViewController.m */; };
 		18DBAE581573498F00918ED4 /* ProfileRelationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */; };
 		18DBAE5B157349F400918ED4 /* ProfileRelationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE5A157349F400918ED4 /* ProfileRelationTableViewController.m */; };
@@ -787,6 +788,8 @@
 		18C1903215945D1700DA1A6A /* comments_thread_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comments_thread_down@2x.png"; sourceTree = "<group>"; };
 		18C1903315945D1700DA1A6A /* comments_thread_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comments_thread_up.png; sourceTree = "<group>"; };
 		18C1903415945D1700DA1A6A /* comments_thread_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comments_thread_up@2x.png"; sourceTree = "<group>"; };
+		18C1903915946C5E00DA1A6A /* ProfileCommentStatusTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCommentStatusTableCell.h; sourceTree = "<group>"; };
+		18C1903A15946C5E00DA1A6A /* ProfileCommentStatusTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCommentStatusTableCell.m; sourceTree = "<group>"; };
 		18DBAE491573155F00918ED4 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
 		18DBAE4A1573155F00918ED4 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 		18DBAE54157334AC00918ED4 /* ProfileRelationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileRelationTableViewCell.h; sourceTree = "<group>"; };
@@ -2274,6 +2277,8 @@
 		18F1E5141577AABC00EB71DD /* CommentTableView */ = {
 			isa = PBXGroup;
 			children = (
+				18C1903915946C5E00DA1A6A /* ProfileCommentStatusTableCell.h */,
+				18C1903A15946C5E00DA1A6A /* ProfileCommentStatusTableCell.m */,
 				18F1E51F1578935900EB71DD /* ProfileCommentTableViewCell.h */,
 				18F1E5201578935900EB71DD /* ProfileCommentTableViewCell.m */,
 				18F1E5191577AF8200EB71DD /* ProfileCommentTableViewController.h */,
@@ -3322,6 +3327,7 @@
 				E1097D4B157F9BBF00BD0640 /* UIView+Addition.m in Sources */,
 				E1599CC91580CD7400B9AE72 /* PostRootView.m in Sources */,
 				18C1903015941B6D00DA1A6A /* Comment.m in Sources */,
+				18C1903B15946C5F00DA1A6A /* ProfileCommentStatusTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
