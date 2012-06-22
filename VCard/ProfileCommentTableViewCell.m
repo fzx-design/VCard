@@ -8,6 +8,7 @@
 
 #import "ProfileCommentTableViewCell.h"
 #import "CardViewController.h"
+#import "NSDateAddition.h"
 #import "UIView+Resize.h"
 #import "User.h"
 
@@ -64,6 +65,11 @@
     
     [self.baseCardBackgroundView resetHeight:commentViewHeight];
     [self.commentInfoView resetHeight:commentViewHeight];
+    
+    CGFloat cardTailOriginY = self.frame.size.height + CardTailOffset + 20.0;
+    
+    [self.timeStampLabel resetOriginY:cardTailOriginY];
+    [self.timeStampLabel setText:[comment.createdAt stringRepresentation]];
 }
 
 @end

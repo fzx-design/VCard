@@ -33,6 +33,7 @@
 
 @property (nonatomic, strong) IBOutlet UIView *commentInfoView;
 @property (nonatomic, strong) IBOutlet TTTAttributedLabel *commentContentLabel;
+@property (nonatomic, strong) IBOutlet UILabel *timeStampLabel;
 
 - (void)configureCellWithComment:(Comment *)comment;
 

@@ -1242,7 +1242,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" image="card_comment_thread.png" id="sd1-Bm-0BV">
-                                                    <rect key="frame" x="20" y="-27" width="21" height="44"/>
+                                                    <rect key="frame" x="20" y="-28" width="21" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" image="card_comment_thread.png" id="dyk-6u-i1e">
@@ -1301,6 +1301,14 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </view>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="5月21日 5:21" textAlignment="right" autoshrinkMode="minimumFontSize" id="cBZ-kg-xv9">
+                                                            <rect key="frame" x="224" y="48" width="118" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="textColor" red="0.63137254899999995" green="0.63137254899999995" blue="0.63137254899999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -1319,6 +1327,7 @@
                                     <outlet property="commentInfoView" destination="5Jo-Ul-xeN" id="5aO-IE-R9M"/>
                                     <outlet property="moreActionButton" destination="qLf-Ps-dBm" id="RtW-fx-xng"/>
                                     <outlet property="screenNameButton" destination="v9C-6q-7N6" id="O6b-mG-VLU"/>
+                                    <outlet property="timeStampLabel" destination="cBZ-kg-xv9" id="cdM-Qa-7yb"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1479,6 +1488,7 @@
                 <relationship kind="outlet" name="moreActionButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="rightThreadImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="screenNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="ProfileCommentTableViewController" superclassName="RefreshableCoreDataTableViewController">
@@ -1565,6 +1575,7 @@
         <class className="UserSelectionCellViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSelectionCellViewController.h"/>
             <relationships>
+                <relationship kind="action" name="loginButtonClicked:"/>
                 <relationship kind="outlet" name="avatarImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="avatarImageViewBG" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
