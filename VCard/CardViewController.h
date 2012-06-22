@@ -13,6 +13,7 @@
 #import "TTTAttributedLabel.h"
 #import "UserAvatarImageView.h"
 #import "Status.h"
+#import "PostViewController.h"
 
 #define CardSizeUserAvatarHeight 25
 #define CardSizeImageGap 22
@@ -24,7 +25,6 @@
 #define CardTailHeight 24
 #define CardTailOffset -55
 
-@interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate> {
 @interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate, PostViewControllerDelegate> {
     CardImageView *_statusImageView;
     UserAvatarImageView *_repostUserAvatar;

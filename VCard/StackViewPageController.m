@@ -30,6 +30,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _topShadowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 384.0, 10.0)];
+    _topShadowImageView.image = [UIImage imageNamed:kRLTopBarShadow];
+    
     // Do any additional setup after loading the view.
 }
 

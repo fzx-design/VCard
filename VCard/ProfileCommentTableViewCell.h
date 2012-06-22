@@ -11,8 +11,9 @@
 #import "BaseCardBackgroundView.h"
 #import "TTTAttributedLabel.h"
 #import "Comment.h"
+#import "PostViewController.h"
 
-@interface ProfileCommentTableViewCell : UITableViewCell {
+@interface ProfileCommentTableViewCell : UITableViewCell <PostViewControllerDelegate> {
     UserAvatarImageView *_avatarImageView;
     BaseCardBackgroundView *_baseCardBackgroundView;
     
@@ -32,6 +33,10 @@
 @property (nonatomic, strong) IBOutlet UIView *commentInfoView;
 @property (nonatomic, strong) IBOutlet TTTAttributedLabel *commentContentLabel;
 @property (nonatomic, strong) IBOutlet UILabel *timeStampLabel;
+
+@property (nonatomic, weak) Comment *comment;
+
+- (IBAction)didClickCommentButton:(UIButton *)sender;
 
 - (void)configureCellWithComment:(Comment *)comment
                    isLastComment:(BOOL)isLast

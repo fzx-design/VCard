@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2541" systemVersion="12A248" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rLP-Ra-ZR8">
     <dependencies>
-=======
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2541" systemVersion="12A239" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rLP-Ra-ZR8">
-    <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
->>>>>>> 8d896904bb88a476591c74092744844196a69c66
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1875"/>
     </dependencies>
     <scenes>
@@ -1099,11 +1093,7 @@
                                         </state>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Label" textAlignment="center" autoshrinkMode="minimumFontSize" id="6CP-42-ocG">
-<<<<<<< HEAD
                                         <rect key="frame" x="177" y="18" width="77" height="21"/>
-=======
-                                        <rect key="frame" x="189" y="18" width="77" height="21"/>
->>>>>>> 8d896904bb88a476591c74092744844196a69c66
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1341,6 +1331,9 @@
                                                             <state key="highlighted" image="button_comment_hover.png">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="didClickCommentButton:" destination="aqU-X2-YS6" eventType="touchUpInside" id="cl1-Vh-ple"/>
+                                                            </connections>
                                                         </button>
                                                         <view contentMode="scaleToFill" id="TXO-ap-EUF" customClass="TTTAttributedLabel">
                                                             <rect key="frame" x="18" y="48" width="328" height="32"/>
@@ -1441,7 +1434,6 @@
         <image name="title_small.png" width="88" height="29"/>
         <image name="topbar_avatar_cover.png" width="28" height="28"/>
     </resources>
-<<<<<<< HEAD
     <classes>
         <class className="BaseCardBackgroundView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCardBackgroundView.h"/>
@@ -1464,6 +1456,8 @@
         <class className="CardViewController" superclassName="CoreDataViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CardViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickRepostButton:" candidateClass="UIButton"/>
                 <relationship kind="action" name="nameButtonClicked:"/>
                 <relationship kind="outlet" name="cardBackground" candidateClass="BaseCardBackgroundView"/>
                 <relationship kind="outlet" name="clipImageView" candidateClass="UIImageView"/>
@@ -1552,6 +1546,7 @@
         <class className="ProfileCommentTableViewCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileCommentTableViewCell.h"/>
             <relationships>
+                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
                 <relationship kind="outlet" name="baseCardBackgroundView" candidateClass="BaseCardBackgroundView"/>
                 <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
@@ -1648,7 +1643,6 @@
         <class className="UserSelectionCellViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSelectionCellViewController.h"/>
             <relationships>
-                <relationship kind="action" name="loginButtonClicked:"/>
                 <relationship kind="outlet" name="avatarImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="avatarImageViewBG" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
@@ -1660,8 +1654,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WaterflowView.h"/>
         </class>
     </classes>
-=======
->>>>>>> 8d896904bb88a476591c74092744844196a69c66
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

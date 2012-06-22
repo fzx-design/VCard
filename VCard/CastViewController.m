@@ -101,6 +101,11 @@
                selector:@selector(showWaterflowView)
                    name:kNotificationNameStackViewDoNotCoverWholeScreen
                  object:nil];
+    [center addObserver:self
+               selector:@selector(commentButtonClicked:)
+                   name:kNotificationCommentButtonClicked
+                 object:nil];
+    
 }
 
 - (void)viewDidUnload
@@ -148,6 +153,16 @@
     vc.user = targetUser;
     
     [self stackViewAtIndex:index push:vc];
+}
+
+- (void)commentButtonClicked:(NSNotification *)notification
+{
+    Status *status = notification.object;
+    CommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CommentViewController"];
+    vc.currentUser = self.currentUser;
+    vc.status = status;
+    
+    [self stackViewAtIndex:0 push:vc];
 }
 
 - (void)hideWaterflowView
@@ -451,11 +466,7 @@
 
 - (void)flowView:(WaterflowView *)flowView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CommentViewController"];
-    vc.currentUser = self.currentUser;
-    vc.status = (Status *)self.fetchedResultsController.fetchedObjects[indexPath.row + indexPath.section];
     
-    [self stackViewAtIndex:0 push:vc];
 }
 
 #pragma mark - Stack View Controller Delegate

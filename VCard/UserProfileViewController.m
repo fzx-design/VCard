@@ -52,6 +52,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     [self setCheckButtonEnabled:NO];
+    [self.topShadowImageView resetOrigin:[self frameForTableView].origin];
+    [self.backgroundView addSubview:self.topShadowImageView];
 }
 
 - (void)setUpViews
@@ -110,7 +112,7 @@
     self.checkStatusesButton.selected = NO;
     self.checkFriendsButton.selected = NO;
     
-    [self.backgroundView addSubview:self.followerController.view];
+    [self.backgroundView insertSubview:self.followerController.view belowSubview:self.topShadowImageView];
     [self.statusController.view removeFromSuperview];
     if (_friendController) {
         [self.friendController.view removeFromSuperview];
@@ -122,7 +124,7 @@
     self.checkFollowersButton.selected = NO;
     self.checkStatusesButton.selected = NO;
     self.checkFriendsButton.selected = YES;
-    [self.backgroundView addSubview:self.friendController.view];
+    [self.backgroundView insertSubview:self.friendController.view belowSubview:self.topShadowImageView];
     [self.statusController.view removeFromSuperview];
     if (_followerController) {
         [self.followerController.view removeFromSuperview];
@@ -134,7 +136,7 @@
     self.checkFollowersButton.selected = NO;
     self.checkStatusesButton.selected = YES;
     self.checkFriendsButton.selected = NO;
-    [self.backgroundView addSubview:self.statusController.view];
+    [self.backgroundView insertSubview:self.statusController.view belowSubview:self.topShadowImageView];
     if (_followerController) {
         [self.followerController.view removeFromSuperview];
     }
@@ -187,6 +189,7 @@
         _statusController.stackPageIndex = self.pageIndex;
         _statusController.view.frame = [self frameForTableView];
         _statusController.tableView.frame = [self frameForTableView];
+        
     }
     return _statusController;
 }

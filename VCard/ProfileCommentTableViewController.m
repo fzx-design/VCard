@@ -186,7 +186,7 @@
 {
     CGFloat height = 0.0;
     if (indexPath.row == 0) {
-        height = self.status.cardSizeCardHeight.floatValue + 30;
+        height = self.status.cardSizeCardHeight.floatValue + 36;
     } else {
         Comment *comment = (Comment *)self.fetchedResultsController.fetchedObjects[indexPath.row - 1];
         height = comment.commentHeight.floatValue + 24.0;

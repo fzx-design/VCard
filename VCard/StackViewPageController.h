@@ -17,6 +17,8 @@
 }
 
 @property (nonatomic, assign) NSInteger pageIndex;
+
+@property (nonatomic, strong) UIImageView *topShadowImageView;
 @property (nonatomic, strong) IBOutlet BaseStackLayoutView *backgroundView;
 
 - (void)initialLoad;

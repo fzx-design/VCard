@@ -51,6 +51,8 @@
 #define kNotificationNameUserCellClicked @"kNotificationNameUserCellClicked"
 #define kNotificationNameShouldSaveContext @"kNotificationNameShouldSaveContext"
 
+#define kNotificationCommentButtonClicked @"kNotificationCommentButtonClicked"
+
 #define kNotificationNameStackViewCoveredWholeScreen @"kNotificationNameStackViewCoveredWholeScreen"
 #define kNotificationNameStackViewDoNotCoverWholeScreen @"kNotificationNameStackViewDoNotCoverWholeScreen"
 

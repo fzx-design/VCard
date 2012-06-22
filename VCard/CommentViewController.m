@@ -23,6 +23,8 @@
 {
     [super viewDidLoad];
     self.titleLabel.text =  [NSString stringWithFormat:@"%@ 条评论", self.status.commentsCount];
+    [self.topShadowImageView resetOrigin:[self frameForTableView].origin];
+    [self.backgroundView addSubview:self.topShadowImageView];
 }
 
 - (void)viewDidUnload
@@ -63,7 +65,9 @@
         _commentTableViewController.view.frame = [self frameForTableView];
         _commentTableViewController.tableView.frame = [self frameForTableView];
         _commentTableViewController.status = self.status;
-        [self.backgroundView addSubview:_commentTableViewController.view];
+        [self.backgroundView insertSubview:_commentTableViewController.view belowSubview:self.topShadowImageView];
+        
+        
     }
     return _commentTableViewController;
 }
