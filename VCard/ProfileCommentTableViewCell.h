@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "UserAvatarImageView.h"
 #import "BaseCardBackgroundView.h"
+#import "TTTAttributedLabel.h"
+#import "Comment.h"
 
 @interface ProfileCommentTableViewCell : UITableViewCell {
     UserAvatarImageView *_avatarImageView;
@@ -28,5 +30,10 @@
 @property (nonatomic, strong) IBOutlet UIButton *moreActionButton;
 @property (nonatomic, strong) IBOutlet UIImageView *leftThreadImageView;
 @property (nonatomic, strong) IBOutlet UIImageView *rightThreadImageView;
+
+@property (nonatomic, strong) IBOutlet UIView *commentInfoView;
+@property (nonatomic, strong) IBOutlet TTTAttributedLabel *commentContentLabel;
+
+- (void)configureCellWithComment:(Comment *)comment;
 
 @end

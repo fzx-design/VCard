@@ -12,20 +12,12 @@
 #import "NSDateAddition.h"
 #import "ResourceProvider.h"
 #import "User.h"
+#import "Comment.h"
 #import "WBClient.h"
 
 #import "UIView+Resize.h"
 
 #define MaxCardSize CGSizeMake(326,9999)
-#define CardSizeUserAvatarHeight 25
-#define CardSizeImageGap 22
-#define CardSizeTextGap 20
-#define CardSizeTopViewHeight 20
-#define CardSizeBottomViewHeight 20
-#define CardSizeRepostHeightOffset -8
-#define CardTextLineSpace 8
-#define CardTailHeight 24
-#define CardTailOffset -55
 
 #define RegexColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]
 
@@ -132,7 +124,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 
 #pragma mark - Functional Method
 
-+ (CGFloat)heightForStatus:(Status*)status_ andImageHeight:(NSInteger)imageHeight_
++ (CGFloat)heightForStatus:(Status *)status_ andImageHeight:(NSInteger)imageHeight_
 {
     BOOL isReposted = status_.repostStatus != nil;
     BOOL hasCardTail = [status_ hasLocationInfo] || YES;
@@ -155,6 +147,15 @@ static inline NSRegularExpression * UrlRegularExpression() {
     if (hasCardTail) {
         height += CardTailHeight;
     }
+    
+    return height;
+}
+
++ (CGFloat)heightForComment:(Comment *)comment_
+{
+    CGFloat height = 0.0;
+    height +=  CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight + CardSizeRepostHeightOffset;
+    height += [CardViewController heightForCellWithText:comment_.text] + CardSizeTextGap;
     
     return height;
 }
@@ -256,7 +257,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     CGFloat originY = _doesImageExist ? self.imageHeight + 30 : 20;
     Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
     
-    [self setStatusTextLabel:self.originalStatusLabel withText:targetStatus.text];
+    [CardViewController setStatusTextLabel:self.originalStatusLabel withText:targetStatus.text];
     [self.originalUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
     [self.originalUserAvatar setVerifiedType:[targetStatus.author verifiedTypeOfUser]];
     
@@ -292,7 +293,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
         
         Status *targetStatus = self.status;
         
-        [self setStatusTextLabel:self.repostStatusLabel withText:targetStatus.text];
+        [CardViewController setStatusTextLabel:self.repostStatusLabel withText:targetStatus.text];
         [self.repostUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
         [self.repostUserAvatar setVerifiedType:[targetStatus.author verifiedTypeOfUser]];
         
@@ -365,7 +366,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
                 if ([self.status.statusID isEqualToString:previousID]) {
                     self.status.location = locationString;
                 } else {
-                    Status *status = [Status statusWithID:[NSString stringWithFormat:previousID] inManagedObjectContext:self.managedObjectContext];
+                    Status *status = [Status statusWithID:previousID inManagedObjectContext:self.managedObjectContext];
                     status.location = locationString;
                 }
                 
@@ -387,7 +388,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     self.locationLabel.text = self.status.location;
 }
 
-- (void)setStatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string
++ (void)setStatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string
 {
     CGRect frame = label.frame;
     frame.size.height = [CardViewController heightForCellWithText:string];
@@ -407,7 +408,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 
 
 
-- (void)setSummaryText:(NSString *)text toLabel:(TTTAttributedLabel*)label{
++ (void)setSummaryText:(NSString *)text toLabel:(TTTAttributedLabel*)label{
     
     [label setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         NSRange stringRange = NSMakeRange(0, [mutableAttributedString length]);
@@ -467,7 +468,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     
 }
 
-- (void)configureFontForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange
++ (void)configureFontForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange
 {
     CTFontRef systemFont = [ResourceProvider regexFont];
     if (systemFont) {

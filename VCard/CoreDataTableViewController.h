@@ -19,5 +19,6 @@ UITableViewDelegate, UITableViewDataSource> {
 //methods to override
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)configureRequest:(NSFetchRequest *)request;
-- (NSString *)customCellClassName;
+- (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath;
+
 @end

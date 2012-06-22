@@ -204,7 +204,7 @@
     [statusCell.cardViewController configureCardWithStatus:targetStatus imageHeight:targetStatus.cardSizeImageHeight.floatValue];
 }
 
-- (NSString *)customCellClassName
+- (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
 {
     return @"ProfileStatusTableViewCell";
 }

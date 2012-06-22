@@ -14,12 +14,11 @@
 #import "WBClient.h"
 #import "Status.h"
 #import "User.h"
-
 #import "WaterflowCardCell.h"
 #import "WaterflowDividerCell.h"
-
 #import "PostViewController.h"
 #import "UIApplication+Addition.h"
+#import "CommentViewController.h"
 
 @interface CastViewController () {
     BOOL _loading;
@@ -203,8 +202,6 @@
 - (IBAction)showProfileButtonClicked:(id)sender
 {
     UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfProfileViewController"];
-    [vc.view resetWidth:384.0];
-    [vc.backgroundView resetWidth:431.0];
     vc.currentUser = self.currentUser;
     vc.screenName = self.currentUser.screenName;
     
@@ -254,7 +251,13 @@
                 Status *newStatus = nil;
                 newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext];
                 newStatus.forCastView = [NSNumber numberWithBool:YES];
-                [self.currentUser addFriendsStatusesObject:newStatus];  
+                
+                CGFloat imageHeight = [self randomImageHeight];
+                CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight];
+                newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
+                newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
+                
+                [self.currentUser addFriendsStatusesObject:newStatus];
             }
             
             [self.managedObjectContext processPendingChanges];
@@ -293,6 +296,10 @@
                 Status *newStatus = nil;
                 newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext];
                 newStatus.forCastView = [NSNumber numberWithBool:YES];
+                CGFloat imageHeight = [self randomImageHeight];
+                CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight];
+                newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
+                newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
                 [self.currentUser addFriendsStatusesObject:newStatus];
             }
             
@@ -332,6 +339,25 @@
     [self.waterflowView scrollViewDidScroll:self.waterflowView];
 }
 
+- (CGFloat)randomImageHeight
+{
+    NSInteger factor = arc4random() % 3;
+    CGFloat imageHeight = 0.0;
+    
+    switch (factor) {
+        case 0:
+            imageHeight = ImageHeightLow;
+            break;
+        case 1:
+            imageHeight = ImageHeightMid;
+            break;
+        default:
+            imageHeight = ImageHeightHigh;
+            break;
+    }
+    return imageHeight;
+}
+
 #pragma mark - CoreDataTableViewController methods
 
 - (void)configureRequest:(NSFetchRequest *)request
@@ -346,7 +372,7 @@
                   
 }
 
-- (NSString *)customCellClassName
+- (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
 {
     return @"CardTableViewCell";
 }
@@ -420,7 +446,13 @@
 
 - (void)flowView:(WaterflowView *)flowView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"did select at %@",indexPath);
+    CommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CommentViewController"];
+    [vc.view resetWidth:384.0];
+    [vc.backgroundView resetWidth:431.0];
+    vc.currentUser = self.currentUser;
+    vc.status = (Status *)self.fetchedResultsController.fetchedObjects[indexPath.row + indexPath.section];
+    
+    [self stackViewAtIndex:0 push:vc];
 }
 
 #pragma mark - Stack View Controller Delegate

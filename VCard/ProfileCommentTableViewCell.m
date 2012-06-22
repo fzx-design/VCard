@@ -7,6 +7,9 @@
 //
 
 #import "ProfileCommentTableViewCell.h"
+#import "CardViewController.h"
+#import "UIView+Resize.h"
+#import "User.h"
 
 @implementation ProfileCommentTableViewCell
 
@@ -33,6 +36,34 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)configureCellWithComment:(Comment *)comment
+{
+    
+    [CardViewController setStatusTextLabel:self.commentContentLabel withText:comment.text];
+    [self.avatarImageView loadImageFromURL:comment.author.profileImageURL completion:nil];
+    [self.avatarImageView setVerifiedType:[comment.author verifiedTypeOfUser]];
+    
+    //TODO: Add In_reply_to string
+    NSString *screenName = @"";
+    
+    screenName = [NSString stringWithFormat:@"%@", comment.author.screenName];
+    
+    [self.screenNameButton setTitle:screenName forState:UIControlStateNormal];
+    [self.screenNameButton setTitle:screenName forState:UIControlStateHighlighted];
+    
+    //Save the screen name
+    [self.screenNameButton setTitle:comment.author.screenName forState:UIControlStateDisabled];
+    
+    CGFloat commentViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
+    CardSizeUserAvatarHeight + CardSizeTextGap + 
+    self.commentContentLabel.frame.size.height;
+    
+    commentViewHeight += CardTailHeight;
+    
+    [self.baseCardBackgroundView resetHeight:commentViewHeight];
+    [self.commentInfoView resetHeight:commentViewHeight];
 }
 
 @end

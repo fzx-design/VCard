@@ -19,8 +19,6 @@ typedef enum {
     RelationshipViewType _type;
 }
 
-
-
 @property (nonatomic, assign) RelationshipViewType type;
 
 - (void)refresh;

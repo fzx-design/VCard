@@ -7,7 +7,12 @@
 //
 
 #import "StackViewPageController.h"
+#import "ProfileCommentTableViewController.h"
+#import "Status.h"
 
 @interface CommentViewController : StackViewPageController
+
+@property (nonatomic, strong) Status *status;
+@property (nonatomic, strong) ProfileCommentTableViewController *commentTableViewController;
 
 @end

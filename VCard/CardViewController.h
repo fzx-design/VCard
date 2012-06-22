@@ -14,6 +14,16 @@
 #import "UserAvatarImageView.h"
 #import "Status.h"
 
+#define CardSizeUserAvatarHeight 25
+#define CardSizeImageGap 22
+#define CardSizeTextGap 20
+#define CardSizeTopViewHeight 20
+#define CardSizeBottomViewHeight 20
+#define CardSizeRepostHeightOffset -8
+#define CardTextLineSpace 8
+#define CardTailHeight 24
+#define CardTailOffset -55
+
 @interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate> {
     CardImageView *_statusImageView;
     UserAvatarImageView *_repostUserAvatar;
@@ -73,6 +83,8 @@
 - (IBAction)nameButtonClicked:(id)sender;
 
 + (CGFloat)heightForStatus:(Status*)status_ andImageHeight:(NSInteger)imageHeight_;
++ (CGFloat)heightForComment:(Comment *)comment_;
++ (void)setStatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string;
 
 - (void)configureCardWithStatus:(Status*)status_ imageHeight:(CGFloat)imageHeight_;
 - (void)loadImage;

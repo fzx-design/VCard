@@ -7,7 +7,12 @@
 //
 
 #import "RefreshableCoreDataTableViewController.h"
+#import "Status.h"
 
-@interface ProfileCommentTableViewController : RefreshableCoreDataTableViewController
+@interface ProfileCommentTableViewController : RefreshableCoreDataTableViewController {
+    int _nextCursor;
+}
+
+@property (nonatomic, strong) Status *status;
 
 @end

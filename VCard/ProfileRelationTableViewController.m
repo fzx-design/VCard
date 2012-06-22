@@ -149,7 +149,7 @@
     [relationshipCell.avatarImageView setVerifiedType:[usr verifiedTypeOfUser]];
 }
 
-- (NSString *)customCellClassName
+- (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
 {
     return @"ProfileRelationTableViewCell";
 }
@@ -160,17 +160,6 @@
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:usr, kNotificationObjectKeyUser, [NSString stringWithFormat:@"%d", _stackPageIndex], kNotificationObjectKeyIndex, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserCellClicked object:dictionary];
-}
-
-- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell =  [tableView cellForRowAtIndexPath:indexPath];
-    cell.selected = YES;
 }
 
 #pragma mark - UIScrollView delegate

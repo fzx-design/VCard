@@ -417,6 +417,22 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
+- (void)getCommentOfStaus:(NSString *)statusID cursor:(int)cursor count:(int)count
+{
+    self.path = @"comments/show.json";
+    if (statusID) {
+        [self.params setObject:statusID forKey:@"id"];
+    }
+    if (cursor) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", cursor] forKey:@"page"];
+    }
+    if (count) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    }
+    
+    [self loadNormalRequest];
+}
+
 #pragma mark Request
 
 - (void)loadNormalRequest

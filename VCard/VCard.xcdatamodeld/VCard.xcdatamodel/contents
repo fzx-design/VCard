@@ -1,24 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1480" systemVersion="12A248" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Comment" representedClassName="Comment" syncable="YES">
         <attribute name="byMe" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="commentID" attributeType="String"/>
-        <attribute name="createdAt" attributeType="Date"/>
-        <attribute name="source" optional="YES" attributeType="String"/>
-        <attribute name="text" attributeType="String"/>
+        <attribute name="commentHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="commentID" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="createdAt" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <attribute name="source" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="text" attributeType="String">
+            <userInfo/>
+        </attribute>
         <attribute name="toMe" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="updateDate" attributeType="Date"/>
-        <relationship name="author" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="comments" inverseEntity="User"/>
-        <relationship name="targetStatus" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="comments" inverseEntity="Status"/>
-        <relationship name="targetUser" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="commentsToMe" inverseEntity="User"/>
+        <attribute name="updateDate" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <relationship name="author" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="comments" inverseEntity="User">
+            <userInfo/>
+        </relationship>
+        <relationship name="inReplyToUser" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="comments" inverseEntity="User" syncable="YES"/>
+        <relationship name="targetStatus" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="comments" inverseEntity="Status">
+            <userInfo/>
+        </relationship>
+        <relationship name="targetUser" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="commentsToMe" inverseEntity="User">
+            <userInfo/>
+        </relationship>
     </entity>
     <entity name="Status" representedClassName="Status" syncable="YES">
-        <attribute name="bmiddlePicURL" optional="YES" attributeType="String"/>
+        <attribute name="bmiddlePicURL" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
         <attribute name="cardSizeCardHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="cardSizeImageHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="commentsCount" optional="YES" attributeType="String"/>
-        <attribute name="createdAt" attributeType="Date"/>
-        <attribute name="favorited" optional="YES" attributeType="Boolean"/>
+        <attribute name="commentsCount" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="createdAt" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <attribute name="favorited" optional="YES" attributeType="Boolean">
+            <userInfo/>
+        </attribute>
         <attribute name="featureMusic" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="featureOrigin" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="featurePic" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -29,52 +55,124 @@
         <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lon" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="originalPicURL" optional="YES" attributeType="String"/>
-        <attribute name="repostsCount" optional="YES" attributeType="String"/>
+        <attribute name="originalPicURL" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="repostsCount" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
         <attribute name="searchString" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="source" optional="YES" attributeType="String"/>
-        <attribute name="statusID" attributeType="String"/>
-        <attribute name="text" attributeType="String"/>
-        <attribute name="thumbnailPicURL" optional="YES" attributeType="String"/>
-        <attribute name="updateDate" attributeType="Date"/>
-        <relationship name="author" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="statuses" inverseEntity="User"/>
-        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="targetStatus" inverseEntity="Comment"/>
-        <relationship name="favoritedBy" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="favorites" inverseEntity="User"/>
-        <relationship name="isFriendsStatusOf" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="friendsStatuses" inverseEntity="User"/>
-        <relationship name="repostedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="repostStatus" inverseEntity="Status"/>
-        <relationship name="repostStatus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="repostedBy" inverseEntity="Status"/>
+        <attribute name="source" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="statusID" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="text" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="thumbnailPicURL" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="updateDate" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <relationship name="author" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="statuses" inverseEntity="User">
+            <userInfo/>
+        </relationship>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="targetStatus" inverseEntity="Comment">
+            <userInfo/>
+        </relationship>
+        <relationship name="favoritedBy" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="favorites" inverseEntity="User">
+            <userInfo/>
+        </relationship>
+        <relationship name="isFriendsStatusOf" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="friendsStatuses" inverseEntity="User">
+            <userInfo/>
+        </relationship>
+        <relationship name="repostedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="repostStatus" inverseEntity="Status">
+            <userInfo/>
+        </relationship>
+        <relationship name="repostStatus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="repostedBy" inverseEntity="Status">
+            <userInfo/>
+        </relationship>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
-        <attribute name="blogURL" optional="YES" attributeType="String"/>
-        <attribute name="createdAt" optional="YES" attributeType="Date"/>
-        <attribute name="domainURL" optional="YES" attributeType="String"/>
-        <attribute name="favouritesCount" optional="YES" attributeType="String"/>
-        <attribute name="followersCount" optional="YES" attributeType="String"/>
-        <attribute name="following" optional="YES" attributeType="Boolean"/>
+        <attribute name="blogURL" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="createdAt" optional="YES" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <attribute name="domainURL" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="favouritesCount" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="followersCount" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="following" optional="YES" attributeType="Boolean">
+            <userInfo/>
+        </attribute>
         <attribute name="followMe" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="friendsCount" optional="YES" attributeType="String"/>
-        <attribute name="gender" optional="YES" attributeType="String"/>
+        <attribute name="friendsCount" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="gender" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
         <attribute name="largeAvatarURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="location" optional="YES" attributeType="String"/>
-        <attribute name="profileImageURL" optional="YES" attributeType="String"/>
-        <attribute name="screenName" attributeType="String"/>
-        <attribute name="selfDescription" optional="YES" attributeType="String"/>
-        <attribute name="statusesCount" optional="YES" attributeType="String"/>
-        <attribute name="updateDate" attributeType="Date"/>
-        <attribute name="userID" attributeType="String"/>
-        <attribute name="verified" optional="YES" attributeType="Boolean"/>
+        <attribute name="location" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="profileImageURL" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="screenName" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="selfDescription" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="statusesCount" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="updateDate" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <attribute name="userID" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="verified" optional="YES" attributeType="Boolean">
+            <userInfo/>
+        </attribute>
         <attribute name="verifiedType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comment" inverseName="author" inverseEntity="Comment"/>
-        <relationship name="commentsToMe" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="targetUser" inverseEntity="Comment"/>
-        <relationship name="favorites" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="favoritedBy" inverseEntity="Status"/>
-        <relationship name="followers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="friends" inverseEntity="User"/>
-        <relationship name="friends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="followers" inverseEntity="User"/>
-        <relationship name="friendsStatuses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="isFriendsStatusOf" inverseEntity="Status"/>
-        <relationship name="statuses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Status" inverseName="author" inverseEntity="Status"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comment" inverseName="inReplyToUser" inverseEntity="Comment">
+            <userInfo/>
+        </relationship>
+        <relationship name="commentsToMe" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="targetUser" inverseEntity="Comment">
+            <userInfo/>
+        </relationship>
+        <relationship name="favorites" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="favoritedBy" inverseEntity="Status">
+            <userInfo/>
+        </relationship>
+        <relationship name="followers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="friends" inverseEntity="User">
+            <userInfo/>
+        </relationship>
+        <relationship name="friends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="followers" inverseEntity="User">
+            <userInfo/>
+        </relationship>
+        <relationship name="friendsStatuses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="isFriendsStatusOf" inverseEntity="Status">
+            <userInfo/>
+        </relationship>
+        <relationship name="statuses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Status" inverseName="author" inverseEntity="Status">
+            <userInfo/>
+        </relationship>
     </entity>
     <elements>
-        <element name="Comment" positionX="160" positionY="192" width="128" height="195"/>
+        <element name="Comment" positionX="160" positionY="192" width="128" height="225"/>
         <element name="Status" positionX="160" positionY="192" width="128" height="420"/>
-        <element name="User" positionX="160" positionY="192" width="128" height="420"/>
+        <element name="User" positionX="160" positionY="192" width="128" height="435"/>
     </elements>
 </model>

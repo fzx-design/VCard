@@ -2,7 +2,7 @@
 //  Comment.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-4-17.
+//  Created by Gabriel Yeah on 12-6-22.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -21,10 +21,11 @@
 @dynamic text;
 @dynamic toMe;
 @dynamic updateDate;
+@dynamic commentHeight;
 @dynamic author;
 @dynamic targetStatus;
 @dynamic targetUser;
-
+@dynamic inReplyToUser;
 
 + (Comment *)insertCommentByMe:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -199,7 +200,5 @@
 {
     return [self.commentID isEqualToString:comment.commentID];
 }
-
-
 
 @end
