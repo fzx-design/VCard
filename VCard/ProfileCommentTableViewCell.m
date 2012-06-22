@@ -19,8 +19,6 @@
 @synthesize screenNameButton = _screenNameButton;
 @synthesize commentButton = _commentButton;
 @synthesize moreActionButton = _moreActionButton;
-@synthesize leftThreadImageView = _leftThreadImageView;
-@synthesize rightThreadImageView = _rightThreadImageView;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -39,7 +37,7 @@
     // Configure the view for the selected state
 }
 
-- (void)configureCellWithComment:(Comment *)comment isLastComment:(BOOL)isLast
+- (void)configureCellWithComment:(Comment *)comment isLastComment:(BOOL)isLast isFirstComment:(BOOL)isFirst
 {
     
     [CardViewController setStatusTextLabel:self.commentContentLabel withText:comment.text];
@@ -71,11 +69,10 @@
     [self.timeStampLabel resetOriginY:cardTailOriginY];
     [self.timeStampLabel setText:[comment.createdAt stringRepresentation]];
     
-    [self.leftThreadImageView resetOriginY:cardTailOriginY + 32.0];
-    [self.rightThreadImageView resetOriginY:cardTailOriginY + 32.0];
+    [self.downThreadImageView resetOriginY:cardTailOriginY + 30.0];
     
-    self.leftThreadImageView.hidden = isLast;
-    self.rightThreadImageView.hidden = isLast;
+    self.upThreadImageView.hidden = isFirst;
+    self.downThreadImageView.hidden = isLast;
 }
 
 @end

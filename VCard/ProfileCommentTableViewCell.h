@@ -19,8 +19,6 @@
     UIButton *_screenNameButton;
     UIButton *_commentButton;
     UIButton *_moreActionButton;
-    UIImageView *_leftThreadImageView;
-    UIImageView *_rightThreadImageView;
 }
 
 @property (nonatomic, strong) IBOutlet UserAvatarImageView *avatarImageView;
@@ -28,13 +26,15 @@
 @property (nonatomic, strong) IBOutlet UIButton *screenNameButton;
 @property (nonatomic, strong) IBOutlet UIButton *commentButton;
 @property (nonatomic, strong) IBOutlet UIButton *moreActionButton;
-@property (nonatomic, strong) IBOutlet UIImageView *leftThreadImageView;
-@property (nonatomic, strong) IBOutlet UIImageView *rightThreadImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *upThreadImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *downThreadImageView;
 
 @property (nonatomic, strong) IBOutlet UIView *commentInfoView;
 @property (nonatomic, strong) IBOutlet TTTAttributedLabel *commentContentLabel;
 @property (nonatomic, strong) IBOutlet UILabel *timeStampLabel;
 
-- (void)configureCellWithComment:(Comment *)comment isLastComment:(BOOL)isLast;
+- (void)configureCellWithComment:(Comment *)comment
+                   isLastComment:(BOOL)isLast
+                  isFirstComment:(BOOL)isFirst;
 
 @end

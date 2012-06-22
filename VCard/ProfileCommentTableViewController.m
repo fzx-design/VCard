@@ -127,8 +127,11 @@
         [commentCell resetOriginX:11.0];
         [commentCell resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
         [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
+        BOOL isFirstComment = indexPath.row == 1;
+        BOOL isLastComment = indexPath.row == self.fetchedResultsController.fetchedObjects.count;
         [commentCell configureCellWithComment:comment
-                                isLastComment:indexPath.row == self.fetchedResultsController.fetchedObjects.count];
+                                isLastComment:isLastComment
+                               isFirstComment:isFirstComment];
     }
 }
 

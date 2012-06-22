@@ -1238,17 +1238,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" id="VMs-Iu-N81" customClass="BaseCardBackgroundView">
-                                            <rect key="frame" x="9" y="-1" width="366" height="100"/>
+                                            <rect key="frame" x="9" y="5" width="366" height="100"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" image="card_comment_thread.png" id="sd1-Bm-0BV">
-                                                    <rect key="frame" x="20" y="84" width="21" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" image="card_comment_thread.png" id="dyk-6u-i1e">
-                                                    <rect key="frame" x="323" y="84" width="21" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                                 <view contentMode="scaleToFill" id="5Jo-Ul-xeN">
                                                     <rect key="frame" x="0.0" y="11" width="366" height="89"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1312,6 +1304,14 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" image="comments_thread_down.png" id="sd1-Bm-0BV">
+                                                    <rect key="frame" x="15" y="-6" width="340" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" image="comments_thread_up.png" id="dyk-6u-i1e">
+                                                    <rect key="frame" x="15" y="81" width="340" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -1325,11 +1325,11 @@
                                     <outlet property="commentButton" destination="YCB-IM-iep" id="PId-PS-MzD"/>
                                     <outlet property="commentContentLabel" destination="TXO-ap-EUF" id="GR6-ye-Xqk"/>
                                     <outlet property="commentInfoView" destination="5Jo-Ul-xeN" id="5aO-IE-R9M"/>
-                                    <outlet property="leftThreadImageView" destination="sd1-Bm-0BV" id="FyY-5E-gbV"/>
+                                    <outlet property="downThreadImageView" destination="dyk-6u-i1e" id="tgt-h6-Of0"/>
                                     <outlet property="moreActionButton" destination="qLf-Ps-dBm" id="RtW-fx-xng"/>
-                                    <outlet property="rightThreadImageView" destination="dyk-6u-i1e" id="Wb3-GV-Qzr"/>
                                     <outlet property="screenNameButton" destination="v9C-6q-7N6" id="O6b-mG-VLU"/>
                                     <outlet property="timeStampLabel" destination="cBZ-kg-xv9" id="cdM-Qa-7yb"/>
+                                    <outlet property="upThreadImageView" destination="sd1-Bm-0BV" id="w9Y-zl-Frq"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1373,6 +1373,8 @@
         <image name="card_location_pin.png" width="14" height="24"/>
         <image name="card_tag.png" width="62" height="59"/>
         <image name="cell_hover.png" width="383" height="42"/>
+        <image name="comments_thread_down.png" width="334" height="24"/>
+        <image name="comments_thread_up.png" width="334" height="22"/>
         <image name="following_segements_bg.png" width="384" height="75"/>
         <image name="icon_location.png" width="11" height="18"/>
         <image name="imageview_placeholder.png" width="175" height="175"/>
@@ -1486,11 +1488,11 @@
                 <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="commentContentLabel" candidateClass="TTTAttributedLabel"/>
                 <relationship kind="outlet" name="commentInfoView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="leftThreadImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="downThreadImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="moreActionButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="rightThreadImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="screenNameButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="upThreadImageView" candidateClass="UIImageView"/>
             </relationships>
         </class>
         <class className="ProfileCommentTableViewController" superclassName="RefreshableCoreDataTableViewController">
