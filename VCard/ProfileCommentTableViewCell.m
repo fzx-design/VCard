@@ -39,7 +39,7 @@
     // Configure the view for the selected state
 }
 
-- (void)configureCellWithComment:(Comment *)comment
+- (void)configureCellWithComment:(Comment *)comment isLastComment:(BOOL)isLast
 {
     
     [CardViewController setStatusTextLabel:self.commentContentLabel withText:comment.text];
@@ -70,6 +70,12 @@
     
     [self.timeStampLabel resetOriginY:cardTailOriginY];
     [self.timeStampLabel setText:[comment.createdAt stringRepresentation]];
+    
+    [self.leftThreadImageView resetOriginY:cardTailOriginY + 32.0];
+    [self.rightThreadImageView resetOriginY:cardTailOriginY + 32.0];
+    
+    self.leftThreadImageView.hidden = isLast;
+    self.rightThreadImageView.hidden = isLast;
 }
 
 @end

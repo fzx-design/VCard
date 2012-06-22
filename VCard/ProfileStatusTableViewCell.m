@@ -52,6 +52,7 @@
 - (CardViewController*)cardViewController
 {
     if (_cardViewController == nil) {
+        
         _cardViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:NULL] instantiateViewControllerWithIdentifier:@"CardViewController"];
         
         CGRect frame = _cardViewController.view.frame;

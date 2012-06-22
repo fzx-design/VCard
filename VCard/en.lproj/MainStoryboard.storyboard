@@ -1238,15 +1238,15 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" id="VMs-Iu-N81" customClass="BaseCardBackgroundView">
-                                            <rect key="frame" x="9" y="-3" width="366" height="100"/>
+                                            <rect key="frame" x="9" y="-1" width="366" height="100"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" image="card_comment_thread.png" id="sd1-Bm-0BV">
-                                                    <rect key="frame" x="20" y="-28" width="21" height="44"/>
+                                                    <rect key="frame" x="20" y="84" width="21" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" image="card_comment_thread.png" id="dyk-6u-i1e">
-                                                    <rect key="frame" x="323" y="-28" width="21" height="44"/>
+                                                    <rect key="frame" x="323" y="84" width="21" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" id="5Jo-Ul-xeN">
@@ -1325,7 +1325,9 @@
                                     <outlet property="commentButton" destination="YCB-IM-iep" id="PId-PS-MzD"/>
                                     <outlet property="commentContentLabel" destination="TXO-ap-EUF" id="GR6-ye-Xqk"/>
                                     <outlet property="commentInfoView" destination="5Jo-Ul-xeN" id="5aO-IE-R9M"/>
+                                    <outlet property="leftThreadImageView" destination="sd1-Bm-0BV" id="FyY-5E-gbV"/>
                                     <outlet property="moreActionButton" destination="qLf-Ps-dBm" id="RtW-fx-xng"/>
+                                    <outlet property="rightThreadImageView" destination="dyk-6u-i1e" id="Wb3-GV-Qzr"/>
                                     <outlet property="screenNameButton" destination="v9C-6q-7N6" id="O6b-mG-VLU"/>
                                     <outlet property="timeStampLabel" destination="cBZ-kg-xv9" id="cdM-Qa-7yb"/>
                                 </connections>

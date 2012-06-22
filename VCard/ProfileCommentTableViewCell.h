@@ -35,6 +35,6 @@
 @property (nonatomic, strong) IBOutlet TTTAttributedLabel *commentContentLabel;
 @property (nonatomic, strong) IBOutlet UILabel *timeStampLabel;
 
-- (void)configureCellWithComment:(Comment *)comment;
+- (void)configureCellWithComment:(Comment *)comment isLastComment:(BOOL)isLast;
 
 @end

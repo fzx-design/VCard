@@ -127,7 +127,8 @@
         [commentCell resetOriginX:11.0];
         [commentCell resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
         [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
-        [commentCell configureCellWithComment:comment];
+        [commentCell configureCellWithComment:comment
+                                isLastComment:indexPath.row == self.fetchedResultsController.fetchedObjects.count];
     }
 }
 
@@ -172,10 +173,6 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [super scrollViewDidScroll:scrollView];
-    
-    for (UITableViewCell *cell in self.tableView.visibleCells) {
-        [self.tableView bringSubviewToFront:cell];
-    }
     
     if (_hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
         [self loadMoreData];
