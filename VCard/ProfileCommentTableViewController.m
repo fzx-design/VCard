@@ -39,11 +39,6 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (void)initialLoad
-{
-    [self refresh];
-}
-
 #pragma mark - Data Operation
 
 - (void)refresh

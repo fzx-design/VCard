@@ -24,15 +24,15 @@
     [super viewDidLoad];
 }
 
-- (void)setUpViews
-{
-	[self.view addSubview:self.commentTableViewController.view];
-}
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)initialLoad
+{
+    [self.commentTableViewController refresh];
 }
 
 - (CGRect)frameForTableView
@@ -42,12 +42,6 @@
     return CGRectMake(24.0, originY, 382.0, height);
 }
 
-- (void)setStatus:(Status *)status
-{
-    _status = status;
-    self.commentTableViewController.status = status;
-}
-
 - (ProfileCommentTableViewController *)commentTableViewController
 {
     if (!_commentTableViewController) {
@@ -55,6 +49,7 @@
         _commentTableViewController.stackPageIndex = self.pageIndex;
         _commentTableViewController.view.frame = [self frameForTableView];
         _commentTableViewController.tableView.frame = [self frameForTableView];
+        _commentTableViewController.status = self.status;
         [self.backgroundView addSubview:_commentTableViewController.view];
     }
     return _commentTableViewController;

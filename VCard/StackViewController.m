@@ -92,6 +92,8 @@
 
 - (void)addViewController:(StackViewPageController *)vc replacingOtherView:(BOOL)replacing
 {
+    [vc.view resetHeight:self.view.frame.size.height];
+    
     [self.controllerStack addObject:vc];
     [self.stackView addNewPage:vc.view replacingView:replacing completion:^{
         [vc initialLoad];

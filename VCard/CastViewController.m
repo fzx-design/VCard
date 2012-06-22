@@ -226,6 +226,7 @@
         [UIView animateWithDuration:0.3 animations:^{
             _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         }];
+        
         [_stackViewController addViewController:vc replacingOtherView:stackViewExists];
     } else {
         [_stackViewController insertStackPage:vc atIndex:index];
@@ -447,8 +448,6 @@
 - (void)flowView:(WaterflowView *)flowView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CommentViewController"];
-    [vc.view resetWidth:384.0];
-    [vc.backgroundView resetWidth:431.0];
     vc.currentUser = self.currentUser;
     vc.status = (Status *)self.fetchedResultsController.fetchedObjects[indexPath.row + indexPath.section];
     
