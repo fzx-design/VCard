@@ -11,6 +11,7 @@
 
 @interface ProfileCommentTableViewController : RefreshableCoreDataTableViewController {
     int _nextCursor;
+    int _page;
 }
 
 @property (nonatomic, strong) Status *status;

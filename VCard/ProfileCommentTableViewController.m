@@ -43,7 +43,8 @@
 
 - (void)refresh
 {
-	_nextCursor = 1;
+	_nextCursor = -1;
+    _page = 1;
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
 }
 
@@ -94,7 +95,7 @@
     }];
     
     [client getCommentOfStaus:self.status.statusID
-                       cursor:_nextCursor
+                       cursor:_page++
                         count:20];
 }
 
