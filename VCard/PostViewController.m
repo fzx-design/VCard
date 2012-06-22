@@ -7,18 +7,32 @@
 //
 
 #import "PostViewController.h"
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <QuartzCore/QuartzCore.h>
 #import "UIApplication+Addition.h"
 #import "PostAtHintView.h"
 #import "PostTopicHintView.h"
 #import "UIView+Addition.h"
 #import "WBClient.h"
+#import "PostNewStatusViewController.h"
+#import "PostRepostCommentViewController.h"
 
 #define WEIBO_TEXT_MAX_LENGTH   140
-#define HINT_VIEW_OFFSET    CGSizeMake(-16, 27)
+#define HINT_VIEW_OFFSET        CGSizeMake(-16, 27)
 #define HINT_VIEW_ORIGIN_MIN_Y  108
 #define HINT_VIEW_ORIGIN_MAX_Y  234
 #define HINT_VIEW_BORDER_MAX_Y  (self.postView.frame.size.height - 10)
 #define HINT_VIEW_BORDER_MAX_X  self.postView.frame.size.width
+
+#define FOLD_PAPER_ANIMATION_DURATION   0.5f
+#define UNFOLD_PAPER_ANIMATION_DURATION 0.3f
+#define FOLD_PAPER_SCALE_RATIO          0.01f
+#define PAPER_GLOOM_ALPHA               0.5f
+
+#define MOTIONS_ACTION_SHEET_SHOOT_INDEX    0
+#define MOTIONS_ACTION_SHEET_ALBUM_INDEX    1
+#define MOTIONS_ACTION_SHEET_EDIT_INDEX     2
+#define MOTIONS_ACTION_SHEET_CLEAR_INDEX    3
 
 static NSString *weiboAtRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_\\s]*";
 static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
@@ -29,6 +43,12 @@ typedef enum {
     HintViewTypeTopic,
 } HintViewType;
 
+typedef enum {
+    ActionSheetTypeNone,
+    ActionSheetTypeDestruct,
+    ActionSheetTypeMotions,
+} ActionSheetType;
+
 @interface PostViewController ()
 
 @property (nonatomic, assign) CGFloat keyboardHeight;
@@ -37,9 +57,13 @@ typedef enum {
 @property (nonatomic, assign) NSRange currentHintStringRange;
 @property (nonatomic, readonly) NSString *currentHintString;
 @property (nonatomic, assign) HintViewType currentHintViewType;
-@property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic, strong) EmoticonsViewController *emoticonsViewController;
 @property (nonatomic, readonly) PostRootView *postRootView;
+@property (nonatomic, strong) UIActionSheet *actionSheet;
+@property (nonatomic, assign) ActionSheetType currentActionSheetType;
+@property (nonatomic, strong) UIPopoverController *popoverController;
+@property (nonatomic, assign) CGRect startButtonFrame;
+@property (nonatomic, readonly) CGPoint startButtonCenter;
 
 @end
 
@@ -52,20 +76,53 @@ typedef enum {
 @synthesize textContainerView = _textContainerView;
 @synthesize navButton = _navButton;
 @synthesize atButton = _atButton;
+@synthesize motionsButton = _motionsButton;
 @synthesize emoticonsButton = _emoticonsButton;
 @synthesize topicButton = _topicButton;
+@synthesize checkmarkButton = _checkmarkButton;
 @synthesize navActivityView = _navActivityView;
 @synthesize navLabel = _navLabel;
-@synthesize functionLeftView = _functionLeftView;
+@synthesize functionLeftNavView = _functionLeftNavView;
+@synthesize functionLeftCheckmarkView = _functionLeftCheckmarkView;
 @synthesize functionRightView = _functionRightView;
+@synthesize delegate = _delegate;
+@synthesize leftPaperImageView = _leftPaperImageView;
+@synthesize rightPaperImageView = _rightPaperImageView;
+@synthesize paperImageHolderView = _paperImageHolderView;
+@synthesize leftPaperGloomImageView = _leftPaperGloomImageView;
+@synthesize rightPaperGloomImageView = _rightPaperGloomImageView;
+@synthesize topBarLabel = _topBarLabel;
+@synthesize repostCommentLabel = _repostCommentLabel;
+@synthesize motionsView = _motionsView;
+@synthesize type = _type;
 
 @synthesize keyboardHeight = _keyboardHeight;
 @synthesize currentHintView = _currentHintView;
 @synthesize currentHintStringRange = _currentHintStringRange;
 @synthesize currentHintString = _currentHintString;
 @synthesize currentHintViewType = _currentHintViewType;
-@synthesize locationManager = locationManager;
 @synthesize emoticonsViewController = _emoticonsViewController;
+@synthesize currentActionSheetType = _currentActionSheetType;
+@synthesize actionSheet = _actionSheet;
+@synthesize cancelButton = _cancelButton;
+@synthesize popoverController = _pc;
+@synthesize motionsOriginalImage = _motionsOriginalImage;
+@synthesize startButtonFrame = _startButtonFrame;
+
++ (id)getPostViewControllerViewWithType:(PostViewControllerType)type 
+                               delegate:(id<PostViewControllerDelegate>) delegate
+                                weiboID:(NSString *)weiboID
+                         weiboOwnerName:(NSString *)ownerName {
+    PostViewController *vc = nil;
+    if(type == PostViewControllerTypeNewStatus) {
+        vc = [[PostNewStatusViewController alloc] init];
+    } else {
+        vc = [[PostRepostCommentViewController alloc] initWithWeiboID:weiboID weiboOwnerName:ownerName];
+    }
+    vc.type = type;
+    vc.delegate = delegate;
+    return vc;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -83,13 +140,19 @@ typedef enum {
     [self configureViewFrame];
     [self configureMotionsImageView];
     [self configureTextView];
+    
     self.navActivityView.hidden = YES;
     self.navLabel.text = @"";
     _functionRightViewInitFrame = self.functionRightView.frame;
     self.postRootView.delegate = self;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(deviceRotateDidChanged:) name:kNotificationNameOrientationChanged object:nil];
+    [center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [self unfoldPaperAnimation];
+    [self moveFromStartButtonAnimation];
 }
 
 - (void)viewDidUnload
@@ -108,8 +171,18 @@ typedef enum {
     self.topicButton = nil;
     self.navActivityView = nil;
     self.navLabel = nil;
-    self.functionLeftView = nil;
+    self.functionLeftNavView = nil;
+    self.functionLeftCheckmarkView = nil;
     self.functionRightView = nil;
+    self.motionsButton = nil;
+    self.cancelButton = nil;
+    self.leftPaperImageView = nil;
+    self.rightPaperImageView = nil;
+    self.paperImageHolderView = nil;
+    self.topBarLabel = nil;
+    self.checkmarkButton = nil;
+    self.repostCommentLabel = nil;
+    self.motionsView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -117,6 +190,10 @@ typedef enum {
 }
 
 #pragma mark - Notification handlers
+
+- (void)deviceRotateDidChanged:(NSNotification *)notification {
+    [self dismissPopover];
+}
 
 - (void)keyboardWillShow:(NSNotification *)notification {
     NSDictionary *info = [notification userInfo];
@@ -139,22 +216,30 @@ typedef enum {
         float animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
         [UIView animateWithDuration:animationDuration animations:^{
             self.postView.center = CGPointMake(self.postView.center.x, (screenSize.height - keyboardHeight) / 2);
+            self.paperImageHolderView.center = self.postView.center;
         } completion:^(BOOL finished) {
             _keyboardHidden = !finished;
         }];
-    } else 
+    } else {
         self.postView.center = CGPointMake(self.postView.center.x, (screenSize.height - keyboardHeight) / 2);
+        self.paperImageHolderView.center = self.postView.center;
+    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     NSDictionary *info = [notification userInfo];
     float animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     CGSize screenSize = [UIApplication sharedApplication].screenSize;
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.postView.center = CGPointMake(self.postView.center.x, screenSize.height / 2);
-    } completion:^(BOOL finished) {
-        _keyboardHidden = finished;
-    }];
+    if(_playingFoldPaperAnimation == NO) {
+        [UIView animateWithDuration:animationDuration animations:^{
+            self.postView.center = CGPointMake(self.postView.center.x, screenSize.height / 2);
+            self.paperImageHolderView.center = self.postView.center;
+        } completion:^(BOOL finished) {
+            _keyboardHidden = finished;
+        }];
+    }
+    
+    [self dismissPopover];
 }
 
 #pragma mark - Logic methods
@@ -202,6 +287,7 @@ typedef enum {
         //NSLog(@"text scroll view offset y:%f", textScrollViewOffsetY);
         cursorPos.y += self.textContainerView.frame.origin.y + self.textView.frame.origin.y + HINT_VIEW_OFFSET.height - textScrollViewOffsetY;
     }
+    //NSLog(@"cursor pos(%@)", NSStringFromCGPoint(cursorPos));
     return cursorPos;
 }
 
@@ -234,13 +320,71 @@ typedef enum {
     [self.textView replaceRange:textRange withText:replaceText];
     
     NSRange range = NSMakeRange(location + replaceText.length, 0);
+    if([self.currentHintView isMemberOfClass:[PostTopicHintView class]])
+        range.location += 1;
     self.textView.selectedRange = range;
     self.currentHintStringRange = range;
     if([self.currentHintView isKindOfClass:[PostHintView class]])
         [self dismissHintView];
 }
 
+- (void)setMotionsImage:(UIImage *)image {
+    CGRect imageViewRect = CGRectMake(0, 0, self.motionsImageView.frame.size.width, self.motionsImageView.frame.size.height);
+    CGRect imageRect;
+    if(image.size.width > image.size.height) {
+        imageRect = CGRectMake((image.size.width - image.size.height) / 2, 0, image.size.height, image.size.height);
+    } else {
+        imageRect = CGRectMake(0, (image.size.height - image.size.width) / 2, image.size.width, image.size.width);
+    }
+    UIImage *optimizedImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(image.CGImage, imageRect)];
+    
+    UIGraphicsBeginImageContext(imageViewRect.size);
+    [optimizedImage drawInRect:CGRectMake(2, 2, imageViewRect.size.width - 4, imageViewRect.size.height - 4)];
+    optimizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    self.motionsImageView.image = optimizedImage;
+    self.motionsOriginalImage = image;
+}
+
+- (void)configurePaperHolderImageView {
+    UIGraphicsBeginImageContext(self.postView.bounds.size);
+    [self.postView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    CGRect leftRect = CGRectMake(0, 0, viewImage.size.width / 2, viewImage.size.height);
+    CGRect rightRect = CGRectMake(viewImage.size.width / 2, 0, viewImage.size.width / 2, viewImage.size.height);
+    UIImage *leftImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, leftRect)];
+    UIImage *rightImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, rightRect)];
+    
+    self.leftPaperImageView.image = leftImage;
+    self.rightPaperImageView.image = rightImage;
+    
+    CATransform3D transform = CATransform3DIdentity;
+    transform.m34 = 1.0 / -1500;
+    self.leftPaperImageView.layer.transform = transform;
+    self.rightPaperImageView.layer.transform = transform;
+    self.leftPaperImageView.layer.anchorPoint = CGPointMake(1, 0.5f);
+    self.rightPaperImageView.layer.anchorPoint = CGPointMake(0, 0.5f);
+}
+
+- (CGPoint)startButtonCenter {
+    return CGPointMake(self.startButtonFrame.origin.x + self.startButtonFrame.size.width / 2,
+                       self.startButtonFrame.origin.y + self.startButtonFrame.size.height / 2);
+}
+
 #pragma mark - UI methods
+
+- (void)dismissPopover {
+    if(self.actionSheet) {
+        [self.actionSheet dismissWithClickedButtonIndex:-1 animated:NO];
+    }
+    if(self.popoverController) {
+        [self.popoverController dismissPopoverAnimated:YES];
+        self.popoverController = nil;
+    }
+}
 
 - (void)configureTextView {
     self.textView.text = @"";
@@ -258,8 +402,10 @@ typedef enum {
     self.motionsImageView.transform = CGAffineTransformMakeRotation(6 * M_PI / 180);
 }
 
-- (void)dismissView {
-    [UIApplication dismissModalViewController];
+- (void)dismissViewAnimated:(BOOL)animated {
+    [UIApplication dismissModalViewControllerAnimated:animated];
+    if(animated == NO)
+        _playingFoldPaperAnimation = YES;
     [self.textView resignFirstResponder];
 }
 
@@ -345,7 +491,7 @@ typedef enum {
 }
 
 - (void)dismissHintView {
-    NSLog(@"dismiss hint view");
+    //NSLog(@"dismiss hint view");
     self.currentHintStringRange = NSMakeRange(0, 0);
     UIView *currentHintView = self.currentHintView;
     self.currentHintView = nil;
@@ -359,48 +505,10 @@ typedef enum {
     self.postRootView.observingViewTag = PostRootViewSubviewTagNone;
 }
 
-- (void)showNavLocationLabel:(NSString *)place {
-    self.navLabel.text = place;
-    [self.navLabel sizeToFit];
-    __block CGRect frame = self.navLabel.frame;
-    CGFloat width = frame.size.width;
-    frame.size.width = 0;
-    self.navLabel.frame = frame;
-    self.navButton.userInteractionEnabled = NO;
-    [UIView animateWithDuration:0.3f animations:^{
-        frame.size.width = width;
-        self.navLabel.frame = frame;
-        
-        CGRect rightFuncViewFrame = self.functionRightView.frame;
-        rightFuncViewFrame.origin.x = _functionRightViewInitFrame.origin.x + width;
-        self.functionRightView.frame = rightFuncViewFrame;
-    } completion:^(BOOL finished) {
-        self.navButton.userInteractionEnabled = YES;
-    }];
-}
-
-- (void)hideNavLocationLabel {
-    if(self.navLabel.text.length == 0)
-        return;
-    __block CGRect frame = self.navLabel.frame;
-    self.navLabel.frame = frame;
-    self.navButton.userInteractionEnabled = NO;
-    [UIView animateWithDuration:0.3f animations:^{
-        frame.size.width = 0;
-        self.navLabel.frame = frame;
-        
-        CGRect rightFuncViewFrame = self.functionRightView.frame;
-        rightFuncViewFrame.origin.x = _functionRightViewInitFrame.origin.x;
-        self.functionRightView.frame = rightFuncViewFrame;
-    } completion:^(BOOL finished) {
-        self.navLabel.text = @"";
-        self.navButton.userInteractionEnabled = YES;
-    }];
-}
-
 - (void)presentEmoticonsView {
-    NSLog(@"present emoticons view");
+    //NSLog(@"present emoticons view");
     [self dismissHintView];
+    _emoticonsViewController = nil;
     self.postRootView.observingViewTag = PostRootViewSubviewTagEmoticons;
     EmoticonsViewController *vc = self.emoticonsViewController;
     vc.view.alpha = 1;
@@ -412,18 +520,179 @@ typedef enum {
     self.currentHintView = (PostHintView *)vc.view;
     self.emoticonsButton.selected = YES;
     self.currentHintStringRange = NSMakeRange(self.textView.selectedRange.location, 0);
+    [self checkCurrentHintViewFrame];
+}
+
+- (void)showViewFromRect:(CGRect)rect {
+    self.startButtonFrame = rect;
+    [UIApplication presentModalViewController:self animated:NO];
+}
+
+- (void)dismissViewToRect:(CGRect)rect {
+    self.startButtonFrame = rect;
+    [self moveToStartButtonAnimation];
+    [self foldPaperAnimation];
+    [self dismissViewAnimated:NO];
+}
+
+- (void)dismissViewUpwards {
+    [self moveUpwardAnimation];
+    [self dismissViewAnimated:NO];
+}
+
+#pragma mark - Animation methods
+
+- (void)moveUpwardAnimation {
+    [UIView animateWithDuration:0.3f animations:^{
+        CGRect frame = self.postView.frame;
+        frame.origin.y = -frame.size.height * 2;
+        self.postView.frame = frame;
+    } completion:^(BOOL finished) {
+        [self.view removeFromSuperview];
+    }];
+}
+
+- (void)moveFromStartButtonAnimation {
+    CGPoint originalCenter = self.paperImageHolderView.center;
+    self.paperImageHolderView.center = self.startButtonCenter;
+    self.paperImageHolderView.transform = CGAffineTransformMakeScale(FOLD_PAPER_SCALE_RATIO, FOLD_PAPER_SCALE_RATIO);
+    [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION 
+                          delay:0
+                        options:UIViewAnimationCurveEaseOut 
+                     animations:^{
+                         self.paperImageHolderView.center = originalCenter;
+                         self.paperImageHolderView.transform = CGAffineTransformIdentity;
+                     } completion:nil];
+}
+
+- (void)moveToStartButtonAnimation {
+    [UIView animateWithDuration:UNFOLD_PAPER_ANIMATION_DURATION
+                          delay:0
+                        options:UIViewAnimationCurveEaseIn
+                     animations:^{
+                         self.paperImageHolderView.center = self.startButtonCenter;
+                         self.paperImageHolderView.transform = CGAffineTransformMakeScale(FOLD_PAPER_SCALE_RATIO, FOLD_PAPER_SCALE_RATIO);
+                     } completion:^(BOOL finished) {
+                         [self.view removeFromSuperview];
+                     }];
+}
+
+- (void)unfoldPaperAnimation {
+    [self configurePaperHolderImageView];    
+    self.postView.hidden = YES;
+    
+    [CATransaction begin];
+    [CATransaction setValue:[NSNumber numberWithFloat:FOLD_PAPER_ANIMATION_DURATION] forKey: kCATransactionAnimationDuration];
+    [CATransaction setCompletionBlock:^{
+		self.postView.hidden = NO;
+        self.paperImageHolderView.hidden = YES;
+	}];
+    
+    double factor = - 1 * M_PI / 180;
+    
+	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:@"easeOut"]];
+	[animation setFromValue:[NSNumber numberWithDouble:-90 * factor]];
+	[animation setToValue:[NSNumber numberWithDouble:0]];
+    [animation setFillMode:kCAFillModeForwards];
+	[animation setRemovedOnCompletion:NO];
+	[self.leftPaperImageView.layer addAnimation:animation forKey:nil];
+    
+    animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+	[animation setFromValue:[NSNumber numberWithDouble:90 * factor]];
+	[animation setToValue:[NSNumber numberWithDouble:0]];
+    [animation setFillMode:kCAFillModeForwards];
+	[animation setRemovedOnCompletion:NO];
+	[self.rightPaperImageView.layer addAnimation:animation forKey:nil];
+    
+    [CATransaction commit];
+    
+    self.leftPaperGloomImageView.alpha = PAPER_GLOOM_ALPHA;
+    self.rightPaperGloomImageView.alpha = PAPER_GLOOM_ALPHA;
+    [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION - 0.2f
+                          delay:0.2f
+                        options:UIViewAnimationCurveEaseOut
+                     animations:^{
+                         self.leftPaperGloomImageView.alpha = 0;
+                         self.rightPaperGloomImageView.alpha = 0;
+                     } completion:nil];
+}
+
+- (void)foldPaperAnimation {
+    [self configurePaperHolderImageView];
+    self.postView.hidden = YES;
+    self.paperImageHolderView.hidden = NO;
+    
+    [CATransaction begin];
+    [CATransaction setValue:[NSNumber numberWithFloat:UNFOLD_PAPER_ANIMATION_DURATION] forKey: kCATransactionAnimationDuration];
+    
+    double factor = - 1 * M_PI / 180;
+    
+	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:@"easeIn"]];
+	[animation setFromValue:[NSNumber numberWithDouble:0]];
+	[animation setToValue:[NSNumber numberWithDouble:-90 * factor]];
+    [animation setFillMode:kCAFillModeForwards];
+	[animation setRemovedOnCompletion:NO];
+	[self.leftPaperImageView.layer addAnimation:animation forKey:nil];
+    
+    animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+	[animation setFromValue:[NSNumber numberWithDouble:0]];
+	[animation setToValue:[NSNumber numberWithDouble:90 * factor]];
+    [animation setFillMode:kCAFillModeForwards];
+	[animation setRemovedOnCompletion:NO];
+	[self.rightPaperImageView.layer addAnimation:animation forKey:nil];
+    
+    [CATransaction commit];
+    
+    self.leftPaperGloomImageView.alpha = 0;
+    self.rightPaperGloomImageView.alpha = 0;
+    [UIView animateWithDuration:UNFOLD_PAPER_ANIMATION_DURATION - 0.1f animations:^{
+        self.leftPaperGloomImageView.alpha = PAPER_GLOOM_ALPHA;
+        self.rightPaperGloomImageView.alpha = PAPER_GLOOM_ALPHA;
+    }];
 }
 
 #pragma mark - IBActions
 
 - (IBAction)didClickMotionsButton:(UIButton *)sender {
-    MotionsViewController *vc = [[MotionsViewController alloc] init];
-    vc.delegate = self;
-    [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+    UIActionSheet *actionSheet = nil;
+    if(self.motionsImageView.image) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                  delegate:self 
+                                         cancelButtonTitle:nil 
+                                    destructiveButtonTitle:nil
+                                         otherButtonTitles:@"重新拍照", @"重新选取照片", @"编辑", @"清除", nil];
+        actionSheet.destructiveButtonIndex = MOTIONS_ACTION_SHEET_CLEAR_INDEX;
+    } else {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                  delegate:self 
+                                         cancelButtonTitle:nil 
+                                    destructiveButtonTitle:nil
+                                         otherButtonTitles:@"拍照", @"选取照片",  nil];
+    }
+    if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)
+       && self.motionsImageView.image) {
+        [self.textView resignFirstResponder];
+    }
+	[actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+    self.currentActionSheetType = ActionSheetTypeMotions;
+    self.actionSheet = actionSheet;
 }
 
-- (IBAction)didClickReturnButton:(UIButton *)sender {
-    [self dismissView];
+- (IBAction)didClickCancelButton:(UIButton *)sender {
+    if([self.textView.text isEqualToString:@""] && self.motionsImageView.image == nil) {
+        [self.delegate postViewController:self willDropMessage:self.textView.text];
+        return;
+    }
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
+															 delegate:self 
+													cancelButtonTitle:nil 
+											   destructiveButtonTitle:@"关闭"
+													otherButtonTitles:nil];
+	[actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+    self.currentActionSheetType = ActionSheetTypeDestruct;
+    self.actionSheet = actionSheet;
 }
 
 - (IBAction)didClickAtButton:(UIButton *)sender {
@@ -469,44 +738,12 @@ typedef enum {
 }
 
 - (IBAction)didClickNavButton:(UIButton *)sender {
-    BOOL select = !sender.isSelected;
-    if(select) {
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        self.locationManager.distanceFilter = kCLDistanceFilterNone;
-        [self.locationManager startUpdatingLocation];
-        
-        self.navButton.hidden = YES;
-        self.navActivityView.hidden = NO;
-        [self.navActivityView startAnimating];
-    } else {
-        _located = NO;
-        [self hideNavLocationLabel];
-    }
-    sender.selected = select;
 }
 
 - (IBAction)didClickPostButton:(UIButton *)sender {
-    sender.userInteractionEnabled = NO;
-    WBClient *client = [WBClient client];
-    [client setCompletionBlock:^(WBClient *client) {
-        NSLog(@"post finish:%@", client.responseJSONObject);
-        [sender setTitle:@"发表" forState:UIControlStateNormal];
-        if(!client.hasError) {
-            NSLog(@"post succeeded");
-        } else {
-            NSLog(@"post failed");
-        }
-    }];
-    if(!_located)
-        [client sendWeiBoWithText:self.textView.text image:self.motionsImageView.image];
-    else {
-        NSString *lat = [NSString stringWithFormat:@"%f", _location2D.latitude];
-        NSString *lon = [NSString stringWithFormat:@"%f", _location2D.longitude];
-        [client sendWeiBoWithText:self.textView.text image:self.motionsImageView.image longtitude:lon latitude:lat];
-    }
-    [self dismissView];
+}
+
+- (IBAction)didClickRepostCommentCheckmarkButton:(UIButton *)sender {
 }
 
 #pragma mark - MotionsViewController delegate
@@ -516,7 +753,7 @@ typedef enum {
 }
 
 - (void)motionViewControllerDidFinish:(UIImage *)image {
-    self.motionsImageView.image = image;
+    [self setMotionsImage:image];
     [[UIApplication sharedApplication].rootViewController dismissModalViewControllerAnimated:YES];
 }
 
@@ -583,57 +820,10 @@ typedef enum {
     }
 }
 
-#pragma mark - CLLocationManager delegate
-
-- (void)locationManager:(CLLocationManager *)manager
-       didFailWithError:(NSError *)error {
-    self.navButton.hidden = NO;
-    self.navActivityView.hidden = YES;
-    [self.navActivityView stopAnimating];
-    self.navButton.selected = NO;
-}
-
-- (void)locationManager:(CLLocationManager *)manager
-	didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation {
-    [manager stopUpdatingLocation];
-    self.locationManager = nil;
-    _location2D = newLocation.coordinate; 
-
-    if(_located)
-        return;
-    
-    WBClient *client = [WBClient client];
-    [client setCompletionBlock:^(WBClient *client) {
-        if(!client.hasError) {
-            NSString *locationString;
-            NSArray* array = (NSArray*)client.responseJSONObject;
-            if (array.count > 0) {
-                NSDictionary *dict = [array objectAtIndex:0];
-                NSLog(@"location dict:%@", dict);
-                locationString = [NSString stringWithFormat:@"%@%@%@", [dict objectForKey:@"city_name"], [dict objectForKey:@"district_name"], [dict objectForKey:@"name"]];
-            }
-            [self showNavLocationLabel:locationString];
-        } else {
-            self.navButton.selected = NO;
-        }
-        
-        [self.navActivityView stopAnimating];
-        self.navButton.hidden = NO;
-        self.navActivityView.hidden = YES;
-    }];
-    
-    float lat = _location2D.latitude;
-    float lon = _location2D.longitude;
-    [client getAddressFromGeoWithCoordinate:[[NSString alloc] initWithFormat:@"%f,%f", lon, lat]];
-    
-    _located = YES;
-}
-
 #pragma mark - PostRootView delegate
 
 - (void)postRootView:(PostRootView *)view didObserveTouchOtherView:(UIView *)otherView {
-    NSLog(@"touch other view");
+    //NSLog(@"touch other view");
     if(otherView == self.emoticonsButton)
         return;
     [self dismissHintView];
@@ -643,6 +833,69 @@ typedef enum {
 
 - (void)didClickEmoticonsButtonWithInfoKey:(NSString *)key {
     [self replaceHintWithResult:key];
+}
+
+#pragma mark - UIActionSheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	if(self.currentActionSheetType == ActionSheetTypeDestruct) {
+        if(buttonIndex == actionSheet.destructiveButtonIndex)
+            [self.delegate postViewController:self willDropMessage:self.textView.text];
+	} else if(self.currentActionSheetType == ActionSheetTypeMotions) {
+        if(buttonIndex == MOTIONS_ACTION_SHEET_ALBUM_INDEX) {
+            
+            UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+            ipc.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
+            ipc.delegate = self;
+            ipc.allowsEditing = NO;
+            
+            UIPopoverController *pc = [[UIPopoverController alloc] initWithContentViewController:ipc];
+            self.popoverController = pc;
+            self.popoverController.contentViewController.view.autoresizingMask = !UIViewAutoresizingFlexibleTopMargin;
+            pc.delegate = self;
+            [pc presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton
+              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        } else if(buttonIndex == MOTIONS_ACTION_SHEET_SHOOT_INDEX) {
+            MotionsViewController *vc = [[MotionsViewController alloc] init];
+            vc.delegate = self;
+            [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+        } else if(buttonIndex == MOTIONS_ACTION_SHEET_EDIT_INDEX) {
+            MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:self.motionsOriginalImage];
+            vc.delegate = self;
+            [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+        } else if(buttonIndex == MOTIONS_ACTION_SHEET_CLEAR_INDEX) {
+            [self.motionsImageView fadeOutWithCompletion:^{
+                self.motionsImageView.image = nil;
+                self.motionsOriginalImage = nil;
+                self.motionsImageView.alpha = 1;
+            }];
+        }
+    }
+    NSLog(@"dismiss action sheet");
+    self.actionSheet = nil;
+    self.currentActionSheetType = ActionSheetTypeNone;
+}
+
+#pragma mark -
+#pragma mark UIImagePickerController delegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [self.popoverController dismissPopoverAnimated:YES];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:image];
+    vc.delegate = self;
+    [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+    
+    self.popoverController = nil;
+}
+
+#pragma mark -
+#pragma mark UIPopoverController delegate 
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+    NSLog(@"dismiss popover");
+    self.popoverController = nil;
 }
 
 @end

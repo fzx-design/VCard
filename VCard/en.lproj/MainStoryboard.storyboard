@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2541" systemVersion="12A248" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rLP-Ra-ZR8">
     <dependencies>
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2541" systemVersion="12A239" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rLP-Ra-ZR8">
+    <dependencies>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+>>>>>>> 8d896904bb88a476591c74092744844196a69c66
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1875"/>
     </dependencies>
     <scenes>
@@ -275,6 +281,9 @@
                                 <state key="highlighted" image="button_share_hover.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="didClickRepostButton:" destination="u04-WG-2X6" eventType="touchUpInside" id="92y-IL-XiG"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MMS-eP-hXe">
                                 <rect key="frame" x="269" y="238" width="40" height="38"/>
@@ -287,6 +296,9 @@
                                 <state key="highlighted" image="button_comment_hover.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="didClickCommentButton:" destination="u04-WG-2X6" eventType="touchUpInside" id="K5g-Tm-MUF"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="center" image="card_location_pin.png" id="N7e-YO-GHV">
                                 <rect key="frame" x="18" y="523" width="14" height="24"/>
@@ -1087,7 +1099,11 @@
                                         </state>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Label" textAlignment="center" autoshrinkMode="minimumFontSize" id="6CP-42-ocG">
+<<<<<<< HEAD
                                         <rect key="frame" x="177" y="18" width="77" height="21"/>
+=======
+                                        <rect key="frame" x="189" y="18" width="77" height="21"/>
+>>>>>>> 8d896904bb88a476591c74092744844196a69c66
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1425,6 +1441,7 @@
         <image name="title_small.png" width="88" height="29"/>
         <image name="topbar_avatar_cover.png" width="28" height="28"/>
     </resources>
+<<<<<<< HEAD
     <classes>
         <class className="BaseCardBackgroundView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCardBackgroundView.h"/>
@@ -1643,6 +1660,8 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WaterflowView.h"/>
         </class>
     </classes>
+=======
+>>>>>>> 8d896904bb88a476591c74092744844196a69c66
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

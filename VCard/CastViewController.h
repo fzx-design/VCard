@@ -13,8 +13,9 @@
 #import "PullToRefreshView.h"
 #import "RefreshIndicatorView.h"
 #import "StackViewController.h"
+#import "PostViewController.h"
 
-@interface CastViewController : CoreDataViewController <WaterflowViewDelegate, WaterflowViewDatasource, PullToRefreshViewDelegate, StackViewControllerDelegate, UIScrollViewDelegate> {
+@interface CastViewController : CoreDataViewController <WaterflowViewDelegate, WaterflowViewDatasource, PullToRefreshViewDelegate, StackViewControllerDelegate, UIScrollViewDelegate, PostViewControllerDelegate> {
     
     BaseNavigationView *_navigationView;
     PullToRefreshView *_pullView;

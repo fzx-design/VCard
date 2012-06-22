@@ -46,6 +46,8 @@
 - (IBAction)didClickPickImageButton:(UIButton *)sender;
 - (IBAction)didClickFinishEditButton:(UIButton *)sender;
 
+- (id)initWithImage:(UIImage *)image;
+
 @end
 
 @protocol MotionsViewControllerDelegate <NSObject>

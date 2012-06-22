@@ -14,7 +14,7 @@
 #import "User.h"
 #import "Comment.h"
 #import "WBClient.h"
-
+#import "UIApplication+Addition.h"
 #import "UIView+Resize.h"
 
 #define MaxCardSize CGSizeMake(326,9999)
@@ -482,16 +482,64 @@ static inline NSRegularExpression * UrlRegularExpression() {
 }
 
 #pragma mark - IBActions
+
 - (IBAction)nameButtonClicked:(id)sender
 {
     NSString *userName = [((UIButton *)sender) titleForState:UIControlStateDisabled];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:userName];
 }
 
+- (IBAction)didClickCommentButton:(UIButton *)sender
+{
+    NSString *targetUserName = self.status.author.screenName;
+    NSString *targetStatusID = self.status.statusID;
+    CGRect frame = [self.view convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    
+    PostViewController *vc = [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeComment
+                                                                          delegate:self
+                                                                           weiboID:targetStatusID
+                                                                    weiboOwnerName:targetUserName];
+    [vc showViewFromRect:frame];
+}
+
+- (IBAction)didClickRepostButton:(UIButton *)sender
+{
+    NSString *targetUserName = self.status.author.screenName;
+    NSString *targetStatusID = self.status.statusID;
+    CGRect frame = [self.view convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    
+    PostViewController *vc = [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeRepost
+                                                                          delegate:self
+                                                                           weiboID:targetStatusID
+                                                                    weiboOwnerName:targetUserName];
+    [vc showViewFromRect:frame];
+}
+
 #pragma mark - TTTAttributedLabel Delegate
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithPhoneNumber:(NSString *)userName
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:userName];
+}
+
+#pragma mark - PostViewController Delegate
+
+- (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message {
+    [vc dismissViewUpwards];
+}
+
+- (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
+    if(vc.type == PostViewControllerTypeComment)
+        [vc dismissViewToRect:[self.view convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
+    else
+        [vc dismissViewToRect:[self.view convertRect:self.repostButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
 }
 
 @end

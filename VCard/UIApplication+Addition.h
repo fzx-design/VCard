@@ -14,6 +14,9 @@
 @property (nonatomic, readonly) UIViewController *rootViewController;
 
 + (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated;
-+ (void)dismissModalViewController;
+
+/* If pass NO as animated parameter, the view of vc will 
+ not be removed from its super view automatically. */ 
++ (void)dismissModalViewControllerAnimated:(BOOL)animated;
 
 @end

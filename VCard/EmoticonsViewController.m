@@ -36,6 +36,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [[EmoticonsInfoReader sharedReader] userDefaultsSynchronize]; 
     [self configureScrollView];
     [self configureBorder];
 }
@@ -95,12 +96,20 @@
 
 - (void)didClickEmoticonsButton:(EmoticonsButton *)button {
     [self.delegate didClickEmoticonsButtonWithInfoKey:[NSString stringWithFormat:@"[%@]", button.infoKeyName]];
+    [[EmoticonsInfoReader sharedReader] addEmoticonsPriorityLevelForKey:button.infoKeyName];
+}
+
+- (IBAction)didChangePageControlValue:(UIPageControl *)sender {
+    NSInteger page = sender.currentPage;
+    //NSLog(@"page:%d", page);
+    CGRect frame = self.scrollView.frame;
+    frame.origin.x = page * frame.size.width;
+    [self.scrollView scrollRectToVisible:frame animated:YES];
 }
 
 #pragma mark - UIScrollView delegate
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     NSInteger page = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
     self.pageControl.currentPage = page;
 }

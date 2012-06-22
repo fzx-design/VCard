@@ -14,7 +14,8 @@
 
 @property (nonatomic, strong) CIImage *ciimage;
 @property (nonatomic, strong) CIContext *coreImageContext;
-@property (nonatomic, strong) CIFilter *filter;
+@property (nonatomic, strong) CIFilter *colorControlFilter;
+@property (nonatomic, strong) CIFilter *highlightShadowAdjustFilter;
 
 @end
 
@@ -25,7 +26,8 @@
 @synthesize contrastValue = _contrastValue;
 //@synthesize saturationValue = _saturationValue;
 @synthesize coreImageContext = _coreImageContext;
-@synthesize filter = _filter;
+@synthesize colorControlFilter = _colorControlFilter;
+@synthesize highlightShadowAdjustFilter = _highlightShadowAdjustFilter;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -50,7 +52,9 @@
     
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     CIFilter *filter = [CIFilter filterWithName:@"CIColorControls"];
-    self.filter = filter;
+    self.colorControlFilter = filter;
+    filter = [CIFilter filterWithName:@"CIHighlightShadowAdjust"];
+    self.highlightShadowAdjustFilter = filter;
     
     if (!self.context) {
         NSLog(@"Failed to create ES context");
@@ -68,16 +72,19 @@
 // An empty implementation adversely affects performance during animation.
 
 - (void)drawImage {
-    NSLog(@"draw filter image");
-    [self.filter setDefaults];
-    [self.filter setValue:self.ciimage forKey:@"inputImage"];
-    [self.filter setValue:[NSNumber numberWithFloat:self.brightnessValues]
-              forKey:@"inputBrightness"];
-    [self.filter setValue:[NSNumber numberWithFloat:self.contrastValue]
+    NSLog(@"draw filter image with brightness:%f, contrast:%f", self.brightnessValues, self.contrastValue);
+    [self.colorControlFilter setDefaults];
+    [self.colorControlFilter setValue:self.ciimage forKey:@"inputImage"];
+    [self.colorControlFilter setValue:[NSNumber numberWithFloat:self.contrastValue]
               forKey:@"inputContrast"];
-//    [self.filter setValue:[NSNumber numberWithFloat:self.saturationValue]
-//               forKey:@"inputSaturation"];
-    CIImage *outputImage = [self.filter outputImage];
+    CIImage *outputImage = [self.colorControlFilter outputImage];
+    
+    [self.highlightShadowAdjustFilter setDefaults];
+    [self.highlightShadowAdjustFilter setValue:outputImage forKey:@"inputImage"];
+    [self.highlightShadowAdjustFilter setValue:[NSNumber numberWithFloat:self.brightnessValues]
+                               forKey:@"inputShadowAmount"];
+    outputImage = [self.highlightShadowAdjustFilter outputImage];
+    
     [_coreImageContext drawImage:outputImage atPoint:CGPointZero fromRect:outputImage.extent];
     [self.context presentRenderbuffer:GL_RENDERBUFFER];
 }
