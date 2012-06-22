@@ -417,7 +417,7 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
-- (void)getCommentOfStaus:(NSString *)statusID cursor:(int)cursor count:(int)count
+- (void)getCommentOfStaus:(NSString *)statusID cursor:(int)cursor count:(int)count authorFilter:(BOOL)filter
 {
     self.path = @"comments/show.json";
     if (statusID) {
@@ -429,6 +429,8 @@ static NSString *UserID = @"";
     if (count) {
         [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
     }
+    int filterFactor = filter ? 1 : 0;
+    [self.params setObject:[NSString stringWithFormat:@"%d", filterFactor] forKey:@"filter_by_author"];
     
     [self loadNormalRequest];
 }

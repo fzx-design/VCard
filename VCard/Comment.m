@@ -11,7 +11,6 @@
 #import "User.h"
 #import "NSDateAddition.h"
 
-
 @implementation Comment
 
 @dynamic byMe;
@@ -22,6 +21,7 @@
 @dynamic toMe;
 @dynamic updateDate;
 @dynamic commentHeight;
+@dynamic authorFollowedByMe;
 @dynamic author;
 @dynamic targetStatus;
 @dynamic targetUser;

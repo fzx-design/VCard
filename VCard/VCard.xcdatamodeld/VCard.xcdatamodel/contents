@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1480" systemVersion="12A248" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Comment" representedClassName="Comment" syncable="YES">
+        <attribute name="authorFollowedByMe" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="byMe" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="commentHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="commentID" attributeType="String">
@@ -171,8 +172,8 @@
         </relationship>
     </entity>
     <elements>
-        <element name="Comment" positionX="160" positionY="192" width="128" height="225"/>
+        <element name="Comment" positionX="160" positionY="192" width="128" height="240"/>
         <element name="Status" positionX="160" positionY="192" width="128" height="420"/>
-        <element name="User" positionX="160" positionY="192" width="128" height="435"/>
+        <element name="User" positionX="160" positionY="192" width="128" height="420"/>
     </elements>
 </model>

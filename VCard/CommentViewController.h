@@ -14,5 +14,9 @@
 
 @property (nonatomic, strong) Status *status;
 @property (nonatomic, strong) ProfileCommentTableViewController *commentTableViewController;
+@property (nonatomic, strong) IBOutlet UIButton *changeSourceButton;
+@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
+
+-(IBAction)didClickChangeSourceButton:(id)sender;
 
 @end

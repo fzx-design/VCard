@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSNumber * toMe;
 @property (nonatomic, retain) NSDate * updateDate;
 @property (nonatomic, retain) NSNumber * commentHeight;
+@property (nonatomic, retain) NSNumber * authorFollowedByMe;
 @property (nonatomic, retain) User *author;
 @property (nonatomic, retain) Status *targetStatus;
 @property (nonatomic, retain) User *targetUser;

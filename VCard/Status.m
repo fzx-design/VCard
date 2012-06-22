@@ -105,8 +105,8 @@
     
     result.favorited = [NSNumber numberWithBool:[[dict objectForKey:@"favorited"] boolValue]];
     
-    result.commentsCount = [NSString stringWithFormat:@"%i",[dict objectForKey:@"comments_count"]];
-    result.repostsCount = [NSString stringWithFormat:@"%i",[dict objectForKey:@"reposts_count"]];
+    result.commentsCount = [NSString stringWithFormat:@"%i",[[dict objectForKey:@"comments_count"] intValue]];
+    result.repostsCount = [NSString stringWithFormat:@"%i",[[dict objectForKey:@"reposts_count"] intValue]];
     
     result.thumbnailPicURL = [dict objectForKey:@"thumbnail_pic"];
     result.bmiddlePicURL = [dict objectForKey:@"bmiddle_pic"];

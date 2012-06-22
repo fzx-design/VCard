@@ -30,7 +30,8 @@
     self.view.autoresizingMask = UIViewAutoresizingNone;
     _loading = NO;
     _hasMoreViews = YES;
-    _viewingUserType = ViewingUserTypeAll;
+    _sourceChanged = NO;
+    _filterByAuthor = NO;
 }
 
 - (void)viewDidUnload
@@ -59,6 +60,13 @@
     //TODO: 
 }
 
+- (void)changeSource
+{
+    _filterByAuthor = !_filterByAuthor;
+    _sourceChanged = YES;
+    [self refresh];
+}
+
 - (void)loadMoreData
 {
     if (_loading == YES) {
@@ -70,25 +78,31 @@
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             NSArray *dictArray = [client.responseJSONObject objectForKey:@"comments"];
-			
-//			if (_nextCursor == -1) {
-//				[self clearData];
-//			}
-			
+            
             for (NSDictionary *dict in dictArray) {
                 Comment *comment = [Comment insertComment:dict inManagedObjectContext:self.managedObjectContext];
                 comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForComment:comment]];
                 [self.status addCommentsObject:comment];
+                if (_filterByAuthor) {
+                    comment.authorFollowedByMe = [NSNumber numberWithBool:YES];
+                }
             }
             
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
             
+            if (_sourceChanged) {
+                _sourceChanged = NO;
+                [self configureRequest:self.fetchedResultsController.fetchRequest];
+                [self.fetchedResultsController performFetch:nil];
+                [self.tableView reloadData];
+            }
+            
             _nextCursor = [[client.responseJSONObject objectForKey:@"next_cursor"] intValue];
             _hasMoreViews = _nextCursor != 0;
         }
         
-        [self adjustBackgroundView];
+        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.01];
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_pullView finishedLoading];
         _loading = NO;
@@ -97,7 +111,8 @@
     
     [client getCommentOfStaus:self.status.statusID
                        cursor:_page++
-                        count:20];
+                        count:20
+                 authorFilter:_filterByAuthor];
 }
 
 #pragma mark - Core Data Table View Method
@@ -107,10 +122,13 @@
     request.entity = [NSEntityDescription entityForName:@"Comment"
                                  inManagedObjectContext:self.managedObjectContext];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updateDate" ascending:YES];
-
-    request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", self.status.comments];
-
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    
+    if (_filterByAuthor) {
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && authorFollowedByMe == %@", self.status.comments, [NSNumber numberWithBool:YES]];
+    } else {
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", self.status.comments];
+    }
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -123,8 +141,8 @@
         [statusCell.cardViewController configureCardWithStatus:targetStatus imageHeight:targetStatus.cardSizeImageHeight.floatValue];
         
         BOOL hasContent = self.fetchedResultsController.fetchedObjects.count > 0;
-        [statusCell resetDividerViewWithViewingType:_viewingUserType
-                                         hasContent:hasContent];
+        [statusCell resetDividerViewFilterByAuthor:_filterByAuthor
+                                        hasContent:hasContent];
     
     } else {
         ProfileCommentTableViewCell *commentCell = (ProfileCommentTableViewCell *)cell;

@@ -21,7 +21,7 @@
 
 - (void)setCellHeight:(CGFloat)height;
 - (void)loadImageAfterScrollingStop;
-- (void)resetDividerViewWithViewingType:(ViewingUserType)type
-                             hasContent:(BOOL)hasContent;
+- (void)resetDividerViewFilterByAuthor:(BOOL)filterByAuthor
+                            hasContent:(BOOL)hasContent;
 
 @end

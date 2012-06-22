@@ -22,6 +22,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.titleLabel.text =  [NSString stringWithFormat:@"%@ 条评论", self.status.commentsCount];
 }
 
 - (void)viewDidUnload
@@ -33,6 +34,18 @@
 - (void)initialLoad
 {
     [self.commentTableViewController refresh];
+}
+
+-(IBAction)didClickChangeSourceButton:(id)sender
+{
+    [self.commentTableViewController changeSource];
+    if (self.commentTableViewController.filterByAuthor) {
+        [self.changeSourceButton setTitle:@"查看所有" forState:UIControlStateNormal];
+        [self.changeSourceButton setTitle:@"查看所有" forState:UIControlStateHighlighted];
+    } else {
+        [self.changeSourceButton setTitle:@"只查看关注" forState:UIControlStateNormal];
+        [self.changeSourceButton setTitle:@"只查看关注" forState:UIControlStateHighlighted];
+    }
 }
 
 - (CGRect)frameForTableView

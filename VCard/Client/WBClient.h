@@ -123,7 +123,10 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                 feature:(int)feature;
 - (void)getAddressFromGeoWithCoordinate:(NSString *)coordinate;
 
-- (void)getCommentOfStaus:(NSString *)statusID cursor:(int)cursor count:(int)count;
+- (void)getCommentOfStaus:(NSString *)statusID
+                   cursor:(int)cursor
+                    count:(int)count
+             authorFilter:(BOOL)filter;
 
 - (void)getFriendsOfUser:(NSString *)userID cursor:(int)cursor count:(int)count;
 - (void)getFollowersOfUser:(NSString *)userID cursor:(int)cursor count:(int)count;

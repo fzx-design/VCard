@@ -76,12 +76,12 @@
 		18A6850D15370F3D00D58B7D /* imageview_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A6850B15370F3D00D58B7D /* imageview_placeholder@2x.png */; };
 		18A685171537110B00D58B7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A685161537110B00D58B7D /* QuartzCore.framework */; };
 		18AC828E155B924700AD99C4 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC828B155B924700AD99C4 /* PullToRefreshView.m */; };
-		18C1903015941B6D00DA1A6A /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1902F15941B6D00DA1A6A /* Comment.m */; };
 		18C1903515945D1700DA1A6A /* comments_thread_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903115945D1700DA1A6A /* comments_thread_down.png */; };
 		18C1903615945D1700DA1A6A /* comments_thread_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903215945D1700DA1A6A /* comments_thread_down@2x.png */; };
 		18C1903715945D1700DA1A6A /* comments_thread_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903315945D1700DA1A6A /* comments_thread_up.png */; };
 		18C1903815945D1700DA1A6A /* comments_thread_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903415945D1700DA1A6A /* comments_thread_up@2x.png */; };
 		18C1903B15946C5F00DA1A6A /* ProfileCommentStatusTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1903A15946C5E00DA1A6A /* ProfileCommentStatusTableCell.m */; };
+		18C1903E15947B0B00DA1A6A /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1903D15947B0B00DA1A6A /* Comment.m */; };
 		18DBAE4B1573156000918ED4 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE4A1573155F00918ED4 /* UserProfileViewController.m */; };
 		18DBAE581573498F00918ED4 /* ProfileRelationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */; };
 		18DBAE5B157349F400918ED4 /* ProfileRelationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE5A157349F400918ED4 /* ProfileRelationTableViewController.m */; };
@@ -782,14 +782,14 @@
 		18A685161537110B00D58B7D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		18AC828A155B924700AD99C4 /* PullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshView.h; sourceTree = "<group>"; };
 		18AC828B155B924700AD99C4 /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
-		18C1902E15941B6D00DA1A6A /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
-		18C1902F15941B6D00DA1A6A /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		18C1903115945D1700DA1A6A /* comments_thread_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comments_thread_down.png; sourceTree = "<group>"; };
 		18C1903215945D1700DA1A6A /* comments_thread_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comments_thread_down@2x.png"; sourceTree = "<group>"; };
 		18C1903315945D1700DA1A6A /* comments_thread_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comments_thread_up.png; sourceTree = "<group>"; };
 		18C1903415945D1700DA1A6A /* comments_thread_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comments_thread_up@2x.png"; sourceTree = "<group>"; };
 		18C1903915946C5E00DA1A6A /* ProfileCommentStatusTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCommentStatusTableCell.h; sourceTree = "<group>"; };
 		18C1903A15946C5E00DA1A6A /* ProfileCommentStatusTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCommentStatusTableCell.m; sourceTree = "<group>"; };
+		18C1903C15947B0B00DA1A6A /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
+		18C1903D15947B0B00DA1A6A /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		18DBAE491573155F00918ED4 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
 		18DBAE4A1573155F00918ED4 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 		18DBAE54157334AC00918ED4 /* ProfileRelationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileRelationTableViewCell.h; sourceTree = "<group>"; };
@@ -1774,8 +1774,8 @@
 		18E707D3153D2C6B0012092E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				18C1902E15941B6D00DA1A6A /* Comment.h */,
-				18C1902F15941B6D00DA1A6A /* Comment.m */,
+				18C1903C15947B0B00DA1A6A /* Comment.h */,
+				18C1903D15947B0B00DA1A6A /* Comment.m */,
 				18F1E5051577452300EB71DD /* Status.h */,
 				18F1E5061577452600EB71DD /* Status.m */,
 				18E4AE2D157454A6009A701F /* User.h */,
@@ -3326,8 +3326,8 @@
 				E1097D48157F9AD700BD0640 /* UIImageView+ContentScale.m in Sources */,
 				E1097D4B157F9BBF00BD0640 /* UIView+Addition.m in Sources */,
 				E1599CC91580CD7400B9AE72 /* PostRootView.m in Sources */,
-				18C1903015941B6D00DA1A6A /* Comment.m in Sources */,
 				18C1903B15946C5F00DA1A6A /* ProfileCommentStatusTableCell.m in Sources */,
+				18C1903E15947B0B00DA1A6A /* Comment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

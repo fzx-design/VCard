@@ -55,22 +55,18 @@
     self.cardViewController.view.frame = frame;
 }
 
-- (void)resetDividerViewWithViewingType:(ViewingUserType)type
-                             hasContent:(BOOL)hasContent
+- (void)resetDividerViewFilterByAuthor:(BOOL)filterByAuthor
+                            hasContent:(BOOL)hasContent
 {
     [self.dividerView resetOriginY:self.cardViewController.view.frame.size.height - 38.0];
     CGFloat leftOriginX = kLeftPatternOriginXAll;
     CGFloat rightOriginX = kRightPatternOriginXAll;
     NSString *description = @"所有评论";
     if (hasContent) {
-        switch (type) {
-            case ViewingUserTypeAll:
-                break;
-            case ViewingUserTypeFollowing:
-                description = @"关注的人的评论";
-                leftOriginX = kLeftPatternOriginXFollowing;
-                rightOriginX = kRightPatternOriginXFollowing;
-                break;
+        if (filterByAuthor) {
+            description = @"关注的人的评论";
+            leftOriginX = kLeftPatternOriginXFollowing;
+            rightOriginX = kRightPatternOriginXFollowing;
         }
     } else {
         description = @"无评论";
