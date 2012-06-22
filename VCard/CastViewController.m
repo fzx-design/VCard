@@ -164,6 +164,7 @@
 
 #pragma mark - IBActions
 #pragma mark Refresh
+
 - (IBAction)refreshButtonClicked:(id)sender
 {
     _refreshIndicatorView.hidden = NO;
@@ -189,8 +190,11 @@
 #pragma mark Post
 
 - (IBAction)didClickCreateStatusButton:(UIButton *)sender {
-    PostViewController *vc = [[PostViewController alloc] init];
-    [UIApplication presentModalViewController:vc animated:YES];
+    PostViewController *vc = [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeNewStatus
+                                                                          delegate:self
+                                                                           weiboID:nil
+                                                                    weiboOwnerName:nil];
+    [vc showViewFromRect:sender.frame];
 }
 
 #pragma mark Stack View
@@ -474,6 +478,24 @@
     CGFloat width = scrollViewWidth > screenWidth ? screenWidth : scrollViewWidth;
 
     [_coverView setFrame:CGRectMake(originX, 0.0, width, screenHeight)];
+}
+
+#pragma mark - PostViewController Delegate
+
+- (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message {
+    [vc dismissViewUpwards];
+}
+
+- (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
+    [vc dismissViewToRect:self.createStatusButton.frame];
 }
 
 @end

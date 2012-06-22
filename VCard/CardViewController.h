@@ -25,6 +25,7 @@
 #define CardTailOffset -55
 
 @interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate> {
+@interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate, PostViewControllerDelegate> {
     CardImageView *_statusImageView;
     UserAvatarImageView *_repostUserAvatar;
     UserAvatarImageView *_originalUserAvatar;
@@ -81,6 +82,8 @@
 @property (nonatomic, assign) NSInteger imageHeight;
 
 - (IBAction)nameButtonClicked:(id)sender;
+- (IBAction)didClickCommentButton:(UIButton *)sender;
+- (IBAction)didClickRepostButton:(UIButton *)sender;
 
 + (CGFloat)heightForStatus:(Status*)status_ andImageHeight:(NSInteger)imageHeight_;
 + (CGFloat)heightForComment:(Comment *)comment_;
