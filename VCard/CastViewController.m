@@ -491,6 +491,7 @@
 - (void)clearStack
 {
     [_coverView removeFromSuperview];
+    [_coverView resetOriginX:1024.0];
     [UIView animateWithDuration:0.3 animations:^{
         _stackViewController.view.alpha = 0.0;
     } completion:^(BOOL finished) {

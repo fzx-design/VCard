@@ -114,7 +114,7 @@
         self.image = notAvailableImage;
         return;
     }
-    
+        
     if (showActivityIndicator) {
         [self kv_showActivityIndicatorWithStyle:indicatorStyle];
     }
@@ -127,8 +127,6 @@
             dispatch_async(downloadQueue, ^{
                 
                 UIImage *targetImage = nil;
-                
-                NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
                 if (!image) {
                     self.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
                 } else {
@@ -158,7 +156,6 @@
                         self.alpha = 1.0;
                     }];
                 });
-                [pool release];
                 
             });
             

@@ -62,7 +62,7 @@
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *diskCachePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"KVImageCache"];
         
-        NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:1 * 1024 * 1024 diskCapacity:10 * 1024 * 1024 diskPath:diskCachePath];
+        NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:3 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:diskCachePath];
         self.imageURLCache = cache;
         [cache release];
         
@@ -109,7 +109,9 @@
 
     if (earlierCachedResponse) {
         UIImage *image = [UIImage imageWithData:[earlierCachedResponse data]];
-        handler(image);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(image);
+        });
         return nil;
     } else {
         NSMutableDictionary *pendingHandlers = [self.imagesLoading objectForKey:cacheURL];
