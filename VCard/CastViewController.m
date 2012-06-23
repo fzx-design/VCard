@@ -140,7 +140,7 @@
     vc.currentUser = self.currentUser;
     vc.screenName = screenName;
     
-    [self stackViewAtIndex:index push:vc];
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
 }
 
 - (void)userCellClicked:(NSNotification *)notification
@@ -157,7 +157,7 @@
     vc.currentUser = self.currentUser;
     vc.user = targetUser;
     
-    [self stackViewAtIndex:index push:vc];
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:vc.user.screenName];
 }
 
 - (void)commentButtonClicked:(NSNotification *)notification
@@ -167,7 +167,7 @@
     vc.currentUser = self.currentUser;
     vc.status = status;
     
-    [self stackViewAtIndex:0 push:vc];
+    [self stackViewAtIndex:0 push:vc withPageType:StackViewPageTypeStatusComment pageDescription:vc.status.statusID];
 }
 
 - (void)hideWaterflowView
@@ -229,10 +229,13 @@
     vc.currentUser = self.currentUser;
     vc.screenName = self.currentUser.screenName;
     
-    [self stackViewAtIndex:0 push:vc];
+    [self stackViewAtIndex:0 push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
 }
 
-- (void)stackViewAtIndex:(int)index push:(StackViewPageController *)vc
+- (void)stackViewAtIndex:(int)index
+                    push:(StackViewPageController *)vc
+            withPageType:(StackViewPageType)pageType
+         pageDescription:(NSString *)pageDescription;
 {
     BOOL stackViewExists = _stackViewController != nil;
     if (!stackViewExists) {
@@ -250,11 +253,11 @@
         [UIView animateWithDuration:0.3 animations:^{
             _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         }];
-        
-        [_stackViewController addViewController:vc replacingOtherView:stackViewExists];
-    } else {
-        [_stackViewController insertStackPage:vc atIndex:index];
     }
+//        [_stackViewController addViewController:vc replacingOtherView:stackViewExists];
+//    } else {
+        [_stackViewController insertStackPage:vc atIndex:index withPageType:pageType pageDescription:pageDescription];
+//    }
     
 }
 

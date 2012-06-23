@@ -57,45 +57,50 @@
     [self.stackView sendShowBGNotification];
 }
 
-- (void)addNewStackPage:(NSNotification *)noitfication
+- (void)insertStackPage:(StackViewPageController *)vc
+                atIndex:(int)targetIndex
+           withPageType:(StackViewPageType)pageType
+        pageDescription:(NSString *)pageDescription;
 {
-    StackViewPageController *sender = noitfication.object;
-    int senderIndex = sender.pageIndex;
-    BOOL replacingOtherView = NO;
-    while (self.controllerStack.count - 1 > senderIndex) {
-        StackViewPageController *lastViewController = [self.controllerStack lastObject];
-        [self.stackView removeLastView:lastViewController.view];
-        [self.controllerStack removeLastObject];
-        replacingOtherView = YES;
+    StackViewPageController *searchResult = [self checkStackForType:pageType description:pageDescription];
+    if (searchResult) {
+        [self.stackView scrollToTargetView:searchResult.view];
+    } else {
+        [self addViewController:vc atIndex:targetIndex];
     }
-    
-    StackViewPageController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfProfileViewController"];
-    vc.pageIndex = _controllerStack.count;
-    vc.currentUser = self.currentUser;
-    [self addViewController:vc replacingOtherView:replacingOtherView];
 }
 
-- (void)insertStackPage:(StackViewPageController *)vc atIndex:(int)targetIndex
+- (StackViewPageController *)checkStackForType:(StackViewPageType)pageType description:(NSString *)pageDescription
+{
+    StackViewPageController *result = nil;
+    for (StackViewPageController *vc in self.controllerStack) {
+        if (vc.pageType == pageType && [vc.pageDescription isEqualToString:pageDescription]) {
+            result = vc;
+        }
+    }
+    return result;
+}
+
+- (void)addViewController:(StackViewPageController *)vc 
+                  atIndex:(int)targetIndex
 {
     BOOL replacingOtherView = NO;
-    while (self.controllerStack.count - 1 > targetIndex) {
-        StackViewPageController *lastViewController = [self.controllerStack lastObject];
-        [self.stackView removeLastView:lastViewController.view];
-        [self.controllerStack removeLastObject];
-        replacingOtherView = YES;
+    if (self.controllerStack.count != 0) {
+        while (self.controllerStack.count - 1 > targetIndex) {
+            StackViewPageController *lastViewController = [self.controllerStack lastObject];
+            [self.stackView removeLastView:lastViewController.view];
+            [self.controllerStack removeLastObject];
+            replacingOtherView = YES;
+        }
     }
     
     vc.pageIndex = _controllerStack.count;
     vc.currentUser = self.currentUser;
-    [self addViewController:vc replacingOtherView:replacingOtherView];
-}
-
-- (void)addViewController:(StackViewPageController *)vc replacingOtherView:(BOOL)replacing
-{
+    
     [vc.view resetHeight:self.view.frame.size.height];
     
     [self.controllerStack addObject:vc];
-    [self.stackView addNewPage:vc.view replacingView:replacing completion:^{
+    [self.stackView addNewPage:vc.view replacingView:replacingOtherView completion:^{
         [vc initialLoad];
     }];
 }

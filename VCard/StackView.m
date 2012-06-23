@@ -68,6 +68,13 @@
     [self addSubview:_scrollView];
 }
 
+- (void)scrollToTargetView:(UIView *)targetView
+{
+    [UIView animateWithDuration:0.7 animations:^{
+        _scrollView.contentOffset = CGPointMake(targetView.frame.origin.x, 0.0);
+    }];
+}
+
 - (void)addNewPage:(UIView *)newPage replacingView:(BOOL)replacing completion:(void (^)())completion
 {
     int pageNumber = [_delegate pageNumber];

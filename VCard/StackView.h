@@ -34,5 +34,6 @@
         completion:(void (^)())completion;
 - (void)removeLastView:(UIView *)lastView;
 - (void)sendShowBGNotification;
+- (void)scrollToTargetView:(UIView *)targetView;
 
 @end

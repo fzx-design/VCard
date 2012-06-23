@@ -10,6 +10,14 @@
 #import "CoreDataTableViewController.h"
 #import "BaseStackLayoutView.h"
 
+typedef enum {
+    StackViewPageTypeUser,
+    StackViewPageTypeStatusComment,
+    StackViewPageTypeStatusRepost,
+    StackViewPageTypeSearch,
+    StackViewPageTypeUserComment,
+} StackViewPageType;
+
 @interface StackViewPageController : CoreDataViewController {
     NSInteger _pageIndex;
     BaseStackLayoutView *_backgroundView;
@@ -20,6 +28,9 @@
 
 @property (nonatomic, strong) UIImageView *topShadowImageView;
 @property (nonatomic, strong) IBOutlet BaseStackLayoutView *backgroundView;
+
+@property (nonatomic, strong) NSString *pageDescription;
+@property (nonatomic, assign) StackViewPageType pageType;
 
 - (void)initialLoad;
 

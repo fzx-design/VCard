@@ -47,6 +47,15 @@
     return self;
 }
 
+#pragma mark - Over Load Method
+- (void)initialLoad
+{
+    [self.statusController refresh];
+    self.pageType = StackViewPageTypeUser;
+    self.pageDescription = self.user.screenName;
+}
+
+#pragma mark - Setup
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -83,11 +92,6 @@
     [self setCheckButtonEnabled:YES];
 }
 
-- (void)initialLoad
-{
-    [self.statusController refresh];
-}
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -99,11 +103,6 @@
     _checkFollowersButton.userInteractionEnabled = enabled;
     _checkFriendsButton.userInteractionEnabled = enabled;
     _checkStatusesButton.userInteractionEnabled = enabled;
-}
-
-- (IBAction)createNewStackPage:(id)sender
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameAddNewStackPage object:self];
 }
 
 - (IBAction)showFollowers:(id)sender

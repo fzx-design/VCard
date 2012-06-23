@@ -19,6 +19,18 @@
     return self;
 }
 
+#pragma mark - Over Load Method
+
+- (void)initialLoad
+{
+    [self.commentTableViewController refresh];
+    [self.commentTableViewController setUpHeaderView];
+    self.pageType = StackViewPageTypeUser;
+    self.pageDescription = self.status.statusID;
+}
+
+#pragma mark - Setup
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -30,12 +42,6 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-}
-
-- (void)initialLoad
-{
-    [self.commentTableViewController refresh];
-    [self.commentTableViewController setUpHeaderView];
 }
 
 -(IBAction)didClickChangeSourceButton:(id)sender

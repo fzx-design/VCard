@@ -30,7 +30,12 @@
 
 @property (nonatomic, assign) id<StackViewControllerDelegate> delegate;
 
-- (void)insertStackPage:(StackViewPageController *)vc atIndex:(int)targetIndex;
-- (void)addViewController:(UIViewController *)viewController replacingOtherView:(BOOL)replacing;
+- (void)insertStackPage:(StackViewPageController *)vc
+                atIndex:(int)targetIndex
+           withPageType:(StackViewPageType)pageType
+        pageDescription:(NSString *)pageDescription;
+
+- (void)addViewController:(StackViewPageController *)vc 
+                  atIndex:(int)targetIndex;
 
 @end
