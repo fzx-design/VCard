@@ -592,6 +592,8 @@
 										<reference key="IBUIFontDescription" ref="918055592"/>
 										<reference key="IBUIFont" ref="92457482"/>
 										<int key="IBUIAutoshrinkMode">2</int>
+										<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+										<int key="IBUIAutoshrinkMode">0</int>
 									</object>
 									<object class="IBUIButton" id="42299860">
 										<reference key="NSNextResponder" ref="629993061"/>
@@ -1326,6 +1328,10 @@
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
+			<real value="1536" key="NS.object.0"/>
+		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
