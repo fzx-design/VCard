@@ -76,6 +76,11 @@
     self.downThreadImageView.hidden = isLast;
 }
 
+- (void)updateThreadStatus:(BOOL)isLast
+{
+    self.downThreadImageView.hidden = isLast;
+}
+
 - (IBAction)didClickCommentButton:(UIButton *)sender
 {
     NSString *targetUserName = self.comment.author.screenName;

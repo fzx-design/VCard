@@ -41,5 +41,6 @@
 - (void)configureCellWithComment:(Comment *)comment
                    isLastComment:(BOOL)isLast
                   isFirstComment:(BOOL)isFirst;
+- (void)updateThreadStatus:(BOOL)isLast;
 
 @end

@@ -196,6 +196,19 @@
     }
 }
 
++ (void)deleteCommentsOfStatus:(Status *)status ManagedObjectContext:(NSManagedObjectContext *)context
+{
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"SELF IN %@", status.comments]];
+	NSArray *items = [context executeFetchRequest:request error:NULL];
+    
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
+}
+
 - (BOOL)isEqualToComment:(Comment *)comment
 {
     return [self.commentID isEqualToString:comment.commentID];

@@ -34,6 +34,7 @@
 + (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteCommentsToMeInManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteCommentsByMeInManagedObjectContext:(NSManagedObjectContext *)context;
++ (void)deleteCommentsOfStatus:(Status *)status ManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (BOOL)isEqualToComment:(Comment *)comment;
 

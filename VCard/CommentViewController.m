@@ -22,7 +22,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.titleLabel.text =  [NSString stringWithFormat:@"%@ 条评论", self.status.commentsCount];
     [self.topShadowImageView resetOrigin:[self frameForTableView].origin];
     [self.backgroundView addSubview:self.topShadowImageView];
 }
@@ -36,6 +35,7 @@
 - (void)initialLoad
 {
     [self.commentTableViewController refresh];
+    [self.commentTableViewController setUpHeaderView];
 }
 
 -(IBAction)didClickChangeSourceButton:(id)sender
@@ -44,9 +44,11 @@
     if (self.commentTableViewController.filterByAuthor) {
         [self.changeSourceButton setTitle:@"查看所有" forState:UIControlStateNormal];
         [self.changeSourceButton setTitle:@"查看所有" forState:UIControlStateHighlighted];
+        self.titleLabel.text =  @"关注的人的评论";
     } else {
         [self.changeSourceButton setTitle:@"只查看关注" forState:UIControlStateNormal];
         [self.changeSourceButton setTitle:@"只查看关注" forState:UIControlStateHighlighted];
+        self.titleLabel.text =  @"所有评论";
     }
 }
 

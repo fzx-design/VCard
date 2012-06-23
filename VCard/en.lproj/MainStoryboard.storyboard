@@ -1064,7 +1064,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hasAttributedTitle="NO" lineBreakMode="middleTruncation" id="yMl-WM-GLB">
-                                        <rect key="frame" x="36" y="14" width="78" height="30"/>
+                                        <rect key="frame" x="36" y="11" width="78" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <size key="titleShadowOffset" width="0.0" height="1"/>
@@ -1080,7 +1080,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="juA-gb-59L">
-                                        <rect key="frame" x="313" y="14" width="78" height="30"/>
+                                        <rect key="frame" x="313" y="11" width="78" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <size key="titleShadowOffset" width="0.0" height="1"/>
@@ -1092,8 +1092,8 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Label" textAlignment="center" autoshrinkMode="minimumFontSize" id="6CP-42-ocG">
-                                        <rect key="frame" x="177" y="18" width="77" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="所有评论" textAlignment="center" autoshrinkMode="minimumFontSize" id="6CP-42-ocG">
+                                        <rect key="frame" x="143" y="16" width="145" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1282,7 +1282,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" id="VMs-Iu-N81" customClass="BaseCardBackgroundView">
-                                            <rect key="frame" x="9" y="5" width="366" height="100"/>
+                                            <rect key="frame" x="11" y="5" width="366" height="100"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" id="5Jo-Ul-xeN">

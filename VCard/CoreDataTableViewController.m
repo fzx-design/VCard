@@ -109,6 +109,9 @@
     
     UITableView *tableView = self.tableView;
     
+    NSLog(@"row: %i, type: %i", indexPath.row, type);
+    
+    
     switch(type) {
         case NSFetchedResultsChangeInsert:
             [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]

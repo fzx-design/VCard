@@ -57,7 +57,8 @@
 
 - (void)clearData
 {
-    //TODO: 
+    //TODO:
+    [Comment deleteCommentsOfStatus:self.status ManagedObjectContext:self.managedObjectContext];
 }
 
 - (void)changeSource
@@ -79,30 +80,29 @@
         if (!client.hasError) {
             NSArray *dictArray = [client.responseJSONObject objectForKey:@"comments"];
             
+            if (_sourceChanged) {
+                _sourceChanged = NO;
+                [self clearData];
+            }
+            
             for (NSDictionary *dict in dictArray) {
                 Comment *comment = [Comment insertComment:dict inManagedObjectContext:self.managedObjectContext];
                 comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForComment:comment]];
                 [self.status addCommentsObject:comment];
-                if (_filterByAuthor) {
-                    comment.authorFollowedByMe = [NSNumber numberWithBool:YES];
-                }
             }
             
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
             
-            if (_sourceChanged) {
-                _sourceChanged = NO;
-                [self configureRequest:self.fetchedResultsController.fetchRequest];
-                [self.fetchedResultsController performFetch:nil];
-                [self.tableView reloadData];
-            }
+            [self updateHeaderViewInfo];
+            [self updateVisibleCells];
             
             _nextCursor = [[client.responseJSONObject objectForKey:@"next_cursor"] intValue];
             _hasMoreViews = _nextCursor != 0;
+            
         }
         
-        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.01];
+        [self adjustBackgroundView];
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_pullView finishedLoading];
         _loading = NO;
@@ -123,76 +123,80 @@
                                  inManagedObjectContext:self.managedObjectContext];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updateDate" ascending:YES];
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    
-    if (_filterByAuthor) {
-        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && authorFollowedByMe == %@", self.status.comments, [NSNumber numberWithBool:YES]];
-    } else {
-        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", self.status.comments];
-    }
+    request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", self.status.comments];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        ProfileCommentStatusTableCell *statusCell = (ProfileCommentStatusTableCell *)cell;
-        Status *targetStatus = self.status;
-        
-        [statusCell setCellHeight:targetStatus.cardSizeCardHeight.floatValue];
-        [statusCell.cardViewController configureCardWithStatus:targetStatus imageHeight:targetStatus.cardSizeImageHeight.floatValue];
-        
-        BOOL hasContent = self.fetchedResultsController.fetchedObjects.count > 0;
-        [statusCell resetDividerViewFilterByAuthor:_filterByAuthor
-                                        hasContent:hasContent];
-    
-    } else {
-        ProfileCommentTableViewCell *commentCell = (ProfileCommentTableViewCell *)cell;
-        Comment *comment = (Comment *)self.fetchedResultsController.fetchedObjects[indexPath.row - 1];
-        [commentCell resetOriginX:11.0];
-        [commentCell resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
-        [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
-        BOOL isFirstComment = indexPath.row == 1;
-        BOOL isLastComment = indexPath.row == self.fetchedResultsController.fetchedObjects.count;
-        [commentCell configureCellWithComment:comment
-                                isLastComment:isLastComment
-                               isFirstComment:isFirstComment];
-    }
+    ProfileCommentTableViewCell *commentCell = (ProfileCommentTableViewCell *)cell;
+    Comment *comment = (Comment *)self.fetchedResultsController.fetchedObjects[indexPath.row];
+    [commentCell resetOriginX:11.0];
+    [commentCell resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
+    [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
+    BOOL isFirstComment = indexPath.row == 0;
+    BOOL isLastComment = indexPath.row == self.fetchedResultsController.fetchedObjects.count - 1;
+    [commentCell configureCellWithComment:comment
+                            isLastComment:isLastComment
+                           isFirstComment:isFirstComment];
+
 }
 
 - (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
 {
-    return indexPath.row == 0 ? @"ProfileCommentStatusTableCell" : @"ProfileCommentTableViewCell";
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    User *usr = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:usr, kNotificationObjectKeyUser, [NSString stringWithFormat:@"%d", _stackPageIndex], kNotificationObjectKeyIndex, nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserCellClicked object:dictionary];
+    return @"ProfileCommentTableViewCell";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[self.fetchedResultsController sections] count];
+    return self.fetchedResultsController.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects] + 1;
+    return [sectionInfo numberOfObjects];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height = 0.0;
-    if (indexPath.row == 0) {
-        height = self.status.cardSizeCardHeight.floatValue + 36;
-    } else {
-        Comment *comment = (Comment *)self.fetchedResultsController.fetchedObjects[indexPath.row - 1];
-        height = comment.commentHeight.floatValue + 24.0;
-    }
+    Comment *comment = (Comment *)self.fetchedResultsController.fetchedObjects[indexPath.row];    
+	return comment.commentHeight.floatValue + 24.0;
+}
+
+#pragma mark - Adjust table view layout
+
+- (void)setUpHeaderView
+{
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ProfileCommentStatusTableCell"];
+    _headerViewCell = (ProfileCommentStatusTableCell *)cell;
     
-	return height;
+    Status *targetStatus = self.status;
+    
+    [_headerViewCell setCellHeight:targetStatus.cardSizeCardHeight.floatValue];
+    [_headerViewCell.cardViewController configureCardWithStatus:targetStatus imageHeight:targetStatus.cardSizeImageHeight.floatValue];
+    [_headerViewCell loadImageAfterScrollingStop];
+    
+    int cellHeight = self.status.cardSizeCardHeight.intValue + 36.0;
+    [cell resetHeight:cellHeight];
+    [self updateHeaderViewInfo];
+    
+    [self.tableView setTableHeaderView:_headerViewCell];
+}
+
+- (void)updateHeaderViewInfo
+{        
+    int actualCount = self.fetchedResultsController.fetchedObjects.count;
+    int fetchedCount = self.status.commentsCount.intValue;
+    int displayCount = fetchedCount > actualCount ? fetchedCount : actualCount;
+    [_headerViewCell resetDividerViewWithCommentCount:displayCount];
+}
+
+- (void)updateVisibleCells
+{
+    for (ProfileCommentTableViewCell *cell in self.tableView.visibleCells) {
+        BOOL isLast = [self.tableView indexPathForCell:cell].row == self.fetchedResultsController.fetchedObjects.count - 1;
+        [cell updateThreadStatus:isLast];
+    }
 }
 
 #pragma mark - UIScrollView delegate

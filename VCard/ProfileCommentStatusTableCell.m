@@ -55,24 +55,15 @@
     self.cardViewController.view.frame = frame;
 }
 
-- (void)resetDividerViewFilterByAuthor:(BOOL)filterByAuthor
-                            hasContent:(BOOL)hasContent
+- (void)resetDividerViewWithCommentCount:(int)commentCount
 {
-    [self.dividerView resetOriginY:self.cardViewController.view.frame.size.height - 38.0];
-    CGFloat leftOriginX = kLeftPatternOriginXAll;
-    CGFloat rightOriginX = kRightPatternOriginXAll;
-    NSString *description = @"所有评论";
-    if (hasContent) {
-        if (filterByAuthor) {
-            description = @"关注的人的评论";
-            leftOriginX = kLeftPatternOriginXFollowing;
-            rightOriginX = kRightPatternOriginXFollowing;
-        }
-    } else {
-        description = @"无评论";
-        leftOriginX = kLeftPatternOriginXNone;
-        rightOriginX = kRightPatternOriginXNone;
-    }
+    [self.dividerView resetOriginY:self.frame.size.height - 40.0];
+    NSString *description = [NSString stringWithFormat:@"%i 条评论", commentCount];
+    
+    CGFloat stringWidth = ceilf([description sizeWithFont:[UIFont systemFontOfSize:12.0f] constrainedToSize:CGSizeMake(1000.0, 30.0) lineBreakMode:UILineBreakModeWordWrap].width) + 1;
+    
+    CGFloat leftOriginX = 192.0 - stringWidth / 2 - 30.0 - 10;
+    CGFloat rightOriginX = 192.0 + stringWidth / 2 + 10;
     
     [UIView animateWithDuration:0.3 animations:^{
         self.descriptionLabel.text = description;

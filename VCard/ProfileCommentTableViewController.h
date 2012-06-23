@@ -9,15 +9,20 @@
 #import "RefreshableCoreDataTableViewController.h"
 #import "Status.h"
 
+@class ProfileCommentStatusTableCell;
+@class ProfileCommentTableViewCell;
+
 @interface ProfileCommentTableViewController : RefreshableCoreDataTableViewController {
     int _nextCursor;
     int _page;
     BOOL _sourceChanged;
 }
 
-@property (nonatomic, strong) Status *status;
 @property (nonatomic, assign) BOOL filterByAuthor;
+@property (nonatomic, strong) Status *status;
+@property (nonatomic, strong) ProfileCommentStatusTableCell *headerViewCell;
 
 - (void)changeSource;
+- (void)setUpHeaderView;
 
 @end
