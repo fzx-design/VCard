@@ -7,6 +7,7 @@
 //
 
 #import "UserAvatarImageView.h"
+#import "UIImageView+URL.h"
 
 #define IconBigFrame CGRectMake(70.0, 72.0, 27.0, 27.0)
 #define IconSmallFrame CGRectMake(17.0, 17.0, 13.0, 14.0)
@@ -28,7 +29,11 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
+        _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        _backImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        _backImageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
+        [self addSubview:_backImageView];
+        [self addSubview:_imageView];
         [self setUpVIPImageView];
     }
     return self;
@@ -82,6 +87,16 @@
         default:
             break;
     }
+}
+
+- (void)loadImageFromURL:(NSString *)urlString 
+              completion:(void (^)())completion
+{
+    _imageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
+	
+    [_imageView kv_cancelImageDownload];
+    NSURL *anImageURL = [NSURL URLWithString:urlString];
+    [_imageView kv_setImageAtURLWithoutCropping:anImageURL];
 }
 
 - (void)reset

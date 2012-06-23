@@ -109,7 +109,7 @@
     if (!showActivityIndicator) {
         self.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
     }
-
+    
     if (!imageURL) {
         self.image = notAvailableImage;
         return;
@@ -150,10 +150,13 @@
                     if (image) {
                         [self setImage:targetImage];
                     }
-                    
                     if (showActivityIndicator) {
                         [self performSelectorOnMainThread:@selector(kv_hideActivityIndicator) withObject:nil waitUntilDone:NO];
                     }
+                    self.alpha = 0.0;
+                    [UIView animateWithDuration:0.3 animations:^{
+                        self.alpha = 1.0;
+                    }];
                 });
                 [pool release];
                 
@@ -163,15 +166,16 @@
         } else {
             if (image) {
                 self.image = image;
+                self.alpha = 0.0;
+                [UIView animateWithDuration:0.3 animations:^{
+                    self.alpha = 1.0;
+                }];
             } else {
-                self.image = [UIImage imageNamed:kRLAvatarPlaceHolder];
+                self.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
             }
         }
         
-        
-        
-
-     }];
+    }];
 }
 
 - (void)kv_cancelImageDownload {

@@ -9,12 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "UIImageViewAddition.h"
 
-@interface UserAvatarImageView : UIImageView {
+@interface UserAvatarImageView : UIView {
     UIImageView *_vipImageView;
     UIImageView *_photoFrameImageView;
+    UIImageView *_imageView;
+    UIImageView *_backImageView;
 }
 
 - (void)setVerifiedType:(VerifiedType)type;
 - (void)reset;
+
+- (void)loadImageFromURL:(NSString *)urlString 
+              completion:(void (^)())completion;
 
 @end
