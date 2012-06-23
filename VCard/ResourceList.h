@@ -29,6 +29,7 @@
 
 #define kRLRefreshButtonCircle @"menu_reload_indicator.png"
 #define kRLRefreshButtonHole @"menu_reload_bg.png"
+#define kRLStackTableViewShadow  @"stack_tableview_shadow.png"
 
 #define kRLIconVerifiedAssociationSmall @"verified_association_small.png"
 #define kRLIconVerifiedAssociationBig @"verified_association_large.png"

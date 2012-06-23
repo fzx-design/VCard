@@ -37,6 +37,7 @@
 // No image is shown during the download, and none is shown if no valid image could be loaded.
 // Call -kv_cancelImageDownload if you need to cancel the download.
 - (void)kv_setImageAtURL:(NSURL *)imageURL;
+- (void)kv_setImageAtURLWithoutCropping:(NSURL *)imageURL;
 
 // Asynchronously downloads the image at the URL if needed.
 // Call -kv_cancelImageDownload if you need to cancel the download.

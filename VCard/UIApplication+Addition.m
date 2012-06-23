@@ -18,6 +18,11 @@ static UIView *_backView;
 
 @implementation UIApplication (Addition)
 
++ (BOOL)isRetinaDisplayiPad
+{
+    return [[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [UIScreen mainScreen].scale > 1;
+}
+
 - (UIViewController *)rootViewController
 {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];

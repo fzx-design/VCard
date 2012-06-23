@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CardViewController.h"
 #import "UIImageViewAddition.h"
+#import "UIApplication+Addition.h"
 #import "NSDateAddition.h"
 #import "ResourceProvider.h"
 #import "User.h"
@@ -232,7 +233,9 @@ static inline NSRegularExpression * UrlRegularExpression() {
         
         Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
         
-        [self.statusImageView loadTweetImageFromURL:targetStatus.bmiddlePicURL
+        NSString *imageURL = [UIApplication isRetinaDisplayiPad] ? targetStatus.originalPicURL : targetStatus.bmiddlePicURL;
+        
+        [self.statusImageView loadTweetImageFromURL:imageURL
                                          completion:nil];
     }
 }
@@ -259,6 +262,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
     
     [CardViewController setStatusTextLabel:self.originalStatusLabel withText:targetStatus.text];
+    
     [self.originalUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
     [self.originalUserAvatar setVerifiedType:[targetStatus.author verifiedTypeOfUser]];
     

@@ -18,5 +18,6 @@
 /* If pass NO as animated parameter, the view of vc will 
  not be removed from its super view automatically. */ 
 + (void)dismissModalViewControllerAnimated:(BOOL)animated;
++ (BOOL)isRetinaDisplayiPad;
 
 @end

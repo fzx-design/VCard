@@ -13,7 +13,4 @@
 - (void)loadImageFromURL:(NSString *)urlString 
               completion:(void (^)())completion;
 
-- (void)loadTweetImageFromURL:(NSString *)urlString 
-                   completion:(void (^)())completion;
-
 @end

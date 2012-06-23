@@ -608,7 +608,7 @@
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="center" image="profile_info_bg.png" id="sgU-tw-qZS">
-                                        <rect key="frame" x="23" y="206" width="384" height="119"/>
+                                        <rect key="frame" x="23" y="206" width="384" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="joK-Ta-i8Y">
@@ -624,7 +624,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QaX-fJ-2R5">
-                                        <rect key="frame" x="52" y="251" width="95" height="74"/>
+                                        <rect key="frame" x="52" y="253" width="96" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
@@ -632,7 +632,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="selected" image="button_hover_bg.png"/>
-                                        <state key="highlighted" image="button_hover_bg.png">
+                                        <state key="highlighted" image="stack_segements_hover.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -640,7 +640,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aQE-Vb-jos">
-                                        <rect key="frame" x="168" y="251" width="95" height="74"/>
+                                        <rect key="frame" x="168" y="253" width="96" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
@@ -648,7 +648,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="selected" image="button_hover_bg.png"/>
-                                        <state key="highlighted" image="button_hover_bg.png">
+                                        <state key="highlighted" image="stack_segements_hover.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -683,7 +683,7 @@
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BY2-Hq-BV7">
-                                        <rect key="frame" x="284" y="251" width="95" height="74"/>
+                                        <rect key="frame" x="284" y="253" width="96" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
@@ -691,7 +691,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="selected" image="button_hover_bg.png"/>
-                                        <state key="highlighted" image="button_hover_bg.png">
+                                        <state key="highlighted" image="stack_segements_hover.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -856,7 +856,7 @@
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" image="following_segements_bg.png" id="gtT-wE-BZ6">
-                                        <rect key="frame" x="23" y="205" width="384" height="75"/>
+                                        <rect key="frame" x="23" y="205" width="384" height="76"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bKg-UB-Xn6">
@@ -872,7 +872,7 @@
                                         </state>
                                     </button>
                                     <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CIV-UP-uj8">
-                                        <rect key="frame" x="52" y="206" width="95" height="74"/>
+                                        <rect key="frame" x="52" y="208" width="96" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
@@ -880,7 +880,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="selected" image="button_hover_bg.png"/>
-                                        <state key="highlighted" image="button_hover_bg.png">
+                                        <state key="highlighted" image="stack_segements_hover.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -888,7 +888,7 @@
                                         </connections>
                                     </button>
                                     <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bOg-bI-tI8">
-                                        <rect key="frame" x="168" y="206" width="95" height="74"/>
+                                        <rect key="frame" x="168" y="208" width="96" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
@@ -896,7 +896,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="selected" image="button_hover_bg.png"/>
-                                        <state key="highlighted" image="button_hover_bg.png">
+                                        <state key="highlighted" image="stack_segements_hover.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -904,7 +904,7 @@
                                         </connections>
                                     </button>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lGu-x1-1QO">
-                                        <rect key="frame" x="284" y="206" width="95" height="74"/>
+                                        <rect key="frame" x="284" y="208" width="96" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
@@ -912,7 +912,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="selected" image="button_hover_bg.png"/>
-                                        <state key="highlighted" image="button_hover_bg.png">
+                                        <state key="highlighted" image="stack_segements_hover.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1398,7 +1398,7 @@
         <image name="button_bg_brown.png" width="50" height="30"/>
         <image name="button_comment.png" width="34" height="34"/>
         <image name="button_comment_hover.png" width="34" height="34"/>
-        <image name="button_hover_bg.png" width="95" height="72"/>
+        <image name="button_hover_bg.png" width="16" height="16"/>
         <image name="button_login_arrow.png" width="25" height="25"/>
         <image name="button_menu_drawer.png" width="25" height="25"/>
         <image name="button_menu_drawer_hover.png" width="25" height="25"/>
@@ -1422,14 +1422,15 @@
         <image name="cell_hover.png" width="383" height="42"/>
         <image name="comments_thread_down.png" width="334" height="24"/>
         <image name="comments_thread_up.png" width="334" height="22"/>
-        <image name="following_segements_bg.png" width="384" height="75"/>
+        <image name="following_segements_bg.png" width="384" height="76"/>
         <image name="icon_location.png" width="11" height="18"/>
         <image name="imageview_placeholder.png" width="175" height="175"/>
         <image name="login_avatar_cover.png" width="247" height="286"/>
         <image name="login_card_bg.png" width="292" height="447"/>
         <image name="pattern_left.png" width="16" height="12"/>
         <image name="pattern_right.png" width="16" height="12"/>
-        <image name="profile_info_bg.png" width="384" height="119"/>
+        <image name="profile_info_bg.png" width="384" height="120"/>
+        <image name="stack_segements_hover.png" width="98" height="70"/>
         <image name="title_large.png" width="233" height="74"/>
         <image name="title_small.png" width="88" height="29"/>
         <image name="topbar_avatar_cover.png" width="28" height="28"/>

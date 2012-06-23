@@ -30,7 +30,7 @@
 
 #import "UIImageView+URL.h"
 #import "UIImage+Addition.h"
-
+#import "UIApplication+Addition.h"
 #import "KVImageCache.h"
 #import "KVDownload.h"
 
@@ -71,6 +71,15 @@
          notAvailableImage:nil];
 }
 
+- (void)kv_setImageAtURLWithoutCropping:(NSURL *)imageURL
+{
+    [self kv_setImageAtURL:imageURL 
+     showActivityIndicator:NO
+    activityIndicatorStyle:UIActivityIndicatorViewStyleGray 
+              loadingImage:nil 
+         notAvailableImage:nil];
+}
+
 - (void)kv_setImageAtURL:(NSURL *)imageURL 
    showActivityIndicator:(BOOL)showActivityIndicator 
   activityIndicatorStyle:(UIActivityIndicatorViewStyle)indicatorStyle 
@@ -97,13 +106,9 @@
     [[KVImageCache defaultCache] cancelDownloadForImageView:self];    
     [self kv_hideActivityIndicator];
     
-    CGSize imageSizeWithBorder = CGSizeMake(self.frame.size.width + 2, self.frame.size.height + 2);
-    UIImage *tmpImage = [loadingImage imageByScalingAndCroppingForSize:imageSizeWithBorder];
-    
-    UIGraphicsBeginImageContext(imageSizeWithBorder);
-    [tmpImage drawInRect:(CGRect){{1, 1}, self.frame.size}];
-    [self setImage:UIGraphicsGetImageFromCurrentImageContext()];
-    UIGraphicsEndImageContext();
+    if (!showActivityIndicator) {
+        self.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
+    }
 
     if (!imageURL) {
         self.image = notAvailableImage;
@@ -116,45 +121,54 @@
     
     [[KVImageCache defaultCache] loadImageAtURL:imageURL cacheURL:cacheURL imageView:self withHandler:^(UIImage * image) {
         
-        dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
-        
-        dispatch_async(downloadQueue, ^{
+        if (showActivityIndicator) {
+            dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
             
-            UIImage *targetImage = nil;
-            
-            NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-            if (!image) {
-                self.image = notAvailableImage;
-            } else {
-                CGSize imageSizeWithBorder = CGSizeMake(self.frame.size.width + 2, self.frame.size.height + 2);
-                UIImage *tmpImage = [image imageByScalingAndCroppingForSize:imageSizeWithBorder];
+            dispatch_async(downloadQueue, ^{
                 
-                UIGraphicsBeginImageContext(imageSizeWithBorder);
+                UIImage *targetImage = nil;
                 
-//                if (UIGraphicsBeginImageContextWithOptions != NULL) {
-//                    UIGraphicsBeginImageContextWithOptions(imageSizeWithBorder, NO, 0.0);
-//                } else {
-//                    UIGraphicsBeginImageContext(imageSizeWithBorder);
-//                }
-                [tmpImage drawInRect:(CGRect){{1, 1}, self.frame.size}];
-                targetImage = UIGraphicsGetImageFromCurrentImageContext();
-                UIGraphicsEndImageContext();
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (image) {
-                    [self setImage:targetImage];
+                NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+                if (!image) {
+                    self.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
+                } else {
+                    CGSize imageSizeWithBorder = CGSizeMake(self.frame.size.width + 2, self.frame.size.height + 2);
+                    
+                    UIImage *tmpImage = [image imageByScalingAndCroppingForSize:imageSizeWithBorder];
+                    
+                    if (UIGraphicsBeginImageContextWithOptions != NULL) {
+                        UIGraphicsBeginImageContextWithOptions(imageSizeWithBorder, NO, 0.0);
+                    } else {
+                        UIGraphicsBeginImageContext(imageSizeWithBorder);
+                    }
+                    [tmpImage drawInRect:(CGRect){{1, 1}, self.frame.size}];
+                    targetImage = UIGraphicsGetImageFromCurrentImageContext();
+                    UIGraphicsEndImageContext();
                 }
                 
-                if (showActivityIndicator) {
-                    [self performSelectorOnMainThread:@selector(kv_hideActivityIndicator) withObject:nil waitUntilDone:NO];
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (image) {
+                        [self setImage:targetImage];
+                    }
+                    
+                    if (showActivityIndicator) {
+                        [self performSelectorOnMainThread:@selector(kv_hideActivityIndicator) withObject:nil waitUntilDone:NO];
+                    }
+                });
+                [pool release];
+                
             });
-            [pool release];
             
-        });
+            dispatch_release(downloadQueue);
+        } else {
+            if (image) {
+                self.image = image;
+            } else {
+                self.image = [UIImage imageNamed:kRLAvatarPlaceHolder];
+            }
+        }
         
-        dispatch_release(downloadQueue);
+        
         
 
      }];
