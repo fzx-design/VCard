@@ -37,7 +37,7 @@
         </attribute>
         <attribute name="cardSizeCardHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="cardSizeImageHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="commentsCount" optional="YES" attributeType="String">
+        <attribute name="commentsCount" optional="YES" attributeType="String" defaultValueString="0">
             <userInfo/>
         </attribute>
         <attribute name="createdAt" attributeType="Date">
@@ -59,7 +59,7 @@
         <attribute name="originalPicURL" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
-        <attribute name="repostsCount" optional="YES" attributeType="String">
+        <attribute name="repostsCount" optional="YES" attributeType="String" defaultValueString="0">
             <userInfo/>
         </attribute>
         <attribute name="searchString" optional="YES" attributeType="String" syncable="YES"/>
@@ -172,8 +172,8 @@
         </relationship>
     </entity>
     <elements>
-        <element name="Comment" positionX="160" positionY="192" width="128" height="240"/>
-        <element name="Status" positionX="160" positionY="192" width="128" height="420"/>
-        <element name="User" positionX="160" positionY="192" width="128" height="420"/>
+        <element name="Comment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Status" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

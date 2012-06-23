@@ -147,6 +147,12 @@
     [relationshipCell.avatarImageView loadImageFromURL:usr.profileImageURL
                                             completion:NULL];
     [relationshipCell.avatarImageView setVerifiedType:[usr verifiedTypeOfUser]];
+    
+    if (indexPath.row % 2 == 0) {
+        relationshipCell.contentView.backgroundColor = [UIColor clearColor];
+    } else {
+        relationshipCell.contentView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.2];
+    }
 }
 
 - (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
