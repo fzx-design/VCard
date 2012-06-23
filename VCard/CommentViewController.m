@@ -25,7 +25,7 @@
 {
     [self.commentTableViewController refresh];
     [self.commentTableViewController setUpHeaderView];
-    self.pageType = StackViewPageTypeUser;
+    self.pageType = StackViewPageTypeStatusComment;
     self.pageDescription = self.status.statusID;
 }
 

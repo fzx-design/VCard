@@ -15,7 +15,6 @@
 
 @interface RefreshableCoreDataTableViewController : CoreDataTableViewController <PullToRefreshViewDelegate, LoadMoreViewDelegate, UIScrollViewDelegate, UITableViewDelegate> {
     
-    int _stackPageIndex;
     PullToRefreshView *_pullView;
     LoadMoreView *_loadMoreView;
     

@@ -492,7 +492,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 
 - (IBAction)didClickCommentButton:(UIButton *)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationCommentButtonClicked object:self.status];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationCommentButtonClicked object:[NSDictionary dictionaryWithObjectsAndKeys:self.status, kNotificationObjectKeyStatus, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];    
 }
 
 - (IBAction)didClickRepostButton:(UIButton *)sender

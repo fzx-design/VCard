@@ -190,9 +190,9 @@
 }
 
 - (void)updateHeaderViewInfo
-{        
+{
     int actualCount = self.fetchedResultsController.fetchedObjects.count;
-    int fetchedCount = self.status.commentsCount.intValue;
+    int fetchedCount = _filterByAuthor ? 0 : self.status.commentsCount.intValue;
     int displayCount = fetchedCount > actualCount ? fetchedCount : actualCount;
     [_headerViewCell resetDividerViewWithCommentCount:displayCount];
 }

@@ -62,8 +62,8 @@
     
     CGFloat stringWidth = ceilf([description sizeWithFont:[UIFont systemFontOfSize:12.0f] constrainedToSize:CGSizeMake(1000.0, 30.0) lineBreakMode:UILineBreakModeWordWrap].width) + 1;
     
-    CGFloat leftOriginX = 192.0 - stringWidth / 2 - 30.0 - 10;
-    CGFloat rightOriginX = 192.0 + stringWidth / 2 + 10;
+    CGFloat leftOriginX = 192.0 - stringWidth / 2 - 30.0;
+    CGFloat rightOriginX = 192.0 + stringWidth / 2;
     
     [UIView animateWithDuration:0.3 animations:^{
         self.descriptionLabel.text = description;

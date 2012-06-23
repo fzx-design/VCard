@@ -59,6 +59,7 @@
 #define kNotificationObjectKeyUser @"kNotificationObjectKeyUser"
 #define kNotificationObjectKeyIndex @"kNotificationObjectKeyIndex"
 #define kNotificationObjectKeyUserName @"kNotificationObjectKeyUserName"
+#define kNotificationObjectKeyStatus @"kNotificationObjectKeyStatus"
 
 #define kOrientationPortrait @"kOrientationPortrait"
 #define kOrientationLandscape @"kOrientationLandscape"

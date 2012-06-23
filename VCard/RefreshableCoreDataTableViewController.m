@@ -19,7 +19,6 @@
 @implementation RefreshableCoreDataTableViewController
 
 @synthesize user = _user;
-@synthesize pageIndex = _pageIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

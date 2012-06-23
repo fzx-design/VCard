@@ -140,6 +140,9 @@
     vc.currentUser = self.currentUser;
     vc.screenName = screenName;
     
+    //FIXME:
+    //Handle errors when screenName is nil
+    
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
 }
 
@@ -162,12 +165,17 @@
 
 - (void)commentButtonClicked:(NSNotification *)notification
 {
-    Status *status = notification.object;
+    NSDictionary *dictionary = notification.object;
+    
+    Status *status = [dictionary valueForKey:kNotificationObjectKeyStatus];
+    NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
+    int index = indexString.intValue;
+    
     CommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CommentViewController"];
     vc.currentUser = self.currentUser;
     vc.status = status;
     
-    [self stackViewAtIndex:0 push:vc withPageType:StackViewPageTypeStatusComment pageDescription:vc.status.statusID];
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:vc.status.statusID];
 }
 
 - (void)hideWaterflowView
