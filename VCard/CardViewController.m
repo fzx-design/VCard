@@ -491,19 +491,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 
 - (IBAction)didClickCommentButton:(UIButton *)sender
 {
-<<<<<<< HEAD
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationCommentButtonClicked object:self.status];
-=======
-    NSString *targetUserName = self.status.author.screenName;
-    NSString *targetStatusID = self.status.statusID;
-    CGRect frame = [self.view convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
-    
-    PostViewController *vc = [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeComment
-                                                                          delegate:self
-                                                                           weiboID:targetStatusID
-                                                                    weiboOwnerName:targetUserName];
-    [vc showViewFromRect:frame];
->>>>>>> 8d896904bb88a476591c74092744844196a69c66
 }
 
 - (IBAction)didClickRepostButton:(UIButton *)sender

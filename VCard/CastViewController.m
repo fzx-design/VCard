@@ -16,10 +16,7 @@
 #import "User.h"
 #import "WaterflowCardCell.h"
 #import "WaterflowDividerCell.h"
-<<<<<<< HEAD
 #import "PostViewController.h"
-=======
->>>>>>> 8d896904bb88a476591c74092744844196a69c66
 #import "UIApplication+Addition.h"
 #import "CommentViewController.h"
 
