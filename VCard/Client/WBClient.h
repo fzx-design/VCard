@@ -136,7 +136,7 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 - (void)getAddressFromGeoWithCoordinate:(NSString *)coordinate;
 
 - (void)getCommentOfStaus:(NSString *)statusID
-                   cursor:(int)cursor
+                    maxID:(NSString *)maxID
                     count:(int)count
              authorFilter:(BOOL)filter;
 

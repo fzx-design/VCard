@@ -109,8 +109,10 @@
         
     }];
     
+    Comment *lastComment = self.fetchedResultsController.fetchedObjects.lastObject;
+    
     [client getCommentOfStaus:self.status.statusID
-                       cursor:_page++
+                        maxID:lastComment.commentID
                         count:20
                  authorFilter:_filterByAuthor];
 }
@@ -121,7 +123,7 @@
 {
     request.entity = [NSEntityDescription entityForName:@"Comment"
                                  inManagedObjectContext:self.managedObjectContext];
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updateDate" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"commentID" ascending:NO];
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", self.status.comments];
 }

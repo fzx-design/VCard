@@ -445,14 +445,17 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
-- (void)getCommentOfStaus:(NSString *)statusID cursor:(int)cursor count:(int)count authorFilter:(BOOL)filter
+- (void)getCommentOfStaus:(NSString *)statusID
+                   maxID:(NSString *)maxID
+                    count:(int)count
+             authorFilter:(BOOL)filter
 {
     self.path = @"comments/show.json";
     if (statusID) {
         [self.params setObject:statusID forKey:@"id"];
     }
-    if (cursor) {
-        [self.params setObject:[NSString stringWithFormat:@"%d", cursor] forKey:@"page"];
+    if (maxID) {
+        [self.params setObject:[NSString stringWithFormat:@"%@", maxID] forKey:@"max_id"];
     }
     if (count) {
         [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
