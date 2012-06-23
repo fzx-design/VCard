@@ -582,7 +582,6 @@
 										<reference key="IBUIShadowColor" ref="250211590"/>
 										<string key="IBUIShadowOffset">{0, 1}</string>
 										<int key="IBUIBaselineAdjustment">0</int>
-										<float key="IBUIMinimumFontSize">10</float>
 										<string key="IBUIText">裁剪</string>
 										<object class="NSColor" key="IBUITextColor">
 											<int key="NSColorSpace">1</int>
@@ -591,7 +590,6 @@
 										<int key="IBUITextAlignment">1</int>
 										<reference key="IBUIFontDescription" ref="918055592"/>
 										<reference key="IBUIFont" ref="92457482"/>
-										<int key="IBUIAutoshrinkMode">2</int>
 										<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 										<int key="IBUIAutoshrinkMode">0</int>
 									</object>
