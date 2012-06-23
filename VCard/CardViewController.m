@@ -170,13 +170,14 @@ static inline NSRegularExpression * UrlRegularExpression() {
     return height;
 }
 
-- (void)configureCardWithStatus:(Status*)status_ imageHeight:(CGFloat)imageHeight_
+- (void)configureCardWithStatus:(Status*)status_ imageHeight:(CGFloat)imageHeight_ pageIndex:(NSInteger)pageIndex_
 {
     if (_alreadyConfigured) {
         return;
     }
     
     _alreadyConfigured = YES;
+    _pageIndex = pageIndex_;
     
     [self setUpStatus:status_];
     
@@ -486,7 +487,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 - (IBAction)nameButtonClicked:(id)sender
 {
     NSString *userName = [((UIButton *)sender) titleForState:UIControlStateDisabled];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:userName];
+    [self sendUserNameClickedNotificationWithName:userName];
 }
 
 - (IBAction)didClickCommentButton:(UIButton *)sender
@@ -510,7 +511,12 @@ static inline NSRegularExpression * UrlRegularExpression() {
 #pragma mark - TTTAttributedLabel Delegate
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithPhoneNumber:(NSString *)userName
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:userName];
+    [self sendUserNameClickedNotificationWithName:userName];
+}
+
+- (void)sendUserNameClickedNotificationWithName:(NSString *)userName
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:[NSDictionary dictionaryWithObjectsAndKeys:userName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
 }
 
 #pragma mark - PostViewController Delegate

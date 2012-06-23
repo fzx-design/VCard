@@ -140,6 +140,7 @@
     [commentCell configureCellWithComment:comment
                             isLastComment:isLastComment
                            isFirstComment:isFirstComment];
+    commentCell.pageIndex = self.pageIndex;
 
 }
 
@@ -175,11 +176,14 @@
     Status *targetStatus = self.status;
     
     [_headerViewCell setCellHeight:targetStatus.cardSizeCardHeight.floatValue];
-    [_headerViewCell.cardViewController configureCardWithStatus:targetStatus imageHeight:targetStatus.cardSizeImageHeight.floatValue];
+    [_headerViewCell.cardViewController configureCardWithStatus:targetStatus
+                                                    imageHeight:targetStatus.cardSizeImageHeight.floatValue
+                                                      pageIndex:self.pageIndex];
     [_headerViewCell loadImageAfterScrollingStop];
+    _headerViewCell.pageIndex = self.pageIndex;
     
     int cellHeight = self.status.cardSizeCardHeight.intValue + 36.0;
-    [cell resetHeight:cellHeight];
+    [_headerViewCell resetHeight:cellHeight];
     [self updateHeaderViewInfo];
     
     [self.tableView setTableHeaderView:_headerViewCell];

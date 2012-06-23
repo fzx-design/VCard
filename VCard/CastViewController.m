@@ -129,13 +129,18 @@
 
 - (void)userNameClicked:(NSNotification *)notification
 {
-    NSString *screenName = notification.object;
+    NSDictionary *dictionary = notification.object;
+    NSString *screenName = [dictionary valueForKey:kNotificationObjectKeyUserName];
+    NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
+    int index = [indexString intValue];
+    
+    
     NSString *vcIdentifier = [screenName isEqualToString:self.currentUser.screenName] ? @"SelfProfileViewController" : @"FriendProfileViewController";
     UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:vcIdentifier];
     vc.currentUser = self.currentUser;
     vc.screenName = screenName;
     
-    [self stackViewAtIndex:0 push:vc];
+    [self stackViewAtIndex:index push:vc];
 }
 
 - (void)userCellClicked:(NSNotification *)notification
@@ -435,7 +440,9 @@
         Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
         [cell setCellHeight:[layoutUnit unitHeight]];
         
-        [((WaterflowCardCell *)cell).cardViewController configureCardWithStatus:targetStatus imageHeight:layoutUnit.imageHeight];
+        [((WaterflowCardCell *)cell).cardViewController configureCardWithStatus:targetStatus
+                                                                    imageHeight:layoutUnit.imageHeight
+                                                                      pageIndex:0];
         
     } else if(layoutUnit.unitType == UnitTypeDivider) {
         Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];

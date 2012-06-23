@@ -23,7 +23,7 @@
     BOOL _hasMoreViews;
 }
 
-@property (nonatomic, assign) int stackPageIndex;
+@property (nonatomic, assign) int pageIndex;
 @property (nonatomic, strong) User *user;
 
 - (void)refresh;

@@ -41,6 +41,7 @@
 - (void)configureCellWithComment:(Comment *)comment_ isLastComment:(BOOL)isLast isFirstComment:(BOOL)isFirst
 {
     self.comment = comment_;
+    self.commentContentLabel.delegate = self;
     [CardViewController setStatusTextLabel:self.commentContentLabel withText:self.comment.text];
     [self.avatarImageView loadImageFromURL:self.comment.author.profileImageURL completion:nil];
     [self.avatarImageView setVerifiedType:[self.comment.author verifiedTypeOfUser]];
@@ -81,6 +82,8 @@
     self.downThreadImageView.hidden = isLast;
 }
 
+#pragma mark - IBActions
+
 - (IBAction)didClickCommentButton:(UIButton *)sender
 {
     NSString *targetUserName = self.comment.author.screenName;
@@ -93,6 +96,24 @@
                                                                     weiboOwnerName:targetUserName];
     [vc showViewFromRect:frame];
 }
+
+- (IBAction)didClickUserNameButton:(UIButton *)sender
+{
+    NSString *userName = [sender titleForState:UIControlStateDisabled];
+    [self sendUserNameClickedNotificationWithName:userName];
+}
+
+#pragma mark - TTTAttributedLabel Delegate
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithPhoneNumber:(NSString *)userName
+{
+    [self sendUserNameClickedNotificationWithName:userName];
+}
+
+- (void)sendUserNameClickedNotificationWithName:(NSString *)userName
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:[NSDictionary dictionaryWithObjectsAndKeys:userName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+}
+
 
 #pragma mark - PostViewController Delegate
 

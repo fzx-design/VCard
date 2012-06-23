@@ -19,6 +19,8 @@
 @property (nonatomic, strong) IBOutlet UIImageView *rightpatternImageView;
 @property (nonatomic, strong) IBOutlet UILabel *descriptionLabel;
 
+@property (nonatomic, assign) NSInteger pageIndex;
+
 - (void)setCellHeight:(CGFloat)height;
 - (void)loadImageAfterScrollingStop;
 - (void)resetDividerViewWithCommentCount:(int)commentCount;

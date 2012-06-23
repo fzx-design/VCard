@@ -200,7 +200,9 @@
     Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
     
     [statusCell setCellHeight:targetStatus.cardSizeCardHeight.floatValue];
-    [statusCell.cardViewController configureCardWithStatus:targetStatus imageHeight:targetStatus.cardSizeImageHeight.floatValue];
+    [statusCell.cardViewController configureCardWithStatus:targetStatus
+                                               imageHeight:targetStatus.cardSizeImageHeight.floatValue
+                                                 pageIndex:self.pageIndex];
 }
 
 - (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath

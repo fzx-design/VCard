@@ -13,7 +13,7 @@
 #import "Comment.h"
 #import "PostViewController.h"
 
-@interface ProfileCommentTableViewCell : UITableViewCell <PostViewControllerDelegate> {
+@interface ProfileCommentTableViewCell : UITableViewCell <PostViewControllerDelegate, TTTAttributedLabelDelegate> {
     UserAvatarImageView *_avatarImageView;
     BaseCardBackgroundView *_baseCardBackgroundView;
     
@@ -29,14 +29,14 @@
 @property (nonatomic, strong) IBOutlet UIButton *moreActionButton;
 @property (nonatomic, strong) IBOutlet UIImageView *upThreadImageView;
 @property (nonatomic, strong) IBOutlet UIImageView *downThreadImageView;
-
 @property (nonatomic, strong) IBOutlet UIView *commentInfoView;
 @property (nonatomic, strong) IBOutlet TTTAttributedLabel *commentContentLabel;
 @property (nonatomic, strong) IBOutlet UILabel *timeStampLabel;
-
 @property (nonatomic, weak) Comment *comment;
+@property (nonatomic, assign) NSInteger pageIndex;
 
 - (IBAction)didClickCommentButton:(UIButton *)sender;
+- (IBAction)didClickUserNameButton:(UIButton *)sender;
 
 - (void)configureCellWithComment:(Comment *)comment
                    isLastComment:(BOOL)isLast

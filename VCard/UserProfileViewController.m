@@ -161,7 +161,7 @@
         _friendController.tableView.frame = [self frameForTableView];
         _friendController.user = self.user;
         _friendController.type = RelationshipViewTypeFriends;
-        _friendController.stackPageIndex = self.pageIndex;
+        _friendController.pageIndex = self.pageIndex;
         [_friendController refresh];
     }
     return _friendController;
@@ -175,7 +175,7 @@
         _followerController.tableView.frame = [self frameForTableView];
         _followerController.user = self.user;
         _followerController.type = RelationshipViewTypeFollowers;
-        _followerController.stackPageIndex = self.pageIndex;
+        _followerController.pageIndex = self.pageIndex;
         [_followerController refresh];
     }
     return _followerController;
@@ -186,7 +186,7 @@
     if (!_statusController) {
         _statusController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileStatusTableViewController"];
         _statusController.user = self.user;
-        _statusController.stackPageIndex = self.pageIndex;
+        _statusController.pageIndex = self.pageIndex;
         _statusController.view.frame = [self frameForTableView];
         _statusController.tableView.frame = [self frameForTableView];
         

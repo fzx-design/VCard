@@ -63,7 +63,7 @@
 {
     if (!_commentTableViewController) {
         _commentTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileCommentTableViewController"];
-        _commentTableViewController.stackPageIndex = self.pageIndex;
+        _commentTableViewController.pageIndex = self.pageIndex;
         _commentTableViewController.view.frame = [self frameForTableView];
         _commentTableViewController.tableView.frame = [self frameForTableView];
         _commentTableViewController.status = self.status;

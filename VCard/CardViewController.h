@@ -80,6 +80,7 @@
 @property (nonatomic, strong) Status *status;
 
 @property (nonatomic, assign) NSInteger imageHeight;
+@property (nonatomic, assign) NSInteger pageIndex;
 
 - (IBAction)nameButtonClicked:(id)sender;
 - (IBAction)didClickCommentButton:(UIButton *)sender;
@@ -89,7 +90,7 @@
 + (CGFloat)heightForComment:(Comment *)comment_;
 + (void)setStatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string;
 
-- (void)configureCardWithStatus:(Status*)status_ imageHeight:(CGFloat)imageHeight_;
+- (void)configureCardWithStatus:(Status*)status_ imageHeight:(CGFloat)imageHeight_ pageIndex:(NSInteger)pageIndex_;
 - (void)loadImage;
 - (void)prepareForReuse;
 

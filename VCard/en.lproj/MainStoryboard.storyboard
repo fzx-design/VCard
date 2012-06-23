@@ -1305,7 +1305,7 @@
                                                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="nameButtonClicked:" destination="u04-WG-2X6" eventType="touchUpInside" id="OUt-Oc-wlq"/>
+                                                                <action selector="didClickUserNameButton:" destination="aqU-X2-YS6" eventType="touchUpInside" id="vac-rn-2Lj"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qLf-Ps-dBm">
@@ -1547,6 +1547,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileCommentTableViewCell.h"/>
             <relationships>
                 <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickUserNameButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
                 <relationship kind="outlet" name="baseCardBackgroundView" candidateClass="BaseCardBackgroundView"/>
                 <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
