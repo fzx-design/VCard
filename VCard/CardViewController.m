@@ -503,7 +503,9 @@ static inline NSRegularExpression * UrlRegularExpression() {
 {
     NSString *targetUserName = self.status.author.screenName;
     NSString *targetStatusID = self.status.statusID;
-    NSString *targetStatusContent = self.status.text;
+    NSString *targetStatusContent = nil;
+    if(self.status.repostStatus)
+        targetStatusContent = self.status.text;
     CGRect frame = [self.view convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
     
     PostViewController *vc = [PostViewController getRepostViewControllerWithWeiboID:targetStatusID weiboOwnerName:targetUserName content:targetStatusContent Delegate:self];

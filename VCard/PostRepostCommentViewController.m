@@ -57,13 +57,13 @@
     if(self.type == PostViewControllerTypeRepost) {
         [self.repostCommentButton setTitle:@"同时评论" forState:UIControlStateNormal];
         self.topBarLabel.text = [NSString stringWithFormat:@"转发 %@ 的微博", self.weiboOwnerName];
-        self.textView.text = [NSString stringWithFormat:@" //@%@:%@", self.weiboOwnerName, self.content];
+        if(self.content)
+            self.textView.text = [NSString stringWithFormat:@" //@%@:%@", self.weiboOwnerName, self.content];
     }
     else {
         [self.repostCommentButton setTitle:@"同时转发" forState:UIControlStateNormal];
         self.topBarLabel.text = [NSString stringWithFormat:@"回复 %@", self.weiboOwnerName];
     }
-    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
