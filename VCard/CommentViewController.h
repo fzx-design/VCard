@@ -9,15 +9,17 @@
 #import "StackViewPageController.h"
 #import "ProfileCommentTableViewController.h"
 #import "Status.h"
+#import "PostViewController.h"
 
-@interface CommentViewController : StackViewPageController
+@interface CommentViewController : StackViewPageController <PostViewControllerDelegate>
 
 @property (nonatomic, strong) Status *status;
 @property (nonatomic, strong) ProfileCommentTableViewController *commentTableViewController;
 @property (nonatomic, strong) IBOutlet UIButton *changeSourceButton;
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
+@property (nonatomic, strong) IBOutlet UIButton *commentButton;
 
-- (IBAction)didClickChangeSourceButton:(id)sender;
-- (IBAction)didClickCommentButton:(id)sender;
+- (IBAction)didClickChangeSourceButton:(UIButton *)sender;
+- (IBAction)didClickCommentButton:(UIButton *)sender;
 
 @end
