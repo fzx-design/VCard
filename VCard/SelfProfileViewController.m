@@ -26,8 +26,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.user = self.currentUser;
     [super setUpViews];
+    
+    // TEST
+    [_avatarImageView swingOnce:_avatarImageView.layer toAngle:-0.089 * M_PI];
+    
+    [_avatarImageView swingHalt:_avatarImageView.layer];
 }
 
 - (void)viewDidUnload

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+
 #import "UIImageViewAddition.h"
 
 @interface UserAvatarImageView : UIView {
@@ -21,5 +23,9 @@
 
 - (void)loadImageFromURL:(NSString *)urlString 
               completion:(void (^)())completion;
+
+// Animation
+- (void)swingOnce:(CALayer*)layer toAngle:(CGFloat)toAngle;
+- (void)swingHalt:(CALayer*)layer;
 
 @end

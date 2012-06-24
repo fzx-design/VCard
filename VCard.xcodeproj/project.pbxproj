@@ -1506,13 +1506,13 @@
 		181AB90915230AC1007A2A51 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1850A477153C0ADC0001A905 /* libicucore.A.dylib */,
 				E1097D56157F9C1D00BD0640 /* AVFoundation.framework */,
 				E1097D54157F9C1000BD0640 /* CoreImage.framework */,
 				E1097D52157F9C0A00BD0640 /* OpenGLES.framework */,
 				E1097D50157F9C0400BD0640 /* GLKit.framework */,
 				E1097D4E157F9BFE00BD0640 /* MobileCoreServices.framework */,
 				E1097D4C157F9BEC00BD0640 /* CoreLocation.framework */,
-				1850A477153C0ADC0001A905 /* libicucore.A.dylib */,
 				1802E7721557913800728B60 /* CoreText.framework */,
 				18E707EE153D32680012092E /* CoreData.framework */,
 				18A685161537110B00D58B7D /* QuartzCore.framework */,
