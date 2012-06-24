@@ -163,6 +163,7 @@
 	}
 	
 	[self.tableView reloadData];
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.001];
 }
 
 - (void)switchToByMe
@@ -177,6 +178,7 @@
 	}
 	
 	[self.tableView reloadData];
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.001];
 }
 
 
@@ -229,5 +231,14 @@
 	return comment.commentHeight.floatValue;
 }
 
+#pragma mark - UIScrollView delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [super scrollViewDidScroll:scrollView];
+    
+    if (_hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
+        [self loadMoreData];
+    }
+}
 
 @end

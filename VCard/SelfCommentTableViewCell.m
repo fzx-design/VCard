@@ -59,7 +59,7 @@
     [self.baseCardBackgroundView resetHeight:commentViewHeight];
     [self.commentInfoView resetHeight:commentViewHeight];
     
-    CGFloat cardTailOriginY = self.frame.size.height + CardTailOffset + 20.0;
+    CGFloat cardTailOriginY = self.frame.size.height + CardTailOffset - 4.0;
     
     [self.timeStampLabel resetOriginY:cardTailOriginY];
     [self.timeStampLabel setText:[self.comment.createdAt stringRepresentation]];
@@ -70,15 +70,25 @@
 
 - (IBAction)didClickCommentButton:(UIButton *)sender
 {
-    NSString *targetUserName = self.comment.author.screenName;
-    NSString *targetStatusID = self.comment.targetStatus.statusID;
-    CGRect frame = [self convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
+//    NSString *targetUserName = self.comment.author.screenName;
+//    NSString *targetStatusID = self.comment.targetStatus.statusID;
+//    CGRect frame = [self convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
 }
 
 - (IBAction)didClickUserNameButton:(UIButton *)sender
 {
     NSString *userName = [sender titleForState:UIControlStateDisabled];
     [self sendUserNameClickedNotificationWithName:userName];
+}
+
+- (IBAction)didClickViewDetailButton:(UIButton *)sender
+{
+    Status *status = self.comment.targetStatus;
+    NSString *indexString = [NSString stringWithFormat:@"%i", self.pageIndex];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationCommentButtonClicked
+                                                        object:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                status, kNotificationObjectKeyStatus,
+                                                                indexString, kNotificationObjectKeyIndex, nil]];
 }
 
 #pragma mark - TTTAttributedLabel Delegate
@@ -89,8 +99,14 @@
 
 - (void)sendUserNameClickedNotificationWithName:(NSString *)userName
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:[NSDictionary dictionaryWithObjectsAndKeys:userName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    NSString *indexString = [NSString stringWithFormat:@"%i", self.pageIndex];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked
+                                                        object:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                userName, kNotificationObjectKeyUserName,
+                                                                indexString, kNotificationObjectKeyIndex, nil]];
 }
+
+
 
 
 #pragma mark - PostViewController Delegate

@@ -39,6 +39,7 @@
     [super viewDidLoad];
     [self.topShadowImageView resetOrigin:[self frameForTableView].origin];
     [self.backgroundView addSubview:self.topShadowImageView];
+    self.toMeButton.selected = YES;
 }
 
 

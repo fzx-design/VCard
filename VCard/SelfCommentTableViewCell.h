@@ -29,7 +29,7 @@
 
 - (IBAction)didClickCommentButton:(UIButton *)sender;
 - (IBAction)didClickUserNameButton:(UIButton *)sender;
-
+- (IBAction)didClickViewDetailButton:(UIButton *)sender;
 - (void)configureCellWithComment:(Comment *)comment;
 
 @end
