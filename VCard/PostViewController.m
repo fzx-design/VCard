@@ -79,7 +79,7 @@ typedef enum {
 @synthesize motionsButton = _motionsButton;
 @synthesize emoticonsButton = _emoticonsButton;
 @synthesize topicButton = _topicButton;
-@synthesize checkmarkButton = _checkmarkButton;
+@synthesize repostCommentCheckmarkButton = _repostCommentCheckmarkButton;
 @synthesize navActivityView = _navActivityView;
 @synthesize navLabel = _navLabel;
 @synthesize functionLeftNavView = _functionLeftNavView;
@@ -92,7 +92,7 @@ typedef enum {
 @synthesize leftPaperGloomImageView = _leftPaperGloomImageView;
 @synthesize rightPaperGloomImageView = _rightPaperGloomImageView;
 @synthesize topBarLabel = _topBarLabel;
-@synthesize repostCommentLabel = _repostCommentLabel;
+@synthesize repostCommentButton = _repostCommentButton;
 @synthesize motionsView = _motionsView;
 @synthesize type = _type;
 
@@ -180,8 +180,8 @@ typedef enum {
     self.rightPaperImageView = nil;
     self.paperImageHolderView = nil;
     self.topBarLabel = nil;
-    self.checkmarkButton = nil;
-    self.repostCommentLabel = nil;
+    self.repostCommentCheckmarkButton = nil;
+    self.repostCommentButton = nil;
     self.motionsView = nil;
 }
 
