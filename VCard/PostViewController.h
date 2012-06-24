@@ -15,7 +15,8 @@
 typedef enum {
     PostViewControllerTypeNewStatus,
     PostViewControllerTypeRepost,
-    PostViewControllerTypeComment,
+    PostViewControllerTypeCommentWeibo,
+    PostViewControllerTypeCommentReply,
 } PostViewControllerType;
 
 @protocol PostViewControllerDelegate;
@@ -38,7 +39,9 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UIButton     *topicButton;
 @property (nonatomic, strong) IBOutlet UIButton     *motionsButton;
 @property (nonatomic, strong) IBOutlet UIButton     *cancelButton;
-@property (nonatomic, strong) IBOutlet UIButton     *checkmarkButton;
+@property (nonatomic, strong) IBOutlet UIButton     *postButton;
+@property (nonatomic, strong) IBOutlet UIButton     *repostCommentCheckmarkButton;
+@property (nonatomic, strong) IBOutlet UIButton     *repostCommentButton;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *navActivityView;
 @property (nonatomic, strong) IBOutlet UILabel      *navLabel;
 @property (nonatomic, strong) IBOutlet UIView       *functionLeftNavView;
@@ -46,7 +49,6 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UIView       *functionRightView;
 @property (nonatomic, strong) IBOutlet UIView       *motionsView;     
 @property (nonatomic, strong) IBOutlet UILabel      *topBarLabel;
-@property (nonatomic, strong) IBOutlet UILabel      *repostCommentLabel;
 
 @property (nonatomic, strong) IBOutlet UIImageView  *leftPaperImageView;
 @property (nonatomic, strong) IBOutlet UIImageView  *rightPaperImageView;
@@ -58,10 +60,21 @@ typedef enum {
 @property (nonatomic, weak)   id<PostViewControllerDelegate> delegate;
 @property (nonatomic, assign) PostViewControllerType type;
 
-+ (id)getPostViewControllerViewWithType:(PostViewControllerType)type 
-                               delegate:(id<PostViewControllerDelegate>) delegate
-                                weiboID:(NSString *)weiboID
-                         weiboOwnerName:(NSString *)ownerName;
++ (id)getNewStatusViewControllerWithDelegate:(id<PostViewControllerDelegate>)delegate;
+
++ (id)getRepostViewControllerWithWeiboID:(NSString *)weiboID
+                          weiboOwnerName:(NSString *)ownerName
+                                 content:(NSString *)content
+                                Delegate:(id<PostViewControllerDelegate>)delegate;
+
++ (id)getCommentWeiboViewControllerWithWeiboID:(NSString *)weiboID
+                                weiboOwnerName:(NSString *)ownerName
+                                      Delegate:(id<PostViewControllerDelegate>)delegate;
+
++ (id)getCommentReplyViewControllerWithWeiboID:(NSString *)weiboID
+                                       replyID:(NSString *)replyID
+                                weiboOwnerName:(NSString *)ownerName
+                                      Delegate:(id<PostViewControllerDelegate>)delegate;
 
 - (IBAction)didClickMotionsButton:(UIButton *)sender;
 - (IBAction)didClickCancelButton:(UIButton *)sender;

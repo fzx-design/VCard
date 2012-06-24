@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) NSString *weiboOwnerName;
 @property (nonatomic, strong) NSString *weiboID;
+@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSString *replyID;
 
 @end
 
@@ -30,11 +32,16 @@
     return self;
 }
 
-- (id)initWithWeiboID:(NSString *)weiboID weiboOwnerName:(NSString *)ownerName {
+- (id)initWithWeiboID:(NSString *)weiboID
+              replyID:(NSString *)replyID
+       weiboOwnerName:(NSString *)ownerName
+          contentText:(NSString *)content {
     self = [super init];
     if(self) {
         self.weiboID = weiboID;
         self.weiboOwnerName = ownerName;
+        self.replyID = replyID;
+        self.content = content;
     }
     return self;
 }
@@ -47,13 +54,14 @@
     CGRect frame = self.functionRightView.frame;
     frame.origin.x = self.functionLeftCheckmarkView.frame.origin.x + self.functionLeftCheckmarkView.frame.size.width;
     self.functionRightView.frame = frame;
-    if(self.type == PostViewControllerTypeComment) {
-        self.repostCommentLabel.text = @"同时转发";
-        self.topBarLabel.text = [NSString stringWithFormat:@"回复 %@ 的微博", self.weiboOwnerName];
+    if(self.type == PostViewControllerTypeRepost) {
+        [self.repostCommentButton setTitle:@"同时评论" forState:UIControlStateNormal];
+        self.topBarLabel.text = [NSString stringWithFormat:@"转发 %@ 的微博", self.weiboOwnerName];
+        self.textView.text = [NSString stringWithFormat:@" //@%@:%@", self.weiboOwnerName, self.content];
     }
     else {
-        self.repostCommentLabel.text = @"同时评论";
-        self.topBarLabel.text = [NSString stringWithFormat:@"转发 %@ 的微博", self.weiboOwnerName];
+        [self.repostCommentButton setTitle:@"同时转发" forState:UIControlStateNormal];
+        self.topBarLabel.text = [NSString stringWithFormat:@"回复 %@", self.weiboOwnerName];
     }
     
     [super viewDidLoad];
@@ -80,23 +88,27 @@
         }
     }];
     
-    if(self.checkmarkButton.selected == NO) {
-        if(self.type == PostViewControllerTypeComment)
-            [client sendCommentWithText:self.textView.text originWeiboID:self.weiboID commentOrigin:NO];
-        else if(self.type == PostViewControllerTypeRepost)
-            [client sendRepostWithText:self.textView.text originWeiboID:self.weiboID commentType:RepostWeiboTypeNoComment];
+    if(self.repostCommentCheckmarkButton.selected == NO) {
+        if(self.type == PostViewControllerTypeRepost)
+            [client sendRepostWithText:self.textView.text weiboID:self.weiboID commentType:RepostWeiboTypeCommentNone];
+        else if(self.type == PostViewControllerTypeCommentWeibo)
+            [client sendWeiboCommentWithText:self.textView.text weiboID:self.weiboID commentOrigin:NO];
+        else if(self.type == PostViewControllerTypeCommentReply)
+            [client sendReplyCommentWithText:self.textView.text weiboID:self.weiboID replyID:self.replyID commentOrigin:NO];
     } else {
-        [client sendRepostWithText:self.textView.text originWeiboID:self.weiboID commentType:RepostWeiboTypeCommentCurrent];
+        if(self.type == PostViewControllerTypeCommentReply) {
+            [client sendReplyCommentWithText:self.textView.text weiboID:self.weiboID replyID:self.replyID commentOrigin:NO];
+            WBClient *repostClient = [WBClient client];
+            [repostClient sendRepostWithText:self.textView.text weiboID:self.weiboID commentType:RepostWeiboTypeCommentNone];
+        } else
+            [client sendRepostWithText:self.textView.text weiboID:self.weiboID commentType:RepostWeiboTypeCommentCurrent];
     }
 }
 
 - (IBAction)didClickRepostCommentCheckmarkButton:(UIButton *)sender {
     BOOL select = !sender.isSelected;
-    if(select)
-        self.repostCommentLabel.textColor = [UIColor colorWithRed:60. / 255 green:169. / 255 blue:0 alpha:1];
-    else
-        self.repostCommentLabel.textColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
-    sender.selected = select;
+    self.repostCommentButton.selected = select;
+    self.repostCommentCheckmarkButton.selected = select;
 }
 
 @end

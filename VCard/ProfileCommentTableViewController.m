@@ -132,7 +132,7 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     ProfileCommentTableViewCell *commentCell = (ProfileCommentTableViewCell *)cell;
-    Comment *comment = (Comment *)self.fetchedResultsController.fetchedObjects[indexPath.row];
+    Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
     [commentCell resetOriginX:11.0];
     [commentCell resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
     [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];

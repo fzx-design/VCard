@@ -11,6 +11,9 @@
 
 @interface PostRepostCommentViewController : PostViewController
 
-- (id)initWithWeiboID:(NSString *)weiboID weiboOwnerName:(NSString *)ownerName;
+- (id)initWithWeiboID:(NSString *)weiboID
+              replyID:(NSString *)replyID
+       weiboOwnerName:(NSString *)ownerName
+          contentText:(NSString *)content;
 
 @end

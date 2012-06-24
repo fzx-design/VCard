@@ -180,7 +180,8 @@
          
          */
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+        [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+        [__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error];
     }    
     
     return __persistentStoreCoordinator;
