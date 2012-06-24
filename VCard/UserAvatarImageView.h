@@ -27,5 +27,6 @@
 // Animation
 - (void)swingOnce:(CALayer*)layer toAngle:(CGFloat)toAngle;
 - (void)swingHalt:(CALayer*)layer fromAngle:(CGFloat)fromAngle;
+- (void)swingOnceThenHalt:(CALayer *)layer angle:(CGFloat)angle;
 
 @end
