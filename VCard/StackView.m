@@ -70,7 +70,7 @@
 
 - (void)scrollToTargetView:(UIView *)targetView
 {
-    [UIView animateWithDuration:0.7 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         _scrollView.contentOffset = CGPointMake(targetView.frame.origin.x, 0.0);
     }];
 }

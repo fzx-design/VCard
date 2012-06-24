@@ -37,10 +37,12 @@
         
     [self.tableView resetWidth:384.0];
     _pullView = [[PullToRefreshView alloc] initWithScrollView:self.tableView];
-    [_pullView setDelegate:self];
+    _pullView.delegate = self;
+    _pullView.shouldAutoRotate = NO;
     
     _loadMoreView = [[LoadMoreView alloc] initWithScrollView:self.tableView];
-    [_loadMoreView setDelegate:self];
+    _loadMoreView.delegate = self;
+    _loadMoreView.shouldAutoRotate = NO;;
     
     [self.tableView addSubview:_pullView];
     [self.tableView addSubview:_loadMoreView];

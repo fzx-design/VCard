@@ -23,6 +23,7 @@
 @interface CastViewController () {
     BOOL _loading;
     NSInteger _nextPage;
+    BOOL _hasMoreViews;
 }
 
 @property (nonatomic, strong) UIView *coverView;
@@ -118,8 +119,15 @@
 - (void)setUpWaterflowView
 {
     _pullView = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
-    [_pullView setDelegate:self];
+    _pullView.delegate = self;
+    _pullView.shouldAutoRotate = YES;
+    
+    _loadMoreView = [[LoadMoreView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
+    _loadMoreView.delegate = self;
+    _loadMoreView.shouldAutoRotate = YES;
+    
     [self.waterflowView addSubview:_pullView];
+    [self.waterflowView addSubview:_loadMoreView];
     
     self.waterflowView.flowdatasource = self;
     self.waterflowView.flowdelegate = self;
@@ -237,7 +245,7 @@
     vc.currentUser = self.currentUser;
     vc.screenName = self.currentUser.screenName;
     
-    [self stackViewAtIndex:0 push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
+    [self stackViewAtIndex:65535 push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
 }
 
 - (void)stackViewAtIndex:(int)index
@@ -298,10 +306,12 @@
             
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
-            
             [self.waterflowView reloadData];
+            _hasMoreViews = dictArray.count == 20;
         }
         
+        [_loadMoreView finishedLoading:_hasMoreViews];
+        [_loadMoreView resetPosition];
         _loading = NO;
     }];
     
@@ -350,10 +360,12 @@
             }
             
             [self.waterflowView refresh];
-            
+            _hasMoreViews = dictArray.count == 20;
         }
         
         [_pullView finishedLoading];
+        [_loadMoreView finishedLoading:_hasMoreViews];
+        [_loadMoreView resetPosition];
         _loading = NO;
     }];
     
@@ -418,6 +430,11 @@
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view
 {
     [self refresh];
+}
+
+- (void)loadMoreViewShouldLoadMoreView:(LoadMoreView *)view
+{
+    [self loadMoreData];
 }
 
 #pragma mark - WaterflowDataSource

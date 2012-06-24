@@ -210,12 +210,14 @@
 
 - (void)resetLayoutToOrientation:(NSNotification *)notification
 {
-    CGFloat width = [(NSString *)notification.object isEqualToString:kOrientationPortrait] ? 768.0 : 1024;
-    
-    [reloadHoleView resetWidth:width];
-    [reloadArrowView resetWidth:width];
-    [reloadCircleView resetWidth:width];
-    [iconView resetWidth:width];
+    if (_shouldAutoRotate) {
+        CGFloat width = [(NSString *)notification.object isEqualToString:kOrientationPortrait] ? 768.0 : 1024;
+        
+        [reloadHoleView resetWidth:width];
+        [reloadArrowView resetWidth:width];
+        [reloadCircleView resetWidth:width];
+        [iconView resetWidth:width];
+    }
 }
 
 #pragma mark -

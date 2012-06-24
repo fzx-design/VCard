@@ -36,6 +36,7 @@
         _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         _activityView.frame = CGRectMake(0.0f, self.scrollView.contentSize.height, self.frame.size.width, 67.0f);
         _activityView.autoresizingMask = UIViewAutoresizingNone;
+        _activityView.hidden = NO;
         [self addSubview:_activityView];
         
 		[self setState:LoadMoreViewStateLoading];
@@ -102,8 +103,10 @@
 
 - (void)resetLayoutToOrientation:(NSNotification *)notification
 {
-    CGFloat width = [(NSString *)notification.object isEqualToString:kOrientationPortrait] ? 768.0 : 1024;
-    [_activityView resetWidth:width];
+    if (_shouldAutoRotate) {
+        CGFloat width = [(NSString *)notification.object isEqualToString:kOrientationPortrait] ? 768.0 : 1024;
+        [_activityView resetWidth:width];
+    }
 }
 
 

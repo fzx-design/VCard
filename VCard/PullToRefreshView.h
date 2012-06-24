@@ -50,6 +50,7 @@ typedef enum {
 
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, weak) id<PullToRefreshViewDelegate> delegate;
+@property (nonatomic, assign) BOOL shouldAutoRotate;
 
 - (void)finishedLoading;
 - (void)setState:(PullToRefreshViewState)state_;

@@ -612,6 +612,9 @@
         [self view:self.backgroundViewA resetOriginY:top];
         [self view:self.backgroundViewB resetOriginY:self.backgroundViewA.frame.origin.y + self.backgroundViewA.frame.size.height];
     }
+    
+    [self sendSubviewToBack:self.backgroundViewA];
+    [self sendSubviewToBack:self.backgroundViewB];
 }
 
 - (void)view:(UIView *)view resetOriginY:(CGFloat)originY

@@ -11,14 +11,16 @@
 #import "BaseNavigationView.h"
 #import "WaterflowView.h"
 #import "PullToRefreshView.h"
+#import "LoadMoreView.h"
 #import "RefreshIndicatorView.h"
 #import "StackViewController.h"
 #import "PostViewController.h"
 
-@interface CastViewController : CoreDataViewController <WaterflowViewDelegate, WaterflowViewDatasource, PullToRefreshViewDelegate, StackViewControllerDelegate, UIScrollViewDelegate, PostViewControllerDelegate> {
+@interface CastViewController : CoreDataViewController <WaterflowViewDelegate, WaterflowViewDatasource, PullToRefreshViewDelegate, LoadMoreViewDelegate, StackViewControllerDelegate, UIScrollViewDelegate, PostViewControllerDelegate> {
     
     BaseNavigationView *_navigationView;
     PullToRefreshView *_pullView;
+    LoadMoreView *_loadMoreView;
     WaterflowView *_waterflowView;
     RefreshIndicatorView *_refreshIndicatorView;
     

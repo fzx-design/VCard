@@ -92,6 +92,7 @@
         }
         
         [self adjustBackgroundView];
+        [self scrollViewDidScroll:self.tableView];
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_pullView finishedLoading];
         _loading = NO;
@@ -142,6 +143,8 @@
         
         [self adjustBackgroundView];
         [_pullView finishedLoading];
+        [self scrollViewDidScroll:self.tableView];
+        [_loadMoreView finishedLoading:_hasMoreViews];
         _loading = NO;
     }];
     
@@ -218,7 +221,6 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-//    [self adjustBackgroundView];
     [super scrollViewDidScroll:scrollView];
     for (ProfileStatusTableViewCell *cell in self.tableView.visibleCells) {
         [cell loadImageAfterScrollingStop];
