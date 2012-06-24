@@ -503,12 +503,10 @@ static inline NSRegularExpression * UrlRegularExpression() {
 {
     NSString *targetUserName = self.status.author.screenName;
     NSString *targetStatusID = self.status.statusID;
+    NSString *targetStatusContent = self.status.text;
     CGRect frame = [self.view convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
     
-    PostViewController *vc = [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeRepost
-                                                                          delegate:self
-                                                                           weiboID:targetStatusID
-                                                                    weiboOwnerName:targetUserName];
+    PostViewController *vc = [PostViewController getRepostViewControllerWithWeiboID:targetStatusID weiboOwnerName:targetUserName content:targetStatusContent Delegate:self];
     [vc showViewFromRect:frame];
 }
 
@@ -538,10 +536,10 @@ static inline NSRegularExpression * UrlRegularExpression() {
 }
 
 - (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
-    if(vc.type == PostViewControllerTypeComment)
-        [vc dismissViewToRect:[self.view convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
-    else
+    if(vc.type == PostViewControllerTypeRepost)
         [vc dismissViewToRect:[self.view convertRect:self.repostButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
+    else
+        [vc dismissViewToRect:[self.view convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
 }
 
 @end

@@ -257,7 +257,7 @@ static NSString *UserID = @"";
 }
 
 - (void)sendRepostWithText:(NSString *)text
-             originWeiboID:(NSString *)originID 
+             weiboID:(NSString *)originID 
              commentType:(RepostWeiboType)type {
     self.path = @"statuses/repost.json";
     [self.params setObject:(text ? text : @"") forKey:@"status"];
@@ -269,7 +269,7 @@ static NSString *UserID = @"";
 }
 
 - (void)sendWeiboCommentWithText:(NSString *)text
-             originWeiboID:(NSString *)originID 
+             weiboID:(NSString *)originID 
                commentOrigin:(BOOL)commentOrigin {
     self.path = @"comments/create.json";
     [self.params setObject:(text ? text : @"") forKey:@"comment"];
@@ -281,15 +281,14 @@ static NSString *UserID = @"";
 }
 
 - (void)sendReplyCommentWithText:(NSString *)text
-                   originWeiboID:(NSString *)originID
+                   weiboID:(NSString *)originID
                          replyID:(NSString *)replyID
                    commentOrigin:(BOOL)commentOrigin {
-    self.path = @"comments/create.json";
+    self.path = @"comments/reply.json";
     [self.params setObject:(text ? text : @"") forKey:@"comment"];
     [self.params setObject:originID forKey:@"id"];
-    [self.params setObject:[NSString stringWithFormat:@"%d", commentOrigin] forKey:@"comment_ori"];
-    [self.params setObject:@"1" forKey:@"without_mention"];
     [self.params setObject:replyID forKey:@"cid"];
+    [self.params setObject:[NSString stringWithFormat:@"%d", commentOrigin] forKey:@"comment_ori"];
     self.postDataType = kWBRequestPostDataTypeNormal;
     self.httpMethod = HTTPMethodPost;
     [self loadNormalRequest];

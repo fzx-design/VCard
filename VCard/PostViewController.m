@@ -64,6 +64,7 @@ typedef enum {
 @property (nonatomic, strong) UIPopoverController *popoverController;
 @property (nonatomic, assign) CGRect startButtonFrame;
 @property (nonatomic, readonly) CGPoint startButtonCenter;
+@property (nonatomic, strong) NSString *prefixText;
 
 @end
 
@@ -94,6 +95,8 @@ typedef enum {
 @synthesize topBarLabel = _topBarLabel;
 @synthesize repostCommentButton = _repostCommentButton;
 @synthesize motionsView = _motionsView;
+@synthesize cancelButton = _cancelButton;
+@synthesize postButton = _postButton;
 @synthesize type = _type;
 
 @synthesize keyboardHeight = _keyboardHeight;
@@ -104,21 +107,57 @@ typedef enum {
 @synthesize emoticonsViewController = _emoticonsViewController;
 @synthesize currentActionSheetType = _currentActionSheetType;
 @synthesize actionSheet = _actionSheet;
-@synthesize cancelButton = _cancelButton;
 @synthesize popoverController = _pc;
 @synthesize motionsOriginalImage = _motionsOriginalImage;
 @synthesize startButtonFrame = _startButtonFrame;
+@synthesize prefixText = _prefixText;
 
-+ (id)getPostViewControllerViewWithType:(PostViewControllerType)type 
-                               delegate:(id<PostViewControllerDelegate>) delegate
++ (id)getNewStatusViewControllerWithDelegate:(id<PostViewControllerDelegate>)delegate {
+    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeNewStatus delegate:delegate weiboID:nil replyID:nil weiboOwnerName:nil weiboContent:nil];
+}
+
++ (id)getRepostViewControllerWithWeiboID:(NSString *)weiboID
+                          weiboOwnerName:(NSString *)ownerName
+                                 content:(NSString *)content
+                                Delegate:(id<PostViewControllerDelegate>)delegate {
+    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeRepost delegate:delegate weiboID:weiboID replyID:nil weiboOwnerName:ownerName weiboContent:content];
+}
+
++ (id)getCommentWeiboViewControllerWithWeiboID:(NSString *)weiboID
+                                weiboOwnerName:(NSString *)ownerName
+                                Delegate:(id<PostViewControllerDelegate>)delegate {
+    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeCommentWeibo delegate:delegate weiboID:weiboID replyID:nil weiboOwnerName:ownerName weiboContent:nil];
+}
+
++ (id)getCommentReplyViewControllerWithWeiboID:(NSString *)weiboID
+                                replyID:(NSString *)replyID
+                                weiboOwnerName:(NSString *)ownerName
+                                      Delegate:(id<PostViewControllerDelegate>)delegate {
+    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeCommentReply delegate:delegate weiboID:weiboID replyID:replyID weiboOwnerName:ownerName weiboContent:nil];
+}
+
++ (id)getPostViewControllerViewWithType:(PostViewControllerType)type
+                               delegate:(id<PostViewControllerDelegate>)delegate
                                 weiboID:(NSString *)weiboID
-                         weiboOwnerName:(NSString *)ownerName {
+                                replyID:(NSString *)replyID
+                         weiboOwnerName:(NSString *)ownerName
+                           weiboContent:(NSString *)content {
     PostViewController *vc = nil;
     if(type == PostViewControllerTypeNewStatus) {
         vc = [[PostNewStatusViewController alloc] init];
     } else {
-        vc = [[PostRepostCommentViewController alloc] initWithWeiboID:weiboID weiboOwnerName:ownerName];
+        vc = [[PostRepostCommentViewController alloc] initWithWeiboID:weiboID
+                                                              replyID:replyID
+                                                       weiboOwnerName:ownerName
+                                                          contentText:content];
     }
+    
+    if(type == PostViewControllerTypeCommentReply) {
+        vc.prefixText = [NSString stringWithFormat:@"回复@%@", ownerName];
+    } else {
+        vc.prefixText = @"";
+    }
+    
     vc.type = type;
     vc.delegate = delegate;
     return vc;
@@ -137,14 +176,15 @@ typedef enum {
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self configureViewFrame];
-    [self configureMotionsImageView];
-    [self configureTextView];
     
     self.navActivityView.hidden = YES;
     self.navLabel.text = @"";
     _functionRightViewInitFrame = self.functionRightView.frame;
     self.postRootView.delegate = self;
+    
+    [self configureViewFrame];
+    [self configureMotionsImageView];
+    [self configureTextView];
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(deviceRotateDidChanged:) name:kNotificationNameOrientationChanged object:nil];
@@ -260,8 +300,7 @@ typedef enum {
     return [self.textView.text substringWithRange:self.currentHintStringRange];
 }
 
-- (int)weiboTextBackwardsCount:(NSString*)text
-{
+- (int)textDoubleCount:(NSString*)text {
     int i, n = [text length],l = 0, a = 0, b = 0;
     unichar c;
     for(i = 0;i < n; i++) {
@@ -273,9 +312,14 @@ typedef enum {
         else
             l++;
     }
-    int textLength = l + (int)floorf((float)(a + b) / 2.0f);
+    int textLength = l * 2 + a + b;
+    return textLength;
+}
+
+- (int)weiboTextBackwardsCount {
+    int textLength = [self textDoubleCount:self.textView.text] + [self textDoubleCount:self.prefixText];
+    textLength = floorf((float)textLength / 2.0f);
     return WEIBO_TEXT_MAX_LENGTH - textLength;
-    
 }
 
 - (CGPoint)cursorPos {
@@ -388,7 +432,7 @@ typedef enum {
 
 - (void)configureTextView {
     self.textView.text = @"";
-    [self updateTextCount];
+    [self updateTextCountAndPostButton];
     [self.textView becomeFirstResponder];
 }
 
@@ -409,9 +453,13 @@ typedef enum {
     [self.textView resignFirstResponder];
 }
 
-- (void)updateTextCount {
-    NSString *text = self.textView.text;
-    self.textCountLabel.text = [NSString stringWithFormat:@"%d", [self weiboTextBackwardsCount:text]];
+- (void)updateTextCountAndPostButton {
+    int weiboTextBackwardsCount = [self weiboTextBackwardsCount];
+    self.textCountLabel.text = [NSString stringWithFormat:@"%d", weiboTextBackwardsCount];
+    if(weiboTextBackwardsCount < 0)
+        self.postButton.enabled = NO;
+    else
+        self.postButton.enabled = YES;
 }
 
 - (void)presentAtHintView {
@@ -792,7 +840,7 @@ typedef enum {
     } else if(self.currentHintView) {
         self.currentHintStringRange = NSMakeRange(self.textView.selectedRange.location, 0);
     }
-    [self updateTextCount];
+    [self updateTextCountAndPostButton];
     [self updateCurrentHintView];
 }
 

@@ -218,10 +218,7 @@
 #pragma mark Post
 
 - (IBAction)didClickCreateStatusButton:(UIButton *)sender {
-    PostViewController *vc = [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeNewStatus
-                                                                          delegate:self
-                                                                           weiboID:nil
-                                                                    weiboOwnerName:nil];
+    PostViewController *vc = [PostViewController getNewStatusViewControllerWithDelegate:self];
     [vc showViewFromRect:sender.frame];
 }
 

@@ -185,7 +185,7 @@
 										<string key="NSFrame">{{0, -2}, {40, 40}}</string>
 										<reference key="NSSuperview" ref="84567995"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="986488416"/>
+										<reference key="NSNextKeyView" ref="1024888978"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -210,7 +210,7 @@
 										<reference key="IBUIFontDescription" ref="39472980"/>
 										<reference key="IBUIFont" ref="109295743"/>
 									</object>
-									<object class="IBUIButton" id="986488416">
+									<object class="IBUIButton" id="1024888978">
 										<reference key="NSNextResponder" ref="84567995"/>
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{40, 9}, {60, 18}}</string>
@@ -436,7 +436,7 @@
 									<object class="IBUILabel" id="443427436">
 										<reference key="NSNextResponder" ref="467189072"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{125, 0.5}, {400, 32}}</string>
+										<string key="NSFrame">{{125, 2.5}, {400, 30}}</string>
 										<reference key="NSSuperview" ref="467189072"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="478883009"/>
@@ -447,6 +447,8 @@
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 										<nil key="IBUIHighlightedColor"/>
+										<reference key="IBUIShadowColor" ref="966514737"/>
+										<string key="IBUIShadowOffset">{0, 1}</string>
 										<int key="IBUIBaselineAdjustment">0</int>
 										<int key="IBUILineBreakMode">2</int>
 										<string key="IBUIText"/>
@@ -737,6 +739,7 @@
 										<string key="NSFrame">{{0, 10}, {332, 330}}</string>
 										<reference key="NSSuperview" ref="934303640"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -974,7 +977,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">repostCommentButton</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="986488416"/>
+						<reference key="destination" ref="1024888978"/>
 					</object>
 					<int key="connectionID">137</int>
 				</object>
@@ -1069,7 +1072,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">didClickRepostCommentCheckmarkButton:</string>
-						<reference key="source" ref="986488416"/>
+						<reference key="source" ref="1024888978"/>
 						<reference key="destination" ref="841351856"/>
 						<int key="IBEventType">7</int>
 					</object>
@@ -1245,41 +1248,6 @@
 						<reference key="parent" ref="1040549395"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">66</int>
-						<reference key="object" ref="74069238"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="849586716"/>
-							<reference ref="934303640"/>
-						</array>
-						<reference key="parent" ref="766721923"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">101</int>
-						<reference key="object" ref="849586716"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="498167558"/>
-						</array>
-						<reference key="parent" ref="74069238"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">102</int>
-						<reference key="object" ref="934303640"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="97355957"/>
-						</array>
-						<reference key="parent" ref="74069238"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">62</int>
-						<reference key="object" ref="498167558"/>
-						<reference key="parent" ref="849586716"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">63</int>
-						<reference key="object" ref="97355957"/>
-						<reference key="parent" ref="934303640"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">109</int>
 						<reference key="object" ref="443427436"/>
 						<reference key="parent" ref="467189072"/>
@@ -1289,7 +1257,7 @@
 						<reference key="object" ref="84567995"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="146845414"/>
-							<reference ref="986488416"/>
+							<reference ref="1024888978"/>
 						</array>
 						<reference key="parent" ref="1040549395"/>
 					</object>
@@ -1325,8 +1293,43 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">135</int>
-						<reference key="object" ref="986488416"/>
+						<reference key="object" ref="1024888978"/>
 						<reference key="parent" ref="84567995"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">66</int>
+						<reference key="object" ref="74069238"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="849586716"/>
+							<reference ref="934303640"/>
+						</array>
+						<reference key="parent" ref="766721923"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">102</int>
+						<reference key="object" ref="934303640"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="97355957"/>
+						</array>
+						<reference key="parent" ref="74069238"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">63</int>
+						<reference key="object" ref="97355957"/>
+						<reference key="parent" ref="934303640"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">101</int>
+						<reference key="object" ref="849586716"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="498167558"/>
+						</array>
+						<reference key="parent" ref="74069238"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">62</int>
+						<reference key="object" ref="498167558"/>
+						<reference key="parent" ref="849586716"/>
 					</object>
 				</array>
 			</object>
@@ -1448,7 +1451,6 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="atButton">UIButton</string>
 						<string key="cancelButton">UIButton</string>
-						<string key="checkmarkButton">UIButton</string>
 						<string key="emoticonsButton">UIButton</string>
 						<string key="functionLeftCheckmarkView">UIView</string>
 						<string key="functionLeftNavView">UIView</string>
@@ -1462,8 +1464,10 @@
 						<string key="navButton">UIButton</string>
 						<string key="navLabel">UILabel</string>
 						<string key="paperImageHolderView">UIView</string>
+						<string key="postButton">UIButton</string>
 						<string key="postView">UIView</string>
 						<string key="repostCommentButton">UIButton</string>
+						<string key="repostCommentCheckmarkButton">UIButton</string>
 						<string key="rightPaperGloomImageView">UIImageView</string>
 						<string key="rightPaperImageView">UIImageView</string>
 						<string key="textContainerView">UIView</string>
@@ -1479,10 +1483,6 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="cancelButton">
 							<string key="name">cancelButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="checkmarkButton">
-							<string key="name">checkmarkButton</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="emoticonsButton">
@@ -1537,12 +1537,20 @@
 							<string key="name">paperImageHolderView</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="postButton">
+							<string key="name">postButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="postView">
 							<string key="name">postView</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="repostCommentButton">
 							<string key="name">repostCommentButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="repostCommentCheckmarkButton">
+							<string key="name">repostCommentCheckmarkButton</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="rightPaperGloomImageView">
