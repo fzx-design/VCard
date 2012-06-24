@@ -45,8 +45,9 @@
 
 - (void)refresh
 {
-	_nextCursor = -1;
     _page = 1;
+	_nextCursor = -1;
+    _refreshing = YES;
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
 }
 
@@ -57,7 +58,6 @@
 
 - (void)clearData
 {
-    //TODO:
     [Comment deleteCommentsOfStatus:self.status ManagedObjectContext:self.managedObjectContext];
 }
 
@@ -80,7 +80,7 @@
         if (!client.hasError) {
             NSArray *dictArray = [client.responseJSONObject objectForKey:@"comments"];
             
-            if (_sourceChanged) {
+            if (_sourceChanged || _refreshing) {
                 _sourceChanged = NO;
                 [self clearData];
             }
@@ -106,13 +106,14 @@
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_pullView finishedLoading];
         _loading = NO;
+        _refreshing = NO;
         
     }];
     
-    Comment *lastComment = self.fetchedResultsController.fetchedObjects.lastObject;
+    NSString *maxID = _refreshing ? nil : ((Comment *)self.fetchedResultsController.fetchedObjects.lastObject).commentID;
     
     [client getCommentOfStaus:self.status.statusID
-                        maxID:lastComment.commentID
+                        maxID:maxID
                         count:20
                  authorFilter:_filterByAuthor];
 }

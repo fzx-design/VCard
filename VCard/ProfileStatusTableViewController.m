@@ -92,17 +92,18 @@
         }
         
         [self adjustBackgroundView];
+        [_pullView finishedLoading];
         [self scrollViewDidScroll:self.tableView];
         [_loadMoreView finishedLoading:_hasMoreViews];
-        [_pullView finishedLoading];
         _loading = NO;
+        _refreshing = NO;
     }];
+         
+    NSString *maxID = _refreshing ? nil : ((Status *)[self.fetchedResultsController.fetchedObjects lastObject]).statusID;
     
-    Status *lastStatus = (Status *)[self.fetchedResultsController.fetchedObjects lastObject];
-            
     [client getUserTimeline:self.user.userID 
                     SinceID:nil 
-                      maxID:lastStatus.statusID 
+                      maxID:maxID
              startingAtPage:0 
                       count:20 
                     feature:0];
@@ -110,55 +111,8 @@
 
 - (void)refresh
 {
-    if (_loading) {
-        return;
-    }
-    _loading = YES;
-    
-    WBClient *client = [WBClient client];
-    
-    [client setCompletionBlock:^(WBClient *client) {
-        
-        if (!client.hasError) {
-            NSDictionary *originalDictArray = client.responseJSONObject;            
-            NSArray *dictArray = [originalDictArray objectForKey:@"statuses"];
-            for (NSDictionary *dict in dictArray) {
-                Status *newStatus = nil;
-                newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext];
-                
-                CGFloat imageHeight = [self randomImageHeight];
-                CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight];
-                newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
-                newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
-                newStatus.forTableView = [NSNumber numberWithBool:YES];
-                [self.user addFriendsStatusesObject:newStatus];
-            }
-            
-
-            _hasMoreViews = dictArray.count == 20;
-            
-            [self.managedObjectContext processPendingChanges];
-            [self.fetchedResultsController performFetch:nil];
-        }
-        
-        [self adjustBackgroundView];
-        [_pullView finishedLoading];
-        [self scrollViewDidScroll:self.tableView];
-        [_loadMoreView finishedLoading:_hasMoreViews];
-        _loading = NO;
-    }];
-    
-    if (self.user.userID == nil) {
-        //TODO: Report Bug
-        return;
-    }
-        
-    [client getUserTimeline:self.user.userID
-                    SinceID:nil 
-                      maxID:nil
-             startingAtPage:0 
-                      count:20 
-                    feature:0];
+    _refreshing = YES;
+    [self loadMoreData];
 }
 
 - (void)loadMore

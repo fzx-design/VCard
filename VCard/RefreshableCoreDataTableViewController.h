@@ -20,6 +20,7 @@
     
     User *_user;
     BOOL _hasMoreViews;
+    BOOL _refreshing;
 }
 
 @property (nonatomic, assign) int pageIndex;

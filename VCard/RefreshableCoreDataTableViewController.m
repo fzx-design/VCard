@@ -34,6 +34,7 @@
     [super viewDidLoad];
     
     self.view.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+    _refreshing = NO;
         
     [self.tableView resetWidth:384.0];
     _pullView = [[PullToRefreshView alloc] initWithScrollView:self.tableView];

@@ -24,6 +24,7 @@
     BOOL _loading;
     NSInteger _nextPage;
     BOOL _hasMoreViews;
+    BOOL _refreshing;
 }
 
 @property (nonatomic, strong) UIView *coverView;
@@ -78,6 +79,7 @@
     _loading = NO;
     _nextPage = 1;
     _refreshIndicatorView.hidden = YES;
+    _refreshing = YES;
     _coverView = [[UIView alloc] initWithFrame:CGRectMake(1024.0, 0.0, 0.0, 0.0)];
     _coverView.backgroundColor = [UIColor blackColor];
     _coverView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
@@ -279,6 +281,12 @@
 
 
 #pragma mark - Data Methods
+- (void)refresh
+{
+    _refreshing = YES;
+    [self loadMoreData];
+}
+
 - (void)loadMoreData
 {
     if (_loading) {
@@ -306,60 +314,18 @@
             
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
-            [self.waterflowView reloadData];
-            _hasMoreViews = dictArray.count == 20;
-        }
-        
-        [_loadMoreView finishedLoading:_hasMoreViews];
-        [_loadMoreView resetPosition];
-        _loading = NO;
-    }];
-    
-    Status *lastStatus = (Status *)[self.fetchedResultsController.fetchedObjects lastObject];
-    
-    [client getFriendsTimelineSinceID:nil 
-                                maxID:lastStatus.statusID
-                       startingAtPage:0
-                                count:20 
-                              feature:0];
-}
-
-- (void)refresh
-{
-    if (_loading) {
-        return;
-    }
-    _loading = YES;
-    
-    WBClient *client = [WBClient client];
-    
-    [client setCompletionBlock:^(WBClient *client) {
-        [self refreshEnded];
-        
-        if (!client.hasError) {
-            NSArray *dictArray = client.responseJSONObject;
-            for (NSDictionary *dict in dictArray) {
-                Status *newStatus = nil;
-                newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext];
-                newStatus.forCastView = [NSNumber numberWithBool:YES];
-                CGFloat imageHeight = [self randomImageHeight];
-                CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight];
-                newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
-                newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
-                [self.currentUser addFriendsStatusesObject:newStatus];
+            if (_refreshing) {
+                [self refreshEnded];
+                int count = self.fetchedResultsController.fetchedObjects.count - 1;
+                for (int i = dictArray.count - 1;i < count ; i++) {
+                    [Status deleteObject:(Status *)[self.fetchedResultsController.fetchedObjects lastObject] inManagedObjectContext:self.managedObjectContext];
+                    [self.managedObjectContext processPendingChanges];
+                    [self.fetchedResultsController performFetch:nil];
+                }
+                [self.waterflowView refresh];
+            } else {
+                [self.waterflowView reloadData];
             }
-            
-            [self.managedObjectContext processPendingChanges];
-            [self.fetchedResultsController performFetch:nil];
-            
-            int count = self.fetchedResultsController.fetchedObjects.count - 1;
-            for (int i = dictArray.count - 1;i < count ; i++) {
-                [Status deleteObject:(Status *)[self.fetchedResultsController.fetchedObjects lastObject] inManagedObjectContext:self.managedObjectContext];
-                [self.managedObjectContext processPendingChanges];
-                [self.fetchedResultsController performFetch:nil];
-            }
-            
-            [self.waterflowView refresh];
             _hasMoreViews = dictArray.count == 20;
         }
         
@@ -367,14 +333,18 @@
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_loadMoreView resetPosition];
         _loading = NO;
+        _refreshing = NO;
     }];
     
+    NSString *maxID = _refreshing ? nil : ((Status *)[self.fetchedResultsController.fetchedObjects lastObject]).statusID;
+    
     [client getFriendsTimelineSinceID:nil 
-                                maxID:nil 
+                                maxID:maxID
                        startingAtPage:0
                                 count:20 
                               feature:0];
 }
+
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
                                 duration:(NSTimeInterval)duration 
