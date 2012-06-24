@@ -66,7 +66,7 @@
     [self.baseCardBackgroundView resetHeight:commentViewHeight];
     [self.commentInfoView resetHeight:commentViewHeight];
     
-    CGFloat cardTailOriginY = self.frame.size.height + CardTailOffset + 20.0;
+    CGFloat cardTailOriginY = self.frame.size.height + CardTailOffset - 4.0;
     
     [self.timeStampLabel resetOriginY:cardTailOriginY];
     [self.timeStampLabel setText:[self.comment.createdAt stringRepresentation]];

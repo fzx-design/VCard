@@ -44,6 +44,8 @@
 
 - (IBAction)didClickCheckCommentButton:(id)sender
 {
+    self.checkCommentButton.selected = YES;
+    self.checkMentionButton.selected = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameSelfCommentButtonClicked object:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:kNotificationObjectKeyIndex]];
 }
 

@@ -163,6 +163,7 @@
 	}
 	
 	[self.tableView reloadData];
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.001];
 }
 
 - (void)switchToByMe
@@ -177,6 +178,7 @@
 	}
 	
 	[self.tableView reloadData];
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.001];
 }
 
 
@@ -198,7 +200,7 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     SelfCommentTableViewCell *commentCell = (SelfCommentTableViewCell *)cell;
-    Comment *comment = (Comment *)self.fetchedResultsController.fetchedObjects[indexPath.row];
+    Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
     [commentCell resetOriginX:11.0];
     [commentCell resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
     [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
@@ -225,9 +227,18 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Comment *comment = (Comment *)self.fetchedResultsController.fetchedObjects[indexPath.row];    
+    Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
 	return comment.commentHeight.floatValue;
 }
 
+#pragma mark - UIScrollView delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [super scrollViewDidScroll:scrollView];
+    
+    if (_hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
+        [self loadMoreData];
+    }
+}
 
 @end

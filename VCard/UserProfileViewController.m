@@ -50,7 +50,6 @@
 #pragma mark - Over Load Method
 - (void)initialLoad
 {
-    [self.statusController refresh];
     self.pageType = StackViewPageTypeUser;
     self.pageDescription = self.user.screenName;
 }
@@ -67,8 +66,10 @@
 
 - (void)setUpViews
 {
-    self.view.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+    [self.statusController refresh];
     
+    self.view.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+        
     [_avatarImageView loadImageFromURL:self.user.largeAvatarURL completion:nil];
     [_avatarImageView setVerifiedType:[self.user verifiedTypeOfUser]];
     

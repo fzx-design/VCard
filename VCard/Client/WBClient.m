@@ -440,7 +440,12 @@ static NSString *UserID = @"";
                 feature:(int)feature
 {
     self.path = @"statuses/user_timeline.json";
-    [self.params setObject:userID forKey:@"uid"];
+    if (userID) {
+        [self.params setObject:userID forKey:@"uid"];
+    } else {
+        //TODO: Handle userID nil Error
+        return;
+    }
 	
     if (sinceID) {
         [self.params setObject:sinceID forKey:@"since_id"];
@@ -487,7 +492,7 @@ static NSString *UserID = @"";
                           page:(int)page
                          count:(int)count
 {
-    self.path = @"comments/by_me.json";
+    self.path = @"comments/to_me.json";
     if (sinceID) {
         [self.params setObject:sinceID forKey:@"since_id"];
     }
