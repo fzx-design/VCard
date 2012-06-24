@@ -198,7 +198,7 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     SelfCommentTableViewCell *commentCell = (SelfCommentTableViewCell *)cell;
-    Comment *comment = (Comment *)self.fetchedResultsController.fetchedObjects[indexPath.row];
+    Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
     [commentCell resetOriginX:11.0];
     [commentCell resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
     [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
@@ -225,7 +225,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Comment *comment = (Comment *)self.fetchedResultsController.fetchedObjects[indexPath.row];    
+    Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
 	return comment.commentHeight.floatValue;
 }
 
