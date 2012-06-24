@@ -51,6 +51,7 @@
     self.functionLeftCheckmarkView.hidden = NO;
     self.functionLeftNavView.hidden = YES;
     self.motionsView.hidden = YES;
+    self.textView.text = @"";
     CGRect frame = self.functionRightView.frame;
     frame.origin.x = self.functionLeftCheckmarkView.frame.origin.x + self.functionLeftCheckmarkView.frame.size.width;
     self.functionRightView.frame = frame;

@@ -31,7 +31,7 @@
 {
     self.functionLeftCheckmarkView.hidden = YES;
     self.functionLeftNavView.hidden = NO;
-    
+    self.textView.text = @"";
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     

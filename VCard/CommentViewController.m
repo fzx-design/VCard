@@ -7,6 +7,9 @@
 //
 
 #import "CommentViewController.h"
+#import "PostViewController.h"
+#import "UIApplication+Addition.h"
+#import "User.h"
 
 @implementation CommentViewController
 
@@ -42,11 +45,12 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    self.commentButton = nil;
 }
 
 #pragma mark - IBActions
 
--(IBAction)didClickChangeSourceButton:(id)sender
+-(IBAction)didClickChangeSourceButton:(UIButton *)sender
 {
     [self.commentTableViewController changeSource];
     if (self.commentTableViewController.filterByAuthor) {
@@ -60,9 +64,14 @@
     }
 }
 
-- (IBAction)didClickCommentButton:(id)sender
+- (IBAction)didClickCommentButton:(UIButton *)sender
 {
-    
+    NSString *targetUserName = self.status.author.screenName;
+    NSString *targetStatusID = self.status.statusID;
+    CGRect frame = [self.view convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
+
+    PostViewController *vc = [PostViewController getCommentWeiboViewControllerWithWeiboID:targetStatusID weiboOwnerName:targetUserName Delegate:self];
+    [vc showViewFromRect:frame];
 }
 
 #pragma mark - Properties
@@ -86,6 +95,25 @@
         
     }
     return _commentTableViewController;
+}
+
+#pragma mark - PostViewController Delegate
+
+- (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message {
+    [vc dismissViewUpwards];
+}
+
+- (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
+    [vc dismissViewUpwards];
+    //[vc dismissViewToRect:[self.view convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
 }
 
 @end
