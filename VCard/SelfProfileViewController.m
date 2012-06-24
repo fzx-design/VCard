@@ -29,9 +29,7 @@
     
     self.user = self.currentUser;
     [super setUpViews];
-    
-    // TEST
-    [_avatarImageView swingHalt:_avatarImageView.layer fromAngle:-0.089 * M_PI];
+        
 }
 
 - (void)viewDidUnload

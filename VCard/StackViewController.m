@@ -100,6 +100,12 @@
     [vc.view resetHeight:self.view.frame.size.height];
     
     [self.controllerStack addObject:vc];
+    for (StackViewPageController *animationVC in self.controllerStack) {
+        //TODO: Implement Swing Animation
+//        [animationVC stackScrollingStart];
+//        [animationVC stackScrollingEnd];
+        [animationVC performSelector:@selector(stackScrollingEnd) withObject:nil afterDelay:0.1];
+    }
     [self.stackView addNewPage:vc.view replacingView:replacingOtherView completion:^{
         [vc initialLoad];
     }];

@@ -33,5 +33,7 @@ typedef enum {
 @property (nonatomic, assign) StackViewPageType pageType;
 
 - (void)initialLoad;
+- (void)stackScrollingStart;
+- (void)stackScrollingEnd;
 
 @end

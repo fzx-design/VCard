@@ -117,7 +117,7 @@
     rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     rotationAnimation.fillMode = kCAFillModeForwards;
     rotationAnimation.removedOnCompletion = NO;
-    rotationAnimation.duration = 0.01;
+    rotationAnimation.duration = 0.1;
     
     [self.layer removeAllAnimations];
     [self.layer addAnimation:rotationAnimation forKey:@"swingAnimation"];

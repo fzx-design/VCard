@@ -54,6 +54,20 @@
     self.pageDescription = self.user.screenName;
 }
 
+- (void)stackScrollingStart
+{
+    //TODO: Test
+    [_avatarImageView swingOnce:_avatarImageView.layer toAngle:-0.089 * M_PI];
+}
+
+
+- (void)stackScrollingEnd
+{
+    //TODO: Test
+    [_avatarImageView swingHalt:_avatarImageView.layer fromAngle:-0.089 * M_PI];
+}
+
+
 #pragma mark - Setup
 - (void)viewDidLoad
 {
