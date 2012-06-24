@@ -123,10 +123,8 @@
     [self.layer addAnimation:rotationAnimation forKey:@"swingAnimation"];
 }
 
-- (void)swingHalt:(CALayer *)layer
+- (void)swingHalt:(CALayer *)layer fromAngle:(CGFloat)fromAngle
 {
-    CGFloat toAngle = 0.089 * M_PI;
-    
     self.layer.anchorPoint = CGPointMake(0.5, -0.34);
     self.layer.position = CGPointMake(95.0, 90.0 - self.frame.size.height * 0.84);
     
@@ -135,7 +133,8 @@
     
     for (int i = 0; i < 5; i++) {
         CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-        rotationAnimation.toValue = [NSNumber numberWithFloat:((4-i)/5.0)*((4-i)/5.0)*toAngle*(-1+2*((i+1)%2))];
+        rotationAnimation.toValue = [NSNumber numberWithFloat:((4-i)/5.0)*((4-i)/5.0)*fromAngle*(-1+2*(i%2))];
+        NSLog(@"%f", [rotationAnimation.toValue floatValue]);
         rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         rotationAnimation.fillMode = kCAFillModeForwards;
         rotationAnimation.removedOnCompletion = NO;
@@ -143,7 +142,7 @@
         rotationAnimation.beginTime = i * 0.4;
         
         if (i == 0) {
-            rotationAnimation.fromValue = [NSNumber numberWithFloat:-1*toAngle];
+            rotationAnimation.fromValue = [NSNumber numberWithFloat:fromAngle];
         }
         
         [animationArray addObject:rotationAnimation];
