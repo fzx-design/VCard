@@ -23,6 +23,8 @@
 @interface CastViewController () {
     BOOL _loading;
     NSInteger _nextPage;
+    BOOL _hasMoreViews;
+    BOOL _refreshing;
 }
 
 @property (nonatomic, strong) UIView *coverView;
@@ -77,6 +79,7 @@
     _loading = NO;
     _nextPage = 1;
     _refreshIndicatorView.hidden = YES;
+    _refreshing = YES;
     _coverView = [[UIView alloc] initWithFrame:CGRectMake(1024.0, 0.0, 0.0, 0.0)];
     _coverView.backgroundColor = [UIColor blackColor];
     _coverView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
@@ -118,8 +121,15 @@
 - (void)setUpWaterflowView
 {
     _pullView = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
-    [_pullView setDelegate:self];
+    _pullView.delegate = self;
+    _pullView.shouldAutoRotate = YES;
+    
+    _loadMoreView = [[LoadMoreView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
+    _loadMoreView.delegate = self;
+    _loadMoreView.shouldAutoRotate = YES;
+    
     [self.waterflowView addSubview:_pullView];
+    [self.waterflowView addSubview:_loadMoreView];
     
     self.waterflowView.flowdatasource = self;
     self.waterflowView.flowdelegate = self;
@@ -234,7 +244,7 @@
     vc.currentUser = self.currentUser;
     vc.screenName = self.currentUser.screenName;
     
-    [self stackViewAtIndex:0 push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
+    [self stackViewAtIndex:65535 push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
 }
 
 - (void)stackViewAtIndex:(int)index
@@ -259,15 +269,18 @@
             _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         }];
     }
-//        [_stackViewController addViewController:vc replacingOtherView:stackViewExists];
-//    } else {
-        [_stackViewController insertStackPage:vc atIndex:index withPageType:pageType pageDescription:pageDescription];
-//    }
+    [_stackViewController insertStackPage:vc atIndex:index withPageType:pageType pageDescription:pageDescription];
     
 }
 
 
 #pragma mark - Data Methods
+- (void)refresh
+{
+    _refreshing = YES;
+    [self loadMoreData];
+}
+
 - (void)loadMoreData
 {
     if (_loading) {
@@ -295,71 +308,37 @@
             
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
-            
-            [self.waterflowView reloadData];
+            if (_refreshing) {
+                [self refreshEnded];
+                int count = self.fetchedResultsController.fetchedObjects.count - 1;
+                for (int i = dictArray.count - 1;i < count ; i++) {
+                    [Status deleteObject:(Status *)[self.fetchedResultsController.fetchedObjects lastObject] inManagedObjectContext:self.managedObjectContext];
+                    [self.managedObjectContext processPendingChanges];
+                    [self.fetchedResultsController performFetch:nil];
+                }
+                [self.waterflowView refresh];
+            } else {
+                [self.waterflowView reloadData];
+            }
+            _hasMoreViews = dictArray.count == 20;
         }
         
+        [_pullView finishedLoading];
+        [_loadMoreView finishedLoading:_hasMoreViews];
+        [_loadMoreView resetPosition];
         _loading = NO;
+        _refreshing = NO;
     }];
     
-    Status *lastStatus = (Status *)[self.fetchedResultsController.fetchedObjects lastObject];
+    NSString *maxID = _refreshing ? nil : ((Status *)[self.fetchedResultsController.fetchedObjects lastObject]).statusID;
     
     [client getFriendsTimelineSinceID:nil 
-                                maxID:lastStatus.statusID
+                                maxID:maxID
                        startingAtPage:0
                                 count:20 
                               feature:0];
 }
 
-- (void)refresh
-{
-    if (_loading) {
-        return;
-    }
-    _loading = YES;
-    
-    WBClient *client = [WBClient client];
-    
-    [client setCompletionBlock:^(WBClient *client) {
-        [self refreshEnded];
-        
-        if (!client.hasError) {
-            NSArray *dictArray = client.responseJSONObject;
-            for (NSDictionary *dict in dictArray) {
-                Status *newStatus = nil;
-                newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext];
-                newStatus.forCastView = [NSNumber numberWithBool:YES];
-                CGFloat imageHeight = [self randomImageHeight];
-                CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight];
-                newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
-                newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
-                [self.currentUser addFriendsStatusesObject:newStatus];
-            }
-            
-            [self.managedObjectContext processPendingChanges];
-            [self.fetchedResultsController performFetch:nil];
-            
-            int count = self.fetchedResultsController.fetchedObjects.count - 1;
-            for (int i = dictArray.count - 1;i < count ; i++) {
-                [Status deleteObject:(Status *)[self.fetchedResultsController.fetchedObjects lastObject] inManagedObjectContext:self.managedObjectContext];
-                [self.managedObjectContext processPendingChanges];
-                [self.fetchedResultsController performFetch:nil];
-            }
-            
-            [self.waterflowView refresh];
-            
-        }
-        
-        [_pullView finishedLoading];
-        _loading = NO;
-    }];
-    
-    [client getFriendsTimelineSinceID:nil 
-                                maxID:nil 
-                       startingAtPage:0
-                                count:20 
-                              feature:0];
-}
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
                                 duration:(NSTimeInterval)duration 
@@ -415,6 +394,11 @@
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view
 {
     [self refresh];
+}
+
+- (void)loadMoreViewShouldLoadMoreView:(LoadMoreView *)view
+{
+    [self loadMoreData];
 }
 
 #pragma mark - WaterflowDataSource

@@ -17,6 +17,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *changeSourceButton;
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 
--(IBAction)didClickChangeSourceButton:(id)sender;
+- (IBAction)didClickChangeSourceButton:(id)sender;
+- (IBAction)didClickCommentButton:(id)sender;
 
 @end

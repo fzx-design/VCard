@@ -36,5 +36,6 @@ typedef enum {
 
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, weak) id<LoadMoreViewDelegate> delegate;
+@property (nonatomic, assign) BOOL shouldAutoRotate;
 
 @end

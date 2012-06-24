@@ -156,7 +156,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 {
     CGFloat height = 0.0;
     height +=  CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight + CardSizeRepostHeightOffset;
-    height += [CardViewController heightForCellWithText:comment_.text] + CardSizeTextGap;
+    height += [CardViewController heightForCellWithText:comment_.text] + CardSizeTextGap + 24.0;
     
     return height;
 }
