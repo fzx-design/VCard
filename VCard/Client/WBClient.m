@@ -466,6 +466,42 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
+- (void)getCommentsToMeSinceID:(NSString *)sinceID
+                         maxID:(NSString *)maxID
+                          page:(int)page
+                         count:(int)count
+{
+    self.path = @"comments/by_me.json";
+    if (sinceID) {
+        [self.params setObject:sinceID forKey:@"since_id"];
+    }
+    if (maxID) {
+        [self.params setObject:[NSString stringWithFormat:@"%@", maxID] forKey:@"max_id"];
+    }
+    [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    [self.params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+    
+    [self loadNormalRequest];
+}
+
+- (void)getCommentsByMeSinceID:(NSString *)sinceID
+                         maxID:(NSString *)maxID
+                          page:(int)page
+                         count:(int)count
+{
+    self.path = @"comments/by_me.json";
+    if (sinceID) {
+        [self.params setObject:sinceID forKey:@"since_id"];
+    }
+    if (maxID) {
+        [self.params setObject:[NSString stringWithFormat:@"%@", maxID] forKey:@"max_id"];
+    }
+    [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    [self.params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+    
+    [self loadNormalRequest];
+}
+
 #pragma mark Request
 
 - (void)loadNormalRequest

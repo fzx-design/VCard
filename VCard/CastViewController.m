@@ -272,10 +272,7 @@
             _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         }];
     }
-//        [_stackViewController addViewController:vc replacingOtherView:stackViewExists];
-//    } else {
-        [_stackViewController insertStackPage:vc atIndex:index withPageType:pageType pageDescription:pageDescription];
-//    }
+    [_stackViewController insertStackPage:vc atIndex:index withPageType:pageType pageDescription:pageDescription];
     
 }
 

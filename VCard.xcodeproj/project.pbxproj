@@ -75,6 +75,9 @@
 		188BA4EB15398DC900344288 /* BaseCardBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188BA4EA15398DC800344288 /* BaseCardBackgroundView.m */; };
 		188BA4F41539AAD100344288 /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188BA4F31539AAD100344288 /* CardViewController.m */; };
 		188BA4F91539B3EB00344288 /* CardImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188BA4F81539B3EB00344288 /* CardImageView.m */; };
+		188E52FC1596EA1B00A30AB8 /* SelfCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E52FB1596EA1B00A30AB8 /* SelfCommentViewController.m */; };
+		188E53051596EB4600A30AB8 /* SelfCommentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E53041596EB4600A30AB8 /* SelfCommentTableViewController.m */; };
+		188E53081596EB6B00A30AB8 /* SelfCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E53071596EB6B00A30AB8 /* SelfCommentTableViewCell.m */; };
 		1890C68A15356BCB00023A13 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C68915356BCB00023A13 /* LoginViewController.m */; };
 		1890C69115356F6F00023A13 /* BaseLayoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C69015356F6F00023A13 /* BaseLayoutView.m */; };
 		1890C6B21535B57B00023A13 /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B11535B57A00023A13 /* EasyTableView.m */; };
@@ -780,6 +783,12 @@
 		188BA4F31539AAD100344288 /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
 		188BA4F71539B3EB00344288 /* CardImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardImageView.h; sourceTree = "<group>"; };
 		188BA4F81539B3EB00344288 /* CardImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardImageView.m; sourceTree = "<group>"; };
+		188E52FA1596EA1B00A30AB8 /* SelfCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfCommentViewController.h; sourceTree = "<group>"; };
+		188E52FB1596EA1B00A30AB8 /* SelfCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfCommentViewController.m; sourceTree = "<group>"; };
+		188E53031596EB4600A30AB8 /* SelfCommentTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfCommentTableViewController.h; sourceTree = "<group>"; };
+		188E53041596EB4600A30AB8 /* SelfCommentTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfCommentTableViewController.m; sourceTree = "<group>"; };
+		188E53061596EB6B00A30AB8 /* SelfCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfCommentTableViewCell.h; sourceTree = "<group>"; };
+		188E53071596EB6B00A30AB8 /* SelfCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfCommentTableViewCell.m; sourceTree = "<group>"; };
 		1890C68815356BCB00023A13 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1890C68915356BCB00023A13 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1890C68F15356F6F00023A13 /* BaseLayoutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseLayoutView.h; sourceTree = "<group>"; };
@@ -1669,6 +1678,17 @@
 			name = CastView;
 			sourceTree = "<group>";
 		};
+		188E53021596EAFF00A30AB8 /* SelfCommentTableView */ = {
+			isa = PBXGroup;
+			children = (
+				188E53061596EB6B00A30AB8 /* SelfCommentTableViewCell.h */,
+				188E53071596EB6B00A30AB8 /* SelfCommentTableViewCell.m */,
+				188E53031596EB4600A30AB8 /* SelfCommentTableViewController.h */,
+				188E53041596EB4600A30AB8 /* SelfCommentTableViewController.m */,
+			);
+			name = SelfCommentTableView;
+			sourceTree = "<group>";
+		};
 		18A6850715370EB900D58B7D /* LoginComponent */ = {
 			isa = PBXGroup;
 			children = (
@@ -1732,6 +1752,7 @@
 		18DBAE531573348400918ED4 /* TabelView */ = {
 			isa = PBXGroup;
 			children = (
+				188E53021596EAFF00A30AB8 /* SelfCommentTableView */,
 				18F1E5141577AABC00EB71DD /* CommentTableView */,
 				18F1E4FA15773A2200EB71DD /* StatusTableView */,
 				18F1E4F8157739F300EB71DD /* RelationTableView */,
@@ -2318,6 +2339,8 @@
 				18DBAE721573977800918ED4 /* FriendProfileViewController.m */,
 				18F1E5161577AC5E00EB71DD /* CommentViewController.h */,
 				18F1E5171577AC5E00EB71DD /* CommentViewController.m */,
+				188E52FA1596EA1B00A30AB8 /* SelfCommentViewController.h */,
+				188E52FB1596EA1B00A30AB8 /* SelfCommentViewController.m */,
 			);
 			name = StackPage;
 			sourceTree = "<group>";
@@ -3356,6 +3379,9 @@
 				18C1903E15947B0B00DA1A6A /* Comment.m in Sources */,
 				E1998AF81592EB5400BBAC55 /* PostNewStatusViewController.m in Sources */,
 				E1A7EFDC15936D4B00E2B900 /* PostRepostCommentViewController.m in Sources */,
+				188E52FC1596EA1B00A30AB8 /* SelfCommentViewController.m in Sources */,
+				188E53051596EB4600A30AB8 /* SelfCommentTableViewController.m in Sources */,
+				188E53081596EB6B00A30AB8 /* SelfCommentTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

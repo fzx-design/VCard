@@ -44,6 +44,8 @@
     // Release any retained subviews of the main view.
 }
 
+#pragma mark - IBActions
+
 -(IBAction)didClickChangeSourceButton:(id)sender
 {
     [self.commentTableViewController changeSource];
@@ -58,6 +60,12 @@
     }
 }
 
+- (IBAction)didClickCommentButton:(id)sender
+{
+    
+}
+
+#pragma mark - Properties
 - (CGRect)frameForTableView
 {
     CGFloat originY = 50;

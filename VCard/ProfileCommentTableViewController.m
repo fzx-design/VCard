@@ -164,7 +164,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Comment *comment = (Comment *)self.fetchedResultsController.fetchedObjects[indexPath.row];    
-	return comment.commentHeight.floatValue + 24.0;
+	return comment.commentHeight.floatValue;
 }
 
 #pragma mark - Adjust table view layout

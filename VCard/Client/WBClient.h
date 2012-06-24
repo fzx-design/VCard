@@ -140,6 +140,16 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                     count:(int)count
              authorFilter:(BOOL)filter;
 
+- (void)getCommentsToMeSinceID:(NSString *)sinceID
+                         maxID:(NSString *)maxID
+                          page:(int)page
+                         count:(int)count;
+
+- (void)getCommentsByMeSinceID:(NSString *)sinceID
+                         maxID:(NSString *)maxID
+                          page:(int)page
+                         count:(int)count;
+
 - (void)getFriendsOfUser:(NSString *)userID cursor:(int)cursor count:(int)count;
 - (void)getFollowersOfUser:(NSString *)userID cursor:(int)cursor count:(int)count;
 
