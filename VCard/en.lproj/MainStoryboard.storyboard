@@ -717,6 +717,9 @@
                                         <state key="highlighted" image="cell_hover.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="didClickCheckCommentButton:" destination="m0Z-sD-uNg" eventType="touchUpInside" id="WyL-SS-NKo"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hasAttributedTitle="NO" lineBreakMode="middleTruncation" id="vVy-wW-YmU">
                                         <rect key="frame" x="215" y="205" width="191" height="48"/>
@@ -1483,7 +1486,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProfileCommentTableViewCell" rowHeight="150" id="rAn-AX-zyW" customClass="SelfCommentTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SelfCommentTableViewCell" rowHeight="150" id="rAn-AX-zyW" customClass="SelfCommentTableViewCell">
                                 <rect key="frame" x="0.0" y="22" width="384" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1835,6 +1838,7 @@
         <class className="SelfProfileViewController" superclassName="UserProfileViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfProfileViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didClickCheckCommentButton:"/>
                 <relationship kind="outlet" name="changeAvatarButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkCommentButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkMentionButton" candidateClass="UIButton"/>
@@ -1886,6 +1890,7 @@
         <class className="UserSelectionCellViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSelectionCellViewController.h"/>
             <relationships>
+                <relationship kind="action" name="loginButtonClicked:"/>
                 <relationship kind="outlet" name="avatarImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="avatarImageViewBG" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>

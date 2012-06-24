@@ -19,6 +19,7 @@
 #import "PostViewController.h"
 #import "UIApplication+Addition.h"
 #import "CommentViewController.h"
+#import "SelfCommentViewController.h"
 
 @interface CastViewController () {
     BOOL _loading;
@@ -108,6 +109,10 @@
                selector:@selector(commentButtonClicked:)
                    name:kNotificationCommentButtonClicked
                  object:nil];
+    [center addObserver:self
+               selector:@selector(selfCommentButtonClicked:)
+                   name:kNotificationNameSelfCommentButtonClicked
+                 object:nil];
     
 }
 
@@ -136,6 +141,8 @@
     
     [self.waterflowView refresh];
 }
+
+#pragma mark - Notification
 
 - (void)userNameClicked:(NSNotification *)notification
 {
@@ -186,6 +193,19 @@
     vc.status = status;
     
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:vc.status.statusID];
+}
+
+- (void)selfCommentButtonClicked:(NSNotification *)notification
+{
+    NSDictionary *dictionary = notification.object;
+    
+    NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
+    int index = indexString.intValue;
+    
+    SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfCommentViewController"];
+    vc.currentUser = self.currentUser;
+    
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:@""];
 }
 
 - (void)hideWaterflowView

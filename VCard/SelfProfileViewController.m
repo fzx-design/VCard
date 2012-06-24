@@ -42,5 +42,10 @@
     // Release any retained subviews of the main view.
 }
 
+- (IBAction)didClickCheckCommentButton:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameSelfCommentButtonClicked object:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:kNotificationObjectKeyIndex]];
+}
+
 
 @end
