@@ -185,7 +185,7 @@
 										<string key="NSFrame">{{0, -2}, {40, 40}}</string>
 										<reference key="NSSuperview" ref="84567995"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="1024888978"/>
+										<reference key="NSNextKeyView" ref="370927529"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -210,7 +210,7 @@
 										<reference key="IBUIFontDescription" ref="39472980"/>
 										<reference key="IBUIFont" ref="109295743"/>
 									</object>
-									<object class="IBUIButton" id="1024888978">
+									<object class="IBUIButton" id="370927529">
 										<reference key="NSNextResponder" ref="84567995"/>
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{40, 9}, {60, 18}}</string>
@@ -465,7 +465,7 @@
 									<object class="IBUIButton" id="1048132111">
 										<reference key="NSNextResponder" ref="467189072"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrameSize">{50, 30}</string>
+										<string key="NSFrame">{{4, 0}, {50, 32}}</string>
 										<reference key="NSSuperview" ref="467189072"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="443427436"/>
@@ -478,8 +478,8 @@
 										<string key="IBUITitleShadowOffset">{0, 1}</string>
 										<string key="IBUINormalTitle">关闭</string>
 										<object class="NSColor" key="IBUIHighlightedTitleColor">
-											<int key="NSColorSpace">1</int>
-											<bytes key="NSRGB">MC40MTU2ODYyNzQ1IDAuNDE1Njg2Mjc0NSAwLjQxNTY4NjI3NDUAA</bytes>
+											<int key="NSColorSpace">3</int>
+											<bytes key="NSWhite">MC4yAA</bytes>
 										</object>
 										<object class="NSColor" key="IBUINormalTitleColor">
 											<int key="NSColorSpace">1</int>
@@ -490,6 +490,10 @@
 											<bytes key="NSRGB">MSAxIDEAA</bytes>
 										</object>
 										<reference key="IBUINormalTitleShadowColor" ref="934798391"/>
+										<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">button_paper_light_hover.png</string>
+										</object>
 										<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 											<string key="NSClassName">NSImage</string>
 											<string key="NSResourceName">button_paper_light_bg.png</string>
@@ -510,8 +514,8 @@
 										<array class="NSMutableArray" key="NSSubviews">
 											<object class="IBUIImageView" id="726278153">
 												<reference key="NSNextResponder" ref="478883009"/>
-												<int key="NSvFlags">292</int>
-												<string key="NSFrameSize">{97, 32}</string>
+												<int key="NSvFlags">289</int>
+												<string key="NSFrameSize">{100, 32}</string>
 												<reference key="NSSuperview" ref="478883009"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="333584001"/>
@@ -522,11 +526,15 @@
 													<string key="NSClassName">NSImage</string>
 													<string key="NSResourceName">button_post_bg.png</string>
 												</object>
+												<object class="NSCustomResource" key="IBUIHighlightedImage">
+													<string key="NSClassName">NSImage</string>
+													<string key="NSResourceName">button_post_bg_error.png</string>
+												</object>
 											</object>
 											<object class="IBUIButton" id="935248095">
 												<reference key="NSNextResponder" ref="478883009"/>
-												<int key="NSvFlags">301</int>
-												<string key="NSFrame">{{46, 1}, {50, 30}}</string>
+												<int key="NSvFlags">289</int>
+												<string key="NSFrame">{{48, 0}, {52, 32}}</string>
 												<reference key="NSSuperview" ref="478883009"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="340404125"/>
@@ -540,11 +548,16 @@
 												<int key="IBUIContentHorizontalAlignment">0</int>
 												<int key="IBUIContentVerticalAlignment">0</int>
 												<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
+												<bool key="IBUIAdjustsImageWhenDisabled">NO</bool>
 												<string key="IBUITitleShadowOffset">{0, 1}</string>
 												<string key="IBUINormalTitle">发表</string>
 												<object class="NSColor" key="IBUIHighlightedTitleColor">
 													<int key="NSColorSpace">1</int>
 													<bytes key="NSRGB">MC4xNTI5NDExNzY1IDAuMTUyOTQxMTc2NSAwLjE1Mjk0MTE3NjUAA</bytes>
+												</object>
+												<object class="NSColor" key="IBUIDisabledTitleColor">
+													<int key="NSColorSpace">1</int>
+													<bytes key="NSRGB">MC42MzkyMTU2ODYzIDAuNDA3ODQzMTM3MyAwLjQwNzg0MzEzNzMAA</bytes>
 												</object>
 												<object class="NSColor" key="IBUINormalTitleColor">
 													<int key="NSColorSpace">1</int>
@@ -554,14 +567,22 @@
 													<int key="NSColorSpace">1</int>
 													<bytes key="NSRGB">MSAxIDEgMC40NQA</bytes>
 												</object>
+												<object class="NSColor" key="IBUIDisabledTitleShadowColor">
+													<int key="NSColorSpace">1</int>
+													<bytes key="NSRGB">MSAxIDEgMC40NQA</bytes>
+												</object>
 												<reference key="IBUINormalTitleShadowColor" ref="242921209"/>
+												<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage">
+													<string key="NSClassName">NSImage</string>
+													<string key="NSResourceName">button_post_hover.png</string>
+												</object>
 												<reference key="IBUIFontDescription" ref="1072698757"/>
 												<reference key="IBUIFont" ref="7583716"/>
 											</object>
 											<object class="IBUILabel" id="333584001">
 												<reference key="NSNextResponder" ref="478883009"/>
-												<int key="NSvFlags">292</int>
-												<string key="NSFrame">{{1, 0}, {44, 30}}</string>
+												<int key="NSvFlags">289</int>
+												<string key="NSFrame">{{2, -1}, {46, 32}}</string>
 												<reference key="NSSuperview" ref="478883009"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="935248095"/>
@@ -571,7 +592,10 @@
 												<int key="IBUIContentMode">7</int>
 												<bool key="IBUIUserInteractionEnabled">NO</bool>
 												<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-												<nil key="IBUIHighlightedColor"/>
+												<object class="NSColor" key="IBUIHighlightedColor">
+													<int key="NSColorSpace">1</int>
+													<bytes key="NSRGB">MC41NjA3ODQzMTM3IDAgMAA</bytes>
+												</object>
 												<reference key="IBUIShadowColor" ref="966514737"/>
 												<string key="IBUIShadowOffset">{0, 1}</string>
 												<int key="IBUIBaselineAdjustment">0</int>
@@ -589,7 +613,7 @@
 												<int key="IBUIAutoshrinkMode">0</int>
 											</object>
 										</array>
-										<string key="NSFrame">{{553, 0}, {97, 32}}</string>
+										<string key="NSFrame">{{550, 0}, {100, 32}}</string>
 										<reference key="NSSuperview" ref="467189072"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="726278153"/>
@@ -977,7 +1001,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">repostCommentButton</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="1024888978"/>
+						<reference key="destination" ref="370927529"/>
 					</object>
 					<int key="connectionID">137</int>
 				</object>
@@ -988,6 +1012,22 @@
 						<reference key="destination" ref="146845414"/>
 					</object>
 					<int key="connectionID">138</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">postButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="935248095"/>
+					</object>
+					<int key="connectionID">139</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">postImageView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="726278153"/>
+					</object>
+					<int key="connectionID">140</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1072,7 +1112,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">didClickRepostCommentCheckmarkButton:</string>
-						<reference key="source" ref="1024888978"/>
+						<reference key="source" ref="370927529"/>
 						<reference key="destination" ref="841351856"/>
 						<int key="IBEventType">7</int>
 					</object>
@@ -1257,7 +1297,7 @@
 						<reference key="object" ref="84567995"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="146845414"/>
-							<reference ref="1024888978"/>
+							<reference ref="370927529"/>
 						</array>
 						<reference key="parent" ref="1040549395"/>
 					</object>
@@ -1293,7 +1333,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">135</int>
-						<reference key="object" ref="1024888978"/>
+						<reference key="object" ref="370927529"/>
 						<reference key="parent" ref="84567995"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1374,11 +1414,11 @@
 				<string key="37.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="38.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="1" key="4.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="0.0" key="4.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="49.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="54.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="0.0" key="6.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="1" key="6.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="62.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="63.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="66.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1389,7 +1429,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">138</int>
+			<int key="maxID">140</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1465,6 +1505,7 @@
 						<string key="navLabel">UILabel</string>
 						<string key="paperImageHolderView">UIView</string>
 						<string key="postButton">UIButton</string>
+						<string key="postImageView">UIImageView</string>
 						<string key="postView">UIView</string>
 						<string key="repostCommentButton">UIButton</string>
 						<string key="repostCommentCheckmarkButton">UIButton</string>
@@ -1541,6 +1582,10 @@
 							<string key="name">postButton</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="postImageView">
+							<string key="name">postImageView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="postView">
 							<string key="name">postView</string>
 							<string key="candidateClassName">UIView</string>
@@ -1602,8 +1647,11 @@
 			<string key="button_new_mentions_hover.png">{25, 25}</string>
 			<string key="button_new_topic.png">{25, 25}</string>
 			<string key="button_new_topic_hover.png">{25, 25}</string>
-			<string key="button_paper_light_bg.png">{50, 30}</string>
-			<string key="button_post_bg.png">{97, 32}</string>
+			<string key="button_paper_light_bg.png">{50, 32}</string>
+			<string key="button_paper_light_hover.png">{50, 32}</string>
+			<string key="button_post_bg.png">{100, 32}</string>
+			<string key="button_post_bg_error.png">{100, 32}</string>
+			<string key="button_post_hover.png">{52, 32}</string>
 			<string key="checkmark.png">{30, 30}</string>
 			<string key="checkmark_hover.png">{30, 30}</string>
 			<string key="motions_clip.png">{35, 50}</string>

@@ -111,6 +111,7 @@ typedef enum {
 @synthesize motionsOriginalImage = _motionsOriginalImage;
 @synthesize startButtonFrame = _startButtonFrame;
 @synthesize prefixText = _prefixText;
+@synthesize postImageView = _postImageView;
 
 + (id)getNewStatusViewControllerWithDelegate:(id<PostViewControllerDelegate>)delegate {
     return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeNewStatus delegate:delegate weiboID:nil replyID:nil weiboOwnerName:nil weiboContent:nil];
@@ -456,10 +457,15 @@ typedef enum {
 - (void)updateTextCountAndPostButton {
     int weiboTextBackwardsCount = [self weiboTextBackwardsCount];
     self.textCountLabel.text = [NSString stringWithFormat:@"%d", weiboTextBackwardsCount];
-    if(weiboTextBackwardsCount < 0)
+    if(weiboTextBackwardsCount < 0) {
         self.postButton.enabled = NO;
-    else
+        self.postImageView.highlighted = YES;
+        self.textCountLabel.highlighted = YES;
+    } else {
         self.postButton.enabled = YES;
+        self.postImageView.highlighted = NO;
+        self.textCountLabel.highlighted = NO;
+    }
 }
 
 - (void)presentAtHintView {
