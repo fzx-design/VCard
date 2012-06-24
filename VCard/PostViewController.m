@@ -457,11 +457,18 @@ typedef enum {
 - (void)updateTextCountAndPostButton {
     int weiboTextBackwardsCount = [self weiboTextBackwardsCount];
     self.textCountLabel.text = [NSString stringWithFormat:@"%d", weiboTextBackwardsCount];
-    if(weiboTextBackwardsCount < 0) {
+    if([self.textView.text isEqualToString:@""]) {
+        self.postButton.userInteractionEnabled = NO;
+        self.postButton.alpha = 0.3f;
+    } else if(weiboTextBackwardsCount < 0) {
+        self.postButton.alpha = 1;
+        self.postButton.userInteractionEnabled = NO;
         self.postButton.enabled = NO;
         self.postImageView.highlighted = YES;
         self.textCountLabel.highlighted = YES;
     } else {
+        self.postButton.alpha = 1;
+        self.postButton.userInteractionEnabled = YES;
         self.postButton.enabled = YES;
         self.postImageView.highlighted = NO;
         self.textCountLabel.highlighted = NO;
@@ -594,6 +601,20 @@ typedef enum {
     [self dismissViewAnimated:NO];
 }
 
+- (void)showAlbumImagePicker {
+    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+    ipc.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
+    ipc.delegate = self;
+    ipc.allowsEditing = NO;
+    
+    UIPopoverController *pc = [[UIPopoverController alloc] initWithContentViewController:ipc];
+    self.popoverController = pc;
+    self.popoverController.contentViewController.view.autoresizingMask = !UIViewAutoresizingFlexibleTopMargin;
+    pc.delegate = self;
+    [pc presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton
+      permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
 #pragma mark - Animation methods
 
 - (void)moveUpwardAnimation {
@@ -710,6 +731,10 @@ typedef enum {
 #pragma mark - IBActions
 
 - (IBAction)didClickMotionsButton:(UIButton *)sender {
+    if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+        [self showAlbumImagePicker];
+        return;
+    }
     UIActionSheet *actionSheet = nil;
     if(self.motionsImageView.image) {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil
@@ -897,18 +922,7 @@ typedef enum {
             [self.delegate postViewController:self willDropMessage:self.textView.text];
 	} else if(self.currentActionSheetType == ActionSheetTypeMotions) {
         if(buttonIndex == MOTIONS_ACTION_SHEET_ALBUM_INDEX) {
-            
-            UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
-            ipc.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
-            ipc.delegate = self;
-            ipc.allowsEditing = NO;
-            
-            UIPopoverController *pc = [[UIPopoverController alloc] initWithContentViewController:ipc];
-            self.popoverController = pc;
-            self.popoverController.contentViewController.view.autoresizingMask = !UIViewAutoresizingFlexibleTopMargin;
-            pc.delegate = self;
-            [pc presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton
-              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            [self showAlbumImagePicker];
         } else if(buttonIndex == MOTIONS_ACTION_SHEET_SHOOT_INDEX) {
             MotionsViewController *vc = [[MotionsViewController alloc] init];
             vc.delegate = self;
