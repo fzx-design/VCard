@@ -73,12 +73,6 @@
     NSString *targetUserName = self.comment.author.screenName;
     NSString *targetStatusID = self.comment.targetStatus.statusID;
     CGRect frame = [self convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
-    
-    PostViewController *vc = [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeComment
-                                                                          delegate:self
-                                                                           weiboID:targetStatusID
-                                                                    weiboOwnerName:targetUserName];
-    [vc showViewFromRect:frame];
 }
 
 - (IBAction)didClickUserNameButton:(UIButton *)sender
@@ -114,10 +108,10 @@
 }
 
 - (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
-    if(vc.type == PostViewControllerTypeComment)
-        [vc dismissViewToRect:[self convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
-    else
+    if(vc.type == PostViewControllerTypeRepost)
         [vc dismissViewToRect:[self convertRect:self.moreActionButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
+    else
+        [vc dismissViewToRect:[self convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
 }
 
 @end

@@ -163,7 +163,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Comment *comment = (Comment *)self.fetchedResultsController.fetchedObjects[indexPath.row];    
+    Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
 	return comment.commentHeight.floatValue;
 }
 
