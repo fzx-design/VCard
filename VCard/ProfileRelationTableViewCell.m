@@ -27,13 +27,11 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    [super setSelected:selected animated:animated];
     self.cellSelectionImageView.hidden = !selected;
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {
-    [super setSelected:highlighted animated:animated];
     self.cellSelectionImageView.hidden = !highlighted;
 }
 

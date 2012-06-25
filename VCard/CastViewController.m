@@ -59,7 +59,6 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // Custom initialization
-        [self refresh];
         [self setUpNotification];
     }
     return self;

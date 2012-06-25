@@ -166,8 +166,7 @@
 {
     User *usr = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:usr, kNotificationObjectKeyUser, [NSString stringWithFormat:@"%d", self.pageIndex], kNotificationObjectKeyIndex, nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserCellClicked object:dictionary];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:[NSDictionary dictionaryWithObjectsAndKeys:usr.screenName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
 }
 
 #pragma mark - UIScrollView delegate
