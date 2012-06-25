@@ -60,6 +60,11 @@
 
 
 #pragma mark - Data Methods
+- (void)clearData
+{
+    [Status deleteStatusesOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+}
+
 - (void)loadMoreData
 {
     if (_loading) {
@@ -73,6 +78,11 @@
         if (!client.hasError) {
             NSDictionary *originalDictArray = client.responseJSONObject;            
             NSArray *dictArray = [originalDictArray objectForKey:@"statuses"];
+            
+            if (_refreshing) {
+                [self clearData];
+            }
+            
             for (NSDictionary *dict in dictArray) {
                 Status *newStatus = nil;
                 newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
