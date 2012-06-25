@@ -404,7 +404,7 @@
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext];
  
-    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && operatedBy == %@", self.currentUser, _coreDataIdentifier];
+    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && operatable == %@", self.currentUser, [NSNumber numberWithBool:NO]];
                   
 }
 

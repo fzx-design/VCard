@@ -19,5 +19,6 @@
  not be removed from its super view automatically. */ 
 + (void)dismissModalViewControllerAnimated:(BOOL)animated;
 + (BOOL)isRetinaDisplayiPad;
++ (CGFloat)heightExcludingTopBar;
 
 @end

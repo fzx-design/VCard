@@ -74,14 +74,10 @@
 {
     StackViewPageController *result = nil;
     for (StackViewPageController *vc in self.controllerStack) {
-        NSString *a = vc.pageDescription;
-        NSString *b = [NSString stringWithFormat:@"%d", vc.pageType];
-        NSLog(@"%@ - %@", a, b);
         if (vc.pageType == pageType && [vc.pageDescription isEqualToString:pageDescription]) {
             result = vc;
         }
     }
-    NSLog(@"target: %@ - %i", pageDescription, pageType);
     
     return result;
 }

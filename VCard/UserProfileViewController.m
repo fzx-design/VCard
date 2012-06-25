@@ -7,6 +7,7 @@
 //
 
 #import "UserProfileViewController.h"
+#import "UIApplication+Addition.h"
 #import "UIView+Resize.h"
 #import "User.h"
 
@@ -15,8 +16,6 @@
 @end
 
 @implementation UserProfileViewController
-
-@synthesize testButton;
 
 @synthesize screenName;
 @synthesize avatarImageView = _avatarImageView;
@@ -172,7 +171,7 @@
 - (CGRect)frameForTableView
 {
     CGFloat originY = self.checkStatusesButton.frame.origin.y + self.checkStatusesButton.frame.size.height;
-    CGFloat height = self.view.frame.size.height - originY;
+    CGFloat height = [UIApplication heightExcludingTopBar] - originY;
     return CGRectMake(24.0, originY, 382.0, height);
 }
 
@@ -213,7 +212,6 @@
         _statusController.pageIndex = self.pageIndex;
         _statusController.view.frame = [self frameForTableView];
         _statusController.tableView.frame = [self frameForTableView];
-        
     }
     return _statusController;
 }

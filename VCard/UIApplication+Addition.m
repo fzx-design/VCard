@@ -23,6 +23,11 @@ static UIView *_backView;
     return [[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [UIScreen mainScreen].scale > 1;
 }
 
++ (CGFloat)heightExcludingTopBar
+{
+    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 704.0 : 960.0;
+}
+
 - (UIViewController *)rootViewController
 {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
