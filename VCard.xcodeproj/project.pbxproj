@@ -369,12 +369,7 @@
 		E1097D18157F99FE00BD0640 /* EmoticonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1097D14157F99FE00BD0640 /* EmoticonsViewController.m */; };
 		E1097D19157F99FE00BD0640 /* EmoticonsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1097D15157F99FE00BD0640 /* EmoticonsViewController.xib */; };
 		E1097D25157F9A1F00BD0640 /* MotionsCapturePreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1097D1B157F9A1F00BD0640 /* MotionsCapturePreviewView.m */; };
-		E1097D26157F9A1F00BD0640 /* MotionsFilterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1097D1D157F9A1F00BD0640 /* MotionsFilterTableViewCell.m */; };
-		E1097D27157F9A1F00BD0640 /* MotionsFilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1097D1E157F9A1F00BD0640 /* MotionsFilterTableViewCell.xib */; };
-		E1097D28157F9A1F00BD0640 /* MotionsFilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1097D20157F9A1F00BD0640 /* MotionsFilterTableViewController.m */; };
-		E1097D29157F9A1F00BD0640 /* MotionsFilterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1097D21157F9A1F00BD0640 /* MotionsFilterTableViewController.xib */; };
 		E1097D2A157F9A1F00BD0640 /* MotionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1097D23157F9A1F00BD0640 /* MotionsViewController.m */; };
-		E1097D2B157F9A1F00BD0640 /* MotionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1097D24157F9A1F00BD0640 /* MotionsViewController.xib */; };
 		E1097D33157F9A6900BD0640 /* CropImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1097D2D157F9A6900BD0640 /* CropImageView.m */; };
 		E1097D34157F9A6900BD0640 /* CropImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1097D2F157F9A6900BD0640 /* CropImageViewController.m */; };
 		E1097D35157F9A6900BD0640 /* CropImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1097D30157F9A6900BD0640 /* CropImageViewController.xib */; };
@@ -634,7 +629,20 @@
 		E135F7F0155E6196008494D8 /* button_menu_slideplay_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7D8155E6196008494D8 /* button_menu_slideplay_hover@2x.png */; };
 		E135F7F1155E6196008494D8 /* button_menu_slideplay.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7D9155E6196008494D8 /* button_menu_slideplay.png */; };
 		E135F7F2155E6196008494D8 /* button_menu_slideplay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7DA155E6196008494D8 /* button_menu_slideplay@2x.png */; };
+		E13D81EE1598A9F400F82D6D /* MotionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E13D81ED1598A9F300F82D6D /* MotionsViewController.xib */; };
+		E13D81F11598AA0800F82D6D /* MotionsViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E13D81F01598AA0700F82D6D /* MotionsViewController-landscape.xib */; };
+		E13D81F61598AD0500F82D6D /* motions_cover_b_vertical.png in Resources */ = {isa = PBXBuildFile; fileRef = E13D81F21598AD0400F82D6D /* motions_cover_b_vertical.png */; };
+		E13D81F71598AD0500F82D6D /* motions_cover_b_vertical@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E13D81F31598AD0400F82D6D /* motions_cover_b_vertical@2x.png */; };
+		E13D81F81598AD0500F82D6D /* motions_cover_t_vertical.png in Resources */ = {isa = PBXBuildFile; fileRef = E13D81F41598AD0400F82D6D /* motions_cover_t_vertical.png */; };
+		E13D81F91598AD0500F82D6D /* motions_cover_t_vertical@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E13D81F51598AD0500F82D6D /* motions_cover_t_vertical@2x.png */; };
+		E13D81FB1598AF4C00F82D6D /* MotionsShootViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E13D81FA1598AF4B00F82D6D /* MotionsShootViewController-landscape.xib */; };
 		E1599CC91580CD7400B9AE72 /* PostRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1599CC81580CD7400B9AE72 /* PostRootView.m */; };
+		E16539601598059E00903259 /* MotionsShootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E165395E1598059E00903259 /* MotionsShootViewController.m */; };
+		E16539611598059E00903259 /* MotionsShootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E165395F1598059E00903259 /* MotionsShootViewController.xib */; };
+		E1653966159805B100903259 /* MotionsEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1653964159805B100903259 /* MotionsEditViewController.m */; };
+		E1653967159805B100903259 /* MotionsEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1653965159805B100903259 /* MotionsEditViewController.xib */; };
+		E165396A15980E9A00903259 /* motions_button_switch.png in Resources */ = {isa = PBXBuildFile; fileRef = E165396815980E8C00903259 /* motions_button_switch.png */; };
+		E165396B15980E9A00903259 /* motions_button_switch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E165396915980E9300903259 /* motions_button_switch@2x.png */; };
 		E1998AF315919BA400BBAC55 /* post_paper_gloom_left.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF115919BA400BBAC55 /* post_paper_gloom_left.png */; };
 		E1998AF415919BA400BBAC55 /* post_paper_gloom_right.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF215919BA400BBAC55 /* post_paper_gloom_right.png */; };
 		E1998AF81592EB5400BBAC55 /* PostNewStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */; };
@@ -661,10 +669,10 @@
 		E1F4EBB9159717A2000B84D4 /* motions_control_bg_horizon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB8B159717A2000B84D4 /* motions_control_bg_horizon@2x.png */; };
 		E1F4EBBA159717A2000B84D4 /* motions_control_bg_vertical.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB8C159717A2000B84D4 /* motions_control_bg_vertical.png */; };
 		E1F4EBBB159717A2000B84D4 /* motions_control_bg_vertical@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB8D159717A2000B84D4 /* motions_control_bg_vertical@2x.png */; };
-		E1F4EBBC159717A2000B84D4 /* motions_cover_l.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB8E159717A2000B84D4 /* motions_cover_l.png */; };
-		E1F4EBBD159717A2000B84D4 /* motions_cover_l@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB8F159717A2000B84D4 /* motions_cover_l@2x.png */; };
-		E1F4EBBE159717A2000B84D4 /* motions_cover_r.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB90159717A2000B84D4 /* motions_cover_r.png */; };
-		E1F4EBBF159717A2000B84D4 /* motions_cover_r@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB91159717A2000B84D4 /* motions_cover_r@2x.png */; };
+		E1F4EBBC159717A2000B84D4 /* motions_cover_l_horizon.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB8E159717A2000B84D4 /* motions_cover_l_horizon.png */; };
+		E1F4EBBD159717A2000B84D4 /* motions_cover_l_horizon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB8F159717A2000B84D4 /* motions_cover_l_horizon@2x.png */; };
+		E1F4EBBE159717A2000B84D4 /* motions_cover_r_horizon.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB90159717A2000B84D4 /* motions_cover_r_horizon.png */; };
+		E1F4EBBF159717A2000B84D4 /* motions_cover_r_horizon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB91159717A2000B84D4 /* motions_cover_r_horizon@2x.png */; };
 		E1F4EBC0159717A2000B84D4 /* motions_effects_picker_bg_horizon.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB92159717A2000B84D4 /* motions_effects_picker_bg_horizon.png */; };
 		E1F4EBC1159717A2000B84D4 /* motions_effects_picker_bg_horizon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB93159717A2000B84D4 /* motions_effects_picker_bg_horizon@2x.png */; };
 		E1F4EBC2159717A2000B84D4 /* motions_effects_picker_bg_vertical.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB94159717A2000B84D4 /* motions_effects_picker_bg_vertical.png */; };
@@ -1154,15 +1162,8 @@
 		E1097D15157F99FE00BD0640 /* EmoticonsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmoticonsViewController.xib; sourceTree = "<group>"; };
 		E1097D1A157F9A1F00BD0640 /* MotionsCapturePreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsCapturePreviewView.h; sourceTree = "<group>"; };
 		E1097D1B157F9A1F00BD0640 /* MotionsCapturePreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsCapturePreviewView.m; sourceTree = "<group>"; };
-		E1097D1C157F9A1F00BD0640 /* MotionsFilterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsFilterTableViewCell.h; sourceTree = "<group>"; };
-		E1097D1D157F9A1F00BD0640 /* MotionsFilterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsFilterTableViewCell.m; sourceTree = "<group>"; };
-		E1097D1E157F9A1F00BD0640 /* MotionsFilterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MotionsFilterTableViewCell.xib; sourceTree = "<group>"; };
-		E1097D1F157F9A1F00BD0640 /* MotionsFilterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsFilterTableViewController.h; sourceTree = "<group>"; };
-		E1097D20157F9A1F00BD0640 /* MotionsFilterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsFilterTableViewController.m; sourceTree = "<group>"; };
-		E1097D21157F9A1F00BD0640 /* MotionsFilterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MotionsFilterTableViewController.xib; sourceTree = "<group>"; };
 		E1097D22157F9A1F00BD0640 /* MotionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsViewController.h; sourceTree = "<group>"; };
 		E1097D23157F9A1F00BD0640 /* MotionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsViewController.m; sourceTree = "<group>"; };
-		E1097D24157F9A1F00BD0640 /* MotionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MotionsViewController.xib; sourceTree = "<group>"; };
 		E1097D2C157F9A6900BD0640 /* CropImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropImageView.h; sourceTree = "<group>"; };
 		E1097D2D157F9A6900BD0640 /* CropImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropImageView.m; sourceTree = "<group>"; };
 		E1097D2E157F9A6900BD0640 /* CropImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropImageViewController.h; sourceTree = "<group>"; };
@@ -1429,8 +1430,23 @@
 		E135F7D8155E6196008494D8 /* button_menu_slideplay_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_menu_slideplay_hover@2x.png"; sourceTree = "<group>"; };
 		E135F7D9155E6196008494D8 /* button_menu_slideplay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_menu_slideplay.png; sourceTree = "<group>"; };
 		E135F7DA155E6196008494D8 /* button_menu_slideplay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_menu_slideplay@2x.png"; sourceTree = "<group>"; };
+		E13D81ED1598A9F300F82D6D /* MotionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MotionsViewController.xib; sourceTree = "<group>"; };
+		E13D81F01598AA0700F82D6D /* MotionsViewController-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MotionsViewController-landscape.xib"; sourceTree = "<group>"; };
+		E13D81F21598AD0400F82D6D /* motions_cover_b_vertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_cover_b_vertical.png; sourceTree = "<group>"; };
+		E13D81F31598AD0400F82D6D /* motions_cover_b_vertical@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_cover_b_vertical@2x.png"; sourceTree = "<group>"; };
+		E13D81F41598AD0400F82D6D /* motions_cover_t_vertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_cover_t_vertical.png; sourceTree = "<group>"; };
+		E13D81F51598AD0500F82D6D /* motions_cover_t_vertical@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_cover_t_vertical@2x.png"; sourceTree = "<group>"; };
+		E13D81FA1598AF4B00F82D6D /* MotionsShootViewController-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MotionsShootViewController-landscape.xib"; sourceTree = "<group>"; };
 		E1599CC71580CD7300B9AE72 /* PostRootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostRootView.h; sourceTree = "<group>"; };
 		E1599CC81580CD7400B9AE72 /* PostRootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostRootView.m; sourceTree = "<group>"; };
+		E165395D1598059E00903259 /* MotionsShootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsShootViewController.h; sourceTree = "<group>"; };
+		E165395E1598059E00903259 /* MotionsShootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsShootViewController.m; sourceTree = "<group>"; };
+		E165395F1598059E00903259 /* MotionsShootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MotionsShootViewController.xib; sourceTree = "<group>"; };
+		E1653963159805B100903259 /* MotionsEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsEditViewController.h; sourceTree = "<group>"; };
+		E1653964159805B100903259 /* MotionsEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsEditViewController.m; sourceTree = "<group>"; };
+		E1653965159805B100903259 /* MotionsEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MotionsEditViewController.xib; sourceTree = "<group>"; };
+		E165396815980E8C00903259 /* motions_button_switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_button_switch.png; sourceTree = "<group>"; };
+		E165396915980E9300903259 /* motions_button_switch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_button_switch@2x.png"; sourceTree = "<group>"; };
 		E1998AF115919BA400BBAC55 /* post_paper_gloom_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post_paper_gloom_left.png; sourceTree = "<group>"; };
 		E1998AF215919BA400BBAC55 /* post_paper_gloom_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post_paper_gloom_right.png; sourceTree = "<group>"; };
 		E1998AF61592EB5400BBAC55 /* PostNewStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostNewStatusViewController.h; sourceTree = "<group>"; };
@@ -1459,10 +1475,10 @@
 		E1F4EB8B159717A2000B84D4 /* motions_control_bg_horizon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_control_bg_horizon@2x.png"; sourceTree = "<group>"; };
 		E1F4EB8C159717A2000B84D4 /* motions_control_bg_vertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_control_bg_vertical.png; sourceTree = "<group>"; };
 		E1F4EB8D159717A2000B84D4 /* motions_control_bg_vertical@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_control_bg_vertical@2x.png"; sourceTree = "<group>"; };
-		E1F4EB8E159717A2000B84D4 /* motions_cover_l.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_cover_l.png; sourceTree = "<group>"; };
-		E1F4EB8F159717A2000B84D4 /* motions_cover_l@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_cover_l@2x.png"; sourceTree = "<group>"; };
-		E1F4EB90159717A2000B84D4 /* motions_cover_r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_cover_r.png; sourceTree = "<group>"; };
-		E1F4EB91159717A2000B84D4 /* motions_cover_r@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_cover_r@2x.png"; sourceTree = "<group>"; };
+		E1F4EB8E159717A2000B84D4 /* motions_cover_l_horizon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_cover_l_horizon.png; sourceTree = "<group>"; };
+		E1F4EB8F159717A2000B84D4 /* motions_cover_l_horizon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_cover_l_horizon@2x.png"; sourceTree = "<group>"; };
+		E1F4EB90159717A2000B84D4 /* motions_cover_r_horizon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_cover_r_horizon.png; sourceTree = "<group>"; };
+		E1F4EB91159717A2000B84D4 /* motions_cover_r_horizon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_cover_r_horizon@2x.png"; sourceTree = "<group>"; };
 		E1F4EB92159717A2000B84D4 /* motions_effects_picker_bg_horizon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_effects_picker_bg_horizon.png; sourceTree = "<group>"; };
 		E1F4EB93159717A2000B84D4 /* motions_effects_picker_bg_horizon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_effects_picker_bg_horizon@2x.png"; sourceTree = "<group>"; };
 		E1F4EB94159717A2000B84D4 /* motions_effects_picker_bg_vertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_effects_picker_bg_vertical.png; sourceTree = "<group>"; };
@@ -2194,6 +2210,8 @@
 				E1F4EB81159717A2000B84D4 /* motions_button_crop@2x.png */,
 				E1F4EB7E159717A2000B84D4 /* motions_button_crop_done.png */,
 				E1F4EB7F159717A2000B84D4 /* motions_button_crop_done@2x.png */,
+				E165396815980E8C00903259 /* motions_button_switch.png */,
+				E165396915980E9300903259 /* motions_button_switch@2x.png */,
 				E1F4EB82159717A2000B84D4 /* motions_camera_roll_button.png */,
 				E1F4EB83159717A2000B84D4 /* motions_camera_roll_button@2x.png */,
 				E1F4EB84159717A2000B84D4 /* motions_capture_bg_horizon.png */,
@@ -2206,10 +2224,14 @@
 				E1F4EB8B159717A2000B84D4 /* motions_control_bg_horizon@2x.png */,
 				E1F4EB8C159717A2000B84D4 /* motions_control_bg_vertical.png */,
 				E1F4EB8D159717A2000B84D4 /* motions_control_bg_vertical@2x.png */,
-				E1F4EB8E159717A2000B84D4 /* motions_cover_l.png */,
-				E1F4EB8F159717A2000B84D4 /* motions_cover_l@2x.png */,
-				E1F4EB90159717A2000B84D4 /* motions_cover_r.png */,
-				E1F4EB91159717A2000B84D4 /* motions_cover_r@2x.png */,
+				E1F4EB8E159717A2000B84D4 /* motions_cover_l_horizon.png */,
+				E1F4EB8F159717A2000B84D4 /* motions_cover_l_horizon@2x.png */,
+				E1F4EB90159717A2000B84D4 /* motions_cover_r_horizon.png */,
+				E1F4EB91159717A2000B84D4 /* motions_cover_r_horizon@2x.png */,
+				E13D81F21598AD0400F82D6D /* motions_cover_b_vertical.png */,
+				E13D81F31598AD0400F82D6D /* motions_cover_b_vertical@2x.png */,
+				E13D81F41598AD0400F82D6D /* motions_cover_t_vertical.png */,
+				E13D81F51598AD0500F82D6D /* motions_cover_t_vertical@2x.png */,
 				E1F4EB92159717A2000B84D4 /* motions_effects_picker_bg_horizon.png */,
 				E1F4EB93159717A2000B84D4 /* motions_effects_picker_bg_horizon@2x.png */,
 				E1F4EB94159717A2000B84D4 /* motions_effects_picker_bg_vertical.png */,
@@ -2437,15 +2459,17 @@
 				E1097D32157F9A6900BD0640 /* FilterImageView.m */,
 				E1097D1A157F9A1F00BD0640 /* MotionsCapturePreviewView.h */,
 				E1097D1B157F9A1F00BD0640 /* MotionsCapturePreviewView.m */,
-				E1097D1C157F9A1F00BD0640 /* MotionsFilterTableViewCell.h */,
-				E1097D1D157F9A1F00BD0640 /* MotionsFilterTableViewCell.m */,
-				E1097D1E157F9A1F00BD0640 /* MotionsFilterTableViewCell.xib */,
-				E1097D1F157F9A1F00BD0640 /* MotionsFilterTableViewController.h */,
-				E1097D20157F9A1F00BD0640 /* MotionsFilterTableViewController.m */,
-				E1097D21157F9A1F00BD0640 /* MotionsFilterTableViewController.xib */,
 				E1097D22157F9A1F00BD0640 /* MotionsViewController.h */,
 				E1097D23157F9A1F00BD0640 /* MotionsViewController.m */,
-				E1097D24157F9A1F00BD0640 /* MotionsViewController.xib */,
+				E13D81ED1598A9F300F82D6D /* MotionsViewController.xib */,
+				E13D81F01598AA0700F82D6D /* MotionsViewController-landscape.xib */,
+				E165395D1598059E00903259 /* MotionsShootViewController.h */,
+				E165395E1598059E00903259 /* MotionsShootViewController.m */,
+				E165395F1598059E00903259 /* MotionsShootViewController.xib */,
+				E13D81FA1598AF4B00F82D6D /* MotionsShootViewController-landscape.xib */,
+				E1653963159805B100903259 /* MotionsEditViewController.h */,
+				E1653964159805B100903259 /* MotionsEditViewController.m */,
+				E1653965159805B100903259 /* MotionsEditViewController.xib */,
 			);
 			name = Motions;
 			sourceTree = "<group>";
@@ -3058,9 +3082,6 @@
 				E1097D0F157F99E700BD0640 /* PostViewController.xib in Resources */,
 				E1097D16157F99FE00BD0640 /* EmoticonsInfo.plist in Resources */,
 				E1097D19157F99FE00BD0640 /* EmoticonsViewController.xib in Resources */,
-				E1097D27157F9A1F00BD0640 /* MotionsFilterTableViewCell.xib in Resources */,
-				E1097D29157F9A1F00BD0640 /* MotionsFilterTableViewController.xib in Resources */,
-				E1097D2B157F9A1F00BD0640 /* MotionsViewController.xib in Resources */,
 				E1097D35157F9A6900BD0640 /* CropImageViewController.xib in Resources */,
 				E1097E29157F9CE500BD0640 /* aini.png in Resources */,
 				E1097E2A157F9CE500BD0640 /* aini@2x.png in Resources */,
@@ -3319,10 +3340,10 @@
 				E1F4EBB9159717A2000B84D4 /* motions_control_bg_horizon@2x.png in Resources */,
 				E1F4EBBA159717A2000B84D4 /* motions_control_bg_vertical.png in Resources */,
 				E1F4EBBB159717A2000B84D4 /* motions_control_bg_vertical@2x.png in Resources */,
-				E1F4EBBC159717A2000B84D4 /* motions_cover_l.png in Resources */,
-				E1F4EBBD159717A2000B84D4 /* motions_cover_l@2x.png in Resources */,
-				E1F4EBBE159717A2000B84D4 /* motions_cover_r.png in Resources */,
-				E1F4EBBF159717A2000B84D4 /* motions_cover_r@2x.png in Resources */,
+				E1F4EBBC159717A2000B84D4 /* motions_cover_l_horizon.png in Resources */,
+				E1F4EBBD159717A2000B84D4 /* motions_cover_l_horizon@2x.png in Resources */,
+				E1F4EBBE159717A2000B84D4 /* motions_cover_r_horizon.png in Resources */,
+				E1F4EBBF159717A2000B84D4 /* motions_cover_r_horizon@2x.png in Resources */,
 				E1F4EBC0159717A2000B84D4 /* motions_effects_picker_bg_horizon.png in Resources */,
 				E1F4EBC1159717A2000B84D4 /* motions_effects_picker_bg_horizon@2x.png in Resources */,
 				E1F4EBC2159717A2000B84D4 /* motions_effects_picker_bg_vertical.png in Resources */,
@@ -3351,6 +3372,17 @@
 				E1F4EBDF15971D24000B84D4 /* button_post_bg_error@2x.png in Resources */,
 				E1F4EBE015971D24000B84D4 /* button_post_hover.png in Resources */,
 				E1F4EBE115971D24000B84D4 /* button_post_hover@2x.png in Resources */,
+				E16539611598059E00903259 /* MotionsShootViewController.xib in Resources */,
+				E1653967159805B100903259 /* MotionsEditViewController.xib in Resources */,
+				E165396A15980E9A00903259 /* motions_button_switch.png in Resources */,
+				E165396B15980E9A00903259 /* motions_button_switch@2x.png in Resources */,
+				E13D81EE1598A9F400F82D6D /* MotionsViewController.xib in Resources */,
+				E13D81F11598AA0800F82D6D /* MotionsViewController-landscape.xib in Resources */,
+				E13D81F61598AD0500F82D6D /* motions_cover_b_vertical.png in Resources */,
+				E13D81F71598AD0500F82D6D /* motions_cover_b_vertical@2x.png in Resources */,
+				E13D81F81598AD0500F82D6D /* motions_cover_t_vertical.png in Resources */,
+				E13D81F91598AD0500F82D6D /* motions_cover_t_vertical@2x.png in Resources */,
+				E13D81FB1598AF4C00F82D6D /* MotionsShootViewController-landscape.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3460,8 +3492,6 @@
 				E1097D17157F99FE00BD0640 /* EmoticonsInfoReader.m in Sources */,
 				E1097D18157F99FE00BD0640 /* EmoticonsViewController.m in Sources */,
 				E1097D25157F9A1F00BD0640 /* MotionsCapturePreviewView.m in Sources */,
-				E1097D26157F9A1F00BD0640 /* MotionsFilterTableViewCell.m in Sources */,
-				E1097D28157F9A1F00BD0640 /* MotionsFilterTableViewController.m in Sources */,
 				E1097D2A157F9A1F00BD0640 /* MotionsViewController.m in Sources */,
 				E1097D33157F9A6900BD0640 /* CropImageView.m in Sources */,
 				E1097D34157F9A6900BD0640 /* CropImageViewController.m in Sources */,
@@ -3478,6 +3508,8 @@
 				188E52FC1596EA1B00A30AB8 /* SelfCommentViewController.m in Sources */,
 				188E53051596EB4600A30AB8 /* SelfCommentTableViewController.m in Sources */,
 				188E53081596EB6B00A30AB8 /* SelfCommentTableViewCell.m in Sources */,
+				E16539601598059E00903259 /* MotionsShootViewController.m in Sources */,
+				E1653966159805B100903259 /* MotionsEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
