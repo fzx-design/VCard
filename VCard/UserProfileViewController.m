@@ -54,12 +54,17 @@
     self.pageDescription = self.user.screenName;
 }
 
+- (void)stackScrolling
+{
+    //TODO: Test
+    [_avatarImageView swingOnceThenHalt:_avatarImageView.layer angle:-0.089 * M_PI];
+}
+
 - (void)stackScrollingStart
 {
     //TODO: Test
     [_avatarImageView swingOnce:_avatarImageView.layer toAngle:-0.089 * M_PI];
 }
-
 
 - (void)stackScrollingEnd
 {
@@ -88,7 +93,7 @@
     [self.statusController refresh];
     
     self.view.layer.rasterizationScale = [[UIScreen mainScreen] scale];
-        
+    
     [_avatarImageView loadImageFromURL:self.user.largeAvatarURL completion:nil];
     [_avatarImageView setVerifiedType:[self.user verifiedTypeOfUser]];
     

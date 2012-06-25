@@ -43,7 +43,7 @@
                                                object:nil];
     
     //FIXME: Debug
-//    self.view.backgroundColor = [UIColor blackColor];
+    //    self.view.backgroundColor = [UIColor blackColor];
 }
 
 - (void)viewDidUnload
@@ -102,9 +102,10 @@
     [self.controllerStack addObject:vc];
     for (StackViewPageController *animationVC in self.controllerStack) {
         //TODO: Implement Swing Animation
-//        [animationVC stackScrollingStart];
-//        [animationVC stackScrollingEnd];
-        [animationVC performSelector:@selector(stackScrollingEnd) withObject:nil afterDelay:0.1];
+        [animationVC stackScrolling];
+        // [animationVC stackScrollingStart];
+        // [animationVC stackScrollingEnd];
+        // [animationVC performSelector:@selector(stackScrollingEnd) withObject:nil afterDelay:0.1];
     }
     [self.stackView addNewPage:vc.view replacingView:replacingOtherView completion:^{
         [vc initialLoad];

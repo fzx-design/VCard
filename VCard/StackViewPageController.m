@@ -51,6 +51,12 @@
 }
 
 //To be overloaded
+- (void)stackScrolling
+{
+    
+}
+
+//To be overloaded
 - (void)stackScrollingStart
 {
     
