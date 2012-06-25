@@ -71,6 +71,20 @@
     [_avatarImageView swingHalt:_avatarImageView.layer fromAngle:-0.089 * M_PI];
 }
 
+- (void)enableScrollToTop
+{
+    [super enableScrollToTop];
+    self.statusController.tableView.scrollsToTop = YES;
+}
+
+- (void)disableScrollToTop
+{
+    [super disableScrollToTop];
+    self.statusController.tableView.scrollsToTop = NO;
+    self.friendController.tableView.scrollsToTop = NO;
+    self.followerController.tableView.scrollsToTop = NO;
+}
+
 - (void)pagePopedFromStack
 {
     
@@ -147,9 +161,12 @@
     self.checkFriendsButton.selected = NO;
     
     [self.backgroundView insertSubview:self.followerController.view belowSubview:self.topShadowImageView];
+    self.followerController.tableView.scrollsToTop = YES;
     [self.statusController.view removeFromSuperview];
+    self.statusController.tableView.scrollsToTop = NO;
     if (_friendController) {
         [self.friendController.view removeFromSuperview];
+        self.friendController.tableView.scrollsToTop = NO;
     }
 }
 
@@ -159,9 +176,12 @@
     self.checkStatusesButton.selected = NO;
     self.checkFriendsButton.selected = YES;
     [self.backgroundView insertSubview:self.friendController.view belowSubview:self.topShadowImageView];
+    self.friendController.tableView.scrollsToTop = YES;
     [self.statusController.view removeFromSuperview];
+    self.statusController.tableView.scrollsToTop = NO;
     if (_followerController) {
         [self.followerController.view removeFromSuperview];
+        self.followerController.tableView.scrollsToTop = NO;
     }
 }
 
@@ -171,11 +191,14 @@
     self.checkStatusesButton.selected = YES;
     self.checkFriendsButton.selected = NO;
     [self.backgroundView insertSubview:self.statusController.view belowSubview:self.topShadowImageView];
+    self.statusController.tableView.scrollsToTop = YES;
     if (_followerController) {
         [self.followerController.view removeFromSuperview];
+        self.followerController.tableView.scrollsToTop = NO;
     }
     if (_friendController) {
         [self.friendController.view removeFromSuperview];
+        self.friendController.tableView.scrollsToTop = NO;
     }
 }
 

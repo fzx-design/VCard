@@ -20,6 +20,7 @@ typedef enum {
 
 @interface StackViewPageController : CoreDataViewController {
     NSInteger _pageIndex;
+    BOOL _active;
     BaseStackLayoutView *_backgroundView;
 }
 
@@ -35,6 +36,8 @@ typedef enum {
 - (void)stackScrolling;
 - (void)stackScrollingStart;
 - (void)stackScrollingEnd;
+- (void)enableScrollToTop;
+- (void)disableScrollToTop;
 - (void)pagePopedFromStack;
 - (void)refresh;
 

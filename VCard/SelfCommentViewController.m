@@ -42,6 +42,16 @@
     
 }
 
+- (void)enableScrollToTop
+{
+    self.commentTableViewController.tableView.scrollsToTop = YES;
+}
+
+- (void)disableScrollToTop
+{
+    self.commentTableViewController.tableView.scrollsToTop = NO;
+}
+
 #pragma mark - Setup
 
 - (void)viewDidLoad

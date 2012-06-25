@@ -27,7 +27,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    self.cellSelectionImageView.hidden = !selected;
+    self.cellSelectionImageView.hidden = YES;
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated

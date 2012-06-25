@@ -15,6 +15,8 @@
 - (UIView *)viewForPageIndex:(int)index;
 - (void)stackBecomedEmpty;
 - (void)stackViewDidScroll;
+- (void)stackViewDidEndScrolling;
+- (void)stackViewWillScroll;
 //- (void)stack
 
 @end

@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
     
-    
+    _active = NO;
     _topShadowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 384.0, 10.0)];
     _topShadowImageView.image = [UIImage imageNamed:kRLStackTableViewShadow];
     
@@ -80,6 +80,17 @@
     
 }
 
+//To be overloaded
+- (void)enableScrollToTop
+{
+    _active = YES;
+}
+
+//To be overloaded
+- (void)disableScrollToTop
+{
+    _active = NO;
+}
 
 
 @end

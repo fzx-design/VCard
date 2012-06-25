@@ -283,8 +283,9 @@
 {
     BOOL stackViewExists = _stackViewController != nil;
     if (!stackViewExists) {
-        _stackViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewController"];
+        self.waterflowView.scrollsToTop = NO;
         
+        _stackViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewController"];
         [_stackViewController.view resetOrigin:CGPointMake(0.0, 43.0)];
         [_stackViewController.view resetSize:self.waterflowView.frame.size];
         _stackViewController.currentUser = self.currentUser;
@@ -513,6 +514,8 @@
         [User deleteAllTempUsersInManagedObjectContext:self.managedObjectContext];
         [Comment deleteAllTempCommentsInManagedObjectContext:self.managedObjectContext];
         [Status deleteAllTempStatusesInManagedObjectContext:self.managedObjectContext];
+        
+        self.waterflowView.scrollsToTop = YES;
     }];
 }
 

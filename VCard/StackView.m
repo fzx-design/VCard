@@ -173,6 +173,12 @@
             [_delegate stackBecomedEmpty];
         }];
     }
+    [_delegate stackViewDidEndScrolling];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [_delegate stackViewWillScroll];
 }
 
 - (void)returnButtonClicked

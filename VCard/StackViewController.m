@@ -10,7 +10,9 @@
 #import "StackViewPageController.h"
 #import "UIView+Resize.h"
 
-@interface StackViewController ()
+@interface StackViewController () {
+    StackViewPageController *_activePageViewController;
+}
 
 @end
 
@@ -143,6 +145,22 @@
 - (void)stackViewDidScroll
 {
     [_delegate stackViewScrolledWithOffset:_stackView.scrollView.contentOffset.x width:_stackView.scrollView.contentSize.width - 384.0];
+}
+
+- (void)stackViewDidEndScrolling
+{
+    int currentPage = [self.stackView currentPage];
+    if (currentPage >= 0 && currentPage <= self.controllerStack.count - 1) {
+        _activePageViewController = [self.controllerStack objectAtIndex:currentPage];
+//        [_activePageViewController enableScrollToTop];
+    }
+}
+
+- (void)stackViewWillScroll
+{
+    if (_activePageViewController) {
+//        [_activePageViewController disableScrollToTop];
+    }
 }
 
 #pragma mark - Property
