@@ -12,6 +12,7 @@
 #import "WBClient.h"
 #import "Comment.h"
 #import "User.h"
+#import "WaterflowLayoutUnit.h"
 
 @implementation ProfileCommentTableViewController
 
@@ -177,15 +178,15 @@
     
     Status *targetStatus = self.status;
     
-    [_headerViewCell setCellHeight:targetStatus.cardSizeCardHeight.floatValue];
+    CGFloat height = [CardViewController heightForStatus:self.status andImageHeight:ImageHeightHigh];
+    
+    [_headerViewCell setCellHeight:height];
     [_headerViewCell.cardViewController configureCardWithStatus:targetStatus
-                                                    imageHeight:targetStatus.cardSizeImageHeight.floatValue
+                                                    imageHeight:ImageHeightHigh
                                                       pageIndex:self.pageIndex];
     [_headerViewCell loadImageAfterScrollingStop];
     _headerViewCell.pageIndex = self.pageIndex;
     
-    int cellHeight = self.status.cardSizeCardHeight.intValue + 36.0;
-    [_headerViewCell resetHeight:cellHeight];
     [self updateHeaderViewInfo];
     
     [self.tableView setTableHeaderView:_headerViewCell];

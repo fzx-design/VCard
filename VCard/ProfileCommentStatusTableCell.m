@@ -47,7 +47,7 @@
 - (void)setCellHeight:(CGFloat)height
 {
     CGRect frame = self.frame;
-    frame.size.height = height;
+    frame.size.height = height + 36.0;
     self.frame = frame;
     
     frame = self.cardViewController.view.frame;
