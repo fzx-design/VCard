@@ -64,10 +64,10 @@
 - (void)clearData
 {
     if (_type == RelationshipViewTypeFriends) {
-        [self.user removeFriends:self.user.friends];
+        [User deleteFriendsOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:self.description];
     }
     else {
-        [self.user removeFollowers:self.user.followers];
+        [User deleteFollowersOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:self.description];
     }
 }
 
@@ -88,7 +88,7 @@
 			}
 			
             for (NSDictionary *dict in dictArray) {
-                User *usr = [User insertUser:dict inManagedObjectContext:self.managedObjectContext];
+                User *usr = [User insertUser:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:self.description];
                 if (_type == RelationshipViewTypeFollowers) {
                     [self.user addFollowersObject:usr];
                 }
@@ -111,6 +111,8 @@
         
     }];
     
+    NSLog(@"%@",self.description);
+    
     if (_type == RelationshipViewTypeFriends) {
         [client getFriendsOfUser:self.user.userID cursor:_nextCursor count:20];
     }
@@ -127,10 +129,10 @@
                                  inManagedObjectContext:self.managedObjectContext];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updateDate" ascending:YES];
     if (_type == RelationshipViewTypeFriends) {
-        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", self.user.friends];
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.user.friends, self.description];
     }
     else {
-        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", self.user.followers];
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.user.followers, self.description];
     }
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
 }

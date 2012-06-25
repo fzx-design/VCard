@@ -2,7 +2,7 @@
 //  User.h
 //  VCard
 //
-//  Created by 海山 叶 on 12-5-29.
+//  Created by Gabriel Yeah on 12-6-25.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSString * favouritesCount;
 @property (nonatomic, retain) NSString * followersCount;
 @property (nonatomic, retain) NSNumber * following;
+@property (nonatomic, retain) NSNumber * followMe;
 @property (nonatomic, retain) NSString * friendsCount;
 @property (nonatomic, retain) NSString * gender;
 @property (nonatomic, retain) NSString * largeAvatarURL;
@@ -31,7 +32,8 @@
 @property (nonatomic, retain) NSString * userID;
 @property (nonatomic, retain) NSNumber * verified;
 @property (nonatomic, retain) NSNumber * verifiedType;
-@property (nonatomic, retain) NSNumber * followMe;
+@property (nonatomic, retain) id operatedBy;
+@property (nonatomic, retain) NSNumber * operatable;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *commentsToMe;
 @property (nonatomic, retain) NSSet *favorites;
@@ -40,8 +42,10 @@
 @property (nonatomic, retain) NSSet *friendsStatuses;
 @property (nonatomic, retain) NSSet *statuses;
 
-+ (User *)insertUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context;
-+ (User *)userWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
++ (User *)insertUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
++ (User *)userWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
++ (void)deleteFriendsOfUser:(User *)user InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
++ (void)deleteFollowersOfUser:(User *)user InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context;
 - (BOOL)isEqualToUser:(User *)user;
 - (VerifiedType)verifiedTypeOfUser;

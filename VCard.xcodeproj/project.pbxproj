@@ -82,6 +82,8 @@
 		1890C69115356F6F00023A13 /* BaseLayoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C69015356F6F00023A13 /* BaseLayoutView.m */; };
 		1890C6B21535B57B00023A13 /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B11535B57A00023A13 /* EasyTableView.m */; };
 		1890C6B51535BE5200023A13 /* UserSelectionCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B41535BE5200023A13 /* UserSelectionCellViewController.m */; };
+		18969A371598024F00E13A1E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18969A361598024F00E13A1E /* User.m */; };
+		18969A3A1598025C00E13A1E /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18969A391598025C00E13A1E /* Comment.m */; };
 		189D9DE215496FA300E922D9 /* UIImageViewAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D9DE115496FA300E922D9 /* UIImageViewAddition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18A6850C15370F3D00D58B7D /* imageview_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A6850A15370F3D00D58B7D /* imageview_placeholder.png */; };
 		18A6850D15370F3D00D58B7D /* imageview_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A6850B15370F3D00D58B7D /* imageview_placeholder@2x.png */; };
@@ -92,7 +94,6 @@
 		18C1903715945D1700DA1A6A /* comments_thread_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903315945D1700DA1A6A /* comments_thread_up.png */; };
 		18C1903815945D1700DA1A6A /* comments_thread_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903415945D1700DA1A6A /* comments_thread_up@2x.png */; };
 		18C1903B15946C5F00DA1A6A /* ProfileCommentStatusTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1903A15946C5E00DA1A6A /* ProfileCommentStatusTableCell.m */; };
-		18C1903E15947B0B00DA1A6A /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1903D15947B0B00DA1A6A /* Comment.m */; };
 		18DBAE4B1573156000918ED4 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE4A1573155F00918ED4 /* UserProfileViewController.m */; };
 		18DBAE581573498F00918ED4 /* ProfileRelationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */; };
 		18DBAE5B157349F400918ED4 /* ProfileRelationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE5A157349F400918ED4 /* ProfileRelationTableViewController.m */; };
@@ -114,7 +115,6 @@
 		18E34C96157077CB006DCFF6 /* StackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E34C95157077CB006DCFF6 /* StackView.m */; };
 		18E34C9915707B9B006DCFF6 /* StackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E34C9815707B9B006DCFF6 /* StackViewController.m */; };
 		18E34C9C157099EE006DCFF6 /* StackViewPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E34C9B157099EE006DCFF6 /* StackViewPageController.m */; };
-		18E4AE2F157454A6009A701F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4AE2E157454A6009A701F /* User.m */; };
 		18E4AE36157458F5009A701F /* RefreshableCoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4AE35157458F5009A701F /* RefreshableCoreDataTableViewController.m */; };
 		18E4AE3B15748C7A009A701F /* side_bg_user.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E4AE3715748C7A009A701F /* side_bg_user.png */; };
 		18E4AE3C15748C7A009A701F /* side_bg_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E4AE3815748C7A009A701F /* side_bg_profile@2x.png */; };
@@ -822,6 +822,10 @@
 		1890C6B11535B57A00023A13 /* EasyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableView.m; sourceTree = "<group>"; };
 		1890C6B31535BE5100023A13 /* UserSelectionCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSelectionCellViewController.h; sourceTree = "<group>"; };
 		1890C6B41535BE5200023A13 /* UserSelectionCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSelectionCellViewController.m; sourceTree = "<group>"; };
+		18969A351598024F00E13A1E /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		18969A361598024F00E13A1E /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		18969A381598025C00E13A1E /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
+		18969A391598025C00E13A1E /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		189D9DE015496FA300E922D9 /* UIImageViewAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewAddition.h; sourceTree = "<group>"; };
 		189D9DE115496FA300E922D9 /* UIImageViewAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewAddition.m; sourceTree = "<group>"; };
 		18A6850A15370F3D00D58B7D /* imageview_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageview_placeholder.png; sourceTree = "<group>"; };
@@ -835,8 +839,6 @@
 		18C1903415945D1700DA1A6A /* comments_thread_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comments_thread_up@2x.png"; sourceTree = "<group>"; };
 		18C1903915946C5E00DA1A6A /* ProfileCommentStatusTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCommentStatusTableCell.h; sourceTree = "<group>"; };
 		18C1903A15946C5E00DA1A6A /* ProfileCommentStatusTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCommentStatusTableCell.m; sourceTree = "<group>"; };
-		18C1903C15947B0B00DA1A6A /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
-		18C1903D15947B0B00DA1A6A /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		18DBAE491573155F00918ED4 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
 		18DBAE4A1573155F00918ED4 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 		18DBAE54157334AC00918ED4 /* ProfileRelationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileRelationTableViewCell.h; sourceTree = "<group>"; };
@@ -871,8 +873,6 @@
 		18E34C9815707B9B006DCFF6 /* StackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackViewController.m; sourceTree = "<group>"; };
 		18E34C9A157099EE006DCFF6 /* StackViewPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackViewPageController.h; sourceTree = "<group>"; };
 		18E34C9B157099EE006DCFF6 /* StackViewPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackViewPageController.m; sourceTree = "<group>"; };
-		18E4AE2D157454A6009A701F /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		18E4AE2E157454A6009A701F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		18E4AE34157458F5009A701F /* RefreshableCoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshableCoreDataTableViewController.h; sourceTree = "<group>"; };
 		18E4AE35157458F5009A701F /* RefreshableCoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshableCoreDataTableViewController.m; sourceTree = "<group>"; };
 		18E4AE3715748C7A009A701F /* side_bg_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = side_bg_user.png; sourceTree = "<group>"; };
@@ -1857,12 +1857,12 @@
 		18E707D3153D2C6B0012092E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				18C1903C15947B0B00DA1A6A /* Comment.h */,
-				18C1903D15947B0B00DA1A6A /* Comment.m */,
+				18969A381598025C00E13A1E /* Comment.h */,
+				18969A391598025C00E13A1E /* Comment.m */,
+				18969A351598024F00E13A1E /* User.h */,
+				18969A361598024F00E13A1E /* User.m */,
 				18F1E5051577452300EB71DD /* Status.h */,
 				18F1E5061577452600EB71DD /* Status.m */,
-				18E4AE2D157454A6009A701F /* User.h */,
-				18E4AE2E157454A6009A701F /* User.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -3442,7 +3442,6 @@
 				18DBAE5B157349F400918ED4 /* ProfileRelationTableViewController.m in Sources */,
 				18DBAE6D1573970B00918ED4 /* SelfProfileViewController.m in Sources */,
 				18DBAE731573978F00918ED4 /* FriendProfileViewController.m in Sources */,
-				18E4AE2F157454A6009A701F /* User.m in Sources */,
 				18E4AE36157458F5009A701F /* RefreshableCoreDataTableViewController.m in Sources */,
 				18F1E4EF15760FA300EB71DD /* LoadMoreView.m in Sources */,
 				18F1E4FD15773B4B00EB71DD /* ProfileStatusTableViewController.m in Sources */,
@@ -3472,12 +3471,13 @@
 				E1097D4B157F9BBF00BD0640 /* UIView+Addition.m in Sources */,
 				E1599CC91580CD7400B9AE72 /* PostRootView.m in Sources */,
 				18C1903B15946C5F00DA1A6A /* ProfileCommentStatusTableCell.m in Sources */,
-				18C1903E15947B0B00DA1A6A /* Comment.m in Sources */,
 				E1998AF81592EB5400BBAC55 /* PostNewStatusViewController.m in Sources */,
 				E1A7EFDC15936D4B00E2B900 /* PostRepostCommentViewController.m in Sources */,
 				188E52FC1596EA1B00A30AB8 /* SelfCommentViewController.m in Sources */,
 				188E53051596EB4600A30AB8 /* SelfCommentTableViewController.m in Sources */,
 				188E53081596EB6B00A30AB8 /* SelfCommentTableViewCell.m in Sources */,
+				18969A371598024F00E13A1E /* User.m in Sources */,
+				18969A3A1598025C00E13A1E /* Comment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

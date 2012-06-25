@@ -58,7 +58,7 @@
 
 - (void)clearData
 {
-    [Comment deleteCommentsOfStatus:self.status ManagedObjectContext:self.managedObjectContext];
+    [Comment deleteCommentsOfStatus:self.status ManagedObjectContext:self.managedObjectContext withOperatingObject:self.description];
 }
 
 - (void)changeSource
@@ -86,7 +86,7 @@
             }
             
             for (NSDictionary *dict in dictArray) {
-                Comment *comment = [Comment insertComment:dict inManagedObjectContext:self.managedObjectContext];
+                Comment *comment = [Comment insertComment:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:self.description];
                 comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForComment:comment]];
                 [self.status addCommentsObject:comment];
             }
@@ -126,7 +126,7 @@
                                  inManagedObjectContext:self.managedObjectContext];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"commentID" ascending:NO];
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", self.status.comments];
+    request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.status.comments, self.description];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath

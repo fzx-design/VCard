@@ -82,7 +82,8 @@
                 newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
                 newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
                 newStatus.forTableView = [NSNumber numberWithBool:YES];
-                [self.user addFriendsStatusesObject:newStatus];
+                newStatus.author = self.user;
+//                [self.user addFriendsStatusesObject:newStatus];
             }
             
             [self.managedObjectContext processPendingChanges];
@@ -101,7 +102,7 @@
          
     NSString *maxID = _refreshing ? nil : ((Status *)[self.fetchedResultsController.fetchedObjects lastObject]).statusID;
     
-    [client getUserTimeline:self.user.userID 
+    [client getUserTimeline:self.user.userID
                     SinceID:nil 
                       maxID:maxID
              startingAtPage:0 

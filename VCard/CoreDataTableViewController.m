@@ -135,9 +135,9 @@
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView endUpdates];
+//    [self.tableView endUpdates];
 //    if (_loading) {
-//        [self.tableView reloadData];
+        [self.tableView endUpdates];
 //    }
 }
 

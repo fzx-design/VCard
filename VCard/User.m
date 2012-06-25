@@ -2,7 +2,7 @@
 //  User.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-5-29.
+//  Created by Gabriel Yeah on 12-6-25.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -10,9 +10,7 @@
 #import "Comment.h"
 #import "Status.h"
 #import "User.h"
-
 #import "NSDateAddition.h"
-
 
 @implementation User
 
@@ -22,6 +20,7 @@
 @dynamic favouritesCount;
 @dynamic followersCount;
 @dynamic following;
+@dynamic followMe;
 @dynamic friendsCount;
 @dynamic gender;
 @dynamic largeAvatarURL;
@@ -34,7 +33,8 @@
 @dynamic userID;
 @dynamic verified;
 @dynamic verifiedType;
-@dynamic followMe;
+@dynamic operatedBy;
+@dynamic operatable;
 @dynamic comments;
 @dynamic commentsToMe;
 @dynamic favorites;
@@ -43,8 +43,7 @@
 @dynamic friendsStatuses;
 @dynamic statuses;
 
-
-+ (User *)insertUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
++ (User *)insertUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
 {
     NSString *userID = [[dict objectForKey:@"id"] stringValue];
     
@@ -52,15 +51,19 @@
         return nil;
     }
     
-    User *result = [User userWithID:userID inManagedObjectContext:context];
+    User *result = [User userWithID:userID inManagedObjectContext:context withOperatingObject:object];
     if (!result) {
         result = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:context];
+    } else {
+//        NSLog(@"%@, %@", result.screenName, result.operatedBy);
     }
     
     result.updateDate = [NSDate date];
     
     result.userID = userID;
     result.screenName = [dict objectForKey:@"screen_name"];
+    result.operatable = [NSNumber numberWithBool:object != nil];
+    result.operatedBy = object;
     
     NSString *dateString = [dict objectForKey:@"created_at"];
     result.createdAt = [NSDate dateFromStringRepresentation:dateString];
@@ -87,26 +90,43 @@
     result.following = [NSNumber numberWithBool:following];
     result.followMe = [NSNumber numberWithBool:followMe];
     
-    
-    //	NSDictionary *statusDict = [dict objectForKey:@"status"];
-    //    
-    //    if (statusDict) {
-    //        [result addStatusesObject:[Status insertStatus:statusDict inManagedObjectContext:context]];
-    //    }
-    
     return result;
 }
 
-+ (User *)userWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
++ (User *)userWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"userID == %@", userID]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"userID == %@ && operatedBy == %@", userID, object]];
     
     User *res = [[context executeFetchRequest:request error:NULL] lastObject];
     
     return res;
+}
+
++ (void)deleteFriendsOfUser:(User *)user InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", user.friends, self.description]];
+    
+    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
+}
+
++ (void)deleteFollowersOfUser:(User *)user InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", user.followers, self.description]];
+    
+    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
 }
 
 + (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context
@@ -143,5 +163,6 @@
     }
     return type;
 }
+
 
 @end

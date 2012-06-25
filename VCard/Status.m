@@ -130,7 +130,7 @@
     
     NSDictionary *userDict = [dict objectForKey:@"user"];
     
-    result.author = [User insertUser:userDict inManagedObjectContext:context];
+    result.author = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:nil];
         
     NSDictionary* repostedStatusDict = [dict objectForKey:@"retweeted_status"];
     if (repostedStatusDict) {
