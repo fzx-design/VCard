@@ -84,6 +84,7 @@
 		1890C6B51535BE5200023A13 /* UserSelectionCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B41535BE5200023A13 /* UserSelectionCellViewController.m */; };
 		18969A371598024F00E13A1E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18969A361598024F00E13A1E /* User.m */; };
 		18969A3A1598025C00E13A1E /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18969A391598025C00E13A1E /* Comment.m */; };
+		18969A3D1598364000E13A1E /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 18969A3C1598364000E13A1E /* Status.m */; };
 		189D9DE215496FA300E922D9 /* UIImageViewAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D9DE115496FA300E922D9 /* UIImageViewAddition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18A6850C15370F3D00D58B7D /* imageview_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A6850A15370F3D00D58B7D /* imageview_placeholder.png */; };
 		18A6850D15370F3D00D58B7D /* imageview_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A6850B15370F3D00D58B7D /* imageview_placeholder@2x.png */; };
@@ -351,7 +352,6 @@
 		18F1E4EF15760FA300EB71DD /* LoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1E4EE15760FA200EB71DD /* LoadMoreView.m */; };
 		18F1E4FD15773B4B00EB71DD /* ProfileStatusTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1E4FC15773B4B00EB71DD /* ProfileStatusTableViewController.m */; };
 		18F1E50415773F7300EB71DD /* ProfileStatusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1E50315773F7300EB71DD /* ProfileStatusTableViewCell.m */; };
-		18F1E5071577452B00EB71DD /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1E5061577452600EB71DD /* Status.m */; };
 		18F1E5181577AC5E00EB71DD /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1E5171577AC5E00EB71DD /* CommentViewController.m */; };
 		18F1E51B1577AF8200EB71DD /* ProfileCommentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1E51A1577AF8200EB71DD /* ProfileCommentTableViewController.m */; };
 		18F1E5211578935A00EB71DD /* ProfileCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1E5201578935900EB71DD /* ProfileCommentTableViewCell.m */; };
@@ -826,6 +826,8 @@
 		18969A361598024F00E13A1E /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		18969A381598025C00E13A1E /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		18969A391598025C00E13A1E /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
+		18969A3B1598364000E13A1E /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
+		18969A3C1598364000E13A1E /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
 		189D9DE015496FA300E922D9 /* UIImageViewAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewAddition.h; sourceTree = "<group>"; };
 		189D9DE115496FA300E922D9 /* UIImageViewAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewAddition.m; sourceTree = "<group>"; };
 		18A6850A15370F3D00D58B7D /* imageview_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageview_placeholder.png; sourceTree = "<group>"; };
@@ -1123,8 +1125,6 @@
 		18F1E4FC15773B4B00EB71DD /* ProfileStatusTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileStatusTableViewController.m; sourceTree = "<group>"; };
 		18F1E50215773F7200EB71DD /* ProfileStatusTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileStatusTableViewCell.h; sourceTree = "<group>"; };
 		18F1E50315773F7300EB71DD /* ProfileStatusTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileStatusTableViewCell.m; sourceTree = "<group>"; };
-		18F1E5051577452300EB71DD /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
-		18F1E5061577452600EB71DD /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
 		18F1E5161577AC5E00EB71DD /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
 		18F1E5171577AC5E00EB71DD /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
 		18F1E5191577AF8200EB71DD /* ProfileCommentTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCommentTableViewController.h; sourceTree = "<group>"; };
@@ -1861,8 +1861,8 @@
 				18969A391598025C00E13A1E /* Comment.m */,
 				18969A351598024F00E13A1E /* User.h */,
 				18969A361598024F00E13A1E /* User.m */,
-				18F1E5051577452300EB71DD /* Status.h */,
-				18F1E5061577452600EB71DD /* Status.m */,
+				18969A3B1598364000E13A1E /* Status.h */,
+				18969A3C1598364000E13A1E /* Status.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -3446,7 +3446,6 @@
 				18F1E4EF15760FA300EB71DD /* LoadMoreView.m in Sources */,
 				18F1E4FD15773B4B00EB71DD /* ProfileStatusTableViewController.m in Sources */,
 				18F1E50415773F7300EB71DD /* ProfileStatusTableViewCell.m in Sources */,
-				18F1E5071577452B00EB71DD /* Status.m in Sources */,
 				18F1E5181577AC5E00EB71DD /* CommentViewController.m in Sources */,
 				18F1E51B1577AF8200EB71DD /* ProfileCommentTableViewController.m in Sources */,
 				18F1E5211578935A00EB71DD /* ProfileCommentTableViewCell.m in Sources */,
@@ -3478,6 +3477,7 @@
 				188E53081596EB6B00A30AB8 /* SelfCommentTableViewCell.m in Sources */,
 				18969A371598024F00E13A1E /* User.m in Sources */,
 				18969A3A1598025C00E13A1E /* Comment.m in Sources */,
+				18969A3D1598364000E13A1E /* Status.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

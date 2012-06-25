@@ -65,6 +65,8 @@
 #define kOrientationPortrait @"kOrientationPortrait"
 #define kOrientationLandscape @"kOrientationLandscape"
 
+#define kCoreDataIdentifierDefault @"kCoreDataIdentifierDefault"
+
 typedef enum {
     VerifiedTypeNone,
     VerifiedTypePerson,

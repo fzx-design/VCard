@@ -139,7 +139,7 @@
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             NSDictionary *userDict = client.responseJSONObject;
-            self.currentUser = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:nil];
+            self.currentUser = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
             [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];

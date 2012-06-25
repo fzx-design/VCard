@@ -55,8 +55,6 @@ static inline NSRegularExpression * UrlRegularExpression() {
     BOOL _isReposted;
     BOOL _alreadyConfigured;
     BOOL _imageAlreadyLoaded;
-    
-    NSString *previousID;
 }
 
 @end
@@ -368,11 +366,12 @@ static inline NSRegularExpression * UrlRegularExpression() {
                     locationString = [NSString stringWithFormat:@"在 %@%@%@", [dic objectForKey:@"city_name"], [dic objectForKey:@"district_name"], [dic objectForKey:@"name"]];
                 }
                 
-                if ([self.status.statusID isEqualToString:previousID]) {
+                if ([self.status.statusID isEqualToString:_previousStatus.statusID]) {
                     self.status.location = locationString;
                 } else {
-                    Status *status = [Status statusWithID:previousID inManagedObjectContext:self.managedObjectContext];
-                    status.location = locationString;
+                    if (_previousStatus) {
+                        _previousStatus.location = locationString;
+                    }
                 }
                 
                 [self showLocationInfo];
@@ -381,7 +380,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
         float lat = [self.status.lat floatValue];
         float lon = [self.status.lon floatValue];
         
-        previousID = self.status.statusID;
+        _previousStatus = self.status;
         [client getAddressFromGeoWithCoordinate:[[NSString alloc] initWithFormat:@"%f,%f", lon, lat]];
     }
 }

@@ -13,6 +13,7 @@
 #import "ResourceList.h"
 #import "WBClient.h"
 #import "Status.h"
+#import "Comment.h"
 #import "User.h"
 #import "WaterflowCardCell.h"
 #import "WaterflowDividerCell.h"
@@ -69,6 +70,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
+    _coreDataIdentifier = kCoreDataIdentifierDefault;
     
     [self.fetchedResultsController performFetch:nil];
     [self setUpWaterflowView];
@@ -315,7 +317,7 @@
             NSArray *dictArray = client.responseJSONObject;
             for (NSDictionary *dict in dictArray) {
                 Status *newStatus = nil;
-                newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext];
+                newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
                 newStatus.forCastView = [NSNumber numberWithBool:YES];
                 
                 CGFloat imageHeight = [self randomImageHeight];
@@ -400,7 +402,7 @@
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext];
  
-    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@", self.currentUser];
+    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && operatedBy == %@", self.currentUser, _coreDataIdentifier];
                   
 }
 
@@ -498,6 +500,9 @@
     } completion:^(BOOL finished) {
         [_stackViewController.view removeFromSuperview];
         _stackViewController = nil;
+        [User deleteAllTempUsersInManagedObjectContext:self.managedObjectContext];
+        [Comment deleteAllTempCommentsInManagedObjectContext:self.managedObjectContext];
+        [Status deleteAllTempStatusesInManagedObjectContext:self.managedObjectContext];
     }];
 }
 

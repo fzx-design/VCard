@@ -62,4 +62,10 @@
     
 }
 
+//To be overloaded
+- (void)pagePopedFromStack
+{
+    
+}
+
 @end

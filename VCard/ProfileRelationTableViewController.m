@@ -37,6 +37,7 @@
 {
     [super viewDidLoad];
     self.view.autoresizingMask = UIViewAutoresizingNone;
+    _coreDataIdentifier = self.description;
     _loading = NO;
     _hasMoreViews = YES;
 }
@@ -64,10 +65,10 @@
 - (void)clearData
 {
     if (_type == RelationshipViewTypeFriends) {
-        [User deleteFriendsOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:self.description];
+        [User deleteFriendsOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
     }
     else {
-        [User deleteFollowersOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:self.description];
+        [User deleteFollowersOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
     }
 }
 
@@ -88,7 +89,7 @@
 			}
 			
             for (NSDictionary *dict in dictArray) {
-                User *usr = [User insertUser:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:self.description];
+                User *usr = [User insertUser:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
                 if (_type == RelationshipViewTypeFollowers) {
                     [self.user addFollowersObject:usr];
                 }
@@ -110,9 +111,7 @@
         _loading = NO;
         
     }];
-    
-    NSLog(@"%@",self.description);
-    
+        
     if (_type == RelationshipViewTypeFriends) {
         [client getFriendsOfUser:self.user.userID cursor:_nextCursor count:20];
     }
@@ -129,10 +128,10 @@
                                  inManagedObjectContext:self.managedObjectContext];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updateDate" ascending:YES];
     if (_type == RelationshipViewTypeFriends) {
-        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.user.friends, self.description];
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.user.friends, _coreDataIdentifier];
     }
     else {
-        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.user.followers, self.description];
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.user.followers, _coreDataIdentifier];
     }
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
 }

@@ -50,6 +50,8 @@
 - (BOOL)isEqualToUser:(User *)user;
 - (VerifiedType)verifiedTypeOfUser;
 
++ (void)deleteAllTempUsersInManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end
 
 @interface User (CoreDataGeneratedAccessors)

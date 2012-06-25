@@ -62,7 +62,7 @@
     
     result.userID = userID;
     result.screenName = [dict objectForKey:@"screen_name"];
-    result.operatable = [NSNumber numberWithBool:object != nil];
+    result.operatable = [NSNumber numberWithBool:![(NSString *)object isEqualToString:kCoreDataIdentifierDefault]];
     result.operatedBy = object;
     
     NSString *dateString = [dict objectForKey:@"created_at"];
@@ -109,7 +109,7 @@
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", user.friends, self.description]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", user.friends, object]];
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
     for (NSManagedObject *managedObject in items) {
@@ -121,7 +121,7 @@
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", user.followers, self.description]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", user.followers, object]];
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
     for (NSManagedObject *managedObject in items) {
@@ -136,6 +136,19 @@
     [fetchRequest setEntity:entity];
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
+    
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
+}
+
++ (void)deleteAllTempUsersInManagedObjectContext:(NSManagedObjectContext *)context
+{
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:YES]]];
+	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
