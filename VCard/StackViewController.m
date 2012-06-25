@@ -102,15 +102,20 @@
     
     [self.controllerStack addObject:vc];
     for (StackViewPageController *animationVC in self.controllerStack) {
-        //TODO: Implement Swing Animation
         [animationVC stackScrolling];
-        // [animationVC stackScrollingStart];
-        // [animationVC stackScrollingEnd];
-        // [animationVC performSelector:@selector(stackScrollingEnd) withObject:nil afterDelay:0.1];
     }
     [self.stackView addNewPage:vc.view replacingView:replacingOtherView completion:^{
         [vc initialLoad];
     }];
+}
+
+- (void)refresh
+{
+    int currentPage = [self.stackView currentPage];
+    if (currentPage >= 0 && currentPage <= self.controllerStack.count - 1) {
+        StackViewPageController *vc = [self.controllerStack objectAtIndex:currentPage];
+        [vc refresh];
+    }
 }
 
 #pragma mark - Stack View Delegate
@@ -141,7 +146,6 @@
 }
 
 #pragma mark - Property
-
 - (NSMutableArray *)controllerStack
 {
     if (!_controllerStack) {

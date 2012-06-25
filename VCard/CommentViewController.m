@@ -32,6 +32,11 @@
 //    self.pageDescription = self.status.statusID;
 }
 
+- (void)refresh
+{
+    [self.commentTableViewController refresh];
+}
+
 #pragma mark - Setup
 
 - (void)viewDidLoad

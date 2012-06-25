@@ -46,6 +46,11 @@
     return self;
 }
 
+- (int)currentPage
+{
+    return self.scrollView.contentOffset.x / ScrollViewWidth - 1;
+}
+
 #pragma mark - Handle Changes To The Stack
 
 - (void)setUpScrollView

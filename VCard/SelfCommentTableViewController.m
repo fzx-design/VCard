@@ -128,6 +128,7 @@
             
         }
         
+        [self refreshEnded];
         [self adjustBackgroundView];
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_pullView finishedLoading];

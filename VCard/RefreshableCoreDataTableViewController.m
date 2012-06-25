@@ -77,6 +77,10 @@
     //To override
 }
 
+- (void)refreshEnded
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameRefreshEnded object:nil];
+}
 
 #pragma mark - PullToRefreshViewDelegate
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view

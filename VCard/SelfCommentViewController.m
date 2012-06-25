@@ -32,6 +32,11 @@
 //    self.pageDescription = @"";
 }
 
+- (void)refresh
+{
+    [self.commentTableViewController refresh];
+}
+
 - (void)pagePopedFromStack
 {
     

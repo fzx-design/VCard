@@ -76,6 +76,17 @@
     
 }
 
+- (void)refresh
+{
+    if (self.checkFollowersButton.selected) {
+        [self.followerController refresh];
+    } else if(self.checkFriendsButton.selected) {
+        [self.friendController refresh];
+    } else {
+        [self.statusController refresh];
+    }
+}
+
 
 #pragma mark - Setup
 - (void)viewDidLoad

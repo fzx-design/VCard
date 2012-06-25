@@ -35,5 +35,6 @@
 - (void)removeLastView:(UIView *)lastView;
 - (void)sendShowBGNotification;
 - (void)scrollToTargetView:(UIView *)targetView;
+- (int)currentPage;
 
 @end

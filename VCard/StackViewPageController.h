@@ -36,5 +36,6 @@ typedef enum {
 - (void)stackScrollingStart;
 - (void)stackScrollingEnd;
 - (void)pagePopedFromStack;
+- (void)refresh;
 
 @end

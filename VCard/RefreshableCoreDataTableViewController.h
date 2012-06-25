@@ -28,6 +28,7 @@
 @property (nonatomic, strong) User *user;
 
 - (void)refresh;
+- (void)refreshEnded;
 - (void)loadMore;
 - (void)adjustBackgroundView;
 

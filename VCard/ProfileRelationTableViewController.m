@@ -106,6 +106,7 @@
         }
         
         [self adjustBackgroundView];
+        [self refreshEnded];
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_pullView finishedLoading];
         _loading = NO;

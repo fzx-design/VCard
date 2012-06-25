@@ -115,6 +115,10 @@
                selector:@selector(selfCommentButtonClicked:)
                    name:kNotificationNameSelfCommentButtonClicked
                  object:nil];
+    [center addObserver:self
+               selector:@selector(refreshEnded)
+                   name:kNotificationNameRefreshEnded
+                 object:nil];
     
 }
 
@@ -233,7 +237,11 @@
     [_pullView setState:PullToRefreshViewStateLoading];
     
     self.refreshButton.userInteractionEnabled = NO;
-    [self refresh];
+    if (_stackViewController) {
+        [_stackViewController refresh];
+    } else {
+        [self refresh];
+    }
 }
 
 - (void)refreshEnded

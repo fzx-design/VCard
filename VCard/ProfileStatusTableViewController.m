@@ -77,10 +77,12 @@
                 Status *newStatus = nil;
                 newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
                 
-                CGFloat imageHeight = [self randomImageHeight];
-                CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight];
-                newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
-                newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
+                if (newStatus.cardSizeCardHeight.floatValue == 0.0) {
+                    CGFloat imageHeight = [self randomImageHeight];
+                    CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight];
+                    newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
+                    newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
+                }
                 newStatus.forTableView = [NSNumber numberWithBool:YES];
                 newStatus.author = self.user;
             }
@@ -91,6 +93,7 @@
             _hasMoreViews = dictArray.count == 20;
         }
         
+        [self refreshEnded];
         [self adjustBackgroundView];
         [_pullView finishedLoading];
         [self scrollViewDidScroll:self.tableView];
