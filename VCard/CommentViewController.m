@@ -28,8 +28,8 @@
 {
     [self.commentTableViewController refresh];
     [self.commentTableViewController setUpHeaderView];
-    self.pageType = StackViewPageTypeStatusComment;
-    self.pageDescription = self.status.statusID;
+//    self.pageType = StackViewPageTypeStatusComment;
+//    self.pageDescription = self.status.statusID;
 }
 
 #pragma mark - Setup

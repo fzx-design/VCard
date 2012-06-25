@@ -28,8 +28,8 @@
 - (void)initialLoad
 {
     [self.commentTableViewController refresh];
-    self.pageType = StackViewPageTypeStatusComment;
-    self.pageDescription = @"";
+//    self.pageType = StackViewPageTypeStatusComment;
+//    self.pageDescription = @"";
 }
 
 - (void)pagePopedFromStack

@@ -50,8 +50,8 @@
 #pragma mark - Over Load Method
 - (void)initialLoad
 {
-    self.pageType = StackViewPageTypeUser;
-    self.pageDescription = self.user.screenName;
+//    self.pageType = StackViewPageTypeUser;
+//    self.pageDescription = self.user.screenName;
 }
 
 - (void)stackScrolling

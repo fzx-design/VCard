@@ -162,7 +162,7 @@
     //FIXME:
     //Handle errors when screenName is nil
     
-    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:screenName];
 }
 
 - (void)userCellClicked:(NSNotification *)notification
@@ -179,7 +179,7 @@
     vc.currentUser = self.currentUser;
     vc.user = targetUser;
     
-    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:vc.user.screenName];
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:targetUser.screenName];
 }
 
 - (void)commentButtonClicked:(NSNotification *)notification
@@ -194,7 +194,7 @@
     vc.currentUser = self.currentUser;
     vc.status = status;
     
-    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:vc.status.statusID];
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:status.statusID];
 }
 
 - (void)selfCommentButtonClicked:(NSNotification *)notification
@@ -291,6 +291,8 @@
             _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         }];
     }
+    vc.pageType = pageType;
+    vc.pageDescription = pageDescription;
     [_stackViewController insertStackPage:vc atIndex:index withPageType:pageType pageDescription:pageDescription];
     
 }

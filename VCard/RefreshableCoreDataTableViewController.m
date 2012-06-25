@@ -97,6 +97,7 @@
         CGFloat height = 961.0 - self.view.frame.origin.y;
         [self.tableView resetHeight:height];
     }
+    [self scrollViewDidScroll:self.tableView];
 }
 
 - (void)resetLayoutAfterRotating:(NSNotification *)notification
@@ -104,7 +105,8 @@
     if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
         CGFloat height = 705.0 - self.view.frame.origin.y;
         [self.tableView resetHeight:height];
-    }    
+    }
+    [self scrollViewDidScroll:self.tableView];
 }
 
 #pragma mark - Adjust Background View
