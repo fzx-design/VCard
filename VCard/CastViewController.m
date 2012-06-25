@@ -362,10 +362,11 @@
         _refreshing = NO;
     }];
     
-    NSString *maxID = _refreshing ? nil : ((Status *)[self.fetchedResultsController.fetchedObjects lastObject]).statusID;
+    long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue;
+    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
     
     [client getFriendsTimelineSinceID:nil 
-                                maxID:maxID
+                                maxID:maxIDString
                        startingAtPage:0
                                 count:20 
                               feature:0];

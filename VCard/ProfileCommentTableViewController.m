@@ -113,10 +113,11 @@
         
     }];
     
-    NSString *maxID = _refreshing ? nil : ((Comment *)self.fetchedResultsController.fetchedObjects.lastObject).commentID;
+    long long maxID = ((Comment *)self.fetchedResultsController.fetchedObjects.lastObject).commentID.longLongValue;
+    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
     
     [client getCommentOfStaus:self.status.statusID
-                        maxID:maxID
+                        maxID:maxIDString
                         count:20
                  authorFilter:_filterByAuthor];
 }
