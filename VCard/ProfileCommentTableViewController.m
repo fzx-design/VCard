@@ -190,8 +190,8 @@
     _headerViewCell.pageIndex = self.pageIndex;
     
     [self updateHeaderViewInfo];
-    
     [self.tableView setTableHeaderView:_headerViewCell];
+    [_loadMoreView resetPosition];
 }
 
 - (void)updateHeaderViewInfo
