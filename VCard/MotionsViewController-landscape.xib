@@ -38,8 +38,8 @@
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIImageView" id="913418253">
 						<reference key="NSNextResponder" ref="949969073"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{-128, 0}, {1024, 1024}}</string>
+						<int key="NSvFlags">274</int>
+						<string key="NSFrame">{{-128, 0}, {1280, 768}}</string>
 						<reference key="NSSuperview" ref="949969073"/>
 						<reference key="NSNextKeyView" ref="77719864"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -56,8 +56,8 @@
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUIImageView" id="589332656">
 								<reference key="NSNextResponder" ref="578293272"/>
-								<int key="NSvFlags">319</int>
-								<string key="NSFrameSize">{662, 868}</string>
+								<int key="NSvFlags">301</int>
+								<string key="NSFrameSize">{868, 662}</string>
 								<reference key="NSSuperview" ref="578293272"/>
 								<reference key="NSNextKeyView" ref="719950899"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -70,11 +70,11 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">motions_capture_bg_vertical.png</string>
+									<string key="NSResourceName">motions_capture_bg_horizon.png</string>
 								</object>
 							</object>
 						</array>
-						<string key="NSFrame">{{70, 10}, {662, 868}}</string>
+						<string key="NSFrame">{{10, 60}, {868, 662}}</string>
 						<reference key="NSSuperview" ref="949969073"/>
 						<reference key="NSNextKeyView" ref="589332656"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -87,8 +87,8 @@
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUIImageView" id="871746193">
 								<reference key="NSNextResponder" ref="719950899"/>
-								<int key="NSvFlags">293</int>
-								<string key="NSFrameSize">{630, 445}</string>
+								<int key="NSvFlags">300</int>
+								<string key="NSFrameSize">{445, 630}</string>
 								<reference key="NSSuperview" ref="719950899"/>
 								<reference key="NSNextKeyView" ref="522774392"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -98,15 +98,15 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">motions_cover_t_vertical.png</string>
+									<string key="NSResourceName">motions_cover_l_horizon.png</string>
 								</object>
 							</object>
 							<object class="IBUIImageView" id="522774392">
 								<reference key="NSNextResponder" ref="719950899"/>
 								<int key="NSvFlags">300</int>
-								<string key="NSFrame">{{0, 380}, {630, 460}}</string>
+								<string key="NSFrame">{{380, 0}, {460, 630}}</string>
 								<reference key="NSSuperview" ref="719950899"/>
-								<reference key="NSNextKeyView" ref="438297355"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="1067179437"/>
 								<int key="IBUIContentMode">2</int>
@@ -114,11 +114,11 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">motions_cover_b_vertical.png</string>
+									<string key="NSResourceName">motions_cover_r_horizon.png</string>
 								</object>
 							</object>
 						</array>
-						<string key="NSFrame">{{86, 24}, {630, 840}}</string>
+						<string key="NSFrame">{{24, 75}, {840, 630}}</string>
 						<reference key="NSSuperview" ref="949969073"/>
 						<reference key="NSNextKeyView" ref="871746193"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -130,8 +130,9 @@
 					<object class="IBUIImageView" id="438297355">
 						<reference key="NSNextResponder" ref="949969073"/>
 						<int key="NSvFlags">293</int>
-						<string key="NSFrame">{{10, 966}, {87, 28}}</string>
+						<string key="NSFrame">{{468, 16}, {87, 28}}</string>
 						<reference key="NSSuperview" ref="949969073"/>
+						<reference key="NSNextKeyView" ref="578293272"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -145,7 +146,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{10, 15}, {50, 30}}</string>
 						<reference key="NSSuperview" ref="949969073"/>
-						<reference key="NSNextKeyView" ref="578293272"/>
+						<reference key="NSNextKeyView" ref="438297355"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -184,7 +185,7 @@
 						</object>
 					</object>
 				</array>
-				<string key="NSFrame">{{0, 20}, {768, 1004}}</string>
+				<string key="NSFrame">{{0, 20}, {1024, 748}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="913418253"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -197,6 +198,10 @@
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
 					<int key="IBUIStatusBarStyle">2</int>
+				</object>
+				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
+					<int key="IBUIInterfaceOrientation">3</int>
+					<int key="interfaceOrientation">3</int>
 				</object>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
@@ -379,9 +384,9 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="button_bg_brown.png">{16, 16}</string>
 			<string key="motions_bg.png">{16, 16}</string>
-			<string key="motions_capture_bg_vertical.png">{16, 16}</string>
-			<string key="motions_cover_b_vertical.png">{16, 16}</string>
-			<string key="motions_cover_t_vertical.png">{16, 16}</string>
+			<string key="motions_capture_bg_horizon.png">{16, 16}</string>
+			<string key="motions_cover_l_horizon.png">{16, 16}</string>
+			<string key="motions_cover_r_horizon.png">{16, 16}</string>
 			<string key="motions_title.png">{16, 16}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1875</string>
