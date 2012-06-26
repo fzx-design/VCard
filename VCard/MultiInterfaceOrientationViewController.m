@@ -19,7 +19,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     NSString *nibName = nil;
-    if(UIInterfaceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
+    if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
         nibName = [NSString stringWithFormat:@"%@-landscape", NSStringFromClass([self class])];
     } else {
         nibName = [NSString stringWithFormat:@"%@", NSStringFromClass([self class])];

@@ -81,29 +81,31 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     NSLog(@"will rotate to:%d", toInterfaceOrientation);
     [self loadInterfaceOrientation:toInterfaceOrientation];
+    [UIView setAnimationsEnabled:NO];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    NSLog(@"did rotate");
+    [UIView setAnimationsEnabled:YES];
 }
 
 #pragma mark - Logic methods
 
 - (CGRect)leftCameraCoverOpenFrame {
-    CGRect frame;
-    if(UIInterfaceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
-        frame = self.leftCameraCoverCloseFrame;
+    CGRect frame = self.leftCameraCoverCloseFrame;
+    if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
         frame.origin.x = frame.origin.x - frame.size.width;
     } else {
-        frame = self.leftCameraCoverCloseFrame;
         frame.origin.y = frame.origin.y - frame.size.height;
     }
     return frame;
 }
 
 - (CGRect)rightCameraCoverOpenFrame {
-    CGRect frame;
-    if(UIInterfaceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
-        frame = self.rightCameraCoverCloseFrame;
+    CGRect frame = self.rightCameraCoverCloseFrame;
+    if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
         frame.origin.x = frame.origin.x + frame.size.width;
     } else {
-        frame = self.rightCameraCoverCloseFrame;
         frame.origin.y = frame.origin.y + frame.size.height;
     }
     return frame;
@@ -136,6 +138,7 @@
         self.leftCameraCoverImageView.frame = self.leftCameraCoverOpenFrame;
         self.rightCameraCoverImageView.frame = self.rightCameraCoverOpenFrame;
     }
+    NSLog(@"cover frame%@", NSStringFromCGRect(self.leftCameraCoverImageView.superview.frame));
 }
 
 - (void)configureShootViewController {
@@ -157,6 +160,8 @@
 #pragma mark - Animations
 
 - (void)showCameraCoverWithCompletion:(void (^)(void))completion {
+    if(!self.cameraCoverHidden)
+        return;
     self.shootViewController.cameraStatusLEDButton.selected = NO;
     self.cameraCoverHidden = NO;
     [UIView animateWithDuration:0.3f animations:^{
@@ -165,10 +170,13 @@
     } completion:^(BOOL finished) {
         if(completion)
             completion();
+        NSLog(@"capture frame:%@, cover frame%@", NSStringFromCGRect(self.shootViewController.cameraPreviewView.frame),  NSStringFromCGRect(self.leftCameraCoverImageView.superview.frame));
     }];
 }
 
 - (void)hideCameraCoverWithCompletion:(void (^)(void))completion {
+    if(self.cameraCoverHidden)
+        return;
     self.cameraCoverHidden = YES;
     [UIView animateWithDuration:0.3f animations:^{
         self.leftCameraCoverImageView.frame = self.leftCameraCoverOpenFrame;
@@ -177,6 +185,8 @@
         if(completion)
             completion();
         self.shootViewController.cameraStatusLEDButton.selected = YES;
+        
+        NSLog(@"capture frame:%@, cover frame%@", NSStringFromCGRect(self.shootViewController.cameraPreviewView.frame),  NSStringFromCGRect(self.leftCameraCoverImageView.superview.frame));
     }];
 }
 
