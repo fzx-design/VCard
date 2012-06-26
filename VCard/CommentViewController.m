@@ -9,6 +9,7 @@
 #import "CommentViewController.h"
 #import "PostViewController.h"
 #import "UIApplication+Addition.h"
+#import "UIButton+EnlargeTouchArea.h"
 #import "User.h"
 
 @implementation CommentViewController
@@ -54,6 +55,8 @@
     [super viewDidLoad];
     [self.topShadowImageView resetOrigin:[self frameForTableView].origin];
     [self.backgroundView addSubview:self.topShadowImageView];
+    [ThemeResourceProvider configButtonPaperLight:_changeSourceButton];
+    [ThemeResourceProvider configButtonPaperDark:_commentButton];
 }
 
 - (void)viewDidUnload

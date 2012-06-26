@@ -7,6 +7,7 @@
 //
 
 #import "FriendProfileViewController.h"
+#import "UIButton+EnlargeTouchArea.h"
 #import "WBClient.h"
 #import "User.h"
 
@@ -69,6 +70,8 @@
     
     [_relationshipButton setTitle:relationShip forState:UIControlStateNormal];
     [_relationshipButton setTitle:relationShip forState:UIControlStateHighlighted];
+    
+    [ThemeResourceProvider configButtonPaperLight:_moreInfoButton];
 }
 
 - (void)viewDidUnload

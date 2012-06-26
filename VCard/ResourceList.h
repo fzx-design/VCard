@@ -45,9 +45,9 @@
 #define kRLButtonDarkBG @"button_dark_bg_hover.png"
 #define kRLButtonDarkHoverBG @"button_dark_bg_hover.png"
 #define kRLButtonPaperLightBG @"button_paper_light_bg.png"
-#define kRLButtonPaperLightHoverBG @"button_bg_brown_hover.png"
+#define kRLButtonPaperLightHoverBG @"button_paper_light_hover.png"
 #define kRLButtonPaperDarkBG @"button_paper_dark_bg.png"
-#define kRLButtonPaperDarkHoverBG @"button_bg_brown_hover.png"
+#define kRLButtonPaperDarkHoverBG @"button_paper_light_hover.png"
 
 #define kRLIconMale @"icon_male.png"
 #define kRLIconFemale @"icon_female.png"

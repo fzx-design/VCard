@@ -10,79 +10,50 @@
 
 @implementation ThemeResourceProvider
 
-+ (UIImage *)backButtonDarkBGForState:(UIControlState)state
++ (void)configbackButtonDark:(UIButton *)button
 {
-    NSString *imageName = @"";
-    switch (state) {
-        case UIControlStateHighlighted:
-            imageName = kRLBackButtonDarkHoverBG;
-            break;
-        default:
-            imageName = kRLBackButtonDarkBG;
-            break;
-    }
-    
-    return [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 16.0, 0.0, 8.0)];
+    UIEdgeInsets insets = UIEdgeInsetsMake(0.0, 16.0, 0.0, 8.0);
+    [button setBackgroundImage:[[UIImage imageNamed:kRLBackButtonDarkBG] resizableImageWithCapInsets:insets]
+                      forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:kRLBackButtonDarkHoverBG] resizableImageWithCapInsets:insets]
+                      forState:UIControlStateHighlighted];
 }
 
-+ (UIImage *)buttonBrownBGForState:(UIControlState)state
++ (void)configButtonBrown:(UIButton *)button
 {
-    NSString *imageName = @"";
-    switch (state) {
-        case UIControlStateHighlighted:
-            imageName = kRLButtonBrownHoverBG;
-            break;
-        default:
-            imageName = kRLButtonBrownBG;
-            break;
-    }
-    
-    return [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 8.0, 0.0, 8.0)];
+    UIEdgeInsets insets = UIEdgeInsetsMake(0.0, 8.0, 0.0, 8.0);
+    [button setBackgroundImage:[[UIImage imageNamed:kRLButtonBrownBG] resizableImageWithCapInsets:insets]
+                      forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:kRLButtonBrownHoverBG] resizableImageWithCapInsets:insets]
+                      forState:UIControlStateHighlighted];
 }
 
-+ (UIImage *)buttonDarkBGForState:(UIControlState)state
++ (void)configButtonDark:(UIButton *)button
 {
-    NSString *imageName = @"";
-    switch (state) {
-        case UIControlStateHighlighted:
-            imageName = kRLButtonDarkHoverBG;
-            break;
-        default:
-            imageName = kRLButtonDarkBG;
-            break;
-    }
-    
-    return [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 8.0, 0.0, 8.0)];
+    UIEdgeInsets insets = UIEdgeInsetsMake(0.0, 8.0, 0.0, 8.0);
+    [button setBackgroundImage:[[UIImage imageNamed:kRLButtonDarkBG] resizableImageWithCapInsets:insets]
+                      forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:kRLButtonDarkHoverBG] resizableImageWithCapInsets:insets]
+                      forState:UIControlStateHighlighted];
 }
 
-+ (UIImage *)buttonPaperLightBGForState:(UIControlState)state
++ (void)configButtonPaperLight:(UIButton *)button
 {
-    NSString *imageName = @"";
-    switch (state) {
-        case UIControlStateHighlighted:
-            imageName = kRLButtonPaperLightHoverBG;
-            break;
-        default:
-            imageName = kRLButtonPaperLightBG;
-            break;
-    }
-    
-    return [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 8.0, 0.0, 8.0)];
+    UIEdgeInsets insets = UIEdgeInsetsMake(0.0, 8.0, 0.0, 8.0);
+    [button setBackgroundImage:[[UIImage imageNamed:kRLButtonPaperLightBG] resizableImageWithCapInsets:insets]
+                      forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:kRLButtonPaperLightHoverBG] resizableImageWithCapInsets:insets]
+                      forState:UIControlStateHighlighted];
 }
 
-+ (UIImage *)buttonPaperDarkBGForState:(UIControlState)state
++ (void)configButtonPaperDark:(UIButton *)button
 {
-    NSString *imageName = @"";
-    switch (state) {
-        case UIControlStateHighlighted:
-            imageName = kRLButtonPaperDarkHoverBG;
-            break;
-        default:
-            imageName = kRLButtonPaperDarkBG;
-            break;
-    }
-    
-    return [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 8.0, 0.0, 8.0)];
+    UIEdgeInsets insets = UIEdgeInsetsMake(0.0, 8.0, 0.0, 8.0);
+    [button setBackgroundImage:[[UIImage imageNamed:kRLButtonPaperDarkBG] resizableImageWithCapInsets:insets]
+                      forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:kRLButtonPaperDarkHoverBG] resizableImageWithCapInsets:insets]
+                      forState:UIControlStateHighlighted];
 }
+
 
 @end

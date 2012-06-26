@@ -19,6 +19,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *changeAvatarButton;
 @property (nonatomic, strong) IBOutlet UIButton *checkCommentButton;
 @property (nonatomic, strong) IBOutlet UIButton *checkMentionButton;
+@property (nonatomic, strong) IBOutlet UIButton *accountSettingButton;
 
 - (IBAction)didClickCheckCommentButton:(id)sender;
 - (IBAction)didClickCheckMentionButton:(id)sender;

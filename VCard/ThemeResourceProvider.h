@@ -10,10 +10,10 @@
 
 @interface ThemeResourceProvider : NSObject
 
-+ (UIImage *)backButtonDarkBGForState:(UIControlState)state;
-+ (UIImage *)buttonBrownBGForState:(UIControlState)state;
-+ (UIImage *)buttonDarkBGForState:(UIControlState)state;
-+ (UIImage *)buttonPaperLightBGForState:(UIControlState)state;
-+ (UIImage *)buttonPaperDarkBGForState:(UIControlState)state;
++ (void)configbackButtonDark:(UIButton *)button;
++ (void)configButtonBrown:(UIButton *)button;
++ (void)configButtonDark:(UIButton *)button;
++ (void)configButtonPaperLight:(UIButton *)button;
++ (void)configButtonPaperDark:(UIButton *)button;
 
 @end

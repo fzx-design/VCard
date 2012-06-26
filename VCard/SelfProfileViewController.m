@@ -7,6 +7,7 @@
 //
 
 #import "SelfProfileViewController.h"
+#import "UIButton+EnlargeTouchArea.h"
 
 @implementation SelfProfileViewController
 
@@ -26,10 +27,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.user = self.currentUser;
+    
     [super setUpViews];
-        
+    [ThemeResourceProvider configButtonPaperLight:_accountSettingButton];
 }
 
 - (void)viewDidUnload

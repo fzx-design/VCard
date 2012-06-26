@@ -13,5 +13,6 @@
 }
 
 @property (nonatomic, strong) IBOutlet UIButton *relationshipButton;
+@property (nonatomic, strong) IBOutlet UIButton *moreInfoButton;
 
 @end
