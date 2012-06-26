@@ -366,12 +366,12 @@
 		E1031B5C159950DA006A9CFD /* motions_button_switch.png in Resources */ = {isa = PBXBuildFile; fileRef = E1031B5A159950DA006A9CFD /* motions_button_switch.png */; };
 		E1031B5D159950DA006A9CFD /* motions_button_switch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1031B5B159950DA006A9CFD /* motions_button_switch@2x.png */; };
 		E1031B5F159950FE006A9CFD /* MotionsShootViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B5E159950FE006A9CFD /* MotionsShootViewController-landscape.xib */; };
-		E1031B6415995114006A9CFD /* MotionsShootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1031B6115995114006A9CFD /* MotionsShootViewController.m */; };
-		E1031B6515995114006A9CFD /* MotionsShootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B6215995114006A9CFD /* MotionsShootViewController.xib */; };
 		E1031B6615995114006A9CFD /* MotionsViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B6315995114006A9CFD /* MotionsViewController-landscape.xib */; };
-		E1031B6A15995123006A9CFD /* MotionsEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1031B6815995123006A9CFD /* MotionsEditViewController.m */; };
-		E1031B6B15995123006A9CFD /* MotionsEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B6915995123006A9CFD /* MotionsEditViewController.xib */; };
 		E1031B6D15995132006A9CFD /* MotionsEditViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B6C15995132006A9CFD /* MotionsEditViewController-landscape.xib */; };
+		E1031B6E159952F5006A9CFD /* MotionsShootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B6215995114006A9CFD /* MotionsShootViewController.xib */; };
+		E1031B6F159952FA006A9CFD /* MotionsShootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1031B6115995114006A9CFD /* MotionsShootViewController.m */; };
+		E1031B7015995309006A9CFD /* MotionsEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1031B6815995123006A9CFD /* MotionsEditViewController.m */; };
+		E1031B711599530F006A9CFD /* MotionsEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B6915995123006A9CFD /* MotionsEditViewController.xib */; };
 		E1097D07157F99E700BD0640 /* PostAtHintCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1097CF9157F99E700BD0640 /* PostAtHintCell.m */; };
 		E1097D08157F99E700BD0640 /* PostAtHintCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1097CFA157F99E700BD0640 /* PostAtHintCell.xib */; };
 		E1097D09157F99E700BD0640 /* PostAtHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1097CFC157F99E700BD0640 /* PostAtHintView.m */; };
@@ -3384,6 +3384,8 @@
 				E1031B5D159950DA006A9CFD /* motions_button_switch@2x.png in Resources */,
 				E1031B5F159950FE006A9CFD /* MotionsShootViewController-landscape.xib in Resources */,
 				E1031B6D15995132006A9CFD /* MotionsEditViewController-landscape.xib in Resources */,
+				E1031B6E159952F5006A9CFD /* MotionsShootViewController.xib in Resources */,
+				E1031B711599530F006A9CFD /* MotionsEditViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3392,9 +3394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				181AB93315230AC1007A2A51 /* InfoPlist.strings in Resources */,
-				E1031B6515995114006A9CFD /* MotionsShootViewController.xib in Resources */,
 				E1031B6615995114006A9CFD /* MotionsViewController-landscape.xib in Resources */,
-				E1031B6B15995123006A9CFD /* MotionsEditViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3512,6 +3512,8 @@
 				18969A371598024F00E13A1E /* User.m in Sources */,
 				18969A3A1598025C00E13A1E /* Comment.m in Sources */,
 				18969A3D1598364000E13A1E /* Status.m in Sources */,
+				E1031B6F159952FA006A9CFD /* MotionsShootViewController.m in Sources */,
+				E1031B7015995309006A9CFD /* MotionsEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3520,8 +3522,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				181AB93615230AC1007A2A51 /* VCardTests.m in Sources */,
-				E1031B6415995114006A9CFD /* MotionsShootViewController.m in Sources */,
-				E1031B6A15995123006A9CFD /* MotionsEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

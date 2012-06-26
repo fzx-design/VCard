@@ -106,6 +106,7 @@
 								<int key="NSvFlags">300</int>
 								<string key="NSFrame">{{380, 0}, {460, 630}}</string>
 								<reference key="NSSuperview" ref="719950899"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="1067179437"/>
 								<int key="IBUIContentMode">2</int>
@@ -381,12 +382,12 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="button_bg_brown.png">{16, 16}</string>
-			<string key="motions_bg.png">{16, 16}</string>
-			<string key="motions_capture_bg_horizon.png">{16, 16}</string>
-			<string key="motions_cover_l_horizon.png">{16, 16}</string>
-			<string key="motions_cover_r_horizon.png">{16, 16}</string>
-			<string key="motions_title.png">{16, 16}</string>
+			<string key="button_bg_brown.png">{50, 30}</string>
+			<string key="motions_bg.png">{1024, 1024}</string>
+			<string key="motions_capture_bg_horizon.png">{868, 662}</string>
+			<string key="motions_cover_l_horizon.png">{445, 630}</string>
+			<string key="motions_cover_r_horizon.png">{460, 630}</string>
+			<string key="motions_title.png">{87, 28}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1875</string>
 	</data>
