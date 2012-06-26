@@ -20,5 +20,6 @@
 + (void)dismissModalViewControllerAnimated:(BOOL)animated;
 + (BOOL)isRetinaDisplayiPad;
 + (CGFloat)heightExcludingTopBar;
++ (CGFloat)screenWidth;
 
 @end

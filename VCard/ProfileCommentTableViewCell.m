@@ -51,8 +51,7 @@
     
     screenName = [NSString stringWithFormat:@"%@", self.comment.author.screenName];
     
-    [self.screenNameButton setTitle:screenName forState:UIControlStateNormal];
-    [self.screenNameButton setTitle:screenName forState:UIControlStateHighlighted];
+    [self.screenNameLabel setText:screenName];
     
     //Save the screen name
     [self.screenNameButton setTitle:self.comment.author.screenName forState:UIControlStateDisabled];

@@ -188,19 +188,28 @@
                                                 <rect key="frame" x="20" y="0.0" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Tt5-6T-Hhn">
-                                                <rect key="frame" x="56" y="0.0" width="187" height="25"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" text="用户名" autoshrinkMode="minimumFontSize" id="JWv-Qn-1Gd">
+                                                <rect key="frame" x="56" y="0.0" width="187" height="23"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <size key="shadowOffset" width="0.0" height="1"/>
+                                                <color key="textColor" red="0.49803921568627452" green="0.49803921568627452" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" hasAttributedTitle="NO" lineBreakMode="middleTruncation" id="d9e-Dx-oT6">
+                                                <rect key="frame" x="10" y="-10" width="44" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                <state key="normal" title="用户名">
-                                                    <color key="titleColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="highlighted" title="用户名">
+                                                <state key="highlighted">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="nameButtonClicked:" destination="u04-WG-2X6" eventType="touchUpInside" id="Dsg-yi-4Ua"/>
+                                                    <action selector="nameButtonClicked:" destination="u04-WG-2X6" eventType="touchUpInside" id="vsi-N2-lGt"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" id="IQX-2v-fUV" customClass="TTTAttributedLabel">
@@ -238,21 +247,30 @@
                                                 <rect key="frame" x="20" y="5" width="26" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kEL-AV-uHU">
-                                                <rect key="frame" x="58" y="5" width="220" height="25"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" hasAttributedTitle="NO" lineBreakMode="middleTruncation" id="Fdf-S8-2Rf">
+                                                <rect key="frame" x="11" y="-4" width="44" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                <state key="normal" title="用户名">
-                                                    <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="highlighted" title="用户名">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="nameButtonClicked:" destination="u04-WG-2X6" eventType="touchUpInside" id="6R0-rc-5H2"/>
+                                                    <action selector="nameButtonClicked:" destination="u04-WG-2X6" eventType="touchUpInside" id="ad6-qk-3qy"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" text="用户名" autoshrinkMode="minimumFontSize" id="dDw-w2-IcU">
+                                                <rect key="frame" x="56" y="5" width="187" height="23"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <size key="shadowOffset" width="0.0" height="1"/>
+                                                <color key="textColor" red="0.49803921569999998" green="0.49803921569999998" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            </label>
                                             <view contentMode="scaleToFill" id="Mux-IR-mpT" customClass="TTTAttributedLabel">
                                                 <rect key="frame" x="18" y="48" width="326" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -265,7 +283,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cB2-kf-m4c">
-                                <rect key="frame" x="308" y="238" width="40" height="38"/>
+                                <rect key="frame" x="307" y="235" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="button_share.png">
@@ -280,7 +298,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MMS-eP-hXe">
-                                <rect key="frame" x="269" y="238" width="40" height="38"/>
+                                <rect key="frame" x="264" y="235" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="button_comment.png">
@@ -330,13 +348,15 @@
                         <outlet property="locationPinImageView" destination="N7e-YO-GHV" id="dZe-eE-a4G"/>
                         <outlet property="originalStatusLabel" destination="IQX-2v-fUV" id="V6q-hS-aws"/>
                         <outlet property="originalUserAvatar" destination="csH-gh-gfc" id="QVu-sy-vZZ"/>
-                        <outlet property="originalUserNameButton" destination="Tt5-6T-Hhn" id="XF4-zL-GBS"/>
+                        <outlet property="originalUserNameButton" destination="d9e-Dx-oT6" id="Kvh-Nk-x6b"/>
+                        <outlet property="originalUserNameLabel" destination="JWv-Qn-1Gd" id="O5r-IY-UY6"/>
                         <outlet property="repostButton" destination="cB2-kf-m4c" id="Wm4-gj-Xla"/>
                         <outlet property="repostCardBackground" destination="buk-L8-uIQ" id="tQG-Qx-ZLp"/>
                         <outlet property="repostStatusInfoView" destination="SO2-Rt-RXt" id="xgv-TN-VGl"/>
                         <outlet property="repostStatusLabel" destination="Mux-IR-mpT" id="6gW-Ol-3kD"/>
                         <outlet property="repostUserAvatar" destination="W1Q-pN-Lvl" id="7Uj-HL-hGO"/>
-                        <outlet property="repostUserNameButton" destination="kEL-AV-uHU" id="HVy-JD-MSc"/>
+                        <outlet property="repostUserNameButton" destination="Fdf-S8-2Rf" id="vWR-Aq-7C9"/>
+                        <outlet property="repostUserNameLabel" destination="dDw-w2-IcU" id="GOF-WR-LPa"/>
                         <outlet property="statusImageView" destination="JlQ-UP-5aD" id="fdw-1j-qQR"/>
                         <outlet property="statusInfoView" destination="ZwQ-av-DfK" id="jAB-BR-qZQ"/>
                         <outlet property="timeStampLabel" destination="x7s-cO-Zoz" id="MKe-5q-ats"/>
@@ -714,7 +734,6 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" image="cell_hover.png"/>
                                         <state key="highlighted" image="cell_hover.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -730,7 +749,6 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" image="cell_hover.png"/>
                                         <state key="highlighted" image="cell_hover.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1384,23 +1402,8 @@
                                                             <rect key="frame" x="20" y="5" width="26" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="v9C-6q-7N6">
-                                                            <rect key="frame" x="58" y="5" width="220" height="25"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                            <state key="normal" title="用户名">
-                                                                <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <state key="highlighted" title="用户名">
-                                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="didClickUserNameButton:" destination="aqU-X2-YS6" eventType="touchUpInside" id="vac-rn-2Lj"/>
-                                                            </connections>
-                                                        </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qLf-Ps-dBm">
-                                                            <rect key="frame" x="311" y="-1" width="40" height="38"/>
+                                                            <rect key="frame" x="311" y="-4" width="44" height="44"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                             <state key="normal" image="button_share.png">
@@ -1412,7 +1415,7 @@
                                                             </state>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YCB-IM-iep">
-                                                            <rect key="frame" x="268" y="-1" width="40" height="38"/>
+                                                            <rect key="frame" x="267" y="-4" width="44" height="44"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                             <state key="normal" image="button_comment.png">
@@ -1439,6 +1442,30 @@
                                                             <color key="textColor" red="0.63137254899999995" green="0.63137254899999995" blue="0.63137254899999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                         </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" text="用户名" autoshrinkMode="minimumFontSize" id="aKo-CN-gV1">
+                                                            <rect key="frame" x="56" y="5" width="187" height="23"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <size key="shadowOffset" width="0.0" height="1"/>
+                                                            <color key="textColor" red="0.49803921569999998" green="0.49803921569999998" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" hasAttributedTitle="NO" lineBreakMode="middleTruncation" id="8Ef-0z-j8z">
+                                                            <rect key="frame" x="11" y="-4" width="44" height="44"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                            <state key="normal">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <state key="highlighted">
+                                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="nameButtonClicked:" destination="u04-WG-2X6" eventType="touchUpInside" id="lIH-PQ-6Z3"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -1465,7 +1492,8 @@
                                     <outlet property="commentInfoView" destination="5Jo-Ul-xeN" id="5aO-IE-R9M"/>
                                     <outlet property="downThreadImageView" destination="dyk-6u-i1e" id="tgt-h6-Of0"/>
                                     <outlet property="moreActionButton" destination="qLf-Ps-dBm" id="RtW-fx-xng"/>
-                                    <outlet property="screenNameButton" destination="v9C-6q-7N6" id="O6b-mG-VLU"/>
+                                    <outlet property="screenNameButton" destination="8Ef-0z-j8z" id="fDW-LG-qtD"/>
+                                    <outlet property="screenNameLabel" destination="aKo-CN-gV1" id="aJm-yR-EIe"/>
                                     <outlet property="timeStampLabel" destination="cBZ-kg-xv9" id="cdM-Qa-7yb"/>
                                     <outlet property="upThreadImageView" destination="sd1-Bm-0BV" id="w9Y-zl-Frq"/>
                                 </connections>
@@ -1513,23 +1541,8 @@
                                                             <rect key="frame" x="20" y="5" width="26" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QwE-b7-OIZ">
-                                                            <rect key="frame" x="58" y="5" width="158" height="25"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                            <state key="normal" title="用户名">
-                                                                <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <state key="highlighted" title="用户名">
-                                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="didClickUserNameButton:" destination="rAn-AX-zyW" eventType="touchUpInside" id="edI-xB-GYp"/>
-                                                            </connections>
-                                                        </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="F6j-RW-9o8">
-                                                            <rect key="frame" x="266" y="-1" width="40" height="38"/>
+                                                            <rect key="frame" x="265" y="-4" width="44" height="44"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                             <state key="normal" image="button_share.png">
@@ -1541,7 +1554,7 @@
                                                             </state>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="OIR-Ha-QyY">
-                                                            <rect key="frame" x="224" y="-1" width="40" height="38"/>
+                                                            <rect key="frame" x="224" y="-4" width="44" height="44"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                             <state key="normal" image="button_comment.png">
@@ -1583,6 +1596,30 @@
                                                                 <action selector="didClickViewDetailButton:" destination="rAn-AX-zyW" eventType="touchUpInside" id="ePe-sm-OFC"/>
                                                             </connections>
                                                         </button>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" text="用户名" autoshrinkMode="minimumFontSize" id="YnA-wO-che">
+                                                            <rect key="frame" x="58" y="5" width="187" height="23"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <size key="shadowOffset" width="0.0" height="1"/>
+                                                            <color key="textColor" red="0.49803921569999998" green="0.49803921569999998" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" hasAttributedTitle="NO" lineBreakMode="middleTruncation" id="K3I-xf-Agf">
+                                                            <rect key="frame" x="11" y="-4" width="44" height="44"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                            <state key="normal">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <state key="highlighted">
+                                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="nameButtonClicked:" destination="u04-WG-2X6" eventType="touchUpInside" id="nF0-39-mQs"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -1600,7 +1637,8 @@
                                     <outlet property="commentContentLabel" destination="9at-7f-dMF" id="ivS-kq-nxA"/>
                                     <outlet property="commentInfoView" destination="wJD-a7-2Kk" id="GzC-ga-loM"/>
                                     <outlet property="moreActionButton" destination="F6j-RW-9o8" id="yvX-dm-qyH"/>
-                                    <outlet property="screenNameButton" destination="QwE-b7-OIZ" id="WMW-pD-CZ6"/>
+                                    <outlet property="screenNameButton" destination="K3I-xf-Agf" id="Wk0-cx-pSG"/>
+                                    <outlet property="screenNameLabel" destination="YnA-wO-che" id="ZiX-x5-h53"/>
                                     <outlet property="timeStampLabel" destination="i23-D8-6FI" id="paI-fu-BYA"/>
                                     <outlet property="viewDetailButton" destination="8US-FU-zvX" id="g0g-Vp-Ohz"/>
                                 </connections>
@@ -1661,6 +1699,261 @@
         <image name="title_small.png" width="88" height="29"/>
         <image name="topbar_avatar_cover.png" width="28" height="28"/>
     </resources>
+    <classes>
+        <class className="BaseCardBackgroundView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCardBackgroundView.h"/>
+        </class>
+        <class className="BaseLayoutView" superclassName="UIImageView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseLayoutView.h"/>
+        </class>
+        <class className="BaseNavigationBar" superclassName="UINavigationBar">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationBar.h"/>
+        </class>
+        <class className="BaseNavigationView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationView.h"/>
+        </class>
+        <class className="BaseStackLayoutView" superclassName="UIImageView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseStackLayoutView.h"/>
+        </class>
+        <class className="CardImageView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardImageView.h"/>
+        </class>
+        <class className="CardViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickRepostButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="nameButtonClicked:"/>
+                <relationship kind="outlet" name="cardBackground" candidateClass="BaseCardBackgroundView"/>
+                <relationship kind="outlet" name="clipImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="favoredImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="locationPinImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="originalStatusLabel" candidateClass="TTTAttributedLabel"/>
+                <relationship kind="outlet" name="originalUserAvatar" candidateClass="UserAvatarImageView"/>
+                <relationship kind="outlet" name="originalUserNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="originalUserNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="repostButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="repostCardBackground" candidateClass="BaseCardBackgroundView"/>
+                <relationship kind="outlet" name="repostStatusInfoView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="repostStatusLabel" candidateClass="TTTAttributedLabel"/>
+                <relationship kind="outlet" name="repostUserAvatar" candidateClass="UserAvatarImageView"/>
+                <relationship kind="outlet" name="repostUserNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="repostUserNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="statusImageView" candidateClass="CardImageView"/>
+                <relationship kind="outlet" name="statusInfoView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CastViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CastViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickCreateStatusButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="groupButtonClicked:"/>
+                <relationship kind="action" name="refreshButtonClicked:"/>
+                <relationship kind="action" name="showProfileButtonClicked:"/>
+                <relationship kind="outlet" name="createStatusButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="groupButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="navigationView" candidateClass="BaseNavigationView"/>
+                <relationship kind="outlet" name="profileImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="refreshButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="refreshIndicatorView" candidateClass="RefreshIndicatorView"/>
+                <relationship kind="outlet" name="searchButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="showProfileButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="waterflowView" candidateClass="WaterflowView"/>
+            </relationships>
+        </class>
+        <class className="CommentViewController" superclassName="StackViewPageController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickChangeSourceButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="changeSourceButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CoreDataTableViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="CoreDataViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataViewController.h"/>
+        </class>
+        <class className="DividerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DividerViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="leftPattern" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="rightPattern" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="FriendProfileViewController" superclassName="UserProfileViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendProfileViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="relationshipButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="LoginViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="ProfileCommentStatusTableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileCommentStatusTableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dividerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="leftpatternImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="rightpatternImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="ProfileCommentTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileCommentTableViewCell.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickUserNameButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
+                <relationship kind="outlet" name="baseCardBackgroundView" candidateClass="BaseCardBackgroundView"/>
+                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="commentContentLabel" candidateClass="TTTAttributedLabel"/>
+                <relationship kind="outlet" name="commentInfoView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="downThreadImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="moreActionButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="screenNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="upThreadImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="ProfileCommentTableViewController" superclassName="RefreshableCoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileCommentTableViewController.h"/>
+        </class>
+        <class className="ProfileRelationTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileRelationTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
+                <relationship kind="outlet" name="cellSelectionImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="infoLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="ProfileRelationTableViewController" superclassName="RefreshableCoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileRelationTableViewController.h"/>
+        </class>
+        <class className="ProfileStatusTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileStatusTableViewCell.h"/>
+        </class>
+        <class className="ProfileStatusTableViewController" superclassName="RefreshableCoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileStatusTableViewController.h"/>
+        </class>
+        <class className="RefreshIndicatorView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RefreshIndicatorView.h"/>
+        </class>
+        <class className="RefreshableCoreDataTableViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RefreshableCoreDataTableViewController.h"/>
+        </class>
+        <class className="RootViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RootViewController.h"/>
+        </class>
+        <class className="SelfCommentTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfCommentTableViewCell.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickUserNameButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickViewDetailButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
+                <relationship kind="outlet" name="baseCardBackgroundView" candidateClass="BaseCardBackgroundView"/>
+                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="commentContentLabel" candidateClass="TTTAttributedLabel"/>
+                <relationship kind="outlet" name="commentInfoView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="moreActionButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="screenNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="viewDetailButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="SelfCommentTableViewController" superclassName="RefreshableCoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfCommentTableViewController.h"/>
+        </class>
+        <class className="SelfCommentViewController" superclassName="StackViewPageController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfCommentViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickSwitchByMeButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickSwitchToMeButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="byMeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="toMeButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="SelfProfileViewController" superclassName="UserProfileViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfProfileViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickCheckCommentButton:"/>
+                <relationship kind="outlet" name="changeAvatarButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkCommentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkMentionButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="StackView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackView.h"/>
+        </class>
+        <class className="StackViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="stackView" candidateClass="StackView"/>
+            </relationships>
+        </class>
+        <class className="StackViewPageController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackViewPageController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="backgroundView" candidateClass="BaseStackLayoutView"/>
+            </relationships>
+        </class>
+        <class className="TTTAttributedLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TTTAttributedLabel.h"/>
+        </class>
+        <class className="UserAvatarImageView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserAvatarImageView.h"/>
+        </class>
+        <class className="UserProfileViewController" superclassName="StackViewPageController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="showFollowers:"/>
+                <relationship kind="action" name="showFriends:"/>
+                <relationship kind="action" name="showStatuses:"/>
+                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
+                <relationship kind="outlet" name="checkFollowersButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkFriendsButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkStatusesButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="discriptionLabel" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="discriptionShadowLabel" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="followerCountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="friendCountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="genderImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="statusCountLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="UserSelectionCellViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSelectionCellViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="avatarImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="avatarImageViewBG" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="userNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="userPasswordTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="WaterflowView" superclassName="UIScrollView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WaterflowView.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

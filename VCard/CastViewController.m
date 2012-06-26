@@ -133,10 +133,12 @@
     _pullView = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
     _pullView.delegate = self;
     _pullView.shouldAutoRotate = YES;
+    [_pullView resetWidth:[UIApplication screenWidth]];
     
     _loadMoreView = [[LoadMoreView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
     _loadMoreView.delegate = self;
     _loadMoreView.shouldAutoRotate = YES;
+    [_loadMoreView resetWidth:[UIApplication screenWidth]];
     
     [self.waterflowView addSubview:_pullView];
     [self.waterflowView addSubview:_loadMoreView];

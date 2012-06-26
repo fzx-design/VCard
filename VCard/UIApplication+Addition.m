@@ -28,6 +28,11 @@ static UIView *_backView;
     return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 704.0 : 960.0;
 }
 
++ (CGFloat)screenWidth
+{
+    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 1024.0 : 768.0;
+}
+
 - (UIViewController *)rootViewController
 {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];

@@ -18,6 +18,7 @@
 @property (nonatomic, strong) IBOutlet UserAvatarImageView *avatarImageView;
 @property (nonatomic, strong) IBOutlet BaseCardBackgroundView *baseCardBackgroundView;
 @property (nonatomic, strong) IBOutlet UIButton *screenNameButton;
+@property (nonatomic, strong) IBOutlet UILabel *screenNameLabel;
 @property (nonatomic, strong) IBOutlet UIButton *commentButton;
 @property (nonatomic, strong) IBOutlet UIButton *moreActionButton;
 @property (nonatomic, strong) IBOutlet UIButton *viewDetailButton;

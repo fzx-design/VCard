@@ -264,8 +264,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     [self.originalUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
     [self.originalUserAvatar setVerifiedType:[targetStatus.author verifiedTypeOfUser]];
     
-    [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateNormal];
-    [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateHighlighted];
+    [self.originalUserNameLabel setText:targetStatus.author.screenName];
     
     //Save the screen name
     [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateDisabled];
@@ -302,8 +301,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
         
         NSString *screenName = [NSString stringWithFormat:@"%@ 转发并评论了以上卡片", targetStatus.author.screenName];
         
-        [self.repostUserNameButton setTitle:screenName forState:UIControlStateNormal];
-        [self.repostUserNameButton setTitle:screenName forState:UIControlStateHighlighted];
+        [self.repostUserNameLabel setText:screenName];
         
         //Save the screen name
         [self.repostUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateDisabled];
