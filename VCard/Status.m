@@ -2,7 +2,7 @@
 //  Status.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-5-31.
+//  Created by Gabriel Yeah on 12-6-25.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -15,6 +15,8 @@
 @implementation Status
 
 @dynamic bmiddlePicURL;
+@dynamic cardSizeCardHeight;
+@dynamic cardSizeImageHeight;
 @dynamic commentsCount;
 @dynamic createdAt;
 @dynamic favorited;
@@ -22,6 +24,8 @@
 @dynamic featureOrigin;
 @dynamic featurePic;
 @dynamic featureVideo;
+@dynamic forCastView;
+@dynamic forTableView;
 @dynamic isMentioned;
 @dynamic lat;
 @dynamic location;
@@ -34,10 +38,8 @@
 @dynamic text;
 @dynamic thumbnailPicURL;
 @dynamic updateDate;
-@dynamic cardSizeImageHeight;
-@dynamic cardSizeCardHeight;
-@dynamic forTableView;
-@dynamic forCastView;
+@dynamic operatable;
+@dynamic operatedBy;
 @dynamic author;
 @dynamic comments;
 @dynamic favoritedBy;
@@ -50,12 +52,12 @@
     return [self.statusID isEqualToString:status.statusID];
 }
 
-+ (Status *)statusWithID:(NSString *)statudID inManagedObjectContext:(NSManagedObjectContext *)context
++ (Status *)statusWithID:(NSString *)statudID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"statusID == %@", statudID]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"statusID == %@ && operatedBy == %@", statudID, object]];
     
     Status *res = [[context executeFetchRequest:request error:NULL] lastObject];
     
@@ -79,15 +81,15 @@
     return count;
 }
 
-+ (Status *)insertStatus:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
++ (Status *)insertStatus:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
 {    
     NSString *statusID = [[dict objectForKey:@"id"] stringValue];
     
-    if (!statusID || [statusID isEqualToString:@""]) {
+    if (!statusID || [statusID isEqualToString:kCoreDataIdentifierDefault]) {
         return nil;
     }
     
-    Status *result = [Status statusWithID:statusID inManagedObjectContext:context];
+    Status *result = [Status statusWithID:statusID inManagedObjectContext:context withOperatingObject:object];
     if (!result) {
         result = [NSEntityDescription insertNewObjectForEntityForName:@"Status" inManagedObjectContext:context];
     }
@@ -95,6 +97,8 @@
     result.updateDate = [NSDate date];
     
     result.statusID = statusID;
+    result.operatable = [NSNumber numberWithBool:![(NSString *)object isEqualToString:kCoreDataIdentifierDefault]];
+    result.operatedBy = object;
     
     NSString *dateString = [dict objectForKey:@"created_at"];
     result.createdAt = [NSDate dateFromStringRepresentation:dateString];
@@ -130,11 +134,11 @@
     
     NSDictionary *userDict = [dict objectForKey:@"user"];
     
-    result.author = [User insertUser:userDict inManagedObjectContext:context];
-        
+    result.author = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:object];
+    
     NSDictionary* repostedStatusDict = [dict objectForKey:@"retweeted_status"];
     if (repostedStatusDict) {
-        result.repostStatus = [Status insertStatus:repostedStatusDict inManagedObjectContext:context];
+        result.repostStatus = [Status insertStatus:repostedStatusDict inManagedObjectContext:context withOperatingObject:object];
     }
     
     return result;
@@ -173,6 +177,19 @@
     }
 }
 
++ (void)deleteAllTempStatusesInManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:YES]]];
+    
+    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
+    
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
+}
+
 + (void)deleteObject:(Status *)object inManagedObjectContext:(NSManagedObjectContext *)context
 {
     [context deleteObject:object];
@@ -187,6 +204,5 @@
 {
     return self.location && ![self.location isEqualToString:@""];
 }
-
 
 @end

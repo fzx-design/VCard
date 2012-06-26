@@ -36,7 +36,7 @@
 {
     [super viewDidLoad];
     self.view.autoresizingMask = UIViewAutoresizingNone;
-//    [self refresh];
+    _coreDataIdentifier = self.description;
     _loading = NO;
     _hasMoreViews = YES;
     
@@ -75,14 +75,14 @@
             NSArray *dictArray = [originalDictArray objectForKey:@"statuses"];
             for (NSDictionary *dict in dictArray) {
                 Status *newStatus = nil;
-                newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext];
+                newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
                 
                 CGFloat imageHeight = [self randomImageHeight];
                 CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight];
                 newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
                 newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
                 newStatus.forTableView = [NSNumber numberWithBool:YES];
-                [self.user addFriendsStatusesObject:newStatus];
+                newStatus.author = self.user;
             }
             
             [self.managedObjectContext processPendingChanges];
@@ -101,7 +101,7 @@
          
     NSString *maxID = _refreshing ? nil : ((Status *)[self.fetchedResultsController.fetchedObjects lastObject]).statusID;
     
-    [client getUserTimeline:self.user.userID 
+    [client getUserTimeline:self.user.userID
                     SinceID:nil 
                       maxID:maxID
              startingAtPage:0 
@@ -148,7 +148,7 @@
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext];
     
-    request.predicate = [NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@", self.user, [NSNumber numberWithBool:YES]];
+    request.predicate = [NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@", self.user, [NSNumber numberWithBool:YES], _coreDataIdentifier];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath

@@ -14,6 +14,7 @@
     NSManagedObjectContext *_managedObjectContext;
     NSFetchedResultsController *_fetchedResultsController;
     User *_currentUser;
+    NSString *_coreDataIdentifier;
 }
 
 

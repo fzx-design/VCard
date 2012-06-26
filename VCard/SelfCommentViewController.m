@@ -32,6 +32,11 @@
     self.pageDescription = @"";
 }
 
+- (void)pagePopedFromStack
+{
+    
+}
+
 #pragma mark - Setup
 
 - (void)viewDidLoad

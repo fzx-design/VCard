@@ -72,6 +72,11 @@
     [_avatarImageView swingHalt:_avatarImageView.layer fromAngle:-0.089 * M_PI];
 }
 
+- (void)pagePopedFromStack
+{
+    
+}
+
 
 #pragma mark - Setup
 - (void)viewDidLoad

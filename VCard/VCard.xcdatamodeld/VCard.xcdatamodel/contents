@@ -10,6 +10,8 @@
         <attribute name="createdAt" attributeType="Date">
             <userInfo/>
         </attribute>
+        <attribute name="operatable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="operatedBy" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="source" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
@@ -56,6 +58,8 @@
         <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lon" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="operatable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="operatedBy" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="originalPicURL" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
@@ -127,6 +131,8 @@
         <attribute name="location" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
+        <attribute name="operatable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="operatedBy" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="profileImageURL" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
@@ -173,7 +179,7 @@
     </entity>
     <elements>
         <element name="Comment" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Status" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Status" positionX="0" positionY="0" width="0" height="525"/>
         <element name="User" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

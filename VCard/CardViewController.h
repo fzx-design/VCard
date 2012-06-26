@@ -78,7 +78,7 @@
 @property (nonatomic, strong) IBOutlet BaseCardBackgroundView *cardBackground;
 @property (nonatomic, strong) IBOutlet BaseCardBackgroundView *repostCardBackground;
 @property (nonatomic, strong) Status *status;
-
+@property (nonatomic, weak) Status *previousStatus;
 @property (nonatomic, assign) NSInteger imageHeight;
 @property (nonatomic, assign) NSInteger pageIndex;
 

@@ -21,6 +21,7 @@
     User *_user;
     BOOL _hasMoreViews;
     BOOL _refreshing;
+    NSString *_identifier;
 }
 
 @property (nonatomic, assign) int pageIndex;

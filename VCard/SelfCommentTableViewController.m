@@ -32,6 +32,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _coreDataIdentifier = self.description;
+    _loading = NO;
     _toMeNextPage = 1;
     _byMeNextPage = 1;
     _hasMoreViews = YES;

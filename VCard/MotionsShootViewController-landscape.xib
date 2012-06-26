@@ -410,12 +410,12 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="motions_button_switch.png">{80, 37}</string>
-			<string key="motions_camera_roll_button.png">{60, 60}</string>
-			<string key="motions_capture_button.png">{106, 107}</string>
-			<string key="motions_control_bg_horizon.png">{154, 472}</string>
-			<string key="motions_led_capture.png">{20, 20}</string>
-			<string key="motions_led_off.png">{20, 20}</string>
+			<string key="motions_button_switch.png">{16, 16}</string>
+			<string key="motions_camera_roll_button.png">{16, 16}</string>
+			<string key="motions_capture_button.png">{16, 16}</string>
+			<string key="motions_control_bg_horizon.png">{16, 16}</string>
+			<string key="motions_led_capture.png">{16, 16}</string>
+			<string key="motions_led_off.png">{16, 16}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1875</string>
 	</data>

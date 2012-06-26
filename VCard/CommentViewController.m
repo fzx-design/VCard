@@ -48,6 +48,11 @@
     self.commentButton = nil;
 }
 
+- (void)pagePopedFromStack
+{
+    
+}
+
 #pragma mark - IBActions
 
 -(IBAction)didClickChangeSourceButton:(UIButton *)sender

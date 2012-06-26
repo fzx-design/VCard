@@ -44,7 +44,7 @@
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             NSDictionary *userDict = client.responseJSONObject;
-            self.user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext];
+            self.user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
             [super setUpViews];
             [self setUpSpecificView];
         }
