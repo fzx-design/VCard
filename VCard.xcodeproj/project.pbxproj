@@ -382,7 +382,6 @@
 		E1031B5C159950DA006A9CFD /* motions_button_switch.png in Resources */ = {isa = PBXBuildFile; fileRef = E1031B5A159950DA006A9CFD /* motions_button_switch.png */; };
 		E1031B5D159950DA006A9CFD /* motions_button_switch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1031B5B159950DA006A9CFD /* motions_button_switch@2x.png */; };
 		E1031B5F159950FE006A9CFD /* MotionsShootViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B5E159950FE006A9CFD /* MotionsShootViewController-landscape.xib */; };
-		E1031B6615995114006A9CFD /* MotionsViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B6315995114006A9CFD /* MotionsViewController-landscape.xib */; };
 		E1031B6D15995132006A9CFD /* MotionsEditViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B6C15995132006A9CFD /* MotionsEditViewController-landscape.xib */; };
 		E1031B6E159952F5006A9CFD /* MotionsShootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B6215995114006A9CFD /* MotionsShootViewController.xib */; };
 		E1031B6F159952FA006A9CFD /* MotionsShootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1031B6115995114006A9CFD /* MotionsShootViewController.m */; };
@@ -640,6 +639,7 @@
 		E1097F32157FA63B00BD0640 /* button_finish_large.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097F30157FA63B00BD0640 /* button_finish_large.png */; };
 		E1097F33157FA63B00BD0640 /* button_finish_large@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097F31157FA63B00BD0640 /* button_finish_large@2x.png */; };
 		E12B6FDC1599663B00711A6B /* MultiInterfaceOrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */; };
+		E12B6FED159992D700711A6B /* MotionsViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B6315995114006A9CFD /* MotionsViewController-landscape.xib */; };
 		E135F7DB155E6196008494D8 /* button_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C3155E6196008494D8 /* button_delete.png */; };
 		E135F7DC155E6196008494D8 /* button_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C4155E6196008494D8 /* button_delete@2x.png */; };
 		E135F7DD155E6196008494D8 /* button_done_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C5155E6196008494D8 /* button_done_bg.png */; };
@@ -3457,6 +3457,7 @@
 				181728001599825700BC25B2 /* button_dark_bg_hover@2x.png in Resources */,
 				181728011599825700BC25B2 /* button_paper_dark_bg.png in Resources */,
 				181728021599825700BC25B2 /* button_paper_dark_bg@2x.png in Resources */,
+				E12B6FED159992D700711A6B /* MotionsViewController-landscape.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3465,7 +3466,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				181AB93315230AC1007A2A51 /* InfoPlist.strings in Resources */,
-				E1031B6615995114006A9CFD /* MotionsViewController-landscape.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
