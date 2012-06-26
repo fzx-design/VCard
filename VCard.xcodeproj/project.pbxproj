@@ -66,6 +66,15 @@
 		18145326156753DD00491BED /* KVDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 18145321156753DD00491BED /* KVDownload.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18145327156753DD00491BED /* KVImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 18145323156753DD00491BED /* KVImageCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18145328156753DD00491BED /* UIImageView+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 18145325156753DD00491BED /* UIImageView+URL.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		181727F115997ABA00BC25B2 /* ThemeResourceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 181727F015997ABA00BC25B2 /* ThemeResourceProvider.m */; };
+		181727FB1599825700BC25B2 /* button_back_dark_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 181727F31599825700BC25B2 /* button_back_dark_hover.png */; };
+		181727FC1599825700BC25B2 /* button_back_dark_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181727F41599825700BC25B2 /* button_back_dark_hover@2x.png */; };
+		181727FD1599825700BC25B2 /* button_bg_brown_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 181727F51599825700BC25B2 /* button_bg_brown_hover.png */; };
+		181727FE1599825700BC25B2 /* button_bg_brown_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181727F61599825700BC25B2 /* button_bg_brown_hover@2x.png */; };
+		181727FF1599825700BC25B2 /* button_dark_bg_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 181727F71599825700BC25B2 /* button_dark_bg_hover.png */; };
+		181728001599825700BC25B2 /* button_dark_bg_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181727F81599825700BC25B2 /* button_dark_bg_hover@2x.png */; };
+		181728011599825700BC25B2 /* button_paper_dark_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 181727F91599825700BC25B2 /* button_paper_dark_bg.png */; };
+		181728021599825700BC25B2 /* button_paper_dark_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181727FA1599825700BC25B2 /* button_paper_dark_bg@2x.png */; };
 		181AB90B15230AC1007A2A51 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90A15230AC1007A2A51 /* UIKit.framework */; };
 		181AB90D15230AC1007A2A51 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90C15230AC1007A2A51 /* Foundation.framework */; };
 		181AB90F15230AC1007A2A51 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181AB90E15230AC1007A2A51 /* CoreGraphics.framework */; };
@@ -790,6 +799,16 @@
 		18145323156753DD00491BED /* KVImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVImageCache.m; sourceTree = "<group>"; };
 		18145324156753DD00491BED /* UIImageView+URL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+URL.h"; sourceTree = "<group>"; };
 		18145325156753DD00491BED /* UIImageView+URL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+URL.m"; sourceTree = "<group>"; };
+		181727EF15997ABA00BC25B2 /* ThemeResourceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeResourceProvider.h; sourceTree = "<group>"; };
+		181727F015997ABA00BC25B2 /* ThemeResourceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeResourceProvider.m; sourceTree = "<group>"; };
+		181727F31599825700BC25B2 /* button_back_dark_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_back_dark_hover.png; sourceTree = "<group>"; };
+		181727F41599825700BC25B2 /* button_back_dark_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_back_dark_hover@2x.png"; sourceTree = "<group>"; };
+		181727F51599825700BC25B2 /* button_bg_brown_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_bg_brown_hover.png; sourceTree = "<group>"; };
+		181727F61599825700BC25B2 /* button_bg_brown_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_bg_brown_hover@2x.png"; sourceTree = "<group>"; };
+		181727F71599825700BC25B2 /* button_dark_bg_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_dark_bg_hover.png; sourceTree = "<group>"; };
+		181727F81599825700BC25B2 /* button_dark_bg_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_dark_bg_hover@2x.png"; sourceTree = "<group>"; };
+		181727F91599825700BC25B2 /* button_paper_dark_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_paper_dark_bg.png; sourceTree = "<group>"; };
+		181727FA1599825700BC25B2 /* button_paper_dark_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_paper_dark_bg@2x.png"; sourceTree = "<group>"; };
 		181AB90615230AC1007A2A51 /* VCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		181AB90A15230AC1007A2A51 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		181AB90C15230AC1007A2A51 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1795,6 +1814,8 @@
 				181AB91915230AC1007A2A51 /* AppDelegate.h */,
 				181AB91A15230AC1007A2A51 /* AppDelegate.m */,
 				1890C6A21535A87900023A13 /* ResourceList.h */,
+				181727EF15997ABA00BC25B2 /* ThemeResourceProvider.h */,
+				181727F015997ABA00BC25B2 /* ThemeResourceProvider.m */,
 			);
 			name = Basic;
 			sourceTree = "<group>";
@@ -1987,6 +2008,14 @@
 		18EA4E5915346DFD005ED94F /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				181727F31599825700BC25B2 /* button_back_dark_hover.png */,
+				181727F41599825700BC25B2 /* button_back_dark_hover@2x.png */,
+				181727F51599825700BC25B2 /* button_bg_brown_hover.png */,
+				181727F61599825700BC25B2 /* button_bg_brown_hover@2x.png */,
+				181727F71599825700BC25B2 /* button_dark_bg_hover.png */,
+				181727F81599825700BC25B2 /* button_dark_bg_hover@2x.png */,
+				181727F91599825700BC25B2 /* button_paper_dark_bg.png */,
+				181727FA1599825700BC25B2 /* button_paper_dark_bg@2x.png */,
 				E1F4EBD615971D24000B84D4 /* button_paper_light_hover.png */,
 				E1F4EBD715971D24000B84D4 /* button_paper_light_hover@2x.png */,
 				E1F4EBD815971D24000B84D4 /* button_post_bg_error.png */,
@@ -3420,6 +3449,14 @@
 				E1031B6D15995132006A9CFD /* MotionsEditViewController-landscape.xib in Resources */,
 				E1031B6E159952F5006A9CFD /* MotionsShootViewController.xib in Resources */,
 				E1031B711599530F006A9CFD /* MotionsEditViewController.xib in Resources */,
+				181727FB1599825700BC25B2 /* button_back_dark_hover.png in Resources */,
+				181727FC1599825700BC25B2 /* button_back_dark_hover@2x.png in Resources */,
+				181727FD1599825700BC25B2 /* button_bg_brown_hover.png in Resources */,
+				181727FE1599825700BC25B2 /* button_bg_brown_hover@2x.png in Resources */,
+				181727FF1599825700BC25B2 /* button_dark_bg_hover.png in Resources */,
+				181728001599825700BC25B2 /* button_dark_bg_hover@2x.png in Resources */,
+				181728011599825700BC25B2 /* button_paper_dark_bg.png in Resources */,
+				181728021599825700BC25B2 /* button_paper_dark_bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3550,6 +3587,7 @@
 				E1031B6F159952FA006A9CFD /* MotionsShootViewController.m in Sources */,
 				E1031B7015995309006A9CFD /* MotionsEditViewController.m in Sources */,
 				E12B6FDC1599663B00711A6B /* MultiInterfaceOrientationViewController.m in Sources */,
+				181727F115997ABA00BC25B2 /* ThemeResourceProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

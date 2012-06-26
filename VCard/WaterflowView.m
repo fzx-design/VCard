@@ -144,6 +144,10 @@
     CGFloat width = UIInterfaceOrientationIsPortrait(orientation) ? 768 : 1024;
     CGFloat height = [self heightOfWaterflowView];
     
+    if (height < self.frame.size.height) {
+        height = self.frame.size.height + 1;
+    }
+    
     self.contentSize = CGSizeMake(width, height);
 }
 
