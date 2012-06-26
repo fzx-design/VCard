@@ -57,7 +57,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self configureCameraCover];
+    self.view.userInteractionEnabled = YES;
+    self.leftCameraCoverCloseFrame = self.leftCameraCoverImageView.frame;
+    self.rightCameraCoverCloseFrame = self.rightCameraCoverImageView.frame;
     if(self.originalImage) {
     } else {
         [self configureShootViewController];
@@ -80,13 +82,14 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     NSLog(@"will rotate to:%d", toInterfaceOrientation);
+    //[UIView setAnimationsEnabled:NO];
     [self loadInterfaceOrientation:toInterfaceOrientation];
-    [UIView setAnimationsEnabled:NO];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    NSLog(@"did rotate");
-    [UIView setAnimationsEnabled:YES];
+    NSLog(@"did rotate to %d, self orientation %d", [UIApplication sharedApplication].statusBarOrientation, self.interfaceOrientation);
+    //[UIView setAnimationsEnabled:YES];
+    [self configureCameraCover];
 }
 
 #pragma mark - Logic methods
@@ -132,22 +135,18 @@
 #pragma mark - UI methods
 
 - (void)configureCameraCover {
-    self.leftCameraCoverCloseFrame = self.leftCameraCoverImageView.frame;
-    self.rightCameraCoverCloseFrame = self.rightCameraCoverImageView.frame;
     if(self.isCameraCoverHidden) {
         self.leftCameraCoverImageView.frame = self.leftCameraCoverOpenFrame;
         self.rightCameraCoverImageView.frame = self.rightCameraCoverOpenFrame;
     }
-    NSLog(@"cover frame%@", NSStringFromCGRect(self.leftCameraCoverImageView.superview.frame));
+    NSLog(@"leftCameraCoverImageView frame%@", NSStringFromCGRect(self.leftCameraCoverImageView.frame));
 }
 
 - (void)configureShootViewController {
-    [self.shootViewController.view removeFromSuperview];
     [self.view insertSubview:self.shootViewController.view aboveSubview:self.captureBgView];
 }
 
 - (void)configureEditViewController {
-    [self.editViewController.view removeFromSuperview];
     [self.view insertSubview:self.editViewController.view aboveSubview:self.captureBgView];
 }
 
@@ -160,9 +159,10 @@
 #pragma mark - Animations
 
 - (void)showCameraCoverWithCompletion:(void (^)(void))completion {
-    if(!self.cameraCoverHidden)
+    if(!self.cameraCoverHidden) {
+        self.shootViewController.cameraStatusLEDButton.selected = NO;
         return;
-    self.shootViewController.cameraStatusLEDButton.selected = NO;
+    }
     self.cameraCoverHidden = NO;
     [UIView animateWithDuration:0.3f animations:^{
         self.leftCameraCoverImageView.frame = self.leftCameraCoverCloseFrame;
@@ -170,13 +170,14 @@
     } completion:^(BOOL finished) {
         if(completion)
             completion();
-        NSLog(@"capture frame:%@, cover frame%@", NSStringFromCGRect(self.shootViewController.cameraPreviewView.frame),  NSStringFromCGRect(self.leftCameraCoverImageView.superview.frame));
     }];
 }
 
 - (void)hideCameraCoverWithCompletion:(void (^)(void))completion {
-    if(self.cameraCoverHidden)
+    if(self.cameraCoverHidden) {
+        self.shootViewController.cameraStatusLEDButton.selected = YES;
         return;
+    }
     self.cameraCoverHidden = YES;
     [UIView animateWithDuration:0.3f animations:^{
         self.leftCameraCoverImageView.frame = self.leftCameraCoverOpenFrame;
@@ -185,15 +186,13 @@
         if(completion)
             completion();
         self.shootViewController.cameraStatusLEDButton.selected = YES;
-        
-        NSLog(@"capture frame:%@, cover frame%@", NSStringFromCGRect(self.shootViewController.cameraPreviewView.frame),  NSStringFromCGRect(self.leftCameraCoverImageView.superview.frame));
     }];
 }
 
 #pragma mark - MotionsShootViewController delegate
 
 - (void)shootViewController:(MotionsShootViewController *)vc didCaptureImage:(UIImage *)image {
-    
+    [self.delegate motionViewControllerDidFinish:image];
 }
 
 - (void)shootViewControllerWillBecomeActiveWithCompletion:(void (^)(void))completion {

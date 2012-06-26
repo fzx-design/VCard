@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSMutableArray *subViewControllers;
 
 - (void)loadInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
+- (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 
 @end
