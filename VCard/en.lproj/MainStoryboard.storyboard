@@ -1125,12 +1125,12 @@
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <size key="titleShadowOffset" width="0.0" height="1"/>
                                         <state key="normal" title="发表评论">
-                                            <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
                                             <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="didClickCommentButton:" destination="Mdv-PJ-exh" eventType="touchUpInside" id="cOm-25-zdl"/>
@@ -1183,7 +1183,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <size key="titleShadowOffset" width="0.0" height="1"/>
-                                        <state key="normal" title="收到的微博">
+                                        <state key="normal" title="收到的评论">
                                             <color key="titleColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1193,6 +1193,7 @@
                                         </state>
                                         <state key="highlighted" backgroundImage="cell_hover.png">
                                             <color key="titleColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="didClickSwitchToMeButton:" destination="DYK-qr-8do" eventType="touchUpInside" id="fzi-GZ-WVr"/>
@@ -1204,7 +1205,7 @@
                                         <color key="backgroundColor" red="0.23921568627450979" green="0.20392156862745098" blue="0.18431372549019609" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <size key="titleShadowOffset" width="0.0" height="1"/>
-                                        <state key="normal" title="发出的微博">
+                                        <state key="normal" title="发出的评论">
                                             <color key="titleColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1213,6 +1214,7 @@
                                         </state>
                                         <state key="highlighted" backgroundImage="cell_hover.png">
                                             <color key="titleColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="didClickSwitchByMeButton:" destination="DYK-qr-8do" eventType="touchUpInside" id="1KE-ya-DAE"/>
