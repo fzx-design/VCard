@@ -203,8 +203,18 @@
     }
 }
 
-
-
++ (void)deleteMentionStatusesInManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"isMentioned == %@ && forTableView == %@", [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES]]];
+    
+    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
+    
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
+}
 
 + (void)deleteObject:(Status *)object inManagedObjectContext:(NSManagedObjectContext *)context
 {

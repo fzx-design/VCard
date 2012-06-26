@@ -54,6 +54,7 @@
 #define kNotificationNameSelfCommentButtonClicked @"kNotificationNameSelfCommentButtonClicked"
 #define kNotificationNameRefreshEnded @"kNotificationNameRefreshEnded"
 #define kNotificationCommentButtonClicked @"kNotificationCommentButtonClicked"
+#define kNotificationNameSelfMentionButtonClicked @"kNotificationNameSelfMentionButtonClicked"
 
 #define kNotificationNameStackViewCoveredWholeScreen @"kNotificationNameStackViewCoveredWholeScreen"
 #define kNotificationNameStackViewDoNotCoverWholeScreen @"kNotificationNameStackViewDoNotCoverWholeScreen"

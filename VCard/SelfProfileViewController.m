@@ -45,5 +45,10 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameSelfCommentButtonClicked object:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:kNotificationObjectKeyIndex]];
 }
 
+- (IBAction)didClickCheckMentionButton:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameSelfMentionButtonClicked object:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:kNotificationObjectKeyIndex]];
+}
+
 
 @end

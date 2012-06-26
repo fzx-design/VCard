@@ -21,5 +21,6 @@
 @property (nonatomic, strong) IBOutlet UIButton *checkMentionButton;
 
 - (IBAction)didClickCheckCommentButton:(id)sender;
+- (IBAction)didClickCheckMentionButton:(id)sender;
 
 @end

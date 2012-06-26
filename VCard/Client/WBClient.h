@@ -154,6 +154,11 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                           page:(int)page
                          count:(int)count;
 
+- (void)getMentionsSinceID:(NSString *)sinceID 
+					 maxID:(NSString *)maxID 
+					  page:(int)page 
+					 count:(int)count;
+
 - (void)getFriendsOfUser:(NSString *)userID cursor:(int)cursor count:(int)count;
 - (void)getFollowersOfUser:(NSString *)userID cursor:(int)cursor count:(int)count;
 

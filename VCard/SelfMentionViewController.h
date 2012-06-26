@@ -7,10 +7,10 @@
 //
 
 #import "StackViewPageController.h"
-#
+#import "ProfileStatusTableViewController.h"
 
 @interface SelfMentionViewController : StackViewPageController
 
-
+@property (nonatomic, strong) ProfileStatusTableViewController *statusTableViewController;
 
 @end

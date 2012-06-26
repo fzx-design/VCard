@@ -242,6 +242,7 @@
 {
     if (!_statusController) {
         _statusController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileStatusTableViewController"];
+        _statusController.type = StatusTableViewControllerTypeUserStatus;
         _statusController.user = self.user;
         _statusController.pageIndex = self.pageIndex;
         _statusController.view.frame = [self frameForTableView];

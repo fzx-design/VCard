@@ -8,9 +8,16 @@
 
 #import "RefreshableCoreDataTableViewController.h"
 
-@interface ProfileStatusTableViewController : RefreshableCoreDataTableViewController {
+typedef enum {
+    StatusTableViewControllerTypeUserStatus,
+    statusTableViewControllerTypeMentionStatus,
+} StatusTableViewControllerType;
 
+@interface ProfileStatusTableViewController : RefreshableCoreDataTableViewController {
+    
 }
+
+@property (nonatomic, assign) StatusTableViewControllerType type;
 
 - (void)refresh;
 - (void)loadMore;

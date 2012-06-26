@@ -115,6 +115,10 @@
                    name:kNotificationNameSelfCommentButtonClicked
                  object:nil];
     [center addObserver:self
+               selector:@selector(selfMentionButtonClicked:)
+                   name:kNotificationNameSelfMentionButtonClicked
+                 object:nil];    
+    [center addObserver:self
                selector:@selector(refreshEnded)
                    name:kNotificationNameRefreshEnded
                  object:nil];
@@ -213,6 +217,19 @@
     vc.currentUser = self.currentUser;
     
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:@""];
+}
+
+- (void)selfMentionButtonClicked:(NSNotification *)notification
+{
+    NSDictionary *dictionary = notification.object;
+    
+    NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
+    int index = indexString.intValue;
+    
+    SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
+    vc.currentUser = self.currentUser;
+    
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:@""];
 }
 
 - (void)hideWaterflowView

@@ -523,6 +523,28 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
+- (void)getMentionsSinceID:(NSString *)sinceID 
+					 maxID:(NSString *)maxID 
+					  page:(int)page 
+					 count:(int)count
+{
+	self.path = @"statuses/mentions.json";
+    if (sinceID) {
+        [self.params setObject:sinceID forKey:@"since_id"];
+    }
+    if (maxID) {
+        [self.params setObject:maxID forKey:@"max_id"];
+    }
+    if (page) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+    }
+    if (count) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    }
+    
+    [self loadNormalRequest];
+}
+
 #pragma mark Request
 
 - (void)loadNormalRequest
