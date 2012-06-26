@@ -255,7 +255,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="highlighted" title="用户名">
+                                                <state key="highlighted">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -1938,7 +1938,6 @@
         <class className="SelfProfileViewController" superclassName="UserProfileViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfProfileViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didCLickCheckMentionButton:"/>
                 <relationship kind="action" name="didClickCheckCommentButton:"/>
                 <relationship kind="action" name="didClickCheckMentionButton:"/>
                 <relationship kind="outlet" name="changeAvatarButton" candidateClass="UIButton"/>

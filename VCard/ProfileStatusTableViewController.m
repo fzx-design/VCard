@@ -64,7 +64,6 @@
     if (_type == StatusTableViewControllerTypeUserStatus) {
         [Status deleteStatusesOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
     } else {
-        //TODO:
         [Status deleteMentionStatusesInManagedObjectContext:self.managedObjectContext];
     }
 }
@@ -132,7 +131,6 @@
                           count:20 
                         feature:0];
     } else {
-        //TODO:
         [client getMentionsSinceID:nil
                              maxID:maxIDString
                               page:0
@@ -182,7 +180,6 @@
     if (_type == StatusTableViewControllerTypeUserStatus) {
         request.predicate = [NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@", self.user, [NSNumber numberWithBool:YES], _coreDataIdentifier];
     } else {
-        //TODO:
         request.predicate = [NSPredicate predicateWithFormat:@"isMentioned == %@", [NSNumber numberWithBool:YES]];
     }
 }
