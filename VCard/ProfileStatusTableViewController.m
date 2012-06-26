@@ -11,7 +11,6 @@
 #import "WBClient.h"
 #import "Status.h"
 #import "User.h"
-
 #import "WaterflowLayoutUnit.h"
 
 @interface ProfileStatusTableViewController () {
@@ -36,7 +35,7 @@
 {
     [super viewDidLoad];
     self.view.autoresizingMask = UIViewAutoresizingNone;
-    _coreDataIdentifier = self.description;
+    _coreDataIdentifier =  self.description;
     _loading = NO;
     _hasMoreViews = YES;
     
@@ -60,6 +59,15 @@
 
 
 #pragma mark - Data Methods
+- (void)clearData
+{
+    if (_type == StatusTableViewControllerTypeUserStatus) {
+        [Status deleteStatusesOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+    } else {
+        [Status deleteMentionStatusesInManagedObjectContext:self.managedObjectContext];
+    }
+}
+
 - (void)loadMoreData
 {
     if (_loading) {
@@ -73,16 +81,27 @@
         if (!client.hasError) {
             NSDictionary *originalDictArray = client.responseJSONObject;            
             NSArray *dictArray = [originalDictArray objectForKey:@"statuses"];
+            
+            if (_refreshing) {
+                [self clearData];
+            }
+            
             for (NSDictionary *dict in dictArray) {
                 Status *newStatus = nil;
                 newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
-                
-                CGFloat imageHeight = [self randomImageHeight];
-                CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight];
-                newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
-                newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
+                                
+                if (newStatus.cardSizeCardHeight.floatValue == 0.0) {
+                    CGFloat imageHeight = [self randomImageHeight];
+                    CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight];
+                    newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
+                    newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
+                }
                 newStatus.forTableView = [NSNumber numberWithBool:YES];
-                newStatus.author = self.user;
+                if (_type == StatusTableViewControllerTypeUserStatus) {
+                    newStatus.author = self.user;
+                } else {
+                    newStatus.isMentioned = [NSNumber numberWithBool:YES];
+                }
             }
             
             [self.managedObjectContext processPendingChanges];
@@ -91,6 +110,7 @@
             _hasMoreViews = dictArray.count == 20;
         }
         
+        [self refreshEnded];
         [self adjustBackgroundView];
         [_pullView finishedLoading];
         [self scrollViewDidScroll:self.tableView];
@@ -99,14 +119,23 @@
         _refreshing = NO;
     }];
          
-    NSString *maxID = _refreshing ? nil : ((Status *)[self.fetchedResultsController.fetchedObjects lastObject]).statusID;
+    long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue;
+    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
     
-    [client getUserTimeline:self.user.userID
-                    SinceID:nil 
-                      maxID:maxID
-             startingAtPage:0 
-                      count:20 
-                    feature:0];
+    
+    if (_type == StatusTableViewControllerTypeUserStatus) {
+        [client getUserTimeline:self.user.userID
+                        SinceID:nil 
+                          maxID:maxIDString
+                 startingAtPage:0 
+                          count:20 
+                        feature:0];
+    } else {
+        [client getMentionsSinceID:nil
+                             maxID:maxIDString
+                              page:0
+                             count:20];
+    }
 }
 
 - (void)refresh
@@ -148,7 +177,11 @@
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext];
     
-    request.predicate = [NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@", self.user, [NSNumber numberWithBool:YES], _coreDataIdentifier];
+    if (_type == StatusTableViewControllerTypeUserStatus) {
+        request.predicate = [NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@", self.user, [NSNumber numberWithBool:YES], _coreDataIdentifier];
+    } else {
+        request.predicate = [NSPredicate predicateWithFormat:@"isMentioned == %@", [NSNumber numberWithBool:YES]];
+    }
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath

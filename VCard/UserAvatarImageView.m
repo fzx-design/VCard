@@ -174,7 +174,6 @@
     for (int i = 0; i < 5; i++) {
         CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
         rotationAnimation.toValue = [NSNumber numberWithFloat:((4-i)/5.0)*((4-i)/5.0)*angle*(-1+2*(i%2))];
-        NSLog(@"%f", [rotationAnimation.toValue floatValue]);
         rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         rotationAnimation.fillMode = kCAFillModeForwards;
         rotationAnimation.removedOnCompletion = NO;

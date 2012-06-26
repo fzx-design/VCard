@@ -62,7 +62,7 @@
     [self setNotificationSettings];
     
     if ([WBClient authorized]) {
-        self.currentUser = [User userWithID:[WBClient currentUserID] inManagedObjectContext:self.managedObjectContext withOperatingObject:nil];
+        self.currentUser = [User userWithID:[WBClient currentUserID] inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
         [self performSegueWithIdentifier:@"ShowRootViewController" sender:self];
     } else {
         [self setupHorizontalView];
@@ -139,7 +139,8 @@
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             NSDictionary *userDict = client.responseJSONObject;
-            self.currentUser = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+            User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+            self.currentUser = user;
             [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];

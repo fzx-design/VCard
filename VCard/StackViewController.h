@@ -37,5 +37,6 @@
 
 - (void)addViewController:(StackViewPageController *)vc 
                   atIndex:(int)targetIndex;
+- (void)refresh;
 
 @end

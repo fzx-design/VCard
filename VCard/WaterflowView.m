@@ -7,7 +7,7 @@
 //
 
 #import "WaterflowView.h"
-#import "ResourceList.h"
+#import "UIApplication+Addition.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define LeftColumnLandscapeOriginX 120
@@ -43,7 +43,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setUpVariables];
-        
         [self setUpNotification];
     }
     return self;
@@ -54,9 +53,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self setUpVariables];
-        
         [self setUpNotification];
-
     }
     return self;
 }
@@ -147,8 +144,11 @@
     CGFloat width = UIInterfaceOrientationIsPortrait(orientation) ? 768 : 1024;
     CGFloat height = [self heightOfWaterflowView];
     
-    self.contentSize = CGSizeMake(width, height);
+    if (height < self.frame.size.height) {
+        height = self.frame.size.height + 1;
+    }
     
+    self.contentSize = CGSizeMake(width, height);
 }
 
 - (UIInterfaceOrientation)currentOrientation

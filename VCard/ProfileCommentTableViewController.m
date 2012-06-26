@@ -12,6 +12,7 @@
 #import "WBClient.h"
 #import "Comment.h"
 #import "User.h"
+#import "WaterflowLayoutUnit.h"
 
 @implementation ProfileCommentTableViewController
 
@@ -103,6 +104,7 @@
             
         }
         
+        [self refreshEnded];
         [self adjustBackgroundView];
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_pullView finishedLoading];
@@ -111,10 +113,11 @@
         
     }];
     
-    NSString *maxID = _refreshing ? nil : ((Comment *)self.fetchedResultsController.fetchedObjects.lastObject).commentID;
+    long long maxID = ((Comment *)self.fetchedResultsController.fetchedObjects.lastObject).commentID.longLongValue;
+    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
     
     [client getCommentOfStaus:self.status.statusID
-                        maxID:maxID
+                        maxID:maxIDString
                         count:20
                  authorFilter:_filterByAuthor];
 }
@@ -177,18 +180,18 @@
     
     Status *targetStatus = self.status;
     
-    [_headerViewCell setCellHeight:targetStatus.cardSizeCardHeight.floatValue];
+    CGFloat height = [CardViewController heightForStatus:self.status andImageHeight:ImageHeightHigh];
+    
+    [_headerViewCell setCellHeight:height];
     [_headerViewCell.cardViewController configureCardWithStatus:targetStatus
-                                                    imageHeight:targetStatus.cardSizeImageHeight.floatValue
+                                                    imageHeight:ImageHeightHigh
                                                       pageIndex:self.pageIndex];
     [_headerViewCell loadImageAfterScrollingStop];
     _headerViewCell.pageIndex = self.pageIndex;
     
-    int cellHeight = self.status.cardSizeCardHeight.intValue + 36.0;
-    [_headerViewCell resetHeight:cellHeight];
     [self updateHeaderViewInfo];
-    
     [self.tableView setTableHeaderView:_headerViewCell];
+    [_loadMoreView resetPosition];
 }
 
 - (void)updateHeaderViewInfo

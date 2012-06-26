@@ -15,6 +15,8 @@
 - (UIView *)viewForPageIndex:(int)index;
 - (void)stackBecomedEmpty;
 - (void)stackViewDidScroll;
+- (void)stackViewDidEndScrolling;
+- (void)stackViewWillScroll;
 //- (void)stack
 
 @end
@@ -35,5 +37,6 @@
 - (void)removeLastView:(UIView *)lastView;
 - (void)sendShowBGNotification;
 - (void)scrollToTargetView:(UIView *)targetView;
+- (int)currentPage;
 
 @end

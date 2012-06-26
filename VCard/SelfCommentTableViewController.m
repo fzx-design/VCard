@@ -83,10 +83,10 @@
         if (!client.hasError) {
             NSArray *dictArray = [client.responseJSONObject objectForKey:@"comments"];
             
-            if (_toMeNextPage == 1 && _dataSource == CommentsTableViewDataSourceCommentsToMe) {
+            if (_refreshing == 1 && _dataSource == CommentsTableViewDataSourceCommentsToMe) {
 				[self clearData];
 			} 
-			if (_byMeNextPage == 1 && _dataSource == CommentsTableViewDataSourceCommentsByMe) {
+			if (_refreshing == 1 && _dataSource == CommentsTableViewDataSourceCommentsByMe) {
 				[self clearData];
 			}
             
@@ -128,6 +128,7 @@
             
         }
         
+        [self refreshEnded];
         [self adjustBackgroundView];
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_pullView finishedLoading];
@@ -136,18 +137,19 @@
         
     }];
     
-    NSString *maxID = _refreshing ? nil : ((Comment *)self.fetchedResultsController.fetchedObjects.lastObject).commentID;
+    long long maxID = ((Comment *)self.fetchedResultsController.fetchedObjects.lastObject).commentID.longLongValue;
+    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
     
     if (self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
 		[client getCommentsByMeSinceID:nil
-                                 maxID:maxID
-                                  page:_byMeNextPage
+                                 maxID:maxIDString
+                                  page:0
                                  count:20];
     }
     else if(self.dataSource == CommentsTableViewDataSourceCommentsToMe){
         [client getCommentsToMeSinceID:nil
-                                 maxID:maxID
-                                  page:_toMeNextPage
+                                 maxID:maxIDString
+                                  page:0
                                  count:20];
     }
 }
@@ -230,7 +232,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
-	return comment.commentHeight.floatValue;
+	return comment.commentHeight.floatValue + 7.0;
 }
 
 #pragma mark - UIScrollView delegate

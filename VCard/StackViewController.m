@@ -10,7 +10,9 @@
 #import "StackViewPageController.h"
 #import "UIView+Resize.h"
 
-@interface StackViewController ()
+@interface StackViewController () {
+    StackViewPageController *_activePageViewController;
+}
 
 @end
 
@@ -78,6 +80,7 @@
             result = vc;
         }
     }
+    
     return result;
 }
 
@@ -101,15 +104,20 @@
     
     [self.controllerStack addObject:vc];
     for (StackViewPageController *animationVC in self.controllerStack) {
-        //TODO: Implement Swing Animation
         [animationVC stackScrolling];
-        // [animationVC stackScrollingStart];
-        // [animationVC stackScrollingEnd];
-        // [animationVC performSelector:@selector(stackScrollingEnd) withObject:nil afterDelay:0.1];
     }
     [self.stackView addNewPage:vc.view replacingView:replacingOtherView completion:^{
         [vc initialLoad];
     }];
+}
+
+- (void)refresh
+{
+    int currentPage = [self.stackView currentPage];
+    if (currentPage >= 0 && currentPage <= self.controllerStack.count - 1) {
+        StackViewPageController *vc = [self.controllerStack objectAtIndex:currentPage];
+        [vc refresh];
+    }
 }
 
 #pragma mark - Stack View Delegate
@@ -139,8 +147,23 @@
     [_delegate stackViewScrolledWithOffset:_stackView.scrollView.contentOffset.x width:_stackView.scrollView.contentSize.width - 384.0];
 }
 
-#pragma mark - Property
+- (void)stackViewDidEndScrolling
+{
+    int currentPage = [self.stackView currentPage];
+    if (currentPage >= 0 && currentPage <= self.controllerStack.count - 1) {
+        _activePageViewController = [self.controllerStack objectAtIndex:currentPage];
+//        [_activePageViewController enableScrollToTop];
+    }
+}
 
+- (void)stackViewWillScroll
+{
+    if (_activePageViewController) {
+//        [_activePageViewController disableScrollToTop];
+    }
+}
+
+#pragma mark - Property
 - (NSMutableArray *)controllerStack
 {
     if (!_controllerStack) {

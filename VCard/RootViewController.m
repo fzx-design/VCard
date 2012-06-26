@@ -69,6 +69,7 @@
         _castViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CastViewController"];
         _castViewController.currentUser = self.currentUser;
         _castViewController.view.frame = self.view.bounds;
+        [_castViewController initialLoad];
     }
     return _castViewController;
 }

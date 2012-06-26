@@ -59,7 +59,6 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // Custom initialization
-        [self refresh];
         [self setUpNotification];
     }
     return self;
@@ -70,10 +69,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
-    _coreDataIdentifier = kCoreDataIdentifierDefault;
-    
-    [self.fetchedResultsController performFetch:nil];
-    [self setUpWaterflowView];
+    _coreDataIdentifier = kCoreDataIdentifierDefault;    
+//    [self.fetchedResultsController performFetch:nil];
+//    [self setUpWaterflowView];
     [self setUpVariables];
 }
 
@@ -115,6 +113,14 @@
                selector:@selector(selfCommentButtonClicked:)
                    name:kNotificationNameSelfCommentButtonClicked
                  object:nil];
+    [center addObserver:self
+               selector:@selector(selfMentionButtonClicked:)
+                   name:kNotificationNameSelfMentionButtonClicked
+                 object:nil];    
+    [center addObserver:self
+               selector:@selector(refreshEnded)
+                   name:kNotificationNameRefreshEnded
+                 object:nil];
     
 }
 
@@ -125,12 +131,20 @@
 }
 
 #pragma mark - Initializing Methods
+- (void)initialLoad
+{
+    [self performSelector:@selector(setUpWaterflowView) withObject:nil afterDelay:0.001];
+}
+
 - (void)setUpWaterflowView
 {
+    self.waterflowView.flowdatasource = self;
+    self.waterflowView.flowdelegate = self;
+    [self.waterflowView refresh];
+    
     _pullView = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
     _pullView.delegate = self;
     _pullView.shouldAutoRotate = YES;
-    
     _loadMoreView = [[LoadMoreView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
     _loadMoreView.delegate = self;
     _loadMoreView.shouldAutoRotate = YES;
@@ -138,10 +152,7 @@
     [self.waterflowView addSubview:_pullView];
     [self.waterflowView addSubview:_loadMoreView];
     
-    self.waterflowView.flowdatasource = self;
-    self.waterflowView.flowdelegate = self;
-    
-    [self.waterflowView refresh];
+    [self refresh];
 }
 
 #pragma mark - Notification
@@ -162,7 +173,7 @@
     //FIXME:
     //Handle errors when screenName is nil
     
-    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:screenName];
 }
 
 - (void)userCellClicked:(NSNotification *)notification
@@ -179,7 +190,7 @@
     vc.currentUser = self.currentUser;
     vc.user = targetUser;
     
-    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:vc.user.screenName];
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:targetUser.screenName];
 }
 
 - (void)commentButtonClicked:(NSNotification *)notification
@@ -194,7 +205,7 @@
     vc.currentUser = self.currentUser;
     vc.status = status;
     
-    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:vc.status.statusID];
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:status.statusID];
 }
 
 - (void)selfCommentButtonClicked:(NSNotification *)notification
@@ -208,6 +219,19 @@
     vc.currentUser = self.currentUser;
     
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:@""];
+}
+
+- (void)selfMentionButtonClicked:(NSNotification *)notification
+{
+    NSDictionary *dictionary = notification.object;
+    
+    NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
+    int index = indexString.intValue;
+    
+    SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
+    vc.currentUser = self.currentUser;
+    
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:@""];
 }
 
 - (void)hideWaterflowView
@@ -233,7 +257,11 @@
     [_pullView setState:PullToRefreshViewStateLoading];
     
     self.refreshButton.userInteractionEnabled = NO;
-    [self refresh];
+    if (_stackViewController) {
+        [_stackViewController refresh];
+    } else {
+        [self refresh];
+    }
 }
 
 - (void)refreshEnded
@@ -276,8 +304,9 @@
 {
     BOOL stackViewExists = _stackViewController != nil;
     if (!stackViewExists) {
-        _stackViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewController"];
+        self.waterflowView.scrollsToTop = NO;
         
+        _stackViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewController"];
         [_stackViewController.view resetOrigin:CGPointMake(0.0, 43.0)];
         [_stackViewController.view resetSize:self.waterflowView.frame.size];
         _stackViewController.currentUser = self.currentUser;
@@ -291,6 +320,8 @@
             _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         }];
     }
+    vc.pageType = pageType;
+    vc.pageDescription = pageDescription;
     [_stackViewController insertStackPage:vc atIndex:index withPageType:pageType pageDescription:pageDescription];
     
 }
@@ -352,10 +383,11 @@
         _refreshing = NO;
     }];
     
-    NSString *maxID = _refreshing ? nil : ((Status *)[self.fetchedResultsController.fetchedObjects lastObject]).statusID;
+    long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue;
+    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
     
     [client getFriendsTimelineSinceID:nil 
-                                maxID:maxID
+                                maxID:maxIDString
                        startingAtPage:0
                                 count:20 
                               feature:0];
@@ -402,7 +434,7 @@
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext];
  
-    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && operatedBy == %@", self.currentUser, _coreDataIdentifier];
+    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && operatable == %@", self.currentUser, [NSNumber numberWithBool:NO]];
                   
 }
 
@@ -503,6 +535,8 @@
         [User deleteAllTempUsersInManagedObjectContext:self.managedObjectContext];
         [Comment deleteAllTempCommentsInManagedObjectContext:self.managedObjectContext];
         [Status deleteAllTempStatusesInManagedObjectContext:self.managedObjectContext];
+        
+        self.waterflowView.scrollsToTop = YES;
     }];
 }
 

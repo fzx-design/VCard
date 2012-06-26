@@ -38,6 +38,17 @@
 #define kRLIconVerifiedTalentSmall @"verified_talent_small.png"
 #define kRLIconVerifiedTalentBig @"verified_talent_large.png"
 
+#define kRLBackButtonDarkBG @"button_back_dark.png"
+#define kRLBackButtonDarkHoverBG @"button_back_dark_hover.png"
+#define kRLButtonBrownBG @"button_bg_brown.png"
+#define kRLButtonBrownHoverBG @"button_bg_brown_hover.png"
+#define kRLButtonDarkBG @"button_dark_bg_hover.png"
+#define kRLButtonDarkHoverBG @"button_dark_bg_hover.png"
+#define kRLButtonPaperLightBG @"button_paper_light_bg.png"
+#define kRLButtonPaperLightHoverBG @"button_bg_brown_hover.png"
+#define kRLButtonPaperDarkBG @"button_paper_dark_bg.png"
+#define kRLButtonPaperDarkHoverBG @"button_bg_brown_hover.png"
+
 #define kRLIconMale @"icon_male.png"
 #define kRLIconFemale @"icon_female.png"
 
@@ -52,7 +63,9 @@
 #define kNotificationNameUserCellClicked @"kNotificationNameUserCellClicked"
 #define kNotificationNameShouldSaveContext @"kNotificationNameShouldSaveContext"
 #define kNotificationNameSelfCommentButtonClicked @"kNotificationNameSelfCommentButtonClicked"
+#define kNotificationNameRefreshEnded @"kNotificationNameRefreshEnded"
 #define kNotificationCommentButtonClicked @"kNotificationCommentButtonClicked"
+#define kNotificationNameSelfMentionButtonClicked @"kNotificationNameSelfMentionButtonClicked"
 
 #define kNotificationNameStackViewCoveredWholeScreen @"kNotificationNameStackViewCoveredWholeScreen"
 #define kNotificationNameStackViewDoNotCoverWholeScreen @"kNotificationNameStackViewDoNotCoverWholeScreen"

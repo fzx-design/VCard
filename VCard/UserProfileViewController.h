@@ -37,8 +37,6 @@
     ProfileStatusTableViewController *_statusController;
 }
 
-@property (nonatomic, strong) IBOutlet UIButton *testButton;
-
 @property (nonatomic, strong) NSString *screenName;
 @property (nonatomic, strong) IBOutlet UserAvatarImageView *avatarImageView;
 
@@ -62,7 +60,6 @@
 @property (nonatomic, strong) ProfileStatusTableViewController *statusController;
 
 - (void)setUpViews;
-- (IBAction)createNewStackPage:(id)sender;
 - (IBAction)showFollowers:(id)sender;
 - (IBAction)showFriends:(id)sender;
 - (IBAction)showStatuses:(id)sender;

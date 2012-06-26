@@ -28,13 +28,28 @@
 - (void)initialLoad
 {
     [self.commentTableViewController refresh];
-    self.pageType = StackViewPageTypeStatusComment;
-    self.pageDescription = @"";
+//    self.pageType = StackViewPageTypeStatusComment;
+//    self.pageDescription = @"";
+}
+
+- (void)refresh
+{
+    [self.commentTableViewController refresh];
 }
 
 - (void)pagePopedFromStack
 {
     
+}
+
+- (void)enableScrollToTop
+{
+    self.commentTableViewController.tableView.scrollsToTop = YES;
+}
+
+- (void)disableScrollToTop
+{
+    self.commentTableViewController.tableView.scrollsToTop = NO;
 }
 
 #pragma mark - Setup

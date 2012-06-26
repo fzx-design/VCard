@@ -7,6 +7,7 @@
 //
 
 #import "UserProfileViewController.h"
+#import "UIApplication+Addition.h"
 #import "UIView+Resize.h"
 #import "User.h"
 
@@ -15,8 +16,6 @@
 @end
 
 @implementation UserProfileViewController
-
-@synthesize testButton;
 
 @synthesize screenName;
 @synthesize avatarImageView = _avatarImageView;
@@ -50,8 +49,8 @@
 #pragma mark - Over Load Method
 - (void)initialLoad
 {
-    self.pageType = StackViewPageTypeUser;
-    self.pageDescription = self.user.screenName;
+//    self.pageType = StackViewPageTypeUser;
+//    self.pageDescription = self.user.screenName;
 }
 
 - (void)stackScrolling
@@ -72,9 +71,34 @@
     [_avatarImageView swingHalt:_avatarImageView.layer fromAngle:-0.089 * M_PI];
 }
 
+- (void)enableScrollToTop
+{
+    [super enableScrollToTop];
+    self.statusController.tableView.scrollsToTop = YES;
+}
+
+- (void)disableScrollToTop
+{
+    [super disableScrollToTop];
+    self.statusController.tableView.scrollsToTop = NO;
+    self.friendController.tableView.scrollsToTop = NO;
+    self.followerController.tableView.scrollsToTop = NO;
+}
+
 - (void)pagePopedFromStack
 {
     
+}
+
+- (void)refresh
+{
+    if (self.checkFollowersButton.selected) {
+        [self.followerController refresh];
+    } else if(self.checkFriendsButton.selected) {
+        [self.friendController refresh];
+    } else {
+        [self.statusController refresh];
+    }
 }
 
 
@@ -137,9 +161,12 @@
     self.checkFriendsButton.selected = NO;
     
     [self.backgroundView insertSubview:self.followerController.view belowSubview:self.topShadowImageView];
+    self.followerController.tableView.scrollsToTop = YES;
     [self.statusController.view removeFromSuperview];
+    self.statusController.tableView.scrollsToTop = NO;
     if (_friendController) {
         [self.friendController.view removeFromSuperview];
+        self.friendController.tableView.scrollsToTop = NO;
     }
 }
 
@@ -149,9 +176,12 @@
     self.checkStatusesButton.selected = NO;
     self.checkFriendsButton.selected = YES;
     [self.backgroundView insertSubview:self.friendController.view belowSubview:self.topShadowImageView];
+    self.friendController.tableView.scrollsToTop = YES;
     [self.statusController.view removeFromSuperview];
+    self.statusController.tableView.scrollsToTop = NO;
     if (_followerController) {
         [self.followerController.view removeFromSuperview];
+        self.followerController.tableView.scrollsToTop = NO;
     }
 }
 
@@ -161,18 +191,21 @@
     self.checkStatusesButton.selected = YES;
     self.checkFriendsButton.selected = NO;
     [self.backgroundView insertSubview:self.statusController.view belowSubview:self.topShadowImageView];
+    self.statusController.tableView.scrollsToTop = YES;
     if (_followerController) {
         [self.followerController.view removeFromSuperview];
+        self.followerController.tableView.scrollsToTop = NO;
     }
     if (_friendController) {
         [self.friendController.view removeFromSuperview];
+        self.friendController.tableView.scrollsToTop = NO;
     }
 }
 
 - (CGRect)frameForTableView
 {
     CGFloat originY = self.checkStatusesButton.frame.origin.y + self.checkStatusesButton.frame.size.height;
-    CGFloat height = self.view.frame.size.height - originY;
+    CGFloat height = [UIApplication heightExcludingTopBar] - originY;
     return CGRectMake(24.0, originY, 382.0, height);
 }
 
@@ -209,11 +242,11 @@
 {
     if (!_statusController) {
         _statusController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileStatusTableViewController"];
+        _statusController.type = StatusTableViewControllerTypeUserStatus;
         _statusController.user = self.user;
         _statusController.pageIndex = self.pageIndex;
         _statusController.view.frame = [self frameForTableView];
         _statusController.tableView.frame = [self frameForTableView];
-        
     }
     return _statusController;
 }

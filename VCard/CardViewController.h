@@ -70,6 +70,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *repostButton;
 @property (nonatomic, strong) IBOutlet UIButton *originalUserNameButton;
 @property (nonatomic, strong) IBOutlet UIButton *repostUserNameButton;
+@property (nonatomic, strong) IBOutlet UILabel *originalUserNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *repostUserNameLabel;
 
 @property (nonatomic, strong) IBOutlet UIView *statusInfoView;
 @property (nonatomic, strong) IBOutlet UIView *repostStatusInfoView;

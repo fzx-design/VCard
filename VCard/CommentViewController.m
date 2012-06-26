@@ -28,8 +28,23 @@
 {
     [self.commentTableViewController refresh];
     [self.commentTableViewController setUpHeaderView];
-    self.pageType = StackViewPageTypeStatusComment;
-    self.pageDescription = self.status.statusID;
+//    self.pageType = StackViewPageTypeStatusComment;
+//    self.pageDescription = self.status.statusID;
+}
+
+- (void)refresh
+{
+    [self.commentTableViewController refresh];
+}
+
+- (void)enableScrollToTop
+{
+    self.commentTableViewController.tableView.scrollsToTop = YES;
+}
+
+- (void)disableScrollToTop
+{
+    self.commentTableViewController.tableView.scrollsToTop = NO;
 }
 
 #pragma mark - Setup

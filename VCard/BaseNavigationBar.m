@@ -9,7 +9,7 @@
 #import "BaseNavigationBar.h"
 #import "ResourceList.h"
 
-#define FrameTopBar CGRectMake(0, 0, 768, 43)
+#define FrameTopBar CGRectMake(0, 0, 768, 44)
 #define FrameTopBarShadow CGRectMake(0, 43, 768, 15)
 #define FrameBorder CGRectMake(0, 43, 768, 1)
 
