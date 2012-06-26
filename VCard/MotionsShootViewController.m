@@ -40,15 +40,10 @@
 @synthesize popoverController = _pc;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    NSString *nibName = nil;
-    if(UIInterfaceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
-        nibName = [NSString stringWithFormat:@"%@-landscape", NSStringFromClass([self class])];
-    } else {
-        nibName = [NSString stringWithFormat:@"%@", NSStringFromClass([self class])];
-    }
-    self = [super initWithNibName:nibName bundle:nil];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [self configureCaptureSession];
     }
     return self;
 }
@@ -56,7 +51,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self configureCaptureSession];
     [self configureCameraPreviewView];
 }
 
@@ -79,8 +73,12 @@
     if(self.previewLayer.orientationSupported) {
         if(interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
             self.previewLayer.orientation = AVCaptureVideoOrientationLandscapeLeft;
-        else
+        else if(interfaceOrientation == UIInterfaceOrientationLandscapeRight)
             self.previewLayer.orientation = AVCaptureVideoOrientationLandscapeRight;
+        else if(interfaceOrientation == UIInterfaceOrientationPortrait)
+            self.previewLayer.orientation = AVCaptureVideoOrientationPortrait;
+        else if(interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+            self.previewLayer.orientation = AVCaptureVideoOrientationPortraitUpsideDown;
     }
 }
 
@@ -149,17 +147,6 @@
 }
 
 #pragma mark - UI methods
-
-- (void)configureOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    [self configurePreviewLayerOrientation:interfaceOrientation];
-    if(UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
-        [[NSBundle mainBundle] loadNibNamed:[NSString stringWithFormat:@"%@-landscape", NSStringFromClass([self class])] owner:self options:nil];
-        [self viewDidLoad];
-    } else {
-        [[NSBundle mainBundle] loadNibNamed:[NSString stringWithFormat:@"%@", NSStringFromClass([self class])] owner:self options:nil];
-        [self viewDidLoad];
-    }
-}
 
 - (void)configureCameraPreviewView {
     self.cameraPreviewView.layer.masksToBounds = YES;

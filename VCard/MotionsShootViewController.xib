@@ -55,6 +55,7 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{26, 807}, {80, 37}}</string>
 								<reference key="NSSuperview" ref="254042248"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -105,7 +106,7 @@
 							<object class="IBUIImageView" id="354775822">
 								<reference key="NSNextResponder" ref="553042857"/>
 								<int key="NSvFlags">297</int>
-								<string key="NSFrame">{{153, 8}, {462, 144}}</string>
+								<string key="NSFrame">{{153, 10}, {462, 144}}</string>
 								<reference key="NSSuperview" ref="553042857"/>
 								<reference key="NSNextKeyView" ref="94523359"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -119,7 +120,7 @@
 							<object class="IBUIButton" id="478442416">
 								<reference key="NSNextResponder" ref="553042857"/>
 								<int key="NSvFlags">257</int>
-								<string key="NSFrame">{{331, 37}, {110, 110}}</string>
+								<string key="NSFrame">{{331, 40}, {110, 110}}</string>
 								<reference key="NSSuperview" ref="553042857"/>
 								<reference key="NSNextKeyView" ref="945300068"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -167,7 +168,7 @@
 							<object class="IBUIButton" id="94523359">
 								<reference key="NSNextResponder" ref="553042857"/>
 								<int key="NSvFlags">289</int>
-								<string key="NSFrame">{{310, 82}, {20, 20}}</string>
+								<string key="NSFrame">{{310, 85}, {20, 20}}</string>
 								<reference key="NSSuperview" ref="553042857"/>
 								<reference key="NSNextKeyView" ref="478442416"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -406,12 +407,12 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="motions_button_switch.png">{16, 16}</string>
-			<string key="motions_camera_roll_button.png">{16, 16}</string>
-			<string key="motions_capture_button.png">{16, 16}</string>
-			<string key="motions_control_bg_vertical.png">{16, 16}</string>
-			<string key="motions_led_capture.png">{16, 16}</string>
-			<string key="motions_led_off.png">{16, 16}</string>
+			<string key="motions_button_switch.png">{80, 37}</string>
+			<string key="motions_camera_roll_button.png">{60, 60}</string>
+			<string key="motions_capture_button.png">{110, 110}</string>
+			<string key="motions_control_bg_vertical.png">{462, 144}</string>
+			<string key="motions_led_capture.png">{20, 20}</string>
+			<string key="motions_led_off.png">{20, 20}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1875</string>
 	</data>

@@ -14,6 +14,9 @@
 @property (nonatomic, strong) UIImage *modifiedImage;
 @property (nonatomic, assign) CGRect leftCameraCoverCloseFrame;
 @property (nonatomic, assign) CGRect rightCameraCoverCloseFrame;
+@property (nonatomic, assign) CGRect leftCameraCoverOpenFrame;
+@property (nonatomic, assign) CGRect rightCameraCoverOpenFrame;
+@property (nonatomic, assign, getter = isCameraCoverHidden) BOOL cameraCoverHidden;
 
 @end
 
@@ -31,16 +34,11 @@
 @synthesize cancelButton = _cancelButton;
 @synthesize leftCameraCoverCloseFrame = _leftCameraCoverCloseFrame;
 @synthesize rightCameraCoverCloseFrame = _rightCameraCoverCloseFrame;
+@synthesize cameraCoverHidden = _cameraCoverHidden;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    NSString *nibName = nil;
-    if(UIInterfaceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
-        nibName = [NSString stringWithFormat:@"%@-landscape", NSStringFromClass([self class])];
-    } else {
-        nibName = [NSString stringWithFormat:@"%@", NSStringFromClass([self class])];
-    }
-    self = [super initWithNibName:nibName bundle:nil];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -63,7 +61,6 @@
     if(self.originalImage) {
     } else {
         [self configureShootViewController];
-        [self.shootViewController configureOrientation:[[UIDevice currentDevice] orientation]];
     }
 }
 
@@ -83,26 +80,40 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     NSLog(@"will rotate to:%d", toInterfaceOrientation);
-    if(UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-        [[NSBundle mainBundle] loadNibNamed:[NSString stringWithFormat:@"%@-landscape", NSStringFromClass([self class])] owner:self options:nil];
-        if (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft)
-            self.view.transform = CGAffineTransformMakeRotation(M_PI * 3 / 2);
-        else
-            self.view.transform = CGAffineTransformMakeRotation(M_PI / 2);
-    } else {
-        [[NSBundle mainBundle] loadNibNamed:[NSString stringWithFormat:@"%@", NSStringFromClass([self class])] owner:self options:nil];
-        if (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
-            self.view.transform = CGAffineTransformMakeRotation(M_PI);
-    }
-    [self viewDidLoad];
+    [self loadInterfaceOrientation:toInterfaceOrientation];
 }
 
 #pragma mark - Logic methods
+
+- (CGRect)leftCameraCoverOpenFrame {
+    CGRect frame;
+    if(UIInterfaceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
+        frame = self.leftCameraCoverCloseFrame;
+        frame.origin.x = frame.origin.x - frame.size.width;
+    } else {
+        frame = self.leftCameraCoverCloseFrame;
+        frame.origin.y = frame.origin.y - frame.size.height;
+    }
+    return frame;
+}
+
+- (CGRect)rightCameraCoverOpenFrame {
+    CGRect frame;
+    if(UIInterfaceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
+        frame = self.rightCameraCoverCloseFrame;
+        frame.origin.x = frame.origin.x + frame.size.width;
+    } else {
+        frame = self.rightCameraCoverCloseFrame;
+        frame.origin.y = frame.origin.y + frame.size.height;
+    }
+    return frame;
+}
 
 - (MotionsShootViewController *)shootViewController {
     if(!_shootViewController) {
         _shootViewController = [[MotionsShootViewController alloc] init];
         _shootViewController.delegate = self;
+        [self.subViewControllers addObject:_shootViewController];
     }
     return _shootViewController;
 }
@@ -111,6 +122,7 @@
     if(!_editViewController) {
         _editViewController = [[MotionsEditViewController alloc] init];
         //_editViewController.delegate = self;
+        [self.subViewControllers addObject:_editViewController];
     }
     return _editViewController;
 }
@@ -120,6 +132,10 @@
 - (void)configureCameraCover {
     self.leftCameraCoverCloseFrame = self.leftCameraCoverImageView.frame;
     self.rightCameraCoverCloseFrame = self.rightCameraCoverImageView.frame;
+    if(self.isCameraCoverHidden) {
+        self.leftCameraCoverImageView.frame = self.leftCameraCoverOpenFrame;
+        self.rightCameraCoverImageView.frame = self.rightCameraCoverOpenFrame;
+    }
 }
 
 - (void)configureShootViewController {
@@ -142,6 +158,7 @@
 
 - (void)showCameraCoverWithCompletion:(void (^)(void))completion {
     self.shootViewController.cameraStatusLEDButton.selected = NO;
+    self.cameraCoverHidden = NO;
     [UIView animateWithDuration:0.3f animations:^{
         self.leftCameraCoverImageView.frame = self.leftCameraCoverCloseFrame;
         self.rightCameraCoverImageView.frame = self.rightCameraCoverCloseFrame;
@@ -152,13 +169,10 @@
 }
 
 - (void)hideCameraCoverWithCompletion:(void (^)(void))completion {
+    self.cameraCoverHidden = YES;
     [UIView animateWithDuration:0.3f animations:^{
-        CGRect frame = self.leftCameraCoverCloseFrame;
-        frame.origin.x = frame.origin.x - frame.size.width;
-        self.leftCameraCoverImageView.frame = frame;
-        frame = self.rightCameraCoverCloseFrame;
-        frame.origin.x = frame.origin.x + frame.size.width;
-        self.rightCameraCoverImageView.frame = frame;
+        self.leftCameraCoverImageView.frame = self.leftCameraCoverOpenFrame;
+        self.rightCameraCoverImageView.frame = self.rightCameraCoverOpenFrame;
     } completion:^(BOOL finished) {
         if(completion)
             completion();
