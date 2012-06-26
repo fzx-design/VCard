@@ -623,6 +623,7 @@
 		E1097F23157FA31E00BD0640 /* transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097F22157FA31E00BD0640 /* transparent.png */; };
 		E1097F32157FA63B00BD0640 /* button_finish_large.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097F30157FA63B00BD0640 /* button_finish_large.png */; };
 		E1097F33157FA63B00BD0640 /* button_finish_large@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097F31157FA63B00BD0640 /* button_finish_large@2x.png */; };
+		E12B6FDC1599663B00711A6B /* MultiInterfaceOrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */; };
 		E135F7DB155E6196008494D8 /* button_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C3155E6196008494D8 /* button_delete.png */; };
 		E135F7DC155E6196008494D8 /* button_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C4155E6196008494D8 /* button_delete@2x.png */; };
 		E135F7DD155E6196008494D8 /* button_done_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C5155E6196008494D8 /* button_done_bg.png */; };
@@ -1427,6 +1428,8 @@
 		E1097F22157FA31E00BD0640 /* transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transparent.png; sourceTree = "<group>"; };
 		E1097F30157FA63B00BD0640 /* button_finish_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_finish_large.png; sourceTree = "<group>"; };
 		E1097F31157FA63B00BD0640 /* button_finish_large@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_finish_large@2x.png"; sourceTree = "<group>"; };
+		E12B6FDA1599663A00711A6B /* MultiInterfaceOrientationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiInterfaceOrientationViewController.h; sourceTree = "<group>"; };
+		E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiInterfaceOrientationViewController.m; sourceTree = "<group>"; };
 		E135F7C3155E6196008494D8 /* button_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_delete.png; sourceTree = "<group>"; };
 		E135F7C4155E6196008494D8 /* button_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_delete@2x.png"; sourceTree = "<group>"; };
 		E135F7C5155E6196008494D8 /* button_done_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_done_bg.png; sourceTree = "<group>"; };
@@ -2461,6 +2464,10 @@
 				E1097D32157F9A6900BD0640 /* FilterImageView.m */,
 				E1097D1A157F9A1F00BD0640 /* MotionsCapturePreviewView.h */,
 				E1097D1B157F9A1F00BD0640 /* MotionsCapturePreviewView.m */,
+				E1031B6C15995132006A9CFD /* MotionsEditViewController-landscape.xib */,
+				E1031B6715995123006A9CFD /* MotionsEditViewController.h */,
+				E1031B6815995123006A9CFD /* MotionsEditViewController.m */,
+				E1031B6915995123006A9CFD /* MotionsEditViewController.xib */,
 				E1031B5E159950FE006A9CFD /* MotionsShootViewController-landscape.xib */,
 				E1031B6015995114006A9CFD /* MotionsShootViewController.h */,
 				E1031B6115995114006A9CFD /* MotionsShootViewController.m */,
@@ -2469,10 +2476,8 @@
 				E1097D22157F9A1F00BD0640 /* MotionsViewController.h */,
 				E1097D23157F9A1F00BD0640 /* MotionsViewController.m */,
 				E1097D24157F9A1F00BD0640 /* MotionsViewController.xib */,
-				E1031B6715995123006A9CFD /* MotionsEditViewController.h */,
-				E1031B6815995123006A9CFD /* MotionsEditViewController.m */,
-				E1031B6915995123006A9CFD /* MotionsEditViewController.xib */,
-				E1031B6C15995132006A9CFD /* MotionsEditViewController-landscape.xib */,
+				E12B6FDA1599663A00711A6B /* MultiInterfaceOrientationViewController.h */,
+				E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */,
 			);
 			name = Motions;
 			sourceTree = "<group>";
@@ -3514,6 +3519,7 @@
 				18969A3D1598364000E13A1E /* Status.m in Sources */,
 				E1031B6F159952FA006A9CFD /* MotionsShootViewController.m in Sources */,
 				E1031B7015995309006A9CFD /* MotionsEditViewController.m in Sources */,
+				E12B6FDC1599663B00711A6B /* MultiInterfaceOrientationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

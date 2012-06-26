@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "MotionsShootViewController.h"
 #import "MotionsEditViewController.h"
+#import "MultiInterfaceOrientationViewController.h"
 
 @protocol MotionsViewControllerDelegate;
 
-@interface MotionsViewController : UIViewController <MotionsShootViewControllerDelegate>
+@interface MotionsViewController : MultiInterfaceOrientationViewController <MotionsShootViewControllerDelegate>
 
 @property (nonatomic, strong) MotionsShootViewController *shootViewController;
 @property (nonatomic, strong) MotionsEditViewController *editViewController;

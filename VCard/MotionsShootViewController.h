@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "MotionsCapturePreviewView.h"
+#import "MultiInterfaceOrientationViewController.h"
 
 @protocol MotionsShootViewControllerDelegate;
 
-@interface MotionsShootViewController : UIViewController <MotionsCapturePreviewViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate>
+@interface MotionsShootViewController : MultiInterfaceOrientationViewController <MotionsCapturePreviewViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate>
 
 @property (nonatomic, weak) id<MotionsShootViewControllerDelegate> delegate;
 
@@ -23,8 +24,6 @@
 - (IBAction)didClickShootButton:(UIButton *)sender;
 - (IBAction)didClickChangeCameraButton:(UIButton *)sender;
 - (IBAction)didClickPickImageButton:(UIButton *)sender;
-
-- (void)configureOrientation:(UIInterfaceOrientation)interfaceOrientation;
 
 @end
 
