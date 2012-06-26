@@ -69,10 +69,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
-    _coreDataIdentifier = kCoreDataIdentifierDefault;
-    
-    [self.fetchedResultsController performFetch:nil];
-    [self setUpWaterflowView];
+    _coreDataIdentifier = kCoreDataIdentifierDefault;    
+//    [self.fetchedResultsController performFetch:nil];
+//    [self setUpWaterflowView];
     [self setUpVariables];
 }
 
@@ -132,25 +131,28 @@
 }
 
 #pragma mark - Initializing Methods
+- (void)initialLoad
+{
+    [self performSelector:@selector(setUpWaterflowView) withObject:nil afterDelay:0.001];
+}
+
 - (void)setUpWaterflowView
 {
+    self.waterflowView.flowdatasource = self;
+    self.waterflowView.flowdelegate = self;
+    [self.waterflowView refresh];
+    
     _pullView = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
     _pullView.delegate = self;
     _pullView.shouldAutoRotate = YES;
-    [_pullView resetWidth:[UIApplication screenWidth]];
-    
     _loadMoreView = [[LoadMoreView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
     _loadMoreView.delegate = self;
     _loadMoreView.shouldAutoRotate = YES;
-    [_loadMoreView resetWidth:[UIApplication screenWidth]];
     
     [self.waterflowView addSubview:_pullView];
     [self.waterflowView addSubview:_loadMoreView];
     
-    self.waterflowView.flowdatasource = self;
-    self.waterflowView.flowdelegate = self;
-    
-    [self.waterflowView refresh];
+    [self refresh];
 }
 
 #pragma mark - Notification

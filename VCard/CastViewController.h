@@ -44,6 +44,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *refreshButton;
 @property (nonatomic, strong) IBOutlet UIButton *showProfileButton;
 
+- (void)initialLoad;
 - (IBAction)showProfileButtonClicked:(id)sender;
 - (IBAction)refreshButtonClicked:(id)sender;
 - (IBAction)groupButtonClicked:(id)sender;

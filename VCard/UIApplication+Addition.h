@@ -21,5 +21,6 @@
 + (BOOL)isRetinaDisplayiPad;
 + (CGFloat)heightExcludingTopBar;
 + (CGFloat)screenWidth;
++ (UIInterfaceOrientation)currentOrientation;
 
 @end
