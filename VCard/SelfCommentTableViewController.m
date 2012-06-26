@@ -232,7 +232,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
-	return comment.commentHeight.floatValue;
+	return comment.commentHeight.floatValue + 7.0;
 }
 
 #pragma mark - UIScrollView delegate

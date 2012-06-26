@@ -58,6 +58,7 @@
 		1850A463153BE56D0001A905 /* image_shadow_top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1850A45D153BE56D0001A905 /* image_shadow_top@2x.png */; };
 		1850A478153C0ADC0001A905 /* libicucore.A.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1850A477153C0ADC0001A905 /* libicucore.A.dylib */; };
 		185785F41536689700C9E1B9 /* EasyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185785F31536689700C9E1B9 /* EasyTableViewCell.m */; };
+		186E42FA15994ACB0069E47C /* SelfMentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E42F915994AC90069E47C /* SelfMentionViewController.m */; };
 		187348731523407A00F562E7 /* WBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348721523407A00F562E7 /* WBRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		187348791523424500F562E7 /* WBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348781523424500F562E7 /* WBUtil.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1873487C1523433000F562E7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1873487B1523432F00F562E7 /* Security.framework */; };
@@ -783,6 +784,8 @@
 		1850A477153C0ADC0001A905 /* libicucore.A.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.A.dylib; path = usr/lib/libicucore.A.dylib; sourceTree = SDKROOT; };
 		185785F21536689700C9E1B9 /* EasyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableViewCell.h; sourceTree = "<group>"; };
 		185785F31536689700C9E1B9 /* EasyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableViewCell.m; sourceTree = "<group>"; };
+		186E42F815994AC80069E47C /* SelfMentionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfMentionViewController.h; sourceTree = "<group>"; };
+		186E42F915994AC90069E47C /* SelfMentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfMentionViewController.m; sourceTree = "<group>"; };
 		187348711523407A00F562E7 /* WBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBRequest.h; path = Client/WBRequest.h; sourceTree = "<group>"; };
 		187348721523407A00F562E7 /* WBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBRequest.m; path = Client/WBRequest.m; sourceTree = "<group>"; };
 		187348771523424500F562E7 /* WBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBUtil.h; path = Client/WBUtil.h; sourceTree = "<group>"; };
@@ -2413,6 +2416,8 @@
 				18F1E5171577AC5E00EB71DD /* CommentViewController.m */,
 				188E52FA1596EA1B00A30AB8 /* SelfCommentViewController.h */,
 				188E52FB1596EA1B00A30AB8 /* SelfCommentViewController.m */,
+				186E42F815994AC80069E47C /* SelfMentionViewController.h */,
+				186E42F915994AC90069E47C /* SelfMentionViewController.m */,
 			);
 			name = StackPage;
 			sourceTree = "<group>";
@@ -3478,6 +3483,7 @@
 				18969A371598024F00E13A1E /* User.m in Sources */,
 				18969A3A1598025C00E13A1E /* Comment.m in Sources */,
 				18969A3D1598364000E13A1E /* Status.m in Sources */,
+				186E42FA15994ACB0069E47C /* SelfMentionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
