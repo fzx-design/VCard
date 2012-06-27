@@ -383,7 +383,10 @@ typedef enum {
     }
     UIImage *optimizedImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(image.CGImage, imageRect)];
     
-    UIGraphicsBeginImageContext(imageViewRect.size);
+    if (NULL != UIGraphicsBeginImageContextWithOptions)
+        UIGraphicsBeginImageContextWithOptions(imageViewRect.size, NO, 0);
+    else
+        UIGraphicsBeginImageContext(imageViewRect.size);
     [optimizedImage drawInRect:CGRectMake(2, 2, imageViewRect.size.width - 4, imageViewRect.size.height - 4)];
     optimizedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -732,11 +735,20 @@ typedef enum {
 #pragma mark - IBActions
 
 - (IBAction)didClickMotionsButton:(UIButton *)sender {
+    UIActionSheet *actionSheet = nil;
     if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
-        [self showAlbumImagePicker];
+        if(self.motionsImageView)
+            [self showAlbumImagePicker];
+        else {
+            actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                      delegate:self 
+                                             cancelButtonTitle:nil 
+                                        destructiveButtonTitle:nil
+                                             otherButtonTitles:@"重新选取照片", @"编辑", @"清除", nil];
+            actionSheet.destructiveButtonIndex = 2;
+        }
         return;
     }
-    UIActionSheet *actionSheet = nil;
     if(self.motionsImageView.image) {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                   delegate:self 
@@ -922,6 +934,9 @@ typedef enum {
         if(buttonIndex == actionSheet.destructiveButtonIndex)
             [self.delegate postViewController:self willDropMessage:self.textView.text];
 	} else if(self.currentActionSheetType == ActionSheetTypeMotions) {
+        if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+            buttonIndex += 1;
+        }
         if(buttonIndex == MOTIONS_ACTION_SHEET_ALBUM_INDEX) {
             [self showAlbumImagePicker];
         } else if(buttonIndex == MOTIONS_ACTION_SHEET_SHOOT_INDEX) {
