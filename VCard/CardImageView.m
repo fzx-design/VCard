@@ -136,4 +136,9 @@
     self.gifIcon.hidden = YES;
 }
 
+- (UIImage *)image
+{
+    return self.imageView.image;
+}
+
 @end

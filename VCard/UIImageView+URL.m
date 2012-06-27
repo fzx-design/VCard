@@ -128,7 +128,7 @@
                 
                 UIImage *targetImage = nil;
                 if (!image) {
-                    self.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
+                    self.image = notAvailableImage;
                 } else {
                     CGSize imageSizeWithBorder = CGSizeMake(self.frame.size.width + 2, self.frame.size.height + 2);
                     
@@ -168,7 +168,7 @@
                     self.alpha = 1.0;
                 }];
             } else {
-                self.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
+                self.image = notAvailableImage;
             }
         }
         

@@ -19,6 +19,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) IBOutlet UIButton *commentButton;
 
+@property (nonatomic, assign) CommentTableViewControllerType type;
+
 - (IBAction)didClickChangeSourceButton:(UIButton *)sender;
 - (IBAction)didClickCommentButton:(UIButton *)sender;
 

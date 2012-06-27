@@ -90,12 +90,32 @@
 {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
-               selector:@selector(userNameClicked:)
-                   name:kNotificationNameUserNameClicked
+               selector:@selector(showUserByName:)
+                   name:kNotificationNameShouldShowUserByName
                  object:nil];
     [center addObserver:self
-               selector:@selector(userCellClicked:)
-                   name:kNotificationNameUserCellClicked
+               selector:@selector(showUserByCell:)
+                   name:kNotificationNameShouldShowUserByCell
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(showCommentList:)
+                   name:kNotificationNameShouldShowCommentList
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(showRepostList:)
+                   name:kNotificationNameShouldShowRepostList
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(showSelfCommentList:)
+                   name:kNotificationNameShouldShowSelfCommentList
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(showSelfMentionList:)
+                   name:kNotificationNameShouldShowSelfMentionList
+                 object:nil];    
+    [center addObserver:self
+               selector:@selector(refreshEnded)
+                   name:kNotificationNameRefreshEnded
                  object:nil];
     [center addObserver:self
                selector:@selector(hideWaterflowView)
@@ -104,22 +124,6 @@
     [center addObserver:self
                selector:@selector(showWaterflowView)
                    name:kNotificationNameStackViewDoNotCoverWholeScreen
-                 object:nil];
-    [center addObserver:self
-               selector:@selector(commentButtonClicked:)
-                   name:kNotificationCommentButtonClicked
-                 object:nil];
-    [center addObserver:self
-               selector:@selector(selfCommentButtonClicked:)
-                   name:kNotificationNameSelfCommentButtonClicked
-                 object:nil];
-    [center addObserver:self
-               selector:@selector(selfMentionButtonClicked:)
-                   name:kNotificationNameSelfMentionButtonClicked
-                 object:nil];    
-    [center addObserver:self
-               selector:@selector(refreshEnded)
-                   name:kNotificationNameRefreshEnded
                  object:nil];
     
 }
@@ -157,7 +161,7 @@
 
 #pragma mark - Notification
 
-- (void)userNameClicked:(NSNotification *)notification
+- (void)showUserByName:(NSNotification *)notification
 {
     NSDictionary *dictionary = notification.object;
     NSString *screenName = [dictionary valueForKey:kNotificationObjectKeyUserName];
@@ -176,7 +180,7 @@
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:screenName];
 }
 
-- (void)userCellClicked:(NSNotification *)notification
+- (void)showUserByCell:(NSNotification *)notification
 {
     NSDictionary *dictionary = notification.object;
     
@@ -193,7 +197,7 @@
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:targetUser.screenName];
 }
 
-- (void)commentButtonClicked:(NSNotification *)notification
+- (void)showCommentList:(NSNotification *)notification
 {
     NSDictionary *dictionary = notification.object;
     
@@ -204,11 +208,27 @@
     CommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CommentViewController"];
     vc.currentUser = self.currentUser;
     vc.status = status;
+    vc.type = CommentTableViewControllerTypeComment;
     
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:status.statusID];
 }
 
-- (void)selfCommentButtonClicked:(NSNotification *)notification
+- (void)showRepostList:(NSNotification *)notification
+{
+    NSDictionary *dictionary = notification.object;
+    
+    Status *status = [dictionary valueForKey:kNotificationObjectKeyStatus];
+    NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
+    int index = indexString.intValue;
+    
+    CommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CommentViewController"];
+    vc.currentUser = self.currentUser;
+    vc.status = status;
+    vc.type = CommentTableViewControllerTypeRepost;
+    
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusRepost pageDescription:status.statusID];
+}
+- (void)showSelfCommentList:(NSNotification *)notification
 {
     NSDictionary *dictionary = notification.object;
     
@@ -221,7 +241,7 @@
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:@""];
 }
 
-- (void)selfMentionButtonClicked:(NSNotification *)notification
+- (void)showSelfMentionList:(NSNotification *)notification
 {
     NSDictionary *dictionary = notification.object;
     
@@ -294,7 +314,7 @@
     vc.currentUser = self.currentUser;
     vc.screenName = self.currentUser.screenName;
     
-    [self stackViewAtIndex:65535 push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
+    [self stackViewAtIndex:INT64_MAX push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
 }
 
 - (void)stackViewAtIndex:(int)index
@@ -312,8 +332,8 @@
         _stackViewController.currentUser = self.currentUser;
         _stackViewController.delegate = self;
         
+        [_coverView resetOriginX:1024.0];
         [self.view insertSubview:_coverView belowSubview:_navigationView];
-        
         [self.view insertSubview:_stackViewController.view aboveSubview:_coverView];
         
         [UIView animateWithDuration:0.3 animations:^{
@@ -488,7 +508,8 @@
         
         [((WaterflowCardCell *)cell).cardViewController configureCardWithStatus:targetStatus
                                                                     imageHeight:layoutUnit.imageHeight
-                                                                      pageIndex:0];
+                                                                      pageIndex:0
+                                                                    currentUser:self.currentUser];
         
     } else if(layoutUnit.unitType == UnitTypeDivider) {
         Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
@@ -526,7 +547,6 @@
 - (void)clearStack
 {
     [_coverView removeFromSuperview];
-    [_coverView resetOriginX:1024.0];
     [UIView animateWithDuration:0.3 animations:^{
         _stackViewController.view.alpha = 0.0;
     } completion:^(BOOL finished) {

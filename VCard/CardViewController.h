@@ -14,6 +14,7 @@
 #import "UserAvatarImageView.h"
 #import "Status.h"
 #import "PostViewController.h"
+#import <MessageUI/MessageUI.h>
 
 #define CardSizeUserAvatarHeight 25
 #define CardSizeImageGap 22
@@ -25,7 +26,7 @@
 #define CardTailHeight 24
 #define CardTailOffset -55
 
-@interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate, PostViewControllerDelegate> {
+@interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate, PostViewControllerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
     CardImageView *_statusImageView;
     UserAvatarImageView *_repostUserAvatar;
     UserAvatarImageView *_originalUserAvatar;
@@ -89,10 +90,13 @@
 - (IBAction)didClickRepostButton:(UIButton *)sender;
 
 + (CGFloat)heightForStatus:(Status*)status_ andImageHeight:(NSInteger)imageHeight_;
-+ (CGFloat)heightForComment:(Comment *)comment_;
++ (CGFloat)heightForTextContent:(NSString *)text;
 + (void)setStatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string;
 
-- (void)configureCardWithStatus:(Status*)status_ imageHeight:(CGFloat)imageHeight_ pageIndex:(NSInteger)pageIndex_;
+- (void)configureCardWithStatus:(Status*)status_
+                    imageHeight:(CGFloat)imageHeight_
+                      pageIndex:(NSInteger)pageIndex_
+                    currentUser:(User *)user;
 - (void)loadImage;
 - (void)prepareForReuse;
 

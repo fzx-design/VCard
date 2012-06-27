@@ -58,7 +58,8 @@
 - (void)resetDividerViewWithCommentCount:(int)commentCount
 {
     [self.dividerView resetOriginY:self.frame.size.height - 40.0];
-    NSString *description = [NSString stringWithFormat:@"%i 条评论", commentCount];
+    NSString *description = commentCount == 0 ? [NSString stringWithFormat:@"无%@", _typeString] :
+                                                    [NSString stringWithFormat:@"%i 条%@", commentCount, _typeString];
     
     CGFloat stringWidth = ceilf([description sizeWithFont:[UIFont systemFontOfSize:12.0f] constrainedToSize:CGSizeMake(1000.0, 30.0) lineBreakMode:UILineBreakModeWordWrap].width) + 1;
     

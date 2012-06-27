@@ -35,10 +35,6 @@
 {
     [super viewDidLoad];
     self.stackView.delegate = self;
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(addNewStackPage:)
-                                                 name:kNotificationNameAddNewStackPage
-                                               object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(stackViewSendShowBGNotification) 
                                                  name:kNotificationNameOrientationWillChange 

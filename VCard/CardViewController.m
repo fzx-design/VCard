@@ -20,6 +20,13 @@
 
 #define MaxCardSize CGSizeMake(326,9999)
 
+#define kActionSheetRepostIndex     0
+#define kActionSheetFavorIndex      1
+#define kActionSheetViewRepostIndex 2
+#define kActionSheetViewCopyIndex   3
+#define kActionSheetShareIndex      4
+#define kActionSheetDeleteIndex     5
+
 #define RegexColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]
 
 static NSRegularExpression *__nameRegularExpression;
@@ -150,11 +157,11 @@ static inline NSRegularExpression * UrlRegularExpression() {
     return height;
 }
 
-+ (CGFloat)heightForComment:(Comment *)comment_
++ (CGFloat)heightForTextContent:(NSString *)text
 {
     CGFloat height = 0.0;
     height +=  CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight + CardSizeRepostHeightOffset;
-    height += [CardViewController heightForCellWithText:comment_.text] + CardSizeTextGap + 24.0;
+    height += [CardViewController heightForCellWithText:text] + CardSizeTextGap + 24.0;
     
     return height;
 }
@@ -169,7 +176,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     return height;
 }
 
-- (void)configureCardWithStatus:(Status*)status_ imageHeight:(CGFloat)imageHeight_ pageIndex:(NSInteger)pageIndex_
+- (void)configureCardWithStatus:(Status*)status_ imageHeight:(CGFloat)imageHeight_ pageIndex:(NSInteger)pageIndex_ currentUser:(User *)user
 {
     if (_alreadyConfigured) {
         return;
@@ -177,6 +184,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     
     _alreadyConfigured = YES;
     _pageIndex = pageIndex_;
+    _currentUser = user;
     
     [self setUpStatus:status_];
     
@@ -408,8 +416,6 @@ static inline NSRegularExpression * UrlRegularExpression() {
     [self setSummaryText:string toLabel:label];
 }
 
-
-
 + (void)setSummaryText:(NSString *)text toLabel:(TTTAttributedLabel*)label{
     
     [label setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
@@ -493,20 +499,21 @@ static inline NSRegularExpression * UrlRegularExpression() {
 
 - (IBAction)didClickCommentButton:(UIButton *)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationCommentButtonClicked object:[NSDictionary dictionaryWithObjectsAndKeys:self.status, kNotificationObjectKeyStatus, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [self sendCommentButtonClickedNotification];
 }
 
 - (IBAction)didClickRepostButton:(UIButton *)sender
 {
-    NSString *targetUserName = self.status.author.screenName;
-    NSString *targetStatusID = self.status.statusID;
-    NSString *targetStatusContent = nil;
-    if(self.status.repostStatus)
-        targetStatusContent = self.status.text;
-    CGRect frame = [self.view convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
-    
-    PostViewController *vc = [PostViewController getRepostViewControllerWithWeiboID:targetStatusID weiboOwnerName:targetUserName content:targetStatusContent Delegate:self];
-    [vc showViewFromRect:frame];
+    NSString *favourTitle = self.status.favorited.boolValue ? @"取消收藏" : @"收藏";
+    NSString *deleteTitle = [self.status.author isEqualToUser:self.currentUser] ? @"删除" : nil;
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                              delegate:self 
+                                     cancelButtonTitle:nil 
+                                destructiveButtonTitle:nil
+                                     otherButtonTitles:@"转发", favourTitle, @"查看转发", @"复制微博", @"邮件分享", deleteTitle, nil];
+    actionSheet.destructiveButtonIndex = kActionSheetDeleteIndex;
+    actionSheet.delegate = self;
+    [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
 }
 
 #pragma mark - TTTAttributedLabel Delegate
@@ -515,9 +522,22 @@ static inline NSRegularExpression * UrlRegularExpression() {
     [self sendUserNameClickedNotificationWithName:userName];
 }
 
+
+#pragma mark - Send Notification
 - (void)sendUserNameClickedNotificationWithName:(NSString *)userName
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:[NSDictionary dictionaryWithObjectsAndKeys:userName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:[NSDictionary dictionaryWithObjectsAndKeys:userName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+}
+
+- (void)sendCommentButtonClickedNotification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowCommentList object:[NSDictionary dictionaryWithObjectsAndKeys:self.status, kNotificationObjectKeyStatus, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+}
+
+- (void)sendShowRepostListNotification
+{
+    Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowRepostList object:[NSDictionary dictionaryWithObjectsAndKeys:targetStatus, kNotificationObjectKeyStatus, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
 }
 
 #pragma mark - PostViewController Delegate
@@ -539,6 +559,105 @@ static inline NSRegularExpression * UrlRegularExpression() {
         [vc dismissViewToRect:[self.view convertRect:self.repostButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
     else
         [vc dismissViewToRect:[self.view convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
+}
+
+#pragma mark - UIActionSheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+
+    if(buttonIndex == kActionSheetRepostIndex) {
+        [self repostStatus];
+    } else if(buttonIndex == kActionSheetViewRepostIndex) {
+        [self sendShowRepostListNotification];
+    } else if(buttonIndex == kActionSheetFavorIndex) {
+        //TODO:
+    } else if(buttonIndex == kActionSheetShareIndex) {
+        [self shareStatusByMail];
+    } else if(buttonIndex == kActionSheetViewCopyIndex){
+        [self copyStatus];
+    } else {
+        //TODO:
+    }
+}
+
+#pragma mark - ActionSheet Operations
+
+- (void)repostStatus
+{
+    NSString *targetUserName = self.status.author.screenName;
+    NSString *targetStatusID = self.status.statusID;
+    NSString *targetStatusContent = nil;
+    if(self.status.repostStatus)
+        targetStatusContent = self.status.text;
+    CGRect frame = [self.view convertRect:self.repostButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    PostViewController *vc = [PostViewController getRepostViewControllerWithWeiboID:targetStatusID
+                                                                     weiboOwnerName:targetUserName
+                                                                            content:targetStatusContent
+                                                                           Delegate:self];
+    [vc showViewFromRect:frame];
+}
+
+- (void)copyStatus
+{
+    NSString *statusText = [NSString stringWithFormat:@"%@", self.status.text];
+    if (_isReposted) {
+        statusText = [statusText stringByAppendingFormat:@":@%@:%@", self.status.repostStatus.author.screenName, self.status.repostStatus.text];
+    }
+    UIPasteboard *pb = [UIPasteboard generalPasteboard];
+    [pb setString:statusText];
+}
+
+- (void)shareStatusByMail
+{
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    picker.mailComposeDelegate = self;
+    picker.modalPresentationStyle = UIModalPresentationPageSheet;
+    
+    NSString *subject = [NSString stringWithFormat:@"分享一条来自新浪的微博，作者：%@", self.status.author.screenName];
+    
+    [picker setSubject:subject];
+    NSString *emailBody = [NSString stringWithFormat:@"%@ %@", self.status.text, self.status.repostStatus.text];
+    [picker setMessageBody:emailBody isHTML:NO];
+    
+    if (_doesImageExist) {
+        NSData *imageData = UIImageJPEGRepresentation(self.statusImageView.image, 0.8);
+        [picker addAttachmentData:imageData mimeType:@"image/jpeg" fileName:NSLocalizedString(@"微博图片", nil)];
+    }
+    
+    [[[UIApplication sharedApplication] rootViewController] presentModalViewController:picker animated:YES];
+}
+
+
+#pragma mark - MFMailComposeViewControllerDelegate
+- (void)mailComposeController:(MFMailComposeViewController*)controller
+		  didFinishWithResult:(MFMailComposeResult)result 
+						error:(NSError*)error
+{
+	NSString *message = nil;
+	switch (result)
+	{
+		case MFMailComposeResultSaved:
+			message = NSLocalizedString(@"保存成功", nil);
+            [[[UIApplication sharedApplication] rootViewController] dismissModalViewControllerAnimated:YES];
+			break;
+		case MFMailComposeResultSent:
+			message = NSLocalizedString(@"发送成功", nil);
+            [[[UIApplication sharedApplication] rootViewController] dismissModalViewControllerAnimated:YES];
+			break;
+		case MFMailComposeResultFailed:
+			message = NSLocalizedString(@"发送失败", nil);
+			break;
+		default:
+            [[[UIApplication sharedApplication] rootViewController] dismissModalViewControllerAnimated:YES];
+			return;
+	}
+	
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:message 
+														message:nil
+													   delegate:nil
+											  cancelButtonTitle:NSLocalizedString(@"确定", nil)
+											  otherButtonTitles:nil];
+	[alertView show];
 }
 
 @end

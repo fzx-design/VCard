@@ -166,7 +166,7 @@
 {
     User *usr = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:[NSDictionary dictionaryWithObjectsAndKeys:usr.screenName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:[NSDictionary dictionaryWithObjectsAndKeys:usr.screenName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
 }
 
 #pragma mark - UIScrollView delegate

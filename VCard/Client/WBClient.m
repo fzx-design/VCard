@@ -466,7 +466,7 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
-- (void)getCommentOfStaus:(NSString *)statusID
+- (void)getCommentOfStatus:(NSString *)statusID
                    maxID:(NSString *)maxID
                     count:(int)count
              authorFilter:(BOOL)filter
@@ -476,6 +476,28 @@ static NSString *UserID = @"";
         [self.params setObject:statusID forKey:@"id"];
     }
     if (maxID) {
+        [self.params setObject:[NSString stringWithFormat:@"%@", maxID] forKey:@"max_id"];
+    }
+    if (count) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    }
+    int filterFactor = filter ? 1 : 0;
+    [self.params setObject:[NSString stringWithFormat:@"%d", filterFactor] forKey:@"filter_by_author"];
+    
+    [self loadNormalRequest];
+}
+
+
+- (void)getRepostOfStatus:(NSString *)statusID
+                    maxID:(NSString *)maxID
+                    count:(int)count
+             authorFilter:(BOOL)filter
+{
+    self.path = @"statuses/repost_timeline.json";
+    if (statusID) {
+        [self.params setObject:statusID forKey:@"id"];
+    }
+    if (maxID >= 0) {
         [self.params setObject:[NSString stringWithFormat:@"%@", maxID] forKey:@"max_id"];
     }
     if (count) {
@@ -544,6 +566,38 @@ static NSString *UserID = @"";
     
     [self loadNormalRequest];
 }
+
+- (void)follow:(NSString *)userID
+{
+    self.path = @"friendships/create.json";
+    [self.params setObject:userID forKey:@"uid"];
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];}
+
+- (void)unfollow:(NSString *)userID
+{
+    self.path = @"friendships/destroy.json";
+    [self.params setObject:userID forKey:@"uid"];
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];}
+
+- (void)favorite:(NSString *)statusID
+{
+    self.path = @"favorites/create.json";
+    [self.params setObject:statusID forKey:@"id"];
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];}
+
+- (void)unFavorite:(NSString *)statusID
+{
+    self.path = @"favorites/destroy.json";
+    [self.params setObject:statusID forKey:@"id"];
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];}
 
 #pragma mark Request
 

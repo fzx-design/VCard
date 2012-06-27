@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIImageView *gifIcon;
+@property (nonatomic, readonly) UIImage *image;
 
 - (void)resetHeight:(CGFloat)height;
 
