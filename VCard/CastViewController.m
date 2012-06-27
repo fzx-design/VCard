@@ -332,8 +332,8 @@
         _stackViewController.currentUser = self.currentUser;
         _stackViewController.delegate = self;
         
+        [_coverView resetOriginX:1024.0];
         [self.view insertSubview:_coverView belowSubview:_navigationView];
-        
         [self.view insertSubview:_stackViewController.view aboveSubview:_coverView];
         
         [UIView animateWithDuration:0.3 animations:^{
@@ -547,7 +547,6 @@
 - (void)clearStack
 {
     [_coverView removeFromSuperview];
-    [_coverView resetOriginX:1024.0];
     [UIView animateWithDuration:0.3 animations:^{
         _stackViewController.view.alpha = 0.0;
     } completion:^(BOOL finished) {
