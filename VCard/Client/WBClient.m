@@ -597,7 +597,17 @@ static NSString *UserID = @"";
     [self.params setObject:statusID forKey:@"id"];
     self.postDataType = kWBRequestPostDataTypeNormal;
     self.httpMethod = HTTPMethodPost;
-    [self loadNormalRequest];}
+    [self loadNormalRequest];
+}
+
+- (void)deleteStatus:(NSString *)statusID
+{
+    self.path = @"statuses/destroy.json";
+    [self.params setObject:statusID forKey:@"id"];
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];
+}
 
 #pragma mark Request
 

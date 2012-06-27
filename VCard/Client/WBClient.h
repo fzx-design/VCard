@@ -176,4 +176,6 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 - (void)favorite:(NSString *)statusID;
 - (void)unFavorite:(NSString *)statusID;
 
+- (void)deleteStatus:(NSString *)statusID;
+
 @end

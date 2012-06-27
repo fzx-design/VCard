@@ -48,6 +48,10 @@
                selector:@selector(resetLayoutBeforeRotating:) 
                    name:kNotificationNameOrientationWillChange
                  object:nil];
+    [center addObserver:self
+               selector:@selector(refreshAfterDeletingStatuses:)
+                   name:kNotificationNameShouldDeleteStatus
+                 object:nil];
 }
 
 - (void)viewDidUnload
@@ -147,6 +151,13 @@
 - (void)loadMore
 {
     [self loadMoreData];
+}
+
+- (void)refreshAfterDeletingStatuses:(NSNotification *)notification
+{
+    NSString *statusID = notification.object;
+    [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
+//    [self.fetchedResultsController performFetch:nil];
 }
 
 - (CGFloat)randomImageHeight

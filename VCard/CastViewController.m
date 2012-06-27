@@ -125,6 +125,10 @@
                selector:@selector(showWaterflowView)
                    name:kNotificationNameStackViewDoNotCoverWholeScreen
                  object:nil];
+    [center addObserver:self
+               selector:@selector(refreshAfterDeletingStatuses:)
+                   name:kNotificationNameShouldDeleteStatus
+                 object:nil];
     
 }
 
@@ -264,6 +268,14 @@
 {
 //    self.waterflowView.alpha = 1.0;
     _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+}
+
+- (void)refreshAfterDeletingStatuses:(NSNotification *)notification
+{
+    NSString *statusID = notification.object;
+    [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
+    [self.fetchedResultsController performFetch:nil];
+    [self.waterflowView refresh];
 }
 
 #pragma mark - IBActions

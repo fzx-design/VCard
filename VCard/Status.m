@@ -234,6 +234,20 @@
     [context deleteObject:object];
 }
 
+
++ (void)deleteStatusWithID:(NSString *)statusID inManagedObjectContext:(NSManagedObjectContext *)context withObject:(id)object
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"statusID == %@ && operatedBy == %@", statusID, object]];
+    
+    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
+    
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
+}
+
 - (BOOL)hasLocationInfo
 {
     return self.lat && self.lon && [self.lat floatValue] != 0 && [self.lon floatValue] != 0;

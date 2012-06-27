@@ -217,9 +217,14 @@
 
 - (void)refresh
 {
+    [self relayout];
     [UIView animateWithDuration:0.3 animations:^{
         self.contentOffset = CGPointZero;
     }];
+}
+
+- (void)relayout
+{
     [self reLayoutNeedRefresh:YES];
 }
 

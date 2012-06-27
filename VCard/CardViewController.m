@@ -576,7 +576,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     } else if(buttonIndex == kActionSheetViewCopyIndex){
         [self copyStatus];
     } else {
-        //TODO:
+        [self deleteStatus];
     }
 }
 
@@ -616,7 +616,11 @@ static inline NSRegularExpression * UrlRegularExpression() {
     NSString *subject = [NSString stringWithFormat:@"分享一条来自新浪的微博，作者：%@", self.status.author.screenName];
     
     [picker setSubject:subject];
-    NSString *emailBody = [NSString stringWithFormat:@"%@ %@", self.status.text, self.status.repostStatus.text];
+    
+    NSString *emailBody = [NSString stringWithFormat:@"%@", self.status.text];
+    if (_isReposted) {
+        emailBody = [emailBody stringByAppendingFormat:@" %@", self.status.repostStatus.text];
+    }
     [picker setMessageBody:emailBody isHTML:NO];
     
     if (_doesImageExist) {
@@ -625,6 +629,22 @@ static inline NSRegularExpression * UrlRegularExpression() {
     }
     
     [[[UIApplication sharedApplication] rootViewController] presentModalViewController:picker animated:YES];
+}
+
+
+- (void)deleteStatus
+{
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldDeleteStatus object:self.status.statusID];
+//            [Status deleteStatusWithID:self.status.statusID inManagedObjectContext:self.managedObjectContext];
+        } else {
+            //TODO: Handle Error
+        }
+    }];
+    
+    [client deleteStatus:self.status.statusID];
 }
 
 

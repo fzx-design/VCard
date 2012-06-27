@@ -68,6 +68,8 @@
 #define kNotificationNameShouldShowCommentList      @"kNotificationNameShouldShowCommentList"
 #define kNotificationNameShouldShowRepostList       @"kNotificationNameShouldShowRepostList"
 
+#define kNotificationNameShouldDeleteStatus @"kNotificationNameShouldDeleteStatus"
+
 #define kNotificationNameStackViewCoveredWholeScreen @"kNotificationNameStackViewCoveredWholeScreen"
 #define kNotificationNameStackViewDoNotCoverWholeScreen @"kNotificationNameStackViewDoNotCoverWholeScreen"
 

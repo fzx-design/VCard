@@ -55,6 +55,7 @@
 + (int)countOfStatuseInContext:(NSManagedObjectContext *)context;
 + (void)deleteAllTempStatusesInManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteObject:(Status *)object inManagedObjectContext:(NSManagedObjectContext *)context;
++ (void)deleteStatusWithID:(NSString *)statusID inManagedObjectContext:(NSManagedObjectContext *)context withObject:(id)object;
 + (void)deleteStatusesOfUser:(User *)user InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteMentionStatusesInManagedObjectContext:(NSManagedObjectContext *)context;
 - (BOOL)hasLocationInfo;
