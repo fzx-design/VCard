@@ -14,8 +14,15 @@
 #import "UIApplication+Addition.h"
 #import "UserAccountManager.h"
 
-#define kActionSheetViewCopyIndex   0
-#define kActionSheetViewDelete      1
+#define kActionSheetCommentCopyIndex   0
+#define kActionSheetCommentDelete      1
+
+#define kActionSheetStatusRepostIndex     0
+#define kActionSheetStatusFavorIndex      1
+#define kActionSheetStatusViewRepostIndex     2
+#define kActionSheetStatusCopyIndex       3
+#define kActionSheetStatusShareIndex      4
+#define kActionSheetStatusDeleteIndex     5
 
 @implementation ProfileCommentTableViewCell
 
@@ -139,15 +146,30 @@
 
 - (IBAction)didClickMoreActionButton:(UIButton *)sender
 {
-    NSString *deleteTitle = [self.comment.author isEqualToUser:[UserAccountManager currentUser]] ? @"删除" : nil;
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:self 
-                                                    cancelButtonTitle:nil 
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"复制评论", deleteTitle, nil];
-    actionSheet.destructiveButtonIndex = kActionSheetViewDelete;
-    actionSheet.delegate = self;
-    [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+    if (_comment) {
+        NSString *deleteTitle = [self.comment.author isEqualToUser:[UserAccountManager currentUser]] ? @"删除" : nil;
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                 delegate:self 
+                                                        cancelButtonTitle:nil 
+                                                   destructiveButtonTitle:nil
+                                                        otherButtonTitles:@"复制评论", deleteTitle, nil];
+        actionSheet.destructiveButtonIndex = kActionSheetCommentDelete;
+        actionSheet.delegate = self;
+        [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+    } else if (_status) {
+        NSString *favourTitle = self.status.favorited.boolValue ? @"取消收藏" : @"收藏";
+        NSString *deleteTitle = [self.status.author isEqualToUser:[UserAccountManager currentUser]] ? @"删除" : nil;
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                 delegate:self 
+                                                        cancelButtonTitle:nil 
+                                                   destructiveButtonTitle:nil
+                                                        otherButtonTitles:@"转发", favourTitle, @"查看转发", @"复制微博", @"邮件分享", deleteTitle, nil];
+        actionSheet.destructiveButtonIndex = kActionSheetStatusDeleteIndex;
+        actionSheet.delegate = self;
+        [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+    }
+    
+    
 }
 
 - (void)commentStatus
@@ -201,14 +223,59 @@
 
 #pragma mark - UIActionSheet delegate
 
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    
-    if(buttonIndex == kActionSheetViewCopyIndex) {
-        UIPasteboard *pb = [UIPasteboard generalPasteboard];
-        [pb setString:self.comment.text];
-    } else if(buttonIndex == kActionSheetViewDelete) {
-        //TODO: 
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (_comment) {
+        if(buttonIndex == kActionSheetCommentCopyIndex) {
+            UIPasteboard *pb = [UIPasteboard generalPasteboard];
+            [pb setString:self.comment.text];
+        } else if(buttonIndex == kActionSheetCommentDelete) {
+            //TODO: 
+        }
+    } else {
+        if(buttonIndex == kActionSheetStatusRepostIndex) {
+            [self repostStatus];
+        } else if(buttonIndex == kActionSheetStatusViewRepostIndex) {
+            [self sendShowRepostListNotification];
+        } else if(buttonIndex == kActionSheetStatusFavorIndex) {
+            //TODO:
+        } else if(buttonIndex == kActionSheetStatusShareIndex) {
+            //TODO:
+        } else if(buttonIndex == kActionSheetStatusCopyIndex){
+            [self copyStatus];
+        } else {
+            //TODO:
+        }
     }
+}
+
+- (void)repostStatus
+{
+    NSString *targetUserName = self.status.author.screenName;
+    NSString *targetStatusID = self.status.statusID;
+    NSString *targetStatusContent = nil;
+    if(self.status.repostStatus)
+        targetStatusContent = self.status.text;
+    CGRect frame = [self convertRect:self.moreActionButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    PostViewController *vc = [PostViewController getRepostViewControllerWithWeiboID:targetStatusID
+                                                                     weiboOwnerName:targetUserName
+                                                                            content:targetStatusContent
+                                                                           Delegate:self];
+    [vc showViewFromRect:frame];
+}
+
+- (void)copyStatus
+{
+    NSString *statusText = [NSString stringWithFormat:@"%@:@%@:%@", self.status.text, self.status.repostStatus.author.screenName, self.status.repostStatus.text];
+
+    UIPasteboard *pb = [UIPasteboard generalPasteboard];
+    [pb setString:statusText];
+}
+
+- (void)sendShowRepostListNotification
+{
+    Status *targetStatus = self.status.repostStatus;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowRepostList object:[NSDictionary dictionaryWithObjectsAndKeys:targetStatus, kNotificationObjectKeyStatus, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
 }
 
 
