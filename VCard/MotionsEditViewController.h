@@ -17,6 +17,9 @@
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UISlider *shadowAmountSlider;
 @property (nonatomic, strong) IBOutlet UIButton *cropButton;
+@property (nonatomic, strong) IBOutlet UIButton *changePictureButton;
+@property (nonatomic, strong) IBOutlet UIButton *revertButton;
+@property (nonatomic, strong) IBOutlet UIButton *finishEditButton;
 @property (nonatomic, strong) IBOutlet FilterImageView *filterImageView;
 @property (nonatomic, weak) id<MotionsEditViewControllerDelegate> delegate;
 

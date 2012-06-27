@@ -42,7 +42,7 @@
 #define kRLBackButtonDarkHoverBG @"button_back_dark_hover.png"
 #define kRLButtonBrownBG @"button_bg_brown.png"
 #define kRLButtonBrownHoverBG @"button_bg_brown_hover.png"
-#define kRLButtonDarkBG @"button_dark_bg_hover.png"
+#define kRLButtonDarkBG @"button_dark_bg.png"
 #define kRLButtonDarkHoverBG @"button_dark_bg_hover.png"
 #define kRLButtonPaperLightBG @"button_paper_light_bg.png"
 #define kRLButtonPaperLightHoverBG @"button_paper_light_hover.png"

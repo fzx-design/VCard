@@ -27,6 +27,7 @@
 @synthesize cropImageBgView = _cropImageBgView;
 @synthesize cropImageView = _cropImageView;
 @synthesize editBarView = _editBarView;
+@synthesize cancelButton = _cancelButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,6 +46,7 @@
     CGSize cropImageSize = CGSizeMake(self.cropImageBgView.contentScaleFactor * self.filteredImage.size.width, self.cropImageBgView.contentScaleFactor * self.filteredImage.size.height);
     [self.cropImageView setCropImageInitSize:cropImageSize center:self.cropImageBgView.center];
     self.cropImageView.bgImageView = self.cropImageBgView;
+    [ThemeResourceProvider configButtonDark:self.cancelButton];
 }
 
 - (void)viewDidUnload
@@ -55,6 +57,7 @@
     self.cropImageBgView = nil;
     self.editBarView = nil;
     self.cropImageView = nil;
+    self.cancelButton = nil;
 }
 
 - (id)initWithImage:(UIImage *)image filteredImage:(UIImage *)filteredImage {

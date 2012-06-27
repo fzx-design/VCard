@@ -10,7 +10,7 @@
 
 @implementation ThemeResourceProvider
 
-+ (void)configbackButtonDark:(UIButton *)button
++ (void)configBackButtonDark:(UIButton *)button
 {
     UIEdgeInsets insets = UIEdgeInsetsMake(0.0, 16.0, 0.0, 8.0);
     [button setBackgroundImage:[[UIImage imageNamed:kRLBackButtonDarkBG] resizableImageWithCapInsets:insets]

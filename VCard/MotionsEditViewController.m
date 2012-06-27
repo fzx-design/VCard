@@ -25,6 +25,9 @@
 @synthesize cropButton = _cropButton;
 @synthesize shadowAmountSlider = _shadowAmountSlider;
 @synthesize filterImageView = _filterImageView;
+@synthesize changePictureButton = _changePictureButton;
+@synthesize finishEditButton = _finishEditButton;
+@synthesize revertButton = _revertButton;
 @synthesize delegate = _delegate;
 
 @synthesize originalImage = _originalImage;
@@ -56,6 +59,7 @@
     // Do any additional setup after loading the view from its nib.
     //[self performSelector:@selector(configureFilterImageView) withObject:nil afterDelay:0.3f];
     [self configureSlider];
+    [self configureButtons];
 }
 
 - (void)viewDidUnload
@@ -66,6 +70,9 @@
     self.cropButton = nil;
     self.shadowAmountSlider = nil;
     self.filterImageView = nil;
+    self.changePictureButton = nil;
+    self.revertButton = nil;
+    self.finishEditButton = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -98,6 +105,11 @@
         [self.shadowAmountSlider setThumbImage:[UIImage imageNamed:@"motions_slider_thumb_vertical.png"] forState:UIControlStateNormal];
     }
     self.shadowAmountSlider.transform = CGAffineTransformMakeRotation(-M_PI / 2);
+}
+
+- (void)configureButtons {
+    [ThemeResourceProvider configButtonDark:self.changePictureButton];
+    [ThemeResourceProvider configButtonDark:self.revertButton];
 }
 
 #pragma mark - IBActions

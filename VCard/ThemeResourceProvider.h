@@ -10,7 +10,7 @@
 
 @interface ThemeResourceProvider : NSObject
 
-+ (void)configbackButtonDark:(UIButton *)button;
++ (void)configBackButtonDark:(UIButton *)button;
 + (void)configButtonBrown:(UIButton *)button;
 + (void)configButtonDark:(UIButton *)button;
 + (void)configButtonPaperLight:(UIButton *)button;

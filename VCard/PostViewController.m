@@ -374,24 +374,27 @@ typedef enum {
 }
 
 - (void)setMotionsImage:(UIImage *)image {
-    CGRect imageViewRect = CGRectMake(0, 0, self.motionsImageView.frame.size.width, self.motionsImageView.frame.size.height);
-    CGRect imageRect;
-    if(image.size.width > image.size.height) {
-        imageRect = CGRectMake((image.size.width - image.size.height) / 2, 0, image.size.height, image.size.height);
+    if(image) {
+        CGRect imageViewRect = CGRectMake(0, 0, self.motionsImageView.frame.size.width, self.motionsImageView.frame.size.height);
+        CGRect imageRect;
+        if(image.size.width > image.size.height) {
+            imageRect = CGRectMake((image.size.width - image.size.height) / 2, 0, image.size.height, image.size.height);
+        } else {
+            imageRect = CGRectMake(0, (image.size.height - image.size.width) / 2, image.size.width, image.size.width);
+        }
+        UIImage *optimizedImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(image.CGImage, imageRect)];
+        
+        if (NULL != UIGraphicsBeginImageContextWithOptions)
+            UIGraphicsBeginImageContextWithOptions(imageViewRect.size, NO, 0);
+        else
+            UIGraphicsBeginImageContext(imageViewRect.size);
+        [optimizedImage drawInRect:CGRectMake(1, 1, imageViewRect.size.width - 2, imageViewRect.size.height - 2)];
+        optimizedImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        self.motionsImageView.image = optimizedImage;
     } else {
-        imageRect = CGRectMake(0, (image.size.height - image.size.width) / 2, image.size.width, image.size.width);
+        self.motionsImageView.image = nil;
     }
-    UIImage *optimizedImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(image.CGImage, imageRect)];
-    
-    if (NULL != UIGraphicsBeginImageContextWithOptions)
-        UIGraphicsBeginImageContextWithOptions(imageViewRect.size, NO, 0);
-    else
-        UIGraphicsBeginImageContext(imageViewRect.size);
-    [optimizedImage drawInRect:CGRectMake(1, 1, imageViewRect.size.width - 2, imageViewRect.size.height - 2)];
-    optimizedImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    self.motionsImageView.image = optimizedImage;
     self.motionsOriginalImage = image;
     [self updateTextCountAndPostButton];
 }
