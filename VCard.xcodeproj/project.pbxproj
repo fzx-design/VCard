@@ -10,6 +10,7 @@
 		1802E7731557913900728B60 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1802E7721557913800728B60 /* CoreText.framework */; };
 		18047E3015452CB900651305 /* WaterflowColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 18047E2F15452CB900651305 /* WaterflowColumn.m */; };
 		18047E3315452D7200651305 /* WaterflowLayoutUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18047E3215452D7200651305 /* WaterflowLayoutUnit.m */; };
+		1809ED5D159ADA1200A841BC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1809ED5C159ADA1200A841BC /* MessageUI.framework */; };
 		18114508156CDB9E00B3BF21 /* UIView+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 18114507156CDB9E00B3BF21 /* UIView+Resize.m */; };
 		18114533156E20AB00B3BF21 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18114531156E20AB00B3BF21 /* icon@2x.png */; };
 		18114534156E20AB00B3BF21 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 18114532156E20AB00B3BF21 /* icon.png */; };
@@ -738,6 +739,10 @@
 		18047E2F15452CB900651305 /* WaterflowColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterflowColumn.m; sourceTree = "<group>"; };
 		18047E3115452D7200651305 /* WaterflowLayoutUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterflowLayoutUnit.h; sourceTree = "<group>"; };
 		18047E3215452D7200651305 /* WaterflowLayoutUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterflowLayoutUnit.m; sourceTree = "<group>"; };
+		1809ED5C159ADA1200A841BC /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		1809ED5F159ADE1600A841BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "/Users/GabrielYeah/项目/Projects/VCard/VCardTests/zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
+		1809ED60159ADE1600A841BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "/Users/GabrielYeah/项目/Projects/VCard/VCard/zh-Hans.lproj/MainStoryboard.storyboard"; sourceTree = "<absolute>"; };
+		1809ED61159ADE1600A841BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "/Users/GabrielYeah/项目/Projects/VCard/VCard/zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
 		18114506156CDB9E00B3BF21 /* UIView+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Resize.h"; sourceTree = "<group>"; };
 		18114507156CDB9E00B3BF21 /* UIView+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Resize.m"; sourceTree = "<group>"; };
 		18114531156E20AB00B3BF21 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
@@ -815,16 +820,13 @@
 		181AB90C15230AC1007A2A51 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		181AB90E15230AC1007A2A51 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		181AB91215230AC1007A2A51 /* VCard-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VCard-Info.plist"; sourceTree = "<group>"; };
-		181AB91415230AC1007A2A51 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		181AB91615230AC1007A2A51 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		181AB91815230AC1007A2A51 /* VCard-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VCard-Prefix.pch"; sourceTree = "<group>"; };
 		181AB91915230AC1007A2A51 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		181AB91A15230AC1007A2A51 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		181AB91D15230AC1007A2A51 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		181AB92715230AC1007A2A51 /* VCardTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VCardTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		181AB92815230AC1007A2A51 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		181AB93015230AC1007A2A51 /* VCardTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VCardTests-Info.plist"; sourceTree = "<group>"; };
-		181AB93215230AC1007A2A51 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		181AB93415230AC1007A2A51 /* VCardTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCardTests.h; sourceTree = "<group>"; };
 		181AB93515230AC1007A2A51 /* VCardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCardTests.m; sourceTree = "<group>"; };
 		181AB94115230B30007A2A51 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
@@ -1556,6 +1558,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1850A478153C0ADC0001A905 /* libicucore.A.dylib in Frameworks */,
+				1809ED5D159ADA1200A841BC /* MessageUI.framework in Frameworks */,
 				E1097D57157F9C1D00BD0640 /* AVFoundation.framework in Frameworks */,
 				181AB90F15230AC1007A2A51 /* CoreGraphics.framework in Frameworks */,
 				E1097D55157F9C1000BD0640 /* CoreImage.framework in Frameworks */,
@@ -1566,7 +1570,6 @@
 				1802E7731557913900728B60 /* CoreText.framework in Frameworks */,
 				18E707EF153D32680012092E /* CoreData.framework in Frameworks */,
 				18A685171537110B00D58B7D /* QuartzCore.framework in Frameworks */,
-				1850A478153C0ADC0001A905 /* libicucore.A.dylib in Frameworks */,
 				1873487C1523433000F562E7 /* Security.framework in Frameworks */,
 				181AB90B15230AC1007A2A51 /* UIKit.framework in Frameworks */,
 				181AB90D15230AC1007A2A51 /* Foundation.framework in Frameworks */,
@@ -1622,6 +1625,7 @@
 			isa = PBXGroup;
 			children = (
 				1850A477153C0ADC0001A905 /* libicucore.A.dylib */,
+				1809ED5C159ADA1200A841BC /* MessageUI.framework */,
 				E1097D56157F9C1D00BD0640 /* AVFoundation.framework */,
 				E1097D54157F9C1000BD0640 /* CoreImage.framework */,
 				E1097D52157F9C0A00BD0640 /* OpenGLES.framework */,
@@ -3619,7 +3623,7 @@
 		181AB91315230AC1007A2A51 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				181AB91415230AC1007A2A51 /* en */,
+				1809ED61159ADE1600A841BC /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3627,7 +3631,7 @@
 		181AB91C15230AC1007A2A51 /* MainStoryboard.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				181AB91D15230AC1007A2A51 /* en */,
+				1809ED60159ADE1600A841BC /* zh-Hans */,
 			);
 			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";
@@ -3635,7 +3639,7 @@
 		181AB93115230AC1007A2A51 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				181AB93215230AC1007A2A51 /* en */,
+				1809ED5F159ADE1600A841BC /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

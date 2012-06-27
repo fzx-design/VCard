@@ -12,8 +12,9 @@
 #import "TTTAttributedLabel.h"
 #import "Comment.h"
 #import "PostViewController.h"
+#import <MessageUI/MessageUI.h>
 
-@interface ProfileCommentTableViewCell : UITableViewCell <PostViewControllerDelegate, TTTAttributedLabelDelegate, UIActionSheetDelegate> {
+@interface ProfileCommentTableViewCell : UITableViewCell <PostViewControllerDelegate, TTTAttributedLabelDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
     UserAvatarImageView *_avatarImageView;
     BaseCardBackgroundView *_baseCardBackgroundView;
     

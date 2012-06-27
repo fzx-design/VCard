@@ -237,10 +237,10 @@
         } else if(buttonIndex == kActionSheetStatusFavorIndex) {
             //TODO:
         } else if(buttonIndex == kActionSheetStatusShareIndex) {
-            //TODO:
+            [self shareStatusByMail];
         } else if(buttonIndex == kActionSheetStatusCopyIndex){
             [self copyStatus];
-        } else {
+        } else if(buttonIndex == kActionSheetStatusDeleteIndex){
             //TODO:
         }
     }
@@ -273,6 +273,54 @@
 {
     Status *targetStatus = self.status.repostStatus;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowRepostList object:[NSDictionary dictionaryWithObjectsAndKeys:targetStatus, kNotificationObjectKeyStatus, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+}
+
+- (void)shareStatusByMail
+{
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    picker.mailComposeDelegate = self;
+    picker.modalPresentationStyle = UIModalPresentationPageSheet;
+    
+    NSString *subject = [NSString stringWithFormat:@"分享一条来自新浪的微博，作者：%@", self.status.author.screenName];
+    
+    [picker setSubject:subject];
+    NSString *emailBody = [NSString stringWithFormat:@"%@ %@", self.status.text, self.status.repostStatus.text];
+    [picker setMessageBody:emailBody isHTML:NO];
+    
+    [[[UIApplication sharedApplication] rootViewController] presentModalViewController:picker animated:YES];
+}
+
+
+#pragma mark - MFMailComposeViewControllerDelegate
+- (void)mailComposeController:(MFMailComposeViewController*)controller
+		  didFinishWithResult:(MFMailComposeResult)result 
+						error:(NSError*)error
+{
+	NSString *message = nil;
+	switch (result)
+	{
+		case MFMailComposeResultSaved:
+			message = NSLocalizedString(@"保存成功", nil);
+            [[[UIApplication sharedApplication] rootViewController] dismissModalViewControllerAnimated:YES];
+			break;
+		case MFMailComposeResultSent:
+			message = NSLocalizedString(@"发送成功", nil);
+            [[[UIApplication sharedApplication] rootViewController] dismissModalViewControllerAnimated:YES];
+			break;
+		case MFMailComposeResultFailed:
+			message = NSLocalizedString(@"发送失败", nil);
+			break;
+		default:
+            [[[UIApplication sharedApplication] rootViewController] dismissModalViewControllerAnimated:YES];
+			return;
+	}
+	
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:message 
+														message:nil
+													   delegate:nil
+											  cancelButtonTitle:NSLocalizedString(@"确定", nil)
+											  otherButtonTitles:nil];
+	[alertView show];
 }
 
 
