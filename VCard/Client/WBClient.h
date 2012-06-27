@@ -170,4 +170,10 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 - (void)getAtUsersSuggestions:(NSString *)q;
 - (void)getTopicSuggestions:(NSString *)q;
 
+- (void)follow:(NSString *)userID;
+- (void)unfollow:(NSString *)userID;
+
+- (void)favorite:(NSString *)statusID;
+- (void)unFavorite:(NSString *)statusID;
+
 @end

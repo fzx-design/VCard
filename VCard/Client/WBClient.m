@@ -567,6 +567,38 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
+- (void)follow:(NSString *)userID
+{
+    self.path = @"friendships/create.json";
+    [self.params setObject:userID forKey:@"uid"];
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];}
+
+- (void)unfollow:(NSString *)userID
+{
+    self.path = @"friendships/destroy.json";
+    [self.params setObject:userID forKey:@"uid"];
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];}
+
+- (void)favorite:(NSString *)statusID
+{
+    self.path = @"favorites/create.json";
+    [self.params setObject:statusID forKey:@"id"];
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];}
+
+- (void)unFavorite:(NSString *)statusID
+{
+    self.path = @"favorites/destroy.json";
+    [self.params setObject:statusID forKey:@"id"];
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];}
+
 #pragma mark Request
 
 - (void)loadNormalRequest

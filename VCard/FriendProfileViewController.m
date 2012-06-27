@@ -26,6 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _loading = NO;
     [_screenNameLabel setText:self.screenName];
     [ThemeResourceProvider configButtonPaperLight:_moreInfoButton];
     
@@ -56,7 +57,11 @@
 
 - (void)setUpSpecificView
 {
-    BOOL following = [self.user.following boolValue];
+    [self updateRelationshipfollowing:self.user.following.boolValue];
+}
+
+- (void)updateRelationshipfollowing:(BOOL)following
+{
     BOOL followMe = [self.user.followMe boolValue];
     
     NSString *relationShip = nil;
@@ -70,7 +75,13 @@
     
     [_relationshipButton setTitle:relationShip forState:UIControlStateNormal];
     [_relationshipButton setTitle:relationShip forState:UIControlStateHighlighted];
-    
+}
+
+- (void)updatingRelationship
+{
+    NSString *relationShip = @"操作中";
+    [_relationshipButton setTitle:relationShip forState:UIControlStateNormal];
+    [_relationshipButton setTitle:relationShip forState:UIControlStateHighlighted];
 }
 
 - (void)viewDidUnload
@@ -79,5 +90,80 @@
     // Release any retained subviews of the main view.
 }
 
+
+#pragma mark - IBActions
+- (IBAction)didClickRelationButton:(UIButton *)sender
+{
+    if (_loading) {
+        return;
+    }
+    BOOL following = [self.user.following boolValue];
+    if (following) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                 delegate:self 
+                                                        cancelButtonTitle:nil 
+                                                   destructiveButtonTitle:nil
+                                                        otherButtonTitles:@"取消关注", nil];
+        actionSheet.destructiveButtonIndex = 0;
+        actionSheet.delegate = self;
+        [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+    } else {
+        [self followUser];
+    }
+}
+
+- (void)followUser
+{
+    if (_loading) {
+        return;
+    }
+    _loading = YES;
+    
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            self.user.following = [NSNumber numberWithBool:YES];
+        } else {
+            //TODO: Report error
+        }
+        [self updateRelationshipfollowing:!client.hasError];
+        _loading = NO;
+    }];
+    
+    [self updatingRelationship];
+    
+    [client follow:self.user.userID];
+}
+
+- (void)unfollowUser
+{
+    if (_loading) {
+        return;
+    }
+    _loading = YES;
+    
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            self.user.following = [NSNumber numberWithBool:NO];
+        } else {
+            //TODO: Report error
+        }
+        [self updateRelationshipfollowing:client.hasError];
+        _loading = NO;
+    }];
+    
+    [self updatingRelationship];
+    
+    [client unfollow:self.user.userID];
+}
+
+#pragma mark - UIActionSheet delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 0) {
+        [self unfollowUser];
+    }
+}
 
 @end

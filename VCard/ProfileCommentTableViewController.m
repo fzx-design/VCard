@@ -118,7 +118,6 @@
             
             _nextCursor = [[client.responseJSONObject objectForKey:@"next_cursor"] intValue];
             _hasMoreViews = _nextCursor != 0;
-            
         }
         
         [self refreshEnded];
