@@ -20,7 +20,7 @@
 - (UIImage *)imageRotatedByRadians:(CGFloat)radians;
 - (UIImage *)imageRotatedByDegrees:(CGFloat)degrees;
 
-- (UIImage*)imageByScalingAndCroppingForSize:(CGSize)targetSize;
-- (UIImage*)scaleImageToSize:(CGSize)newSize;
-
+- (UIImage *)imageByScalingAndCroppingForSize:(CGSize)targetSize;
+- (UIImage *)scaleImageToSize:(CGSize)newSize;
++ (UIImage *)screenShot;
 @end

@@ -21,6 +21,7 @@
 
 @property (nonatomic, strong) IBOutlet UIImageView  *logoImageView;
 @property (nonatomic, strong) IBOutlet UIImageView  *bgImageView;
+@property (nonatomic, strong) IBOutlet UIView       *bgView;
 @property (nonatomic, strong) IBOutlet UIButton     *cancelButton;
 @property (nonatomic, strong) IBOutlet UIImageView  *leftCameraCoverImageView;
 @property (nonatomic, strong) IBOutlet UIImageView  *rightCameraCoverImageView;

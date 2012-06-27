@@ -7,6 +7,7 @@
 //
 
 #import "MotionsViewController.h"
+#import "UIImage+Addition.h"
 
 @interface MotionsViewController ()
 
@@ -17,6 +18,7 @@
 @property (nonatomic, assign) CGRect leftCameraCoverOpenFrame;
 @property (nonatomic, assign) CGRect rightCameraCoverOpenFrame;
 @property (nonatomic, assign, getter = isCameraCoverHidden) BOOL cameraCoverHidden;
+@property (nonatomic, strong) UIImage *viewImage;
 
 @end
 
@@ -26,6 +28,7 @@
 @synthesize editViewController = _editViewController;
 @synthesize logoImageView = _logoImageView;
 @synthesize bgImageView = _bgImageView;
+@synthesize bgView = _bgView;
 @synthesize captureBgView = _captureBgView;
 @synthesize delegate = _delegate;
 
@@ -60,6 +63,7 @@
     self.view.userInteractionEnabled = YES;
     self.leftCameraCoverCloseFrame = self.leftCameraCoverImageView.frame;
     self.rightCameraCoverCloseFrame = self.rightCameraCoverImageView.frame;
+    [self configureCancelButton];
     if(self.originalImage) {
     } else {
         [self configureShootViewController];
@@ -74,6 +78,7 @@
     self.logoImageView = nil;
     self.bgImageView = nil;
     self.captureBgView = nil;
+    self.bgView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -82,17 +87,23 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     NSLog(@"will rotate to:%d", toInterfaceOrientation);
-    //[UIView setAnimationsEnabled:NO];
+    [UIView setAnimationsEnabled:NO];
+    [self shootViewImage];
     [self loadInterfaceOrientation:toInterfaceOrientation];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     NSLog(@"did rotate to %d, self orientation %d", [UIApplication sharedApplication].statusBarOrientation, self.interfaceOrientation);
-    //[UIView setAnimationsEnabled:YES];
+    [UIView setAnimationsEnabled:YES];
     [self configureCameraCover];
+    [self orientationTransitionAnimation:fromInterfaceOrientation];
 }
 
 #pragma mark - Logic methods
+
+- (void)shootViewImage {
+    self.viewImage = [UIImage screenShot];
+}
 
 - (CGRect)leftCameraCoverOpenFrame {
     CGRect frame = self.leftCameraCoverCloseFrame;
@@ -142,12 +153,16 @@
     NSLog(@"leftCameraCoverImageView frame%@", NSStringFromCGRect(self.leftCameraCoverImageView.frame));
 }
 
+- (void)configureCancelButton {
+    [ThemeResourceProvider configButtonBrown:self.cancelButton];
+}
+
 - (void)configureShootViewController {
-    [self.view insertSubview:self.shootViewController.view aboveSubview:self.captureBgView];
+    [self.bgView insertSubview:self.shootViewController.view aboveSubview:self.captureBgView];
 }
 
 - (void)configureEditViewController {
-    [self.view insertSubview:self.editViewController.view aboveSubview:self.captureBgView];
+    [self.bgView insertSubview:self.editViewController.view aboveSubview:self.captureBgView];
 }
 
 #pragma mark - IBActions
@@ -157,6 +172,46 @@
 }
 
 #pragma mark - Animations
+
+BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterfaceOrientation, UIInterfaceOrientation toInterfaceOrientation) {
+    BOOL result = NO;
+    if(UIInterfaceOrientationIsLandscape(fromInterfaceOrientation)) {
+        if(fromInterfaceOrientation == UIInterfaceOrientationLandscapeLeft &&
+           toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+            result = YES;
+        else if(fromInterfaceOrientation == UIInterfaceOrientationLandscapeRight &&
+                 toInterfaceOrientation == UIInterfaceOrientationPortrait)
+            result = YES;
+    } else {
+        if(fromInterfaceOrientation == UIInterfaceOrientationPortrait &&
+           toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft)
+            result = YES;
+        else if(fromInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown &&
+                toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)
+            result = YES;
+    }
+    return result;
+}
+
+- (void)orientationTransitionAnimation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:self.viewImage];
+//    UIInterfaceOrientation currentInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+//    if(UIInterfaceOrientationIsRotationClockwise(fromInterfaceOrientation, currentInterfaceOrientation))
+//        tempImageView.transform = CGAffineTransformMakeRotation(M_PI / 2);
+//    else
+//        tempImageView.transform = CGAffineTransformMakeRotation(-M_PI / 2);
+    
+    CGRect frame = CGRectMake(0, 0, self.viewImage.size.width, self.viewImage.size.height);
+    tempImageView.frame = frame;    
+    [[UIApplication sharedApplication].keyWindow addSubview:tempImageView];
+    self.bgView.alpha = 0;
+    [UIView animateWithDuration:0.3f animations:^{
+        tempImageView.alpha = 0;
+        self.bgView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [tempImageView removeFromSuperview];
+    }];
+}
 
 - (void)showCameraCoverWithCompletion:(void (^)(void))completion {
     if(!self.cameraCoverHidden) {
