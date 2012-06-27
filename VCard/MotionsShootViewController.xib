@@ -46,7 +46,6 @@
 								<array class="NSMutableArray" key="NSSubviews"/>
 								<string key="NSFrameSize">{630, 840}</string>
 								<reference key="NSSuperview" ref="254042248"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="56266987"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -56,7 +55,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{10, 793}, {80, 37}}</string>
 								<reference key="NSSuperview" ref="254042248"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="553042857"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -92,7 +90,6 @@
 						</array>
 						<string key="NSFrame">{{86, 24}, {630, 840}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="976461857"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="246355138">
@@ -111,7 +108,6 @@
 								<int key="NSvFlags">297</int>
 								<string key="NSFrame">{{153, 10}, {462, 144}}</string>
 								<reference key="NSSuperview" ref="553042857"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="94523359"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -126,7 +122,6 @@
 								<int key="NSvFlags">257</int>
 								<string key="NSFrame">{{331, 40}, {110, 110}}</string>
 								<reference key="NSSuperview" ref="553042857"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="945300068"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -151,8 +146,6 @@
 								<int key="NSvFlags">297</int>
 								<string key="NSFrame">{{471, 80}, {60, 60}}</string>
 								<reference key="NSSuperview" ref="553042857"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -176,7 +169,6 @@
 								<int key="NSvFlags">289</int>
 								<string key="NSFrame">{{310, 85}, {20, 20}}</string>
 								<reference key="NSSuperview" ref="553042857"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="478442416"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -205,7 +197,6 @@
 						</array>
 						<string key="NSFrame">{{0, 850}, {768, 154}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="354775822"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="246355138"/>
@@ -214,7 +205,6 @@
 				</array>
 				<string key="NSFrameSize">{768, 1004}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="254042248"/>
 				<reference key="IBUIBackgroundColor" ref="246355138"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -403,88 +393,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">134</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">MotionsCapturePreviewView</string>
-					<string key="superclassName">UIView</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">delegate</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">delegate</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">delegate</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/MotionsCapturePreviewView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">MotionsShootViewController</string>
-					<string key="superclassName">MultiInterfaceOrientationViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="didClickChangeCameraButton:">UIButton</string>
-						<string key="didClickPickImageButton:">UIButton</string>
-						<string key="didClickShootButton:">UIButton</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="didClickChangeCameraButton:">
-							<string key="name">didClickChangeCameraButton:</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBActionInfo" key="didClickPickImageButton:">
-							<string key="name">didClickPickImageButton:</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBActionInfo" key="didClickShootButton:">
-							<string key="name">didClickShootButton:</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="cameraPreviewView">MotionsCapturePreviewView</string>
-						<string key="cameraStatusLEDButton">UIButton</string>
-						<string key="pickImageButton">UIButton</string>
-						<string key="shootButton">UIButton</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="cameraPreviewView">
-							<string key="name">cameraPreviewView</string>
-							<string key="candidateClassName">MotionsCapturePreviewView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="cameraStatusLEDButton">
-							<string key="name">cameraStatusLEDButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="pickImageButton">
-							<string key="name">pickImageButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="shootButton">
-							<string key="name">shootButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/MotionsShootViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">MultiInterfaceOrientationViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/MultiInterfaceOrientationViewController.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">

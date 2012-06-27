@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <QuartzCore/QuartzCore.h>
+#import "UIImage+Addition.h"
 
 @interface MotionsShootViewController ()
 
@@ -20,6 +21,7 @@
 @property (nonatomic, strong) AVCaptureDeviceInput *frontFacingCameraDeviceInput;
 @property (nonatomic, strong) AVCaptureDevice *currentDevice;
 @property (nonatomic, strong) UIPopoverController *popoverController;
+@property (nonatomic, strong) UIImage *capturedImage;
 
 @end
 
@@ -38,6 +40,7 @@
 @synthesize frontFacingCameraDeviceInput = _frontFacingCameraDeviceInput;
 @synthesize currentDevice = _currentDevice;
 @synthesize popoverController = _pc;
+@synthesize capturedImage = _capturedImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -67,7 +70,57 @@
     [self.delegate shootViewControllerWillBecomeActiveWithCompletion:nil];
 }
 
+- (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    [self.popoverController dismissPopoverAnimated:YES];
+    [super loadViewControllerWithInterfaceOrientation:interfaceOrientation];
+}
+
 #pragma mark - Logic methods
+
+- (void)configureEditImage:(UIImage *)image {
+    self.capturedImage = [image rotateAdjustImage];
+}
+
+- (void)configureShootImage:(UIImage *)image {
+    UIImageOrientation imageOrientation;
+    if(self.backFacingCameraDeviceInput) {
+        switch ([UIApplication sharedApplication].statusBarOrientation) {
+            case UIInterfaceOrientationLandscapeLeft:
+                imageOrientation = UIImageOrientationDown;
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                imageOrientation = UIImageOrientationUp;
+                break;
+            case UIDeviceOrientationPortrait:
+                imageOrientation = UIImageOrientationRight;
+                break;
+            case UIDeviceOrientationPortraitUpsideDown:
+                imageOrientation = UIImageOrientationLeft;
+                break;
+            default:
+                break;
+        }
+    } else {
+        switch ([UIApplication sharedApplication].statusBarOrientation) {
+            case UIInterfaceOrientationLandscapeLeft:
+                imageOrientation = UIImageOrientationUpMirrored;
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                imageOrientation = UIImageOrientationDownMirrored;
+                break;
+            case UIDeviceOrientationPortrait:
+                imageOrientation = UIImageOrientationLeftMirrored;
+                break;
+            case UIDeviceOrientationPortraitUpsideDown:
+                imageOrientation = UIImageOrientationRightMirrored;
+                break;
+            default:
+                break;
+        }
+    }
+    self.capturedImage = [[UIImage alloc] initWithCGImage:image.CGImage scale:1.0f orientation:imageOrientation];
+    [self configureEditImage:self.capturedImage];
+}
 
 - (void)configurePreviewLayerOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if(self.previewLayer.orientationSupported) {
@@ -127,7 +180,8 @@
         self.backFacingCameraDeviceInput = [self getCameraInputByDevicePosition:AVCaptureDevicePositionBack];
         [self.captureSession addInput:self.backFacingCameraDeviceInput];
     }
-    [self.captureSession startRunning];
+    //[self.captureSession startRunning];
+    [self startShoot];
 }
 
 - (void)startShoot {
@@ -135,8 +189,12 @@
         AVCaptureVideoPreviewLayer* previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
         previewLayer.frame = self.cameraPreviewView.bounds;
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        
+        //To Do : why should I omit this?
+        //[self.previewLayer removeFromSuperlayer];
         self.previewLayer = previewLayer;
-        [self configurePreviewLayerOrientation:[[UIDevice currentDevice] orientation]];
+        
+        [self configurePreviewLayerOrientation:[UIApplication sharedApplication].statusBarOrientation];
         [self.cameraPreviewView.layer addSublayer:previewLayer];
         [self.captureSession startRunning];
     }
@@ -157,17 +215,17 @@
 
 - (IBAction)didClickShootButton:(UIButton *)sender {
     self.view.userInteractionEnabled = NO;
-    [self.delegate shootViewControllerWillBecomeInactiveWithCompletion:nil];
-	AVCaptureConnection *videoConnection = nil;
-	for (AVCaptureConnection *connection in self.stillImageOutput.connections) {
-		for (AVCaptureInputPort *port in [connection inputPorts]) {
-			if ([[port mediaType] isEqual:AVMediaTypeVideo] ) {
-				videoConnection = connection;
-				break;
-			}
-		}
-		if (videoConnection) { break; }
-	}
+    
+    AVCaptureConnection *videoConnection = nil;
+    for (AVCaptureConnection *connection in self.stillImageOutput.connections) {
+        for (AVCaptureInputPort *port in [connection inputPorts]) {
+            if ([[port mediaType] isEqual:AVMediaTypeVideo] ) {
+                videoConnection = connection;
+                break;
+            }
+        }
+        if (videoConnection) { break; }
+    }
     
     if(!videoConnection) {
         NSLog(@"no videoConnection");
@@ -179,15 +237,18 @@
         return;
     }
     
-	[self.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
-        if(!error) {
-            NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-            UIImage *image = [[UIImage alloc] initWithData:imageData];
-            [self.delegate shootViewController:self didCaptureImage:image];
-        }
-        else {
-            NSLog(@"error:%@", error.localizedDescription);
-        }
+    [self.delegate shootViewControllerWillBecomeInactiveWithCompletion:^{
+        [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
+            if(!error) {
+                NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+                UIImage *image = [[UIImage alloc] initWithData:imageData];
+                [self configureShootImage:image];
+                [self.delegate shootViewController:self didCaptureImage:self.capturedImage];
+            }
+            else {
+                NSLog(@"error:%@", error.localizedDescription);
+            }
+        }];
     }];
 }
 
@@ -195,8 +256,9 @@
     sender.userInteractionEnabled = NO;
     [self.delegate shootViewControllerWillBecomeInactiveWithCompletion:^{
         [self changeCamera];
-        [self.delegate shootViewControllerWillBecomeActiveWithCompletion:nil];
-        sender.userInteractionEnabled = YES;
+        [self.delegate shootViewControllerWillBecomeActiveWithCompletion:^{
+            sender.userInteractionEnabled = YES;
+        }];
     }];
 }
 
@@ -247,7 +309,8 @@
     [self.popoverController dismissPopoverAnimated:YES];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     self.popoverController = nil;
-    [self.delegate shootViewController:self didCaptureImage:image];
+    [self configureEditImage:image];
+    [self.delegate shootViewController:self didCaptureImage:self.capturedImage];
 }
 
 #pragma mark -

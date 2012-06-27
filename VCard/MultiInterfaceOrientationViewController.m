@@ -32,39 +32,38 @@
     return self;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
-
-- (void)loadSubViewControllerInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if(UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
         [[NSBundle mainBundle] loadNibNamed:[NSString stringWithFormat:@"%@-landscape", NSStringFromClass([self class])] owner:self options:nil];
+        self.view.frame = CGRectMake(0, 0, 1004, 768);
     } else {
         [[NSBundle mainBundle] loadNibNamed:[NSString stringWithFormat:@"%@", NSStringFromClass([self class])] owner:self options:nil];
+        self.view.frame = CGRectMake(0, 0, 768, 1004);
     }
-    [self viewDidLoad];
+}
+
+- (void)configureRootViewTransformWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
+        self.view.transform = CGAffineTransformMakeRotation(-M_PI / 2);
+    else if(interfaceOrientation == UIInterfaceOrientationLandscapeRight)
+        self.view.transform = CGAffineTransformMakeRotation(M_PI / 2);
+    else if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+        self.view.transform = CGAffineTransformMakeRotation(M_PI);
+    else
+        self.view.transform = CGAffineTransformMakeRotation(0);
 }
 
 - (void)loadInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    if(UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
-        [[NSBundle mainBundle] loadNibNamed:[NSString stringWithFormat:@"%@-landscape", NSStringFromClass([self class])] owner:self options:nil];
-        if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
-            self.view.transform = CGAffineTransformMakeRotation(M_PI * 3 / 2);
-        else
-            self.view.transform = CGAffineTransformMakeRotation(M_PI / 2);
-    } else {
-        [[NSBundle mainBundle] loadNibNamed:[NSString stringWithFormat:@"%@", NSStringFromClass([self class])] owner:self options:nil];
-        if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
-            self.view.transform = CGAffineTransformMakeRotation(M_PI);
-    }
+    [self loadViewControllerWithInterfaceOrientation:interfaceOrientation];
+    [self configureRootViewTransformWithInterfaceOrientation:interfaceOrientation];
     
     [self.subViewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
         MultiInterfaceOrientationViewController *vc = obj;
         if([vc isKindOfClass:[MultiInterfaceOrientationViewController class]]) {
-            [vc loadSubViewControllerInterfaceOrientation:interfaceOrientation];
+            [vc loadViewControllerWithInterfaceOrientation:interfaceOrientation];
+            [vc viewDidLoad];
         }
     }];
-    
     [self viewDidLoad];
 }
 

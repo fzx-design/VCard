@@ -25,6 +25,8 @@
 - (IBAction)didClickChangeCameraButton:(UIButton *)sender;
 - (IBAction)didClickPickImageButton:(UIButton *)sender;
 
+- (void)startShoot;
+
 @end
 
 @protocol MotionsShootViewControllerDelegate <NSObject>
