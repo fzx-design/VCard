@@ -60,7 +60,15 @@
 
 - (void)clearData
 {
-    [Comment deleteCommentsOfStatus:self.status ManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+    if (_type == CommentTableViewControllerTypeComment) {
+        [Comment deleteCommentsOfStatus:self.status
+                   ManagedObjectContext:self.managedObjectContext
+                    withOperatingObject:_coreDataIdentifier];
+    } else {
+        [Status deleteRepostsOfStatus:self.status
+                   ManagedObjectContext:self.managedObjectContext
+                    withOperatingObject:_coreDataIdentifier];
+    }
 }
 
 - (void)changeSource
@@ -80,17 +88,26 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            NSArray *dictArray = [client.responseJSONObject objectForKey:@"comments"];
             
             if (_sourceChanged || _refreshing) {
                 _sourceChanged = NO;
                 [self clearData];
             }
             
-            for (NSDictionary *dict in dictArray) {
-                Comment *comment = [Comment insertComment:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
-                comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForComment:comment]];
-                [self.status addCommentsObject:comment];
+            if (_type == CommentTableViewControllerTypeComment) {
+                NSArray *dictArray = [client.responseJSONObject objectForKey:@"comments"];
+                for (NSDictionary *dict in dictArray) {
+                    Comment *comment = [Comment insertComment:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+                    [self.status addCommentsObject:comment];
+                }
+            } else {
+                NSArray *dictArray = [client.responseJSONObject objectForKey:@"reposts"];
+                for (NSDictionary *dict in dictArray) {
+                    Status *status = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                    status.cardSizeCardHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:status.text]];
+                    [_status addRepostedByObject:status];
+                }
             }
             
             [self.managedObjectContext processPendingChanges];
@@ -113,39 +130,64 @@
         
     }];
     
-    long long maxID = ((Comment *)self.fetchedResultsController.fetchedObjects.lastObject).commentID.longLongValue;
-    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
     
-    [client getCommentOfStaus:self.status.statusID
-                        maxID:maxIDString
-                        count:20
-                 authorFilter:_filterByAuthor];
+    if (_type == CommentTableViewControllerTypeComment) {
+        long long maxID = ((Comment *)self.fetchedResultsController.fetchedObjects.lastObject).commentID.longLongValue;
+        NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
+        [client getCommentOfStatus:self.status.statusID
+                            maxID:maxIDString
+                            count:20
+                     authorFilter:_filterByAuthor];
+    } else {
+        long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue;
+        NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
+        [client getRepostOfStatus:self.status.statusID
+                            maxID:maxIDString
+                            count:20
+                     authorFilter:_filterByAuthor];
+    }
 }
 
 #pragma mark - Core Data Table View Method
 
 - (void)configureRequest:(NSFetchRequest *)request
 {
-    request.entity = [NSEntityDescription entityForName:@"Comment"
-                                 inManagedObjectContext:self.managedObjectContext];
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"commentID" ascending:NO];
-    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.status.comments, _coreDataIdentifier];
+    if (_type == CommentTableViewControllerTypeComment) {
+        request.entity = [NSEntityDescription entityForName:@"Comment"
+                                     inManagedObjectContext:self.managedObjectContext];
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"commentID" ascending:NO];
+        request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.status.comments, _coreDataIdentifier];
+    } else {
+        request.entity = [NSEntityDescription entityForName:@"Status"
+                                     inManagedObjectContext:self.managedObjectContext];
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"statusID" ascending:NO];
+        request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.status.repostedBy, _coreDataIdentifier];
+    }
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     ProfileCommentTableViewCell *commentCell = (ProfileCommentTableViewCell *)cell;
-    Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
-    [commentCell resetOriginX:11.0];
-    [commentCell resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
-    [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
-    BOOL isFirstComment = indexPath.row == 0;
-    BOOL isLastComment = indexPath.row == self.fetchedResultsController.fetchedObjects.count - 1;
-    [commentCell configureCellWithComment:comment
-                            isLastComment:isLastComment
-                           isFirstComment:isFirstComment];
-    commentCell.pageIndex = self.pageIndex;
+    if (_type == CommentTableViewControllerTypeComment) {
+        Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
+        [commentCell resetOriginX:11.0];
+        [commentCell resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
+        [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
+        BOOL isFirstComment = indexPath.row == 0;
+        BOOL isLastComment = indexPath.row == self.fetchedResultsController.fetchedObjects.count - 1;
+        [commentCell configureCellWithComment:comment
+                                isLastComment:isLastComment
+                               isFirstComment:isFirstComment];
+        commentCell.pageIndex = self.pageIndex;
+    } else {
+        Status *repost = (Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
+        [commentCell resetSize:CGSizeMake(362.0, repost.cardSizeCardHeight.floatValue)];
+        [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, repost.cardSizeCardHeight.floatValue)];
+        [commentCell configureCellWithStatus:repost];
+        commentCell.pageIndex = self.pageIndex;
+    }
 
 }
 
@@ -167,8 +209,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
-	return comment.commentHeight.floatValue;
+    CGFloat height = 0.0;
+    if (_type == CommentTableViewControllerTypeComment) {
+        height = ((Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row]).commentHeight.floatValue;
+    } else  {
+        height = ((Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row]).cardSizeCardHeight.floatValue;
+    }
+	return height;
 }
 
 #pragma mark - Adjust table view layout
@@ -188,6 +235,7 @@
                                                       pageIndex:self.pageIndex
                                                     currentUser:self.currentUser];
     [_headerViewCell loadImageAfterScrollingStop];
+    _headerViewCell.typeString = _type == CommentTableViewControllerTypeComment ? @"评论" : @"转发";
     _headerViewCell.pageIndex = self.pageIndex;
     
     [self updateHeaderViewInfo];
@@ -198,16 +246,23 @@
 - (void)updateHeaderViewInfo
 {
     int actualCount = self.fetchedResultsController.fetchedObjects.count;
-    int fetchedCount = _filterByAuthor ? 0 : self.status.commentsCount.intValue;
+    int fetchedCount = 0.0;
+    if (_type == CommentTableViewControllerTypeComment) {
+        fetchedCount =  _filterByAuthor ? 0.0 : self.status.commentsCount.intValue;
+    } else {
+        fetchedCount = _filterByAuthor ? 0.0 : self.status.repostsCount.intValue;
+    }
     int displayCount = fetchedCount > actualCount ? fetchedCount : actualCount;
     [_headerViewCell resetDividerViewWithCommentCount:displayCount];
 }
 
 - (void)updateVisibleCells
 {
-    for (ProfileCommentTableViewCell *cell in self.tableView.visibleCells) {
-        BOOL isLast = [self.tableView indexPathForCell:cell].row == self.fetchedResultsController.fetchedObjects.count - 1;
-        [cell updateThreadStatus:isLast];
+    if (_type == CommentTableViewControllerTypeComment) {
+        for (ProfileCommentTableViewCell *cell in self.tableView.visibleCells) {
+            BOOL isLast = [self.tableView indexPathForCell:cell].row == self.fetchedResultsController.fetchedObjects.count - 1;
+            [cell updateThreadStatus:isLast];
+        }
     }
 }
 

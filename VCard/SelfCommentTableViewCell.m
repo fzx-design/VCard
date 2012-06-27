@@ -92,7 +92,7 @@
 {
     Status *status = self.comment.targetStatus;
     NSString *indexString = [NSString stringWithFormat:@"%i", self.pageIndex];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationCommentButtonClicked
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowCommentList
                                                         object:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                 status, kNotificationObjectKeyStatus,
                                                                 indexString, kNotificationObjectKeyIndex, nil]];
@@ -120,7 +120,7 @@
 - (void)sendUserNameClickedNotificationWithName:(NSString *)userName
 {
     NSString *indexString = [NSString stringWithFormat:@"%i", self.pageIndex];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName
                                                         object:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                 userName, kNotificationObjectKeyUserName,
                                                                 indexString, kNotificationObjectKeyIndex, nil]];

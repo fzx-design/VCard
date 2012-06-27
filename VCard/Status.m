@@ -203,6 +203,19 @@
     }
 }
 
++ (void)deleteRepostsOfStatus:(Status *)status ManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
+{
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", status.repostedBy, object]];
+	NSArray *items = [context executeFetchRequest:request error:NULL];
+    
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
+}
+
 + (void)deleteMentionStatusesInManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];

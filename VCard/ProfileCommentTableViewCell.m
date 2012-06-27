@@ -42,6 +42,41 @@
     // Configure the view for the selected state
 }
 
+- (void)configureCellWithStatus:(Status *)status
+{
+    self.status = status;
+    self.commentContentLabel.delegate = self;
+    [CardViewController setStatusTextLabel:self.commentContentLabel withText:self.status.text];
+    [self.avatarImageView loadImageFromURL:self.status.author.profileImageURL completion:nil];
+    [self.avatarImageView setVerifiedType:[self.status.author verifiedTypeOfUser]];
+    
+    //TODO: Add In_reply_to string
+    NSString *screenName = @"";
+    
+    screenName = [NSString stringWithFormat:@"%@", self.status.author.screenName];
+    
+    [self.screenNameLabel setText:screenName];
+    
+    //Save the screen name
+    [self.screenNameButton setTitle:self.status.author.screenName forState:UIControlStateDisabled];
+    
+    CGFloat commentViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
+    CardSizeUserAvatarHeight + CardSizeTextGap + 
+    self.commentContentLabel.frame.size.height;
+    commentViewHeight += CardTailHeight;
+    
+    [self.baseCardBackgroundView resetHeight:commentViewHeight];
+    [self.commentInfoView resetHeight:commentViewHeight];
+    
+    CGFloat cardTailOriginY = self.frame.size.height + CardTailOffset - 4.0;
+    
+    [self.timeStampLabel resetOriginY:cardTailOriginY];
+    [self.timeStampLabel setText:[self.status.createdAt stringRepresentation]];
+        
+    self.upThreadImageView.hidden = YES;
+    self.downThreadImageView.hidden = YES;
+}
+
 - (void)configureCellWithComment:(Comment *)comment_ isLastComment:(BOOL)isLast isFirstComment:(BOOL)isFirst
 {
     self.comment = comment_;
@@ -89,13 +124,11 @@
 
 - (IBAction)didClickCommentButton:(UIButton *)sender
 {
-    NSString *targetUserName = self.comment.author.screenName;
-    NSString *targetStatusID = self.comment.targetStatus.statusID;
-    NSString *targetReplyID = self.comment.commentID;
-    CGRect frame = [self convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
-    
-    PostViewController *vc = [PostViewController getCommentReplyViewControllerWithWeiboID:targetStatusID replyID:targetReplyID weiboOwnerName:targetUserName Delegate:self];
-    [vc showViewFromRect:frame];
+    if (_comment) {
+        [self commentStatus];
+    } else if(_status){
+        [self viewCommentOfStatus];
+    }
 }
 
 - (IBAction)didClickUserNameButton:(UIButton *)sender
@@ -117,6 +150,22 @@
     [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
 }
 
+- (void)commentStatus
+{
+    NSString *targetUserName = self.comment.author.screenName;
+    NSString *targetStatusID = self.comment.targetStatus.statusID;
+    NSString *targetReplyID = self.comment.commentID;
+    CGRect frame = [self convertRect:_commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    
+    PostViewController *vc = [PostViewController getCommentReplyViewControllerWithWeiboID:targetStatusID replyID:targetReplyID weiboOwnerName:targetUserName Delegate:self];
+    [vc showViewFromRect:frame];
+}
+
+- (void)viewCommentOfStatus
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowCommentList object:[NSDictionary dictionaryWithObjectsAndKeys:self.status, kNotificationObjectKeyStatus, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+}
+
 #pragma mark - TTTAttributedLabel Delegate
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithPhoneNumber:(NSString *)userName
 {
@@ -125,7 +174,7 @@
 
 - (void)sendUserNameClickedNotificationWithName:(NSString *)userName
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:[NSDictionary dictionaryWithObjectsAndKeys:userName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:[NSDictionary dictionaryWithObjectsAndKeys:userName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
 }
 
 

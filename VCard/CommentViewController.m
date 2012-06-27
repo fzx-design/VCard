@@ -56,6 +56,13 @@
     [self.backgroundView addSubview:self.topShadowImageView];
     [ThemeResourceProvider configButtonPaperLight:_changeSourceButton];
     [ThemeResourceProvider configButtonPaperDark:_commentButton];
+
+    NSString *titleString = _type == CommentTableViewControllerTypeComment ? @"所有评论" : @"所有转发";
+    NSString *commentButtonString = _type == CommentTableViewControllerTypeComment ? @"发表评论" : @"转发微博";
+    
+    _titleLabel.text = titleString;
+    [_commentButton setTitle:commentButtonString forState:UIControlStateNormal];
+    [_commentButton setTitle:commentButtonString forState:UIControlStateHighlighted];
 }
 
 - (void)viewDidUnload
@@ -78,21 +85,48 @@
     if (self.commentTableViewController.filterByAuthor) {
         [self.changeSourceButton setTitle:@"查看所有" forState:UIControlStateNormal];
         [self.changeSourceButton setTitle:@"查看所有" forState:UIControlStateHighlighted];
-        self.titleLabel.text =  @"关注的人的评论";
+        NSString *viewAllString = _type == CommentTableViewControllerTypeComment ? @"关注的人的评论" : @"关注的人的转发";
+        self.titleLabel.text =  viewAllString;
     } else {
         [self.changeSourceButton setTitle:@"只查看关注" forState:UIControlStateNormal];
-        [self.changeSourceButton setTitle:@"只查看关注" forState:UIControlStateHighlighted];
-        self.titleLabel.text =  @"所有评论";
+        [self.changeSourceButton setTitle:@"只查看关注" forState:UIControlStateHighlighted];        
+        NSString *viewAllString = _type == CommentTableViewControllerTypeComment ? @"所有评论" : @"所有转发";
+        self.titleLabel.text =  viewAllString;
     }
 }
 
 - (IBAction)didClickCommentButton:(UIButton *)sender
 {
+    if (_type == CommentTableViewControllerTypeComment) {
+        [self commentStatus];
+    } else {
+        [self repostStatus];
+    }
+}
+
+- (void)commentStatus
+{
     NSString *targetUserName = self.status.author.screenName;
     NSString *targetStatusID = self.status.statusID;
-    CGRect frame = [self.view convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    CGRect frame = [self.view convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    
+    PostViewController *vc = [PostViewController getCommentWeiboViewControllerWithWeiboID:targetStatusID
+                                                                           weiboOwnerName:targetUserName Delegate:self];
+    [vc showViewFromRect:frame];
+}
 
-    PostViewController *vc = [PostViewController getCommentWeiboViewControllerWithWeiboID:targetStatusID weiboOwnerName:targetUserName Delegate:self];
+- (void)repostStatus
+{
+    NSString *targetUserName = self.status.author.screenName;
+    NSString *targetStatusID = self.status.statusID;
+    NSString *targetStatusContent = nil;
+    if(self.status.repostStatus)
+        targetStatusContent = self.status.text;
+    CGRect frame = [self.view convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    PostViewController *vc = [PostViewController getRepostViewControllerWithWeiboID:targetStatusID
+                                                                     weiboOwnerName:targetUserName
+                                                                            content:targetStatusContent
+                                                                           Delegate:self];
     [vc showViewFromRect:frame];
 }
 
@@ -112,9 +146,8 @@
         _commentTableViewController.view.frame = [self frameForTableView];
         _commentTableViewController.tableView.frame = [self frameForTableView];
         _commentTableViewController.status = self.status;
-        [self.backgroundView insertSubview:_commentTableViewController.view belowSubview:self.topShadowImageView];
-        
-        
+        _commentTableViewController.type = self.type;
+        [self.backgroundView insertSubview:_commentTableViewController.view belowSubview:self.topShadowImageView];        
     }
     return _commentTableViewController;
 }

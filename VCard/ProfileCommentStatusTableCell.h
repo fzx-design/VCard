@@ -18,7 +18,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView *leftpatternImageView;
 @property (nonatomic, strong) IBOutlet UIImageView *rightpatternImageView;
 @property (nonatomic, strong) IBOutlet UILabel *descriptionLabel;
-
+@property (nonatomic, strong) NSString *typeString;
 @property (nonatomic, assign) NSInteger pageIndex;
 
 - (void)setCellHeight:(CGFloat)height;

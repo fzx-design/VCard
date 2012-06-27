@@ -94,7 +94,7 @@
             if (_dataSource == CommentsTableViewDataSourceCommentsToMe) {
 				for (NSDictionary *dict in dictArray) {
 					Comment *comment = [Comment insertCommentToMe:dict inManagedObjectContext:self.managedObjectContext];
-                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForComment:comment]];
+                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
 				}
 				[self.managedObjectContext processPendingChanges];
 				
@@ -108,7 +108,7 @@
 			} else if(_dataSource == CommentsTableViewDataSourceCommentsByMe) {
 				for (NSDictionary *dict in dictArray) {
 					Comment *comment = [Comment insertCommentByMe:dict inManagedObjectContext:self.managedObjectContext];
-                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForComment:comment]];
+                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
 				}
 				[self.managedObjectContext processPendingChanges];
 				

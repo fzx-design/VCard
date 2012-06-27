@@ -157,11 +157,11 @@ static inline NSRegularExpression * UrlRegularExpression() {
     return height;
 }
 
-+ (CGFloat)heightForComment:(Comment *)comment_
++ (CGFloat)heightForTextContent:(NSString *)text
 {
     CGFloat height = 0.0;
     height +=  CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight + CardSizeRepostHeightOffset;
-    height += [CardViewController heightForCellWithText:comment_.text] + CardSizeTextGap + 24.0;
+    height += [CardViewController heightForCellWithText:text] + CardSizeTextGap + 24.0;
     
     return height;
 }
@@ -526,12 +526,18 @@ static inline NSRegularExpression * UrlRegularExpression() {
 #pragma mark - Send Notification
 - (void)sendUserNameClickedNotificationWithName:(NSString *)userName
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameUserNameClicked object:[NSDictionary dictionaryWithObjectsAndKeys:userName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:[NSDictionary dictionaryWithObjectsAndKeys:userName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
 }
 
 - (void)sendCommentButtonClickedNotification
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationCommentButtonClicked object:[NSDictionary dictionaryWithObjectsAndKeys:self.status, kNotificationObjectKeyStatus, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowCommentList object:[NSDictionary dictionaryWithObjectsAndKeys:self.status, kNotificationObjectKeyStatus, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+}
+
+- (void)sendShowRepostListNotification
+{
+    Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowRepostList object:[NSDictionary dictionaryWithObjectsAndKeys:targetStatus, kNotificationObjectKeyStatus, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
 }
 
 #pragma mark - PostViewController Delegate
@@ -562,7 +568,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     if(buttonIndex == kActionSheetRepostIndex) {
         [self repostStatus];
     } else if(buttonIndex == kActionSheetViewRepostIndex) {
-        //TODO: 
+        [self sendShowRepostListNotification];
     } else if(buttonIndex == kActionSheetFavorIndex) {
         //TODO:
     } else if(buttonIndex == kActionSheetShareIndex) {

@@ -466,7 +466,7 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
-- (void)getCommentOfStaus:(NSString *)statusID
+- (void)getCommentOfStatus:(NSString *)statusID
                    maxID:(NSString *)maxID
                     count:(int)count
              authorFilter:(BOOL)filter
@@ -476,6 +476,28 @@ static NSString *UserID = @"";
         [self.params setObject:statusID forKey:@"id"];
     }
     if (maxID) {
+        [self.params setObject:[NSString stringWithFormat:@"%@", maxID] forKey:@"max_id"];
+    }
+    if (count) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    }
+    int filterFactor = filter ? 1 : 0;
+    [self.params setObject:[NSString stringWithFormat:@"%d", filterFactor] forKey:@"filter_by_author"];
+    
+    [self loadNormalRequest];
+}
+
+
+- (void)getRepostOfStatus:(NSString *)statusID
+                    maxID:(NSString *)maxID
+                    count:(int)count
+             authorFilter:(BOOL)filter
+{
+    self.path = @"statuses/repost_timeline.json";
+    if (statusID) {
+        [self.params setObject:statusID forKey:@"id"];
+    }
+    if (maxID >= 0) {
         [self.params setObject:[NSString stringWithFormat:@"%@", maxID] forKey:@"max_id"];
     }
     if (count) {

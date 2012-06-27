@@ -42,12 +42,12 @@
 {
     self.checkCommentButton.selected = YES;
     self.checkMentionButton.selected = NO;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameSelfCommentButtonClicked object:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:kNotificationObjectKeyIndex]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowSelfCommentList object:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:kNotificationObjectKeyIndex]];
 }
 
 - (IBAction)didClickCheckMentionButton:(id)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameSelfMentionButtonClicked object:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:kNotificationObjectKeyIndex]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowSelfMentionList object:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:kNotificationObjectKeyIndex]];
 }
 
 

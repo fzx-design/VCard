@@ -139,7 +139,12 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                 feature:(int)feature;
 - (void)getAddressFromGeoWithCoordinate:(NSString *)coordinate;
 
-- (void)getCommentOfStaus:(NSString *)statusID
+- (void)getCommentOfStatus:(NSString *)statusID
+                    maxID:(NSString *)maxID
+                    count:(int)count
+             authorFilter:(BOOL)filter;
+
+- (void)getRepostOfStatus:(NSString *)statusID
                     maxID:(NSString *)maxID
                     count:(int)count
              authorFilter:(BOOL)filter;

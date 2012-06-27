@@ -9,6 +9,11 @@
 #import "RefreshableCoreDataTableViewController.h"
 #import "Status.h"
 
+typedef enum {
+    CommentTableViewControllerTypeComment,
+    CommentTableViewControllerTypeRepost,
+} CommentTableViewControllerType;
+
 @class ProfileCommentStatusTableCell;
 @class ProfileCommentTableViewCell;
 
@@ -20,6 +25,7 @@
 
 @property (nonatomic, assign) BOOL filterByAuthor;
 @property (nonatomic, strong) Status *status;
+@property (nonatomic, assign) CommentTableViewControllerType type;
 @property (nonatomic, strong) ProfileCommentStatusTableCell *headerViewCell;
 
 - (void)changeSource;

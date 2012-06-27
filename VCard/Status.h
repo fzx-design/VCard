@@ -51,6 +51,7 @@
 + (Status *)statusWithID:(NSString *)statudID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteObjectsEarlierThan:(NSDate *)updateDate inManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context;
++ (void)deleteRepostsOfStatus:(Status *)status ManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (int)countOfStatuseInContext:(NSManagedObjectContext *)context;
 + (void)deleteAllTempStatusesInManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteObject:(Status *)object inManagedObjectContext:(NSManagedObjectContext *)context;

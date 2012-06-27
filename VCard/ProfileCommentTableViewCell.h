@@ -34,6 +34,7 @@
 @property (nonatomic, strong) IBOutlet TTTAttributedLabel *commentContentLabel;
 @property (nonatomic, strong) IBOutlet UILabel *timeStampLabel;
 @property (nonatomic, weak) Comment *comment;
+@property (nonatomic, weak) Status *status;
 @property (nonatomic, assign) NSInteger pageIndex;
 
 - (IBAction)didClickCommentButton:(UIButton *)sender;
@@ -43,6 +44,7 @@
 - (void)configureCellWithComment:(Comment *)comment
                    isLastComment:(BOOL)isLast
                   isFirstComment:(BOOL)isFirst;
+- (void)configureCellWithStatus:(Status *)status;
 - (void)updateThreadStatus:(BOOL)isLast;
 
 @end

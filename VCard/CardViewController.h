@@ -89,7 +89,7 @@
 - (IBAction)didClickRepostButton:(UIButton *)sender;
 
 + (CGFloat)heightForStatus:(Status*)status_ andImageHeight:(NSInteger)imageHeight_;
-+ (CGFloat)heightForComment:(Comment *)comment_;
++ (CGFloat)heightForTextContent:(NSString *)text;
 + (void)setStatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string;
 
 - (void)configureCardWithStatus:(Status*)status_
