@@ -13,7 +13,7 @@
 
 @protocol MotionsViewControllerDelegate;
 
-@interface MotionsViewController : MultiInterfaceOrientationViewController <MotionsShootViewControllerDelegate>
+@interface MotionsViewController : MultiInterfaceOrientationViewController <MotionsShootViewControllerDelegate, MotionsEditViewControllerDelegate>
 
 @property (nonatomic, strong) MotionsShootViewController *shootViewController;
 @property (nonatomic, strong) MotionsEditViewController *editViewController;

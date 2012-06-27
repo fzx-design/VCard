@@ -387,7 +387,7 @@ typedef enum {
         UIGraphicsBeginImageContextWithOptions(imageViewRect.size, NO, 0);
     else
         UIGraphicsBeginImageContext(imageViewRect.size);
-    [optimizedImage drawInRect:CGRectMake(2, 2, imageViewRect.size.width - 4, imageViewRect.size.height - 4)];
+    [optimizedImage drawInRect:CGRectMake(1, 1, imageViewRect.size.width - 2, imageViewRect.size.height - 2)];
     optimizedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     

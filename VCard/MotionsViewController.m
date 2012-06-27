@@ -12,7 +12,6 @@
 @interface MotionsViewController ()
 
 @property (nonatomic, strong) UIImage *originalImage;
-@property (nonatomic, strong) UIImage *modifiedImage;
 @property (nonatomic, assign) CGRect leftCameraCoverCloseFrame;
 @property (nonatomic, assign) CGRect rightCameraCoverCloseFrame;
 @property (nonatomic, assign) CGRect leftCameraCoverOpenFrame;
@@ -33,7 +32,6 @@
 @synthesize delegate = _delegate;
 
 @synthesize originalImage = _originalImage;
-@synthesize modifiedImage = _modifiedImage;
 @synthesize cancelButton = _cancelButton;
 @synthesize leftCameraCoverCloseFrame = _leftCameraCoverCloseFrame;
 @synthesize rightCameraCoverCloseFrame = _rightCameraCoverCloseFrame;
@@ -65,6 +63,7 @@
     self.rightCameraCoverCloseFrame = self.rightCameraCoverImageView.frame;
     [self configureCancelButton];
     if(self.originalImage) {
+        [self configureEditViewController];
     } else {
         [self configureShootViewController];
     }
@@ -136,8 +135,8 @@
 
 - (MotionsEditViewController *)editViewController {
     if(!_editViewController) {
-        _editViewController = [[MotionsEditViewController alloc] init];
-        //_editViewController.delegate = self;
+        _editViewController = [[MotionsEditViewController alloc] initWithImage:self.originalImage];
+        _editViewController.delegate = self;
         [self.subViewControllers addObject:_editViewController];
     }
     return _editViewController;
@@ -256,6 +255,20 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
 
 - (void)shootViewControllerWillBecomeInactiveWithCompletion:(void (^)(void))completion {
     [self showCameraCoverWithCompletion:completion];
+}
+
+#pragma mark - MotionsEditViewController delegate
+
+- (void)editViewControllerDidBecomeActiveWithCompletion:(void (^)(void))completion {
+    [self hideCameraCoverWithCompletion:completion];
+}
+
+- (void)editViewControllerDidFinishEditImage:(UIImage *)image {
+    [self.delegate motionViewControllerDidFinish:image];
+}
+
+- (void)editViewControllerDidChooseToShoot {
+    
 }
 
 @end

@@ -13,9 +13,7 @@
     GLuint _renderBuffer;
 }
 
-@property (nonatomic, assign) float brightnessValues;
-@property (nonatomic, assign) float contrastValue;
-//@property (nonatomic, assign) float saturationValue;
+@property (nonatomic, assign) float shadowAmountValue;
 
 - (void)setImage:(UIImage *)image;
 - (void)initializeParameter;

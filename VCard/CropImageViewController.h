@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MultiInterfaceOrientationViewController.h"
 #import "CropImageView.h"
 
 @protocol CropImageViewControllerDelegate;
 
-@interface CropImageViewController : UIViewController
+@interface CropImageViewController : MultiInterfaceOrientationViewController
 
 @property (nonatomic, weak) id<CropImageViewControllerDelegate> delegate;
 @property (nonatomic, strong) IBOutlet UIImageView *cropImageBgView;
