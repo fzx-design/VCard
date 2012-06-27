@@ -136,6 +136,7 @@
 		18A6850D15370F3D00D58B7D /* imageview_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A6850B15370F3D00D58B7D /* imageview_placeholder@2x.png */; };
 		18A685171537110B00D58B7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A685161537110B00D58B7D /* QuartzCore.framework */; };
 		18AC828E155B924700AD99C4 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC828B155B924700AD99C4 /* PullToRefreshView.m */; };
+		18BD24B6159A9B6600846C6E /* UserAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BD24B5159A9B6500846C6E /* UserAccountManager.m */; };
 		18C1903515945D1700DA1A6A /* comments_thread_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903115945D1700DA1A6A /* comments_thread_down.png */; };
 		18C1903615945D1700DA1A6A /* comments_thread_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903215945D1700DA1A6A /* comments_thread_down@2x.png */; };
 		18C1903715945D1700DA1A6A /* comments_thread_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903315945D1700DA1A6A /* comments_thread_up.png */; };
@@ -152,7 +153,6 @@
 		18DBAE6A15737D8500918ED4 /* section_bar_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DBAE6615737D8500918ED4 /* section_bar_bg@2x.png */; };
 		18DBAE6D1573970B00918ED4 /* SelfProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE6C1573970800918ED4 /* SelfProfileViewController.m */; };
 		18DBAE731573978F00918ED4 /* FriendProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE721573977800918ED4 /* FriendProfileViewController.m */; };
-		18DD302E15998D40001C0899 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DD302D15998D40001C0899 /* UIButton+EnlargeTouchArea.m */; };
 		18DF3734153905A800C783C9 /* BaseNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF3733153905A800C783C9 /* BaseNavigationBar.m */; };
 		18DF3740156B55AC00C56685 /* WaterflowCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF373F156B55AC00C56685 /* WaterflowCardCell.m */; };
 		18DF3744156B59B600C56685 /* WaterflowDividerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF3743156B59B600C56685 /* WaterflowDividerCell.m */; };
@@ -910,6 +910,8 @@
 		18A685161537110B00D58B7D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		18AC828A155B924700AD99C4 /* PullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshView.h; sourceTree = "<group>"; };
 		18AC828B155B924700AD99C4 /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
+		18BD24B4159A9B6500846C6E /* UserAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAccountManager.h; sourceTree = "<group>"; };
+		18BD24B5159A9B6500846C6E /* UserAccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAccountManager.m; sourceTree = "<group>"; };
 		18C1903115945D1700DA1A6A /* comments_thread_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comments_thread_down.png; sourceTree = "<group>"; };
 		18C1903215945D1700DA1A6A /* comments_thread_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comments_thread_down@2x.png"; sourceTree = "<group>"; };
 		18C1903315945D1700DA1A6A /* comments_thread_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comments_thread_up.png; sourceTree = "<group>"; };
@@ -932,8 +934,6 @@
 		18DBAE6C1573970800918ED4 /* SelfProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfProfileViewController.m; sourceTree = "<group>"; };
 		18DBAE711573976F00918ED4 /* FriendProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendProfileViewController.h; sourceTree = "<group>"; };
 		18DBAE721573977800918ED4 /* FriendProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendProfileViewController.m; sourceTree = "<group>"; };
-		18DD302C15998D40001C0899 /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
-		18DD302D15998D40001C0899 /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
 		18DF3732153905A800C783C9 /* BaseNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationBar.h; sourceTree = "<group>"; };
 		18DF3733153905A800C783C9 /* BaseNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationBar.m; sourceTree = "<group>"; };
 		18DF373E156B55AC00C56685 /* WaterflowCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterflowCardCell.h; sourceTree = "<group>"; };
@@ -1819,6 +1819,8 @@
 				1890C6A21535A87900023A13 /* ResourceList.h */,
 				181727EF15997ABA00BC25B2 /* ThemeResourceProvider.h */,
 				181727F015997ABA00BC25B2 /* ThemeResourceProvider.m */,
+				18BD24B4159A9B6500846C6E /* UserAccountManager.h */,
+				18BD24B5159A9B6500846C6E /* UserAccountManager.m */,
 			);
 			name = Basic;
 			sourceTree = "<group>";
@@ -1946,8 +1948,6 @@
 				E1097D4A157F9BBF00BD0640 /* UIView+Addition.m */,
 				18114506156CDB9E00B3BF21 /* UIView+Resize.h */,
 				18114507156CDB9E00B3BF21 /* UIView+Resize.m */,
-				18DD302C15998D40001C0899 /* UIButton+EnlargeTouchArea.h */,
-				18DD302D15998D40001C0899 /* UIButton+EnlargeTouchArea.m */,
 			);
 			name = Catagaories;
 			sourceTree = "<group>";
@@ -3593,7 +3593,7 @@
 				E1031B7015995309006A9CFD /* MotionsEditViewController.m in Sources */,
 				E12B6FDC1599663B00711A6B /* MultiInterfaceOrientationViewController.m in Sources */,
 				181727F115997ABA00BC25B2 /* ThemeResourceProvider.m in Sources */,
-				18DD302E15998D40001C0899 /* UIButton+EnlargeTouchArea.m in Sources */,
+				18BD24B6159A9B6600846C6E /* UserAccountManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

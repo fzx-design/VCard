@@ -12,6 +12,10 @@
 #import "UIView+Resize.h"
 #import "NSDateAddition.h"
 #import "UIApplication+Addition.h"
+#import "UserAccountManager.h"
+
+#define kActionSheetViewCopyIndex   0
+#define kActionSheetViewDelete      1
 
 @implementation SelfCommentTableViewCell
 
@@ -69,9 +73,13 @@
 
 - (IBAction)didClickCommentButton:(UIButton *)sender
 {
-//    NSString *targetUserName = self.comment.author.screenName;
-//    NSString *targetStatusID = self.comment.targetStatus.statusID;
-//    CGRect frame = [self convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    NSString *targetUserName = self.comment.author.screenName;
+    NSString *targetStatusID = self.comment.targetStatus.statusID;
+    NSString *targetReplyID = self.comment.commentID;
+    CGRect frame = [self convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    
+    PostViewController *vc = [PostViewController getCommentReplyViewControllerWithWeiboID:targetStatusID replyID:targetReplyID weiboOwnerName:targetUserName Delegate:self];
+    [vc showViewFromRect:frame];
 }
 
 - (IBAction)didClickUserNameButton:(UIButton *)sender
@@ -88,6 +96,19 @@
                                                         object:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                 status, kNotificationObjectKeyStatus,
                                                                 indexString, kNotificationObjectKeyIndex, nil]];
+}
+
+- (IBAction)didClickMoreActionButton:(UIButton *)sender
+{
+    NSString *deleteTitle = [self.comment.author isEqualToUser:[UserAccountManager currentUser]] ? @"删除" : nil;
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self 
+                                                    cancelButtonTitle:nil 
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"复制评论", deleteTitle, nil];
+    actionSheet.destructiveButtonIndex = kActionSheetViewDelete;
+    actionSheet.delegate = self;
+    [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
 }
 
 #pragma mark - TTTAttributedLabel Delegate
@@ -127,6 +148,16 @@
         [vc dismissViewToRect:[self convertRect:self.moreActionButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
     else
         [vc dismissViewToRect:[self convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    if(buttonIndex == kActionSheetViewCopyIndex) {
+        UIPasteboard *pb = [UIPasteboard generalPasteboard];
+        [pb setString:self.comment.text];
+    } else if(buttonIndex == kActionSheetViewDelete) {
+        //TODO: 
+    }
 }
 
 @end

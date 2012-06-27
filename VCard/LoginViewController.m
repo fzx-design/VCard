@@ -13,6 +13,7 @@
 #import "Status.h"
 
 #import "CardViewController.h"
+#import "UserAccountManager.h"
 
 #define NUM_OF_CELLS                1
 
@@ -62,7 +63,9 @@
     [self setNotificationSettings];
     
     if ([WBClient authorized]) {
+        
         self.currentUser = [User userWithID:[WBClient currentUserID] inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+        [UserAccountManager initializeWithCurrentUser:self.currentUser managedObjectContext:self.managedObjectContext];
         [self performSegueWithIdentifier:@"ShowRootViewController" sender:self];
     } else {
         [self setupHorizontalView];
@@ -135,14 +138,14 @@
 - (void)loginInfoAuthorized:(id)sender
 {
     WBClient *client = [WBClient client];
-    
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             NSDictionary *userDict = client.responseJSONObject;
             User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
             self.currentUser = user;
-            [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
+            [UserAccountManager initializeWithCurrentUser:user managedObjectContext:self.managedObjectContext];
             
+            [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
         }
     }];

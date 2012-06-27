@@ -244,6 +244,7 @@
         _statusController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileStatusTableViewController"];
         _statusController.type = StatusTableViewControllerTypeUserStatus;
         _statusController.user = self.user;
+        _statusController.currentUser = self.currentUser;
         _statusController.pageIndex = self.pageIndex;
         _statusController.view.frame = [self frameForTableView];
         _statusController.tableView.frame = [self frameForTableView];

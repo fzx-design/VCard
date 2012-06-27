@@ -13,7 +13,7 @@
 #import "Comment.h"
 #import "PostViewController.h"
 
-@interface SelfCommentTableViewCell : UITableViewCell <PostViewControllerDelegate, TTTAttributedLabelDelegate>
+@interface SelfCommentTableViewCell : UITableViewCell <PostViewControllerDelegate, TTTAttributedLabelDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) IBOutlet UserAvatarImageView *avatarImageView;
 @property (nonatomic, strong) IBOutlet BaseCardBackgroundView *baseCardBackgroundView;
@@ -31,6 +31,7 @@
 - (IBAction)didClickCommentButton:(UIButton *)sender;
 - (IBAction)didClickUserNameButton:(UIButton *)sender;
 - (IBAction)didClickViewDetailButton:(UIButton *)sender;
+- (IBAction)didClickMoreActionButton:(UIButton *)sender;
 - (void)configureCellWithComment:(Comment *)comment;
 
 @end

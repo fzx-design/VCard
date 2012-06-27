@@ -25,7 +25,7 @@
 #define CardTailHeight 24
 #define CardTailOffset -55
 
-@interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate, PostViewControllerDelegate> {
+@interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate, PostViewControllerDelegate, UIActionSheetDelegate> {
     CardImageView *_statusImageView;
     UserAvatarImageView *_repostUserAvatar;
     UserAvatarImageView *_originalUserAvatar;
@@ -92,7 +92,10 @@
 + (CGFloat)heightForComment:(Comment *)comment_;
 + (void)setStatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string;
 
-- (void)configureCardWithStatus:(Status*)status_ imageHeight:(CGFloat)imageHeight_ pageIndex:(NSInteger)pageIndex_;
+- (void)configureCardWithStatus:(Status*)status_
+                    imageHeight:(CGFloat)imageHeight_
+                      pageIndex:(NSInteger)pageIndex_
+                    currentUser:(User *)user;
 - (void)loadImage;
 - (void)prepareForReuse;
 

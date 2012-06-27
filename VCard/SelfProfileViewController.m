@@ -7,7 +7,6 @@
 //
 
 #import "SelfProfileViewController.h"
-#import "UIButton+EnlargeTouchArea.h"
 
 @implementation SelfProfileViewController
 

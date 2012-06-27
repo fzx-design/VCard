@@ -7,7 +7,6 @@
 //
 
 #import "FriendProfileViewController.h"
-#import "UIButton+EnlargeTouchArea.h"
 #import "WBClient.h"
 #import "User.h"
 
@@ -28,6 +27,7 @@
 {
     [super viewDidLoad];
     [_screenNameLabel setText:self.screenName];
+    [ThemeResourceProvider configButtonPaperLight:_moreInfoButton];
     
     if (self.user == nil) {
         [self loadUser];
@@ -71,7 +71,6 @@
     [_relationshipButton setTitle:relationShip forState:UIControlStateNormal];
     [_relationshipButton setTitle:relationShip forState:UIControlStateHighlighted];
     
-    [ThemeResourceProvider configButtonPaperLight:_moreInfoButton];
 }
 
 - (void)viewDidUnload

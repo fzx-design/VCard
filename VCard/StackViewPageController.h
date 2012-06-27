@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
 #import "BaseStackLayoutView.h"
+#import "UserAccountManager.h"
 
 typedef enum {
     StackViewPageTypeUser,

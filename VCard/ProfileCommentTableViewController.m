@@ -185,7 +185,8 @@
     [_headerViewCell setCellHeight:height];
     [_headerViewCell.cardViewController configureCardWithStatus:targetStatus
                                                     imageHeight:ImageHeightHigh
-                                                      pageIndex:self.pageIndex];
+                                                      pageIndex:self.pageIndex
+                                                    currentUser:self.currentUser];
     [_headerViewCell loadImageAfterScrollingStop];
     _headerViewCell.pageIndex = self.pageIndex;
     

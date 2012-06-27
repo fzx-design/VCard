@@ -9,7 +9,6 @@
 #import "CommentViewController.h"
 #import "PostViewController.h"
 #import "UIApplication+Addition.h"
-#import "UIButton+EnlargeTouchArea.h"
 #import "User.h"
 
 @implementation CommentViewController

@@ -12,6 +12,10 @@
 #import "UIView+Resize.h"
 #import "User.h"
 #import "UIApplication+Addition.h"
+#import "UserAccountManager.h"
+
+#define kActionSheetViewCopyIndex   0
+#define kActionSheetViewDelete      1
 
 @implementation ProfileCommentTableViewCell
 
@@ -100,6 +104,19 @@
     [self sendUserNameClickedNotificationWithName:userName];
 }
 
+- (IBAction)didClickMoreActionButton:(UIButton *)sender
+{
+    NSString *deleteTitle = [self.comment.author isEqualToUser:[UserAccountManager currentUser]] ? @"删除" : nil;
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self 
+                                                    cancelButtonTitle:nil 
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"复制评论", deleteTitle, nil];
+    actionSheet.destructiveButtonIndex = kActionSheetViewDelete;
+    actionSheet.delegate = self;
+    [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+}
+
 #pragma mark - TTTAttributedLabel Delegate
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithPhoneNumber:(NSString *)userName
 {
@@ -132,5 +149,18 @@
     else 
         [vc dismissViewToRect:[self convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];        
 }
+
+#pragma mark - UIActionSheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    if(buttonIndex == kActionSheetViewCopyIndex) {
+        UIPasteboard *pb = [UIPasteboard generalPasteboard];
+        [pb setString:self.comment.text];
+    } else if(buttonIndex == kActionSheetViewDelete) {
+        //TODO: 
+    }
+}
+
 
 @end

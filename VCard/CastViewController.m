@@ -294,7 +294,7 @@
     vc.currentUser = self.currentUser;
     vc.screenName = self.currentUser.screenName;
     
-    [self stackViewAtIndex:65535 push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
+    [self stackViewAtIndex:INT64_MAX push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
 }
 
 - (void)stackViewAtIndex:(int)index
@@ -488,7 +488,8 @@
         
         [((WaterflowCardCell *)cell).cardViewController configureCardWithStatus:targetStatus
                                                                     imageHeight:layoutUnit.imageHeight
-                                                                      pageIndex:0];
+                                                                      pageIndex:0
+                                                                    currentUser:self.currentUser];
         
     } else if(layoutUnit.unitType == UnitTypeDivider) {
         Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
