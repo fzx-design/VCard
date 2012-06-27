@@ -239,7 +239,7 @@ static NSString *UserID = @"";
     }
     
     if(image)
-        [self.params setObject:(text ? text : @"分享微博") forKey:@"status"];
+        [self.params setObject:(text ? text : @"分享图片") forKey:@"status"];
     else
         [self.params setObject:(text ? text : @"发表微博") forKey:@"status"];
     

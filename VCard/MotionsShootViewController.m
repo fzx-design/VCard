@@ -11,6 +11,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Addition.h"
+#import "UIView+Addition.h"
 
 @interface MotionsShootViewController ()
 
@@ -67,7 +68,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [self startShoot];
-    [self.delegate shootViewControllerWillBecomeActiveWithCompletion:nil];
+    [(NSObject *)self.delegate performSelector:@selector(shootViewControllerWillBecomeActiveWithCompletion:) withObject:nil afterDelay:0.1f];    
 }
 
 - (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -196,6 +197,7 @@
         
         [self configurePreviewLayerOrientation:[UIApplication sharedApplication].statusBarOrientation];
         [self.cameraPreviewView.layer addSublayer:previewLayer];
+        [self.cameraPreviewView fadeIn];
         [self.captureSession startRunning];
     }
 }

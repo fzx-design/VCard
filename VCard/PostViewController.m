@@ -390,6 +390,7 @@ typedef enum {
     
     self.motionsImageView.image = optimizedImage;
     self.motionsOriginalImage = image;
+    [self updateTextCountAndPostButton];
 }
 
 - (void)configurePaperHolderImageView {
@@ -457,7 +458,7 @@ typedef enum {
 - (void)updateTextCountAndPostButton {
     int weiboTextBackwardsCount = [self weiboTextBackwardsCount];
     self.textCountLabel.text = [NSString stringWithFormat:@"%d", weiboTextBackwardsCount];
-    if([self.textView.text isEqualToString:@""]) {
+    if([self.textView.text isEqualToString:@""] && !self.motionsOriginalImage) {
         self.postButton.userInteractionEnabled = NO;
         self.postButton.alpha = 0.3f;
     } else if(weiboTextBackwardsCount < 0) {
@@ -933,8 +934,7 @@ typedef enum {
             [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
         } else if(buttonIndex == MOTIONS_ACTION_SHEET_CLEAR_INDEX) {
             [self.motionsImageView fadeOutWithCompletion:^{
-                self.motionsImageView.image = nil;
-                self.motionsOriginalImage = nil;
+                [self setMotionsImage:nil];
                 self.motionsImageView.alpha = 1;
             }];
         }
