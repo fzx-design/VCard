@@ -19,10 +19,9 @@
 
 #define kActionSheetStatusRepostIndex     0
 #define kActionSheetStatusFavorIndex      1
-#define kActionSheetStatusViewRepostIndex     2
-#define kActionSheetStatusCopyIndex       3
-#define kActionSheetStatusShareIndex      4
-#define kActionSheetStatusDeleteIndex     5
+#define kActionSheetStatusCopyIndex       2
+#define kActionSheetStatusShareIndex      3
+#define kActionSheetStatusDeleteIndex     4
 
 @implementation ProfileCommentTableViewCell
 
@@ -163,7 +162,7 @@
                                                                  delegate:self 
                                                         cancelButtonTitle:nil 
                                                    destructiveButtonTitle:nil
-                                                        otherButtonTitles:@"转发", favourTitle, @"查看转发", @"复制微博", @"邮件分享", deleteTitle, nil];
+                                                        otherButtonTitles:@"转发", favourTitle, @"复制微博", @"邮件分享", deleteTitle, nil];
         actionSheet.destructiveButtonIndex = kActionSheetStatusDeleteIndex;
         actionSheet.delegate = self;
         [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
@@ -235,8 +234,6 @@
     } else {
         if(buttonIndex == kActionSheetStatusRepostIndex) {
             [self repostStatus];
-        } else if(buttonIndex == kActionSheetStatusViewRepostIndex) {
-            [self sendShowRepostListNotification];
         } else if(buttonIndex == kActionSheetStatusFavorIndex) {
             //TODO:
         } else if(buttonIndex == kActionSheetStatusShareIndex) {
