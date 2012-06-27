@@ -8,11 +8,14 @@
 
 #import "MotionsEditViewController.h"
 #import "UIImage+Addition.h"
+#import "UIView+Addition.h"
 
 @interface MotionsEditViewController ()
 
 @property (nonatomic, strong) UIImage *originalImage;
 @property (nonatomic, strong) UIImage *modifiedImage;
+@property (nonatomic, strong) UIImage *filterImage;
+@property (nonatomic, assign) UIInterfaceOrientation currentInterfaceOrientation;
 
 @end
 
@@ -26,12 +29,15 @@
 
 @synthesize originalImage = _originalImage;
 @synthesize modifiedImage = _modifiedImage;
+@synthesize filterImage = _filterImage;
+@synthesize currentInterfaceOrientation = _currentInterfaceOrientation;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.currentInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
     }
     return self;
 }
@@ -63,7 +69,12 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self performSelector:@selector(configureFilterImageView) withObject:nil afterDelay:0.3f];
+    [self configureFilterImageView];
+}
+
+- (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    self.currentInterfaceOrientation = interfaceOrientation;
+    [super loadViewControllerWithInterfaceOrientation:interfaceOrientation];
 }
 
 #pragma mark - UI methods
@@ -72,13 +83,16 @@
     UIImage *filterImage = [self.originalImage imageCroppedToFitSize:self.filterImageView.frame.size];
     [self.filterImageView setImage:filterImage];
     [self.filterImageView setNeedsDisplay];
-    [self.delegate editViewControllerDidBecomeActiveWithCompletion:nil];
+    if(!self.filterImage)
+        [self.filterImageView fadeIn];
+    self.filterImage = filterImage;
+    [(NSObject *)self.delegate performSelector:@selector(editViewControllerDidBecomeActiveWithCompletion:) withObject:nil afterDelay:0.3f];
 }
 
 - (void)configureSlider {
     [self.shadowAmountSlider setMinimumTrackImage:[UIImage imageNamed:@"transparent.png"] forState:UIControlStateNormal];
 	[self.shadowAmountSlider setMaximumTrackImage:[UIImage imageNamed:@"transparent.png"] forState:UIControlStateNormal];
-    if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+    if(UIInterfaceOrientationIsLandscape(self.currentInterfaceOrientation)) {
         [self.shadowAmountSlider setThumbImage:[UIImage imageNamed:@"motions_slider_thumb_horizon.png"] forState:UIControlStateNormal];
     } else {
         [self.shadowAmountSlider setThumbImage:[UIImage imageNamed:@"motions_slider_thumb_vertical.png"] forState:UIControlStateNormal];
