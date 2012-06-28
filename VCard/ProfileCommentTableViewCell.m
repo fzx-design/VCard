@@ -60,7 +60,7 @@
     //TODO: Add In_reply_to string
     NSString *screenName = @"";
     
-    screenName = [NSString stringWithFormat:@"%@", self.status.author.screenName];
+    screenName = [NSString stringWithFormat:@"%@ 转发并评论", self.status.author.screenName];
     
     [self.screenNameLabel setText:screenName];
     

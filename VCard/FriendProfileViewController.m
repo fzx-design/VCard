@@ -114,7 +114,7 @@
 
 - (void)followUser
 {
-    if (_loading) {
+    if (_loading || self.user == nil) {
         return;
     }
     _loading = YES;
@@ -137,7 +137,7 @@
 
 - (void)unfollowUser
 {
-    if (_loading) {
+    if (_loading || self.user == nil) {
         return;
     }
     _loading = YES;

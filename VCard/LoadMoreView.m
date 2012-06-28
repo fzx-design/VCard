@@ -34,7 +34,7 @@
         self.userInteractionEnabled = NO;
         
         _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        _activityView.frame = CGRectMake(0.0f, self.scrollView.contentSize.height, self.frame.size.width, 67.0f);
+        _activityView.frame = CGRectMake(0.0f, 0.0f, self.frame.size.width, 67.0f);
         _activityView.autoresizingMask = UIViewAutoresizingNone;
         _activityView.hidden = NO;
         [self addSubview:_activityView];
