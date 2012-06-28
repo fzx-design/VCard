@@ -575,7 +575,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
         [self shareStatusByMail];
     } else if(buttonIndex == kActionSheetViewCopyIndex){
         [self copyStatus];
-    } else {
+    } else if(buttonIndex == kActionSheetDeleteIndex){
         [self deleteStatus];
     }
 }
@@ -638,7 +638,6 @@ static inline NSRegularExpression * UrlRegularExpression() {
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldDeleteStatus object:self.status.statusID];
-//            [Status deleteStatusWithID:self.status.statusID inManagedObjectContext:self.managedObjectContext];
         } else {
             //TODO: Handle Error
         }

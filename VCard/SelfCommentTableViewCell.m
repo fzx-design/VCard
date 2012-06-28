@@ -13,6 +13,7 @@
 #import "NSDateAddition.h"
 #import "UIApplication+Addition.h"
 #import "UserAccountManager.h"
+#import "WBClient.h"
 
 #define kActionSheetViewCopyIndex   0
 #define kActionSheetViewDelete      1
@@ -156,8 +157,23 @@
         UIPasteboard *pb = [UIPasteboard generalPasteboard];
         [pb setString:self.comment.text];
     } else if(buttonIndex == kActionSheetViewDelete) {
-        //TODO: 
+        [self deleteComment];
     }
+}
+
+- (void)deleteComment
+{
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldDeleteComment
+                                                                object:self.comment.commentID];
+        } else {
+            //TODO: Handle Error
+        }
+    }];
+    
+    [client deleteComment:self.comment.commentID];
 }
 
 @end

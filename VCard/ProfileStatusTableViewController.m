@@ -10,6 +10,7 @@
 #import "ProfileStatusTableViewCell.h"
 #import "WBClient.h"
 #import "Status.h"
+#import "Comment.h"
 #import "User.h"
 #import "WaterflowLayoutUnit.h"
 
@@ -157,7 +158,6 @@
 {
     NSString *statusID = notification.object;
     [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
-//    [self.fetchedResultsController performFetch:nil];
 }
 
 - (CGFloat)randomImageHeight

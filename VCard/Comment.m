@@ -43,7 +43,7 @@
     }
     
     result.commentID = commentID;
-    result.operatedBy = nil;
+    result.operatedBy = kCoreDataIdentifierDefault;
     result.operatable = [NSNumber numberWithBool:NO];
     
     result.updateDate = [NSDate date];
@@ -85,7 +85,7 @@
     }
     
     result.commentID = commentID;
-    result.operatedBy = nil;
+    result.operatedBy = kCoreDataIdentifierDefault;
     result.operatable = [NSNumber numberWithBool:NO];
     
     result.updateDate = [NSDate date];
@@ -214,6 +214,24 @@
     
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
+    }
+}
+
++ (void)deleteCommentWithID:(NSString *)commentID inManagedObjectContext:(NSManagedObjectContext *)context withObject:(id)object
+{
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context]];
+//    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"commentID == %@ && operatedBy == %@", commentID, object]];
+//    
+//    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
+//    
+//    for (NSManagedObject *managedObject in items) {
+//        [context deleteObject:managedObject];
+//    }
+    
+    Comment *comment = [Comment commentWithID:commentID inManagedObjectContext:context withOperatingObject:object];
+    if (comment) {
+        [context deleteObject:comment];
     }
 }
 

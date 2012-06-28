@@ -129,6 +129,10 @@
                selector:@selector(refreshAfterDeletingStatuses:)
                    name:kNotificationNameShouldDeleteStatus
                  object:nil];
+    [center addObserver:self
+               selector:@selector(refreshAfterDeletingComment:)
+                   name:kNotificationNameShouldDeleteComment
+                 object:nil];
     
 }
 
@@ -276,6 +280,12 @@
     [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
     [self.fetchedResultsController performFetch:nil];
     [self.waterflowView refresh];
+}
+
+- (void)refreshAfterDeletingComment:(NSNotification *)notification
+{
+    NSString *commentID = notification.object;
+    [Comment deleteCommentWithID:commentID inManagedObjectContext:self.managedObjectContext withObject:kCoreDataIdentifierDefault];
 }
 
 #pragma mark - IBActions

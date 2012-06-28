@@ -33,6 +33,7 @@
 + (Comment *)insertCommentToMe:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context;
 + (Comment *)insertComment:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (Comment *)commentWithID:(NSString *)commentID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
++ (void)deleteCommentWithID:(NSString *)commentID inManagedObjectContext:(NSManagedObjectContext *)context withObject:(id)object;
 + (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteCommentsToMeInManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteCommentsByMeInManagedObjectContext:(NSManagedObjectContext *)context;

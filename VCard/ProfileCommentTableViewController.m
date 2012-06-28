@@ -34,6 +34,11 @@
     _hasMoreViews = YES;
     _sourceChanged = NO;
     _filterByAuthor = NO;
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(refreshAfterDeletingComment:)
+                   name:kNotificationNameShouldDeleteComment
+                 object:nil];
 }
 
 - (void)viewDidUnload
@@ -145,6 +150,15 @@
                             count:20
                      authorFilter:_filterByAuthor];
     }
+}
+
+- (void)refreshAfterDeletingComment:(NSNotification *)notification
+{
+    NSString *commentID = notification.object;
+    [Comment deleteCommentWithID:commentID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
+    self.status.commentsCount = [NSString stringWithFormat:@"%d", self.status.commentsCount.intValue - 1];
+    [self performSelector:@selector(updateHeaderViewInfo) withObject:nil afterDelay:0.001];
+    [self performSelector:@selector(updateVisibleCells) withObject:nil afterDelay:0.005];
 }
 
 #pragma mark - Core Data Table View Method
@@ -260,7 +274,8 @@
     if (_type == CommentTableViewControllerTypeComment) {
         for (ProfileCommentTableViewCell *cell in self.tableView.visibleCells) {
             BOOL isLast = [self.tableView indexPathForCell:cell].row == self.fetchedResultsController.fetchedObjects.count - 1;
-            [cell updateThreadStatus:isLast];
+            BOOL isFirst = [self.tableView indexPathForCell:cell].row == 0;
+            [cell updateThreadStatusIsFirst:isFirst isLast:isLast];
         }
     }
 }

@@ -13,6 +13,7 @@
 #import "User.h"
 #import "UIApplication+Addition.h"
 #import "UserAccountManager.h"
+#import "WBClient.h"
 
 #define kActionSheetCommentCopyIndex   0
 #define kActionSheetCommentDelete      1
@@ -121,9 +122,10 @@
     self.downThreadImageView.hidden = isLast;
 }
 
-- (void)updateThreadStatus:(BOOL)isLast
+- (void)updateThreadStatusIsFirst:(BOOL)isFirst isLast:(BOOL)isLast
 {
     self.downThreadImageView.hidden = isLast;
+    self.upThreadImageView.hidden = isFirst;
 }
 
 #pragma mark - IBActions
@@ -229,7 +231,7 @@
             UIPasteboard *pb = [UIPasteboard generalPasteboard];
             [pb setString:self.comment.text];
         } else if(buttonIndex == kActionSheetCommentDelete) {
-            //TODO: 
+            [self deleteComment];
         }
     } else {
         if(buttonIndex == kActionSheetStatusRepostIndex) {
@@ -290,6 +292,19 @@
     [[[UIApplication sharedApplication] rootViewController] presentModalViewController:picker animated:YES];
 }
 
+- (void)deleteComment
+{
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldDeleteComment object:self.comment.commentID];
+        } else {
+            //TODO: Handle Error
+        }
+    }];
+    
+    [client deleteComment:self.comment.commentID];
+}
 
 #pragma mark - MFMailComposeViewControllerDelegate
 - (void)mailComposeController:(MFMailComposeViewController*)controller

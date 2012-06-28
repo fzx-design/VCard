@@ -609,6 +609,15 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
+- (void)deleteComment:(NSString *)commentID
+{
+    self.path = @"comments/destroy.json";
+    [self.params setObject:commentID forKey:@"cid"];
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];
+}
+
 #pragma mark Request
 
 - (void)loadNormalRequest

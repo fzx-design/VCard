@@ -38,6 +38,12 @@
     _byMeNextPage = 1;
     _hasMoreViews = YES;
     
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+//    [center addObserver:self
+//               selector:@selector(refreshAfterDeletingComment:)
+//                   name:kNotificationNameShouldDeleteComment
+//                 object:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -154,6 +160,11 @@
     }
 }
 
+//- (void)refreshAfterDeletingComment:(NSNotification *)notification
+//{
+//    NSString *commentID = notification.object;
+//    [Comment deleteCommentWithID:commentID inManagedObjectContext:self.managedObjectContext withObject:kCoreDataIdentifierDefault];
+//}
 
 - (void)switchToToMe
 {
@@ -239,6 +250,7 @@
 #pragma mark - UIScrollView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    int count = self.fetchedResultsController.fetchedObjects.count;
     [super scrollViewDidScroll:scrollView];
     
     if (_hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
