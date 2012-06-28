@@ -333,7 +333,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 - (void)setUpButtonPosition
 {
     CGPoint origin = _isReposted ? self.repostCardBackground.frame.origin : self.statusInfoView.frame.origin;
-    CGFloat offset = _isReposted ? 10.0 : -5.0;
+    CGFloat offset = _isReposted ? 5.0 : -10.0;
     
     [self.repostButton resetOriginY:origin.y + offset];
     [self.commentButton resetOriginY:origin.y + offset];
