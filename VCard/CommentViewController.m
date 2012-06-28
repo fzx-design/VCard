@@ -159,7 +159,7 @@
 }
 
 - (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
-    
+    [self refresh];
 }
 
 - (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {

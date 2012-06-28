@@ -75,7 +75,7 @@
         topImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:topImageView];
         
-        reloadHoleView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 45.5f, self.frame.size.width, 34.0f)];
+        reloadHoleView = [[UIImageView alloc] initWithFrame:CGRectMake(0.5f, frame.size.height - 45.0f, self.frame.size.width, 34.0f)];
         reloadHoleView.image = [UIImage imageNamed:@"reload_hole.png"];
         reloadHoleView.contentMode = UIViewContentModeCenter;
         [self addSubview:reloadHoleView];
