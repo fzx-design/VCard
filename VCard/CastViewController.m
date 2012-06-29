@@ -138,7 +138,18 @@
                selector:@selector(updateUnreadStatusCount)
                    name:kNotificationNameShouldUpdateUnreadStatusCount
                  object:nil];
-    
+    [center addObserver:self
+               selector:@selector(updateUnreadCommentCount)
+                   name:kNotificationNameShouldUpdateUnreadCommentCount
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(updateUnreadMentionCount)
+                   name:kNotificationNameShouldUpdateUnreadMentionCount
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(updateUnreadFollowCount)
+                   name:kNotificationNameShouldUpdateUnreadFollowCount
+                 object:nil];
 }
 
 - (void)viewDidUnload
@@ -304,6 +315,69 @@
     }
 }
 
+- (void)updateUnreadCommentCount
+{
+    int unreadCommentCount = self.currentUser.unreadCommentCount.intValue;
+    if (unreadCommentCount != _unreadCommentIndicatorButton.previousCount) {
+        _unreadCommentIndicatorButton.previousCount = unreadCommentCount;
+        if (_unreadCommentIndicatorButton.hidden) {
+            [_unreadIndicatorView addNewIndicator:_unreadCommentIndicatorButton];
+        } else {
+            if (unreadCommentCount == 0) {
+                [_unreadIndicatorView removeIndicator:_unreadCommentIndicatorButton];
+            } else {
+                [_unreadCommentIndicatorButton showIndicatorUpdatedAnimation];
+            }
+        }
+        NSString *content = [NSString stringWithFormat:@"     %i 条新评论", unreadCommentCount];
+        [_unreadCommentIndicatorButton setTitle:content forState:UIControlStateNormal];
+        [_unreadCommentIndicatorButton setTitle:content forState:UIControlStateHighlighted];
+        [_unreadCommentIndicatorButton setTitle:content forState:UIControlStateDisabled];
+    }
+}
+
+- (void)updateUnreadMentionCount
+{
+    int unreadMentionCount = self.currentUser.unreadMentionCount.intValue;
+    if (unreadMentionCount != _unreadMentionIndicatorButton.previousCount) {
+        _unreadMentionIndicatorButton.previousCount = unreadMentionCount;
+        if (_unreadMentionIndicatorButton.hidden) {
+            [_unreadIndicatorView addNewIndicator:_unreadMentionIndicatorButton];
+        } else {
+            if (unreadMentionCount == 0) {
+                [_unreadIndicatorView removeIndicator:_unreadMentionIndicatorButton];
+            } else {
+                [_unreadMentionIndicatorButton showIndicatorUpdatedAnimation];
+            }
+        }
+        NSString *content = [NSString stringWithFormat:@"     %i 条微博提到我", unreadMentionCount];
+        [_unreadMentionIndicatorButton setTitle:content forState:UIControlStateNormal];
+        [_unreadMentionIndicatorButton setTitle:content forState:UIControlStateHighlighted];
+        [_unreadMentionIndicatorButton setTitle:content forState:UIControlStateDisabled];
+    }
+}
+
+- (void)updateUnreadFollowCount
+{
+    int unreadFollowCount = self.currentUser.unreadFollowingCount.intValue;
+    if (unreadFollowCount != _unreadFollowerIndicatorButton.previousCount) {
+        _unreadFollowerIndicatorButton.previousCount = unreadFollowCount;
+        if (_unreadFollowerIndicatorButton.hidden) {
+            [_unreadIndicatorView addNewIndicator:_unreadFollowerIndicatorButton];
+        } else {
+            if (unreadFollowCount == 0) {
+                [_unreadIndicatorView removeIndicator:_unreadFollowerIndicatorButton];
+            } else {
+                [_unreadFollowerIndicatorButton showIndicatorUpdatedAnimation];
+            }
+        }
+        NSString *content = [NSString stringWithFormat:@"     %i 位新粉丝", unreadFollowCount];
+        [_unreadFollowerIndicatorButton setTitle:content forState:UIControlStateNormal];
+        [_unreadFollowerIndicatorButton setTitle:content forState:UIControlStateHighlighted];
+        [_unreadFollowerIndicatorButton setTitle:content forState:UIControlStateDisabled];
+    }
+}
+
 #pragma mark - IBActions
 #pragma mark Refresh
 
@@ -331,6 +405,7 @@
         _refreshIndicatorView.alpha = 1.0;
         self.refreshButton.userInteractionEnabled = YES;
     }];
+    
     [self resetUnreadStatusCount];
 }
 
@@ -385,14 +460,34 @@
     
 }
 
+#pragma mark Unread Indicator Button Actions
+- (IBAction)didClickUnreadCommentButton:(UnreadIndicatorButton *)sender
+{
+    [_unreadIndicatorView removeIndicator:sender];
+    sender.previousCount = 0;
+}
+
+- (IBAction)didClickUnreadFollowerButton:(UnreadIndicatorButton *)sender
+{
+    [_unreadIndicatorView removeIndicator:sender];
+    sender.previousCount = 0;
+}
+
+- (IBAction)didClickUnreadMentionButton:(UnreadIndicatorButton *)sender
+{
+    [_unreadIndicatorView removeIndicator:sender];
+    sender.previousCount = 0;
+}
+
+
 
 #pragma mark - Data Methods
 - (void)refresh
 {
+    _unreadCountButton.hidden = YES;
     int unreadStatusCount = self.currentUser.unreadStatusCount.intValue;
     if (unreadStatusCount != 0) {
         _refreshing = YES;
-        _unreadCountButton.hidden = YES;
         [self loadMoreData];
     } else {
         [_pullView finishedLoading];

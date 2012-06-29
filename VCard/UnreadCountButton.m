@@ -36,9 +36,9 @@
     CGFloat fontSize = self.titleLabel.font.pointSize;
     CGFloat width = ceilf([countString sizeWithFont:[UIFont systemFontOfSize:fontSize]
                             constrainedToSize:CGSizeMake(30.0, 23.0)
-                                      lineBreakMode:UILineBreakModeWordWrap].height) + 12.0;
-    if (width < 26.0) {
-        width = 26.0;
+                                      lineBreakMode:UILineBreakModeWordWrap].height);
+    if (width < 24.0) {
+        width = 24.0;
     }
     
     [self setTitle:countString forState:UIControlStateNormal];

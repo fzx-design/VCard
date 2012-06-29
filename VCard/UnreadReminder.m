@@ -82,8 +82,24 @@ static UnreadReminder *sharedUnreadReminder;
 - (void)sendUnreadNotification
 {
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    if (self.currentUser.unreadStatusCount != 0) {
+    int unreadCount = self.currentUser.unreadStatusCount.intValue;
+    if (unreadCount != 0) {
         [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadStatusCount object:nil];
+    }
+    
+    unreadCount = self.currentUser.unreadCommentCount.intValue;
+    if (unreadCount != 0) {
+        [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadCommentCount object:nil];
+    }
+    
+    unreadCount = self.currentUser.unreadMentionCount.intValue;
+    if (unreadCount != 0) {
+        [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMentionCount object:nil];
+    }
+    
+    unreadCount = self.currentUser.unreadFollowingCount.intValue;
+    if (unreadCount != 0) {
+        [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadFollowCount object:nil];
     }
 }
 
