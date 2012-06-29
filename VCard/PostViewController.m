@@ -116,7 +116,7 @@ typedef enum {
 @synthesize postImageView = _postImageView;
 
 + (id)getNewStatusViewControllerWithDelegate:(id<PostViewControllerDelegate>)delegate {
-    return [PostViewController getNewStatusViewControllerWithAtUserName:nil delegate:delegate];
+    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeNewStatus delegate:delegate weiboID:nil replyID:nil weiboOwnerName:nil weiboContent:nil];
 }
 
 + (id)getNewStatusViewControllerWithAtUserName:(NSString *)name

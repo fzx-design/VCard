@@ -19,7 +19,7 @@
 @synthesize locationManager = locationManager;
 
 - (id)initWithContent:(NSString *)content {
-    self = [self init];
+    self = [super init];
     if(self) {
         self.content = content;
     }

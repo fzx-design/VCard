@@ -141,11 +141,11 @@
     [self.cropImageViewController.editBarView fadeOut];
     [self.capturedImageEditView fadeIn];
     
+    self.cropButton.selected = NO;
     [self.cropImageViewController zoomOutToCenter:self.filterImageView.center withScaleFactor:self.capturedImageView.contentScaleFactor completion:^{
         [self.cropImageViewController.view removeFromSuperview];
         self.cropImageViewController = nil;
         self.cropButton.userInteractionEnabled = YES;
-        self.cropButton.selected = NO;
     }];
 }
 
@@ -195,6 +195,7 @@
 
 - (IBAction)didClickCropButton:(UIButton *)sender {
     BOOL select = !sender.selected;
+    sender.selected = select;
     if(select) {
         [self semiTransparentEditViewForCropAnimation];
         
@@ -207,7 +208,6 @@
         self.cropButton.userInteractionEnabled = NO;
         [self.cropImageViewController zoomInFromCenter:self.filterImageView.center withScaleFactor:self.capturedImageView.contentScaleFactor completion:^{
             self.cropButton.userInteractionEnabled = YES;
-            self.cropButton.selected = YES;
         }];
         
         [self.cropImageViewController.editBarView fadeIn];
