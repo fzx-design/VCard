@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Addition.h"
 #import "UIView+Addition.h"
+#import "UIApplication+Addition.h"
 
 @interface MotionsShootViewController ()
 
@@ -266,16 +267,8 @@
 
 - (IBAction)didClickPickImageButton:(UIButton *)sender {
     [self.delegate shootViewControllerWillBecomeInactiveWithCompletion:^{
-        UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
-        ipc.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
-        ipc.delegate = self;
-        ipc.allowsEditing = NO;
-        
-        UIPopoverController *pc = [[UIPopoverController alloc] initWithContentViewController:ipc];
+        UIPopoverController *pc =  [UIApplication showAlbumImagePickerFromButton:sender delegate:self];
         self.popoverController = pc;
-        pc.delegate = self;
-        [pc presentPopoverFromRect:sender.bounds inView:sender
-          permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }];
 }
 

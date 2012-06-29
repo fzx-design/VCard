@@ -10,8 +10,12 @@
 #import "UIImage+Addition.h"
 #import "UIView+Addition.h"
 #import "CropImageViewController.h"
+#import "UIApplication+Addition.h"
 
 #define CROP_BUTTON_TAG 1001
+
+#define MOTIONS_EDIT_ACTION_SHEET_SHOOT_INDEX    0
+#define MOTIONS_EDIT_ACTION_SHEET_ALBUM_INDEX    1
 
 @interface MotionsEditViewController ()
 
@@ -22,6 +26,9 @@
 @property (nonatomic, readonly) UIImage *filteredImage;
 @property (nonatomic, assign) UIInterfaceOrientation currentInterfaceOrientation;
 @property (nonatomic, strong) CropImageViewController *cropImageViewController;
+@property (nonatomic, readonly, getter = isFilterAdded) BOOL filterAdded;
+@property (nonatomic, strong) UIPopoverController *popoverController;
+@property (nonatomic, strong) UIActionSheet *actionSheet;
 
 @end
 
@@ -45,6 +52,8 @@
 @synthesize filterImage = _filterImage;
 @synthesize currentInterfaceOrientation = _currentInterfaceOrientation;
 @synthesize dirty = _dirty;
+@synthesize popoverController = _pc;
+@synthesize actionSheet = _actionSheet;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -98,13 +107,44 @@
 
 - (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     self.currentInterfaceOrientation = interfaceOrientation;
+    [self dismissPopover];
     [super loadViewControllerWithInterfaceOrientation:interfaceOrientation];
 }
 
 #pragma mark - Logic methods
 
+- (void)initViewWithImage:(UIImage *)image {
+    UIImage *filteredImage = self.filteredImage;
+    filteredImage = filteredImage ? filteredImage : self.modifiedImage;
+    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:filteredImage];
+    tempImageView.opaque = NO;
+    tempImageView.clearsContextBeforeDrawing = YES;
+    tempImageView.frame = self.filterImageView.frame;
+    tempImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [tempImageView setNeedsLayout];
+    [self.bgView insertSubview:tempImageView belowSubview:self.capturedImageEditView];
+    [tempImageView fadeOutWithCompletion:^{
+        [tempImageView removeFromSuperview];
+    }];
+    
+    self.originalImage = image;
+    self.modifiedImage = self.originalImage;
+    self.capturedImageView.image = self.modifiedImage;
+    
+    [self.filterImageView initializeParameter];
+    [self configureFilterImageView];
+    [self resetSliders];
+}
+
+- (BOOL)isFilterAdded {
+    return self.shadowAmountSlider.value != 0;
+}
+
 - (UIImage *)filteredImage {
-    UIImage *filteredImage = [self.modifiedImage shadowAmount:self.shadowAmountSlider.value];
+    UIImage *filteredImage = nil;
+    if(self.isFilterAdded) {
+        filteredImage = [self.modifiedImage shadowAmount:self.shadowAmountSlider.value];
+    }
     return filteredImage;
 }
 
@@ -151,6 +191,21 @@
 
 #pragma mark - UI methods
 
+- (void)dismissPopover {
+    if(self.actionSheet) {
+        [self.actionSheet dismissWithClickedButtonIndex:-1 animated:NO];
+    }
+    if(self.popoverController) {
+        [self.popoverController dismissPopoverAnimated:YES];
+        self.popoverController = nil;
+    }
+}
+
+- (void)showAlbumImagePicker {
+    UIPopoverController *pc =  [UIApplication showAlbumImagePickerFromButton:self.changePictureButton delegate:self];
+    self.popoverController = pc;
+}
+
 - (void)configureFilterImageView {
     UIImage *filterImage = [self.modifiedImage imageCroppedToFitSize:self.filterImageView.frame.size];
     [self.filterImageView setImage:filterImage];
@@ -182,7 +237,7 @@
 }
 
 - (void)resetSliders {
-    [self.shadowAmountSlider setValue:0.5f animated:YES];
+    [self.shadowAmountSlider setValue:0 animated:YES];
 }
 
 #pragma mark - IBActions
@@ -218,25 +273,28 @@
     }
 }
 
-- (IBAction)didClickRevertButton:(UIButton *)sender {
-    if(!self.isDirty) 
+- (IBAction)didClickChangePictureButton:(UIButton *)sender {
+    
+    if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+        
         return;
+    }
+    UIActionSheet *actionSheet = nil;
+    actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                              delegate:self 
+                                     cancelButtonTitle:nil 
+                                destructiveButtonTitle:nil
+                                     otherButtonTitles:@"拍照", @"选取照片", nil];
+
+    [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+    self.actionSheet = actionSheet;
+}
+
+- (IBAction)didClickRevertButton:(UIButton *)sender {
+//    if(!self.isDirty) 
+//        return;
     
-    [self resetSliders];
-    
-    UIImageView *tempImageView = [[UIImageView alloc] initWithFrame:self.filterImageView.frame];
-    tempImageView.image = self.filteredImage;
-    tempImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [tempImageView setNeedsLayout];
-    [self.view insertSubview:tempImageView aboveSubview:self.filterImageView];
-    
-    self.modifiedImage = self.originalImage;
-    [self configureFilterImageView];
-    [self.filterImageView initializeParameter];
-    
-    [tempImageView fadeOutWithCompletion:^{
-        [tempImageView removeFromSuperview];
-    }];
+    [self initViewWithImage:self.originalImage];
 }
 
 - (IBAction)didClickFinishEditButton:(UIButton *)sender {
@@ -262,5 +320,33 @@
     [self hideCropImageViewControllerAnimation];
 }
 
+#pragma mark - UIActionSheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == MOTIONS_EDIT_ACTION_SHEET_ALBUM_INDEX) {
+        [self showAlbumImagePicker];
+    } else if(buttonIndex == MOTIONS_EDIT_ACTION_SHEET_SHOOT_INDEX) {
+        
+    }
+    self.actionSheet = nil;
+}
+
+#pragma mark -
+#pragma mark UIImagePickerController delegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [self.popoverController dismissPopoverAnimated:YES];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    self.popoverController = nil;
+    [self initViewWithImage:image];
+}
+
+#pragma mark -
+#pragma mark UIPopoverController delegate 
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+    NSLog(@"dismiss popover");
+    self.popoverController = nil;
+}
 
 @end

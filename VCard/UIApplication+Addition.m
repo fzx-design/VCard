@@ -8,6 +8,7 @@
 
 #import "UIApplication+Addition.h"
 #import "AppDelegate.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
 static UIViewController *_modalViewController;
 static UIView *_backView;
@@ -121,6 +122,20 @@ static UIView *_backView;
             _modalViewController = nil;
         }];
     }
+}
+
++ (UIPopoverController *)showAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate {
+    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+    ipc.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
+    ipc.delegate = delegate;
+    ipc.allowsEditing = NO;
+    
+    UIPopoverController *pc = [[UIPopoverController alloc] initWithContentViewController:ipc];
+    pc.contentViewController.view.autoresizingMask = !UIViewAutoresizingFlexibleTopMargin;
+    pc.delegate = delegate;
+    [pc presentPopoverFromRect:button.bounds inView:button
+      permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    return pc;
 }
 
 @end

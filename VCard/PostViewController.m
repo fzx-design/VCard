@@ -616,17 +616,8 @@ typedef enum {
 }
 
 - (void)showAlbumImagePicker {
-    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
-    ipc.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
-    ipc.delegate = self;
-    ipc.allowsEditing = NO;
-    
-    UIPopoverController *pc = [[UIPopoverController alloc] initWithContentViewController:ipc];
+    UIPopoverController *pc =  [UIApplication showAlbumImagePickerFromButton:self.motionsButton delegate:self];
     self.popoverController = pc;
-    self.popoverController.contentViewController.view.autoresizingMask = !UIViewAutoresizingFlexibleTopMargin;
-    pc.delegate = self;
-    [pc presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton
-      permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
 #pragma mark - Animation methods
@@ -748,10 +739,6 @@ typedef enum {
     UIActionSheet *actionSheet = nil;
     if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
         if(self.motionsImageView) {
-            // TO DO:remove test code
-//            MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:[UIImage screenShot]];
-//            vc.delegate = self;
-//            [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
             [self showAlbumImagePicker];
         }
         else {

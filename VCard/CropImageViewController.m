@@ -15,14 +15,14 @@
 @interface CropImageViewController ()
 
 @property (nonatomic, strong) UIImage *filteredImage;
-@property (nonatomic, strong) UIImage *originImage;
+@property (nonatomic, strong) UIImage *originalImage;
 
 @end
 
 @implementation CropImageViewController
 
 @synthesize filteredImage = _filteredImage;
-@synthesize originImage = _originImage;
+@synthesize originalImage = _originImage;
 @synthesize delegate = _delegate;
 @synthesize cropImageBgView = _cropImageBgView;
 @synthesize cropImageView = _cropImageView;
@@ -42,8 +42,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.cropImageBgView.image = self.filteredImage;
-    CGSize cropImageSize = CGSizeMake(self.cropImageBgView.contentScaleFactor * self.filteredImage.size.width, self.cropImageBgView.contentScaleFactor * self.filteredImage.size.height);
+    self.cropImageBgView.image = self.filteredImage ? self.filteredImage : self.originalImage;
+    CGSize cropImageSize = CGSizeMake(self.cropImageBgView.contentScaleFactor * self.originalImage.size.width, self.cropImageBgView.contentScaleFactor * self.originalImage.size.height);
     [self.cropImageView setCropImageInitSize:cropImageSize center:self.cropImageBgView.center];
     self.cropImageView.bgImageView = self.cropImageBgView;
     [ThemeResourceProvider configButtonDark:self.cancelButton];
@@ -63,7 +63,7 @@
 - (id)initWithImage:(UIImage *)image filteredImage:(UIImage *)filteredImage {
     self = [super init];
     if(self) {
-        self.originImage = image;
+        self.originalImage = image;
         self.filteredImage = filteredImage;
     }
     return self;
@@ -114,7 +114,7 @@
 
 - (void)resetCropImageBgView {
     self.cropImageBgView.transform = CGAffineTransformIdentity;
-    self.cropImageBgView.image = self.filteredImage;
+    self.cropImageBgView.image = self.filteredImage ? self.filteredImage : self.originalImage;
     self.cropImageBgView.frame = self.cropImageView.cropEditRect;
 }
 
@@ -122,10 +122,11 @@
 #pragma mark IBActions
 
 - (IBAction)didClickFinishCropButton:(UIButton *)sender {
-    self.filteredImage = [self cropImage:self.filteredImage];
-    self.originImage = [self cropImage:self.originImage];
+    if(self.filteredImage)
+        self.filteredImage = [self cropImage:self.filteredImage];
+    self.originalImage = [self cropImage:self.originalImage];
     [self resetCropImageBgView];
-    [self.delegate cropImageViewControllerDidFinishCrop:self.originImage];
+    [self.delegate cropImageViewControllerDidFinishCrop:self.originalImage];
 }
 
 - (IBAction)didClickCancelButton:(UIButton *)sender {

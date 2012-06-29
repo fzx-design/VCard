@@ -13,7 +13,7 @@
 
 @protocol MotionsEditViewControllerDelegate;
 
-@interface MotionsEditViewController : MultiInterfaceOrientationViewController <CropImageViewControllerDelegate>
+@interface MotionsEditViewController : MultiInterfaceOrientationViewController <CropImageViewControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UISlider *shadowAmountSlider;
@@ -32,6 +32,7 @@
 - (IBAction)didClickCropButton:(UIButton *)sender;
 - (IBAction)didClickRevertButton:(UIButton *)sender;
 - (IBAction)didClickFinishEditButton:(UIButton *)sender;
+- (IBAction)didClickChangePictureButton:(UIButton *)sender;
 
 - (id)initWithImage:(UIImage *)image;
 
