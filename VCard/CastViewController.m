@@ -21,6 +21,7 @@
 #import "UIApplication+Addition.h"
 #import "CommentViewController.h"
 #import "SelfCommentViewController.h"
+#import "SelfProfileViewController.h"
 
 @interface CastViewController () {
     BOOL _loading;
@@ -253,41 +254,54 @@
     
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusRepost pageDescription:status.statusID];
 }
+
 - (void)showSelfCommentList:(NSNotification *)notification
 {
     NSDictionary *dictionary = notification.object;
-    
     NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
     int index = indexString.intValue;
-    
-    SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfCommentViewController"];
-    vc.currentUser = self.currentUser;
-    
-    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:@""];
+    [self showSelfCommentListWithStackIndex:index];
 }
 
 - (void)showSelfMentionList:(NSNotification *)notification
 {
     NSDictionary *dictionary = notification.object;
-    
     NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
     int index = indexString.intValue;
-    
+    [self showSelfMentionListWithStackIndex:index];
+}
+
+- (void)showSelfCommentListWithStackIndex:(int)index
+{
+    SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfCommentViewController"];
+    vc.currentUser = self.currentUser;
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:@""];
+}
+
+- (void)showSelfMentionListWithStackIndex:(int)index
+{
     SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
     vc.currentUser = self.currentUser;
-    
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:@""];
 }
 
+- (void)showSelfProfileWithStackIndex:(int)index
+{
+    SelfProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfProfileViewController"];
+    vc.currentUser = self.currentUser;
+    vc.user = self.currentUser;
+    vc.shouldShowFollowerList = YES;
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:self.currentUser.screenName];
+}
+
+
 - (void)hideWaterflowView
 {
-//    self.waterflowView.alpha = 0.0;
-//    _stackViewController.view.backgroundColor = [UIColor clearColor];
+    _stackViewController.view.backgroundColor = [UIColor clearColor];
 }
 
 - (void)showWaterflowView
 {
-//    self.waterflowView.alpha = 1.0;
     _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
 }
 
@@ -406,7 +420,7 @@
         self.refreshButton.userInteractionEnabled = YES;
     }];
     
-    [self resetUnreadStatusCount];
+    [self resetUnreadCountWithType:kWBClientResetCountTypeStatus];
 }
 
 #pragma mark Post
@@ -463,18 +477,24 @@
 #pragma mark Unread Indicator Button Actions
 - (IBAction)didClickUnreadCommentButton:(UnreadIndicatorButton *)sender
 {
+    [self showSelfCommentListWithStackIndex:[_stackViewController stackTopIndex]];
+    [self resetUnreadCountWithType:kWBClientResetCountTypeComment];
     [_unreadIndicatorView removeIndicator:sender];
     sender.previousCount = 0;
 }
 
 - (IBAction)didClickUnreadFollowerButton:(UnreadIndicatorButton *)sender
 {
+    [self showSelfProfileWithStackIndex:[_stackViewController stackTopIndex]];
+    [self resetUnreadCountWithType:kWBClientResetCountTypeFollower];
     [_unreadIndicatorView removeIndicator:sender];
     sender.previousCount = 0;
 }
 
 - (IBAction)didClickUnreadMentionButton:(UnreadIndicatorButton *)sender
 {
+    [self showSelfMentionListWithStackIndex:[_stackViewController stackTopIndex]];
+    [self resetUnreadCountWithType:kWBClientResetCountTypeMention];
     [_unreadIndicatorView removeIndicator:sender];
     sender.previousCount = 0;
 }
@@ -548,15 +568,23 @@
                               feature:0];
 }
 
-- (void)resetUnreadStatusCount
+- (void)resetUnreadCountWithType:(NSString *)type
 {
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client){
         if (!client.hasError) {
-            self.currentUser.unreadStatusCount = 0;
+            if ([type isEqualToString:kWBClientResetCountTypeComment]) {
+                self.currentUser.unreadCommentCount = [NSNumber numberWithInt:0];
+            } else if ([type isEqualToString:kWBClientResetCountTypeFollower]) {
+                self.currentUser.unreadFollowingCount = [NSNumber numberWithInt:0];
+            } else if ([type isEqualToString:kWBClientResetCountTypeMention]) {
+                self.currentUser.unreadMentionCount = [NSNumber numberWithInt:0];
+            } else if ([type isEqualToString:kWBClientResetCountTypeStatus]){
+                self.currentUser.unreadStatusCount = [NSNumber numberWithInt:0];
+            }
         }
     }];
-    [client resetUnreadCount:kWBClientResetCountTypeStatus];
+    [client resetUnreadCount:type];
 }
 
 

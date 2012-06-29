@@ -29,6 +29,11 @@
     self.user = self.currentUser;
     
     [super setUpViews];
+    if (_shouldShowFollowerList) {
+        [self showFollowers:nil];
+    } else {
+        [self showStatuses:nil];
+    }
     [ThemeResourceProvider configButtonPaperLight:_accountSettingButton];
 }
 

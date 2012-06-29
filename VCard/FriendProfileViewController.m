@@ -57,6 +57,7 @@
 
 - (void)setUpSpecificView
 {
+    [self showStatuses:nil];
     [self updateRelationshipfollowing:self.user.following.boolValue];
 }
 

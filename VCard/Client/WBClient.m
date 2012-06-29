@@ -634,11 +634,12 @@ static NSString *UserID = @"";
 - (void)resetUnreadCount:(NSString *)type
 {
     self.path = @"remind/set_count.json";
-    
     if (type) {
         [self.params setObject:type forKey:@"type"];
     }
     
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
     [self loadNormalRequest];
 }
 

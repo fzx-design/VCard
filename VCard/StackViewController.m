@@ -116,6 +116,11 @@
     }
 }
 
+- (int)stackTopIndex
+{
+    return self.controllerStack.count - 1;
+}
+
 #pragma mark - Stack View Delegate
 
 - (int)pageNumber
