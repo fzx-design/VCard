@@ -180,7 +180,7 @@
     NSString *targetReplyID = self.comment.commentID;
     CGRect frame = [self convertRect:_commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
     
-    PostViewController *vc = [PostViewController getCommentReplyViewControllerWithWeiboID:targetStatusID replyID:targetReplyID weiboOwnerName:targetUserName Delegate:self];
+    PostViewController *vc = [PostViewController getCommentReplyViewControllerWithWeiboID:targetStatusID replyID:targetReplyID weiboOwnerName:targetUserName delegate:self];
     [vc showViewFromRect:frame];
 }
 
@@ -259,7 +259,7 @@
     PostViewController *vc = [PostViewController getRepostViewControllerWithWeiboID:targetStatusID
                                                                      weiboOwnerName:targetUserName
                                                                             content:targetStatusContent
-                                                                           Delegate:self];
+                                                                           delegate:self];
     [vc showViewFromRect:frame];
 }
 

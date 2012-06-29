@@ -111,7 +111,7 @@
     CGRect frame = [self.view convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
     
     PostViewController *vc = [PostViewController getCommentWeiboViewControllerWithWeiboID:targetStatusID
-                                                                           weiboOwnerName:targetUserName Delegate:self];
+                                                                           weiboOwnerName:targetUserName delegate:self];
     [vc showViewFromRect:frame];
 }
 
@@ -126,7 +126,7 @@
     PostViewController *vc = [PostViewController getRepostViewControllerWithWeiboID:targetStatusID
                                                                      weiboOwnerName:targetUserName
                                                                             content:targetStatusContent
-                                                                           Delegate:self];
+                                                                           delegate:self];
     [vc showViewFromRect:frame];
 }
 

@@ -18,6 +18,14 @@
 @implementation PostNewStatusViewController
 @synthesize locationManager = locationManager;
 
+- (id)initWithContent:(NSString *)content {
+    self = [self init];
+    if(self) {
+        self.content = content;
+    }
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:@"PostViewController" bundle:nil];
@@ -31,7 +39,10 @@
 {
     self.functionLeftCheckmarkView.hidden = YES;
     self.functionLeftNavView.hidden = NO;
-    self.textView.text = @"";
+    if(self.content)
+        self.textView.text = self.content;
+    else
+        self.textView.text = @"";
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     

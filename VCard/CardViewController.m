@@ -593,7 +593,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     PostViewController *vc = [PostViewController getRepostViewControllerWithWeiboID:targetStatusID
                                                                      weiboOwnerName:targetUserName
                                                                             content:targetStatusContent
-                                                                           Delegate:self];
+                                                                           delegate:self];
     [vc showViewFromRect:frame];
 }
 

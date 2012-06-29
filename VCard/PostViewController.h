@@ -60,22 +60,26 @@ typedef enum {
 @property (nonatomic, strong) UIImage *motionsOriginalImage;
 @property (nonatomic, weak)   id<PostViewControllerDelegate> delegate;
 @property (nonatomic, assign) PostViewControllerType type;
+@property (nonatomic, strong) NSString *content;
+
++ (id)getNewStatusViewControllerWithAtUserName:(NSString *)name
+                                      delegate:(id<PostViewControllerDelegate>)delegate;
 
 + (id)getNewStatusViewControllerWithDelegate:(id<PostViewControllerDelegate>)delegate;
 
 + (id)getRepostViewControllerWithWeiboID:(NSString *)weiboID
                           weiboOwnerName:(NSString *)ownerName
                                  content:(NSString *)content
-                                Delegate:(id<PostViewControllerDelegate>)delegate;
+                                delegate:(id<PostViewControllerDelegate>)delegate;
 
 + (id)getCommentWeiboViewControllerWithWeiboID:(NSString *)weiboID
                                 weiboOwnerName:(NSString *)ownerName
-                                      Delegate:(id<PostViewControllerDelegate>)delegate;
+                                      delegate:(id<PostViewControllerDelegate>)delegate;
 
 + (id)getCommentReplyViewControllerWithWeiboID:(NSString *)weiboID
                                        replyID:(NSString *)replyID
                                 weiboOwnerName:(NSString *)ownerName
-                                      Delegate:(id<PostViewControllerDelegate>)delegate;
+                                      delegate:(id<PostViewControllerDelegate>)delegate;
 
 - (IBAction)didClickMotionsButton:(UIButton *)sender;
 - (IBAction)didClickCancelButton:(UIButton *)sender;

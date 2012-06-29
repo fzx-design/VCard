@@ -13,7 +13,6 @@
 
 @property (nonatomic, strong) NSString *weiboOwnerName;
 @property (nonatomic, strong) NSString *weiboID;
-@property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *replyID;
 
 @end
@@ -22,6 +21,7 @@
 
 @synthesize weiboOwnerName = _weiboOwnerName;
 @synthesize weiboID = _weiboID;
+@synthesize replyID = _replyID;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

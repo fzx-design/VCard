@@ -99,6 +99,7 @@ typedef enum {
 @synthesize cancelButton = _cancelButton;
 @synthesize postButton = _postButton;
 @synthesize type = _type;
+@synthesize content = _content;
 
 @synthesize keyboardHeight = _keyboardHeight;
 @synthesize currentHintView = _currentHintView;
@@ -115,26 +116,31 @@ typedef enum {
 @synthesize postImageView = _postImageView;
 
 + (id)getNewStatusViewControllerWithDelegate:(id<PostViewControllerDelegate>)delegate {
-    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeNewStatus delegate:delegate weiboID:nil replyID:nil weiboOwnerName:nil weiboContent:nil];
+    return [PostViewController getNewStatusViewControllerWithAtUserName:nil delegate:delegate];
+}
+
++ (id)getNewStatusViewControllerWithAtUserName:(NSString *)name
+                                      delegate:(id<PostViewControllerDelegate>)delegate {
+    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeNewStatus delegate:delegate weiboID:nil replyID:nil weiboOwnerName:nil weiboContent:[NSString stringWithFormat:@"@%@", name]];
 }
 
 + (id)getRepostViewControllerWithWeiboID:(NSString *)weiboID
                           weiboOwnerName:(NSString *)ownerName
                                  content:(NSString *)content
-                                Delegate:(id<PostViewControllerDelegate>)delegate {
+                                delegate:(id<PostViewControllerDelegate>)delegate {
     return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeRepost delegate:delegate weiboID:weiboID replyID:nil weiboOwnerName:ownerName weiboContent:content];
 }
 
 + (id)getCommentWeiboViewControllerWithWeiboID:(NSString *)weiboID
                                 weiboOwnerName:(NSString *)ownerName
-                                Delegate:(id<PostViewControllerDelegate>)delegate {
+                                delegate:(id<PostViewControllerDelegate>)delegate {
     return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeCommentWeibo delegate:delegate weiboID:weiboID replyID:nil weiboOwnerName:ownerName weiboContent:nil];
 }
 
 + (id)getCommentReplyViewControllerWithWeiboID:(NSString *)weiboID
                                 replyID:(NSString *)replyID
                                 weiboOwnerName:(NSString *)ownerName
-                                      Delegate:(id<PostViewControllerDelegate>)delegate {
+                                      delegate:(id<PostViewControllerDelegate>)delegate {
     return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeCommentReply delegate:delegate weiboID:weiboID replyID:replyID weiboOwnerName:ownerName weiboContent:nil];
 }
 
@@ -146,7 +152,7 @@ typedef enum {
                            weiboContent:(NSString *)content {
     PostViewController *vc = nil;
     if(type == PostViewControllerTypeNewStatus) {
-        vc = [[PostNewStatusViewController alloc] init];
+        vc = [[PostNewStatusViewController alloc] initWithContent:content];
     } else {
         vc = [[PostRepostCommentViewController alloc] initWithWeiboID:weiboID
                                                               replyID:replyID
@@ -440,7 +446,6 @@ typedef enum {
 }
 
 - (void)configureTextView {
-    self.textView.text = @"";
     [self updateTextCountAndPostButton];
     [self.textView becomeFirstResponder];
     self.textView.selectedRange = NSMakeRange(0, 0);

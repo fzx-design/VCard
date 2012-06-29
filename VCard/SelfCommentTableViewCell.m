@@ -79,7 +79,7 @@
     NSString *targetReplyID = self.comment.commentID;
     CGRect frame = [self convertRect:sender.frame toView:[UIApplication sharedApplication].rootViewController.view];
     
-    PostViewController *vc = [PostViewController getCommentReplyViewControllerWithWeiboID:targetStatusID replyID:targetReplyID weiboOwnerName:targetUserName Delegate:self];
+    PostViewController *vc = [PostViewController getCommentReplyViewControllerWithWeiboID:targetStatusID replyID:targetReplyID weiboOwnerName:targetUserName delegate:self];
     [vc showViewFromRect:frame];
 }
 

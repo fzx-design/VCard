@@ -15,4 +15,6 @@
     CLLocationCoordinate2D _location2D;
 }
 
+- (id)initWithContent:(NSString *)content;
+
 @end
