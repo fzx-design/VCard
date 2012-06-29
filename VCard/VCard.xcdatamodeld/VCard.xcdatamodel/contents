@@ -10,6 +10,7 @@
         <attribute name="createdAt" attributeType="Date">
             <userInfo/>
         </attribute>
+        <attribute name="mentioningMe" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="operatable" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="operatedBy" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="source" optional="YES" attributeType="String">
@@ -182,7 +183,7 @@
         </relationship>
     </entity>
     <elements>
-        <element name="Comment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Comment" positionX="0" positionY="0" width="0" height="285"/>
         <element name="Status" positionX="0" positionY="0" width="0" height="525"/>
         <element name="User" positionX="0" positionY="0" width="0" height="525"/>
     </elements>

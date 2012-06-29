@@ -25,6 +25,7 @@
 
 - (void)initialLoad
 {
+    [self didClickCheckStatusButton:nil];
     [self.statusTableViewController refresh];
 }
 
@@ -41,6 +42,31 @@
 - (void)disableScrollToTop
 {
     self.statusTableViewController.tableView.scrollsToTop = NO;
+    self.commentTableViewController.tableView.scrollsToTop = NO;
+}
+
+- (IBAction)didClickCheckCommentButton:(id)sender
+{
+    self.checkCommentButton.selected = YES;
+    self.checkStatusButton.selected = NO;
+    [self.backgroundView insertSubview:self.commentTableViewController.view belowSubview:self.topShadowImageView];
+    self.commentTableViewController.tableView.scrollsToTop = YES;
+    if (_statusTableViewController) {
+        [self.statusTableViewController.view removeFromSuperview];
+        self.statusTableViewController.tableView.scrollsToTop = NO;
+    }
+}
+
+- (IBAction)didClickCheckStatusButton:(id)sender
+{
+    self.checkStatusButton.selected = YES;
+    self.checkCommentButton.selected = NO;
+    [self.backgroundView insertSubview:self.statusTableViewController.view belowSubview:self.topShadowImageView];
+    self.statusTableViewController.tableView.scrollsToTop = YES;
+    if (_commentTableViewController) {
+        [self.commentTableViewController.view removeFromSuperview];
+        self.commentTableViewController.tableView.scrollsToTop = NO;
+    }
 }
 
 
@@ -68,9 +94,20 @@
         _statusTableViewController.tableView.frame = [self frameForTableView];
         _statusTableViewController.user = self.currentUser;
         _statusTableViewController.type = statusTableViewControllerTypeMentionStatus;
-        [self.backgroundView insertSubview:_statusTableViewController.view belowSubview:self.topShadowImageView];
     }
     return _statusTableViewController;
+}
+
+- (SelfCommentTableViewController *)commentTableViewController
+{
+    if (!_commentTableViewController) {
+        _commentTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfCommentTableViewController"];
+        _commentTableViewController.pageIndex = self.pageIndex;
+        _commentTableViewController.view.frame = [self frameForTableView];
+        _commentTableViewController.tableView.frame = [self frameForTableView];
+        _commentTableViewController.dataSource = CommentsTableViewDataSourceCommentsMentioningMe;
+    }
+    return _commentTableViewController;
 }
 
 @end

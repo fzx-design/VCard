@@ -545,7 +545,26 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
-- (void)getMentionsSinceID:(NSString *)sinceID 
+- (void)getCommentsMentioningMeSinceID:(NSString *)sinceID
+                                 maxID:(NSString *)maxID
+                                  page:(int)page
+                                 count:(int)count
+{
+    self.path = @"comments/mentions.json";
+    if (sinceID) {
+        [self.params setObject:sinceID forKey:@"since_id"];
+    }
+    if (maxID) {
+        [self.params setObject:[NSString stringWithFormat:@"%@", maxID] forKey:@"max_id"];
+    }
+    [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    [self.params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+    
+    [self loadNormalRequest];
+}
+
+
+- (void)getMentionsSinceID:(NSString *)sinceID
 					 maxID:(NSString *)maxID 
 					  page:(int)page 
 					 count:(int)count
@@ -573,7 +592,8 @@ static NSString *UserID = @"";
     [self.params setObject:userID forKey:@"uid"];
     self.postDataType = kWBRequestPostDataTypeNormal;
     self.httpMethod = HTTPMethodPost;
-    [self loadNormalRequest];}
+    [self loadNormalRequest];
+}
 
 - (void)unfollow:(NSString *)userID
 {
@@ -581,7 +601,8 @@ static NSString *UserID = @"";
     [self.params setObject:userID forKey:@"uid"];
     self.postDataType = kWBRequestPostDataTypeNormal;
     self.httpMethod = HTTPMethodPost;
-    [self loadNormalRequest];}
+    [self loadNormalRequest];
+}
 
 - (void)favorite:(NSString *)statusID
 {
@@ -589,7 +610,8 @@ static NSString *UserID = @"";
     [self.params setObject:statusID forKey:@"id"];
     self.postDataType = kWBRequestPostDataTypeNormal;
     self.httpMethod = HTTPMethodPost;
-    [self loadNormalRequest];}
+    [self loadNormalRequest];
+}
 
 - (void)unFavorite:(NSString *)statusID
 {

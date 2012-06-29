@@ -164,6 +164,11 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                           page:(int)page
                          count:(int)count;
 
+- (void)getCommentsMentioningMeSinceID:(NSString *)sinceID
+                                 maxID:(NSString *)maxID
+                                  page:(int)page
+                                 count:(int)count;
+
 - (void)getMentionsSinceID:(NSString *)sinceID 
 					 maxID:(NSString *)maxID 
 					  page:(int)page 

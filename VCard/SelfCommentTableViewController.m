@@ -64,9 +64,10 @@
 {
     if (self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
 		[Comment deleteCommentsByMeInManagedObjectContext:self.managedObjectContext];
-    }
-    else {
+    } else if(self.dataSource == CommentsTableViewDataSourceCommentsToMe){
 		[Comment deleteCommentsToMeInManagedObjectContext:self.managedObjectContext];
+    } else if(self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
+        [Comment deleteCommentsMentioningMeInManagedObjectContext:self.managedObjectContext];
     }
 }
 
@@ -82,13 +83,10 @@
         if (!client.hasError) {
             NSArray *dictArray = [client.responseJSONObject objectForKey:@"comments"];
             
-            if (_refreshing == 1 && _dataSource == CommentsTableViewDataSourceCommentsToMe) {
-				[self clearData];
-			} 
-			if (_refreshing == 1 && _dataSource == CommentsTableViewDataSourceCommentsByMe) {
+            if (_refreshing) {
 				[self clearData];
 			}
-            
+
             
             if (_dataSource == CommentsTableViewDataSourceCommentsToMe) {
 				for (NSDictionary *dict in dictArray) {
@@ -117,7 +115,13 @@
 				
 				_commentsByMeFetchedResultsController = self.fetchedResultsController;
 				_byMeNextPage++;
-			}
+			} else if (_dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
+                for (NSDictionary *dict in dictArray) {
+					Comment *comment = [Comment insertCommentMentioningMe:dict inManagedObjectContext:self.managedObjectContext];
+                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+				}
+				[self.managedObjectContext processPendingChanges];
+            }
             
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
@@ -136,8 +140,9 @@
         
     }];
     
-    long long maxID = ((Comment *)self.fetchedResultsController.fetchedObjects.lastObject).commentID.longLongValue;
-    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
+    long long maxID = ((Comment *)self.fetchedResultsController.fetchedObjects.lastObject).commentID.longLongValue - 1;
+    maxID = maxID < 0 ? 0 : maxID;
+    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID];
     
     if (self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
 		[client getCommentsByMeSinceID:nil
@@ -150,6 +155,11 @@
                                  maxID:maxIDString
                                   page:0
                                  count:20];
+    } else if (self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
+        [client getCommentsMentioningMeSinceID:nil
+                                         maxID:maxIDString
+                                          page:1
+                                         count:20];
     }
 }
 
@@ -196,7 +206,9 @@
 		request.predicate = [NSPredicate predicateWithFormat:@"toMe == %@", [NSNumber numberWithBool:YES]];
 	} else if(self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
 		request.predicate = [NSPredicate predicateWithFormat:@"byMe == %@", [NSNumber numberWithBool:YES]];
-	}
+	} else if(self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe){
+        request.predicate = [NSPredicate predicateWithFormat:@"mentioningMe == %@", [NSNumber numberWithBool:YES]]; 
+    }
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath

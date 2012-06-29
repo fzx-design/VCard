@@ -2,7 +2,7 @@
 //  Comment.m
 //  VCard
 //
-//  Created by Gabriel Yeah on 12-6-25.
+//  Created by 海山 叶 on 12-6-29.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -18,12 +18,13 @@
 @dynamic commentHeight;
 @dynamic commentID;
 @dynamic createdAt;
+@dynamic operatable;
+@dynamic operatedBy;
 @dynamic source;
 @dynamic text;
 @dynamic toMe;
 @dynamic updateDate;
-@dynamic operatedBy;
-@dynamic operatable;
+@dynamic mentioningMe;
 @dynamic author;
 @dynamic inReplyToUser;
 @dynamic targetStatus;
@@ -31,47 +32,32 @@
 
 + (Comment *)insertCommentByMe:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    NSString *commentID = [[dict objectForKey:@"id"] stringValue];
+    Comment *result = [Comment configureCommentBasicInfoWithDict:dict managedContext:context];
     
-    if (!commentID || [commentID isEqualToString:@""]) {
-        return nil;
-    }
-    
-    Comment *result = [Comment commentWithID:commentID inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierDefault];
-    if (!result) {
-        result = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:context];
-    }
-    
-    result.commentID = commentID;
-    result.operatedBy = kCoreDataIdentifierDefault;
-    result.operatable = [NSNumber numberWithBool:NO];
-    
-    result.updateDate = [NSDate date];
-    
-    NSString *dateString = [dict objectForKey:@"created_at"];
-    result.createdAt = [NSDate dateFromStringRepresentation:dateString];
-    
-    result.text = [dict objectForKey:@"text"];
-	result.toMe = [NSNumber numberWithBool:NO];
 	result.byMe = [NSNumber numberWithBool:YES];
-    
-    NSDictionary *statusDict = [dict objectForKey:@"status"];
-    
-    if (statusDict) {
-        result.targetStatus = [Status insertStatus:statusDict inManagedObjectContext:context withOperatingObject:result.operatedBy];
-        result.targetUser = result.targetStatus.author;
-    }
-    
-    NSDictionary *userDict = [dict objectForKey:@"user"];
-    
-    if (userDict) {
-        result.author = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierDefault];
-    }
     
     return result;
 }
 
 + (Comment *)insertCommentToMe:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    Comment *result = [Comment configureCommentBasicInfoWithDict:dict managedContext:context];
+    
+	result.toMe = [NSNumber numberWithBool:YES];
+    
+    return result;
+}
+
++ (Comment *)insertCommentMentioningMe:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    Comment *result = [Comment configureCommentBasicInfoWithDict:dict managedContext:context];
+    
+	result.mentioningMe = [NSNumber numberWithBool:YES];
+    
+    return result;
+}
+
++ (Comment *)configureCommentBasicInfoWithDict:(NSDictionary *)dict managedContext:(NSManagedObjectContext *)context 
 {
     NSString *commentID = [[dict objectForKey:@"id"] stringValue];
     
@@ -83,31 +69,25 @@
     if (!result) {
         result = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:context];
     }
-    
-    result.commentID = commentID;
+    result.commentID = [[dict objectForKey:@"id"] stringValue];
     result.operatedBy = kCoreDataIdentifierDefault;
     result.operatable = [NSNumber numberWithBool:NO];
-    
     result.updateDate = [NSDate date];
     
     NSString *dateString = [dict objectForKey:@"created_at"];
     result.createdAt = [NSDate dateFromStringRepresentation:dateString];
-    
     result.text = [dict objectForKey:@"text"];
-	result.toMe = [NSNumber numberWithBool:YES];
-	result.byMe = [NSNumber numberWithBool:NO];
     
     NSDictionary *statusDict = [dict objectForKey:@"status"];
-    
     if (statusDict) {
-        result.targetStatus = [Status insertStatus:statusDict inManagedObjectContext:context withOperatingObject:result.operatedBy];
+        result.targetStatus = [Status insertStatus:statusDict inManagedObjectContext:context withOperatingObject:nil];
+        result.targetStatus.operatable = [NSNumber numberWithBool:YES];
         result.targetUser = result.targetStatus.author;
     }
     
     NSDictionary *userDict = [dict objectForKey:@"user"];
-    
     if (userDict) {
-        result.author = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierDefault];
+        result.author = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:result.operatedBy];
     }
     
     return result;
@@ -204,6 +184,19 @@
     }
 }
 
++ (void)deleteCommentsMentioningMeInManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"mentioningMe == %@", [NSNumber numberWithBool:YES]]];
+	NSArray *items = [context executeFetchRequest:request error:NULL];
+    
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
+}
+
 + (void)deleteCommentsOfStatus:(Status *)status ManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
 {
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -219,15 +212,15 @@
 
 + (void)deleteCommentWithID:(NSString *)commentID inManagedObjectContext:(NSManagedObjectContext *)context withObject:(id)object
 {
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context]];
-//    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"commentID == %@ && operatedBy == %@", commentID, object]];
-//    
-//    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
-//    
-//    for (NSManagedObject *managedObject in items) {
-//        [context deleteObject:managedObject];
-//    }
+    //    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    //    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context]];
+    //    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"commentID == %@ && operatedBy == %@", commentID, object]];
+    //    
+    //    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
+    //    
+    //    for (NSManagedObject *managedObject in items) {
+    //        [context deleteObject:managedObject];
+    //    }
     
     Comment *comment = [Comment commentWithID:commentID inManagedObjectContext:context withOperatingObject:object];
     if (comment) {
