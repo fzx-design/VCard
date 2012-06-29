@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UnreadIndicatorButton : UIButton
+@interface UnreadIndicatorButton : UIButton {
+    UIImageView *_highlightImageView;
+}
 
 @property (nonatomic, assign) NSInteger previousCount;
 

@@ -42,11 +42,11 @@
         }
     }
     
-    [UIView animateWithDuration:0.5 animations:^{
+//    [UIView animateWithDuration:0.5 animations:^{
         [indicator resetOriginY:targetHeight];
-    } completion:^(BOOL finished) {
-        [indicator showIndicatingAnimation];
-    }];
+//    } completion:^(BOOL finished) {
+        [indicator performSelector:@selector(showIndicatingAnimation) withObject:nil afterDelay:1];
+//    }];
 }
 
 - (void)removeIndicator:(UnreadIndicatorButton *)indicator
@@ -69,6 +69,19 @@
         indicator.alpha = 1.0;
         indicator.hidden = YES;
     }];
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    BOOL result = NO;
+    for (UIView *view in self.subviews) {
+        CGPoint targetPoint = [self convertPoint:point toView:view];
+        if ([view pointInside:targetPoint withEvent:event]) {
+            result = YES;
+            break;
+        }
+    }
+    return result;
 }
 
 @end

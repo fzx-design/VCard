@@ -181,7 +181,8 @@
     [self.waterflowView addSubview:_pullView];
     [self.waterflowView addSubview:_loadMoreView];
     
-    [self refresh];
+    _refreshing = YES;
+    [self loadMoreData];
     [self updateUnreadStatusCount];
 }
 
@@ -558,8 +559,9 @@
         _refreshing = NO;
     }];
     
-    long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue;
-    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
+    long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue - 1;
+    maxID = maxID < 0 ? 0 : maxID;
+    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID];
     
     [client getFriendsTimelineSinceID:nil 
                                 maxID:maxIDString
