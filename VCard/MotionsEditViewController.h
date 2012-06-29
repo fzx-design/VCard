@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "MultiInterfaceOrientationViewController.h"
 #import "FilterImageView.h"
+#import "CropImageViewController.h"
 
 @protocol MotionsEditViewControllerDelegate;
 
-@interface MotionsEditViewController : MultiInterfaceOrientationViewController
+@interface MotionsEditViewController : MultiInterfaceOrientationViewController <CropImageViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UISlider *shadowAmountSlider;
@@ -22,6 +23,9 @@
 @property (nonatomic, strong) IBOutlet UIButton *finishEditButton;
 @property (nonatomic, strong) IBOutlet FilterImageView *filterImageView;
 @property (nonatomic, strong) IBOutlet UIView *bgView;
+@property (nonatomic, strong) IBOutlet UIView *functionView;
+@property (nonatomic, strong) IBOutlet UIImageView *capturedImageView;
+@property (nonatomic, strong) IBOutlet UIView *capturedImageEditView;
 @property (nonatomic, weak) id<MotionsEditViewControllerDelegate> delegate;
 
 - (IBAction)didChangeSlider:(UISlider *)sender;

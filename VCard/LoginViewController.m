@@ -70,9 +70,6 @@
     } else {
         [self setupHorizontalView];
     }
-    
-    PostViewController *vc = [[PostViewController alloc] init];
-    [vc showViewFromRect:self.view.frame];
 }
 
 - (void)viewDidUnload

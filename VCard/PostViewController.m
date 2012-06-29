@@ -744,10 +744,10 @@ typedef enum {
     if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
         if(self.motionsImageView) {
             // TO DO:remove test code
-            MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:[UIImage screenShot]];
-            vc.delegate = self;
-            [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
-            //[self showAlbumImagePicker];
+//            MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:[UIImage screenShot]];
+//            vc.delegate = self;
+//            [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+            [self showAlbumImagePicker];
         }
         else {
             actionSheet = [[UIActionSheet alloc] initWithTitle:nil

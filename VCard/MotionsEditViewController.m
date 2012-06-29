@@ -9,6 +9,9 @@
 #import "MotionsEditViewController.h"
 #import "UIImage+Addition.h"
 #import "UIView+Addition.h"
+#import "CropImageViewController.h"
+
+#define CROP_BUTTON_TAG 1001
 
 @interface MotionsEditViewController ()
 
@@ -18,6 +21,7 @@
 @property (nonatomic, strong) UIImage *filterImage;
 @property (nonatomic, readonly) UIImage *filteredImage;
 @property (nonatomic, assign) UIInterfaceOrientation currentInterfaceOrientation;
+@property (nonatomic, strong) CropImageViewController *cropImageViewController;
 
 @end
 
@@ -32,6 +36,9 @@
 @synthesize revertButton = _revertButton;
 @synthesize delegate = _delegate;
 @synthesize bgView = _bgView;
+@synthesize functionView = _functionView;
+@synthesize capturedImageView = _capturedImageView;
+@synthesize capturedImageEditView = _capturedImageEditView;
 
 @synthesize originalImage = _originalImage;
 @synthesize modifiedImage = _modifiedImage;
@@ -63,6 +70,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     //[self performSelector:@selector(configureFilterImageView) withObject:nil afterDelay:0.3f];
+    self.capturedImageView.image = self.modifiedImage;
     [self configureSlider];
     [self configureButtons];
 }
@@ -78,6 +86,10 @@
     self.changePictureButton = nil;
     self.revertButton = nil;
     self.finishEditButton = nil;
+    self.bgView = nil;
+    self.functionView = nil;
+    self.capturedImageView = nil;
+    self.capturedImageEditView = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -94,6 +106,46 @@
 - (UIImage *)filteredImage {
     UIImage *filteredImage = [self.modifiedImage shadowAmount:self.shadowAmountSlider.value];
     return filteredImage;
+}
+
+#pragma mark - Animations 
+
+- (void)semiTransparentEditViewForCropAnimation {
+    [UIView animateWithDuration:0.3f animations:^{
+        for(UIView *subview in self.functionView.subviews) {
+            if(subview.tag != CROP_BUTTON_TAG) {
+                subview.alpha = 0.2f;
+                subview.userInteractionEnabled = NO;
+            }
+        }
+    }];
+}
+
+- (void)opaqueEditViewAnimation {
+    [UIView animateWithDuration:0.3f animations:^{
+        for(UIView *subview in self.functionView.subviews) {
+            subview.alpha = 1;
+        }
+    } completion:^(BOOL finished) {
+        for(UIView *subview in self.functionView.subviews) {
+            if([subview isMemberOfClass:[UIView class]])
+                subview.userInteractionEnabled = YES;
+        }
+    }];
+}
+
+- (void)hideCropImageViewControllerAnimation {
+    [self opaqueEditViewAnimation];
+    self.cropButton.userInteractionEnabled = NO;
+        
+    [self.cropImageViewController.editBarView fadeOut];
+    [self.capturedImageEditView fadeIn];
+    
+    [self.cropImageViewController zoomOutToCenter:self.filterImageView.center withScaleFactor:self.capturedImageView.contentScaleFactor completion:^{
+        [self.cropImageViewController.view removeFromSuperview];
+        self.cropImageViewController = nil;
+        self.cropButton.userInteractionEnabled = YES;
+    }];
 }
 
 #pragma mark - UI methods
@@ -141,26 +193,28 @@
 }
 
 - (IBAction)didClickCropButton:(UIButton *)sender {
-//    [self semiTransparentEditViewForCropAnimation];
-//    self.cropButton.userInteractionEnabled = NO;
-//    self.finishCropButton.userInteractionEnabled = NO;
-//    
-//    self.cropButton.hidden = YES;
-//    self.finishCropButton.hidden = NO;
-//    
-//    self.cropImageViewController = [[CropImageViewController alloc] initWithImage:self.modifiedImage filteredImage:self.filteredImage];
-//    self.cropImageViewController.view.frame = self.filterImageView.frame;
-//    [self.cameraPreviewBgView insertSubview:self.cropImageViewController.view aboveSubview:self.filterImageView];
-//    self.cropImageViewController.delegate = self;
-//    
-//    [self.finishCropButton addTarget:self.cropImageViewController action:@selector(didClickFinishCropButton:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [self.cropImageViewController zoomInFromCenter:self.filterImageView.center withScaleFactor:self.capturedImageView.contentScaleFactor completion:^{
-//        self.finishCropButton.userInteractionEnabled = YES;
-//    }];
-//    
-//    [self.cropImageViewController.editBarView fadeIn];
-//    [self.capturedImageEditView fadeOut];
+    BOOL select = !sender.selected;
+    sender.selected = select;
+    if(select) {
+        [self semiTransparentEditViewForCropAnimation];
+        
+        self.cropImageViewController = [[CropImageViewController alloc] initWithImage:self.modifiedImage filteredImage:self.filteredImage];
+        self.cropImageViewController.delegate = self;
+        self.cropImageViewController.view.frame = self.filterImageView.frame;
+        
+        [self.bgView insertSubview:self.cropImageViewController.view aboveSubview:self.filterImageView];
+        
+        self.cropButton.userInteractionEnabled = NO;
+        [self.cropImageViewController zoomInFromCenter:self.filterImageView.center withScaleFactor:self.capturedImageView.contentScaleFactor completion:^{
+            self.cropButton.userInteractionEnabled = YES;
+        }];
+        
+        [self.cropImageViewController.editBarView fadeIn];
+        [self.capturedImageEditView fadeOut];
+        
+    } else {
+        [self.cropImageViewController didClickFinishCropButton:sender];
+    }
 }
 
 - (IBAction)didClickRevertButton:(UIButton *)sender {
@@ -193,5 +247,19 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 0;
 }
+
+#pragma mark - CropImageViewController delegate
+
+- (void)cropImageViewControllerDidFinishCrop:(UIImage *)image {
+    self.modifiedImage = image;
+    [self configureFilterImageView];
+    self.capturedImageView.image = image;
+    [self hideCropImageViewControllerAnimation];
+}
+
+- (void)cropImageViewControllerDidCancelCrop {
+    [self hideCropImageViewControllerAnimation];
+}
+
 
 @end

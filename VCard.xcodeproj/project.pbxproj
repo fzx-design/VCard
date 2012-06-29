@@ -641,6 +641,8 @@
 		E111D74B159B243E00C68A5C /* CropImageViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E111D74A159B243D00C68A5C /* CropImageViewController-landscape.xib */; };
 		E111D756159B34E000C68A5C /* motions_slider_thumb_horizon.png in Resources */ = {isa = PBXBuildFile; fileRef = E111D754159B34E000C68A5C /* motions_slider_thumb_horizon.png */; };
 		E111D757159B34E000C68A5C /* motions_slider_thumb_horizon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E111D755159B34E000C68A5C /* motions_slider_thumb_horizon@2x.png */; };
+		E122D533159DAA6800E17D3B /* MotionsFilterReader.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D532159DAA6700E17D3B /* MotionsFilterReader.m */; };
+		E122D536159DAACC00E17D3B /* MotionsFilterInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = E122D535159DAACB00E17D3B /* MotionsFilterInfo.plist */; };
 		E12B6FDC1599663B00711A6B /* MultiInterfaceOrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */; };
 		E12B6FED159992D700711A6B /* MotionsViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B6315995114006A9CFD /* MotionsViewController-landscape.xib */; };
 		E135F7DB155E6196008494D8 /* button_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C3155E6196008494D8 /* button_delete.png */; };
@@ -1473,6 +1475,9 @@
 		E111D74A159B243D00C68A5C /* CropImageViewController-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "CropImageViewController-landscape.xib"; sourceTree = "<group>"; };
 		E111D754159B34E000C68A5C /* motions_slider_thumb_horizon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_slider_thumb_horizon.png; sourceTree = "<group>"; };
 		E111D755159B34E000C68A5C /* motions_slider_thumb_horizon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_slider_thumb_horizon@2x.png"; sourceTree = "<group>"; };
+		E122D531159DAA6600E17D3B /* MotionsFilterReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsFilterReader.h; sourceTree = "<group>"; };
+		E122D532159DAA6700E17D3B /* MotionsFilterReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsFilterReader.m; sourceTree = "<group>"; };
+		E122D535159DAACB00E17D3B /* MotionsFilterInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MotionsFilterInfo.plist; sourceTree = "<group>"; };
 		E12B6FDA1599663A00711A6B /* MultiInterfaceOrientationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiInterfaceOrientationViewController.h; sourceTree = "<group>"; };
 		E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiInterfaceOrientationViewController.m; sourceTree = "<group>"; };
 		E135F7C3155E6196008494D8 /* button_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_delete.png; sourceTree = "<group>"; };
@@ -2554,6 +2559,9 @@
 				E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */,
 				E1BCBFB9159D53A30086FA7E /* MotionsSlider.h */,
 				E1BCBFBA159D53A40086FA7E /* MotionsSlider.m */,
+				E122D531159DAA6600E17D3B /* MotionsFilterReader.h */,
+				E122D532159DAA6700E17D3B /* MotionsFilterReader.m */,
+				E122D535159DAACB00E17D3B /* MotionsFilterInfo.plist */,
 			);
 			name = Motions;
 			sourceTree = "<group>";
@@ -3486,6 +3494,7 @@
 				E111D74B159B243E00C68A5C /* CropImageViewController-landscape.xib in Resources */,
 				E111D756159B34E000C68A5C /* motions_slider_thumb_horizon.png in Resources */,
 				E111D757159B34E000C68A5C /* motions_slider_thumb_horizon@2x.png in Resources */,
+				E122D536159DAACC00E17D3B /* MotionsFilterInfo.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3618,6 +3627,7 @@
 				181727F115997ABA00BC25B2 /* ThemeResourceProvider.m in Sources */,
 				18BD24B6159A9B6600846C6E /* UserAccountManager.m in Sources */,
 				E1BCBFBB159D53A40086FA7E /* MotionsSlider.m in Sources */,
+				E122D533159DAA6800E17D3B /* MotionsFilterReader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

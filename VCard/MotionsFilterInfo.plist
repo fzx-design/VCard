@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>FilterName</key>
+		<string>未命名</string>
+		<key>RequirePurchase</key>
+		<false/>
+		<key>FilterParameter</key>
+		<dict>
+			<key>CIColorControl</key>
+			<dict>
+				<key>inputSaturation</key>
+				<real>0.5893</real>
+				<key>inputBrightness</key>
+				<real>-0.0683</real>
+				<key>inputContrast</key>
+				<real>1.3333</real>
+			</dict>
+		</dict>
+	</dict>
+</array>
+</plist>
