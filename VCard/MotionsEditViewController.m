@@ -123,8 +123,11 @@
     tempImageView.contentMode = UIViewContentModeScaleAspectFill;
     [tempImageView setNeedsLayout];
     [self.bgView insertSubview:tempImageView belowSubview:self.capturedImageEditView];
+    self.filterImageView.hidden = YES;
     [tempImageView fadeOutWithCompletion:^{
         [tempImageView removeFromSuperview];
+        [self configureFilterImageView];
+        self.filterImageView.hidden = NO;
     }];
     
     self.originalImage = image;
@@ -132,7 +135,6 @@
     self.capturedImageView.image = self.modifiedImage;
     
     [self.filterImageView initializeParameter];
-    [self configureFilterImageView];
     [self resetSliders];
 }
 
