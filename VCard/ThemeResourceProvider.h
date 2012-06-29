@@ -15,5 +15,6 @@
 + (void)configButtonDark:(UIButton *)button;
 + (void)configButtonPaperLight:(UIButton *)button;
 + (void)configButtonPaperDark:(UIButton *)button;
++ (void)configButtonUnreadIndicator:(UIButton *)button;
 
 @end

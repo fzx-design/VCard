@@ -49,40 +49,51 @@
 #define kRLButtonPaperDarkBG @"button_paper_dark_bg.png"
 #define kRLButtonPaperDarkHoverBG @"button_paper_light_hover.png"
 
+#define kRLButtonUnreadIndicatorBG              @"indicator_body.png"
+#define kRLButtonActivityButtonBG               @"activity_bg.png"
+#define kRLButtonActivityHighlightBorder        @"activity_highlight.png"
+
 #define kRLIconMale @"icon_male.png"
 #define kRLIconFemale @"icon_female.png"
 
 #define kRLIconGif @"icon_gif.png"
 
-#define kNotificationNameOrientationWillChange @"kNotificationNameOrientationWillChange"
-#define kNotificationNameOrientationChanged @"kNotificationNameOrientationChanged"
-#define kNotificationNameShouldDisableWaterflowScroll @"kNotificationNameShouldDisableWaterflowScroll"
-#define kNotificationNameShouldEnableWaterflowScroll @"kNotificationNameShouldEnableWaterflowScroll"
-#define kNotificationNameShouldSaveContext @"kNotificationNameShouldSaveContext"
-#define kNotificationNameRefreshEnded @"kNotificationNameRefreshEnded"
+#define kNotificationNameOrientationWillChange          @"kNotificationNameOrientationWillChange"
+#define kNotificationNameOrientationChanged             @"kNotificationNameOrientationChanged"
+#define kNotificationNameShouldDisableWaterflowScroll   @"kNotificationNameShouldDisableWaterflowScroll"
+#define kNotificationNameShouldEnableWaterflowScroll    @"kNotificationNameShouldEnableWaterflowScroll"
+#define kNotificationNameShouldSaveContext              @"kNotificationNameShouldSaveContext"
+#define kNotificationNameRefreshEnded                   @"kNotificationNameRefreshEnded"
 
-#define kNotificationNameShouldShowUserByName       @"kNotificationNameShouldShowUserByName"
-#define kNotificationNameShouldShowUserByCell       @"kNotificationNameShouldShowUserByCell"
-#define kNotificationNameShouldShowSelfCommentList  @"kNotificationNameShouldShowSelfCommentList"
-#define kNotificationNameShouldShowSelfMentionList  @"kNotificationNameShouldShowSelfMentionList"
-#define kNotificationNameShouldShowCommentList      @"kNotificationNameShouldShowCommentList"
-#define kNotificationNameShouldShowRepostList       @"kNotificationNameShouldShowRepostList"
+#define kNotificationNameShouldShowUserByName           @"kNotificationNameShouldShowUserByName"
+#define kNotificationNameShouldShowUserByCell           @"kNotificationNameShouldShowUserByCell"
+#define kNotificationNameShouldShowSelfCommentList      @"kNotificationNameShouldShowSelfCommentList"
+#define kNotificationNameShouldShowSelfMentionList      @"kNotificationNameShouldShowSelfMentionList"
+#define kNotificationNameShouldShowCommentList          @"kNotificationNameShouldShowCommentList"
+#define kNotificationNameShouldShowRepostList           @"kNotificationNameShouldShowRepostList"
 
-#define kNotificationNameShouldDeleteStatus @"kNotificationNameShouldDeleteStatus"
-#define kNotificationNameShouldDeleteComment @"kNotificationNameShouldDeleteComment"
+#define kNotificationNameShouldUpdateUnreadStatusCount  @"kNotificationNameShouldUpdateUnreadStatusCount"
+#define kNotificationNameShouldUpdateUnreadFollowCount  @"kNotificationNameShouldUpdateUnreadFollowCount"
+#define kNotificationNameShouldUpdateUnreadCommentCount @"kNotificationNameShouldUpdateUnreadCommentCount"
+#define kNotificationNameShouldUpdateUnreadMentionCount @"kNotificationNameShouldUpdateUnreadMentionCount"
 
-#define kNotificationNameStackViewCoveredWholeScreen @"kNotificationNameStackViewCoveredWholeScreen"
+#define kNotificationNameShouldDeleteStatus             @"kNotificationNameShouldDeleteStatus"
+#define kNotificationNameShouldDeleteComment            @"kNotificationNameShouldDeleteComment"
+
+#define kNotificationNameStackViewCoveredWholeScreen    @"kNotificationNameStackViewCoveredWholeScreen"
 #define kNotificationNameStackViewDoNotCoverWholeScreen @"kNotificationNameStackViewDoNotCoverWholeScreen"
 
-#define kNotificationObjectKeyUser @"kNotificationObjectKeyUser"
-#define kNotificationObjectKeyIndex @"kNotificationObjectKeyIndex"
-#define kNotificationObjectKeyUserName @"kNotificationObjectKeyUserName"
-#define kNotificationObjectKeyStatus @"kNotificationObjectKeyStatus"
+#define kNotificationObjectKeyUser                      @"kNotificationObjectKeyUser"
+#define kNotificationObjectKeyIndex                     @"kNotificationObjectKeyIndex"
+#define kNotificationObjectKeyUserName                  @"kNotificationObjectKeyUserName"
+#define kNotificationObjectKeyStatus                    @"kNotificationObjectKeyStatus"
 
-#define kOrientationPortrait @"kOrientationPortrait"
-#define kOrientationLandscape @"kOrientationLandscape"
+#define kUserDefaultKeyRefreshingInterval               @"kUserDefaultKeyRefreshingInterval"
 
-#define kCoreDataIdentifierDefault @"kCoreDataIdentifierDefault"
+#define kOrientationPortrait                            @"kOrientationPortrait"
+#define kOrientationLandscape                           @"kOrientationLandscape"
+
+#define kCoreDataIdentifierDefault                      @"kCoreDataIdentifierDefault"
 
 typedef enum {
     VerifiedTypeNone,

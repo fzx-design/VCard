@@ -618,6 +618,30 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
+- (void)getUnreadCount:(NSString *)userID
+{
+    self.path = @"remind/unread_count.json";
+    
+    if (userID) {
+        [self.params setObject:userID forKey:@"uid"];
+    } else {
+        return;
+    }
+    
+    [self loadNormalRequest];
+}
+
+- (void)resetUnreadCount:(NSString *)type
+{
+    self.path = @"remind/set_count.json";
+    
+    if (type) {
+        [self.params setObject:type forKey:@"type"];
+    }
+    
+    [self loadNormalRequest];
+}
+
 #pragma mark Request
 
 - (void)loadNormalRequest

@@ -69,7 +69,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
-    _coreDataIdentifier = kCoreDataIdentifierDefault;    
+    _coreDataIdentifier = kCoreDataIdentifierDefault;
 //    [self.fetchedResultsController performFetch:nil];
 //    [self setUpWaterflowView];
     [self setUpVariables];
@@ -134,6 +134,11 @@
                    name:kNotificationNameShouldDeleteComment
                  object:nil];
     
+    [center addObserver:self
+               selector:@selector(updateUnreadStatusCount)
+                   name:kNotificationNameShouldUpdateUnreadStatusCount
+                 object:nil];
+    
 }
 
 - (void)viewDidUnload
@@ -165,6 +170,7 @@
     [self.waterflowView addSubview:_loadMoreView];
     
     [self refresh];
+    [self updateUnreadStatusCount];
 }
 
 #pragma mark - Notification
@@ -288,6 +294,16 @@
     [Comment deleteCommentWithID:commentID inManagedObjectContext:self.managedObjectContext withObject:kCoreDataIdentifierDefault];
 }
 
+#pragma mark Handle Unread Count Update
+- (void)updateUnreadStatusCount
+{
+    int unreadStatusCount = self.currentUser.unreadStatusCount.intValue;
+    if (unreadStatusCount != 0) {
+        _unreadCountButton.hidden = NO;
+        [_unreadCountButton setCount:unreadStatusCount];
+    }
+}
+
 #pragma mark - IBActions
 #pragma mark Refresh
 
@@ -315,6 +331,7 @@
         _refreshIndicatorView.alpha = 1.0;
         self.refreshButton.userInteractionEnabled = YES;
     }];
+    [self resetUnreadStatusCount];
 }
 
 #pragma mark Post
@@ -372,8 +389,14 @@
 #pragma mark - Data Methods
 - (void)refresh
 {
-    _refreshing = YES;
-    [self loadMoreData];
+    int unreadStatusCount = self.currentUser.unreadStatusCount.intValue;
+    if (unreadStatusCount != 0) {
+        _refreshing = YES;
+        _unreadCountButton.hidden = YES;
+        [self loadMoreData];
+    } else {
+        [_pullView finishedLoading];
+    }
 }
 
 - (void)loadMoreData
@@ -388,6 +411,7 @@
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             NSArray *dictArray = client.responseJSONObject;
+            
             for (NSDictionary *dict in dictArray) {
                 Status *newStatus = nil;
                 newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
@@ -405,12 +429,6 @@
             [self.fetchedResultsController performFetch:nil];
             if (_refreshing) {
                 [self refreshEnded];
-                int count = self.fetchedResultsController.fetchedObjects.count - 1;
-                for (int i = dictArray.count - 1;i < count ; i++) {
-                    [Status deleteObject:(Status *)[self.fetchedResultsController.fetchedObjects lastObject] inManagedObjectContext:self.managedObjectContext];
-                    [self.managedObjectContext processPendingChanges];
-                    [self.fetchedResultsController performFetch:nil];
-                }
                 [self.waterflowView refresh];
             } else {
                 [self.waterflowView reloadData];
@@ -435,8 +453,19 @@
                               feature:0];
 }
 
+- (void)resetUnreadStatusCount
+{
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client){
+        if (!client.hasError) {
+            self.currentUser.unreadStatusCount = 0;
+        }
+    }];
+    [client resetUnreadCount:kWBClientResetCountTypeStatus];
+}
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration 
 {
     [self.waterflowView adjustViewsForOrientation:toInterfaceOrientation];

@@ -11,7 +11,7 @@
 #import "WBClient.h"
 #import "User.h"
 #import "Status.h"
-
+#import "UnreadReminder.h"
 #import "CardViewController.h"
 #import "UserAccountManager.h"
 
@@ -66,6 +66,7 @@
         
         self.currentUser = [User userWithID:[WBClient currentUserID] inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
         [UserAccountManager initializeWithCurrentUser:self.currentUser managedObjectContext:self.managedObjectContext];
+        [UnreadReminder initializeWithCurrentUser:self.currentUser];
         [self performSegueWithIdentifier:@"ShowRootViewController" sender:self];
     } else {
         [self setupHorizontalView];
@@ -143,6 +144,7 @@
             User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
             self.currentUser = user;
             [UserAccountManager initializeWithCurrentUser:user managedObjectContext:self.managedObjectContext];
+            [UnreadReminder initializeWithCurrentUser:user];
             
             [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];

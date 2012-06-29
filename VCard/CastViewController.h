@@ -15,6 +15,7 @@
 #import "RefreshIndicatorView.h"
 #import "StackViewController.h"
 #import "PostViewController.h"
+#import "UnreadCountButton.h"
 
 @interface CastViewController : CoreDataViewController <WaterflowViewDelegate, WaterflowViewDatasource, PullToRefreshViewDelegate, LoadMoreViewDelegate, StackViewControllerDelegate, UIScrollViewDelegate, PostViewControllerDelegate> {
     
@@ -43,6 +44,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *createStatusButton;
 @property (nonatomic, strong) IBOutlet UIButton *refreshButton;
 @property (nonatomic, strong) IBOutlet UIButton *showProfileButton;
+@property (nonatomic, strong) IBOutlet UnreadCountButton *unreadCountButton;
 
 - (void)initialLoad;
 - (IBAction)showProfileButtonClicked:(id)sender;
