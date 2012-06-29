@@ -12,7 +12,10 @@
 @interface UIImage (Addition)
 
 - (UIImage *)rotateAdjustImage;
+
 - (UIImage *)brightness:(CGFloat)brightness contrast:(CGFloat)contrast;
+- (UIImage *)shadowAmount:(CGFloat)shadowAmountValue;
+
 - (UIImage *)imageAtRect:(CGRect)rect;
 - (UIImage *)imageByScalingProportionallyToMinimumSize:(CGSize)targetSize;
 - (UIImage *)imageByScalingProportionallyToSize:(CGSize)targetSize;

@@ -21,6 +21,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *revertButton;
 @property (nonatomic, strong) IBOutlet UIButton *finishEditButton;
 @property (nonatomic, strong) IBOutlet FilterImageView *filterImageView;
+@property (nonatomic, strong) IBOutlet UIView *bgView;
 @property (nonatomic, weak) id<MotionsEditViewControllerDelegate> delegate;
 
 - (IBAction)didChangeSlider:(UISlider *)sender;

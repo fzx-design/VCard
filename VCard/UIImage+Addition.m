@@ -6,6 +6,7 @@
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "UIImage+Addition.h"
 
 CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
@@ -315,6 +316,21 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     return newImage;
 }
 
+- (UIImage *)shadowAmount:(CGFloat)shadowAmountValue {
+    CIFilter *filter = [CIFilter filterWithName:@"CIHighlightShadowAdjust"];
+    [filter setDefaults];
+    [filter setValue:[CIImage imageWithCGImage:self.CGImage] forKey:@"inputImage"];
+    [filter setValue:[NSNumber numberWithFloat:shadowAmountValue] forKey:@"inputShadowAmount"];
+    CIImage *outputCIImage = [filter outputImage];
+    
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef ref = [context createCGImage:outputCIImage fromRect:outputCIImage.extent];
+    UIImage *result = [UIImage imageWithCGImage:ref];
+    CGImageRelease(ref);
+    
+    return result;
+}
+
 - (UIImage *)brightness:(CGFloat)brightnessValues contrast:(CGFloat)contrastValue {
     CIFilter *filter = [CIFilter filterWithName:@"CIColorControls"];
     [filter setDefaults];
@@ -407,49 +423,49 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     return [UIImage imageWithImage:self scaledToSize:newSize];
 }
 
-//+ (UIImage *)screenShot {
-//    // Create a graphics context with the target size
-//    // On iOS 4 and later, use UIGraphicsBeginImageContextWithOptions to take the scale into consideration
-//    // On iOS prior to 4, fall back to use UIGraphicsBeginImageContext
-//    CGSize imageSize = [[UIScreen mainScreen] bounds].size;
-//    if (NULL != UIGraphicsBeginImageContextWithOptions)
-//        UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
-//    else
-//        UIGraphicsBeginImageContext(imageSize);
-//    
-//    CGContextRef context = UIGraphicsGetCurrentContext();
-//    
-//    // Iterate over every window from back to front
-//    for (UIWindow *window in [[UIApplication sharedApplication] windows]) 
-//    {
-//        if (![window respondsToSelector:@selector(screen)] || [window screen] == [UIScreen mainScreen])
-//        {
-//            // -renderInContext: renders in the coordinate space of the layer,
-//            // so we must first apply the layer's geometry to the graphics context
-//            CGContextSaveGState(context);
-//            // Center the context around the window's anchor point
-//            CGContextTranslateCTM(context, [window center].x, [window center].y);
-//            // Apply the window's transform about the anchor point
-//            CGContextConcatCTM(context, [window transform]);
-//            // Offset by the portion of the bounds left of and above the anchor point
-//            CGContextTranslateCTM(context,
-//                                  -[window bounds].size.width * [[window layer] anchorPoint].x,
-//                                  -[window bounds].size.height * [[window layer] anchorPoint].y);
-//            
-//            // Render the layer hierarchy to the current context
-//            [[window layer] renderInContext:context];
-//            
-//            // Restore the context
-//            CGContextRestoreGState(context);
-//        }
-//    }
-//    
-//    // Retrieve the screenshot image
-//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-//    
-//    UIGraphicsEndImageContext();
-//    
-//    return image;
-//}
++ (UIImage *)screenShot {
+    // Create a graphics context with the target size
+    // On iOS 4 and later, use UIGraphicsBeginImageContextWithOptions to take the scale into consideration
+    // On iOS prior to 4, fall back to use UIGraphicsBeginImageContext
+    CGSize imageSize = [[UIScreen mainScreen] bounds].size;
+    if (NULL != UIGraphicsBeginImageContextWithOptions)
+        UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
+    else
+        UIGraphicsBeginImageContext(imageSize);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    // Iterate over every window from back to front
+    for (UIWindow *window in [[UIApplication sharedApplication] windows]) 
+    {
+        if (![window respondsToSelector:@selector(screen)] || [window screen] == [UIScreen mainScreen])
+        {
+            // -renderInContext: renders in the coordinate space of the layer,
+            // so we must first apply the layer's geometry to the graphics context
+            CGContextSaveGState(context);
+            // Center the context around the window's anchor point
+            CGContextTranslateCTM(context, [window center].x, [window center].y);
+            // Apply the window's transform about the anchor point
+            CGContextConcatCTM(context, [window transform]);
+            // Offset by the portion of the bounds left of and above the anchor point
+            CGContextTranslateCTM(context,
+                                  -[window bounds].size.width * [[window layer] anchorPoint].x,
+                                  -[window bounds].size.height * [[window layer] anchorPoint].y);
+            
+            // Render the layer hierarchy to the current context
+            [[window layer] renderInContext:context];
+            
+            // Restore the context
+            CGContextRestoreGState(context);
+        }
+    }
+    
+    // Retrieve the screenshot image
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
 
 @end

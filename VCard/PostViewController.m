@@ -16,6 +16,7 @@
 #import "WBClient.h"
 #import "PostNewStatusViewController.h"
 #import "PostRepostCommentViewController.h"
+#import "UIImage+Addition.h"
 
 #define WEIBO_TEXT_MAX_LENGTH   140
 #define HINT_VIEW_OFFSET        CGSizeMake(-16, 27)
@@ -439,6 +440,7 @@ typedef enum {
 }
 
 - (void)configureTextView {
+    self.textView.text = @"";
     [self updateTextCountAndPostButton];
     [self.textView becomeFirstResponder];
     self.textView.selectedRange = NSMakeRange(0, 0);
@@ -740,8 +742,13 @@ typedef enum {
 - (IBAction)didClickMotionsButton:(UIButton *)sender {
     UIActionSheet *actionSheet = nil;
     if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
-        if(self.motionsImageView)
-            [self showAlbumImagePicker];
+        if(self.motionsImageView) {
+            // TO DO:remove test code
+            MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:[UIImage screenShot]];
+            vc.delegate = self;
+            [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+            //[self showAlbumImagePicker];
+        }
         else {
             actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                       delegate:self 
