@@ -17,6 +17,7 @@
 - (void)stackViewDidScroll;
 - (void)stackViewDidEndScrolling;
 - (void)stackViewWillScroll;
+- (void)stackViewWillBeginDecelerating:(CGFloat)speed;
 //- (void)stack
 
 @end

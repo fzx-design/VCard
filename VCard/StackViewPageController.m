@@ -51,7 +51,7 @@
 }
 
 //To be overloaded
-- (void)stackScrolling
+- (void)stackScrolling:(CGFloat)speed
 {
     
 }

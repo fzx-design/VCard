@@ -100,7 +100,7 @@
     
     [self.controllerStack addObject:vc];
     for (StackViewPageController *animationVC in self.controllerStack) {
-        [animationVC stackScrolling];
+        [animationVC stackScrollingStart];
     }
     [self.stackView addNewPage:vc.view replacingView:replacingOtherView completion:^{
         [vc initialLoad];
@@ -161,6 +161,13 @@
 {
     if (_activePageViewController) {
 //        [_activePageViewController disableScrollToTop];
+    }
+}
+
+- (void)stackViewWillBeginDecelerating:(CGFloat)speed
+{
+    for (StackViewPageController *animationVC in self.controllerStack) {
+        [animationVC stackScrolling:speed];
     }
 }
 

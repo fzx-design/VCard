@@ -53,16 +53,17 @@
 //    self.pageDescription = self.user.screenName;
 }
 
-- (void)stackScrolling
+- (void)stackScrolling:(CGFloat)speed
 {
     //TODO: Test
-    [_avatarImageView swingOnceThenHalt:_avatarImageView.layer angle:-0.089 * M_PI];
+    CGFloat angle = -0.089 * speed / 20;
+    [_avatarImageView swingOnceThenHalt:_avatarImageView.layer angle:angle * M_PI];
 }
 
 - (void)stackScrollingStart
 {
     //TODO: Test
-    [_avatarImageView swingOnce:_avatarImageView.layer toAngle:-0.089 * M_PI];
+    [_avatarImageView swingOnceThenHalt:_avatarImageView.layer angle:-0.089 * M_PI];
 }
 
 - (void)stackScrollingEnd

@@ -15,7 +15,9 @@
 
 @interface StackView () {
     NSInteger _currentPageIndex;
+    CGFloat _previousOffset;
     BOOL _covered;
+    BOOL _shouldRecordDecelerating;
 }
 
 @end
@@ -144,9 +146,14 @@
     }
     
     [_delegate stackViewDidScroll];
+    
+    if (_shouldRecordDecelerating) {
+        CGFloat offset = _previousOffset - self.scrollView.contentOffset.x;
+        [_delegate stackViewWillBeginDecelerating:offset];
+        _shouldRecordDecelerating = NO;
+    }
 }
      
-
 - (void)sendShowBGNotification
 {
     if (_covered) {
@@ -180,6 +187,14 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [_delegate stackViewWillScroll];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    _shouldRecordDecelerating = decelerate;
+    if (decelerate) {
+        _previousOffset = scrollView.contentOffset.x;
+    }
 }
 
 - (void)returnButtonClicked
