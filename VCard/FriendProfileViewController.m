@@ -113,6 +113,11 @@
     }
 }
 
+- (IBAction)didClickMentionButton:(UIButton *)sender
+{
+    
+}
+
 - (void)followUser
 {
     if (_loading || self.user == nil) {

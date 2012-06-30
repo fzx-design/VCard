@@ -106,6 +106,10 @@
 		185785F41536689700C9E1B9 /* EasyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185785F31536689700C9E1B9 /* EasyTableViewCell.m */; };
 		186224F5159EAF550099FF60 /* notification_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186224F3159EAF550099FF60 /* notification_shadow@2x.png */; };
 		186224F6159EAF550099FF60 /* notification_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 186224F4159EAF550099FF60 /* notification_shadow.png */; };
+		186224FC159EB3860099FF60 /* button_mention_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 186224F8159EB3860099FF60 /* button_mention_hover.png */; };
+		186224FD159EB3860099FF60 /* button_follow_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186224F9159EB3860099FF60 /* button_follow_hover@2x.png */; };
+		186224FE159EB3860099FF60 /* button_follow_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 186224FA159EB3860099FF60 /* button_follow_hover.png */; };
+		186224FF159EB3860099FF60 /* button_mention_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186224FB159EB3860099FF60 /* button_mention_hover@2x.png */; };
 		186E42FA15994ACB0069E47C /* SelfMentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E42F915994AC90069E47C /* SelfMentionViewController.m */; };
 		187348731523407A00F562E7 /* WBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348721523407A00F562E7 /* WBRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		187348791523424500F562E7 /* WBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348781523424500F562E7 /* WBUtil.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -867,6 +871,10 @@
 		185785F31536689700C9E1B9 /* EasyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableViewCell.m; sourceTree = "<group>"; };
 		186224F3159EAF550099FF60 /* notification_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_shadow@2x.png"; sourceTree = "<group>"; };
 		186224F4159EAF550099FF60 /* notification_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification_shadow.png; sourceTree = "<group>"; };
+		186224F8159EB3860099FF60 /* button_mention_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_mention_hover.png; sourceTree = "<group>"; };
+		186224F9159EB3860099FF60 /* button_follow_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_follow_hover@2x.png"; sourceTree = "<group>"; };
+		186224FA159EB3860099FF60 /* button_follow_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_follow_hover.png; sourceTree = "<group>"; };
+		186224FB159EB3860099FF60 /* button_mention_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_mention_hover@2x.png"; sourceTree = "<group>"; };
 		186E42F815994AC80069E47C /* SelfMentionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfMentionViewController.h; sourceTree = "<group>"; };
 		186E42F915994AC90069E47C /* SelfMentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfMentionViewController.m; sourceTree = "<group>"; };
 		187348711523407A00F562E7 /* WBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBRequest.h; path = Client/WBRequest.h; sourceTree = "<group>"; };
@@ -2044,6 +2052,10 @@
 		18EA4E5915346DFD005ED94F /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				186224F8159EB3860099FF60 /* button_mention_hover.png */,
+				186224F9159EB3860099FF60 /* button_follow_hover@2x.png */,
+				186224FA159EB3860099FF60 /* button_follow_hover.png */,
+				186224FB159EB3860099FF60 /* button_mention_hover@2x.png */,
 				181727F31599825700BC25B2 /* button_back_dark_hover.png */,
 				181727F41599825700BC25B2 /* button_back_dark_hover@2x.png */,
 				181727F51599825700BC25B2 /* button_bg_brown_hover.png */,
@@ -3499,6 +3511,10 @@
 				189F395A159D80C500FD2E0F /* indicator_body.png in Resources */,
 				186224F5159EAF550099FF60 /* notification_shadow@2x.png in Resources */,
 				186224F6159EAF550099FF60 /* notification_shadow.png in Resources */,
+				186224FC159EB3860099FF60 /* button_mention_hover.png in Resources */,
+				186224FD159EB3860099FF60 /* button_follow_hover@2x.png in Resources */,
+				186224FE159EB3860099FF60 /* button_follow_hover.png in Resources */,
+				186224FF159EB3860099FF60 /* button_mention_hover@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
