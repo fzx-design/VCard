@@ -51,6 +51,7 @@
         [self showBackgroundImageView];
     }
     _currentIndicatorCount++;
+    [self sendSubviewToBack:_backgroundImageView];
     
     indicator.hidden = NO;
     [indicator resetOrigin:kUnreadIndicatorViewOriginInitialPoint];
