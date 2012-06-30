@@ -220,6 +220,7 @@
     [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
     [commentCell configureCellWithComment:comment];
     commentCell.pageIndex = self.pageIndex;
+    commentCell.delegate = self;
     
 }
 

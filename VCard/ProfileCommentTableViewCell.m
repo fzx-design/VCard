@@ -208,7 +208,7 @@
 }
 
 - (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
-    
+    [_delegate commentTableViewCellDidComment];
 }
 
 - (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {

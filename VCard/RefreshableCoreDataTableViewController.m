@@ -180,4 +180,10 @@
     return _backgroundViewB;
 }
 
+#pragma mark - CommentTableViewCellDelegate
+- (void)commentTableViewCellDidComment
+{
+    [self refresh];
+}
+
 @end

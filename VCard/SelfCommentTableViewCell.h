@@ -12,6 +12,7 @@
 #import "TTTAttributedLabel.h"
 #import "Comment.h"
 #import "PostViewController.h"
+#import "RefreshableCoreDataTableViewController.h"
 
 @interface SelfCommentTableViewCell : UITableViewCell <PostViewControllerDelegate, TTTAttributedLabelDelegate, UIActionSheetDelegate>
 
@@ -27,6 +28,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *timeStampLabel;
 @property (nonatomic, weak) Comment *comment;
 @property (nonatomic, assign) NSInteger pageIndex;
+@property (nonatomic, weak) id<CommentTableViewCellDelegate> delegate;
 
 - (IBAction)didClickCommentButton:(UIButton *)sender;
 - (IBAction)didClickUserNameButton:(UIButton *)sender;

@@ -13,7 +13,13 @@
 
 @class User;
 
-@interface RefreshableCoreDataTableViewController : CoreDataTableViewController <PullToRefreshViewDelegate, LoadMoreViewDelegate, UIScrollViewDelegate, UITableViewDelegate> {
+@protocol CommentTableViewCellDelegate <NSObject>
+
+- (void)commentTableViewCellDidComment;
+
+@end
+
+@interface RefreshableCoreDataTableViewController : CoreDataTableViewController <PullToRefreshViewDelegate, LoadMoreViewDelegate, UIScrollViewDelegate, UITableViewDelegate, CommentTableViewCellDelegate> {
     
     PullToRefreshView *_pullView;
     LoadMoreView *_loadMoreView;

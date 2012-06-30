@@ -7,6 +7,7 @@
 //
 
 #import "RefreshableCoreDataTableViewController.h"
+#import "ProfileCommentTableViewCell.h"
 #import "Status.h"
 
 typedef enum {

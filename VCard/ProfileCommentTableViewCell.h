@@ -13,6 +13,7 @@
 #import "Comment.h"
 #import "PostViewController.h"
 #import <MessageUI/MessageUI.h>
+#import "RefreshableCoreDataTableViewController.h"
 
 @interface ProfileCommentTableViewCell : UITableViewCell <PostViewControllerDelegate, TTTAttributedLabelDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
     UserAvatarImageView *_avatarImageView;
@@ -37,6 +38,7 @@
 @property (nonatomic, weak) Comment *comment;
 @property (nonatomic, weak) Status *status;
 @property (nonatomic, assign) NSInteger pageIndex;
+@property (nonatomic, weak) id<CommentTableViewCellDelegate> delegate;
 
 - (IBAction)didClickCommentButton:(UIButton *)sender;
 - (IBAction)didClickUserNameButton:(UIButton *)sender;

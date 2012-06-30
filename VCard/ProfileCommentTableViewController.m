@@ -194,6 +194,7 @@
                                 isLastComment:isLastComment
                                isFirstComment:isFirstComment];
         commentCell.pageIndex = self.pageIndex;
+        commentCell.delegate = self;
     } else {
         Status *repost = (Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
         [commentCell resetSize:CGSizeMake(362.0, repost.cardSizeCardHeight.floatValue)];
