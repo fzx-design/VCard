@@ -537,7 +537,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ueV-SK-luU" customClass="UnreadIndicatorButton">
-                                        <rect key="frame" x="5" y="82" width="150" height="34"/>
+                                        <rect key="frame" x="5" y="129" width="150" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <size key="titleShadowOffset" width="0.0" height="1"/>
@@ -554,7 +554,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TUg-C6-6ZO" customClass="UnreadIndicatorButton">
-                                        <rect key="frame" x="5" y="12" width="150" height="34"/>
+                                        <rect key="frame" x="5" y="129" width="150" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -572,7 +572,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RwW-4u-Rfu" customClass="UnreadIndicatorButton">
-                                        <rect key="frame" x="5" y="48" width="150" height="34"/>
+                                        <rect key="frame" x="5" y="129" width="150" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <size key="titleShadowOffset" width="0.0" height="1"/>

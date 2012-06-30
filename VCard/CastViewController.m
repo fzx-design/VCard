@@ -511,7 +511,7 @@
         _refreshing = YES;
         [self loadMoreData];
     } else {
-        [_pullView finishedLoading];
+        [_pullView performSelector:@selector(finishedLoading) withObject:nil afterDelay:1.0];
     }
 }
 

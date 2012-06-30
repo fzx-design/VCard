@@ -42,11 +42,12 @@
         }
     }
     
-//    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{
         [indicator resetOriginY:targetHeight];
-//    } completion:^(BOOL finished) {
-        [indicator performSelector:@selector(showIndicatingAnimation) withObject:nil afterDelay:1];
-//    }];
+    } completion:^(BOOL finished) {
+//        [indicator performSelector:@selector(showIndicatingAnimation) withObject:nil afterDelay:1];
+        [indicator showIndicatingAnimation];
+    }];
 }
 
 - (void)removeIndicator:(UnreadIndicatorButton *)indicator
