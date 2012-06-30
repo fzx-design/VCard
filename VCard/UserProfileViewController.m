@@ -56,7 +56,7 @@
 - (void)stackScrolling:(CGFloat)speed
 {
     //TODO: Test
-    CGFloat angle = -0.089 * speed / 20;
+    CGFloat angle = 0.089 * speed / 20;
     [_avatarImageView swingOnceThenHalt:_avatarImageView.layer angle:angle * M_PI];
 }
 
@@ -69,7 +69,7 @@
 - (void)stackScrollingEnd
 {
     //TODO: Test
-    [_avatarImageView swingHalt:_avatarImageView.layer fromAngle:-0.089 * M_PI];
+    [_avatarImageView swingOnce:_avatarImageView.layer toAngle:-0.089 * M_PI];
 }
 
 - (void)enableScrollToTop

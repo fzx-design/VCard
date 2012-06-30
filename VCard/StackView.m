@@ -17,7 +17,8 @@
     NSInteger _currentPageIndex;
     CGFloat _previousOffset;
     BOOL _covered;
-    BOOL _shouldRecordDecelerating;
+    BOOL _shouldRecordDeceleratingFirst;
+    BOOL _shouldRecordDeceleratingSecond;
 }
 
 @end
@@ -147,10 +148,14 @@
     
     [_delegate stackViewDidScroll];
     
-    if (_shouldRecordDecelerating) {
-        CGFloat offset = _previousOffset - self.scrollView.contentOffset.x;
+    if (_shouldRecordDeceleratingFirst) {
+        _previousOffset = self.scrollView.contentOffset.x;
+        _shouldRecordDeceleratingFirst = NO;
+        _shouldRecordDeceleratingSecond = YES;
+    } else if (_shouldRecordDeceleratingSecond){
+        CGFloat offset = self.scrollView.contentOffset.x - _previousOffset;
         [_delegate stackViewWillBeginDecelerating:offset];
-        _shouldRecordDecelerating = NO;
+        _shouldRecordDeceleratingSecond = NO;
     }
 }
      
@@ -191,7 +196,7 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    _shouldRecordDecelerating = decelerate;
+    _shouldRecordDeceleratingFirst = decelerate;
     if (decelerate) {
         _previousOffset = scrollView.contentOffset.x;
     }

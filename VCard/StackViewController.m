@@ -99,8 +99,13 @@
     [vc.view resetHeight:self.view.frame.size.height];
     
     [self.controllerStack addObject:vc];
-    for (StackViewPageController *animationVC in self.controllerStack) {
+    if (replacingOtherView) {
+        StackViewPageController *animationVC = [self.controllerStack lastObject];
         [animationVC stackScrollingStart];
+    } else {
+        for (StackViewPageController *animationVC in self.controllerStack) {
+            [animationVC stackScrollingStart];
+        }
     }
     [self.stackView addNewPage:vc.view replacingView:replacingOtherView completion:^{
         [vc initialLoad];
