@@ -680,6 +680,11 @@
 		E1998AF415919BA400BBAC55 /* post_paper_gloom_right.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF215919BA400BBAC55 /* post_paper_gloom_right.png */; };
 		E1998AF81592EB5400BBAC55 /* PostNewStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */; };
 		E1A7EFDC15936D4B00E2B900 /* PostRepostCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */; };
+		E1AF111E15A01A67004236ED /* MotionsFilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AF111815A01A67004236ED /* MotionsFilterCell.m */; };
+		E1AF111F15A01A67004236ED /* MotionsFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1AF111915A01A67004236ED /* MotionsFilterCell.xib */; };
+		E1AF112015A01A67004236ED /* MotionsFilterTableViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1AF111A15A01A67004236ED /* MotionsFilterTableViewController-landscape.xib */; };
+		E1AF112115A01A67004236ED /* MotionsFilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AF111C15A01A67004236ED /* MotionsFilterTableViewController.m */; };
+		E1AF112215A01A67004236ED /* MotionsFilterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1AF111D15A01A67004236ED /* MotionsFilterTableViewController.xib */; };
 		E1BCBFBB159D53A40086FA7E /* MotionsSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BCBFBA159D53A40086FA7E /* MotionsSlider.m */; };
 		E1BCBFBD159D565B0086FA7E /* MotionsSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BCBFBA159D53A40086FA7E /* MotionsSlider.m */; };
 		E1F4EB77159716D5000B84D4 /* post_emoticons_pagecontrol_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EB75159716D5000B84D4 /* post_emoticons_pagecontrol_bg.png */; };
@@ -1526,6 +1531,13 @@
 		E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostNewStatusViewController.m; sourceTree = "<group>"; };
 		E1998AFC1592EBAD00BBAC55 /* PostRepostCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostRepostCommentViewController.h; sourceTree = "<group>"; };
 		E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostRepostCommentViewController.m; sourceTree = "<group>"; };
+		E1AF111715A01A67004236ED /* MotionsFilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsFilterCell.h; sourceTree = "<group>"; };
+		E1AF111815A01A67004236ED /* MotionsFilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsFilterCell.m; sourceTree = "<group>"; };
+		E1AF111915A01A67004236ED /* MotionsFilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MotionsFilterCell.xib; sourceTree = "<group>"; };
+		E1AF111A15A01A67004236ED /* MotionsFilterTableViewController-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MotionsFilterTableViewController-landscape.xib"; sourceTree = "<group>"; };
+		E1AF111B15A01A67004236ED /* MotionsFilterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsFilterTableViewController.h; sourceTree = "<group>"; };
+		E1AF111C15A01A67004236ED /* MotionsFilterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsFilterTableViewController.m; sourceTree = "<group>"; };
+		E1AF111D15A01A67004236ED /* MotionsFilterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MotionsFilterTableViewController.xib; sourceTree = "<group>"; };
 		E1BCBFB9159D53A30086FA7E /* MotionsSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsSlider.h; sourceTree = "<group>"; };
 		E1BCBFBA159D53A40086FA7E /* MotionsSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsSlider.m; sourceTree = "<group>"; };
 		E1F4EB75159716D5000B84D4 /* post_emoticons_pagecontrol_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post_emoticons_pagecontrol_bg.png; sourceTree = "<group>"; };
@@ -2567,21 +2579,28 @@
 				E1031B6715995123006A9CFD /* MotionsEditViewController.h */,
 				E1031B6815995123006A9CFD /* MotionsEditViewController.m */,
 				E1031B6915995123006A9CFD /* MotionsEditViewController.xib */,
+				E1AF111715A01A67004236ED /* MotionsFilterCell.h */,
+				E1AF111815A01A67004236ED /* MotionsFilterCell.m */,
+				E1AF111915A01A67004236ED /* MotionsFilterCell.xib */,
+				E122D535159DAACB00E17D3B /* MotionsFilterInfo.plist */,
+				E122D531159DAA6600E17D3B /* MotionsFilterReader.h */,
+				E122D532159DAA6700E17D3B /* MotionsFilterReader.m */,
+				E1AF111A15A01A67004236ED /* MotionsFilterTableViewController-landscape.xib */,
+				E1AF111B15A01A67004236ED /* MotionsFilterTableViewController.h */,
+				E1AF111C15A01A67004236ED /* MotionsFilterTableViewController.m */,
+				E1AF111D15A01A67004236ED /* MotionsFilterTableViewController.xib */,
 				E1031B5E159950FE006A9CFD /* MotionsShootViewController-landscape.xib */,
 				E1031B6015995114006A9CFD /* MotionsShootViewController.h */,
 				E1031B6115995114006A9CFD /* MotionsShootViewController.m */,
 				E1031B6215995114006A9CFD /* MotionsShootViewController.xib */,
+				E1BCBFB9159D53A30086FA7E /* MotionsSlider.h */,
+				E1BCBFBA159D53A40086FA7E /* MotionsSlider.m */,
 				E1031B6315995114006A9CFD /* MotionsViewController-landscape.xib */,
 				E1097D22157F9A1F00BD0640 /* MotionsViewController.h */,
 				E1097D23157F9A1F00BD0640 /* MotionsViewController.m */,
 				E1097D24157F9A1F00BD0640 /* MotionsViewController.xib */,
 				E12B6FDA1599663A00711A6B /* MultiInterfaceOrientationViewController.h */,
 				E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */,
-				E1BCBFB9159D53A30086FA7E /* MotionsSlider.h */,
-				E1BCBFBA159D53A40086FA7E /* MotionsSlider.m */,
-				E122D531159DAA6600E17D3B /* MotionsFilterReader.h */,
-				E122D532159DAA6700E17D3B /* MotionsFilterReader.m */,
-				E122D535159DAACB00E17D3B /* MotionsFilterInfo.plist */,
 			);
 			name = Motions;
 			sourceTree = "<group>";
@@ -3515,6 +3534,9 @@
 				186224FD159EB3860099FF60 /* button_follow_hover@2x.png in Resources */,
 				186224FE159EB3860099FF60 /* button_follow_hover.png in Resources */,
 				186224FF159EB3860099FF60 /* button_mention_hover@2x.png in Resources */,
+				E1AF111F15A01A67004236ED /* MotionsFilterCell.xib in Resources */,
+				E1AF112015A01A67004236ED /* MotionsFilterTableViewController-landscape.xib in Resources */,
+				E1AF112215A01A67004236ED /* MotionsFilterTableViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3652,6 +3674,8 @@
 				18BDD5A4159D9A8A005246F2 /* UnreadIndicatorButton.m in Sources */,
 				18BDD5A8159D9B14005246F2 /* UnreadIndicatorView.m in Sources */,
 				18EE8E28159DE6160032D69B /* Comment.m in Sources */,
+				E1AF111E15A01A67004236ED /* MotionsFilterCell.m in Sources */,
+				E1AF112115A01A67004236ED /* MotionsFilterTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
