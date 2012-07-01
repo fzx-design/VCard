@@ -20,6 +20,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *checkCommentButton;
 @property (nonatomic, strong) IBOutlet UIButton *checkMentionButton;
 @property (nonatomic, strong) IBOutlet UIButton *accountSettingButton;
+@property (nonatomic, assign) BOOL shouldShowFollowerList;
 
 - (IBAction)didClickCheckCommentButton:(id)sender;
 - (IBAction)didClickCheckMentionButton:(id)sender;

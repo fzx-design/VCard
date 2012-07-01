@@ -12,6 +12,7 @@ typedef enum {
     CommentsTableViewDataSourceCommentsToMe,
 	CommentsTableViewDataSourceCommentsByMe,
     CommentsTableViewDataSourceCommentsOfStatus,
+    CommentsTableViewDataSourceCommentsMentioningMe,
 } CommentsTableViewDataSource;
 
 @interface SelfCommentTableViewController : RefreshableCoreDataTableViewController {

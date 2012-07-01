@@ -32,16 +32,16 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
-			<object class="IBUIView" id="403115889">
+			<object class="IBUIView" id="1045546335">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUIImageView" id="74460603">
-						<reference key="NSNextResponder" ref="403115889"/>
+					<object class="IBUIImageView" id="679436866">
+						<reference key="NSNextResponder" ref="1045546335"/>
 						<int key="NSvFlags">293</int>
 						<string key="NSFrameSize">{112, 364}</string>
-						<reference key="NSSuperview" ref="403115889"/>
-						<reference key="NSNextKeyView" ref="572068095"/>
+						<reference key="NSSuperview" ref="1045546335"/>
+						<reference key="NSNextKeyView" ref="565943962"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -50,13 +50,13 @@
 							<string key="NSResourceName">motions_effects_picker_bg_horizon.png</string>
 						</object>
 					</object>
-					<object class="IBUITableView" id="572068095">
-						<reference key="NSNextResponder" ref="403115889"/>
+					<object class="IBUITableView" id="565943962">
+						<reference key="NSNextResponder" ref="1045546335"/>
 						<int key="NSvFlags">-2147483356</int>
 						<array class="NSMutableArray" key="NSSubviews"/>
 						<string key="NSFrameSize">{112, 364}</string>
-						<reference key="NSSuperview" ref="403115889"/>
-						<reference key="NSNextKeyView" ref="174720347"/>
+						<reference key="NSSuperview" ref="1045546335"/>
+						<reference key="NSNextKeyView" ref="856780762"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="964686790">
 							<int key="NSColorSpace">3</int>
@@ -72,11 +72,11 @@
 						<float key="IBUISectionHeaderHeight">22</float>
 						<float key="IBUISectionFooterHeight">22</float>
 					</object>
-					<object class="IBUIImageView" id="174720347">
-						<reference key="NSNextResponder" ref="403115889"/>
+					<object class="IBUIImageView" id="856780762">
+						<reference key="NSNextResponder" ref="1045546335"/>
 						<int key="NSvFlags">293</int>
 						<string key="NSFrameSize">{112, 364}</string>
-						<reference key="NSSuperview" ref="403115889"/>
+						<reference key="NSSuperview" ref="1045546335"/>
 						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -86,12 +86,12 @@
 							<string key="NSResourceName">motions_effects_picker_shadow_horizon.png</string>
 						</object>
 					</object>
-					<object class="IBUIImageView" id="824123732">
-						<reference key="NSNextResponder" ref="403115889"/>
+					<object class="IBUIImageView" id="427300331">
+						<reference key="NSNextResponder" ref="1045546335"/>
 						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{-20, 104}, {152, 156}}</string>
-						<reference key="NSSuperview" ref="403115889"/>
-						<reference key="NSNextKeyView" ref="74460603"/>
+						<reference key="NSSuperview" ref="1045546335"/>
+						<reference key="NSNextKeyView" ref="679436866"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -103,7 +103,7 @@
 				</array>
 				<string key="NSFrameSize">{112, 364}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSNextKeyView" ref="824123732"/>
+				<reference key="NSNextKeyView" ref="427300331"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<reference key="IBUIBackgroundColor" ref="964686790"/>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -115,7 +115,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">view</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="403115889"/>
+						<reference key="destination" ref="1045546335"/>
 					</object>
 					<int key="connectionID">185</int>
 				</object>
@@ -123,14 +123,14 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">tableView</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="572068095"/>
+						<reference key="destination" ref="565943962"/>
 					</object>
 					<int key="connectionID">188</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">dataSource</string>
-						<reference key="source" ref="572068095"/>
+						<reference key="source" ref="565943962"/>
 						<reference key="destination" ref="841351856"/>
 					</object>
 					<int key="connectionID">186</int>
@@ -138,7 +138,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
-						<reference key="source" ref="572068095"/>
+						<reference key="source" ref="565943962"/>
 						<reference key="destination" ref="841351856"/>
 					</object>
 					<int key="connectionID">187</int>
@@ -165,34 +165,34 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">170</int>
-						<reference key="object" ref="403115889"/>
+						<reference key="object" ref="1045546335"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="74460603"/>
-							<reference ref="572068095"/>
-							<reference ref="174720347"/>
-							<reference ref="824123732"/>
+							<reference ref="679436866"/>
+							<reference ref="565943962"/>
+							<reference ref="856780762"/>
+							<reference ref="427300331"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">181</int>
-						<reference key="object" ref="74460603"/>
-						<reference key="parent" ref="403115889"/>
+						<reference key="object" ref="679436866"/>
+						<reference key="parent" ref="1045546335"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">182</int>
-						<reference key="object" ref="572068095"/>
-						<reference key="parent" ref="403115889"/>
+						<reference key="object" ref="565943962"/>
+						<reference key="parent" ref="1045546335"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">183</int>
-						<reference key="object" ref="174720347"/>
-						<reference key="parent" ref="403115889"/>
+						<reference key="object" ref="856780762"/>
+						<reference key="parent" ref="1045546335"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">184</int>
-						<reference key="object" ref="824123732"/>
-						<reference key="parent" ref="403115889"/>
+						<reference key="object" ref="427300331"/>
+						<reference key="parent" ref="1045546335"/>
 					</object>
 				</array>
 			</object>
@@ -219,9 +219,9 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="motions_effects_picker_bg_horizon.png">{112, 364}</string>
-			<string key="motions_effects_picker_selected.png">{152, 156}</string>
-			<string key="motions_effects_picker_shadow_horizon.png">{112, 364}</string>
+			<string key="motions_effects_picker_bg_horizon.png">{16, 16}</string>
+			<string key="motions_effects_picker_selected.png">{16, 16}</string>
+			<string key="motions_effects_picker_shadow_horizon.png">{16, 16}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1875</string>
 	</data>

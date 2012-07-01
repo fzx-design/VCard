@@ -15,7 +15,9 @@
 
 @property (nonatomic, strong) IBOutlet UIButton *relationshipButton;
 @property (nonatomic, strong) IBOutlet UIButton *moreInfoButton;
+@property (nonatomic, strong) IBOutlet UIButton *mentionButton;
 
 - (IBAction)didClickRelationButton:(UIButton *)sender;
+- (IBAction)didClickMentionButton:(UIButton *)sender;
 
 @end

@@ -136,7 +136,7 @@
     [self.view resetWidth:384.0];
     [self.backgroundView resetWidth:431.0];
     
-    [self showStatuses:nil];
+//    [self showStatuses:nil];
     
     [self setCheckButtonEnabled:YES];
 }
@@ -159,11 +159,12 @@
     self.checkFollowersButton.selected = YES;
     self.checkStatusesButton.selected = NO;
     self.checkFriendsButton.selected = NO;
-    
     [self.backgroundView insertSubview:self.followerController.view belowSubview:self.topShadowImageView];
     self.followerController.tableView.scrollsToTop = YES;
-    [self.statusController.view removeFromSuperview];
-    self.statusController.tableView.scrollsToTop = NO;
+    if (_statusController) {
+        [self.statusController.view removeFromSuperview];
+        self.statusController.tableView.scrollsToTop = NO;
+    }
     if (_friendController) {
         [self.friendController.view removeFromSuperview];
         self.friendController.tableView.scrollsToTop = NO;
@@ -176,9 +177,11 @@
     self.checkStatusesButton.selected = NO;
     self.checkFriendsButton.selected = YES;
     [self.backgroundView insertSubview:self.friendController.view belowSubview:self.topShadowImageView];
-    self.friendController.tableView.scrollsToTop = YES;
-    [self.statusController.view removeFromSuperview];
-    self.statusController.tableView.scrollsToTop = NO;
+    self.friendController.tableView.scrollsToTop = YES;    
+    if (_statusController) {
+        [self.statusController.view removeFromSuperview];
+        self.statusController.tableView.scrollsToTop = NO;
+    }
     if (_followerController) {
         [self.followerController.view removeFromSuperview];
         self.followerController.tableView.scrollsToTop = NO;

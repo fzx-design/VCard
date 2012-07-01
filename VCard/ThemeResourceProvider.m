@@ -55,5 +55,16 @@
                       forState:UIControlStateHighlighted];
 }
 
++ (void)configButtonUnreadIndicator:(UIButton *)button
+{
+    UIEdgeInsets insets = UIEdgeInsetsMake(0.0, 11.0, 0.0, 11.0);
+    [button setBackgroundImage:[[UIImage imageNamed:kRLButtonUnreadIndicatorBG] resizableImageWithCapInsets:insets]
+                      forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:kRLButtonUnreadIndicatorBG] resizableImageWithCapInsets:insets]
+                      forState:UIControlStateHighlighted];
+    [button setBackgroundImage:[[UIImage imageNamed:kRLButtonUnreadIndicatorBG] resizableImageWithCapInsets:insets]
+                      forState:UIControlStateDisabled];
+}
+
 
 @end

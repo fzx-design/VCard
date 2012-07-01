@@ -44,12 +44,11 @@
 								<reference key="NSNextResponder" ref="615273713"/>
 								<int key="NSvFlags">292</int>
 								<array class="NSMutableArray" key="NSSubviews">
-									<object class="IBUIImageView" id="782459552">
+									<object class="IBUIImageView" id="106018436">
 										<reference key="NSNextResponder" ref="380640804"/>
 										<int key="NSvFlags">292</int>
 										<string key="NSFrameSize">{80, 80}</string>
 										<reference key="NSSuperview" ref="380640804"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -59,7 +58,7 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{-5, -3}, {90, 90}}</string>
 										<reference key="NSSuperview" ref="380640804"/>
-										<reference key="NSNextKeyView" ref="782459552"/>
+										<reference key="NSNextKeyView" ref="106018436"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -109,7 +108,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">thumbnailImageView</string>
 						<reference key="source" ref="122098843"/>
-						<reference key="destination" ref="782459552"/>
+						<reference key="destination" ref="106018436"/>
 					</object>
 					<int key="connectionID">25</int>
 				</object>
@@ -146,7 +145,7 @@
 						<reference key="object" ref="380640804"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="1021964689"/>
-							<reference ref="782459552"/>
+							<reference ref="106018436"/>
 						</array>
 						<reference key="parent" ref="122098843"/>
 					</object>
@@ -157,7 +156,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">24</int>
-						<reference key="object" ref="782459552"/>
+						<reference key="object" ref="106018436"/>
 						<reference key="parent" ref="380640804"/>
 					</object>
 				</array>
@@ -189,7 +188,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NS.key.0">motions_sample_frame.png</string>
-			<string key="NS.object.0">{90, 90}</string>
+			<string key="NS.object.0">{16, 16}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">1875</string>
 	</data>

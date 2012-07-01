@@ -21,6 +21,7 @@
 #import "UIApplication+Addition.h"
 #import "CommentViewController.h"
 #import "SelfCommentViewController.h"
+#import "SelfProfileViewController.h"
 
 @interface CastViewController () {
     BOOL _loading;
@@ -69,7 +70,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
-    _coreDataIdentifier = kCoreDataIdentifierDefault;    
+    _coreDataIdentifier = kCoreDataIdentifierDefault;
 //    [self.fetchedResultsController performFetch:nil];
 //    [self setUpWaterflowView];
     [self setUpVariables];
@@ -134,6 +135,22 @@
                    name:kNotificationNameShouldDeleteComment
                  object:nil];
     
+    [center addObserver:self
+               selector:@selector(updateUnreadStatusCount)
+                   name:kNotificationNameShouldUpdateUnreadStatusCount
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(updateUnreadCommentCount)
+                   name:kNotificationNameShouldUpdateUnreadCommentCount
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(updateUnreadMentionCount)
+                   name:kNotificationNameShouldUpdateUnreadMentionCount
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(updateUnreadFollowCount)
+                   name:kNotificationNameShouldUpdateUnreadFollowCount
+                 object:nil];
 }
 
 - (void)viewDidUnload
@@ -164,7 +181,9 @@
     [self.waterflowView addSubview:_pullView];
     [self.waterflowView addSubview:_loadMoreView];
     
-    [self refresh];
+    _refreshing = YES;
+    [self loadMoreData];
+    [self updateUnreadStatusCount];
 }
 
 #pragma mark - Notification
@@ -236,41 +255,54 @@
     
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusRepost pageDescription:status.statusID];
 }
+
 - (void)showSelfCommentList:(NSNotification *)notification
 {
     NSDictionary *dictionary = notification.object;
-    
     NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
     int index = indexString.intValue;
-    
-    SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfCommentViewController"];
-    vc.currentUser = self.currentUser;
-    
-    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:@""];
+    [self showSelfCommentListWithStackIndex:index];
 }
 
 - (void)showSelfMentionList:(NSNotification *)notification
 {
     NSDictionary *dictionary = notification.object;
-    
     NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
     int index = indexString.intValue;
-    
+    [self showSelfMentionListWithStackIndex:index];
+}
+
+- (void)showSelfCommentListWithStackIndex:(int)index
+{
+    SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfCommentViewController"];
+    vc.currentUser = self.currentUser;
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:@""];
+}
+
+- (void)showSelfMentionListWithStackIndex:(int)index
+{
     SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
     vc.currentUser = self.currentUser;
-    
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:@""];
 }
 
+- (void)showSelfProfileWithStackIndex:(int)index
+{
+    SelfProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfProfileViewController"];
+    vc.currentUser = self.currentUser;
+    vc.user = self.currentUser;
+    vc.shouldShowFollowerList = YES;
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:self.currentUser.screenName];
+}
+
+
 - (void)hideWaterflowView
 {
-//    self.waterflowView.alpha = 0.0;
-//    _stackViewController.view.backgroundColor = [UIColor clearColor];
+    _stackViewController.view.backgroundColor = [UIColor clearColor];
 }
 
 - (void)showWaterflowView
 {
-//    self.waterflowView.alpha = 1.0;
     _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
 }
 
@@ -286,6 +318,79 @@
 {
     NSString *commentID = notification.object;
     [Comment deleteCommentWithID:commentID inManagedObjectContext:self.managedObjectContext withObject:kCoreDataIdentifierDefault];
+}
+
+#pragma mark Handle Unread Count Update
+- (void)updateUnreadStatusCount
+{
+    int unreadStatusCount = self.currentUser.unreadStatusCount.intValue;
+    if (unreadStatusCount != 0) {
+        _unreadCountButton.hidden = NO;
+        [_unreadCountButton setCount:unreadStatusCount];
+    }
+}
+
+- (void)updateUnreadCommentCount
+{
+    int unreadCommentCount = self.currentUser.unreadCommentCount.intValue;
+    if (unreadCommentCount != _unreadCommentIndicatorButton.previousCount) {
+        _unreadCommentIndicatorButton.previousCount = unreadCommentCount;
+        if (_unreadCommentIndicatorButton.hidden) {
+            [_unreadIndicatorView addNewIndicator:_unreadCommentIndicatorButton];
+        } else {
+            if (unreadCommentCount == 0) {
+                [_unreadIndicatorView removeIndicator:_unreadCommentIndicatorButton];
+            } else {
+                [_unreadCommentIndicatorButton showIndicatorUpdatedAnimation];
+            }
+        }
+        NSString *content = [NSString stringWithFormat:@"     %i 条新评论", unreadCommentCount];
+        [_unreadCommentIndicatorButton setTitle:content forState:UIControlStateNormal];
+        [_unreadCommentIndicatorButton setTitle:content forState:UIControlStateHighlighted];
+        [_unreadCommentIndicatorButton setTitle:content forState:UIControlStateDisabled];
+    }
+}
+
+- (void)updateUnreadMentionCount
+{
+    int unreadMentionCount = self.currentUser.unreadMentionCount.intValue;
+    if (unreadMentionCount != _unreadMentionIndicatorButton.previousCount) {
+        _unreadMentionIndicatorButton.previousCount = unreadMentionCount;
+        if (_unreadMentionIndicatorButton.hidden) {
+            [_unreadIndicatorView addNewIndicator:_unreadMentionIndicatorButton];
+        } else {
+            if (unreadMentionCount == 0) {
+                [_unreadIndicatorView removeIndicator:_unreadMentionIndicatorButton];
+            } else {
+                [_unreadMentionIndicatorButton showIndicatorUpdatedAnimation];
+            }
+        }
+        NSString *content = [NSString stringWithFormat:@"     %i 条微博提到我", unreadMentionCount];
+        [_unreadMentionIndicatorButton setTitle:content forState:UIControlStateNormal];
+        [_unreadMentionIndicatorButton setTitle:content forState:UIControlStateHighlighted];
+        [_unreadMentionIndicatorButton setTitle:content forState:UIControlStateDisabled];
+    }
+}
+
+- (void)updateUnreadFollowCount
+{
+    int unreadFollowCount = self.currentUser.unreadFollowingCount.intValue;
+    if (unreadFollowCount != _unreadFollowerIndicatorButton.previousCount) {
+        _unreadFollowerIndicatorButton.previousCount = unreadFollowCount;
+        if (_unreadFollowerIndicatorButton.hidden) {
+            [_unreadIndicatorView addNewIndicator:_unreadFollowerIndicatorButton];
+        } else {
+            if (unreadFollowCount == 0) {
+                [_unreadIndicatorView removeIndicator:_unreadFollowerIndicatorButton];
+            } else {
+                [_unreadFollowerIndicatorButton showIndicatorUpdatedAnimation];
+            }
+        }
+        NSString *content = [NSString stringWithFormat:@"     %i 位新粉丝", unreadFollowCount];
+        [_unreadFollowerIndicatorButton setTitle:content forState:UIControlStateNormal];
+        [_unreadFollowerIndicatorButton setTitle:content forState:UIControlStateHighlighted];
+        [_unreadFollowerIndicatorButton setTitle:content forState:UIControlStateDisabled];
+    }
 }
 
 #pragma mark - IBActions
@@ -315,6 +420,8 @@
         _refreshIndicatorView.alpha = 1.0;
         self.refreshButton.userInteractionEnabled = YES;
     }];
+    
+    [self resetUnreadCountWithType:kWBClientResetCountTypeStatus];
 }
 
 #pragma mark Post
@@ -368,12 +475,44 @@
     
 }
 
+#pragma mark Unread Indicator Button Actions
+- (IBAction)didClickUnreadCommentButton:(UnreadIndicatorButton *)sender
+{
+    [self showSelfCommentListWithStackIndex:[_stackViewController stackTopIndex]];
+    [self resetUnreadCountWithType:kWBClientResetCountTypeComment];
+    [_unreadIndicatorView removeIndicator:sender];
+    sender.previousCount = 0;
+}
+
+- (IBAction)didClickUnreadFollowerButton:(UnreadIndicatorButton *)sender
+{
+    [self showSelfProfileWithStackIndex:[_stackViewController stackTopIndex]];
+    [self resetUnreadCountWithType:kWBClientResetCountTypeFollower];
+    [_unreadIndicatorView removeIndicator:sender];
+    sender.previousCount = 0;
+}
+
+- (IBAction)didClickUnreadMentionButton:(UnreadIndicatorButton *)sender
+{
+    [self showSelfMentionListWithStackIndex:[_stackViewController stackTopIndex]];
+    [self resetUnreadCountWithType:kWBClientResetCountTypeMention];
+    [_unreadIndicatorView removeIndicator:sender];
+    sender.previousCount = 0;
+}
+
+
 
 #pragma mark - Data Methods
 - (void)refresh
 {
-    _refreshing = YES;
-    [self loadMoreData];
+    _unreadCountButton.hidden = YES;
+    int unreadStatusCount = self.currentUser.unreadStatusCount.intValue;
+    if (unreadStatusCount != 0) {
+        _refreshing = YES;
+        [self loadMoreData];
+    } else {
+        [_pullView performSelector:@selector(finishedLoading) withObject:nil afterDelay:1.0];
+    }
 }
 
 - (void)loadMoreData
@@ -388,6 +527,7 @@
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             NSArray *dictArray = client.responseJSONObject;
+            
             for (NSDictionary *dict in dictArray) {
                 Status *newStatus = nil;
                 newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
@@ -405,12 +545,6 @@
             [self.fetchedResultsController performFetch:nil];
             if (_refreshing) {
                 [self refreshEnded];
-                int count = self.fetchedResultsController.fetchedObjects.count - 1;
-                for (int i = dictArray.count - 1;i < count ; i++) {
-                    [Status deleteObject:(Status *)[self.fetchedResultsController.fetchedObjects lastObject] inManagedObjectContext:self.managedObjectContext];
-                    [self.managedObjectContext processPendingChanges];
-                    [self.fetchedResultsController performFetch:nil];
-                }
                 [self.waterflowView refresh];
             } else {
                 [self.waterflowView reloadData];
@@ -425,8 +559,9 @@
         _refreshing = NO;
     }];
     
-    long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue;
-    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
+    long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue - 1;
+    maxID = maxID < 0 ? 0 : maxID;
+    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID];
     
     [client getFriendsTimelineSinceID:nil 
                                 maxID:maxIDString
@@ -435,8 +570,27 @@
                               feature:0];
 }
 
+- (void)resetUnreadCountWithType:(NSString *)type
+{
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client){
+        if (!client.hasError) {
+            if ([type isEqualToString:kWBClientResetCountTypeComment]) {
+                self.currentUser.unreadCommentCount = [NSNumber numberWithInt:0];
+            } else if ([type isEqualToString:kWBClientResetCountTypeFollower]) {
+                self.currentUser.unreadFollowingCount = [NSNumber numberWithInt:0];
+            } else if ([type isEqualToString:kWBClientResetCountTypeMention]) {
+                self.currentUser.unreadMentionCount = [NSNumber numberWithInt:0];
+            } else if ([type isEqualToString:kWBClientResetCountTypeStatus]){
+                self.currentUser.unreadStatusCount = [NSNumber numberWithInt:0];
+            }
+        }
+    }];
+    [client resetUnreadCount:type];
+}
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration 
 {
     [self.waterflowView adjustViewsForOrientation:toInterfaceOrientation];

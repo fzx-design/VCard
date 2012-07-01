@@ -57,7 +57,7 @@
 						<array class="NSMutableArray" key="NSSubviews"/>
 						<string key="NSFrame">{{16, 0}, {80, 360}}</string>
 						<reference key="NSSuperview" ref="157333664"/>
-						<reference key="NSNextKeyView" ref="942553657"/>
+						<reference key="NSNextKeyView" ref="287136733"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="964686790">
 							<int key="NSColorSpace">3</int>
@@ -73,7 +73,7 @@
 						<float key="IBUISectionHeaderHeight">22</float>
 						<float key="IBUISectionFooterHeight">22</float>
 					</object>
-					<object class="IBUIScrollView" id="942553657">
+					<object class="IBUIScrollView" id="287136733">
 						<reference key="NSNextResponder" ref="157333664"/>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{16, 142}, {80, 80}}</string>
@@ -184,7 +184,7 @@
 							<reference ref="888002954"/>
 							<reference ref="73744367"/>
 							<reference ref="312728808"/>
-							<reference ref="942553657"/>
+							<reference ref="287136733"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -210,7 +210,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">194</int>
-						<reference key="object" ref="942553657"/>
+						<reference key="object" ref="287136733"/>
 						<reference key="parent" ref="157333664"/>
 					</object>
 				</array>
@@ -239,9 +239,9 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="motions_effects_picker_bg_horizon.png">{112, 364}</string>
-			<string key="motions_effects_picker_selected.png">{152, 156}</string>
-			<string key="motions_effects_picker_shadow_horizon.png">{112, 364}</string>
+			<string key="motions_effects_picker_bg_horizon.png">{16, 16}</string>
+			<string key="motions_effects_picker_selected.png">{16, 16}</string>
+			<string key="motions_effects_picker_shadow_horizon.png">{16, 16}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1875</string>
 	</data>

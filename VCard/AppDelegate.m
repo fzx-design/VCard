@@ -24,6 +24,7 @@
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:30];
 	[dict setObject:[NSNumber numberWithBool:YES] forKey:kUserDefaultFirstTime];
     [dict setObject:[NSNumber numberWithBool:NO] forKey:kUserDefaultAuthorized];
+	[dict setObject:[NSNumber numberWithInt:10] forKey:kUserDefaultKeyRefreshingInterval];
 	[userDefault registerDefaults:dict];
 }
 

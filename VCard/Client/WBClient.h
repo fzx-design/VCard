@@ -7,8 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "WBRequest.h"
+
+#define kWBClientResetCountTypeStatus   @"status"
+#define kWBClientResetCountTypeFollower @"follower"
+#define kWBClientResetCountTypeComment  @"cmt"
+#define kWBClientResetCountTypeMention  @"mention_status"
 
 typedef enum {
     RepostWeiboTypeCommentNone      = 0,
@@ -16,6 +20,7 @@ typedef enum {
     RepostWeiboTypeCommentOrigin    = 2,
     RepostWeiboTypeCommentBoth      = 3,
 } RepostWeiboType;
+
 
 @class WBClient;
 
@@ -159,6 +164,11 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                           page:(int)page
                          count:(int)count;
 
+- (void)getCommentsMentioningMeSinceID:(NSString *)sinceID
+                                 maxID:(NSString *)maxID
+                                  page:(int)page
+                                 count:(int)count;
+
 - (void)getMentionsSinceID:(NSString *)sinceID 
 					 maxID:(NSString *)maxID 
 					  page:(int)page 
@@ -178,5 +188,7 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 
 - (void)deleteStatus:(NSString *)statusID;
 - (void)deleteComment:(NSString *)commentID;
+- (void)getUnreadCount:(NSString *)userID;
+- (void)resetUnreadCount:(NSString *)type;
 
 @end

@@ -8,9 +8,16 @@
 
 #import "StackViewPageController.h"
 #import "ProfileStatusTableViewController.h"
+#import "SelfCommentTableViewController.h"
 
 @interface SelfMentionViewController : StackViewPageController
 
 @property (nonatomic, strong) ProfileStatusTableViewController *statusTableViewController;
+@property (nonatomic, strong) SelfCommentTableViewController *commentTableViewController;
+@property (nonatomic, strong) IBOutlet UIButton *checkCommentButton;
+@property (nonatomic, strong) IBOutlet UIButton *checkStatusButton;
+
+- (IBAction)didClickCheckCommentButton:(id)sender;
+- (IBAction)didClickCheckStatusButton:(id)sender;
 
 @end

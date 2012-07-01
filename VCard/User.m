@@ -2,7 +2,7 @@
 //  User.m
 //  VCard
 //
-//  Created by Gabriel Yeah on 12-6-25.
+//  Created by 海山 叶 on 12-6-29.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -25,6 +25,8 @@
 @dynamic gender;
 @dynamic largeAvatarURL;
 @dynamic location;
+@dynamic operatable;
+@dynamic operatedBy;
 @dynamic profileImageURL;
 @dynamic screenName;
 @dynamic selfDescription;
@@ -33,8 +35,10 @@
 @dynamic userID;
 @dynamic verified;
 @dynamic verifiedType;
-@dynamic operatedBy;
-@dynamic operatable;
+@dynamic unreadStatusCount;
+@dynamic unreadCommentCount;
+@dynamic unreadFollowingCount;
+@dynamic unreadMentionCount;
 @dynamic comments;
 @dynamic commentsToMe;
 @dynamic favorites;
@@ -55,7 +59,7 @@
     if (!result) {
         result = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:context];
     } else {
-//        NSLog(@"%@, %@", result.screenName, result.operatedBy);
+        //        NSLog(@"%@, %@", result.screenName, result.operatedBy);
     }
     
     result.updateDate = [NSDate date];
@@ -176,6 +180,5 @@
     }
     return type;
 }
-
 
 @end

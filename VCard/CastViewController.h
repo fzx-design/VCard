@@ -15,6 +15,9 @@
 #import "RefreshIndicatorView.h"
 #import "StackViewController.h"
 #import "PostViewController.h"
+#import "UnreadCountButton.h"
+#import "UnreadIndicatorButton.h"
+#import "UnreadIndicatorView.h"
 
 @interface CastViewController : CoreDataViewController <WaterflowViewDelegate, WaterflowViewDatasource, PullToRefreshViewDelegate, LoadMoreViewDelegate, StackViewControllerDelegate, UIScrollViewDelegate, PostViewControllerDelegate> {
     
@@ -43,11 +46,20 @@
 @property (nonatomic, strong) IBOutlet UIButton *createStatusButton;
 @property (nonatomic, strong) IBOutlet UIButton *refreshButton;
 @property (nonatomic, strong) IBOutlet UIButton *showProfileButton;
+@property (nonatomic, strong) IBOutlet UnreadCountButton *unreadCountButton;
+@property (nonatomic, strong) IBOutlet UnreadIndicatorButton *unreadCommentIndicatorButton;
+@property (nonatomic, strong) IBOutlet UnreadIndicatorButton *unreadFollowerIndicatorButton;
+@property (nonatomic, strong) IBOutlet UnreadIndicatorButton *unreadMentionIndicatorButton;
+@property (nonatomic, strong) IBOutlet UnreadIndicatorView *unreadIndicatorView;
 
 - (void)initialLoad;
 - (IBAction)showProfileButtonClicked:(id)sender;
 - (IBAction)refreshButtonClicked:(id)sender;
 - (IBAction)groupButtonClicked:(id)sender;
 - (IBAction)didClickCreateStatusButton:(UIButton *)sender;
+
+- (IBAction)didClickUnreadCommentButton:(UnreadIndicatorButton *)sender;
+- (IBAction)didClickUnreadFollowerButton:(UnreadIndicatorButton *)sender;
+- (IBAction)didClickUnreadMentionButton:(UnreadIndicatorButton *)sender;
 
 @end
