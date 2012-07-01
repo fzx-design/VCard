@@ -17,6 +17,8 @@
 #define MOTIONS_EDIT_ACTION_SHEET_SHOOT_INDEX    0
 #define MOTIONS_EDIT_ACTION_SHEET_ALBUM_INDEX    1
 
+#define FILTER_TABLE_VIEW_CENTER CGPointMake(77, 540)
+
 @interface MotionsEditViewController ()
 
 @property (nonatomic, assign, getter = isDirty) BOOL dirty;
@@ -29,12 +31,12 @@
 @property (nonatomic, readonly, getter = isFilterAdded) BOOL filterAdded;
 @property (nonatomic, strong) UIPopoverController *popoverController;
 @property (nonatomic, strong) UIActionSheet *actionSheet;
+@property (nonatomic, strong) MotionsFilterTableViewController *filterViewController;
 
 @end
 
 @implementation MotionsEditViewController
 
-@synthesize tableView = _tableView;
 @synthesize cropButton = _cropButton;
 @synthesize shadowAmountSlider = _shadowAmountSlider;
 @synthesize filterImageView = _filterImageView;
@@ -54,6 +56,7 @@
 @synthesize dirty = _dirty;
 @synthesize popoverController = _pc;
 @synthesize actionSheet = _actionSheet;
+@synthesize filterViewController = _filterViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -82,13 +85,13 @@
     self.capturedImageView.image = self.modifiedImage;
     [self configureSlider];
     [self configureButtons];
+    [self configureFilterViewController];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Dispose of any resources that can be recreated.
-    self.tableView = nil;
     self.cropButton = nil;
     self.shadowAmountSlider = nil;
     self.filterImageView = nil;
@@ -192,6 +195,13 @@
 }
 
 #pragma mark - UI methods
+
+- (void)configureFilterViewController {
+    self.filterViewController = [[MotionsFilterTableViewController alloc] initWithImage:self.modifiedImage];
+    self.filterViewController.delegate = self;
+    self.filterViewController.view.center = CGPointMake(77, 540);
+    [self.functionView addSubview:self.filterViewController.view];
+}
 
 - (void)dismissPopover {
     if(self.actionSheet) {
@@ -301,12 +311,6 @@
 
 - (IBAction)didClickFinishEditButton:(UIButton *)sender {
     [self.delegate editViewControllerDidFinishEditImage:self.modifiedImage];
-}
-
-#pragma mark - TableView delegate & data source
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
 }
 
 #pragma mark - CropImageViewController delegate

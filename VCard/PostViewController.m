@@ -739,7 +739,10 @@ typedef enum {
     UIActionSheet *actionSheet = nil;
     if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
         if(self.motionsImageView) {
-            [self showAlbumImagePicker];
+            MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:[UIImage imageNamed:@"Default-Landscape~ipad"]];
+            vc.delegate = self;
+            [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+            //[self showAlbumImagePicker];
         }
         else {
             actionSheet = [[UIActionSheet alloc] initWithTitle:nil

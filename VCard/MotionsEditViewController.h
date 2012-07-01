@@ -10,12 +10,12 @@
 #import "MultiInterfaceOrientationViewController.h"
 #import "FilterImageView.h"
 #import "CropImageViewController.h"
+#import "MotionsFilterTableViewController.h"
 
 @protocol MotionsEditViewControllerDelegate;
 
-@interface MotionsEditViewController : MultiInterfaceOrientationViewController <CropImageViewControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface MotionsEditViewController : MultiInterfaceOrientationViewController <CropImageViewControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MotionsFilterTableViewControllerDelegate>
 
-@property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UISlider *shadowAmountSlider;
 @property (nonatomic, strong) IBOutlet UIButton *cropButton;
 @property (nonatomic, strong) IBOutlet UIButton *changePictureButton;
