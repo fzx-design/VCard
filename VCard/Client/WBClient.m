@@ -311,14 +311,24 @@ static NSString *UserID = @"";
 - (void)getUser:(NSString *)userID_
 {
     self.path = @"users/show.json";
-    [self.params setObject:userID_ forKey:@"uid"];
+    if (userID_) {
+        [self.params setObject:userID_ forKey:@"uid"];
+    } else {
+        //TODO: Handle id nil error
+        return;
+    }
     [self loadNormalRequest];
 }
 
 - (void)getUserByScreenName:(NSString *)screenName_
 {
     self.path = @"users/show.json";
-    [self.params setObject:screenName_ forKey:@"screen_name"];
+    if (screenName_) {
+        [self.params setObject:screenName_ forKey:@"screen_name"];
+    } else {
+        //TODO: Handle id nil error
+        return;
+    }
     [self loadNormalRequest];
 }
 
@@ -589,7 +599,11 @@ static NSString *UserID = @"";
 - (void)follow:(NSString *)userID
 {
     self.path = @"friendships/create.json";
-    [self.params setObject:userID forKey:@"uid"];
+    if (userID) {
+        [self.params setObject:userID forKey:@"uid"];
+    } else {
+        //TODO: Handle id nil error
+    }
     self.postDataType = kWBRequestPostDataTypeNormal;
     self.httpMethod = HTTPMethodPost;
     [self loadNormalRequest];
@@ -598,7 +612,11 @@ static NSString *UserID = @"";
 - (void)unfollow:(NSString *)userID
 {
     self.path = @"friendships/destroy.json";
-    [self.params setObject:userID forKey:@"uid"];
+    if (userID) {
+        [self.params setObject:userID forKey:@"uid"];
+    } else {
+        //TODO: Handle id nil error
+    }
     self.postDataType = kWBRequestPostDataTypeNormal;
     self.httpMethod = HTTPMethodPost;
     [self loadNormalRequest];
@@ -607,7 +625,9 @@ static NSString *UserID = @"";
 - (void)favorite:(NSString *)statusID
 {
     self.path = @"favorites/create.json";
-    [self.params setObject:statusID forKey:@"id"];
+    if (statusID) {
+        [self.params setObject:statusID forKey:@"id"];
+    }
     self.postDataType = kWBRequestPostDataTypeNormal;
     self.httpMethod = HTTPMethodPost;
     [self loadNormalRequest];
@@ -616,7 +636,9 @@ static NSString *UserID = @"";
 - (void)unFavorite:(NSString *)statusID
 {
     self.path = @"favorites/destroy.json";
-    [self.params setObject:statusID forKey:@"id"];
+    if (statusID) {
+        [self.params setObject:statusID forKey:@"id"];
+    }
     self.postDataType = kWBRequestPostDataTypeNormal;
     self.httpMethod = HTTPMethodPost;
     [self loadNormalRequest];
@@ -625,7 +647,9 @@ static NSString *UserID = @"";
 - (void)deleteStatus:(NSString *)statusID
 {
     self.path = @"statuses/destroy.json";
-    [self.params setObject:statusID forKey:@"id"];
+    if (statusID) {
+        [self.params setObject:statusID forKey:@"id"];
+    }
     self.postDataType = kWBRequestPostDataTypeNormal;
     self.httpMethod = HTTPMethodPost;
     [self loadNormalRequest];
@@ -634,7 +658,9 @@ static NSString *UserID = @"";
 - (void)deleteComment:(NSString *)commentID
 {
     self.path = @"comments/destroy.json";
-    [self.params setObject:commentID forKey:@"cid"];
+    if (commentID) {
+        [self.params setObject:commentID forKey:@"cid"];
+    }
     self.postDataType = kWBRequestPostDataTypeNormal;
     self.httpMethod = HTTPMethodPost;
     [self loadNormalRequest];
