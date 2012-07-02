@@ -335,15 +335,19 @@
     int unreadCommentCount = self.currentUser.unreadCommentCount.intValue;
     if (unreadCommentCount != _unreadCommentIndicatorButton.previousCount) {
         _unreadCommentIndicatorButton.previousCount = unreadCommentCount;
-        if (_unreadCommentIndicatorButton.hidden) {
-            [_unreadIndicatorView addNewIndicator:_unreadCommentIndicatorButton];
-        } else {
-            if (unreadCommentCount == 0) {
+
+        if (unreadCommentCount == 0) {
+            if (!_unreadCommentIndicatorButton.hidden) {
                 [_unreadIndicatorView removeIndicator:_unreadCommentIndicatorButton];
+            }
+        } else {
+            if (_unreadCommentIndicatorButton.hidden) {
+                [_unreadIndicatorView addNewIndicator:_unreadCommentIndicatorButton];
             } else {
                 [_unreadCommentIndicatorButton showIndicatorUpdatedAnimation];
             }
         }
+        
         NSString *content = [NSString stringWithFormat:@"     %i 条新评论", unreadCommentCount];
         [_unreadCommentIndicatorButton setTitle:content forState:UIControlStateNormal];
         [_unreadCommentIndicatorButton setTitle:content forState:UIControlStateHighlighted];
@@ -356,15 +360,19 @@
     int unreadMentionCount = self.currentUser.unreadMentionCount.intValue;
     if (unreadMentionCount != _unreadMentionIndicatorButton.previousCount) {
         _unreadMentionIndicatorButton.previousCount = unreadMentionCount;
-        if (_unreadMentionIndicatorButton.hidden) {
-            [_unreadIndicatorView addNewIndicator:_unreadMentionIndicatorButton];
-        } else {
-            if (unreadMentionCount == 0) {
+
+        if (unreadMentionCount == 0) {
+            if (!_unreadMentionIndicatorButton.hidden) {
                 [_unreadIndicatorView removeIndicator:_unreadMentionIndicatorButton];
+            }
+        } else {
+            if (_unreadMentionIndicatorButton.hidden) {
+                [_unreadIndicatorView addNewIndicator:_unreadMentionIndicatorButton];
             } else {
                 [_unreadMentionIndicatorButton showIndicatorUpdatedAnimation];
             }
         }
+        
         NSString *content = [NSString stringWithFormat:@"     %i 条微博提到我", unreadMentionCount];
         [_unreadMentionIndicatorButton setTitle:content forState:UIControlStateNormal];
         [_unreadMentionIndicatorButton setTitle:content forState:UIControlStateHighlighted];
@@ -377,15 +385,19 @@
     int unreadFollowCount = self.currentUser.unreadFollowingCount.intValue;
     if (unreadFollowCount != _unreadFollowerIndicatorButton.previousCount) {
         _unreadFollowerIndicatorButton.previousCount = unreadFollowCount;
-        if (_unreadFollowerIndicatorButton.hidden) {
-            [_unreadIndicatorView addNewIndicator:_unreadFollowerIndicatorButton];
-        } else {
-            if (unreadFollowCount == 0) {
+        
+        if (unreadFollowCount == 0) {
+            if (!_unreadFollowerIndicatorButton.hidden) {
                 [_unreadIndicatorView removeIndicator:_unreadFollowerIndicatorButton];
+            }
+        } else {
+            if (_unreadFollowerIndicatorButton.hidden) {
+                [_unreadIndicatorView addNewIndicator:_unreadFollowerIndicatorButton];
             } else {
                 [_unreadFollowerIndicatorButton showIndicatorUpdatedAnimation];
             }
         }
+        
         NSString *content = [NSString stringWithFormat:@"     %i 位新粉丝", unreadFollowCount];
         [_unreadFollowerIndicatorButton setTitle:content forState:UIControlStateNormal];
         [_unreadFollowerIndicatorButton setTitle:content forState:UIControlStateHighlighted];
