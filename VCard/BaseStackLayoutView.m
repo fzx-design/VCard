@@ -32,7 +32,7 @@
         _shadowImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         _shadowImageView.opaque = YES;
         self.opaque = YES;
-        [self addSubview:_shadowImageView];
+        [self insertSubview:_shadowImageView atIndex:1];
     }
     return self;
 }
