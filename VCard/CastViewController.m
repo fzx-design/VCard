@@ -28,7 +28,6 @@
     NSInteger _nextPage;
     BOOL _hasMoreViews;
     BOOL _refreshing;
-    BOOL _inStackView;
 }
 
 @property (nonatomic, strong) UIView *coverView;
@@ -466,7 +465,7 @@
 {
     BOOL stackViewExists = _stackViewController != nil;
     if (!stackViewExists) {
-        self.waterflowView.scrollsToTop = NO;
+        [self enterStackView];
         
         _stackViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewController"];
         [_stackViewController.view resetOrigin:CGPointMake(0.0, 43.0)];
@@ -663,6 +662,48 @@
     return @"CardTableViewCell";
 }
 
+#pragma mark - Stack View Controller Delegate
+- (void)clearStack
+{
+    [_coverView removeFromSuperview];
+    [UIView animateWithDuration:0.3 animations:^{
+        _stackViewController.view.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [_stackViewController.view removeFromSuperview];
+        _stackViewController = nil;
+        [User deleteAllTempUsersInManagedObjectContext:self.managedObjectContext];
+        [Comment deleteAllTempCommentsInManagedObjectContext:self.managedObjectContext];
+        [Status deleteAllTempStatusesInManagedObjectContext:self.managedObjectContext];
+        
+        [self exitStackView];
+    }];
+}
+
+- (void)enterStackView
+{
+    _waterflowView.scrollsToTop = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+        _unreadCountButton.alpha = 0.0;
+    }];
+}
+
+- (void)exitStackView
+{
+    _waterflowView.scrollsToTop = YES;
+    [UIView animateWithDuration:0.3 animations:^{
+        _unreadCountButton.alpha = 1.0;
+    }];
+}
+
+- (void)stackViewScrolledWithOffset:(CGFloat)scrollViewOffsetX width:(CGFloat)scrollViewWidth
+{
+    CGFloat screenWidth = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? 768.0 : 1024.0;
+    CGFloat screenHeight = screenWidth == 768.0 ? 1024.0 : 768.0;
+    CGFloat originX = screenWidth - scrollViewOffsetX;
+    CGFloat width = scrollViewWidth > screenWidth ? screenWidth : scrollViewWidth;
+
+    [_coverView setFrame:CGRectMake(originX, 0.0, width, screenHeight)];
+}
 
 #pragma mark - PullToRefreshViewDelegate
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view
@@ -733,41 +774,6 @@
 {
     Status *status = (Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:index_];
     return [CardViewController heightForStatus:status andImageHeight:imageHeight_];
-}
-
-#pragma mark-
-#pragma mark- WaterflowDelegate
-
-- (void)flowView:(WaterflowView *)flowView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
-#pragma mark - Stack View Controller Delegate
-- (void)clearStack
-{
-    [_coverView removeFromSuperview];
-    [UIView animateWithDuration:0.3 animations:^{
-        _stackViewController.view.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        [_stackViewController.view removeFromSuperview];
-        _stackViewController = nil;
-        [User deleteAllTempUsersInManagedObjectContext:self.managedObjectContext];
-        [Comment deleteAllTempCommentsInManagedObjectContext:self.managedObjectContext];
-        [Status deleteAllTempStatusesInManagedObjectContext:self.managedObjectContext];
-        
-        self.waterflowView.scrollsToTop = YES;
-    }];
-}
-
-- (void)stackViewScrolledWithOffset:(CGFloat)scrollViewOffsetX width:(CGFloat)scrollViewWidth
-{
-    CGFloat screenWidth = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? 768.0 : 1024.0;
-    CGFloat screenHeight = screenWidth == 768.0 ? 1024.0 : 768.0;
-    CGFloat originX = screenWidth - scrollViewOffsetX;
-    CGFloat width = scrollViewWidth > screenWidth ? screenWidth : scrollViewWidth;
-
-    [_coverView setFrame:CGRectMake(originX, 0.0, width, screenHeight)];
 }
 
 #pragma mark - PostViewController Delegate
