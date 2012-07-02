@@ -182,8 +182,8 @@
     [self.waterflowView addSubview:_loadMoreView];
     
     _refreshing = YES;
+    _unreadCountButton.hidden = YES;
     [self loadMoreData];
-    [self updateUnreadStatusCount];
 }
 
 #pragma mark - Notification
@@ -515,6 +515,13 @@
     }
 }
 
+- (void)clearData
+{
+    for (Status *status in self.fetchedResultsController.fetchedObjects) {
+        [self.managedObjectContext deleteObject:status];
+    }
+}
+
 - (void)loadMoreData
 {
     if (_loading) {
@@ -527,6 +534,10 @@
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             NSArray *dictArray = client.responseJSONObject;
+            
+            if (_refreshing) {
+                [self clearData];
+            }
             
             for (NSDictionary *dict in dictArray) {
                 Status *newStatus = nil;
