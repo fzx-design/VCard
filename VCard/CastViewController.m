@@ -28,6 +28,7 @@
     NSInteger _nextPage;
     BOOL _hasMoreViews;
     BOOL _refreshing;
+    BOOL _inStackView;
 }
 
 @property (nonatomic, strong) UIView *coverView;

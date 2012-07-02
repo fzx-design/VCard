@@ -16,6 +16,7 @@
 @interface StackView () {
     NSInteger _currentPageIndex;
     CGFloat _previousOffset;
+    BOOL _bounceBack;
     BOOL _covered;
     BOOL _shouldRecordDeceleratingFirst;
     BOOL _shouldRecordDeceleratingSecond;
@@ -154,6 +155,9 @@
         _shouldRecordDeceleratingSecond = YES;
     } else if (_shouldRecordDeceleratingSecond){
         CGFloat offset = self.scrollView.contentOffset.x - _previousOffset;
+        if (_bounceBack) {
+            offset = -(abs(offset));
+        }
         [_delegate stackViewWillBeginDecelerating:offset];
         _shouldRecordDeceleratingSecond = NO;
     }
@@ -199,6 +203,7 @@
     _shouldRecordDeceleratingFirst = decelerate;
     if (decelerate) {
         _previousOffset = scrollView.contentOffset.x;
+        _bounceBack = scrollView.contentOffset.x > scrollView.contentSize.width - ScrollViewWidth;
     }
 }
 
