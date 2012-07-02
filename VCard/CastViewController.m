@@ -444,9 +444,11 @@
 }
 
 #pragma mark Stack View
-- (IBAction)groupButtonClicked:(id)sender
+- (IBAction)didClickGroupButton:(id)sender
 {
-//    [self createStackView];
+    _groupButton.selected = !_groupButton.selected;
+    NSString *notificationName = _groupButton.selected ? kNotificationNameShouldShowGroup : kNotificationNameShouldHideGroup;
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 }
 
 - (IBAction)showProfileButtonClicked:(id)sender

@@ -191,4 +191,6 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 - (void)getUnreadCount:(NSString *)userID;
 - (void)resetUnreadCount:(NSString *)type;
 
+- (void)searchUser:(NSString *)q;
+
 @end

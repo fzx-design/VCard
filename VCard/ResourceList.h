@@ -80,6 +80,9 @@
 #define kNotificationNameShouldDeleteStatus             @"kNotificationNameShouldDeleteStatus"
 #define kNotificationNameShouldDeleteComment            @"kNotificationNameShouldDeleteComment"
 
+#define kNotificationNameShouldShowGroup                @"kNotificationNameShouldShowGroup"
+#define kNotificationNameShouldHideGroup                @"kNotificationNameShouldHideGroup"
+
 #define kNotificationNameStackViewCoveredWholeScreen    @"kNotificationNameStackViewCoveredWholeScreen"
 #define kNotificationNameStackViewDoNotCoverWholeScreen @"kNotificationNameStackViewDoNotCoverWholeScreen"
 

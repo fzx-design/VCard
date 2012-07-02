@@ -367,6 +367,110 @@
             </objects>
             <point key="canvasLocation" x="-2676" y="-1086"/>
         </scene>
+        <!--Shelf View Controller-->
+        <scene sceneID="Ovh-fL-cqv">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EU1-j3-oSR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="ShelfViewController" id="bkR-vE-OC4" customClass="ShelfViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jFN-z6-t1C">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="149"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="top" image="shelf_bg_leather.png" id="mUD-3e-mMK">
+                                <rect key="frame" x="0.0" y="-3" width="768" height="149"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="f9x-Qa-0dm">
+                                <rect key="frame" x="6" y="7" width="64" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <size key="titleShadowOffset" width="0.0" height="1"/>
+                                <state key="normal" title="更多设置">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="mode_segement_bg.png" id="WQ3-ao-azQ">
+                                <rect key="frame" x="334" y="46" width="100" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WUx-ZP-e1r">
+                                <rect key="frame" x="336" y="47" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="icon_text_mode.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" backgroundImage="mode_segement_selected_l_bg.png"/>
+                                <state key="highlighted" backgroundImage="mode_segement_selected_l_bg.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cwh-ob-hUQ">
+                                <rect key="frame" x="383" y="47" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="icon_image.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" backgroundImage="mode_segement_selected_r_bg.png"/>
+                                <state key="highlighted" backgroundImage="mode_segement_selected_r_bg.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="slider_horizon_bg.png" id="Jlq-Ue-4e4">
+                                <rect key="frame" x="80" y="42" width="212" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="slider_horizon_bg.png" id="c5G-yo-9KL">
+                                <rect key="frame" x="477" y="42" width="212" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="LXW-AW-8NX">
+                                <rect key="frame" x="481" y="62" width="199" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="z7E-Qg-bKO">
+                                <rect key="frame" x="84" y="62" width="199" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </slider>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="jMK-vR-g1v">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="149"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="shelf_board.png" id="cNE-dO-ahN">
+                                <rect key="frame" x="0.0" y="118" width="768" height="31"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="3gZ-Vm-jz5">
+                                <rect key="frame" x="365" y="0.0" width="38" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="brightnessSlider" destination="LXW-AW-8NX" id="Eeq-f8-e6s"/>
+                        <outlet property="detailSettingButton" destination="f9x-Qa-0dm" id="b95-3V-fYJ"/>
+                        <outlet property="fontSizeSlider" destination="z7E-Qg-bKO" id="DYd-Oa-FUL"/>
+                        <outlet property="pageControl" destination="3gZ-Vm-jz5" id="e8r-yV-3pf"/>
+                        <outlet property="scrollView" destination="jMK-vR-g1v" id="LIP-cg-38j"/>
+                        <outlet property="switchToPicButton" destination="cwh-ob-hUQ" id="Kwa-18-qBz"/>
+                        <outlet property="switchToTextButton" destination="WUx-ZP-e1r" id="ufO-zA-w9g"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-2201" y="-1399"/>
+        </scene>
         <!--Divider View Controller-->
         <scene sceneID="xOr-Zz-lin">
             <objects>
@@ -476,7 +580,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="groupButtonClicked:" destination="qGg-RJ-Vfa" eventType="touchUpInside" id="kaH-qn-do8"/>
+                                            <action selector="didClickGroupButton:" destination="qGg-RJ-Vfa" eventType="touchUpInside" id="N1x-p0-MZ2"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="21S-pA-gf9">
@@ -1866,13 +1970,21 @@
         <image name="comments_thread_down.png" width="334" height="24"/>
         <image name="comments_thread_up.png" width="334" height="22"/>
         <image name="following_segements_bg.png" width="384" height="76"/>
+        <image name="icon_image.png" width="30" height="30"/>
         <image name="icon_location.png" width="11" height="18"/>
+        <image name="icon_text_mode.png" width="30" height="30"/>
         <image name="imageview_placeholder.png" width="175" height="175"/>
         <image name="login_avatar_cover.png" width="247" height="286"/>
         <image name="login_card_bg.png" width="292" height="447"/>
+        <image name="mode_segement_bg.png" width="100" height="52"/>
+        <image name="mode_segement_selected_l_bg.png" width="50" height="50"/>
+        <image name="mode_segement_selected_r_bg.png" width="50" height="50"/>
         <image name="pattern_left.png" width="16" height="12"/>
         <image name="pattern_right.png" width="16" height="12"/>
         <image name="profile_info_bg.png" width="384" height="120"/>
+        <image name="shelf_bg_leather.png" width="1024" height="143"/>
+        <image name="shelf_board.png" width="1024" height="31"/>
+        <image name="slider_horizon_bg.png" width="212" height="60"/>
         <image name="stack_segements_hover.png" width="98" height="70"/>
         <image name="title_large.png" width="233" height="74"/>
         <image name="title_small.png" width="88" height="29"/>
@@ -1929,10 +2041,10 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CastViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didClickCreateStatusButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickGroupButton:"/>
                 <relationship kind="action" name="didClickUnreadCommentButton:" candidateClass="UnreadIndicatorButton"/>
                 <relationship kind="action" name="didClickUnreadFollowerButton:" candidateClass="UnreadIndicatorButton"/>
                 <relationship kind="action" name="didClickUnreadMentionButton:" candidateClass="UnreadIndicatorButton"/>
-                <relationship kind="action" name="groupButtonClicked:"/>
                 <relationship kind="action" name="refreshButtonClicked:"/>
                 <relationship kind="action" name="showProfileButtonClicked:"/>
                 <relationship kind="outlet" name="createStatusButton" candidateClass="UIButton"/>
@@ -2101,6 +2213,18 @@
                 <relationship kind="outlet" name="changeAvatarButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkCommentButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkMentionButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="ShelfViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShelfViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="brightnessSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="detailSettingButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="fontSizeSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="switchToPicButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="switchToTextButton" candidateClass="UIButton"/>
             </relationships>
         </class>
         <class className="StackView" superclassName="UIView">

@@ -55,7 +55,7 @@
 - (void)initialLoad;
 - (IBAction)showProfileButtonClicked:(id)sender;
 - (IBAction)refreshButtonClicked:(id)sender;
-- (IBAction)groupButtonClicked:(id)sender;
+- (IBAction)didClickGroupButton:(id)sender;
 - (IBAction)didClickCreateStatusButton:(UIButton *)sender;
 
 - (IBAction)didClickUnreadCommentButton:(UnreadIndicatorButton *)sender;

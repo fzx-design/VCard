@@ -691,6 +691,15 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
+- (void)searchUser:(NSString *)q
+{
+    self.path = @"search/users.json";
+    
+    [self.params setObject:@"Gabriel" forKey:@"q"];
+    
+    [self loadNormalRequest];
+}
+
 #pragma mark Request
 
 - (void)loadNormalRequest

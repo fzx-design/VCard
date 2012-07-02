@@ -142,6 +142,7 @@
 		18A6850C15370F3D00D58B7D /* imageview_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A6850A15370F3D00D58B7D /* imageview_placeholder.png */; };
 		18A6850D15370F3D00D58B7D /* imageview_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A6850B15370F3D00D58B7D /* imageview_placeholder@2x.png */; };
 		18A685171537110B00D58B7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A685161537110B00D58B7D /* QuartzCore.framework */; };
+		18A997E915A1AA8200C2E7A5 /* ShelfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A997E815A1AA8200C2E7A5 /* ShelfViewController.m */; };
 		18AC828E155B924700AD99C4 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC828B155B924700AD99C4 /* PullToRefreshView.m */; };
 		18BD24B6159A9B6600846C6E /* UserAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BD24B5159A9B6500846C6E /* UserAccountManager.m */; };
 		18BDD5A4159D9A8A005246F2 /* UnreadIndicatorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDD5A3159D9A8A005246F2 /* UnreadIndicatorButton.m */; };
@@ -932,6 +933,8 @@
 		18A6850A15370F3D00D58B7D /* imageview_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageview_placeholder.png; sourceTree = "<group>"; };
 		18A6850B15370F3D00D58B7D /* imageview_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "imageview_placeholder@2x.png"; sourceTree = "<group>"; };
 		18A685161537110B00D58B7D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		18A997E715A1AA8200C2E7A5 /* ShelfViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelfViewController.h; sourceTree = "<group>"; };
+		18A997E815A1AA8200C2E7A5 /* ShelfViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfViewController.m; sourceTree = "<group>"; };
 		18AC828A155B924700AD99C4 /* PullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshView.h; sourceTree = "<group>"; };
 		18AC828B155B924700AD99C4 /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
 		18BD24B4159A9B6500846C6E /* UserAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAccountManager.h; sourceTree = "<group>"; };
@@ -1821,8 +1824,6 @@
 				18DF3746156B5F0600C56685 /* DividerViewController.m */,
 				1811454A156F56B000B3BF21 /* RefreshIndicatorView.h */,
 				1811454B156F56B100B3BF21 /* RefreshIndicatorView.m */,
-				18E558FF153EF55600ECCA3B /* RootViewController.h */,
-				18E55900153EF55600ECCA3B /* RootViewController.m */,
 			);
 			name = CastView;
 			sourceTree = "<group>";
@@ -1868,6 +1869,15 @@
 				189F394A159D40CC00FD2E0F /* UnreadReminder.m */,
 			);
 			name = Basic;
+			sourceTree = "<group>";
+		};
+		18A997EB15A1AA8800C2E7A5 /* Shelf */ = {
+			isa = PBXGroup;
+			children = (
+				18A997E715A1AA8200C2E7A5 /* ShelfViewController.h */,
+				18A997E815A1AA8200C2E7A5 /* ShelfViewController.m */,
+			);
+			name = Shelf;
 			sourceTree = "<group>";
 		};
 		18DBAE471572EEFF00918ED4 /* WaterflowComponent */ = {
@@ -2004,12 +2014,15 @@
 				18E5592B153FA01300ECCA3B /* CoreDataTableViewController.m */,
 				18E55927153F9F5C00ECCA3B /* CoreDataViewController.h */,
 				18E55928153F9F5C00ECCA3B /* CoreDataViewController.m */,
+				18E558FF153EF55600ECCA3B /* RootViewController.h */,
+				18E55900153EF55600ECCA3B /* RootViewController.m */,
 				188BA4F01539AA9200344288 /* CastView */,
 				18E707F2153D3EEF0012092E /* CustomViews */,
 				E1097CF7157F998900BD0640 /* Emoticons */,
 				18A6850715370EB900D58B7D /* LoginComponent */,
 				E1097CF4157F997B00BD0640 /* Motions */,
 				E1097CF6157F998300BD0640 /* Post */,
+				18A997EB15A1AA8800C2E7A5 /* Shelf */,
 				18E34C9315706786006DCFF6 /* StackView */,
 			);
 			name = ViewControllers;
@@ -3676,6 +3689,7 @@
 				18EE8E28159DE6160032D69B /* Comment.m in Sources */,
 				E1AF111E15A01A67004236ED /* MotionsFilterCell.m in Sources */,
 				E1AF112115A01A67004236ED /* MotionsFilterTableViewController.m in Sources */,
+				18A997E915A1AA8200C2E7A5 /* ShelfViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

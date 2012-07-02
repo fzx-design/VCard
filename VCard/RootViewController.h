@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "CastViewController.h"
 #import "CoreDataViewController.h"
+#import "ShelfViewController.h"
 
 @interface RootViewController : CoreDataViewController {
-    
     CastViewController *_castViewController;
 }
 
-@property(nonatomic, strong) CastViewController *castViewController;
-
+@property (nonatomic, strong) CastViewController *castViewController;
+@property (nonatomic, strong) ShelfViewController *shelfViewController;
 
 @end
