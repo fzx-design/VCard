@@ -9,6 +9,8 @@
 #import "MotionsFilterTableViewController.h"
 
 #define FILTER_IMAGE_SIZE CGSizeMake(80, 80)
+#define TABLE_VIEW_CELL_HEIGHT      100
+#define TABLE_VIEW_CELL_REAL_HEIGHT 80
 
 @interface MotionsFilterTableViewController ()
 
@@ -62,12 +64,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 142)];
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 118)];
-    headerView.backgroundColor = [UIColor clearColor];
-    footerView.backgroundColor = [UIColor clearColor];
-    self.tableView.tableHeaderView = headerView;
-    self.tableView.tableFooterView = footerView;
+    [self configureTableView];
 }
 
 - (void)viewDidUnload
@@ -86,7 +83,35 @@
 #pragma mark - UI methods
 
 - (void)configureTableView {
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 142)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 118)];
+    headerView.backgroundColor = [UIColor clearColor];
+    footerView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableHeaderView = headerView;
+    self.tableView.tableFooterView = footerView;
     
+    self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
+}
+
+#pragma mark - Animations 
+
+- (void)tableViewSimulatePickerAnimation {
+    CGFloat contentOffset = self.tableView.contentOffset.y;
+    if(contentOffset < 0)
+        contentOffset = 0;
+    NSInteger index = contentOffset / TABLE_VIEW_CELL_HEIGHT;
+    CGFloat cellOffset = contentOffset - index * TABLE_VIEW_CELL_HEIGHT;
+    
+    NSLog(@"real offset %f, content offset %f, index %d", self.tableView.contentOffset.y, contentOffset, index);
+    
+    if(cellOffset > TABLE_VIEW_CELL_HEIGHT / 2) {
+        index += 1;
+    }
+    [UIView animateWithDuration:0.3f animations:^{
+        self.tableView.contentOffset = CGPointMake(0, index * TABLE_VIEW_CELL_HEIGHT);
+    } completion:^(BOOL finished) {
+        ;
+    }];
 }
 
 #pragma mark - UITableView delegate & data source
@@ -103,21 +128,23 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return 7;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100;
+    return TABLE_VIEW_CELL_HEIGHT;
 }
 
 #pragma mark - UIScrollView delegate
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    
+    if(!decelerate) {
+        [self tableViewSimulatePickerAnimation];
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    
+    [self tableViewSimulatePickerAnimation];
 }
 
 @end

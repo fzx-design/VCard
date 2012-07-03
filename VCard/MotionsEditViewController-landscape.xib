@@ -240,7 +240,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{47, 261}, {60, 70}}</string>
 								<reference key="NSSuperview" ref="19742546"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">1001</int>
@@ -591,11 +590,11 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="black_bar_bg_unit.png">{16, 16}</string>
-			<string key="button_finish_bg.png">{16, 16}</string>
-			<string key="motions_button_crop.png">{16, 16}</string>
-			<string key="motions_button_crop_done.png">{16, 16}</string>
-			<string key="motions_slider_bg.png">{16, 16}</string>
+			<string key="black_bar_bg_unit.png">{6, 67}</string>
+			<string key="button_finish_bg.png">{74, 30}</string>
+			<string key="motions_button_crop.png">{60, 70}</string>
+			<string key="motions_button_crop_done.png">{60, 70}</string>
+			<string key="motions_slider_bg.png">{60, 180}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1875</string>
 	</data>

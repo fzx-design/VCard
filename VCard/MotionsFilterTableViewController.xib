@@ -77,7 +77,6 @@
 						<int key="NSvFlags">293</int>
 						<string key="NSFrameSize">{112, 364}</string>
 						<reference key="NSSuperview" ref="1045546335"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -219,9 +218,9 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="motions_effects_picker_bg_horizon.png">{16, 16}</string>
-			<string key="motions_effects_picker_selected.png">{16, 16}</string>
-			<string key="motions_effects_picker_shadow_horizon.png">{16, 16}</string>
+			<string key="motions_effects_picker_bg_horizon.png">{112, 364}</string>
+			<string key="motions_effects_picker_selected.png">{152, 156}</string>
+			<string key="motions_effects_picker_shadow_horizon.png">{112, 364}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1875</string>
 	</data>

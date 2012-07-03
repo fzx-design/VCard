@@ -13,3 +13,4 @@
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailImageView;
 
 @end
+ 
