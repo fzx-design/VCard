@@ -136,20 +136,26 @@
 - (void)initViewWithImage:(UIImage *)image {
     [self.activityIndicator fadeIn];
     [self.activityIndicator startAnimating];
-    self.currentFilterInfo = nil;
-    self.cacheFilteredImage = nil;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *filteredImage = self.filteredImage;
         UIImage *targetImage = image;
+        self.currentFilterInfo = nil;
+        self.cacheFilteredImage = nil;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self resetSliders];
             [self currentImage:filteredImage targetImage:targetImage transitionAnimationWithCompletion:^{
                 [self configureFilterImageView:self.modifiedImage];
             }];
             
+            BOOL reloadFilterTableView = self.originalImage != image;
+            
             self.originalImage = image;
             self.modifiedImage = self.originalImage;
-            [self configureFilterTableViewController];
+            
+            if(reloadFilterTableView)
+                [self configureFilterTableViewController];
+            else
+                [self.filterViewController.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewRowAnimationTop animated:YES];
             
             [self.activityIndicator fadeOutWithCompletion:^{
                 [self.activityIndicator stopAnimating];
