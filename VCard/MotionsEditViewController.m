@@ -355,4 +355,11 @@
     self.popoverController = nil;
 }
 
+#pragma mark - 
+#pragma mark MotionsFilterTableViewController delegate
+
+- (void)filterTableViewController:(MotionsFilterTableViewController *)vc didSelectFilter:(MotionsFilterInfo *)filter {
+    
+}
+
 @end

@@ -11,21 +11,31 @@
 @implementation MotionsFilterCell
 
 @synthesize thumbnailImageView = _thumbnailImageView;
+@synthesize activityIndicator = _activityIndicator;
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+- (void)awakeFromNib {
+    [self.activityIndicator startAnimating];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
+- (void)setThumbnailImage:(UIImage *)image {
+    if(image) {
+        self.thumbnailImageView.image = image;
+        self.activityIndicator.hidden = YES;
+        [self.activityIndicator stopAnimating];
+    }
+}
 
-    // Configure the view for the selected state
+- (void)loadThumbnailImage:(UIImage *)image
+            withFilterInfo:(MotionsFilterInfo *)info
+                completion:(void (^)(void))completion {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *filteredImage = [info processImage:image];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setThumbnailImage:filteredImage];
+            if(completion)
+                completion();
+        });  
+    });
 }
 
 @end

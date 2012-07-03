@@ -69,7 +69,32 @@
 @synthesize requirePurchase = _requirePurchase;
 
 - (UIImage *)processImage:(UIImage *)image {
-    UIImage *result = nil;
+    __block CIImage *processImage = [CIImage imageWithCGImage:image.CGImage];
+    [self.filterParameter enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NSString *filterKey = key;
+        NSDictionary *param = obj;
+        NSLog(@"filter key %@", filterKey);
+        CIFilter *filter = [CIFilter filterWithName:filterKey];
+        if(filter == nil)
+            abort();
+        [filter setDefaults];
+        [filter setValue:processImage forKey:@"inputImage"];
+        [param enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            NSString *paramKey = key;
+            NSNumber *amount = obj;
+            NSLog(@"para key:%@ value:%f", paramKey, amount.floatValue);
+            [filter setValue:amount forKey:paramKey];
+        }];
+        processImage = [filter outputImage];
+    }];
+    if(processImage == nil)
+        return image;
+    
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef ref = [context createCGImage:processImage fromRect:processImage.extent];
+    UIImage *result = [UIImage imageWithCGImage:ref];
+    CGImageRelease(ref);
+    
     return result;
 }
 

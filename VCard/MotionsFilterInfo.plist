@@ -4,12 +4,18 @@
 <array>
 	<dict>
 		<key>FilterName</key>
+		<string>原始</string>
+		<key>RequirePurchase</key>
+		<false/>
+	</dict>
+	<dict>
+		<key>FilterName</key>
 		<string>未命名</string>
 		<key>RequirePurchase</key>
 		<false/>
 		<key>FilterParameter</key>
 		<dict>
-			<key>CIColorControl</key>
+			<key>CIColorControls</key>
 			<dict>
 				<key>inputSaturation</key>
 				<real>0.5893</real>
@@ -17,6 +23,125 @@
 				<real>-0.0683</real>
 				<key>inputContrast</key>
 				<real>1.3333</real>
+			</dict>
+		</dict>
+	</dict>
+	<dict>
+		<key>FilterName</key>
+		<string>日晒</string>
+		<key>RequirePurchase</key>
+		<false/>
+		<key>FilterParameter</key>
+		<dict>
+			<key>CIColorControls</key>
+			<dict>
+				<key>inputSaturation</key>
+				<real>0.5128</real>
+				<key>inputBrightness</key>
+				<real>0.0683</real>
+				<key>inputContrast</key>
+				<real>1.094</real>
+			</dict>
+		</dict>
+	</dict>
+	<dict>
+		<key>FilterName</key>
+		<string>增强</string>
+		<key>RequirePurchase</key>
+		<false/>
+		<key>FilterParameter</key>
+		<dict>
+			<key>CIColorControls</key>
+			<dict>
+				<key>inputSaturation</key>
+				<real>1.188</real>
+				<key>inputBrightness</key>
+				<real>0.1623</real>
+				<key>inputContrast</key>
+				<real>1.3675</real>
+			</dict>
+		</dict>
+	</dict>
+	<dict>
+		<key>FilterName</key>
+		<string>烟熏</string>
+		<key>RequirePurchase</key>
+		<true/>
+		<key>FilterParameter</key>
+		<dict>
+			<key>CIColorControls</key>
+			<dict>
+				<key>inputSaturation</key>
+				<real>0</real>
+				<key>inputBrightness</key>
+				<real>-0.0854</real>
+				<key>inputContrast</key>
+				<real>2.0683</real>
+			</dict>
+		</dict>
+	</dict>
+	<dict>
+		<key>FilterName</key>
+		<string>赤道</string>
+		<key>RequirePurchase</key>
+		<true/>
+		<key>FilterParameter</key>
+		<dict>
+			<key>CIColorControls</key>
+			<dict>
+				<key>inputSaturation</key>
+				<real>0.6923</real>
+				<key>inputBrightness</key>
+				<real>0.008500000000000001</real>
+				<key>inputContrast</key>
+				<real>1.3162</real>
+			</dict>
+			<key>CIExposureAdjust</key>
+			<dict>
+				<key>inputEV</key>
+				<real>0.5128</real>
+			</dict>
+			<key>CIHueAdjust</key>
+			<dict>
+				<key>inputAngle</key>
+				<real>-0.5638</real>
+			</dict>
+		</dict>
+	</dict>
+	<dict>
+		<key>FilterName</key>
+		<string>旧世界</string>
+		<key>RequirePurchase</key>
+		<false/>
+		<key>FilterParameter</key>
+		<dict>
+			<key>CIColorControls</key>
+			<dict>
+				<key>inputSaturation</key>
+				<real>0.5128</real>
+				<key>inputBrightness</key>
+				<real>0.008500000000000001</real>
+				<key>inputContrast</key>
+				<real>1.1282</real>
+			</dict>
+			<key>CIVibrance</key>
+			<dict>
+				<key>inputAmount</key>
+				<real>0</real>
+			</dict>
+		</dict>
+	</dict>
+	<dict>
+		<key>FilterName</key>
+		<string>黑白</string>
+		<key>RequirePurchase</key>
+		<false/>
+		<key>FilterParameter</key>
+		<dict>
+			<key>CIColorControls</key>
+			<dict>
+				<key>inputSaturation</key>
+				<real>0</real>
 			</dict>
 		</dict>
 	</dict>

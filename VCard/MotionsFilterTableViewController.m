@@ -7,16 +7,19 @@
 //
 
 #import "MotionsFilterTableViewController.h"
+#import "MotionsFilterCell.h"
+#import "UIImage+Addition.h"
 
-#define FILTER_IMAGE_SIZE CGSizeMake(80, 80)
 #define TABLE_VIEW_CELL_HEIGHT      100
 #define TABLE_VIEW_CELL_REAL_HEIGHT 80
+#define FILTER_IMAGE_SIZE CGSizeMake(TABLE_VIEW_CELL_REAL_HEIGHT, TABLE_VIEW_CELL_REAL_HEIGHT)
 
 @interface MotionsFilterTableViewController ()
 
 @property (nonatomic, strong) MotionsFilterReader *reader;
-@property (nonatomic, strong) NSArray *infoArray;
+@property (nonatomic, strong) NSArray *filterInfoArray;
 @property (nonatomic, strong) UIImage *thumbnailImage;
+@property (nonatomic, strong) NSMutableDictionary *filteredThumbnailCacheDictionary;
 
 @end
 
@@ -26,13 +29,15 @@
 @synthesize delegate = _delegate;
 
 @synthesize reader = _reader;
-@synthesize infoArray = _infoArray;
+@synthesize filterInfoArray = _infoArray;
+@synthesize filteredThumbnailCacheDictionary = _filteredThumbnailCacheDictionary;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.filteredThumbnailCacheDictionary = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -40,22 +45,7 @@
 - (id)initWithImage:(UIImage *)image {
     self = [self init];
     if(self) {
-        CGFloat w = image.size.width;
-        CGFloat h = image.size.height;
-        CGRect rect;
-        if(w > h) {
-            rect = CGRectMake((w - h) / 2, 0, h, h);
-        } else {
-            rect = CGRectMake(0, (h - w) / 2, w, w);
-        }
-        
-        if (NULL != UIGraphicsBeginImageContextWithOptions)
-            UIGraphicsBeginImageContextWithOptions(FILTER_IMAGE_SIZE, NO, 0);
-        else
-            UIGraphicsBeginImageContext(FILTER_IMAGE_SIZE);
-        [image drawInRect:rect];
-        self.thumbnailImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        self.thumbnailImage = [image imageCroppedToFitSize:FILTER_IMAGE_SIZE];
     }
     return self;
 }
@@ -65,6 +55,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self configureTableView];
+    [self configureReader];
 }
 
 - (void)viewDidUnload
@@ -77,7 +68,7 @@
 
 - (void)configureReader {
     self.reader = [[MotionsFilterReader alloc] init];
-    self.infoArray = [self.reader getFilterInfoArray];
+    self.filterInfoArray = [self.reader getFilterInfoArray];
 }
 
 #pragma mark - UI methods
@@ -93,7 +84,21 @@
     self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
 }
 
-#pragma mark - Animations 
+- (void)configureCell:(MotionsFilterCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    MotionsFilterInfo *info = [self.filterInfoArray objectAtIndex:indexPath.row];
+    NSLog(@"info name:%@, para:%@, iap:%d", info.filterName, info.filterParameter, info.requirePurchase);
+    UIImage *cacheImage = [self.filteredThumbnailCacheDictionary objectForKey:info.filterName];
+    if(cacheImage)
+        [cell setThumbnailImage:cacheImage];
+    else 
+        [cell loadThumbnailImage:self.thumbnailImage withFilterInfo:info completion:^{
+            UIImage *filteredImage = cell.thumbnailImageView.image;
+            if(filteredImage)
+                [self.filteredThumbnailCacheDictionary setObject:filteredImage forKey:info.filterName];
+        }];
+}
+
+#pragma mark - Animations
 
 - (void)tableViewSimulatePickerAnimation {
     CGFloat contentOffset = self.tableView.contentOffset.y;
@@ -123,12 +128,12 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:name owner:self options:nil];
         cell = [nib lastObject];
     }
-        
+    [self configureCell:(MotionsFilterCell *)cell atIndexPath:indexPath];
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    return self.filterInfoArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

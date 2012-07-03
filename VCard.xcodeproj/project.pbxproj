@@ -2578,42 +2578,14 @@
 		E1097CF4157F997B00BD0640 /* Motions */ = {
 			isa = PBXGroup;
 			children = (
-				E1097D2C157F9A6900BD0640 /* CropImageView.h */,
-				E1097D2D157F9A6900BD0640 /* CropImageView.m */,
-				E111D74A159B243D00C68A5C /* CropImageViewController-landscape.xib */,
-				E1097D2E157F9A6900BD0640 /* CropImageViewController.h */,
-				E1097D2F157F9A6900BD0640 /* CropImageViewController.m */,
-				E1097D30157F9A6900BD0640 /* CropImageViewController.xib */,
-				E1097D31157F9A6900BD0640 /* FilterImageView.h */,
-				E1097D32157F9A6900BD0640 /* FilterImageView.m */,
-				E1097D1A157F9A1F00BD0640 /* MotionsCapturePreviewView.h */,
-				E1097D1B157F9A1F00BD0640 /* MotionsCapturePreviewView.m */,
-				E1031B6C15995132006A9CFD /* MotionsEditViewController-landscape.xib */,
-				E1031B6715995123006A9CFD /* MotionsEditViewController.h */,
-				E1031B6815995123006A9CFD /* MotionsEditViewController.m */,
-				E1031B6915995123006A9CFD /* MotionsEditViewController.xib */,
-				E1AF111715A01A67004236ED /* MotionsFilterCell.h */,
-				E1AF111815A01A67004236ED /* MotionsFilterCell.m */,
-				E1AF111915A01A67004236ED /* MotionsFilterCell.xib */,
-				E122D535159DAACB00E17D3B /* MotionsFilterInfo.plist */,
-				E122D531159DAA6600E17D3B /* MotionsFilterReader.h */,
-				E122D532159DAA6700E17D3B /* MotionsFilterReader.m */,
-				E1AF111A15A01A67004236ED /* MotionsFilterTableViewController-landscape.xib */,
-				E1AF111B15A01A67004236ED /* MotionsFilterTableViewController.h */,
-				E1AF111C15A01A67004236ED /* MotionsFilterTableViewController.m */,
-				E1AF111D15A01A67004236ED /* MotionsFilterTableViewController.xib */,
-				E1031B5E159950FE006A9CFD /* MotionsShootViewController-landscape.xib */,
-				E1031B6015995114006A9CFD /* MotionsShootViewController.h */,
-				E1031B6115995114006A9CFD /* MotionsShootViewController.m */,
-				E1031B6215995114006A9CFD /* MotionsShootViewController.xib */,
-				E1BCBFB9159D53A30086FA7E /* MotionsSlider.h */,
-				E1BCBFBA159D53A40086FA7E /* MotionsSlider.m */,
-				E1031B6315995114006A9CFD /* MotionsViewController-landscape.xib */,
 				E1097D22157F9A1F00BD0640 /* MotionsViewController.h */,
-				E1097D23157F9A1F00BD0640 /* MotionsViewController.m */,
-				E1097D24157F9A1F00BD0640 /* MotionsViewController.xib */,
 				E12B6FDA1599663A00711A6B /* MultiInterfaceOrientationViewController.h */,
+				E1097D23157F9A1F00BD0640 /* MotionsViewController.m */,
 				E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */,
+				E1031B6315995114006A9CFD /* MotionsViewController-landscape.xib */,
+				E1097D24157F9A1F00BD0640 /* MotionsViewController.xib */,
+				E136F90715A320280019700F /* Edit */,
+				E136F90915A320480019700F /* Shoot */,
 			);
 			name = Motions;
 			sourceTree = "<group>";
@@ -2872,6 +2844,66 @@
 				E1097E28157F9CE400BD0640 /* zuqiu@2x.png */,
 			);
 			path = emoticons;
+			sourceTree = "<group>";
+		};
+		E136F90715A320280019700F /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				E136F90B15A320920019700F /* Crop */,
+				E136F90A15A320780019700F /* Filter */,
+				E1031B6C15995132006A9CFD /* MotionsEditViewController-landscape.xib */,
+				E1031B6715995123006A9CFD /* MotionsEditViewController.h */,
+				E1031B6815995123006A9CFD /* MotionsEditViewController.m */,
+				E1031B6915995123006A9CFD /* MotionsEditViewController.xib */,
+				E1BCBFB9159D53A30086FA7E /* MotionsSlider.h */,
+				E1BCBFBA159D53A40086FA7E /* MotionsSlider.m */,
+			);
+			name = Edit;
+			sourceTree = "<group>";
+		};
+		E136F90915A320480019700F /* Shoot */ = {
+			isa = PBXGroup;
+			children = (
+				E1097D1A157F9A1F00BD0640 /* MotionsCapturePreviewView.h */,
+				E1097D1B157F9A1F00BD0640 /* MotionsCapturePreviewView.m */,
+				E1031B5E159950FE006A9CFD /* MotionsShootViewController-landscape.xib */,
+				E1031B6015995114006A9CFD /* MotionsShootViewController.h */,
+				E1031B6115995114006A9CFD /* MotionsShootViewController.m */,
+				E1031B6215995114006A9CFD /* MotionsShootViewController.xib */,
+			);
+			name = Shoot;
+			sourceTree = "<group>";
+		};
+		E136F90A15A320780019700F /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				E1097D31157F9A6900BD0640 /* FilterImageView.h */,
+				E1097D32157F9A6900BD0640 /* FilterImageView.m */,
+				E1AF111715A01A67004236ED /* MotionsFilterCell.h */,
+				E1AF111815A01A67004236ED /* MotionsFilterCell.m */,
+				E1AF111915A01A67004236ED /* MotionsFilterCell.xib */,
+				E122D535159DAACB00E17D3B /* MotionsFilterInfo.plist */,
+				E122D531159DAA6600E17D3B /* MotionsFilterReader.h */,
+				E122D532159DAA6700E17D3B /* MotionsFilterReader.m */,
+				E1AF111A15A01A67004236ED /* MotionsFilterTableViewController-landscape.xib */,
+				E1AF111B15A01A67004236ED /* MotionsFilterTableViewController.h */,
+				E1AF111C15A01A67004236ED /* MotionsFilterTableViewController.m */,
+				E1AF111D15A01A67004236ED /* MotionsFilterTableViewController.xib */,
+			);
+			name = Filter;
+			sourceTree = "<group>";
+		};
+		E136F90B15A320920019700F /* Crop */ = {
+			isa = PBXGroup;
+			children = (
+				E1097D2C157F9A6900BD0640 /* CropImageView.h */,
+				E1097D2D157F9A6900BD0640 /* CropImageView.m */,
+				E111D74A159B243D00C68A5C /* CropImageViewController-landscape.xib */,
+				E1097D2E157F9A6900BD0640 /* CropImageViewController.h */,
+				E1097D2F157F9A6900BD0640 /* CropImageViewController.m */,
+				E1097D30157F9A6900BD0640 /* CropImageViewController.xib */,
+			);
+			name = Crop;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

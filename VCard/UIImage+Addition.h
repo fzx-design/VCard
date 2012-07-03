@@ -26,4 +26,5 @@
 - (UIImage *)imageByScalingAndCroppingForSize:(CGSize)targetSize;
 - (UIImage *)scaleImageToSize:(CGSize)newSize;
 + (UIImage *)screenShot;
+
 @end

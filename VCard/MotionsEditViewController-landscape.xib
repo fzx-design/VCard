@@ -240,6 +240,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{47, 261}, {60, 70}}</string>
 								<reference key="NSSuperview" ref="19742546"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">1001</int>
