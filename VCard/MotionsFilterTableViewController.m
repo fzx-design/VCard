@@ -75,7 +75,7 @@
 
 - (void)configureTableView {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 142)];
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 118)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 122)];
     headerView.backgroundColor = [UIColor clearColor];
     footerView.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = headerView;
@@ -100,7 +100,7 @@
 
 #pragma mark - Animations
 
-- (void)tableViewSimulatePickerAnimation {
+- (void)tableViewSimulatePickerAnimationWithCompletion:(void (^)(NSInteger scrollToIndex))completion {
     CGFloat contentOffset = self.tableView.contentOffset.y;
     if(contentOffset < 0)
         contentOffset = 0;
@@ -115,7 +115,9 @@
     [UIView animateWithDuration:0.3f animations:^{
         self.tableView.contentOffset = CGPointMake(0, index * TABLE_VIEW_CELL_HEIGHT);
     } completion:^(BOOL finished) {
-        ;
+        if(finished)
+            if(completion)
+                completion(index);
     }];
 }
 
@@ -144,12 +146,16 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if(!decelerate) {
-        [self tableViewSimulatePickerAnimation];
+        [self tableViewSimulatePickerAnimationWithCompletion:^(NSInteger scrollToIndex){
+            [self.delegate filterTableViewController:self didSelectFilter:[self.filterInfoArray objectAtIndex:scrollToIndex]];
+        }];
     }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self tableViewSimulatePickerAnimation];
+    [self tableViewSimulatePickerAnimationWithCompletion:^(NSInteger scrollToIndex){
+        [self.delegate filterTableViewController:self didSelectFilter:[self.filterInfoArray objectAtIndex:scrollToIndex]];
+    }];
 }
 
 @end

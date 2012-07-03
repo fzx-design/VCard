@@ -14,6 +14,7 @@
 }
 
 @property (nonatomic, assign) float shadowAmountValue;
+@property (nonatomic, strong) CIImage *processImage;
 
 - (void)setImage:(UIImage *)image;
 - (void)initializeParameter;

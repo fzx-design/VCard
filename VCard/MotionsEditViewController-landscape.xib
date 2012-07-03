@@ -12,6 +12,7 @@
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
+			<string>IBUIActivityIndicatorView</string>
 			<string>IBUIButton</string>
 			<string>IBUIImageView</string>
 			<string>IBUISlider</string>
@@ -43,7 +44,7 @@
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUIImageView" id="28969452">
 								<reference key="NSNextResponder" ref="817685746"/>
-								<int key="NSvFlags">274</int>
+								<int key="NSvFlags">-2147483374</int>
 								<string key="NSFrameSize">{840, 630}</string>
 								<reference key="NSSuperview" ref="817685746"/>
 								<reference key="NSNextKeyView" ref="637546016"/>
@@ -58,7 +59,7 @@
 								<array class="NSMutableArray" key="NSSubviews"/>
 								<string key="NSFrameSize">{840, 630}</string>
 								<reference key="NSSuperview" ref="817685746"/>
-								<reference key="NSNextKeyView" ref="1057417799"/>
+								<reference key="NSNextKeyView" ref="927900187"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUIContentMode">2</int>
@@ -180,6 +181,19 @@
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
+							<object class="IBUIActivityIndicatorView" id="927900187">
+								<reference key="NSNextResponder" ref="817685746"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{401.5, 276.5}, {37, 37}}</string>
+								<reference key="NSSuperview" ref="817685746"/>
+								<reference key="NSNextKeyView" ref="1057417799"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<float key="IBUIAlpha">0.0</float>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<bool key="IBUIHidesWhenStopped">NO</bool>
+								<int key="IBUIStyle">0</int>
+							</object>
 						</array>
 						<string key="NSFrame">{{24, 76}, {840, 630}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
@@ -189,7 +203,6 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
 						</object>
-						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
@@ -393,6 +406,14 @@
 					<int key="connectionID">165</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">activityIndicator</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="927900187"/>
+					</object>
+					<int key="connectionID">171</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">didClickCropButton:</string>
 						<reference key="source" ref="292238557"/>
@@ -506,6 +527,7 @@
 							<reference ref="637546016"/>
 							<reference ref="1057417799"/>
 							<reference ref="28969452"/>
+							<reference ref="927900187"/>
 						</array>
 						<reference key="parent" ref="766721923"/>
 					</object>
@@ -551,6 +573,11 @@
 						<reference key="object" ref="28969452"/>
 						<reference key="parent" ref="817685746"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">170</int>
+						<reference key="object" ref="927900187"/>
+						<reference key="parent" ref="817685746"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -577,13 +604,14 @@
 				<real value="0.0" key="151.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="152.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="163.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="170.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">169</int>
+			<int key="maxID">171</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

@@ -7,6 +7,7 @@
 //
 
 #import "MotionsFilterCell.h"
+#import "UIView+Addition.h"
 
 @implementation MotionsFilterCell
 
@@ -32,6 +33,7 @@
         UIImage *filteredImage = [info processImage:image];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setThumbnailImage:filteredImage];
+            [self.thumbnailImageView fadeIn];
             if(completion)
                 completion();
         });  

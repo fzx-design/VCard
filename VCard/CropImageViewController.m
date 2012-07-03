@@ -65,6 +65,8 @@
     if(self) {
         self.originalImage = image;
         self.filteredImage = filteredImage;
+        if(image == filteredImage)
+            self.filteredImage = nil;
     }
     return self;
 }

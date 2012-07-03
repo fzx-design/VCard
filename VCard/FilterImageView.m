@@ -12,7 +12,6 @@
 
 @interface FilterImageView() 
 
-@property (nonatomic, strong) CIImage *ciimage;
 @property (nonatomic, strong) CIContext *coreImageContext;
 @property (nonatomic, strong) CIFilter *highlightShadowAdjustFilter;
 
@@ -20,7 +19,7 @@
 
 @implementation FilterImageView
 
-@synthesize ciimage = _ciimage;
+@synthesize processImage = _ciimage;
 @synthesize shadowAmountValue = _shadowAmountValue;
 @synthesize coreImageContext = _coreImageContext;
 @synthesize highlightShadowAdjustFilter = _highlightShadowAdjustFilter;
@@ -40,7 +39,7 @@
 }
 
 - (void)setImage:(UIImage *)image {
-    self.ciimage = [[CIImage alloc] initWithImage:image];
+    self.processImage = [[CIImage alloc] initWithImage:image];
 }
 
 - (void)didMoveToSuperview {
@@ -65,7 +64,7 @@
 
 - (void)drawImage {
     [self.highlightShadowAdjustFilter setDefaults];
-    [self.highlightShadowAdjustFilter setValue:self.ciimage forKey:@"inputImage"];
+    [self.highlightShadowAdjustFilter setValue:self.processImage forKey:@"inputImage"];
     [self.highlightShadowAdjustFilter setValue:[NSNumber numberWithFloat:self.shadowAmountValue]
                                forKey:@"inputShadowAmount"];
     CIImage *outputImage = [self.highlightShadowAdjustFilter outputImage];

@@ -19,6 +19,7 @@
 @property (nonatomic, strong) IBOutlet CropImageView *cropImageView;
 @property (nonatomic, strong) IBOutlet UIView *editBarView;
 @property (nonatomic, strong) IBOutlet UIButton *cancelButton;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (id)initWithImage:(UIImage *)image filteredImage:(UIImage *)filteredImage;
 - (void)zoomInFromCenter:(CGPoint)point withScaleFactor:(CGFloat)factor completion:(void (^)(void))completion;

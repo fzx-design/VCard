@@ -26,6 +26,7 @@
 @property (nonatomic, strong) IBOutlet UIView *functionView;
 @property (nonatomic, strong) IBOutlet UIImageView *capturedImageView;
 @property (nonatomic, strong) IBOutlet UIView *capturedImageEditView;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, weak) id<MotionsEditViewControllerDelegate> delegate;
 
 - (IBAction)didChangeSlider:(UISlider *)sender;
