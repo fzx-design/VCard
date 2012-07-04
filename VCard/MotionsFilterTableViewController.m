@@ -38,6 +38,7 @@
     if (self) {
         // Custom initialization
         self.filteredThumbnailCacheDictionary = [NSMutableDictionary dictionary];
+        [self configureReader];
     }
     return self;
 }
@@ -55,7 +56,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self configureTableView];
-    [self configureReader];
+    NSLog(@"Motions Filter Table View Controller Did Load");
 }
 
 - (void)viewDidUnload
@@ -69,6 +70,14 @@
 - (void)configureReader {
     self.reader = [[MotionsFilterReader alloc] init];
     self.filterInfoArray = [self.reader getFilterInfoArray];
+}
+
+- (void)refreshWithImage:(UIImage *)image {
+    self.thumbnailImage = [image imageCroppedToFitSize:FILTER_IMAGE_SIZE];
+    [self.filteredThumbnailCacheDictionary removeAllObjects];
+    //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewRowAnimationTop animated:YES];
+    [self.tableView reloadData];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewRowAnimationTop animated:NO];
 }
 
 #pragma mark - UI methods
@@ -86,7 +95,6 @@
 
 - (void)configureCell:(MotionsFilterCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     MotionsFilterInfo *info = [self.filterInfoArray objectAtIndex:indexPath.row];
-    NSLog(@"info name:%@, para:%@, iap:%d", info.filterName, info.filterParameter, info.requirePurchase);
     if(!info.requirePurchase)
         cell.iapIndicator.hidden = YES;
     else
@@ -110,9 +118,7 @@
         contentOffset = 0;
     NSInteger index = contentOffset / TABLE_VIEW_CELL_HEIGHT;
     CGFloat cellOffset = contentOffset - index * TABLE_VIEW_CELL_HEIGHT;
-    
-    NSLog(@"real offset %f, content offset %f, index %d", self.tableView.contentOffset.y, contentOffset, index);
-    
+        
     if(cellOffset > TABLE_VIEW_CELL_HEIGHT / 2) {
         index += 1;
     }

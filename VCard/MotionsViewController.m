@@ -68,6 +68,7 @@
     } else {
         [self configureShootViewController];
     }
+    NSLog(@"Motions View Controller Did Load");
 }
 
 - (void)viewDidUnload
@@ -89,7 +90,7 @@
     NSLog(@"will rotate to:%d", toInterfaceOrientation);
     [UIView setAnimationsEnabled:NO];
     [self shootViewImage];
-    [self loadInterfaceOrientation:toInterfaceOrientation];
+    [self loadRootViewControllerWithInterfaceOrientation:toInterfaceOrientation];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -150,7 +151,6 @@
         self.leftCameraCoverImageView.frame = self.leftCameraCoverOpenFrame;
         self.rightCameraCoverImageView.frame = self.rightCameraCoverOpenFrame;
     }
-    NSLog(@"leftCameraCoverImageView frame%@", NSStringFromCGRect(self.leftCameraCoverImageView.frame));
 }
 
 - (void)configureCancelButton {

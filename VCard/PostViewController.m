@@ -960,7 +960,6 @@ typedef enum {
             }];
         }
     }
-    NSLog(@"dismiss action sheet");
     self.actionSheet = nil;
     self.currentActionSheetType = ActionSheetTypeNone;
 }

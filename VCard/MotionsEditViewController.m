@@ -91,6 +91,7 @@
     [self configureSlider];
     [self configureButtons];
     [self configureFilterTableViewController];
+    NSLog(@"Motions Edit View Controller Did Load");
 }
 
 - (void)viewDidUnload
@@ -153,7 +154,7 @@
             self.modifiedImage = self.originalImage;
             
             if(reloadFilterTableView)
-                [self configureFilterTableViewController];
+                [self.filterViewController refreshWithImage:self.modifiedImage];
             else
                 [self.filterViewController.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewRowAnimationTop animated:YES];
             
@@ -177,7 +178,16 @@
     return filteredImage;
 }
 
-#pragma mark - Animations 
+- (MotionsFilterTableViewController *)filterViewController {
+    if(!_filterViewController) {
+        _filterViewController = [[MotionsFilterTableViewController alloc] initWithImage:self.originalImage];
+        _filterViewController.delegate = self;
+        [self.subViewControllers addObject:_filterViewController];
+    }
+    return _filterViewController;
+}
+
+#pragma mark - Animations
 
 - (void)currentImage:(UIImage *)currentImage targetImage:(UIImage *)targetIamge transitionAnimationWithCompletion:(void (^)(void))completion {
     self.capturedImageView.image = targetIamge;
@@ -241,19 +251,7 @@
 #pragma mark - UI methods
 
 - (void)configureFilterTableViewController {
-    MotionsFilterTableViewController *vc = self.filterViewController;
-    self.filterViewController = [[MotionsFilterTableViewController alloc] initWithImage:self.modifiedImage];
-    self.filterViewController.delegate = self;
-    self.filterViewController.view.center = CGPointMake(77, 540);
-    [self.functionView addSubview:self.filterViewController.view];
-    if(vc) {
-        [UIView animateWithDuration:0.3f animations:^{
-            [vc.view fadeOut];
-            [self.filterViewController.view fadeIn];
-        } completion:^(BOOL finished) {
-            [vc.view removeFromSuperview];
-        }];
-    }
+    [self.functionView insertSubview:self.filterViewController.view atIndex:0];
 }
 
 - (void)dismissPopover {
@@ -400,7 +398,7 @@
             [self hideCropImageViewControllerAnimation];
             
             CGPoint filterTableViewContentOffset = self.filterViewController.tableView.contentOffset;
-            [self configureFilterTableViewController];
+            [self.filterViewController refreshWithImage:self.modifiedImage];
             self.filterViewController.tableView.contentOffset = filterTableViewContentOffset;
         });
     });
@@ -441,7 +439,6 @@
 #pragma mark UIPopoverController delegate 
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
-    NSLog(@"dismiss popover");
     self.popoverController = nil;
 }
 

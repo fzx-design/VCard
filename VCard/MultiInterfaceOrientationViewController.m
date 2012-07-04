@@ -35,11 +35,18 @@
 - (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if(UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
         [[NSBundle mainBundle] loadNibNamed:[NSString stringWithFormat:@"%@-landscape", NSStringFromClass([self class])] owner:self options:nil];
-        self.view.frame = CGRectMake(0, 0, 1004, 768);
+        self.view.frame = CGRectMake(0, 0, 1024, 748);
     } else {
         [[NSBundle mainBundle] loadNibNamed:[NSString stringWithFormat:@"%@", NSStringFromClass([self class])] owner:self options:nil];
         self.view.frame = CGRectMake(0, 0, 768, 1004);
     }
+    [self.subViewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+        MultiInterfaceOrientationViewController *vc = obj;
+        if([vc isKindOfClass:[MultiInterfaceOrientationViewController class]]) {
+            [vc loadViewControllerWithInterfaceOrientation:interfaceOrientation];
+        }
+    }];
+    [self viewDidLoad];
 }
 
 - (void)configureRootViewTransformWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -53,18 +60,9 @@
         self.view.transform = CGAffineTransformMakeRotation(0);
 }
 
-- (void)loadInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (void)loadRootViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     [self loadViewControllerWithInterfaceOrientation:interfaceOrientation];
     [self configureRootViewTransformWithInterfaceOrientation:interfaceOrientation];
-    
-    [self.subViewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-        MultiInterfaceOrientationViewController *vc = obj;
-        if([vc isKindOfClass:[MultiInterfaceOrientationViewController class]]) {
-            [vc loadViewControllerWithInterfaceOrientation:interfaceOrientation];
-            [vc viewDidLoad];
-        }
-    }];
-    [self viewDidLoad];
 }
 
 @end

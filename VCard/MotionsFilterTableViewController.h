@@ -18,6 +18,7 @@
 @property (nonatomic, weak) id<MotionsFilterTableViewControllerDelegate> delegate;
 
 - (id)initWithImage:(UIImage *)image;
+- (void)refreshWithImage:(UIImage *)image;
 
 @end
 

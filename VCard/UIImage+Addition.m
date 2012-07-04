@@ -106,7 +106,6 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     UIImage *imageCopy = UIGraphicsGetImageFromCurrentImageContext();  
     UIGraphicsEndImageContext();  
     
-    NSLog(@"imageCopy orientation:%d", imageCopy.imageOrientation);
     return imageCopy;
 }  
 

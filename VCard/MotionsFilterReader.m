@@ -73,7 +73,6 @@
     [self.filterParameter enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         NSString *filterKey = key;
         NSDictionary *param = obj;
-        NSLog(@"filter key %@", filterKey);
         CIFilter *filter = [CIFilter filterWithName:filterKey];
         if(filter == nil)
             abort();
@@ -82,7 +81,6 @@
         [param enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             NSString *paramKey = key;
             NSNumber *amount = obj;
-            NSLog(@"para key:%@ value:%f", paramKey, amount.floatValue);
             [filter setValue:amount forKey:paramKey];
         }];
         processImage = [filter outputImage];
