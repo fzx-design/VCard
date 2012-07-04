@@ -87,6 +87,10 @@
 - (void)configureCell:(MotionsFilterCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     MotionsFilterInfo *info = [self.filterInfoArray objectAtIndex:indexPath.row];
     NSLog(@"info name:%@, para:%@, iap:%d", info.filterName, info.filterParameter, info.requirePurchase);
+    if(!info.requirePurchase)
+        cell.iapIndicator.hidden = YES;
+    else
+        cell.iapIndicator.hidden = NO;
     UIImage *cacheImage = [self.filteredThumbnailCacheDictionary objectForKey:info.filterName];
     if(cacheImage)
         [cell setThumbnailImage:cacheImage];

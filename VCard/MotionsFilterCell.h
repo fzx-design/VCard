@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailImageView;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) IBOutlet UIImageView *iapIndicator;
 
 - (void)loadThumbnailImage:(UIImage *)image
             withFilterInfo:(MotionsFilterInfo *)info

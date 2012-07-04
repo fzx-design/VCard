@@ -13,6 +13,7 @@
 
 @synthesize thumbnailImageView = _thumbnailImageView;
 @synthesize activityIndicator = _activityIndicator;
+@synthesize iapIndicator = _iapIndicator;
 
 - (void)awakeFromNib {
     [self.activityIndicator startAnimating];
