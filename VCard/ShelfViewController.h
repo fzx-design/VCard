@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CoreDataViewController.h"
+#import "ShelfScrollView.h"
+#import "ShelfBackgroundView.h"
 
 @interface ShelfViewController : CoreDataViewController <UIScrollViewDelegate>
 

@@ -123,6 +123,8 @@
 		1873E1891595EBAA0075DC99 /* stack_segements_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1873E1851595EBAA0075DC99 /* stack_segements_hover@2x.png */; };
 		1873E18A1595EBAA0075DC99 /* stack_tableview_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1873E1861595EBAA0075DC99 /* stack_tableview_shadow.png */; };
 		1873E18B1595EBAA0075DC99 /* stack_tableview_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1873E1871595EBAA0075DC99 /* stack_tableview_shadow@2x.png */; };
+		1883660115A43F8900CDC60C /* ShelfBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883660015A43F8900CDC60C /* ShelfBackgroundView.m */; };
+		1883660415A4405B00CDC60C /* ShelfScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883660315A4405B00CDC60C /* ShelfScrollView.m */; };
 		188BA4EB15398DC900344288 /* BaseCardBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188BA4EA15398DC800344288 /* BaseCardBackgroundView.m */; };
 		188BA4F41539AAD100344288 /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188BA4F31539AAD100344288 /* CardViewController.m */; };
 		188BA4F91539B3EB00344288 /* CardImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188BA4F81539B3EB00344288 /* CardImageView.m */; };
@@ -898,6 +900,10 @@
 		1873E1851595EBAA0075DC99 /* stack_segements_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stack_segements_hover@2x.png"; sourceTree = "<group>"; };
 		1873E1861595EBAA0075DC99 /* stack_tableview_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stack_tableview_shadow.png; sourceTree = "<group>"; };
 		1873E1871595EBAA0075DC99 /* stack_tableview_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stack_tableview_shadow@2x.png"; sourceTree = "<group>"; };
+		188365FF15A43F8900CDC60C /* ShelfBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelfBackgroundView.h; sourceTree = "<group>"; };
+		1883660015A43F8900CDC60C /* ShelfBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfBackgroundView.m; sourceTree = "<group>"; };
+		1883660215A4405B00CDC60C /* ShelfScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelfScrollView.h; sourceTree = "<group>"; };
+		1883660315A4405B00CDC60C /* ShelfScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfScrollView.m; sourceTree = "<group>"; };
 		188BA4E915398DC800344288 /* BaseCardBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCardBackgroundView.h; sourceTree = "<group>"; };
 		188BA4EA15398DC800344288 /* BaseCardBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCardBackgroundView.m; sourceTree = "<group>"; };
 		188BA4F21539AAD100344288 /* CardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
@@ -1874,6 +1880,10 @@
 			children = (
 				18A997E715A1AA8200C2E7A5 /* ShelfViewController.h */,
 				18A997E815A1AA8200C2E7A5 /* ShelfViewController.m */,
+				188365FF15A43F8900CDC60C /* ShelfBackgroundView.h */,
+				1883660015A43F8900CDC60C /* ShelfBackgroundView.m */,
+				1883660215A4405B00CDC60C /* ShelfScrollView.h */,
+				1883660315A4405B00CDC60C /* ShelfScrollView.m */,
 			);
 			name = Shelf;
 			sourceTree = "<group>";
@@ -3718,6 +3728,8 @@
 				E1AF111E15A01A67004236ED /* MotionsFilterCell.m in Sources */,
 				E1AF112115A01A67004236ED /* MotionsFilterTableViewController.m in Sources */,
 				18A997E915A1AA8200C2E7A5 /* ShelfViewController.m in Sources */,
+				1883660115A43F8900CDC60C /* ShelfBackgroundView.m in Sources */,
+				1883660415A4405B00CDC60C /* ShelfScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

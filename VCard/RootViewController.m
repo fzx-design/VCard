@@ -101,7 +101,7 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameOrientationChanged object:nil];
     [self.castViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-//    [self.shelfViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self.shelfViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 #pragma mark - Properties
