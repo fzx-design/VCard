@@ -189,6 +189,7 @@ typedef enum {
     self.navLabel.text = @"";
     _functionRightViewInitFrame = self.functionRightView.frame;
     self.postRootView.delegate = self;
+    [ThemeResourceProvider configButtonPaperLight:self.cancelButton];
     
     [self configureViewFrame];
     [self configureMotionsImageView];

@@ -49,7 +49,7 @@
 @synthesize bgView = _bgView;
 @synthesize functionView = _functionView;
 @synthesize capturedImageView = _capturedImageView;
-@synthesize capturedImageEditView = _capturedImageEditView;
+@synthesize capturedImageEditBar = _capturedImageEditView;
 @synthesize activityIndicator = _activityIndicator;
 
 @synthesize originalImage = _originalImage;
@@ -106,7 +106,7 @@
     self.bgView = nil;
     self.functionView = nil;
     self.capturedImageView = nil;
-    self.capturedImageEditView = nil;
+    self.capturedImageEditBar = nil;
     self.activityIndicator = nil;
 }
 
@@ -147,7 +147,7 @@
                 [self configureFilterImageView:self.modifiedImage];
             }];
             
-            BOOL reloadFilterTableView = self.originalImage != image;
+            BOOL reloadFilterTableView = (self.originalImage != image || self.originalImage != self.modifiedImage);
             
             self.originalImage = image;
             self.modifiedImage = self.originalImage;
@@ -187,7 +187,7 @@
     tempImageView.frame = self.filterImageView.frame;
     tempImageView.contentMode = UIViewContentModeScaleAspectFill;
     [tempImageView setNeedsLayout];
-    [self.bgView insertSubview:tempImageView belowSubview:self.capturedImageEditView];
+    [self.bgView insertSubview:tempImageView belowSubview:self.capturedImageEditBar];
     self.filterImageView.hidden = YES;
     self.capturedImageView.hidden = NO;
     [tempImageView fadeOutWithCompletion:^{
@@ -228,7 +228,7 @@
     self.cropButton.userInteractionEnabled = NO;
         
     [self.cropImageViewController.editBarView fadeOut];
-    [self.capturedImageEditView fadeIn];
+    [self.capturedImageEditBar fadeIn];
     
     self.cropButton.selected = NO;
     [self.cropImageViewController zoomOutToCenter:self.filterImageView.center withScaleFactor:self.capturedImageView.contentScaleFactor completion:^{
@@ -325,21 +325,27 @@
         [self.activityIndicator fadeIn];
         [self.activityIndicator startAnimating];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            self.cropImageViewController = [[CropImageViewController alloc] initWithImage:self.modifiedImage filteredImage:self.filteredImage];
-            self.cropImageViewController.delegate = self;
-            self.cropImageViewController.view.frame = self.filterImageView.frame;
+            UIImage *filteredImage = self.filteredImage;
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.bgView insertSubview:self.cropImageViewController.view aboveSubview:self.filterImageView];
+                self.cropImageViewController = [[CropImageViewController alloc] initWithImage:self.modifiedImage filteredImage:filteredImage];
+                self.cropImageViewController.delegate = self;
+                self.cropImageViewController.view.frame = self.filterImageView.frame;
+                
+                [self.bgView insertSubview:self.cropImageViewController.view aboveSubview:self.capturedImageEditBar];
                 
                 self.cropButton.userInteractionEnabled = NO;
                 [self.cropImageViewController zoomInFromCenter:self.filterImageView.center withScaleFactor:self.capturedImageView.contentScaleFactor completion:^{
                     self.cropButton.userInteractionEnabled = YES;
+                    
+                    [self.activityIndicator fadeOutWithCompletion:^{
+                        [self.activityIndicator stopAnimating];
+                    }];
                 }];
                 
                 [self.cropImageViewController.editBarView fadeIn];
-                [self.capturedImageEditView fadeOut];
+                [self.capturedImageEditBar fadeOut];
             });
-        });        
+        });
     } else {
         [self.cropImageViewController didClickFinishCropButton:sender];
     }

@@ -124,11 +124,21 @@
 #pragma mark IBActions
 
 - (IBAction)didClickFinishCropButton:(UIButton *)sender {
-    if(self.filteredImage)
-        self.filteredImage = [self cropImage:self.filteredImage];
-    self.originalImage = [self cropImage:self.originalImage];
-    [self resetCropImageBgView];
-    [self.delegate cropImageViewControllerDidFinishCrop:self.originalImage];
+    [self.activityIndicator fadeIn];
+    [self.activityIndicator startAnimating];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if(self.filteredImage)
+            self.filteredImage = [self cropImage:self.filteredImage];
+        self.originalImage = [self cropImage:self.originalImage];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self resetCropImageBgView];
+            [self.delegate cropImageViewControllerDidFinishCrop:self.originalImage];
+            
+            [self.activityIndicator fadeOutWithCompletion:^{
+                [self.activityIndicator stopAnimating];
+            }];
+        });
+    });
 }
 
 - (IBAction)didClickCancelButton:(UIButton *)sender {

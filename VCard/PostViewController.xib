@@ -492,14 +492,6 @@
 											<bytes key="NSRGB">MSAxIDEAA</bytes>
 										</object>
 										<reference key="IBUINormalTitleShadowColor" ref="934798391"/>
-										<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage">
-											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">button_paper_light_hover.png</string>
-										</object>
-										<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">button_paper_light_bg.png</string>
-										</object>
 										<object class="IBUIFontDescription" key="IBUIFontDescription" id="1072698757">
 											<int key="type">2</int>
 											<double key="pointSize">12</double>
@@ -765,6 +757,7 @@
 										<string key="NSFrame">{{0, 10}, {332, 330}}</string>
 										<reference key="NSSuperview" ref="934303640"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -1419,7 +1412,7 @@
 				<string key="49.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="54.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="1" key="6.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="0.0" key="6.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="62.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="63.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="66.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1648,8 +1641,6 @@
 			<string key="button_new_mentions_hover.png">{25, 25}</string>
 			<string key="button_new_topic.png">{25, 25}</string>
 			<string key="button_new_topic_hover.png">{25, 25}</string>
-			<string key="button_paper_light_bg.png">{50, 32}</string>
-			<string key="button_paper_light_hover.png">{50, 32}</string>
 			<string key="button_post_bg.png">{100, 32}</string>
 			<string key="button_post_bg_error.png">{100, 32}</string>
 			<string key="button_post_hover.png">{52, 32}</string>
