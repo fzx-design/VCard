@@ -26,7 +26,6 @@
 @property (nonatomic, strong) UIImage *modifiedImage;
 @property (nonatomic, strong) UIImage *filterImage;
 @property (nonatomic, readonly) UIImage *filteredImage;
-@property (nonatomic, assign) UIInterfaceOrientation currentInterfaceOrientation;
 @property (nonatomic, strong) CropImageViewController *cropImageViewController;
 @property (nonatomic, readonly, getter = isShadowAmountFilterAdded) BOOL shadowAmountFilterAdded;
 @property (nonatomic, strong) UIPopoverController *popoverController;
@@ -34,6 +33,7 @@
 @property (nonatomic, strong) MotionsFilterTableViewController *filterViewController;
 @property (nonatomic, strong) MotionsFilterInfo *currentFilterInfo;
 @property (nonatomic, strong) UIImage *cacheFilteredImage;
+@property (nonatomic, readonly) CGFloat currentShadowAmountValue;
 
 @end
 
@@ -56,7 +56,6 @@
 @synthesize originalImage = _originalImage;
 @synthesize modifiedImage = _modifiedImage;
 @synthesize filterImage = _filterImage;
-@synthesize currentInterfaceOrientation = _currentInterfaceOrientation;
 @synthesize dirty = _dirty;
 @synthesize popoverController = _pc;
 @synthesize actionSheet = _actionSheet;
@@ -69,7 +68,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.currentInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
     }
     return self;
 }
@@ -117,7 +115,6 @@
 }
 
 - (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    self.currentInterfaceOrientation = interfaceOrientation;
     [self dismissPopover];
     [super loadViewControllerWithInterfaceOrientation:interfaceOrientation];
 }
@@ -133,6 +130,10 @@
     else if(self.modifiedImage != self.originalImage)
         result = YES;
     return result;
+}
+
+- (CGFloat)currentShadowAmountValue {
+    return self.shadowAmountSlider.value * -1;
 }
 
 - (void)initViewWithImage:(UIImage *)image {
@@ -167,14 +168,14 @@
 }
 
 - (BOOL)isShadowAmountFilterAdded {
-    return self.shadowAmountSlider.value != 0;
+    return self.currentShadowAmountValue != 0;
 }
 
 - (UIImage *)filteredImage {
     UIImage *filteredImage = [self.currentFilterInfo processImage:self.modifiedImage];
     filteredImage = filteredImage ? filteredImage : self.modifiedImage;
     if(self.isShadowAmountFilterAdded) {
-        filteredImage = [filteredImage shadowAmount:self.shadowAmountSlider.value];
+        filteredImage = [filteredImage shadowAmount:self.currentShadowAmountValue];
     }
     return filteredImage;
 }
@@ -212,25 +213,29 @@
 
 - (void)semiTransparentEditViewForCropAnimation {
     [UIView animateWithDuration:0.3f animations:^{
-        for(UIView *subview in self.functionView.subviews) {
+        for(UIView *subview in self.editAccessoryView.subviews) {
             if(subview.tag != CROP_BUTTON_TAG) {
                 subview.alpha = 0.2f;
                 subview.userInteractionEnabled = NO;
             }
         }
+        self.filterViewController.view.alpha = 0.2f;
+        self.filterViewController.view.userInteractionEnabled = NO;
     }];
 }
 
 - (void)opaqueEditViewAnimation {
     [UIView animateWithDuration:0.3f animations:^{
-        for(UIView *subview in self.functionView.subviews) {
+        for(UIView *subview in self.editAccessoryView.subviews) {
             subview.alpha = 1;
         }
+        self.filterViewController.view.alpha = 1.0f;
     } completion:^(BOOL finished) {
-        for(UIView *subview in self.functionView.subviews) {
+        for(UIView *subview in self.editAccessoryView.subviews) {
             if([subview isMemberOfClass:[UIView class]])
                 subview.userInteractionEnabled = YES;
         }
+        self.filterViewController.view.userInteractionEnabled = YES;
     }];
 }
 
@@ -334,16 +339,13 @@
 - (void)configureSlider {
     [self.shadowAmountSlider setMinimumTrackImage:[UIImage imageNamed:@"transparent.png"] forState:UIControlStateNormal];
 	[self.shadowAmountSlider setMaximumTrackImage:[UIImage imageNamed:@"transparent.png"] forState:UIControlStateNormal];
-    if(UIInterfaceOrientationIsLandscape(self.currentInterfaceOrientation)) {
-        [self.shadowAmountSlider setThumbImage:[UIImage imageNamed:@"motions_slider_thumb_horizon.png"] forState:UIControlStateNormal];
-        self.shadowAmountSlider.transform = CGAffineTransformMakeRotation(M_PI / 2);
-        CGRect frame = self.shadowAmountSlider.frame;
-        frame.origin.x = (int)(frame.origin.x);
-        frame.origin.y = (int)(frame.origin.y);
-        self.shadowAmountSlider.frame = frame;
-    } else {
-        [self.shadowAmountSlider setThumbImage:[UIImage imageNamed:@"motions_slider_thumb_vertical.png"] forState:UIControlStateNormal];
-    }
+    
+    [self.shadowAmountSlider setThumbImage:[UIImage imageNamed:@"motions_slider_thumb.png"] forState:UIControlStateNormal];
+    self.shadowAmountSlider.transform = CGAffineTransformMakeRotation(M_PI_2);
+    CGRect frame = self.shadowAmountSlider.frame;
+    frame.origin.x = (int)(frame.origin.x);
+    frame.origin.y = (int)(frame.origin.y);
+    self.shadowAmountSlider.frame = frame;
 }
 
 - (void)configureButtons {
@@ -359,8 +361,7 @@
 #pragma mark - IBActions
 
 - (IBAction)didChangeSlider:(UISlider *)sender {
-    float value = sender.value;
-    self.filterImageView.shadowAmountValue = value;
+    self.filterImageView.shadowAmountValue = self.currentShadowAmountValue;
     [self.filterImageView setNeedsDisplay];
     self.cacheFilteredImage = nil;
 }

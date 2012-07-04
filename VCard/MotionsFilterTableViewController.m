@@ -26,6 +26,7 @@
 @implementation MotionsFilterTableViewController
 
 @synthesize tableView = _tableView;
+@synthesize bgView = _bgView;
 @synthesize delegate = _delegate;
 
 @synthesize reader = _reader;
@@ -62,6 +63,11 @@
 {
     [super viewDidUnload];
     self.tableView = nil;
+    self.bgView = nil;
+}
+
+- (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    [super loadViewControllerWithInterfaceOrientation:interfaceOrientation];
 }
 
 #pragma mark - Logic methods
@@ -79,17 +85,35 @@
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewRowAnimationTop animated:NO];
 }
 
+- (CGRect)tableViewHeaderViewFrame {
+    CGRect frame = self.isCurrentOrientationLandscape ? CGRectMake(0, 0, 80, 142) : CGRectMake(0, 0, 80, 239);
+    return frame;
+}
+
+- (CGRect)tableViewFooterViewFrame {
+    CGRect frame = self.isCurrentOrientationLandscape ? CGRectMake(0, 0, 80, 122) : CGRectMake(0, 0, 80, 216);
+    return frame;
+}
+
 #pragma mark - UI methods
 
 - (void)configureTableView {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 142)];
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 122)];
+    UIView *headerView = [[UIView alloc] initWithFrame:[self tableViewHeaderViewFrame]];
+    UIView *footerView = [[UIView alloc] initWithFrame:[self tableViewFooterViewFrame]];
     headerView.backgroundColor = [UIColor clearColor];
     footerView.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = headerView;
     self.tableView.tableFooterView = footerView;
     
     self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
+    
+    CGRect frame = self.tableView.frame;
+    if(!self.isCurrentOrientationLandscape) {
+        self.tableView.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    } else {
+        self.tableView.transform = CGAffineTransformIdentity;
+    }
+    self.tableView.frame = frame;
 }
 
 - (void)configureCell:(MotionsFilterCell *)cell atIndexPath:(NSIndexPath *)indexPath{
@@ -107,6 +131,13 @@
             if(filteredImage)
                 [self.filteredThumbnailCacheDictionary setObject:filteredImage forKey:info.filterName];
         }];
+    
+    if(!self.isCurrentOrientationLandscape) {
+        cell.transform = CGAffineTransformMakeRotation(-M_PI_2);
+        NSLog(@"cell frame %@", NSStringFromCGRect(cell.frame));
+    } else {
+        cell.transform = CGAffineTransformIdentity;
+    }
 }
 
 #pragma mark - Animations
@@ -133,7 +164,7 @@
 #pragma mark - UITableView delegate & data source
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *name = @"MotionsFilterCell";    
+    NSString *name = self.isCurrentOrientationLandscape ? @"MotionsFilterCell-landscape" : @"MotionsFilterCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:name];
     if (cell == nil) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:name owner:self options:nil];

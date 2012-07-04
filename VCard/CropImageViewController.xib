@@ -83,6 +83,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{7, 32}, {50, 30}}</string>
 								<reference key="NSSuperview" ref="630310784"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -123,7 +124,7 @@
 					<object class="IBUIActivityIndicatorView" id="771697484">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{296, 381.5}, {37, 37}}</string>
+						<string key="NSFrame">{{296.5, 379.5}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="630310784"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>

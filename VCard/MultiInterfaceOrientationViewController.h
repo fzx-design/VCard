@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSMutableArray *subViewControllers;
 @property (nonatomic, readonly, getter = isCurrentOrientationLandscape) BOOL currentOrientationLandscape;
+@property (nonatomic, assign) UIInterfaceOrientation currentInterfaceOrientation;
 
 - (void)loadRootViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 - (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;

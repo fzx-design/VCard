@@ -15,6 +15,7 @@
 @implementation MultiInterfaceOrientationViewController
 
 @synthesize subViewControllers = _subViewControllers;
+@synthesize currentInterfaceOrientation = _currentInterfaceOrientation;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,15 +29,18 @@
     if (self) {
         // Custom initialization
         self.subViewControllers = [NSMutableArray array];
+        self.currentInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
     }
     return self;
 }
 
 - (BOOL)isCurrentOrientationLandscape {
-    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation);
+    return UIInterfaceOrientationIsLandscape(self.currentInterfaceOrientation);
 }
 
 - (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    self.currentInterfaceOrientation = interfaceOrientation;
+    
     if(UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
         [[NSBundle mainBundle] loadNibNamed:[NSString stringWithFormat:@"%@-landscape", NSStringFromClass([self class])] owner:self options:nil];
         self.view.frame = CGRectMake(0, 0, 1024, 748);
@@ -55,9 +59,9 @@
 
 - (void)configureRootViewTransformWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
-        self.view.transform = CGAffineTransformMakeRotation(-M_PI / 2);
+        self.view.transform = CGAffineTransformMakeRotation(-M_PI_2);
     else if(interfaceOrientation == UIInterfaceOrientationLandscapeRight)
-        self.view.transform = CGAffineTransformMakeRotation(M_PI / 2);
+        self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
     else if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         self.view.transform = CGAffineTransformMakeRotation(M_PI);
     else

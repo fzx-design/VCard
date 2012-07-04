@@ -196,9 +196,9 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
     UIImageView *tempImageView = [[UIImageView alloc] initWithImage:self.viewImage];
 //    UIInterfaceOrientation currentInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
 //    if(UIInterfaceOrientationIsRotationClockwise(fromInterfaceOrientation, currentInterfaceOrientation))
-//        tempImageView.transform = CGAffineTransformMakeRotation(M_PI / 2);
+//        tempImageView.transform = CGAffineTransformMakeRotation(M_PI_2);
 //    else
-//        tempImageView.transform = CGAffineTransformMakeRotation(-M_PI / 2);
+//        tempImageView.transform = CGAffineTransformMakeRotation(-M_PI_2);
     
     CGRect frame = CGRectMake(0, 0, self.viewImage.size.width, self.viewImage.size.height);
     tempImageView.frame = frame;    

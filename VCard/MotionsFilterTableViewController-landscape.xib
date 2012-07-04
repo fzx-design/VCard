@@ -32,12 +32,12 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
-			<object class="IBUIView" id="805506303">
+			<object class="IBUIView" id="358708696">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="890190582">
-						<reference key="NSNextResponder" ref="805506303"/>
+						<reference key="NSNextResponder" ref="358708696"/>
 						<int key="NSvFlags">292</int>
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUIImageView" id="867087984">
@@ -60,7 +60,6 @@
 								<array class="NSMutableArray" key="NSSubviews"/>
 								<string key="NSFrame">{{36, 1}, {80, 358}}</string>
 								<reference key="NSSuperview" ref="890190582"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="964686790">
 									<int key="NSColorSpace">3</int>
@@ -107,7 +106,7 @@
 							</object>
 						</array>
 						<string key="NSFrame">{{872, 358}, {152, 364}}</string>
-						<reference key="NSSuperview" ref="805506303"/>
+						<reference key="NSSuperview" ref="358708696"/>
 						<reference key="NSNextKeyView" ref="312728808"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="964686790"/>
@@ -136,9 +135,17 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">view</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="805506303"/>
+						<reference key="destination" ref="358708696"/>
 					</object>
 					<int key="connectionID">202</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">bgView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="890190582"/>
+					</object>
+					<int key="connectionID">203</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -178,7 +185,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">201</int>
-						<reference key="object" ref="805506303"/>
+						<reference key="object" ref="358708696"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="890190582"/>
 						</array>
@@ -193,7 +200,7 @@
 							<reference ref="312728808"/>
 							<reference ref="867087984"/>
 						</array>
-						<reference key="parent" ref="805506303"/>
+						<reference key="parent" ref="358708696"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">182</int>
@@ -233,7 +240,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">202</int>
+			<int key="maxID">203</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
