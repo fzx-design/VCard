@@ -103,6 +103,10 @@
 	[_fontSizeSlider setMinimumTrackImage:[UIImage imageNamed:@"transparent.png"] forState:UIControlStateNormal];
 	[_fontSizeSlider setMaximumTrackImage:[UIImage imageNamed:@"transparent.png"] forState:UIControlStateNormal];
     
+    _brightnessSlider.maximumValue = 1.0;
+    _brightnessSlider.minimumValue = 0.1;
+    _brightnessSlider.value = [[UIScreen mainScreen] brightness];
+    
     [ThemeResourceProvider configButtonBrown:_detailSettingButton];
     _switchToPicButton.selected = YES;
     _switchToTextButton.selected = NO;
@@ -148,11 +152,35 @@
 {
     if (scrollView.contentOffset.x >= _scrollView.frame.size.width) {
         [_shelfBGImageView resetOriginX:_scrollView.contentOffset.x];
-//        [_shelfEdgeImageView resetOriginX:_scrollView.contentOffset.x];
     } else {
         [_shelfBGImageView resetOriginX:_scrollView.frame.size.width];
-//        [_shelfEdgeImageView resetOriginX:_scrollView.contentOffset.x];
     }
 }
+
+#pragma mark - IBActions
+- (IBAction)didChangeValueOfSlider:(UISlider *)sender
+{
+    if ([sender isEqual:_brightnessSlider]) {
+        [[UIScreen mainScreen] setBrightness:_brightnessSlider.value];
+    }
+}
+
+- (IBAction)didEndDraggingSlider:(UISlider *)sender
+{
+    
+}
+
+- (IBAction)didClickDetialSettingButton:(UIButton *)sender
+{
+    
+}
+
+- (IBAction)didClickSwitchModeButton:(UIButton *)sender
+{
+    BOOL switchToPicButtonClicked = [sender isEqual:_switchToPicButton];
+    _switchToPicButton.selected = switchToPicButtonClicked;
+    _switchToTextButton.selected = !switchToPicButtonClicked;
+}
+
 
 @end
