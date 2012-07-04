@@ -33,7 +33,7 @@
 @property (nonatomic, strong) MotionsFilterTableViewController *filterViewController;
 @property (nonatomic, strong) MotionsFilterInfo *currentFilterInfo;
 @property (nonatomic, strong) UIImage *cacheFilteredImage;
-@property (nonatomic, readonly) CGFloat currentShadowAmountValue;
+@property (nonatomic, assign) CGFloat currentShadowAmountValue;
 
 @end
 
@@ -61,7 +61,7 @@
 @synthesize actionSheet = _actionSheet;
 @synthesize filterViewController = _filterViewController;
 @synthesize currentFilterInfo = _currentFilterInfo;
-@synthesize cacheFilteredImage = _currentFilteredImage;
+@synthesize cacheFilteredImage = _cacheFilteredImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -98,7 +98,6 @@
     // Dispose of any resources that can be recreated.
     self.cropButton = nil;
     self.shadowAmountSlider = nil;
-    self.filterImageView = nil;
     self.changePictureButton = nil;
     self.revertButton = nil;
     self.finishEditButton = nil;
@@ -111,7 +110,9 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self configureFilterImageView:self.modifiedImage];
+    UIImage *currentImage = self.cacheFilteredImage;
+    currentImage = currentImage ? currentImage : self.modifiedImage;
+    [self configureFilterImageView:currentImage];
 }
 
 - (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -130,10 +131,6 @@
     else if(self.modifiedImage != self.originalImage)
         result = YES;
     return result;
-}
-
-- (CGFloat)currentShadowAmountValue {
-    return self.shadowAmountSlider.value * -1;
 }
 
 - (void)initViewWithImage:(UIImage *)image {
@@ -178,6 +175,14 @@
         filteredImage = [filteredImage shadowAmount:self.currentShadowAmountValue];
     }
     return filteredImage;
+}
+
+- (UIImage *)cacheFilteredImage {
+    if(!_cacheFilteredImage) {
+        NSLog(@"make cache filter image using %@", self.currentFilterInfo.filterName);
+        _cacheFilteredImage = [self.currentFilterInfo processImage:self.modifiedImage];
+    }
+    return _cacheFilteredImage;
 }
 
 - (MotionsFilterTableViewController *)filterViewController {
@@ -264,6 +269,11 @@
         filterFrame.origin.x = 0;
         filterFrame.origin.y = 0;
     } else {
+        editAccessoryFrame.origin.x = 0;
+        editAccessoryFrame.origin.y = 0;
+        
+        filterFrame.origin.x = 0;
+        filterFrame.origin.y = 0;
     }
     self.editAccessoryView.frame = editAccessoryFrame;
     self.filterViewController.view.frame = filterFrame;
@@ -279,6 +289,11 @@
         filterFrame.origin.x = editAccessoryFrame.size.width;
         filterFrame.origin.y = 0;
     } else {
+        editAccessoryFrame.origin.x = 0 - editAccessoryFrame.size.width;
+        editAccessoryFrame.origin.y = 0;
+        
+        filterFrame.origin.x = 0;
+        filterFrame.origin.y = self.filterViewController.bgView.frame.size.height;
     }
     self.editAccessoryView.frame = editAccessoryFrame;
     self.filterViewController.view.frame = filterFrame;
@@ -329,6 +344,7 @@
     UIImage *filterImage = [image imageCroppedToFitSize:self.filterImageView.frame.size];
     BOOL filterImageViewEmpty = !self.filterImageView.processImage;
     [self.filterImageView setImage:filterImage];
+    self.filterImageView.shadowAmountValue = self.currentShadowAmountValue;
     [self.filterImageView setNeedsDisplay];
     if(filterImageViewEmpty)
         [self.filterImageView fadeIn];
@@ -346,6 +362,8 @@
     frame.origin.x = (int)(frame.origin.x);
     frame.origin.y = (int)(frame.origin.y);
     self.shadowAmountSlider.frame = frame;
+    
+    [self.shadowAmountSlider setValue:self.currentShadowAmountValue * -1 animated:NO];
 }
 
 - (void)configureButtons {
@@ -361,6 +379,7 @@
 #pragma mark - IBActions
 
 - (IBAction)didChangeSlider:(UISlider *)sender {
+    self.currentShadowAmountValue = -1 * sender.value;
     self.filterImageView.shadowAmountValue = self.currentShadowAmountValue;
     [self.filterImageView setNeedsDisplay];
     self.cacheFilteredImage = nil;
@@ -504,14 +523,14 @@
     [self.activityIndicator startAnimating];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *filteredImage = [info processImage:self.modifiedImage];
-        UIImage *currentImage = self.cacheFilteredImage ? self.cacheFilteredImage : [self.currentFilterInfo processImage:self.modifiedImage];
-        self.cacheFilteredImage = filteredImage;
+        UIImage *currentImage = self.cacheFilteredImage;
         currentImage = currentImage ? currentImage : self.modifiedImage;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self resetSliders];
             [self currentImage:currentImage targetImage:filteredImage transitionAnimationWithCompletion:^{
                 [self configureFilterImageView:filteredImage];
                 self.currentFilterInfo = info;
+                self.cacheFilteredImage = filteredImage;
             }];
             
             [self.activityIndicator fadeOutWithCompletion:^{

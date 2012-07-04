@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSArray *filterInfoArray;
 @property (nonatomic, strong) UIImage *thumbnailImage;
 @property (nonatomic, strong) NSMutableDictionary *filteredThumbnailCacheDictionary;
+@property (nonatomic, assign) NSInteger currentFilterIndex;
 
 @end
 
@@ -32,6 +33,7 @@
 @synthesize reader = _reader;
 @synthesize filterInfoArray = _infoArray;
 @synthesize filteredThumbnailCacheDictionary = _filteredThumbnailCacheDictionary;
+@synthesize currentFilterIndex = _currentFilterIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -86,12 +88,12 @@
 }
 
 - (CGRect)tableViewHeaderViewFrame {
-    CGRect frame = self.isCurrentOrientationLandscape ? CGRectMake(0, 0, 80, 142) : CGRectMake(0, 0, 80, 239);
+    CGRect frame = self.isCurrentOrientationLandscape ? CGRectMake(0, 0, 80, 142) : CGRectMake(0, 0, 238, 80);
     return frame;
 }
 
 - (CGRect)tableViewFooterViewFrame {
-    CGRect frame = self.isCurrentOrientationLandscape ? CGRectMake(0, 0, 80, 122) : CGRectMake(0, 0, 80, 216);
+    CGRect frame = self.isCurrentOrientationLandscape ? CGRectMake(0, 0, 80, 122) : CGRectMake(0, 0, 215, 80);
     return frame;
 }
 
@@ -102,18 +104,20 @@
     UIView *footerView = [[UIView alloc] initWithFrame:[self tableViewFooterViewFrame]];
     headerView.backgroundColor = [UIColor clearColor];
     footerView.backgroundColor = [UIColor clearColor];
+    self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
+    
+    if(!self.isCurrentOrientationLandscape) {
+        CGRect frame = self.tableView.frame;
+        self.tableView.transform = CGAffineTransformMakeRotation(-M_PI_2);
+        headerView.transform = CGAffineTransformMakeRotation(M_PI_2);
+        footerView.transform = CGAffineTransformMakeRotation(M_PI_2);
+        self.tableView.frame = frame;
+    }
+    
     self.tableView.tableHeaderView = headerView;
     self.tableView.tableFooterView = footerView;
     
-    self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
-    
-    CGRect frame = self.tableView.frame;
-    if(!self.isCurrentOrientationLandscape) {
-        self.tableView.transform = CGAffineTransformMakeRotation(-M_PI_2);
-    } else {
-        self.tableView.transform = CGAffineTransformIdentity;
-    }
-    self.tableView.frame = frame;
+    self.tableView.contentOffset = CGPointMake(0, self.currentFilterIndex * TABLE_VIEW_CELL_HEIGHT);
 }
 
 - (void)configureCell:(MotionsFilterCell *)cell atIndexPath:(NSIndexPath *)indexPath{
@@ -133,10 +137,7 @@
         }];
     
     if(!self.isCurrentOrientationLandscape) {
-        cell.transform = CGAffineTransformMakeRotation(-M_PI_2);
-        NSLog(@"cell frame %@", NSStringFromCGRect(cell.frame));
-    } else {
-        cell.transform = CGAffineTransformIdentity;
+        cell.transform = CGAffineTransformMakeRotation(M_PI_2);
     }
 }
 
@@ -152,6 +153,7 @@
     if(cellOffset > TABLE_VIEW_CELL_HEIGHT / 2) {
         index += 1;
     }
+    self.currentFilterIndex = index;
     [UIView animateWithDuration:0.3f animations:^{
         self.tableView.contentOffset = CGPointMake(0, index * TABLE_VIEW_CELL_HEIGHT);
     } completion:^(BOOL finished) {
@@ -180,6 +182,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return TABLE_VIEW_CELL_HEIGHT;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 #pragma mark - UIScrollView delegate
