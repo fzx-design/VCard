@@ -56,7 +56,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self configureTableView];
-    NSLog(@"Motions Filter Table View Controller Did Load");
 }
 
 - (void)viewDidUnload

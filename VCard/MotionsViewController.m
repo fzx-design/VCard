@@ -68,7 +68,6 @@
     } else {
         [self configureShootViewController];
     }
-    NSLog(@"Motions View Controller Did Load");
 }
 
 - (void)viewDidUnload
@@ -247,7 +246,14 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
 #pragma mark - MotionsShootViewController delegate
 
 - (void)shootViewController:(MotionsShootViewController *)vc didCaptureImage:(UIImage *)image {
-    [self.delegate motionViewControllerDidFinish:image];
+    [self showCameraCoverWithCompletion:nil];
+    [self.shootViewController hideShootAccessoriesAnimationWithCompletion:^{
+        [self.shootViewController.view removeFromSuperview];
+        self.shootViewController = nil;
+        self.originalImage = image;
+        [self configureEditViewController];
+        [self.editViewController showEditAccessoriesAnimationWithCompletion:nil];
+    }];
 }
 
 - (void)shootViewControllerWillBecomeActiveWithCompletion:(void (^)(void))completion {
@@ -269,7 +275,15 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
 }
 
 - (void)editViewControllerDidChooseToShoot {
-    
+    [self showCameraCoverWithCompletion:nil];
+    [self.editViewController hideEditAccessoriesAnimationWithCompletion:^{
+        [self.editViewController.view removeFromSuperview];
+        self.editViewController = nil;
+        self.originalImage = nil;
+        
+        [self configureShootViewController];
+        [self.shootViewController showShootAccessoriesAnimationWithCompletion:nil];
+    }];
 }
 
 @end

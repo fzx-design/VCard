@@ -51,6 +51,7 @@
 @synthesize capturedImageView = _capturedImageView;
 @synthesize capturedImageEditBar = _capturedImageEditView;
 @synthesize activityIndicator = _activityIndicator;
+@synthesize editAccessoryView = _editAccessoryView;
 
 @synthesize originalImage = _originalImage;
 @synthesize modifiedImage = _modifiedImage;
@@ -91,7 +92,6 @@
     [self configureSlider];
     [self configureButtons];
     [self configureFilterTableViewController];
-    NSLog(@"Motions Edit View Controller Did Load");
 }
 
 - (void)viewDidUnload
@@ -109,6 +109,7 @@
     self.capturedImageView = nil;
     self.capturedImageEditBar = nil;
     self.activityIndicator = nil;
+    self.editAccessoryView = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -248,6 +249,56 @@
     }];
 }
 
+- (void)setShowEditAccessoriesFrame {
+    CGRect editAccessoryFrame = self.editAccessoryView.frame;
+    CGRect filterFrame = self.filterViewController.view.frame;
+    if(self.isCurrentOrientationLandscape) {
+        editAccessoryFrame.origin.x = 1024 - editAccessoryFrame.size.width;
+        editAccessoryFrame.origin.y = 0;
+        
+        filterFrame.origin.x = 0;
+        filterFrame.origin.y = 0;
+    } else {
+    }
+    self.editAccessoryView.frame = editAccessoryFrame;
+    self.filterViewController.view.frame = filterFrame;
+}
+
+- (void)setHideEditAccessoriesFrame {
+    CGRect editAccessoryFrame = self.editAccessoryView.frame;
+    CGRect filterFrame = self.filterViewController.view.frame;
+    if(self.isCurrentOrientationLandscape) {
+        editAccessoryFrame.origin.x = 1024;
+        editAccessoryFrame.origin.y = 0;
+        
+        filterFrame.origin.x = editAccessoryFrame.size.width;
+        filterFrame.origin.y = 0;
+    } else {
+    }
+    self.editAccessoryView.frame = editAccessoryFrame;
+    self.filterViewController.view.frame = filterFrame;
+}
+
+- (void)hideEditAccessoriesAnimationWithCompletion:(void (^)(void))completion {
+    [self setShowEditAccessoriesFrame];
+    [UIView animateWithDuration:0.3f animations:^{
+        [self setHideEditAccessoriesFrame];
+    } completion:^(BOOL finished) {
+        if(completion)
+            completion();
+    }];
+}
+
+- (void)showEditAccessoriesAnimationWithCompletion:(void (^)(void))completion {
+    [self setHideEditAccessoriesFrame];
+    [UIView animateWithDuration:0.3f animations:^{
+        [self setShowEditAccessoriesFrame];
+    } completion:^(BOOL finished) {
+        if(completion)
+            completion();
+    }];
+}
+
 #pragma mark - UI methods
 
 - (void)configureFilterTableViewController {
@@ -352,7 +403,7 @@
 - (IBAction)didClickChangePictureButton:(UIButton *)sender {
     
     if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
-        
+        [self.delegate editViewControllerDidChooseToShoot];
         return;
     }
     UIActionSheet *actionSheet = nil;
@@ -414,7 +465,7 @@
     if(buttonIndex == MOTIONS_EDIT_ACTION_SHEET_ALBUM_INDEX) {
         [self showAlbumImagePicker];
     } else if(buttonIndex == MOTIONS_EDIT_ACTION_SHEET_SHOOT_INDEX) {
-        
+        [self.delegate editViewControllerDidChooseToShoot];
     }
     self.actionSheet = nil;
 }

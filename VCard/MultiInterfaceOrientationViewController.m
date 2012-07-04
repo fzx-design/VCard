@@ -32,6 +32,10 @@
     return self;
 }
 
+- (BOOL)isCurrentOrientationLandscape {
+    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation);
+}
+
 - (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if(UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
         [[NSBundle mainBundle] loadNibNamed:[NSString stringWithFormat:@"%@-landscape", NSStringFromClass([self class])] owner:self options:nil];

@@ -20,12 +20,15 @@
 @property (nonatomic, strong) IBOutlet UIButton *cameraStatusLEDButton;
 @property (nonatomic, strong) IBOutlet UIButton *shootButton;
 @property (nonatomic, strong) IBOutlet UIButton *pickImageButton;
+@property (nonatomic, strong) IBOutlet UIView *shootAccessoryView;
 
 - (IBAction)didClickShootButton:(UIButton *)sender;
 - (IBAction)didClickChangeCameraButton:(UIButton *)sender;
 - (IBAction)didClickPickImageButton:(UIButton *)sender;
 
 - (void)startShoot;
+- (void)hideShootAccessoriesAnimationWithCompletion:(void (^)(void))completion;
+- (void)showShootAccessoriesAnimationWithCompletion:(void (^)(void))completion;
 
 @end
 

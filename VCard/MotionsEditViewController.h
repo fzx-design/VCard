@@ -27,6 +27,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView *capturedImageView;
 @property (nonatomic, strong) IBOutlet UIView *capturedImageEditBar;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) IBOutlet UIView *editAccessoryView;
 @property (nonatomic, weak) id<MotionsEditViewControllerDelegate> delegate;
 
 - (IBAction)didChangeSlider:(UISlider *)sender;
@@ -36,7 +37,9 @@
 - (IBAction)didClickChangePictureButton:(UIButton *)sender;
 
 - (id)initWithImage:(UIImage *)image;
-
+- (void)hideEditAccessoriesAnimationWithCompletion:(void (^)(void))completion;
+- (void)showEditAccessoriesAnimationWithCompletion:(void (^)(void))completion;
+    
 @end
 
 @protocol MotionsEditViewControllerDelegate <NSObject>

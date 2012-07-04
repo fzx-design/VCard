@@ -34,6 +34,7 @@
 @synthesize cameraPreviewView = _cameraPreviewView;
 @synthesize shootButton = _shootButton;
 @synthesize pickImageButton = _pickImageButton;
+@synthesize shootAccessoryView = _shootAccessoryView;
 
 @synthesize captureSession = _captureSession;
 @synthesize previewLayer = _previewLayer;
@@ -65,6 +66,7 @@
     self.cameraStatusLEDButton = nil;
     self.pickImageButton = nil;
     self.shootButton = nil;
+    self.shootAccessoryView = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -214,7 +216,53 @@
     self.cameraPreviewView.layer.cornerRadius = 2.0f;
 }
 
-#pragma mark - IBActions 
+#pragma mark - Animations
+
+- (void)setShowShootAccessoriesFrame {
+    CGRect frame = self.shootAccessoryView.frame;
+    if(self.isCurrentOrientationLandscape) {
+        frame.origin.x = 1024 - frame.size.width;
+        frame.origin.y = 0;
+    } else {
+        frame.origin.x = 0;
+        frame.origin.y = 1004 - frame.size.height;
+    }
+    self.shootAccessoryView.frame = frame;
+}
+
+- (void)setHideShootAccessoriesFrame {
+    CGRect frame = self.shootAccessoryView.frame;
+    if(self.isCurrentOrientationLandscape) {
+        frame.origin.x = 1024;
+        frame.origin.y = 0;
+    } else {
+        frame.origin.x = 0;
+        frame.origin.y = 1004;
+    }
+    self.shootAccessoryView.frame = frame;
+}
+
+- (void)hideShootAccessoriesAnimationWithCompletion:(void (^)(void))completion {
+    [self setShowShootAccessoriesFrame];
+    [UIView animateWithDuration:0.3f animations:^{
+        [self setHideShootAccessoriesFrame];
+    } completion:^(BOOL finished) {
+        if(completion)
+            completion();
+    }];
+}
+
+- (void)showShootAccessoriesAnimationWithCompletion:(void (^)(void))completion {
+    [self setHideShootAccessoriesFrame];
+    [UIView animateWithDuration:0.3f animations:^{
+        [self setShowShootAccessoriesFrame];
+    } completion:^(BOOL finished) {
+        if(completion)
+            completion();
+    }];
+}
+
+#pragma mark - IBActions
 
 - (IBAction)didClickShootButton:(UIButton *)sender {
     self.view.userInteractionEnabled = NO;
