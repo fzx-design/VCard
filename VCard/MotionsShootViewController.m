@@ -241,12 +241,16 @@
     }
     
     [self.delegate shootViewControllerWillBecomeInactiveWithCompletion:^{
-        [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
+        [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
             if(!error) {
-                NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-                UIImage *image = [[UIImage alloc] initWithData:imageData];
-                [self configureShootImage:image];
-                [self.delegate shootViewController:self didCaptureImage:self.capturedImage];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+                    UIImage *image = [[UIImage alloc] initWithData:imageData];
+                    [self configureShootImage:image];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.delegate shootViewController:self didCaptureImage:self.capturedImage];
+                    });
+                });
             }
             else {
                 NSLog(@"error:%@", error.localizedDescription);

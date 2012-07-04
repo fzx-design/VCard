@@ -391,7 +391,8 @@
 - (void)cropImageViewControllerDidFinishCrop:(UIImage *)image {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.modifiedImage = image;
-        UIImage *filteredImage = self.filteredImage;
+        UIImage *filteredImage = [self.currentFilterInfo processImage:self.modifiedImage];
+        filteredImage = filteredImage ? filteredImage : self.modifiedImage;
         self.capturedImageView.image = filteredImage;
         self.cacheFilteredImage = nil;
         dispatch_async(dispatch_get_main_queue(), ^{
