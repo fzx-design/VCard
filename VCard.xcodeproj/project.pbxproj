@@ -2578,14 +2578,14 @@
 		E1097CF4157F997B00BD0640 /* Motions */ = {
 			isa = PBXGroup;
 			children = (
-				E1097D22157F9A1F00BD0640 /* MotionsViewController.h */,
-				E12B6FDA1599663A00711A6B /* MultiInterfaceOrientationViewController.h */,
-				E1097D23157F9A1F00BD0640 /* MotionsViewController.m */,
-				E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */,
-				E1031B6315995114006A9CFD /* MotionsViewController-landscape.xib */,
-				E1097D24157F9A1F00BD0640 /* MotionsViewController.xib */,
 				E136F90715A320280019700F /* Edit */,
 				E136F90915A320480019700F /* Shoot */,
+				E1031B6315995114006A9CFD /* MotionsViewController-landscape.xib */,
+				E1097D22157F9A1F00BD0640 /* MotionsViewController.h */,
+				E1097D23157F9A1F00BD0640 /* MotionsViewController.m */,
+				E1097D24157F9A1F00BD0640 /* MotionsViewController.xib */,
+				E12B6FDA1599663A00711A6B /* MultiInterfaceOrientationViewController.h */,
+				E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */,
 			);
 			name = Motions;
 			sourceTree = "<group>";

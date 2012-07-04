@@ -56,7 +56,7 @@
     glGenRenderbuffers(1, &_renderBuffer);
     glBindRenderbuffer(GL_RENDERBUFFER, _renderBuffer);
     
-    _coreImageContext = [CIContext contextWithEAGLContext:self.context]; 
+    self.coreImageContext = [CIContext contextWithEAGLContext:self.context];
 }
 
 // Only override drawRect: if you perform custom drawing.

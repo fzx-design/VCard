@@ -428,7 +428,13 @@
     [self.popoverController dismissPopoverAnimated:YES];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     self.popoverController = nil;
-    [self performSelector:@selector(initViewWithImage:) withObject:image afterDelay:0.1f];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *rotatedImage = [image rotateAdjustImage];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self initViewWithImage:rotatedImage];
+        });
+    });
 }
 
 #pragma mark -
