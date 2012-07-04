@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1416" systemVersion="12A248" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1416" systemVersion="12A256" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Comment" representedClassName="Comment" syncable="YES">
         <attribute name="authorFollowedByMe" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="byMe" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -67,6 +67,7 @@
         <attribute name="repostsCount" optional="YES" attributeType="String" defaultValueString="0">
             <userInfo/>
         </attribute>
+        <attribute name="searchKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="searchString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="source" optional="YES" attributeType="String">
             <userInfo/>
@@ -184,7 +185,7 @@
     </entity>
     <elements>
         <element name="Comment" positionX="0" positionY="0" width="0" height="285"/>
-        <element name="Status" positionX="0" positionY="0" width="0" height="525"/>
+        <element name="Status" positionX="0" positionY="0" width="0" height="540"/>
         <element name="User" positionX="0" positionY="0" width="0" height="525"/>
     </elements>
 </model>

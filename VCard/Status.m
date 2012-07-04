@@ -2,7 +2,7 @@
 //  Status.m
 //  VCard
 //
-//  Created by Gabriel Yeah on 12-6-25.
+//  Created by 海山 叶 on 12-7-4.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -30,6 +30,8 @@
 @dynamic lat;
 @dynamic location;
 @dynamic lon;
+@dynamic operatable;
+@dynamic operatedBy;
 @dynamic originalPicURL;
 @dynamic repostsCount;
 @dynamic searchString;
@@ -38,8 +40,7 @@
 @dynamic text;
 @dynamic thumbnailPicURL;
 @dynamic updateDate;
-@dynamic operatable;
-@dynamic operatedBy;
+@dynamic searchKey;
 @dynamic author;
 @dynamic comments;
 @dynamic favoritedBy;
@@ -195,6 +196,19 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@", user, [NSNumber numberWithBool:YES], object]];
+    
+    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
+    
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
+}
+
++ (void)deleteStatusesWithSearchKey:(NSString *)searchKey InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"searchKey == %@ && operatedBy == %@", searchKey, object]];
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
     

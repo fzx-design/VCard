@@ -22,6 +22,7 @@
 #import "CommentViewController.h"
 #import "SelfCommentViewController.h"
 #import "SelfProfileViewController.h"
+#import "TopicViewController.h"
 
 @interface CastViewController () {
     BOOL _loading;
@@ -113,7 +114,11 @@
     [center addObserver:self
                selector:@selector(showSelfMentionList:)
                    name:kNotificationNameShouldShowSelfMentionList
-                 object:nil];    
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(showTopic:)
+                   name:kNotificationNameShouldShowTopic
+                 object:nil];
     [center addObserver:self
                selector:@selector(refreshEnded)
                    name:kNotificationNameRefreshEnded
@@ -295,6 +300,20 @@
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:self.currentUser.screenName];
 }
 
+- (void)showTopic:(NSNotification *)notification
+{
+    NSDictionary *dictionary = notification.object;
+    
+    NSString *searchKey = [dictionary valueForKey:kNotificationObjectKeySearchKey];
+    NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
+    int index = [indexString intValue];
+    
+    TopicViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TopicViewController"];
+    vc.currentUser = self.currentUser;
+    vc.searchKey = searchKey;
+    
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeTopic pageDescription:searchKey];
+}
 
 - (void)hideWaterflowView
 {
@@ -449,6 +468,14 @@
     _groupButton.selected = !_groupButton.selected;
     NSString *notificationName = _groupButton.selected ? kNotificationNameShouldShowGroup : kNotificationNameShouldHideGroup;
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+}
+
+- (IBAction)didClickSearchButton:(id)sender
+{
+    UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchViewController"];
+    vc.currentUser = self.currentUser;
+    
+    [self stackViewAtIndex:INT64_MAX push:vc withPageType:StackViewPageTypeSearch pageDescription:self.currentUser.screenName];
 }
 
 - (IBAction)showProfileButtonClicked:(id)sender

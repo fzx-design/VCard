@@ -700,6 +700,28 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
+- (void)searchTopic:(NSString *)q
+     startingAtPage:(int)page
+              count:(int)count
+{
+    self.path = @"search/topics.json";
+    if (q) {
+        [self.params setObject:q forKey:@"q"];
+    } else {
+        //TODO: Handle userID nil Error
+        return;
+    }
+	
+    if (page > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+    }
+    if (count > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    }
+    
+    [self loadNormalRequest];
+}
+
 #pragma mark Request
 
 - (void)loadNormalRequest

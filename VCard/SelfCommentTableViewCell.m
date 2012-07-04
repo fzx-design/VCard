@@ -118,6 +118,11 @@
     [self sendUserNameClickedNotificationWithName:userName];
 }
 
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithQuate:(NSString *)quate
+{
+    [self sendShowTopicNotification:quate];
+}
+
 - (void)sendUserNameClickedNotificationWithName:(NSString *)userName
 {
     NSString *indexString = [NSString stringWithFormat:@"%i", self.pageIndex];
@@ -127,7 +132,10 @@
                                                                 indexString, kNotificationObjectKeyIndex, nil]];
 }
 
-
+- (void)sendShowTopicNotification:(NSString *)searchKey
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowTopic object:[NSDictionary dictionaryWithObjectsAndKeys:searchKey, kNotificationObjectKeySearchKey, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+}
 
 
 #pragma mark - PostViewController Delegate

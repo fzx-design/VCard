@@ -193,4 +193,8 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 
 - (void)searchUser:(NSString *)q;
 
+- (void)searchTopic:(NSString *)q
+     startingAtPage:(int)page
+              count:(int)count;
+
 @end
