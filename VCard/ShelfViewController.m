@@ -267,6 +267,9 @@
 - (void)setUpScrollView
 {
     if (_drawerViewArray) {
+        for (UIView *view in _drawerViewArray) {
+            [view removeFromSuperview];
+        }
         [_drawerViewArray removeAllObjects];
         _drawerViewArray = nil;
     }
