@@ -868,10 +868,6 @@
 
 - (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
     [vc dismissViewToRect:self.createStatusButton.frame];
-    
-    for (Status *status in self.fetchedResultsController.fetchedObjects) {
-        NSLog(@"%@, %@", status.statusID, status.createdAt);
-    }
 }
 
 @end
