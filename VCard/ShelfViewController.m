@@ -8,9 +8,15 @@
 
 #import "ShelfViewController.h"
 #import "UIView+Resize.h"
+#import "WBClient.h"
+#import "ShelfDrawerView.h"
 
 #define kShelfHeight 149.0
 #define kNumberOfDrawerPerPage 5
+
+@implementation WBGroupInfo
+
+@end
 
 @interface ShelfViewController () {
     UIImageView *_shelfBGImageView;
@@ -34,13 +40,44 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setUpScrollView];
+    [self initScrollView];
     [self setUpSettingView];
+    [self setUpGroupsInfo];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+}
+
+#pragma mark - Group Infomation Behavior
+- (void)setUpGroupsInfo
+{
+    _groupInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:kUserGroupInfoArray];
+    
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+//            NSMutableArray *groupInfoArray = [[NSMutableArray alloc] init];
+            _groupInfoArray = nil;
+            _groupInfoArray = [[NSMutableArray alloc] init];
+            
+            NSArray *resultArray = [client.responseJSONObject objectForKey:@"lists"];
+            for (NSDictionary *dict in resultArray) {
+                NSString *name = [dict objectForKey:@"name"];
+                NSString *url = [dict objectForKey:@"profile_image_url"];
+                url = [url stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"];
+                NSDictionary *group = [NSDictionary dictionaryWithObject:url forKey:name];
+                [_groupInfoArray addObject:group];
+            }
+            
+            [[NSUserDefaults standardUserDefaults] setObject:(NSArray *)_groupInfoArray forKey:kUserGroupInfoArray];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        [self performSelector:@selector(setUpScrollView) withObject:nil afterDelay:0.001];
+    }];
+    [client getGroups];
 }
 
 #pragma mark - Rotation Behavior
@@ -60,6 +97,7 @@
 {
     CGFloat toWidth = UIInterfaceOrientationIsPortrait(fromInterfaceOrientation) ? 1024 : 768;
     [_scrollView resetWidth:toWidth];
+    [_shelfBorderImageView resetWidth:_scrollView.frame.size.width];
 }
 
 - (void)resetContentSize:(UIInterfaceOrientation)orientation
@@ -95,8 +133,8 @@
 #pragma mark - Setting View Behavior
 - (void)setUpSettingView
 {
-    [_brightnessSlider setThumbImage:[UIImage imageNamed:@"motions_slider_thumb_vertical.png"] forState:UIControlStateNormal];
-	[_brightnessSlider setThumbImage:[UIImage imageNamed:@"motions_slider_thumb_vertical.png"] forState:UIControlStateHighlighted];
+    [_brightnessSlider setThumbImage:[UIImage imageNamed:@"motions_slider_thumb.png"] forState:UIControlStateNormal];
+	[_brightnessSlider setThumbImage:[UIImage imageNamed:@"motions_slider_thumb.png"] forState:UIControlStateHighlighted];
 	[_brightnessSlider setMinimumTrackImage:[UIImage imageNamed:@"transparent.png"] forState:UIControlStateNormal];
 	[_brightnessSlider setMaximumTrackImage:[UIImage imageNamed:@"transparent.png"] forState:UIControlStateNormal];
     
@@ -115,7 +153,7 @@
 }
 
 #pragma mark - Scroll View Behavior
-- (void)setUpScrollView
+- (void)initScrollView
 {
     NSInteger numberOfDrawers = 10;
     _numberOfPages = numberOfDrawers / kNumberOfDrawerPerPage + 1;
@@ -132,10 +170,10 @@
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.delegate = self;
     _scrollView.contentOffset = CGPointMake(_scrollView.frame.size.width, 0.0);
-    [_scrollView resetSize:self.view.bounds.size];
+    [_scrollView resetWidth:self.view.bounds.size.width];
+    [_scrollView resetHeight:149.0];
     ShelfBackgroundView *view = (ShelfBackgroundView *)self.view;
     view.scrollViewReference = (ShelfScrollView *)_scrollView;
-    
     
     _shelfEdgeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 62.0, 136.0)];
     _shelfEdgeImageView.image = [UIImage imageNamed:@"shelf_wood_edge.png"];
@@ -143,7 +181,7 @@
     _shelfEdgeImageView.autoresizingMask = UIViewAutoresizingNone;
     _shelfEdgeImageView.userInteractionEnabled = NO;
     [_shelfEdgeImageView resetOriginX:_scrollView.frame.size.width - _shelfEdgeImageView.frame.size.width];
-    [_scrollView addSubview:_shelfEdgeImageView];
+    [_scrollView insertSubview:_shelfEdgeImageView belowSubview:_shelfBorderImageView];
     
     _shelfBGImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 7.0, 1024.0, 136.0)];
     _shelfBGImageView.image = [UIImage imageNamed:@"shelf_bg.png"];
@@ -151,7 +189,36 @@
     _shelfBGImageView.autoresizingMask = UIViewAutoresizingNone;
     _shelfBGImageView.userInteractionEnabled = NO;
     [_shelfBGImageView resetOriginX:_scrollView.frame.size.width];
-    [_scrollView addSubview:_shelfBGImageView];
+    [_scrollView insertSubview:_shelfBGImageView belowSubview:_shelfBorderImageView];
+    
+    [_shelfBorderImageView resetWidth:_scrollView.frame.size.width];
+}
+
+- (void)setUpScrollView
+{
+    NSArray *array = [[NSUserDefaults standardUserDefaults] objectForKey:kUserGroupInfoArray];
+    NSInteger numberOfDrawers = array.count;
+    _numberOfPages = ceil((float)numberOfDrawers / (float)kNumberOfDrawerPerPage) + 1;
+    _pageControl.numberOfPages = _numberOfPages;
+    _pageControl.currentPage = 1;
+    
+    NSInteger index = 0;
+    for (NSDictionary *group in array) {
+        for (NSString *name in group.allKeys) {
+            NSString *url = [group objectForKey:name];
+            
+            NSInteger page = index / kNumberOfDrawerPerPage + 1;
+            NSInteger pageOffset = index % kNumberOfDrawerPerPage;
+            CGFloat originX = _scrollView.frame.size.width * page + 200.0 * pageOffset + 65.0;
+            
+            ShelfDrawerView *drawerView = [[ShelfDrawerView alloc] initWithFrame:CGRectMake(originX, 40.0, 95.0, 95.0)
+                                                                       topicName:name
+                                                                          picURL:url
+                                                                           index:index];
+            [_scrollView addSubview:drawerView];
+            index++;
+        }
+    }
 }
 
 - (void)resetBGImageView:(CGFloat)currentWidth
@@ -167,6 +234,7 @@
     } else {
         [_shelfBGImageView resetOriginX:_scrollView.frame.size.width];
     }
+    [_shelfBorderImageView resetOriginX:_scrollView.contentOffset.x];
 }
 
 #pragma mark - UIScrollView delegate

@@ -25,6 +25,7 @@
 	[dict setObject:[NSNumber numberWithBool:YES] forKey:kUserDefaultFirstTime];
     [dict setObject:[NSNumber numberWithBool:NO] forKey:kUserDefaultAuthorized];
 	[dict setObject:[NSNumber numberWithInt:10] forKey:kUserDefaultKeyRefreshingInterval];
+    [dict setObject:[NSMutableArray array] forKey:kUserGroupInfoArray];
 	[userDefault registerDefaults:dict];
 }
 

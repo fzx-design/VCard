@@ -17,6 +17,9 @@
 #define kWBSDKAppKey                @"1965726745"
 #define kWBSDKAppSecret             @"55377ca138fa49b63b7767778ca1fb5a"
 
+#define kWBSDKAdvancedAppKey        @"82966982"
+#define kWBSDKAdvancedAppSecret     @"72d4545a28a46a6f329c4f2b1e949e6a"
+
 typedef enum
 {
 	kWBErrorCodeInterface	= 100,

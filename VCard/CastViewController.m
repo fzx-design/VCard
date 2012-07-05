@@ -620,6 +620,16 @@
                        startingAtPage:0
                                 count:20 
                               feature:0];
+    
+//    WBClient *client1 = [WBClient client];
+//    [client1 setCompletionBlock:^(WBClient *client) {
+//        if (!client.hasError) {
+//            NSLog(@"%@", client.responseJSONObject);
+//        } else {
+//            NSLog(@"error! \n%@", client.responseJSONObject);
+//        }
+//    }];
+//    [client1 searchUser:@"gab"];
 }
 
 - (void)resetUnreadCountWithType:(NSString *)type

@@ -95,6 +95,8 @@
 
 #define kUserDefaultKeyRefreshingInterval               @"kUserDefaultKeyRefreshingInterval"
 
+#define kUserGroupInfoArray         @"kUserGroupInfoArray"
+
 #define kOrientationPortrait                            @"kOrientationPortrait"
 #define kOrientationLandscape                           @"kOrientationLandscape"
 

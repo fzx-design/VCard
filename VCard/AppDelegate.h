@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#define kUserDefaultAuthorized @"kUserDefaultAuthorized"
-#define kUserDefaultFirstTime @"kUserDefaultFirstTime"
-#define kUserDefaultCurrentUserID @"kUserDefaultCurrentUserID"
+#define kUserDefaultAuthorized      @"kUserDefaultAuthorized"
+#define kUserDefaultFirstTime       @"kUserDefaultFirstTime"
+#define kUserDefaultCurrentUserID   @"kUserDefaultCurrentUserID"
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate>

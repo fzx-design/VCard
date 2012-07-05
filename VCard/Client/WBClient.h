@@ -88,6 +88,7 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 @property (nonatomic, copy) NSString *appSecret;
 @property (nonatomic, retain) NSString *userID;
 @property (nonatomic, retain) NSString *accessToken;
+@property (nonatomic, retain) NSString *advancedToken;
 @property (nonatomic, assign) NSTimeInterval expireTime;
 @property (nonatomic, retain) NSString *redirectURI;
 @property (nonatomic, assign) BOOL isUserExclusive;
@@ -196,5 +197,6 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 - (void)searchTopic:(NSString *)q
      startingAtPage:(int)page
               count:(int)count;
+- (void)getGroups;
 
 @end

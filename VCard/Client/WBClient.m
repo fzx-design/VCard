@@ -18,6 +18,7 @@
 #define kWBKeychainServiceNameSuffix    @"_WeiBoServiceName"
 #define kWBKeychainUserID               @"WeiBoUserID"
 #define kWBKeychainAccessToken          @"WeiBoAccessToken"
+#define kWBKeychainAdvancedToken        @"kWBKeychainAdvancedToken"
 #define kWBKeychainExpireTime           @"WeiBoExpireTime"
 
 typedef enum {
@@ -146,6 +147,7 @@ static NSString *UserID = @"";
     NSString *serviceName = [[self urlSchemeString] stringByAppendingString:kWBKeychainServiceNameSuffix];
     self.userID = [SFHFKeychainUtils getPasswordForUsername:kWBKeychainUserID andServiceName:serviceName error:nil];
     self.accessToken = [SFHFKeychainUtils getPasswordForUsername:kWBKeychainAccessToken andServiceName:serviceName error:nil];
+    self.advancedToken = [SFHFKeychainUtils getPasswordForUsername:kWBKeychainAdvancedToken andServiceName:serviceName error:nil];
     self.expireTime = [[SFHFKeychainUtils getPasswordForUsername:kWBKeychainExpireTime andServiceName:serviceName error:nil] doubleValue];
 }
 
@@ -355,6 +357,34 @@ static NSString *UserID = @"";
             UserID = self.userID;
             
             [self saveAuthorizeDataToKeychain];
+            
+            [self authorizeWithAdvancedAppKeyUsingUserID:userID password:password];
+        }
+        
+    }];
+    
+    [self loadAuthorizeRequest];
+}
+
+- (void)authorizeWithAdvancedAppKeyUsingUserID:(NSString *)userID password:(NSString *)password
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:kWBSDKAdvancedAppKey, @"client_id",
+                                   kWBSDKAdvancedAppSecret, @"client_secret",
+                                   @"password", @"grant_type",
+                                   _redirectURI, @"redirect_uri",
+                                   userID, @"username",
+                                   password, @"password", nil];
+    
+    self.params = params;
+    
+    [self setPreCompletionBlock:^(WBClient *client) {
+        
+        if ([self.responseJSONObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dict = (NSDictionary*)client.responseJSONObject;
+            self.advancedToken = [dict objectForKey:@"access_token"];
+            
+            NSString *serviceName = [[self urlSchemeString] stringByAppendingString:kWBKeychainServiceNameSuffix];
+            [SFHFKeychainUtils storeUsername:kWBKeychainAdvancedToken andPassword:_advancedToken forServiceName:serviceName updateExisting:YES error:nil];
         }
     }];
     
@@ -696,8 +726,10 @@ static NSString *UserID = @"";
     self.path = @"search/users.json";
     
     [self.params setObject:@"Gabriel" forKey:@"q"];
+    self.appKey = @"";
+    self.appSecret = @"";
     
-    [self loadNormalRequest];
+    [self loadAdvancedRequest];
 }
 
 - (void)searchTopic:(NSString *)q
@@ -722,6 +754,13 @@ static NSString *UserID = @"";
     [self loadNormalRequest];
 }
 
+- (void)getGroups
+{
+    self.path = @"friendships/groups.json";
+    [self loadAdvancedRequest];
+}
+
+
 #pragma mark Request
 
 - (void)loadNormalRequest
@@ -729,6 +768,21 @@ static NSString *UserID = @"";
     [_request disconnect];
     
     self.request = [WBRequest requestWithAccessToken:_accessToken
+                                                 url:[NSString stringWithFormat:@"%@%@", kWBSDKAPIDomain, self.path]
+                                          httpMethod:self.httpMethod == HTTPMethodGet ? @"GET" : @"POST"
+                                              params:self.params
+                                        postDataType:self.postDataType
+                                    httpHeaderFields:nil
+                                            delegate:self];
+	
+	[_request connect];
+}
+
+- (void)loadAdvancedRequest
+{
+    [_request disconnect];
+    
+    self.request = [WBRequest requestWithAccessToken:_advancedToken
                                                  url:[NSString stringWithFormat:@"%@%@", kWBSDKAPIDomain, self.path]
                                           httpMethod:self.httpMethod == HTTPMethodGet ? @"GET" : @"POST"
                                               params:self.params
