@@ -651,7 +651,7 @@
                                   feature:0];
     } else if (_dataSource == CastviewDataSourceFavourite) {
         [client getFavouritesWithPage:_nextPage++
-                                count:20];
+                                count:50];
     } else if (_dataSource == CastviewDataSourceGroup) {
         [client getGroupTimelineWithGroupID:_dataSourceDescription
                                     sinceID:nil
