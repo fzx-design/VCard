@@ -86,14 +86,14 @@
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    NSLog(@"will rotate to:%d", toInterfaceOrientation);
+    //NSLog(@"will rotate to:%d", toInterfaceOrientation);
     [UIView setAnimationsEnabled:NO];
     [self shootViewImage];
     [self loadRootViewControllerWithInterfaceOrientation:toInterfaceOrientation];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    NSLog(@"did rotate to %d, self orientation %d", [UIApplication sharedApplication].statusBarOrientation, self.interfaceOrientation);
+    //NSLog(@"did rotate to %d, self orientation %d", [UIApplication sharedApplication].statusBarOrientation, self.interfaceOrientation);
     [UIView setAnimationsEnabled:YES];
     [self configureCameraCover];
     [self orientationTransitionAnimation:fromInterfaceOrientation];
@@ -125,8 +125,15 @@
     return frame;
 }
 
+- (void)setShootViewController:(MotionsShootViewController *)shootViewController {
+    if(shootViewController == nil)
+        [self.subViewControllers removeObject:_shootViewController];
+    _shootViewController = shootViewController;
+}
+
 - (MotionsShootViewController *)shootViewController {
     if(!_shootViewController) {
+        //NSLog(@"create shoot vc");
         _shootViewController = [[MotionsShootViewController alloc] init];
         _shootViewController.delegate = self;
         [self.subViewControllers addObject:_shootViewController];
@@ -134,8 +141,15 @@
     return _shootViewController;
 }
 
+- (void)setEditViewController:(MotionsEditViewController *)editViewController {
+    if(editViewController == nil)
+        [self.subViewControllers removeObject:_editViewController];
+    _editViewController = editViewController;
+}
+
 - (MotionsEditViewController *)editViewController {
     if(!_editViewController) {
+        //NSLog(@"create edit vc");
         _editViewController = [[MotionsEditViewController alloc] initWithImage:self.originalImage];
         _editViewController.delegate = self;
         [self.subViewControllers addObject:_editViewController];
@@ -214,7 +228,7 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
 
 - (void)showCameraCoverWithCompletion:(void (^)(void))completion {
     if(!self.cameraCoverHidden) {
-        self.shootViewController.cameraStatusLEDButton.selected = NO;
+        _shootViewController.cameraStatusLEDButton.selected = NO;
         return;
     }
     self.cameraCoverHidden = NO;
@@ -229,7 +243,7 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
 
 - (void)hideCameraCoverWithCompletion:(void (^)(void))completion {
     if(self.cameraCoverHidden) {
-        self.shootViewController.cameraStatusLEDButton.selected = YES;
+        _shootViewController.cameraStatusLEDButton.selected = YES;
         return;
     }
     self.cameraCoverHidden = YES;
@@ -239,7 +253,7 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
     } completion:^(BOOL finished) {
         if(completion)
             completion();
-        self.shootViewController.cameraStatusLEDButton.selected = YES;
+        _shootViewController.cameraStatusLEDButton.selected = YES;
     }];
 }
 

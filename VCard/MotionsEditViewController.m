@@ -179,7 +179,7 @@
 
 - (UIImage *)cacheFilteredImage {
     if(!_cacheFilteredImage) {
-        NSLog(@"make cache filter image using %@", self.currentFilterInfo.filterName);
+        //NSLog(@"make cache filter image using %@", self.currentFilterInfo.filterName);
         _cacheFilteredImage = [self.currentFilterInfo processImage:self.modifiedImage];
     }
     return _cacheFilteredImage;
