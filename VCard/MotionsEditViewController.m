@@ -372,7 +372,8 @@
 }
 
 - (void)resetSliders {
-    [self.shadowAmountSlider setValue:0 animated:YES];
+    self.currentShadowAmountValue = 0;
+    [self.shadowAmountSlider setValue:self.currentShadowAmountValue animated:YES];
     [self.filterImageView initializeParameter];
 }
 
