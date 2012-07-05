@@ -18,6 +18,7 @@ typedef enum {
     StackViewPageTypeSearch,
     StackViewPageTypeUserComment,
     StackViewPageTypeUserMention,
+    StackViewPageTypeTopic,
 } StackViewPageType;
 
 @interface StackViewPageController : CoreDataViewController {

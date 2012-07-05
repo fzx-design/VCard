@@ -796,7 +796,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
         case NSTextCheckingTypeQuote:
             if ([self.delegate respondsToSelector:@selector(attributedLabel:didSelectLinkWithQuate:)]) {
                 NSString *tagName = _previousResult.replacementString;
-                [self.delegate attributedLabel:self didSelectLinkWithPhoneNumber:tagName];
+                [self.delegate attributedLabel:self didSelectLinkWithQuate:tagName];
             }
             break;
     }

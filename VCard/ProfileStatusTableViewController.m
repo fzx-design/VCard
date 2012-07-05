@@ -16,6 +16,7 @@
 
 @interface ProfileStatusTableViewController () {
     long long _nextCursor;
+    NSInteger _searchPage;
 }
 
 @end
@@ -68,8 +69,10 @@
 {
     if (_type == StatusTableViewControllerTypeUserStatus) {
         [Status deleteStatusesOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
-    } else {
+    } else if(_type == statusTableViewControllerTypeMentionStatus){
         [Status deleteMentionStatusesInManagedObjectContext:self.managedObjectContext];
+    } else if(_type == StatusTableViewControllerTypeTopicStatus){
+        [Status deleteStatusesWithSearchKey:_searchKey InManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
     }
 }
 
@@ -104,8 +107,10 @@
                 newStatus.forTableView = [NSNumber numberWithBool:YES];
                 if (_type == StatusTableViewControllerTypeUserStatus) {
                     newStatus.author = self.user;
-                } else {
+                } else if(_type == statusTableViewControllerTypeMentionStatus) {
                     newStatus.isMentioned = [NSNumber numberWithBool:YES];
+                } else if(_type == StatusTableViewControllerTypeTopicStatus){
+                    newStatus.searchKey = _searchKey;
                 }
             }
             
@@ -135,17 +140,22 @@
                  startingAtPage:0 
                           count:20 
                         feature:0];
-    } else {
+    } else if(_type == statusTableViewControllerTypeMentionStatus) {
         [client getMentionsSinceID:nil
                              maxID:maxIDString
                               page:0
                              count:20];
+    } else if(_type == StatusTableViewControllerTypeTopicStatus){
+        [client searchTopic:_searchKey
+             startingAtPage:_searchPage++
+                      count:20];
     }
 }
 
 - (void)refresh
 {
     _refreshing = YES;
+    _searchPage = 1;
     [self loadMoreData];
 }
 
@@ -190,8 +200,10 @@
     
     if (_type == StatusTableViewControllerTypeUserStatus) {
         request.predicate = [NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@", self.user, [NSNumber numberWithBool:YES], _coreDataIdentifier];
-    } else {
+    } else if (_type == statusTableViewControllerTypeMentionStatus){
         request.predicate = [NSPredicate predicateWithFormat:@"isMentioned == %@", [NSNumber numberWithBool:YES]];
+    } else if (_type == StatusTableViewControllerTypeTopicStatus){
+        request.predicate = [NSPredicate predicateWithFormat:@"searchKey == %@", _searchKey];
     }
 }
 

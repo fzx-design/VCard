@@ -57,7 +57,7 @@
 - (IBAction)refreshButtonClicked:(id)sender;
 - (IBAction)didClickGroupButton:(id)sender;
 - (IBAction)didClickCreateStatusButton:(UIButton *)sender;
-
+- (IBAction)didClickSearchButton:(id)sender;
 - (IBAction)didClickUnreadCommentButton:(UnreadIndicatorButton *)sender;
 - (IBAction)didClickUnreadFollowerButton:(UnreadIndicatorButton *)sender;
 - (IBAction)didClickUnreadMentionButton:(UnreadIndicatorButton *)sender;
