@@ -10,6 +10,7 @@
 #import "UIView+Resize.h"
 #import "WBClient.h"
 #import "ShelfDrawerView.h"
+#import "UIApplication+Addition.h"
 
 #define kShelfHeight 149.0
 #define kNumberOfDrawerPerPage 5
@@ -58,7 +59,6 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-//            NSMutableArray *groupInfoArray = [[NSMutableArray alloc] init];
             _groupInfoArray = nil;
             _groupInfoArray = [[NSMutableArray alloc] init];
             
@@ -90,6 +90,7 @@
                                 duration:(NSTimeInterval)duration 
 {
     [self resetContentSize:toInterfaceOrientation];
+    [self resetContentLayout:toInterfaceOrientation];
     [self resetSettingViewLayout:toInterfaceOrientation];
 }
 
@@ -97,7 +98,8 @@
 {
     CGFloat toWidth = UIInterfaceOrientationIsPortrait(fromInterfaceOrientation) ? 1024 : 768;
     [_scrollView resetWidth:toWidth];
-    [_shelfBorderImageView resetWidth:_scrollView.frame.size.width];
+    _scrollView.contentOffset = CGPointMake([UIApplication screenWidth] * _pageControl.currentPage, 0.0);
+//    [_shelfBorderImageView resetWidth:_scrollView.frame.size.width];
 }
 
 - (void)resetContentSize:(UIInterfaceOrientation)orientation
@@ -111,9 +113,23 @@
     [self resetBGImageView:toWidth];
 }
 
+- (void)resetContentLayout:(UIInterfaceOrientation)orientation
+{
+    int index = 0;
+    int drawWith = UIInterfaceOrientationIsPortrait(orientation) ? 155 : 200;
+    int initialOffset = UIInterfaceOrientationIsPortrait(orientation) ? 28 : 65;
+    int scrollViewWidth = UIInterfaceOrientationIsPortrait(orientation) ? 768.0 : 1024.0;
+    for (UIView* view in _drawerViewArray) {
+        NSInteger page = index / kNumberOfDrawerPerPage + 1;
+        NSInteger pageOffset = index % kNumberOfDrawerPerPage;
+        CGFloat originX = scrollViewWidth * page + drawWith * pageOffset + initialOffset;
+        [view resetOriginX:originX];
+        index++;
+    }
+}
+
 - (void)resetSettingViewLayout:(UIInterfaceOrientation)orientation
 {
-//    CGFloat center = UIInterfaceOrientationIsPortrait(orientation) ? 384.0 : 512.0;
     if (UIInterfaceOrientationIsPortrait(orientation)) {
         CGFloat center = 384.0;
         [_switchToPicButton resetOriginX:center - 2.0];
@@ -183,7 +199,7 @@
     [_shelfEdgeImageView resetOriginX:_scrollView.frame.size.width - _shelfEdgeImageView.frame.size.width];
     [_scrollView insertSubview:_shelfEdgeImageView belowSubview:_shelfBorderImageView];
     
-    _shelfBGImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 7.0, 1024.0, 136.0)];
+    _shelfBGImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 6.0, 1024.0, 136.0)];
     _shelfBGImageView.image = [UIImage imageNamed:@"shelf_bg.png"];
     _shelfBGImageView.contentMode = UIViewContentModeLeft;
     _shelfBGImageView.autoresizingMask = UIViewAutoresizingNone;
@@ -191,11 +207,12 @@
     [_shelfBGImageView resetOriginX:_scrollView.frame.size.width];
     [_scrollView insertSubview:_shelfBGImageView belowSubview:_shelfBorderImageView];
     
-    [_shelfBorderImageView resetWidth:_scrollView.frame.size.width];
+    [_shelfBorderImageView resetWidth:1024.0];
 }
 
 - (void)setUpScrollView
 {
+    _drawerViewArray = [[NSMutableArray alloc] init];
     NSArray *array = [[NSUserDefaults standardUserDefaults] objectForKey:kUserGroupInfoArray];
     NSInteger numberOfDrawers = array.count;
     _numberOfPages = ceil((float)numberOfDrawers / (float)kNumberOfDrawerPerPage) + 1;
@@ -206,33 +223,35 @@
     for (NSDictionary *group in array) {
         for (NSString *name in group.allKeys) {
             NSString *url = [group objectForKey:name];
-            
-            NSInteger page = index / kNumberOfDrawerPerPage + 1;
-            NSInteger pageOffset = index % kNumberOfDrawerPerPage;
-            CGFloat originX = _scrollView.frame.size.width * page + 200.0 * pageOffset + 65.0;
-            
-            ShelfDrawerView *drawerView = [[ShelfDrawerView alloc] initWithFrame:CGRectMake(originX, 40.0, 95.0, 95.0)
+            ShelfDrawerView *drawerView = [[ShelfDrawerView alloc] initWithFrame:CGRectMake(0.0, 40.0, 95.0, 95.0)
                                                                        topicName:name
                                                                           picURL:url
                                                                            index:index];
             [_scrollView addSubview:drawerView];
+            [_drawerViewArray addObject:drawerView];
             index++;
         }
     }
+    
+    [self resetContentLayout:[UIApplication screenWidth] == 1024.0 ? UIInterfaceOrientationLandscapeLeft : UIInterfaceOrientationPortrait];
 }
 
 - (void)resetBGImageView:(CGFloat)currentWidth
 {
     [_shelfEdgeImageView resetOriginX:currentWidth - _shelfEdgeImageView.frame.size.width];
+    if (_pageControl.currentPage > 0) {
+        currentWidth = _pageControl.currentPage * currentWidth;
+    }
     [_shelfBGImageView resetOriginX:currentWidth];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView.contentOffset.x >= _scrollView.frame.size.width) {
+    CGFloat screenWidth = [UIApplication screenWidth];
+    if (scrollView.contentOffset.x >= screenWidth) {
         [_shelfBGImageView resetOriginX:_scrollView.contentOffset.x];
     } else {
-        [_shelfBGImageView resetOriginX:_scrollView.frame.size.width];
+        [_shelfBGImageView resetOriginX:screenWidth];
     }
     [_shelfBorderImageView resetOriginX:_scrollView.contentOffset.x];
 }

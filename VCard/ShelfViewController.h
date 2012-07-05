@@ -30,6 +30,7 @@
 @property (nonatomic, strong) IBOutlet UISlider         *fontSizeSlider;
 @property (nonatomic, strong) IBOutlet ShelfPageControl *pageControl;
 @property (nonatomic, strong) NSMutableArray            *groupInfoArray;
+@property (nonatomic, strong) NSMutableArray            *drawerViewArray;
 
 - (IBAction)didChangeValueOfSlider:(UISlider *)sender;
 - (IBAction)didEndDraggingSlider:(UISlider *)sender;

@@ -64,7 +64,7 @@
 {
     self.shelfViewController.view.hidden = NO;
     [UIView animateWithDuration:0.3 animations:^{
-        [self.castViewController.view resetOriginY:147.0];
+        [self.castViewController.view resetOriginY:150.0];
         [self.shelfViewController.view resetOriginY:0.0];
     } completion:^(BOOL finished) {
     }];
@@ -74,7 +74,7 @@
 {
     [UIView animateWithDuration:0.3 animations:^{
         [self.castViewController.view resetOriginY:0.0];
-        [self.shelfViewController.view resetOriginY:-147.0];
+        [self.shelfViewController.view resetOriginY:-150.0];
     } completion:^(BOOL finished) {
         self.shelfViewController.view.hidden = YES;
     }];
