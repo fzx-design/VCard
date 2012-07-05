@@ -146,6 +146,7 @@
 		18A6850D15370F3D00D58B7D /* imageview_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A6850B15370F3D00D58B7D /* imageview_placeholder@2x.png */; };
 		18A685171537110B00D58B7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A685161537110B00D58B7D /* QuartzCore.framework */; };
 		18A997E915A1AA8200C2E7A5 /* ShelfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A997E815A1AA8200C2E7A5 /* ShelfViewController.m */; };
+		18AC570815A5295200ADDBAF /* ShelfPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC570715A5295200ADDBAF /* ShelfPageControl.m */; };
 		18AC828E155B924700AD99C4 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC828B155B924700AD99C4 /* PullToRefreshView.m */; };
 		18BD24B6159A9B6600846C6E /* UserAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BD24B5159A9B6500846C6E /* UserAccountManager.m */; };
 		18BDD5A4159D9A8A005246F2 /* UnreadIndicatorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDD5A3159D9A8A005246F2 /* UnreadIndicatorButton.m */; };
@@ -946,6 +947,8 @@
 		18A685161537110B00D58B7D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		18A997E715A1AA8200C2E7A5 /* ShelfViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelfViewController.h; sourceTree = "<group>"; };
 		18A997E815A1AA8200C2E7A5 /* ShelfViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfViewController.m; sourceTree = "<group>"; };
+		18AC570615A5295200ADDBAF /* ShelfPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelfPageControl.h; sourceTree = "<group>"; };
+		18AC570715A5295200ADDBAF /* ShelfPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfPageControl.m; sourceTree = "<group>"; };
 		18AC828A155B924700AD99C4 /* PullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshView.h; sourceTree = "<group>"; };
 		18AC828B155B924700AD99C4 /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
 		18BD24B4159A9B6500846C6E /* UserAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAccountManager.h; sourceTree = "<group>"; };
@@ -1896,6 +1899,8 @@
 				1883660015A43F8900CDC60C /* ShelfBackgroundView.m */,
 				1883660215A4405B00CDC60C /* ShelfScrollView.h */,
 				1883660315A4405B00CDC60C /* ShelfScrollView.m */,
+				18AC570615A5295200ADDBAF /* ShelfPageControl.h */,
+				18AC570715A5295200ADDBAF /* ShelfPageControl.m */,
 			);
 			name = Shelf;
 			sourceTree = "<group>";
@@ -3762,6 +3767,7 @@
 				18BF4A1A15A47EF70001F653 /* TopicImageView.m in Sources */,
 				182EC05215A497990056E282 /* TopicViewController.m in Sources */,
 				182EC05615A499D30056E282 /* Status.m in Sources */,
+				18AC570815A5295200ADDBAF /* ShelfPageControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

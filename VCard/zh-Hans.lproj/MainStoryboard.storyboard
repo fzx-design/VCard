@@ -466,9 +466,12 @@
                                 <rect key="frame" x="0.0" y="118" width="768" height="31"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="3gZ-Vm-jz5">
-                                <rect key="frame" x="365" y="0.0" width="38" height="36"/>
+                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="3gZ-Vm-jz5" customClass="ShelfPageControl">
+                                <rect key="frame" x="304" y="0.0" width="161" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="didChangePageControlValue:" destination="bkR-vE-OC4" eventType="valueChanged" id="5Fo-MW-3xh"/>
+                                </connections>
                             </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

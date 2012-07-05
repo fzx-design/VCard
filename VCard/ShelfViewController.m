@@ -10,10 +10,12 @@
 #import "UIView+Resize.h"
 
 #define kShelfHeight 149.0
+#define kNumberOfDrawerPerPage 5
 
 @interface ShelfViewController () {
     UIImageView *_shelfBGImageView;
     UIImageView *_shelfEdgeImageView;
+    NSInteger _numberOfPages;
 }
 
 @end
@@ -65,7 +67,7 @@
     CGFloat toWidth = UIInterfaceOrientationIsPortrait(orientation) ? 768 : 1024;
     CGFloat fromWidth = UIInterfaceOrientationIsPortrait(orientation) ? 1024 : 768;
     NSInteger page = _scrollView.contentOffset.x / fromWidth;
-    _scrollView.contentSize = CGSizeMake(toWidth * 2, kShelfHeight);
+    _scrollView.contentSize = CGSizeMake(toWidth * _numberOfPages, kShelfHeight);
     _scrollView.contentOffset = CGPointMake(page * toWidth, 0.0);
     
     [self resetBGImageView:toWidth];
@@ -115,7 +117,16 @@
 #pragma mark - Scroll View Behavior
 - (void)setUpScrollView
 {
-    [_scrollView setContentSize:CGSizeMake(_scrollView.frame.size.width * 2, _scrollView.frame.size.height)];
+    NSInteger numberOfDrawers = 10;
+    _numberOfPages = numberOfDrawers / kNumberOfDrawerPerPage + 1;
+    [_pageControl setImageNormal:[UIImage imageNamed:@"shelf_pagecontrol_bg.png"]];
+    [_pageControl setImageCurrent:[UIImage imageNamed:@"shelf_pagecontrol_hover.png"]];
+    [_pageControl setImageSetting:[UIImage imageNamed:@"shelf_pagecontrol_settings_bg.png"]];
+    [_pageControl setImageSettingHighlight:[UIImage imageNamed:@"shelf_pagecontrol_settings_hover.png"]];
+    _pageControl.numberOfPages = _numberOfPages;
+    _pageControl.currentPage = 1;
+    
+    [_scrollView setContentSize:CGSizeMake(_scrollView.frame.size.width * _numberOfPages, _scrollView.frame.size.height)];
     _scrollView.pagingEnabled = YES;
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
@@ -124,6 +135,7 @@
     [_scrollView resetSize:self.view.bounds.size];
     ShelfBackgroundView *view = (ShelfBackgroundView *)self.view;
     view.scrollViewReference = (ShelfScrollView *)_scrollView;
+    
     
     _shelfEdgeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 62.0, 136.0)];
     _shelfEdgeImageView.image = [UIImage imageNamed:@"shelf_wood_edge.png"];
@@ -157,6 +169,13 @@
     }
 }
 
+#pragma mark - UIScrollView delegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    NSInteger page = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
+    _pageControl.currentPage = page;
+}
+
 #pragma mark - IBActions
 - (IBAction)didChangeValueOfSlider:(UISlider *)sender
 {
@@ -180,6 +199,14 @@
     BOOL switchToPicButtonClicked = [sender isEqual:_switchToPicButton];
     _switchToPicButton.selected = switchToPicButtonClicked;
     _switchToTextButton.selected = !switchToPicButtonClicked;
+}
+
+- (IBAction)didChangePageControlValue:(UIPageControl *)sender
+{
+    NSInteger page = sender.currentPage;
+    CGRect frame = _scrollView.frame;
+    frame.origin.x = page * frame.size.width;
+    [_scrollView scrollRectToVisible:frame animated:YES];
 }
 
 

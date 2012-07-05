@@ -10,6 +10,7 @@
 #import "CoreDataViewController.h"
 #import "ShelfScrollView.h"
 #import "ShelfBackgroundView.h"
+#import "ShelfPageControl.h"
 
 @interface ShelfViewController : CoreDataViewController <UIScrollViewDelegate>
 
@@ -19,11 +20,12 @@
 @property (nonatomic, strong) IBOutlet UIButton         *detailSettingButton;
 @property (nonatomic, strong) IBOutlet UISlider         *brightnessSlider;
 @property (nonatomic, strong) IBOutlet UISlider         *fontSizeSlider;
-@property (nonatomic, strong) IBOutlet UIPageControl    *pageControl;
+@property (nonatomic, strong) IBOutlet ShelfPageControl *pageControl;
 
 - (IBAction)didChangeValueOfSlider:(UISlider *)sender;
 - (IBAction)didEndDraggingSlider:(UISlider *)sender;
 - (IBAction)didClickDetialSettingButton:(UIButton *)sender;
 - (IBAction)didClickSwitchModeButton:(UIButton *)sender;
+- (IBAction)didChangePageControlValue:(UIPageControl *)sender;
 
 @end
