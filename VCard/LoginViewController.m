@@ -10,6 +10,7 @@
 #import "ResourceList.h"
 #import "WBClient.h"
 #import "User.h"
+#import "Group.h"
 #import "Status.h"
 #import "UnreadReminder.h"
 #import "CardViewController.h"
@@ -143,8 +144,16 @@
             NSDictionary *userDict = client.responseJSONObject;
             User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
             self.currentUser = user;
+            
             [UserAccountManager initializeWithCurrentUser:user managedObjectContext:self.managedObjectContext];
             [UnreadReminder initializeWithCurrentUser:user];
+            
+            Group *favouriteGroup = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
+            favouriteGroup.groupID = @"Favourites";
+            favouriteGroup.name = @"收藏";
+            favouriteGroup.type = [NSNumber numberWithInt:kGroupTypeFavourite];
+            favouriteGroup.picURL = self.currentUser.largeAvatarURL;
+            favouriteGroup.index = [NSNumber numberWithInt:0];
             
             [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];

@@ -198,5 +198,6 @@ typedef void (^WCCompletionBlock)(WBClient *client);
      startingAtPage:(int)page
               count:(int)count;
 - (void)getGroups;
+- (void)getTrends;
 
 @end

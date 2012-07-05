@@ -18,12 +18,15 @@
           topicName:(NSString *)name
              picURL:(NSString *)url
               index:(NSInteger)index
+               type:(int)type
 {
     self = [super initWithFrame:frame];
     if (self) {
         _topicName = name;
         _index = index;
         _picURL = url;
+        _type = type;
+        _imageLoaded = url && ![url isEqualToString:@""];
         
         self.opaque = YES;
         [self setUpDrawerImageView];
@@ -41,7 +44,11 @@
     _backImageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
     
     _photoFrameImageView = [[UIImageView alloc] initWithFrame:kPhotoFrameFrame];
-    _photoFrameImageView.image = [UIImage imageNamed:@"shelf_drawer.png"];
+    NSString *imageName = @"shelf_drawer.png";
+    if (_type == 0) {
+        imageName = @"shelf_drawer_favorites.png";
+    }
+    _photoFrameImageView.image = [UIImage imageNamed:imageName];
     _photoFrameImageView.opaque = YES;
     
     [self addSubview:_backImageView];
@@ -52,12 +59,18 @@
 - (void)setTopicLabel
 {
     _topicLabel = [[UILabel alloc] initWithFrame:kTopicLabelFrame];
-    _topicLabel.text = [NSString stringWithFormat:@"%@", _topicName];
+    if (_type == 2) {
+        _topicLabel.text = [NSString stringWithFormat:@"#%@#", _topicName];
+    } else {
+        _topicLabel.text = [NSString stringWithFormat:@"%@", _topicName];
+    }
     _topicLabel.textAlignment = UITextAlignmentCenter;
     _topicLabel.font = [UIFont boldSystemFontOfSize:15.0];
     _topicLabel.shadowColor = [UIColor whiteColor];
     _topicLabel.shadowOffset = CGSizeMake(0.0, 1.0);
     _topicLabel.backgroundColor = [UIColor clearColor];
+    _topicLabel.minimumFontSize = 12.0;
+    _topicLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:_topicLabel];
 }
 

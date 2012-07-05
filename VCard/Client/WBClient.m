@@ -358,7 +358,8 @@ static NSString *UserID = @"";
             
             [self saveAuthorizeDataToKeychain];
             
-            [self authorizeWithAdvancedAppKeyUsingUserID:userID password:password];
+            WBClient *client = [WBClient client];
+            [client authorizeWithAdvancedAppKeyUsingUserID:userID password:password];
         }
         
     }];
@@ -378,7 +379,6 @@ static NSString *UserID = @"";
     self.params = params;
     
     [self setPreCompletionBlock:^(WBClient *client) {
-        
         if ([self.responseJSONObject isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dict = (NSDictionary*)client.responseJSONObject;
             self.advancedToken = [dict objectForKey:@"access_token"];
@@ -758,6 +758,13 @@ static NSString *UserID = @"";
 {
     self.path = @"friendships/groups.json";
     [self loadAdvancedRequest];
+}
+
+- (void)getTrends
+{
+    self.path = @"trends.json";
+    [self.params setObject:self.userID forKey:@"uid"];
+    [self loadNormalRequest];
 }
 
 

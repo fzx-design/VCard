@@ -34,6 +34,13 @@
             <userInfo/>
         </relationship>
     </entity>
+    <entity name="Group" representedClassName="Group" syncable="YES">
+        <attribute name="groupID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="1000" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
     <entity name="Status" representedClassName="Status" syncable="YES">
         <attribute name="bmiddlePicURL" optional="YES" attributeType="String">
             <userInfo/>
@@ -185,6 +192,7 @@
     </entity>
     <elements>
         <element name="Comment" positionX="0" positionY="0" width="0" height="285"/>
+        <element name="Group" positionX="160" positionY="192" width="128" height="120"/>
         <element name="Status" positionX="0" positionY="0" width="0" height="540"/>
         <element name="User" positionX="0" positionY="0" width="0" height="525"/>
     </elements>

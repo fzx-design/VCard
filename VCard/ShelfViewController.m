@@ -11,6 +11,7 @@
 #import "WBClient.h"
 #import "ShelfDrawerView.h"
 #import "UIApplication+Addition.h"
+#import "Group.h"
 
 #define kShelfHeight 149.0
 #define kNumberOfDrawerPerPage 5
@@ -54,30 +55,84 @@
 #pragma mark - Group Infomation Behavior
 - (void)setUpGroupsInfo
 {
-    _groupInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:kUserGroupInfoArray];
-    
+    [self getGroups];
+    [self getTrends];
+}
+
+- (void)getGroups
+{
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            _groupInfoArray = nil;
-            _groupInfoArray = [[NSMutableArray alloc] init];
-            
             NSArray *resultArray = [client.responseJSONObject objectForKey:@"lists"];
             for (NSDictionary *dict in resultArray) {
-                NSString *name = [dict objectForKey:@"name"];
-                NSString *url = [dict objectForKey:@"profile_image_url"];
-                url = [url stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"];
-                NSDictionary *group = [NSDictionary dictionaryWithObject:url forKey:name];
-                [_groupInfoArray addObject:group];
+                [Group insertGroupInfo:dict inManagedObjectContext:self.managedObjectContext];
             }
-            
-            [[NSUserDefaults standardUserDefaults] setObject:(NSArray *)_groupInfoArray forKey:kUserGroupInfoArray];
-            [[NSUserDefaults standardUserDefaults] synchronize];
         }
+        
+        [self.managedObjectContext processPendingChanges];
+        [self.fetchedResultsController performFetch:nil];
         
         [self performSelector:@selector(setUpScrollView) withObject:nil afterDelay:0.001];
     }];
+    
     [client getGroups];
+}
+
+- (void)getTrends
+{
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSArray *resultArray = client.responseJSONObject;
+            for (NSDictionary *dict in resultArray) {
+                Group *group = [Group insertTopicInfo:dict inManagedObjectContext:self.managedObjectContext];
+//                [self performSelectorInBackground:@selector(getPicURLForTopic:) withObject:group];
+                [self getPicURLForTopic:group];
+            }
+        }
+        
+        [self.managedObjectContext processPendingChanges];
+        [self.fetchedResultsController performFetch:nil];
+        
+        [self performSelector:@selector(setUpScrollView) withObject:nil afterDelay:0.001];
+    }];
+    
+    [client getTrends];
+}
+
+- (void)getPicURLForTopic:(Group *)group
+{
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSArray *resultArray = [client.responseJSONObject objectForKey:@"statuses"];
+            for (NSDictionary *dict in resultArray) {
+                NSString *picURL = [dict objectForKey:@"thumbnail_pic"];
+                if (picURL && ![picURL isEqualToString:@""]) {
+                    group.picURL = picURL;
+                    break;
+                }
+            }
+     
+         if(group.index.intValue > 0 && group.index.intValue < _drawerViewArray.count) {
+             ShelfDrawerView *view = [_drawerViewArray objectAtIndex:group.index.intValue];
+             [view loadImageFromURL:group.picURL completion:nil];
+         }
+     }
+     }];
+    [client searchTopic:group.name
+         startingAtPage:0
+                  count:10];
+}
+
+- (void)configureRequest:(NSFetchRequest *)request
+{
+    NSSortDescriptor *sortDescriptor;
+	
+    sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
+    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    request.entity = [NSEntityDescription entityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
 }
 
 #pragma mark - Rotation Behavior
@@ -99,7 +154,6 @@
     CGFloat toWidth = UIInterfaceOrientationIsPortrait(fromInterfaceOrientation) ? 1024 : 768;
     [_scrollView resetWidth:toWidth];
     _scrollView.contentOffset = CGPointMake([UIApplication screenWidth] * _pageControl.currentPage, 0.0);
-//    [_shelfBorderImageView resetWidth:_scrollView.frame.size.width];
 }
 
 - (void)resetContentSize:(UIInterfaceOrientation)orientation
@@ -212,28 +266,42 @@
 
 - (void)setUpScrollView
 {
+    if (_drawerViewArray) {
+        [_drawerViewArray removeAllObjects];
+        _drawerViewArray = nil;
+    }
+    
     _drawerViewArray = [[NSMutableArray alloc] init];
-    NSArray *array = [[NSUserDefaults standardUserDefaults] objectForKey:kUserGroupInfoArray];
-    NSInteger numberOfDrawers = array.count;
+    NSInteger numberOfDrawers = self.fetchedResultsController.fetchedObjects.count;
     _numberOfPages = ceil((float)numberOfDrawers / (float)kNumberOfDrawerPerPage) + 1;
     _pageControl.numberOfPages = _numberOfPages;
     _pageControl.currentPage = 1;
     
     NSInteger index = 0;
-    for (NSDictionary *group in array) {
-        for (NSString *name in group.allKeys) {
-            NSString *url = [group objectForKey:name];
-            ShelfDrawerView *drawerView = [[ShelfDrawerView alloc] initWithFrame:CGRectMake(0.0, 40.0, 95.0, 95.0)
-                                                                       topicName:name
-                                                                          picURL:url
-                                                                           index:index];
-            [_scrollView addSubview:drawerView];
-            [_drawerViewArray addObject:drawerView];
-            index++;
-        }
+    
+    for (Group *group in self.fetchedResultsController.fetchedObjects) {
+        ShelfDrawerView *drawerView = [[ShelfDrawerView alloc] initWithFrame:CGRectMake(0.0, 40.0, 95.0, 95.0)
+                                                                   topicName:group.name
+                                                                      picURL:group.picURL
+                                                                       index:index
+                                                                        type:group.type.intValue];
+        [_scrollView addSubview:drawerView];
+        [_drawerViewArray addObject:drawerView];
+        group.index = [NSNumber numberWithInt:index];
+        index++;
     }
     
     [self resetContentLayout:[UIApplication screenWidth] == 1024.0 ? UIInterfaceOrientationLandscapeLeft : UIInterfaceOrientationPortrait];
+}
+
+- (void)loadImages
+{
+    for (ShelfDrawerView *view in _drawerViewArray) {
+        if (!view.imageLoaded) {
+            Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
+            [view loadImageFromURL:group.picURL completion:nil];
+        }
+    }
 }
 
 - (void)resetBGImageView:(CGFloat)currentWidth

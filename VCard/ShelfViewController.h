@@ -29,7 +29,7 @@
 @property (nonatomic, strong) IBOutlet UISlider         *brightnessSlider;
 @property (nonatomic, strong) IBOutlet UISlider         *fontSizeSlider;
 @property (nonatomic, strong) IBOutlet ShelfPageControl *pageControl;
-@property (nonatomic, strong) NSMutableArray            *groupInfoArray;
+//@property (nonatomic, strong) NSMutableArray            *groupInfoArray;
 @property (nonatomic, strong) NSMutableArray            *drawerViewArray;
 
 - (IBAction)didChangeValueOfSlider:(UISlider *)sender;
@@ -37,5 +37,6 @@
 - (IBAction)didClickDetialSettingButton:(UIButton *)sender;
 - (IBAction)didClickSwitchModeButton:(UIButton *)sender;
 - (IBAction)didChangePageControlValue:(UIPageControl *)sender;
+- (void)loadImages;
 
 @end

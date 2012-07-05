@@ -9,6 +9,7 @@
 #import "RootViewController.h"
 #import "WBClient.h"
 #import "ResourceList.h"
+#import "Group.h"
 
 #define kShelfViewControllerFrame CGRectMake(0.0, -147.0, 768.0, 147.0);
 
@@ -32,12 +33,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setUpNotifications];
     self.navigationController.navigationBarHidden = YES;
-    [self.view addSubview:self.castViewController.view];
-    [self.view addSubview:self.shelfViewController.view];
-    self.shelfViewController.view.hidden = YES;
-    
+    [self setUpNotifications];
+    [self setUpViews];
 }
 
 - (void)viewDidUnload
@@ -47,6 +45,13 @@
 }
 
 #pragma mark - Setup Notifications
+- (void)setUpViews
+{
+    [self.view addSubview:self.castViewController.view];
+    [self.view addSubview:self.shelfViewController.view];
+    self.shelfViewController.view.hidden = YES;
+}
+
 - (void)setUpNotifications
 {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

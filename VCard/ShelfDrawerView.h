@@ -18,11 +18,14 @@
 @property (nonatomic, strong) NSString *topicName;
 @property (nonatomic, strong) NSString *picURL;
 @property (nonatomic, assign) NSInteger index;
+@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, assign) BOOL imageLoaded;
 
 - (id)initWithFrame:(CGRect)frame
           topicName:(NSString *)name
              picURL:(NSString *)url
-              index:(NSInteger)index;
+              index:(NSInteger)index
+               type:(int)type;
 
 - (void)loadImageFromURL:(NSString *)urlString 
               completion:(void (^)())completion;

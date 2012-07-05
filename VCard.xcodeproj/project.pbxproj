@@ -139,6 +139,7 @@
 		1890C6B21535B57B00023A13 /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B11535B57A00023A13 /* EasyTableView.m */; };
 		1890C6B51535BE5200023A13 /* UserSelectionCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B41535BE5200023A13 /* UserSelectionCellViewController.m */; };
 		189D9DE215496FA300E922D9 /* UIImageViewAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D9DE115496FA300E922D9 /* UIImageViewAddition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		189D9E6215A596A100AD72EA /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D9E6115A596A100AD72EA /* Group.m */; };
 		189F394B159D40CC00FD2E0F /* UnreadReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F394A159D40CC00FD2E0F /* UnreadReminder.m */; };
 		189F3956159D4B1C00FD2E0F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F3955159D4B1C00FD2E0F /* User.m */; };
 		189F3959159D80C500FD2E0F /* indicator_body@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189F3957159D80C500FD2E0F /* indicator_body@2x.png */; };
@@ -939,6 +940,8 @@
 		1890C6B41535BE5200023A13 /* UserSelectionCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSelectionCellViewController.m; sourceTree = "<group>"; };
 		189D9DE015496FA300E922D9 /* UIImageViewAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewAddition.h; sourceTree = "<group>"; };
 		189D9DE115496FA300E922D9 /* UIImageViewAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewAddition.m; sourceTree = "<group>"; };
+		189D9E6015A596A100AD72EA /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
+		189D9E6115A596A100AD72EA /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
 		189F3949159D40CC00FD2E0F /* UnreadReminder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnreadReminder.h; sourceTree = "<group>"; };
 		189F394A159D40CC00FD2E0F /* UnreadReminder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnreadReminder.m; sourceTree = "<group>"; };
 		189F3954159D4B1C00FD2E0F /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -2014,6 +2017,8 @@
 		18E707D3153D2C6B0012092E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				189D9E6015A596A100AD72EA /* Group.h */,
+				189D9E6115A596A100AD72EA /* Group.m */,
 				18EE8E26159DE6160032D69B /* Comment.h */,
 				18EE8E27159DE6160032D69B /* Comment.m */,
 				189F3954159D4B1C00FD2E0F /* User.h */,
@@ -3774,6 +3779,7 @@
 				182EC05615A499D30056E282 /* Status.m in Sources */,
 				18AC570815A5295200ADDBAF /* ShelfPageControl.m in Sources */,
 				183AC82F15A56EAE006937C3 /* ShelfDrawerView.m in Sources */,
+				189D9E6215A596A100AD72EA /* Group.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
