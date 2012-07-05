@@ -41,6 +41,7 @@
         result = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:context];
     }
     
+    result.groupID = groupID;
     NSString *url = [dict objectForKey:@"profile_image_url"];
     result.picURL = [url stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"];
     result.name = [dict objectForKey:@"name"];
@@ -51,7 +52,7 @@
 
 + (Group *)insertTopicInfo:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    NSString *groupID = [dict objectForKey:@"trend_id"];
+    NSString *groupID = [dict objectForKey:@"hotword"];
     
     if (!groupID || [groupID isEqualToString:@""]) {
         return nil;
@@ -61,7 +62,7 @@
     if (!result) {
         result = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:context];
     }
-
+    result.groupID = groupID;
     result.name = [dict objectForKey:@"hotword"];
     result.type = [NSNumber numberWithInt:kGroupTypeTopic];
     

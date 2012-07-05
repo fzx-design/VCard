@@ -29,6 +29,8 @@
     NSInteger _nextPage;
     BOOL _hasMoreViews;
     BOOL _refreshing;
+    CastviewDataSource _dataSource;
+    NSString *_dataSourceDescription;
 }
 
 @property (nonatomic, strong) UIView *coverView;
@@ -72,8 +74,6 @@
 	// Do any additional setup after loading the view.
     [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
     _coreDataIdentifier = kCoreDataIdentifierDefault;
-//    [self.fetchedResultsController performFetch:nil];
-//    [self setUpWaterflowView];
     [self setUpVariables];
 }
 
@@ -83,6 +83,7 @@
     _nextPage = 1;
     _refreshIndicatorView.hidden = YES;
     _refreshing = YES;
+    _dataSource = CastviewDataSourceNone;
     _coverView = [[UIView alloc] initWithFrame:CGRectMake(1024.0, 0.0, 0.0, 0.0)];
     _coverView.backgroundColor = [UIColor blackColor];
     _coverView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
@@ -155,6 +156,10 @@
     [center addObserver:self
                selector:@selector(updateUnreadFollowCount)
                    name:kNotificationNameShouldUpdateUnreadFollowCount
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(changeCastviewDataSource:)
+                   name:kNotificationNameShouldChangeCastviewDataSource
                  object:nil];
 }
 
@@ -424,6 +429,23 @@
     }
 }
 
+#pragma mark DataSource
+- (void)changeCastviewDataSource:(NSNotification *)notification
+{
+    NSDictionary *dict = notification.object;
+    NSString *typeString = [dict objectForKey:kNotificationObjectKeyDataSourceType];
+    _dataSourceDescription = [dict objectForKey:kNotificationObjectKeyDataSourceDescription];
+    int type = typeString.intValue;
+    if (type == 0) {
+        _dataSource = CastviewDataSourceFavourite;
+    } else if (type == 1) {
+        _dataSource = CastviewDataSourceGroup;
+    } else if (type == 2) {
+        _dataSource = CastviewDataSourceTopic;
+    }
+    [self refresh];
+}
+
 #pragma mark - IBActions
 #pragma mark Refresh
 
@@ -546,9 +568,10 @@
 #pragma mark - Data Methods
 - (void)refresh
 {
+    _nextPage = 1;
     _unreadCountButton.hidden = YES;
     int unreadStatusCount = self.currentUser.unreadStatusCount.intValue;
-    if (unreadStatusCount != 0) {
+    if (unreadStatusCount != 0 || _dataSource != CastviewDataSourceNone) {
         _refreshing = YES;
         [self loadMoreData];
     } else {
@@ -580,7 +603,12 @@
                 [self clearData];
             }
             
-            for (NSDictionary *dict in dictArray) {
+            for (NSDictionary *rawDict in dictArray) {
+                NSDictionary *dict = rawDict;
+                if (_dataSource == CastviewDataSourceFavourite) {
+                    dict = [rawDict objectForKey:@"status"];
+                }
+                
                 Status *newStatus = nil;
                 newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
                 newStatus.forCastView = [NSNumber numberWithBool:YES];
@@ -615,21 +643,29 @@
     maxID = maxID < 0 ? 0 : maxID;
     NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID];
     
-    [client getFriendsTimelineSinceID:nil 
-                                maxID:maxIDString
-                       startingAtPage:0
-                                count:20 
-                              feature:0];
+    if (_dataSource == CastviewDataSourceNone) {
+        [client getFriendsTimelineSinceID:nil
+                                    maxID:maxIDString
+                           startingAtPage:0
+                                    count:20 
+                                  feature:0];
+    } else if (_dataSource == CastviewDataSourceFavourite) {
+        [client getFavouritesWithPage:_nextPage++
+                                count:20];
+    } else if (_dataSource == CastviewDataSourceGroup) {
+        [client getGroupTimelineWithGroupID:_dataSourceDescription
+                                    sinceID:nil
+                                      maxID:maxIDString
+                             startingAtPage:0
+                                      count:20
+                                    feature:0];
+    } else if (_dataSource == CastviewDataSourceTopic) {
+        [client searchTopic:_dataSourceDescription
+             startingAtPage:_nextPage++
+                      count:20];
+    }
     
-//    WBClient *client1 = [WBClient client];
-//    [client1 setCompletionBlock:^(WBClient *client) {
-//        if (!client.hasError) {
-//            NSLog(@"%@", client.responseJSONObject);
-//        } else {
-//            NSLog(@"error! \n%@", client.responseJSONObject);
-//        }
-//    }];
-//    [client1 searchUser:@"gab"];
+    
 }
 
 - (void)resetUnreadCountWithType:(NSString *)type
@@ -688,7 +724,7 @@
 {
     NSSortDescriptor *sortDescriptor;
 	
-    sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"statusID" ascending:NO];
+    sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext];
  
@@ -819,6 +855,7 @@
 
 - (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message {
     [vc dismissViewUpwards];
+    
 }
 
 - (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
@@ -831,6 +868,10 @@
 
 - (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
     [vc dismissViewToRect:self.createStatusButton.frame];
+    
+    for (Status *status in self.fetchedResultsController.fetchedObjects) {
+        NSLog(@"%@, %@", status.statusID, status.createdAt);
+    }
 }
 
 @end

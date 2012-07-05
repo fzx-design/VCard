@@ -200,4 +200,14 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 - (void)getGroups;
 - (void)getTrends;
 
+- (void)getFavouritesWithPage:(int)page
+                        count:(int)count;
+
+- (void)getGroupTimelineWithGroupID:(NSString *)groupID
+                            sinceID:(NSString *)sinceID
+                              maxID:(NSString *)maxID
+                     startingAtPage:(int)page
+                              count:(int)count
+                            feature:(int)feature;
+
 @end

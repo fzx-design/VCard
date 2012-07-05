@@ -87,7 +87,6 @@
             NSArray *resultArray = client.responseJSONObject;
             for (NSDictionary *dict in resultArray) {
                 Group *group = [Group insertTopicInfo:dict inManagedObjectContext:self.managedObjectContext];
-//                [self performSelectorInBackground:@selector(getPicURLForTopic:) withObject:group];
                 [self getPicURLForTopic:group];
             }
         }
@@ -106,7 +105,7 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            NSArray *resultArray = [client.responseJSONObject objectForKey:@"statuses"];
+            NSArray *resultArray = client.responseJSONObject;
             for (NSDictionary *dict in resultArray) {
                 NSString *picURL = [dict objectForKey:@"thumbnail_pic"];
                 if (picURL && ![picURL isEqualToString:@""]) {
@@ -124,6 +123,19 @@
     [client searchTopic:group.name
          startingAtPage:0
                   count:10];
+}
+
+- (void)changeCastViewSource:(UITapGestureRecognizer *)sender
+{
+    ShelfDrawerView *view = (ShelfDrawerView *)sender.view;
+    Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
+
+    NSString *type = [NSString stringWithFormat:@"%d",group.type.intValue];
+    NSString *name = group.groupID;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldChangeCastviewDataSource
+                                                        object:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                name, kNotificationObjectKeyDataSourceDescription,
+                                                                type, kNotificationObjectKeyDataSourceType, nil]];
 }
 
 - (void)configureRequest:(NSFetchRequest *)request
@@ -288,6 +300,10 @@
                                                                       picURL:group.picURL
                                                                        index:index
                                                                         type:group.type.intValue];
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeCastViewSource:)];
+        tapGestureRecognizer.numberOfTapsRequired = 1;
+        [drawerView addGestureRecognizer:tapGestureRecognizer];
+        
         [_scrollView addSubview:drawerView];
         [_drawerViewArray addObject:drawerView];
         group.index = [NSNumber numberWithInt:index];

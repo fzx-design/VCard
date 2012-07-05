@@ -19,6 +19,13 @@
 #import "UnreadIndicatorButton.h"
 #import "UnreadIndicatorView.h"
 
+typedef enum {
+    CastviewDataSourceNone,
+    CastviewDataSourceFavourite,
+    CastviewDataSourceGroup,
+    CastviewDataSourceTopic,
+} CastviewDataSource;
+
 @interface CastViewController : CoreDataViewController <WaterflowViewDelegate, WaterflowViewDatasource, PullToRefreshViewDelegate, LoadMoreViewDelegate, StackViewControllerDelegate, UIScrollViewDelegate, PostViewControllerDelegate> {
     
     BaseNavigationView *_navigationView;

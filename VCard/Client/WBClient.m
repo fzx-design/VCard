@@ -503,6 +503,11 @@ static NSString *UserID = @"";
         [self.params setObject:[NSString stringWithFormat:@"%d", feature] forKey:@"feature"];
     }
     
+    [self setPreCompletionBlock:^(WBClient *client) {
+        NSDictionary *dict = self.responseJSONObject;
+        self.responseJSONObject = [dict objectForKey:@"statuses"];
+    }];
+    
     [self loadNormalRequest];
 }
 
@@ -622,6 +627,11 @@ static NSString *UserID = @"";
     if (count) {
         [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
     }
+    
+    [self setPreCompletionBlock:^(WBClient *client) {
+        NSDictionary *dict = self.responseJSONObject;
+        self.responseJSONObject = [dict objectForKey:@"statuses"];
+    }];
     
     [self loadNormalRequest];
 }
@@ -751,6 +761,11 @@ static NSString *UserID = @"";
         [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
     }
     
+    [self setPreCompletionBlock:^(WBClient *client) {
+        NSDictionary *dict = self.responseJSONObject;
+        self.responseJSONObject = [dict objectForKey:@"statuses"];
+    }];
+    
     [self loadNormalRequest];
 }
 
@@ -765,6 +780,60 @@ static NSString *UserID = @"";
     self.path = @"trends.json";
     [self.params setObject:self.userID forKey:@"uid"];
     [self loadNormalRequest];
+}
+
+- (void)getFavouritesWithPage:(int)page
+                        count:(int)count
+{
+    self.path = @"favorites.json";
+    if (page > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+    }
+    if (count > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    }
+    
+    [self setPreCompletionBlock:^(WBClient *client) {
+        NSDictionary *dict = self.responseJSONObject;
+        self.responseJSONObject = [dict objectForKey:@"favorites"];
+    }];
+    [self loadNormalRequest];
+}
+
+- (void)getGroupTimelineWithGroupID:(NSString *)groupID
+                            sinceID:(NSString *)sinceID
+                              maxID:(NSString *)maxID
+                     startingAtPage:(int)page
+                              count:(int)count
+                            feature:(int)feature
+{
+    self.path = @"friendships/groups/timeline.json";
+	
+    if (groupID) {
+        [self.params setObject:groupID forKey:@"list_id"];
+    }
+    if (sinceID) {
+        [self.params setObject:sinceID forKey:@"since_id"];
+    }
+    if (maxID) {
+        [self.params setObject:maxID forKey:@"max_id"];
+    }
+    if (page > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+    }
+    if (count > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    }
+    if (feature > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", feature] forKey:@"feature"];
+    }
+    
+    [self setPreCompletionBlock:^(WBClient *client) {
+        NSDictionary *dict = self.responseJSONObject;
+        self.responseJSONObject = [dict objectForKey:@"statuses"];
+    }];
+    
+    [self loadAdvancedRequest];
 }
 
 

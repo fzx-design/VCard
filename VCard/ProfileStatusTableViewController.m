@@ -87,8 +87,7 @@
     
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            NSDictionary *originalDictArray = client.responseJSONObject;            
-            NSArray *dictArray = [originalDictArray objectForKey:@"statuses"];
+            NSArray *dictArray = client.responseJSONObject;
             
             if (_refreshing) {
                 [self clearData];
