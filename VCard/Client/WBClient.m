@@ -779,6 +779,39 @@ static NSString *UserID = @"";
 {
     self.path = @"trends.json";
     [self.params setObject:self.userID forKey:@"uid"];
+    [self.params setObject:[NSString stringWithFormat:@"%d", 200] forKey:@"count"];
+    [self loadNormalRequest];
+}
+
+- (void)checkIsTrendFollowed:(NSString *)trendName
+{
+    self.path = @"trends/is_follow.json";
+    if (trendName) {
+        [self.params setObject:trendName forKey:@"trend_name"];
+    }
+    
+    [self loadNormalRequest];
+}
+
+- (void)followTrend:(NSString *)trendName
+{
+    self.path = @"trends/follow.json";
+    if (trendName) {
+        [self.params setObject:trendName forKey:@"trend_name"];
+    }
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];
+}
+
+- (void)unfollowTrend:(NSString *)trendName
+{
+    self.path = @"trends/destroy.json";
+    if (trendName) {
+        [self.params setObject:trendName forKey:@"trend_id"];
+    }
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
     [self loadNormalRequest];
 }
 

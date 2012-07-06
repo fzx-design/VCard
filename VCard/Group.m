@@ -28,6 +28,18 @@
     return res;
 }
 
++ (Group *)groupWithName:(NSString *)name inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Group" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"name == %@ && type == %@", name, [NSNumber numberWithInt:2]]];
+    
+    Group *res = [[context executeFetchRequest:request error:NULL] lastObject];
+    
+    return res;
+}
+
 + (Group *)insertGroupInfo:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSString *groupID = [dict objectForKey:@"idstr"];
@@ -52,7 +64,7 @@
 
 + (Group *)insertTopicInfo:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    NSString *groupID = [dict objectForKey:@"hotword"];
+    NSString *groupID = [dict objectForKey:@"trend_id"];
     
     if (!groupID || [groupID isEqualToString:@""]) {
         return nil;
@@ -68,5 +80,33 @@
     
     return result;
 }
+
++ (Group *)insertTopicWithName:(NSString *)name andID:(NSString *)trendID inManangedObjectContext:(NSManagedObjectContext *)context
+{
+    if (!trendID || [trendID isEqualToString:@""]) {
+        return nil;
+    }
+    
+    Group *result = [Group groupWithID:trendID inManagedObjectContext:context];
+    if (!result) {
+        result = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:context];
+    }
+    result.groupID = trendID;
+    result.name = name;
+    result.type = [NSNumber numberWithInt:kGroupTypeTopic];
+    
+    return result;
+}
+
++ (void)deleteGroupWithGroupID:(NSString *)groupID inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Group" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"groupID == %@", groupID]];
+    
+    [context deleteObject:[[context executeFetchRequest:request error:NULL] lastObject]];
+}
+
 
 @end

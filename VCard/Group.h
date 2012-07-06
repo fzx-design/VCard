@@ -1,6 +1,6 @@
 //
 //  Group.h
-//  VCard
+//
 //
 //  Created by 海山 叶 on 12-7-5.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
@@ -23,5 +23,8 @@
 
 + (Group *)insertGroupInfo:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context;
 + (Group *)insertTopicInfo:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Group *)insertTopicWithName:(NSString *)name andID:(NSString *)trendID inManangedObjectContext:(NSManagedObjectContext *)context;
++ (Group *)groupWithName:(NSString *)name inManagedObjectContext:(NSManagedObjectContext *)context;
++ (void)deleteGroupWithGroupID:(NSString *)groupID inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

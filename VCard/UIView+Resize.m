@@ -60,4 +60,20 @@
     self.frame = frame;
 }
 
+- (void)appearWithDuration:(CGFloat)duration
+{
+    self.alpha = 0.0;
+    [UIView animateWithDuration:duration animations:^{
+        self.alpha = 1.0;
+    }];
+}
+
+- (void)disappearWithDuration:(CGFloat)duration
+{
+    self.alpha = 1.0;
+    [UIView animateWithDuration:duration animations:^{
+        self.alpha = 0.0;
+    }];
+}
+
 @end

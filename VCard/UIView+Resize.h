@@ -24,4 +24,8 @@
 
 - (void)resetFrameWithOrigin:(CGPoint)origin size:(CGSize)size;
 
+- (void)appearWithDuration:(CGFloat)duration;
+
+- (void)disappearWithDuration:(CGFloat)duration;
+
 @end

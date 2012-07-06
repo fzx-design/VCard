@@ -7,8 +7,14 @@
 //
 
 #import "TopicViewController.h"
+#import "WBClient.h"
+#import "Group.h"
 
-@interface TopicViewController ()
+@interface TopicViewController () {
+    BOOL _isTopicFollowed;
+    NSString *_topicID;
+    Group *_group;
+}
 
 @end
 
@@ -26,9 +32,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.topShadowImageView resetOrigin:[self frameForTableView].origin];
-    [self.backgroundView addSubview:self.topShadowImageView];
-    _topicTitleLabel.text = [NSString stringWithFormat:@"# %@ #", _searchKey];
+    [self setUpViews];
+    [self loadTopicStatus];
 }
 
 - (void)viewDidUnload
@@ -56,6 +61,86 @@
 {
     self.statusTableViewController.tableView.scrollsToTop = NO;
 }
+
+- (void)setUpViews
+{
+    [self.topShadowImageView resetOrigin:[self frameForTableView].origin];
+    [self.backgroundView addSubview:self.topShadowImageView];
+    
+    [ThemeResourceProvider configButtonPaperLight:_followTopicButton];
+    _topicTitleLabel.text = [NSString stringWithFormat:@"# %@ #", _searchKey];
+}
+
+- (void)loadTopicStatus
+{
+//    WBClient *client = [WBClient client];
+//    [client setCompletionBlock:^(WBClient *client) {
+//        if (!client.hasError) {
+//            NSDictionary *dict = client.responseJSONObject;
+//            _isTopicFollowed = [[dict objectForKey:@"is_follow"] boolValue];
+//            NSString *buttonText = _isTopicFollowed ? @"取消关注" : @"关注话题";
+//            _followTopicButton.titleLabel.text = buttonText;
+//        }
+//    }];
+//    [client checkIsTrendFollowed:_searchKey];
+    
+    _group = [Group groupWithName:_searchKey inManagedObjectContext:self.managedObjectContext];
+    _isTopicFollowed = _group != nil;
+    NSString *buttonText = _isTopicFollowed ? @"取消关注" : @"关注话题";
+    _followTopicButton.titleLabel.text = buttonText;
+}
+
+#pragma mark - IBActions
+- (IBAction)didClickFollowTopicButton:(UIButton *)sender
+{
+    if (_isTopicFollowed) {
+        [self unfollowTopic];
+        _followTopicButton.titleLabel.text = @"取消关注中";
+    } else {
+        [self followTopic];
+        _followTopicButton.titleLabel.text = @"关注中";
+    }
+    _followTopicButton.userInteractionEnabled = NO;
+    
+}
+
+- (void)followTopic
+{
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSDictionary *dict = client.responseJSONObject;
+            NSString *groupID = [dict objectForKey:@"topicid"];
+            _group = [Group insertTopicWithName:_searchKey andID:groupID inManangedObjectContext:self.managedObjectContext];
+            [self.managedObjectContext processPendingChanges];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldCreateNewGroup object:_group];
+            _followTopicButton.titleLabel.text = @"取消关注";
+            _isTopicFollowed = YES;
+        } else {
+            _followTopicButton.titleLabel.text = @"关注话题";
+        }
+        _followTopicButton.userInteractionEnabled = YES;
+    }];
+    [client followTrend:_searchKey];
+}
+
+- (void)unfollowTopic
+{
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldDeleteGroup object:_group];
+            _followTopicButton.titleLabel.text = @"关注话题";
+            _isTopicFollowed = NO;
+            _group = nil;
+        } else {
+            _followTopicButton.titleLabel.text = @"取消关注";
+        }
+        _followTopicButton.userInteractionEnabled = YES;
+    }];
+    [client unfollowTrend:_group.groupID];
+}
+
 
 #pragma mark - Properties
 - (CGRect)frameForTableView

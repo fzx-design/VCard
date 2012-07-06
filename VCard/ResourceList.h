@@ -85,6 +85,8 @@
 #define kNotificationNameShouldHideGroup                @"kNotificationNameShouldHideGroup"
 
 #define kNotificationNameShouldChangeCastviewDataSource @"kNotificationNameShouldChangeCastviewDataSource"
+#define kNotificationNameShouldCreateNewGroup           @"kNotificationNameShouldCreateNewGroup"
+#define kNotificationNameShouldDeleteGroup              @"kNotificationNameShouldDeleteGroup"
 
 #define kNotificationNameStackViewCoveredWholeScreen    @"kNotificationNameStackViewCoveredWholeScreen"
 #define kNotificationNameStackViewDoNotCoverWholeScreen @"kNotificationNameStackViewDoNotCoverWholeScreen"
@@ -94,6 +96,7 @@
 #define kNotificationObjectKeyUserName                  @"kNotificationObjectKeyUserName"
 #define kNotificationObjectKeyStatus                    @"kNotificationObjectKeyStatus"
 #define kNotificationObjectKeySearchKey                 @"kNotificationObjectKeySearchKey"
+#define kNotificationObjectKeyGroup                     @"kNotificationObjectKeyGroup"
 
 #define kNotificationObjectKeyDataSourceType            @"kNotificationObjectKeyDataSourceType"
 #define kNotificationObjectKeyDataSourceDescription     @"kNotificationObjectKeyDataSourceDescription"

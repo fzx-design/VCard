@@ -45,11 +45,42 @@
     [self initScrollView];
     [self setUpSettingView];
     [self setUpGroupsInfo];
+    [self setUpNotifications];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+}
+
+#pragma mark - Notifications
+- (void)setUpNotifications
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(createNewGroup:)
+                   name:kNotificationNameShouldCreateNewGroup
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(deleteGroup:)
+                   name:kNotificationNameShouldDeleteGroup
+                 object:nil];
+}
+
+- (void)createNewGroup:(NSNotification *)notification
+{
+    Group *group = notification.object;
+    [self.fetchedResultsController performFetch:nil];
+    NSInteger index = self.fetchedResultsController.fetchedObjects.count - 1;
+    [self updatePageControlAndScrollViewSize];
+    [self createDrawerViewWithGroup:group index:index];
+    [self getPicURLForTopic:group];
+}
+
+- (void)deleteGroup:(NSNotification *)notification
+{
+    Group *group = notification.object;
+    [self removeDrawerViewAtIndex:group.index.intValue];
 }
 
 #pragma mark - Group Infomation Behavior
@@ -131,7 +162,7 @@
     Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
 
     NSString *type = [NSString stringWithFormat:@"%d",group.type.intValue];
-    NSString *name = group.groupID;
+    NSString *name = group.type.intValue == 2 ? group.name : group.groupID;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldChangeCastviewDataSource
                                                         object:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                 name, kNotificationObjectKeyDataSourceDescription,
@@ -237,22 +268,21 @@
 #pragma mark - Scroll View Behavior
 - (void)initScrollView
 {
-    NSInteger numberOfDrawers = 10;
-    _numberOfPages = numberOfDrawers / kNumberOfDrawerPerPage + 1;
+    [self.fetchedResultsController performFetch:nil];
+    [self updatePageControlAndScrollViewSize];
+    
     [_pageControl setImageNormal:[UIImage imageNamed:@"shelf_pagecontrol_bg.png"]];
     [_pageControl setImageCurrent:[UIImage imageNamed:@"shelf_pagecontrol_hover.png"]];
     [_pageControl setImageSetting:[UIImage imageNamed:@"shelf_pagecontrol_settings_bg.png"]];
     [_pageControl setImageSettingHighlight:[UIImage imageNamed:@"shelf_pagecontrol_settings_hover.png"]];
-    _pageControl.numberOfPages = _numberOfPages;
     _pageControl.currentPage = 1;
     
-    [_scrollView setContentSize:CGSizeMake(_scrollView.frame.size.width * _numberOfPages, _scrollView.frame.size.height)];
     _scrollView.pagingEnabled = YES;
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.delegate = self;
     _scrollView.contentOffset = CGPointMake(_scrollView.frame.size.width, 0.0);
-    [_scrollView resetWidth:self.view.bounds.size.width];
+    [_scrollView resetWidth:[UIApplication screenWidth]];
     [_scrollView resetHeight:149.0];
     ShelfBackgroundView *view = (ShelfBackgroundView *)self.view;
     view.scrollViewReference = (ShelfScrollView *)_scrollView;
@@ -285,32 +315,84 @@
         [_drawerViewArray removeAllObjects];
         _drawerViewArray = nil;
     }
-    
     _drawerViewArray = [[NSMutableArray alloc] init];
-    NSInteger numberOfDrawers = self.fetchedResultsController.fetchedObjects.count;
-    _numberOfPages = ceil((float)numberOfDrawers / (float)kNumberOfDrawerPerPage) + 1;
-    _pageControl.numberOfPages = _numberOfPages;
+    
+    [self updatePageControlAndScrollViewSize];
     _pageControl.currentPage = 1;
     
     NSInteger index = 0;
-    
     for (Group *group in self.fetchedResultsController.fetchedObjects) {
-        ShelfDrawerView *drawerView = [[ShelfDrawerView alloc] initWithFrame:CGRectMake(0.0, 40.0, 95.0, 95.0)
-                                                                   topicName:group.name
-                                                                      picURL:group.picURL
-                                                                       index:index
-                                                                        type:group.type.intValue];
-        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeCastViewSource:)];
-        tapGestureRecognizer.numberOfTapsRequired = 1;
-        [drawerView addGestureRecognizer:tapGestureRecognizer];
-        
-        [_scrollView addSubview:drawerView];
-        [_drawerViewArray addObject:drawerView];
-        group.index = [NSNumber numberWithInt:index];
+        [self createDrawerViewWithGroup:group index:index];
         index++;
     }
     
-    [self resetContentLayout:[UIApplication screenWidth] == 1024.0 ? UIInterfaceOrientationLandscapeLeft : UIInterfaceOrientationPortrait];
+    [self resetContentLayout:[UIApplication sharedApplication].statusBarOrientation];
+}
+
+- (void)createDrawerViewWithGroup:(Group *)group index:(int)index
+{
+    ShelfDrawerView *drawerView = [[ShelfDrawerView alloc] initWithFrame:CGRectMake(0.0, 40.0, 95.0, 95.0)
+                                                               topicName:group.name
+                                                                  picURL:group.picURL
+                                                                   index:index
+                                                                    type:group.type.intValue];
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeCastViewSource:)];
+    tapGestureRecognizer.numberOfTapsRequired = 1;
+    [drawerView addGestureRecognizer:tapGestureRecognizer];
+    [_scrollView addSubview:drawerView];
+    [_drawerViewArray addObject:drawerView];
+    
+    group.index = [NSNumber numberWithInt:index++];
+    [drawerView appearWithDuration:0.3];
+    [self resetDrawerViewLayout:drawerView withIndex:index];
+}
+
+- (void)updatePageControlAndScrollViewSize
+{
+    NSInteger numberOfDrawers = self.fetchedResultsController.fetchedObjects.count;
+    _numberOfPages = ceil((float)numberOfDrawers / (float)kNumberOfDrawerPerPage) + 1;
+    [_scrollView setContentSize:CGSizeMake(_scrollView.frame.size.width * _numberOfPages, _scrollView.frame.size.height)];
+    _pageControl.numberOfPages = _numberOfPages;
+}
+
+- (void)removeDrawerViewAtIndex:(int)index
+{
+    UIView *view = [_drawerViewArray objectAtIndex:index];
+    [UIView animateWithDuration:0.3 animations:^{
+        view.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [view removeFromSuperview];
+        [_drawerViewArray removeObject:view];
+        Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:index];
+        [self.managedObjectContext deleteObject:group];
+        [self.fetchedResultsController performFetch:nil];
+        [self updatePageControlAndScrollViewSize];
+    }];
+    
+    for (int i = index + 1; i < _drawerViewArray.count; ++i) {
+        ShelfDrawerView *view = [_drawerViewArray objectAtIndex:i];
+        Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:i];
+        [UIView animateWithDuration:0.3 animations:^{
+            [self resetDrawerViewLayout:view withIndex:i - 1];
+        } completion:^(BOOL finished) {
+            view.index--;
+            group.index = [NSNumber numberWithInt:view.index];
+        }];
+    }
+}
+
+- (void)resetDrawerViewLayout:(UIView *)view withIndex:(int)index
+{
+    BOOL isPortrait = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
+    
+    int drawWith = isPortrait ? 155 : 200;
+    int initialOffset = isPortrait ? 28 : 65;
+    int scrollViewWidth = isPortrait ? 768.0 : 1024.0;
+    
+    NSInteger page = index / kNumberOfDrawerPerPage + 1;
+    NSInteger pageOffset = index % kNumberOfDrawerPerPage;
+    CGFloat originX = scrollViewWidth * page + drawWith * pageOffset + initialOffset;
+    [view resetOriginX:originX];
 }
 
 - (void)loadImages
