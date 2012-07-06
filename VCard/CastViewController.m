@@ -30,7 +30,7 @@
     BOOL _hasMoreViews;
     BOOL _refreshing;
     CastviewDataSource _dataSource;
-    NSString *_dataSourceDescription;
+    NSString *_dataSourceID;
 }
 
 @property (nonatomic, strong) UIView *coverView;
@@ -160,6 +160,10 @@
     [center addObserver:self
                selector:@selector(changeCastviewDataSource:)
                    name:kNotificationNameShouldChangeCastviewDataSource
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(returnToNormalTimeline)
+                   name:kNotificationNameShouldReturnToNormalTimeline
                  object:nil];
 }
 
@@ -434,7 +438,8 @@
 {
     NSDictionary *dict = notification.object;
     NSString *typeString = [dict objectForKey:kNotificationObjectKeyDataSourceType];
-    _dataSourceDescription = [dict objectForKey:kNotificationObjectKeyDataSourceDescription];
+    NSString *description = [dict objectForKey:kNotificationObjectKeyDataSourceDescription];
+    _dataSourceID = [dict objectForKey:kNotificationObjectKeyDataSourceID];
     int type = typeString.intValue;
     if (type == 0) {
         _dataSource = CastviewDataSourceFavourite;
@@ -442,8 +447,19 @@
         _dataSource = CastviewDataSourceGroup;
     } else if (type == 2) {
         _dataSource = CastviewDataSourceTopic;
+    } else {
+        _dataSource = CastviewDataSourceNone;
     }
+    [_navigationView showInfoBarWithTitleName:description];
+    
     [self refresh];
+}
+
+- (void)returnToNormalTimeline
+{
+    _dataSource = CastviewDataSourceNone;
+    _refreshing = YES;
+    [self loadMoreData];
 }
 
 #pragma mark - IBActions
@@ -653,14 +669,14 @@
         [client getFavouritesWithPage:_nextPage++
                                 count:50];
     } else if (_dataSource == CastviewDataSourceGroup) {
-        [client getGroupTimelineWithGroupID:_dataSourceDescription
+        [client getGroupTimelineWithGroupID:_dataSourceID
                                     sinceID:nil
                                       maxID:maxIDString
                              startingAtPage:0
                                       count:20
                                     feature:0];
     } else if (_dataSource == CastviewDataSourceTopic) {
-        [client searchTopic:_dataSourceDescription
+        [client searchTopic:_dataSourceID
              startingAtPage:_nextPage++
                       count:20];
     }

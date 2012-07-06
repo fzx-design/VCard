@@ -162,11 +162,17 @@
     Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
 
     NSString *type = [NSString stringWithFormat:@"%d",group.type.intValue];
-    NSString *name = group.type.intValue == 2 ? group.name : group.groupID;
+    NSString *name = group.name;
+    NSString *groupID = group.groupID;
+    if (type.intValue == 2) {
+        name = [NSString stringWithFormat:@"#%@#", name];
+        groupID = group.name;
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldChangeCastviewDataSource
                                                         object:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                 name, kNotificationObjectKeyDataSourceDescription,
-                                                                type, kNotificationObjectKeyDataSourceType, nil]];
+                                                                type, kNotificationObjectKeyDataSourceType,
+                                                                groupID, kNotificationObjectKeyDataSourceID, nil]];
 }
 
 - (void)configureRequest:(NSFetchRequest *)request
@@ -342,9 +348,10 @@
     [_scrollView addSubview:drawerView];
     [_drawerViewArray addObject:drawerView];
     
-    group.index = [NSNumber numberWithInt:index++];
     [drawerView appearWithDuration:0.3];
     [self resetDrawerViewLayout:drawerView withIndex:index];
+    group.index = [NSNumber numberWithInt:index];
+    index++;
 }
 
 - (void)updatePageControlAndScrollViewSize

@@ -553,7 +553,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="zqu-Vg-FVk" customClass="BaseNavigationView">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="58"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" image="title_small.png" id="fdO-i9-psq">

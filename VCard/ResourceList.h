@@ -85,6 +85,7 @@
 #define kNotificationNameShouldHideGroup                @"kNotificationNameShouldHideGroup"
 
 #define kNotificationNameShouldChangeCastviewDataSource @"kNotificationNameShouldChangeCastviewDataSource"
+#define kNotificationNameShouldReturnToNormalTimeline   @"kNotificationNameShouldReturnToNormalTimeline"
 #define kNotificationNameShouldCreateNewGroup           @"kNotificationNameShouldCreateNewGroup"
 #define kNotificationNameShouldDeleteGroup              @"kNotificationNameShouldDeleteGroup"
 
@@ -99,6 +100,7 @@
 #define kNotificationObjectKeyGroup                     @"kNotificationObjectKeyGroup"
 
 #define kNotificationObjectKeyDataSourceType            @"kNotificationObjectKeyDataSourceType"
+#define kNotificationObjectKeyDataSourceID              @"kNotificationObjectKeyDataSourceID"
 #define kNotificationObjectKeyDataSourceDescription     @"kNotificationObjectKeyDataSourceDescription"
 
 #define kUserDefaultKeyRefreshingInterval               @"kUserDefaultKeyRefreshingInterval"
