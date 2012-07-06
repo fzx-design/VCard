@@ -109,10 +109,10 @@
     }];
     
     [UIView animateWithDuration:0.3 animations:^{
-        [_infoBarView resetOriginY:44.0];
-        [_returnButton resetOriginY:44.0];
-        [_titleLabel resetOriginY:44.0];
-        [_topBarShadow resetOriginY:74.0];
+        [_infoBarView resetOriginY:43.0];
+        [_returnButton resetOriginY:43.0];
+        [_titleLabel resetOriginY:43.0];
+        [_topBarShadow resetOriginY:73.0];
     }];
 }
 
@@ -122,7 +122,7 @@
         [_infoBarView resetOriginY:0.0];
         [_returnButton resetOriginY:0.0];
         [_titleLabel resetOriginY:0.0];
-        [_topBarShadow resetOriginY:44.0];
+        [_topBarShadow resetOriginY:43.0];
     } completion:^(BOOL finished) {
         _infoBarView.hidden = YES;
         _returnButton.hidden = YES;
