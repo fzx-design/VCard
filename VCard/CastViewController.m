@@ -460,6 +460,7 @@
     _dataSource = CastviewDataSourceNone;
     _refreshing = YES;
     [self loadMoreData];
+    [_navigationView hideInfoBar];
 }
 
 #pragma mark - IBActions

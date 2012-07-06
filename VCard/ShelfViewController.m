@@ -24,6 +24,7 @@
     UIImageView *_shelfBGImageView;
     UIImageView *_shelfEdgeImageView;
     NSInteger _numberOfPages;
+    NSInteger _numberOfDrawerPerPage;
 }
 
 @end
@@ -72,7 +73,7 @@
     Group *group = notification.object;
     [self.fetchedResultsController performFetch:nil];
     NSInteger index = self.fetchedResultsController.fetchedObjects.count - 1;
-    [self updatePageControlAndScrollViewSize];
+    [self updatePageControlAndScrollViewSize:[UIApplication sharedApplication].statusBarOrientation];
     [self createDrawerViewWithGroup:group index:index];
     [self getPicURLForTopic:group];
 }
@@ -193,6 +194,7 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration 
 {
+    [self updatePageControlAndScrollViewSize:toInterfaceOrientation];
     [self resetContentSize:toInterfaceOrientation];
     [self resetContentLayout:toInterfaceOrientation];
     [self resetSettingViewLayout:toInterfaceOrientation];
@@ -219,12 +221,12 @@
 - (void)resetContentLayout:(UIInterfaceOrientation)orientation
 {
     int index = 0;
-    int drawWith = UIInterfaceOrientationIsPortrait(orientation) ? 155 : 200;
-    int initialOffset = UIInterfaceOrientationIsPortrait(orientation) ? 28 : 65;
+    int drawWith = UIInterfaceOrientationIsPortrait(orientation) ? 183 : 200;
+    int initialOffset = UIInterfaceOrientationIsPortrait(orientation) ? 65 : 65;
     int scrollViewWidth = UIInterfaceOrientationIsPortrait(orientation) ? 768.0 : 1024.0;
     for (UIView* view in _drawerViewArray) {
-        NSInteger page = index / kNumberOfDrawerPerPage + 1;
-        NSInteger pageOffset = index % kNumberOfDrawerPerPage;
+        NSInteger page = index / _numberOfDrawerPerPage + 1;
+        NSInteger pageOffset = index % _numberOfDrawerPerPage;
         CGFloat originX = scrollViewWidth * page + drawWith * pageOffset + initialOffset;
         [view resetOriginX:originX];
         index++;
@@ -275,14 +277,15 @@
 - (void)initScrollView
 {
     [self.fetchedResultsController performFetch:nil];
-    [self updatePageControlAndScrollViewSize];
     
     [_pageControl setImageNormal:[UIImage imageNamed:@"shelf_pagecontrol_bg.png"]];
     [_pageControl setImageCurrent:[UIImage imageNamed:@"shelf_pagecontrol_hover.png"]];
     [_pageControl setImageSetting:[UIImage imageNamed:@"shelf_pagecontrol_settings_bg.png"]];
     [_pageControl setImageSettingHighlight:[UIImage imageNamed:@"shelf_pagecontrol_settings_hover.png"]];
-    _pageControl.currentPage = 1;
     
+    [self updatePageControlAndScrollViewSize:[UIApplication sharedApplication].statusBarOrientation];
+    _pageControl.currentPage = 1;
+
     _scrollView.pagingEnabled = YES;
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
@@ -323,7 +326,7 @@
     }
     _drawerViewArray = [[NSMutableArray alloc] init];
     
-    [self updatePageControlAndScrollViewSize];
+    [self updatePageControlAndScrollViewSize:[UIApplication sharedApplication].statusBarOrientation];
     _pageControl.currentPage = 1;
     
     NSInteger index = 0;
@@ -354,12 +357,14 @@
     index++;
 }
 
-- (void)updatePageControlAndScrollViewSize
+- (void)updatePageControlAndScrollViewSize:(UIInterfaceOrientation)orientation
 {
+    _numberOfDrawerPerPage = UIInterfaceOrientationIsPortrait(orientation) ? 4 : 5;
     NSInteger numberOfDrawers = self.fetchedResultsController.fetchedObjects.count;
-    _numberOfPages = ceil((float)numberOfDrawers / (float)kNumberOfDrawerPerPage) + 1;
+    _numberOfPages = ceil((float)numberOfDrawers / (float)_numberOfDrawerPerPage) + 1;
     [_scrollView setContentSize:CGSizeMake(_scrollView.frame.size.width * _numberOfPages, _scrollView.frame.size.height)];
     _pageControl.numberOfPages = _numberOfPages;
+    _pageControl.currentPage = _pageControl.currentPage;
 }
 
 - (void)removeDrawerViewAtIndex:(int)index
@@ -373,7 +378,7 @@
         Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:index];
         [self.managedObjectContext deleteObject:group];
         [self.fetchedResultsController performFetch:nil];
-        [self updatePageControlAndScrollViewSize];
+        [self updatePageControlAndScrollViewSize:[UIApplication sharedApplication].statusBarOrientation];
     }];
     
     for (int i = index + 1; i < _drawerViewArray.count; ++i) {
@@ -392,12 +397,12 @@
 {
     BOOL isPortrait = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
     
-    int drawWith = isPortrait ? 155 : 200;
-    int initialOffset = isPortrait ? 28 : 65;
+    int drawWith = isPortrait ? 183 : 200;
+    int initialOffset = isPortrait ? 65 : 65;
     int scrollViewWidth = isPortrait ? 768.0 : 1024.0;
     
-    NSInteger page = index / kNumberOfDrawerPerPage + 1;
-    NSInteger pageOffset = index % kNumberOfDrawerPerPage;
+    NSInteger page = index / _numberOfDrawerPerPage + 1;
+    NSInteger pageOffset = index % _numberOfDrawerPerPage;
     CGFloat originX = scrollViewWidth * page + drawWith * pageOffset + initialOffset;
     [view resetOriginX:originX];
 }

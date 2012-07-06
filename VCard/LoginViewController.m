@@ -154,13 +154,20 @@
             favouriteGroup.type = [NSNumber numberWithInt:kGroupTypeFavourite];
             favouriteGroup.picURL = self.currentUser.largeAvatarURL;
             favouriteGroup.index = [NSNumber numberWithInt:0];
-            
-            [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
+//            [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
+            [self performSegueWithIdentifier:@"ShowRootViewController" sender:self];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
+//            [self performSelector:@selector(pushRootViewController) withObject:nil afterDelay:0.1];
         }
     }];
     
     [client getUser:[WBClient currentUserID]];
+}
+
+- (void)pushRootViewController
+{
+    [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

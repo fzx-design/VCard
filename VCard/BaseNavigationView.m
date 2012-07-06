@@ -133,7 +133,6 @@
 - (void)didClickReturnButton
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldReturnToNormalTimeline object:nil];
-    [self hideInfoBar];
 }
 
 @end

@@ -21,7 +21,6 @@
 
 @end
 
-
 @implementation ProfileStatusTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -202,7 +201,7 @@
     } else if (_type == statusTableViewControllerTypeMentionStatus){
         request.predicate = [NSPredicate predicateWithFormat:@"isMentioned == %@", [NSNumber numberWithBool:YES]];
     } else if (_type == StatusTableViewControllerTypeTopicStatus){
-        request.predicate = [NSPredicate predicateWithFormat:@"searchKey == %@", _searchKey];
+        request.predicate = [NSPredicate predicateWithFormat:@"searchKey == %@ && operatedBy == %@", _searchKey, _coreDataIdentifier];
     }
 }
 

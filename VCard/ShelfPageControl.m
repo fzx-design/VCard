@@ -60,7 +60,7 @@
 
 #pragma mark - (Private)
 
-- (void) updateDots
+- (void)updateDots
 {
     if(_imageCurrent || _imageNormal) {
         // Get subviews
