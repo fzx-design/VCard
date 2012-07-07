@@ -15,6 +15,9 @@
     CardImageViewShadowView *_shadowView;
     UIImageView *_imageView;
     UIImageView *_gifIcon;
+    
+    CGFloat _initialRotation;
+    CGPoint _initialPosition;
 }
 
 @property (nonatomic, strong) UIImageView *imageView;
@@ -32,5 +35,8 @@
 - (void)clearCurrentImage;
 
 - (void)reset;
+
+- (void)playReturnAnimation;
+- (void)returnToInitialPosition;
 
 @end

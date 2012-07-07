@@ -59,9 +59,13 @@ static inline NSRegularExpression * UrlRegularExpression() {
 
 @interface CardViewController () {
     BOOL _doesImageExist;
-    BOOL _isReposted;
     BOOL _alreadyConfigured;
     BOOL _imageAlreadyLoaded;
+    CGFloat _lastScale;
+    CGFloat _scale;
+    CGPoint _lastPoint;
+    UIPinchGestureRecognizer *_pinchGestureRecognizer;
+    UIRotationGestureRecognizer *_rotationGesture;
 }
 
 @end
@@ -112,6 +116,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
     
     self.locationLabel.hidden = YES;
     self.locationPinImageView.hidden = YES;
+    self.clipImageView.layer.anchorPoint = CGPointMake(0.9, 0.05);
+    [self.clipImageView resetOrigin:CGPointMake(300.0, -4.0)];
     
     self.repostUserNameButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     
@@ -120,6 +126,14 @@ static inline NSRegularExpression * UrlRegularExpression() {
     
     UITapGestureRecognizer *repostTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewUserInfo)];
     [self.originalUserAvatar addGestureRecognizer:repostTapGesture];
+    
+    _rotationGesture = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotatePiece:)];
+    _rotationGesture.delegate = self;
+    [self.statusImageView addGestureRecognizer:_rotationGesture];
+    
+    _pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+    _pinchGestureRecognizer.delegate = self;
+    [self.statusImageView addGestureRecognizer:_pinchGestureRecognizer];
 }
 
 - (void)viewDidUnload
@@ -687,6 +701,146 @@ static inline NSRegularExpression * UrlRegularExpression() {
 											  cancelButtonTitle:NSLocalizedString(@"确定", nil)
 											  otherButtonTitles:nil];
 	[alertView show];
+}
+
+#pragma mark - Handle Pinch Gesture
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    // if the gesture recognizers are on different views, don't allow simultaneous recognition
+    if (gestureRecognizer.view != otherGestureRecognizer.view)
+        return NO;
+    
+    // if either of the gesture recognizers is the long press, don't allow simultaneous recognition
+    if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]] || [otherGestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]])
+        return NO;
+    
+    return YES;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"1");
+}
+
+- (void)handlePinchGesture:(UIPinchGestureRecognizer *)sender {
+    if ([sender numberOfTouches] < 2)
+        return;
+    
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        _lastScale = 1.0;
+        _scale = 1.0;
+        _lastPoint = [sender locationInView:self.statusImageView];
+        [self playClipLooseAnimation];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowDetailImageView object:[NSDictionary dictionaryWithObjectsAndKeys:self, kNotificationObjectKeyStatus,
+                                         self.statusImageView, kNotificationObjectKeyImageView, nil]];
+    }
+    
+    NSLog(@"%d, %f", sender.state, sender.velocity);
+    
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        if (_scale < 2.0) {
+            [self returnToInitialImageView];
+            return;
+        }
+    }
+    
+    if (sender.state == UIGestureRecognizerStateFailed) {
+        if (_scale < 2.0) {
+            [self returnToInitialImageView];
+            return;
+        }
+    }
+    
+    if (sender.state == UIGestureRecognizerStatePossible) {
+        if (_scale < 2.0) {
+            [self returnToInitialImageView];
+            return;
+        }
+    }
+    
+    if (sender.state == UIGestureRecognizerStateRecognized) {
+        if (_scale < 2.0) {
+            [self returnToInitialImageView];
+            return;
+        }
+    }
+    
+    // Scale
+    CGFloat scale = 1.0 - (_lastScale - sender.scale);
+    _scale += sender.scale - _lastScale;
+    [self.statusImageView.layer setAffineTransform:CGAffineTransformScale([self.statusImageView.layer affineTransform], scale, scale)];
+    _lastScale = sender.scale;
+    
+    // Translate
+    CGPoint point = [sender locationInView:self.statusImageView];
+    [self.statusImageView.layer setAffineTransform:CGAffineTransformTranslate([self.statusImageView.layer affineTransform], point.x - _lastPoint.x, point.y - _lastPoint.y)];
+    _lastPoint = [sender locationInView:self.statusImageView];
+    
+    if ([_delegate respondsToSelector:@selector(didChangeImageScale:)]) {
+        [_delegate didChangeImageScale:sender.scale];
+    }
+}
+
+- (void)rotatePiece:(UIRotationGestureRecognizer *)gestureRecognizer {
+//    [self adjustAnchorPointForGestureRecognizer:gestureRecognizer];
+    
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan || [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
+        [gestureRecognizer view].transform = CGAffineTransformRotate([[gestureRecognizer view] transform], [gestureRecognizer rotation]);
+        [gestureRecognizer setRotation:0];
+    }
+}
+
+- (void)adjustAnchorPointForGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        UIView *piece = gestureRecognizer.view;
+        CGPoint locationInView = [gestureRecognizer locationInView:piece];
+        CGPoint locationInSuperview = [gestureRecognizer locationInView:piece.superview];
+        
+        piece.layer.anchorPoint = CGPointMake(locationInView.x / piece.bounds.size.width, locationInView.y / piece.bounds.size.height);
+        piece.center = locationInSuperview;
+    }
+}
+
+- (void)returnToInitialImageView
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.statusImageView playReturnAnimation];
+        [_delegate willReturnImageView];
+    } completion:^(BOOL finished) {
+        if ([_delegate respondsToSelector:@selector(didReturnImageView)]) {
+            [_delegate didReturnImageView];
+        }
+        [self.statusImageView returnToInitialPosition];
+        [self.cardBackground insertSubview:self.statusImageView belowSubview:self.clipImageView];
+        [self playClipTightenAnimation];
+    }];
+}
+
+- (void)playClipLooseAnimation
+{
+    CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+    rotationAnimation.toValue = [NSNumber numberWithFloat:1.1];
+    rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    rotationAnimation.fillMode = kCAFillModeForwards;
+    rotationAnimation.removedOnCompletion = NO;
+    rotationAnimation.duration = 0.3;
+    
+    [self.clipImageView.layer removeAllAnimations];
+    [self.clipImageView.layer addAnimation:rotationAnimation forKey:@"swingAnimation"];
+}
+
+- (void)playClipTightenAnimation
+{
+    CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+    rotationAnimation.fromValue = [NSNumber numberWithFloat:1.1];
+    rotationAnimation.toValue = [NSNumber numberWithFloat:0.0];
+    rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    rotationAnimation.fillMode = kCAFillModeForwards;
+    rotationAnimation.removedOnCompletion = NO;
+    rotationAnimation.duration = 0.3;
+    
+    [self.clipImageView.layer removeAllAnimations];
+    [self.clipImageView.layer addAnimation:rotationAnimation forKey:@"swingAnimation"];
 }
 
 @end

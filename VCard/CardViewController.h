@@ -26,7 +26,15 @@
 #define CardTailHeight 24
 #define CardTailOffset -55
 
-@interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate, PostViewControllerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
+@protocol CardViewControllerDelegate <NSObject>
+
+- (void)didChangeImageScale:(CGFloat)scale;
+- (void)didReturnImageView;
+- (void)willReturnImageView;
+
+@end
+
+@interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate, PostViewControllerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate> {
     CardImageView *_statusImageView;
     UserAvatarImageView *_repostUserAvatar;
     UserAvatarImageView *_originalUserAvatar;
@@ -84,6 +92,9 @@
 @property (nonatomic, weak) Status *previousStatus;
 @property (nonatomic, assign) NSInteger imageHeight;
 @property (nonatomic, assign) NSInteger pageIndex;
+@property (nonatomic, assign) BOOL isReposted;
+
+@property (nonatomic, weak) id<CardViewControllerDelegate> delegate;
 
 - (IBAction)nameButtonClicked:(id)sender;
 - (IBAction)didClickCommentButton:(UIButton *)sender;
@@ -99,5 +110,6 @@
                     currentUser:(User *)user;
 - (void)loadImage;
 - (void)prepareForReuse;
+- (void)returnToInitialImageView;
 
 @end

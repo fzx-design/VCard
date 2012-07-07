@@ -63,8 +63,18 @@
                selector:@selector(hideGroup:)
                    name:kNotificationNameShouldHideGroup
                  object:nil];
+    [center addObserver:self
+               selector:@selector(showDetailImageView:)
+                   name:kNotificationNameShouldShowDetailImageView
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(hideDetailImageView:)
+                   name:kNotificationNameShouldHideDetailImageView
+                 object:nil];
 }
 
+#pragma mark - Notifications
+#pragma mark Shelf View Controller Notifications
 - (void)showGroup:(NSNotification *)notification
 {
     self.shelfViewController.view.hidden = NO;
@@ -85,6 +95,23 @@
     }];
 }
 
+#pragma mark Detail Image View Controller Notifications
+- (void)showDetailImageView:(NSNotification *)notification
+{
+    NSDictionary *dict = notification.object;
+//    UIImageView *imageView = [dict objectForKey:kNotificationObjectKeyImageView];
+    CardViewController *vc = [dict objectForKey:kNotificationObjectKeyStatus];
+//    vc.delegate = self.detailImageViewController;
+    self.detailImageViewController.view.hidden = NO;
+    self.detailImageViewController.view.userInteractionEnabled = YES;
+    [self.detailImageViewController setUpWithCardViewController:vc];
+}
+
+- (void)hideDetialImageView:(NSNotification *)notification
+{
+    self.detailImageViewController.view.hidden = YES;
+    self.detailImageViewController.view.userInteractionEnabled = NO;
+}
 
 #pragma mark - Handle Rotations
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -130,6 +157,17 @@
         [_shelfViewController.view resetWidth:self.view.bounds.size.width];
     }
     return _shelfViewController;
+}
+
+#pragma mark - Detail Image View Controller
+- (DetailImageViewController *)detailImageViewController
+{
+    if (!_detailImageViewController) {
+        _detailImageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailImageViewController"];
+        _detailImageViewController.view.frame = self.view.bounds;
+        [self.view addSubview:_detailImageViewController.view];
+    }
+    return _detailImageViewController;
 }
 
 @end

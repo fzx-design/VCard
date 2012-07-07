@@ -98,6 +98,7 @@
 		182EC05215A497990056E282 /* TopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182EC05115A497990056E282 /* TopicViewController.m */; };
 		182EC05615A499D30056E282 /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 182EC05515A499D30056E282 /* Status.m */; };
 		183AC82F15A56EAE006937C3 /* ShelfDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183AC82E15A56EAE006937C3 /* ShelfDrawerView.m */; };
+		1846F04815A72FAA00E5CF47 /* DetailImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1846F04715A72FAA00E5CF47 /* DetailImageViewController.m */; };
 		1850A457153BE4020001A905 /* CardImageViewShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1850A456153BE4020001A905 /* CardImageViewShadowView.m */; };
 		1850A45E153BE56D0001A905 /* image_shadow_body.png in Resources */ = {isa = PBXBuildFile; fileRef = 1850A458153BE56D0001A905 /* image_shadow_body.png */; };
 		1850A45F153BE56D0001A905 /* image_shadow_body@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1850A459153BE56D0001A905 /* image_shadow_body@2x.png */; };
@@ -888,6 +889,8 @@
 		182EC05515A499D30056E282 /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
 		183AC82D15A56EAE006937C3 /* ShelfDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelfDrawerView.h; sourceTree = "<group>"; };
 		183AC82E15A56EAE006937C3 /* ShelfDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfDrawerView.m; sourceTree = "<group>"; };
+		1846F04615A72FAA00E5CF47 /* DetailImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailImageViewController.h; sourceTree = "<group>"; };
+		1846F04715A72FAA00E5CF47 /* DetailImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailImageViewController.m; sourceTree = "<group>"; };
 		1850A455153BE4020001A905 /* CardImageViewShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardImageViewShadowView.h; sourceTree = "<group>"; };
 		1850A456153BE4020001A905 /* CardImageViewShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardImageViewShadowView.m; sourceTree = "<group>"; };
 		1850A458153BE56D0001A905 /* image_shadow_body.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_shadow_body.png; sourceTree = "<group>"; };
@@ -1869,6 +1872,8 @@
 				18DF3746156B5F0600C56685 /* DividerViewController.m */,
 				1811454A156F56B000B3BF21 /* RefreshIndicatorView.h */,
 				1811454B156F56B100B3BF21 /* RefreshIndicatorView.m */,
+				1846F04615A72FAA00E5CF47 /* DetailImageViewController.h */,
+				1846F04715A72FAA00E5CF47 /* DetailImageViewController.m */,
 			);
 			name = CastView;
 			sourceTree = "<group>";
@@ -3828,6 +3833,7 @@
 				18AC570815A5295200ADDBAF /* ShelfPageControl.m in Sources */,
 				183AC82F15A56EAE006937C3 /* ShelfDrawerView.m in Sources */,
 				189D9E6215A596A100AD72EA /* Group.m in Sources */,
+				1846F04815A72FAA00E5CF47 /* DetailImageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

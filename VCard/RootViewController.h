@@ -10,6 +10,7 @@
 #import "CastViewController.h"
 #import "CoreDataViewController.h"
 #import "ShelfViewController.h"
+#import "DetailImageViewController.h"
 
 @interface RootViewController : CoreDataViewController {
     CastViewController *_castViewController;
@@ -17,5 +18,6 @@
 
 @property (nonatomic, strong) CastViewController *castViewController;
 @property (nonatomic, strong) ShelfViewController *shelfViewController;
+@property (nonatomic, strong) DetailImageViewController *detailImageViewController;
 
 @end

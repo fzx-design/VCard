@@ -92,12 +92,17 @@
 #define kNotificationNameStackViewCoveredWholeScreen    @"kNotificationNameStackViewCoveredWholeScreen"
 #define kNotificationNameStackViewDoNotCoverWholeScreen @"kNotificationNameStackViewDoNotCoverWholeScreen"
 
+#define kNotificationNameShouldShowDetailImageView      @"kNotificationNameShouldShowDetailImageView"
+#define kNotificationNameShouldHideDetailImageView      @"kNotificationNameShouldHideDetailImageView"
+
 #define kNotificationObjectKeyUser                      @"kNotificationObjectKeyUser"
 #define kNotificationObjectKeyIndex                     @"kNotificationObjectKeyIndex"
 #define kNotificationObjectKeyUserName                  @"kNotificationObjectKeyUserName"
 #define kNotificationObjectKeyStatus                    @"kNotificationObjectKeyStatus"
 #define kNotificationObjectKeySearchKey                 @"kNotificationObjectKeySearchKey"
 #define kNotificationObjectKeyGroup                     @"kNotificationObjectKeyGroup"
+
+#define kNotificationObjectKeyImageView                 @"kNotificationObjectKeyImageView"
 
 #define kNotificationObjectKeyDataSourceType            @"kNotificationObjectKeyDataSourceType"
 #define kNotificationObjectKeyDataSourceID              @"kNotificationObjectKeyDataSourceID"

@@ -57,7 +57,10 @@
     [self insertSubview:_shadowView aboveSubview:self.imageView];
     
     CGFloat rotatingDegree = (((float) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * 4) - 2;
-    self.transform = CGAffineTransformMakeRotation(rotatingDegree * M_PI / 180);
+    _initialRotation = rotatingDegree * M_PI / 180;
+    self.transform = CGAffineTransformMakeRotation(_initialRotation);
+    
+    _initialPosition = self.frame.origin;
 }
 
 - (UIImageView*)imageView
@@ -139,6 +142,25 @@
 - (UIImage *)image
 {
     return self.imageView.image;
+}
+
+- (void)playReturnAnimation
+{
+    self.transform = CGAffineTransformIdentity;
+}
+
+- (void)returnToInitialPosition
+{
+    [self resetOrigin:_initialPosition];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.transform = CGAffineTransformMakeRotation(_initialRotation);
+    }];
+    
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"!");
 }
 
 @end
