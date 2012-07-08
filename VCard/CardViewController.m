@@ -65,7 +65,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
     CGFloat _scale;
     CGPoint _lastPoint;
     UIPinchGestureRecognizer *_pinchGestureRecognizer;
-    UIRotationGestureRecognizer *_rotationGesture;
+    UIRotationGestureRecognizer *_rotationGestureRecognizer;
+    CastViewImageViewMode _imageViewMode;
 }
 
 @end
@@ -127,9 +128,9 @@ static inline NSRegularExpression * UrlRegularExpression() {
     UITapGestureRecognizer *repostTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewUserInfo)];
     [self.originalUserAvatar addGestureRecognizer:repostTapGesture];
     
-    _rotationGesture = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotatePiece:)];
-    _rotationGesture.delegate = self;
-    [self.statusImageView addGestureRecognizer:_rotationGesture];
+    _rotationGestureRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotationGesture:)];
+    _rotationGestureRecognizer.delegate = self;
+    [self.statusImageView addGestureRecognizer:_rotationGestureRecognizer];
     
     _pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     _pinchGestureRecognizer.delegate = self;
@@ -197,6 +198,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     }
     
     _alreadyConfigured = YES;
+    _imageViewMode = CastViewImageViewModeNormal;
     _pageIndex = pageIndex_;
     _currentUser = user;
     
@@ -716,62 +718,42 @@ static inline NSRegularExpression * UrlRegularExpression() {
     return YES;
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)handlePinchGesture:(UIPinchGestureRecognizer *)sender
 {
-    NSLog(@"1");
-}
-
-- (void)handlePinchGesture:(UIPinchGestureRecognizer *)sender {
-    if ([sender numberOfTouches] < 2)
+    if (_imageViewMode == CastViewImageViewModeAnimatingClip) {
         return;
+    }
     
     if (sender.state == UIGestureRecognizerStateBegan) {
         _lastScale = 1.0;
         _scale = 1.0;
         _lastPoint = [sender locationInView:self.statusImageView];
-        [self playClipLooseAnimation];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowDetailImageView object:[NSDictionary dictionaryWithObjectsAndKeys:self, kNotificationObjectKeyStatus,
-                                         self.statusImageView, kNotificationObjectKeyImageView, nil]];
-    }
-    
-    NSLog(@"%d, %f", sender.state, sender.velocity);
-    
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        if (_scale < 2.0) {
-            [self returnToInitialImageView];
+        if (_imageViewMode == CastViewImageViewModeNormal) {
+            [self playClipLooseAnimationAndSendNotification];
             return;
         }
     }
     
-    if (sender.state == UIGestureRecognizerStateFailed) {
-        if (_scale < 2.0) {
+    if (_imageViewMode == CastViewImageViewModeEndedAnimatingClip) {
+        _imageViewMode = CastViewImageViewModePinching;
+        sender.scale = 1.0;
+    }
+        
+    if (sender.state == UIGestureRecognizerStateEnded || (sender.state == UIGestureRecognizerStateChanged && sender.numberOfTouches < 2)) {
+        if (_scale < 1.5) {
             [self returnToInitialImageView];
             return;
+        } else {
+            ;
         }
     }
     
-    if (sender.state == UIGestureRecognizerStatePossible) {
-        if (_scale < 2.0) {
-            [self returnToInitialImageView];
-            return;
-        }
-    }
-    
-    if (sender.state == UIGestureRecognizerStateRecognized) {
-        if (_scale < 2.0) {
-            [self returnToInitialImageView];
-            return;
-        }
-    }
-    
-    // Scale
     CGFloat scale = 1.0 - (_lastScale - sender.scale);
     _scale += sender.scale - _lastScale;
     [self.statusImageView.layer setAffineTransform:CGAffineTransformScale([self.statusImageView.layer affineTransform], scale, scale)];
     _lastScale = sender.scale;
     
-    // Translate
     CGPoint point = [sender locationInView:self.statusImageView];
     [self.statusImageView.layer setAffineTransform:CGAffineTransformTranslate([self.statusImageView.layer affineTransform], point.x - _lastPoint.x, point.y - _lastPoint.y)];
     _lastPoint = [sender locationInView:self.statusImageView];
@@ -781,23 +763,21 @@ static inline NSRegularExpression * UrlRegularExpression() {
     }
 }
 
-- (void)rotatePiece:(UIRotationGestureRecognizer *)gestureRecognizer {
-//    [self adjustAnchorPointForGestureRecognizer:gestureRecognizer];
-    
-    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan || [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
-        [gestureRecognizer view].transform = CGAffineTransformRotate([[gestureRecognizer view] transform], [gestureRecognizer rotation]);
-        [gestureRecognizer setRotation:0];
+- (void)handleRotationGesture:(UIRotationGestureRecognizer *)sender
+{
+    if (_imageViewMode == CastViewImageViewModeAnimatingClip) {
+        return;
     }
-}
-
-- (void)adjustAnchorPointForGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        UIView *piece = gestureRecognizer.view;
-        CGPoint locationInView = [gestureRecognizer locationInView:piece];
-        CGPoint locationInSuperview = [gestureRecognizer locationInView:piece.superview];
-        
-        piece.layer.anchorPoint = CGPointMake(locationInView.x / piece.bounds.size.width, locationInView.y / piece.bounds.size.height);
-        piece.center = locationInSuperview;
+    
+    if ([sender state] == UIGestureRecognizerStateBegan) {
+        if (_imageViewMode == CastViewImageViewModeNormal) {
+            [self playClipLooseAnimationAndSendNotification];
+        }
+    }
+    
+    if ([sender state] == UIGestureRecognizerStateChanged) {
+        [sender view].transform = CGAffineTransformRotate([[sender view] transform], [sender rotation]);
+        [sender setRotation:0];
     }
 }
 
@@ -813,11 +793,22 @@ static inline NSRegularExpression * UrlRegularExpression() {
         [self.statusImageView returnToInitialPosition];
         [self.cardBackground insertSubview:self.statusImageView belowSubview:self.clipImageView];
         [self playClipTightenAnimation];
+        _imageViewMode = CastViewImageViewModeNormal;
     }];
 }
 
-- (void)playClipLooseAnimation
+#pragma mark Adjust Clip Behavior
+- (void)willOpenDetailImageView
 {
+    _imageViewMode = CastViewImageViewModeEndedAnimatingClip;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowDetailImageView object:[NSDictionary dictionaryWithObjectsAndKeys:self, kNotificationObjectKeyStatus,self.statusImageView, kNotificationObjectKeyImageView, nil]];
+}
+
+- (void)playClipLooseAnimationAndSendNotification
+{
+    _imageViewMode = CastViewImageViewModeAnimatingClip;
+    [self performSelector:@selector(willOpenDetailImageView) withObject:nil afterDelay:0.3];
+    
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
     rotationAnimation.toValue = [NSNumber numberWithFloat:1.1];
     rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -831,6 +822,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 
 - (void)playClipTightenAnimation
 {
+    _imageViewMode = CastViewImageViewModeAnimatingClip;
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
     rotationAnimation.fromValue = [NSNumber numberWithFloat:1.1];
     rotationAnimation.toValue = [NSNumber numberWithFloat:0.0];

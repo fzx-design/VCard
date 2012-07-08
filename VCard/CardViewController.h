@@ -26,6 +26,14 @@
 #define CardTailHeight 24
 #define CardTailOffset -55
 
+typedef enum {
+    CastViewImageViewModeNormal,
+    CastViewImageViewModeAnimatingClip,
+    CastViewImageViewModeEndedAnimatingClip,
+    CastViewImageViewModePinching,
+    CastViewImageViewModeDetailed,
+} CastViewImageViewMode;
+
 @protocol CardViewControllerDelegate <NSObject>
 
 - (void)didChangeImageScale:(CGFloat)scale;
