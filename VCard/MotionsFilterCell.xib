@@ -80,7 +80,7 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{44, -4}, {40, 40}}</string>
 										<reference key="NSSuperview" ref="380640804"/>
-										<reference key="NSNextKeyView" ref="551192573"/>
+										<reference key="NSNextKeyView" ref="910956545"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -89,7 +89,7 @@
 											<string key="NSResourceName">icon_iap.png</string>
 										</object>
 									</object>
-									<object class="IBUILabel" id="551192573">
+									<object class="IBUILabel" id="910956545">
 										<reference key="NSNextResponder" ref="380640804"/>
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{0, 52}, {80, 23}}</string>
@@ -201,7 +201,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">filterNameLabel</string>
 						<reference key="source" ref="122098843"/>
-						<reference key="destination" ref="551192573"/>
+						<reference key="destination" ref="910956545"/>
 					</object>
 					<int key="connectionID">32</int>
 				</object>
@@ -241,7 +241,7 @@
 							<reference ref="106018436"/>
 							<reference ref="441888016"/>
 							<reference ref="561201203"/>
-							<reference ref="551192573"/>
+							<reference ref="910956545"/>
 						</array>
 						<reference key="parent" ref="122098843"/>
 					</object>
@@ -267,7 +267,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">31</int>
-						<reference key="object" ref="551192573"/>
+						<reference key="object" ref="910956545"/>
 						<reference key="parent" ref="380640804"/>
 					</object>
 				</array>
