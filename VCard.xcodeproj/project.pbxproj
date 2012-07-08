@@ -757,6 +757,8 @@
 		E1F4EBDF15971D24000B84D4 /* button_post_bg_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EBD915971D24000B84D4 /* button_post_bg_error@2x.png */; };
 		E1F4EBE015971D24000B84D4 /* button_post_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EBDA15971D24000B84D4 /* button_post_hover.png */; };
 		E1F4EBE115971D24000B84D4 /* button_post_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EBDB15971D24000B84D4 /* button_post_hover@2x.png */; };
+		E1FE8AFB15A9CDC0009636A4 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE8AFA15A9CDC0009636A4 /* FXLabel.m */; };
+		E1FE8AFD15A9CFD8009636A4 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE8AFA15A9CDC0009636A4 /* FXLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1641,6 +1643,8 @@
 		E1F4EBD915971D24000B84D4 /* button_post_bg_error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_post_bg_error@2x.png"; sourceTree = "<group>"; };
 		E1F4EBDA15971D24000B84D4 /* button_post_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_post_hover.png; sourceTree = "<group>"; };
 		E1F4EBDB15971D24000B84D4 /* button_post_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_post_hover@2x.png"; sourceTree = "<group>"; };
+		E1FE8AF915A9CDBF009636A4 /* FXLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXLabel.h; sourceTree = "<group>"; };
+		E1FE8AFA15A9CDC0009636A4 /* FXLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXLabel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2971,6 +2975,8 @@
 			children = (
 				E1097D31157F9A6900BD0640 /* FilterImageView.h */,
 				E1097D32157F9A6900BD0640 /* FilterImageView.m */,
+				E1FE8AF915A9CDBF009636A4 /* FXLabel.h */,
+				E1FE8AFA15A9CDC0009636A4 /* FXLabel.m */,
 				E1F3079115A4933E0047FED7 /* MotionsFilterCell-landscape.xib */,
 				E1AF111715A01A67004236ED /* MotionsFilterCell.h */,
 				E1AF111815A01A67004236ED /* MotionsFilterCell.m */,
@@ -3834,6 +3840,7 @@
 				183AC82F15A56EAE006937C3 /* ShelfDrawerView.m in Sources */,
 				189D9E6215A596A100AD72EA /* Group.m in Sources */,
 				1846F04815A72FAA00E5CF47 /* DetailImageViewController.m in Sources */,
+				E1FE8AFD15A9CFD8009636A4 /* FXLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3843,6 +3850,7 @@
 			files = (
 				181AB93615230AC1007A2A51 /* VCardTests.m in Sources */,
 				E1BCBFBD159D565B0086FA7E /* MotionsSlider.m in Sources */,
+				E1FE8AFB15A9CDC0009636A4 /* FXLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

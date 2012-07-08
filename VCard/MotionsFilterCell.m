@@ -14,9 +14,13 @@
 @synthesize thumbnailImageView = _thumbnailImageView;
 @synthesize activityIndicator = _activityIndicator;
 @synthesize iapIndicator = _iapIndicator;
+@synthesize filterNameLabel = _filterNameLabel;
 
 - (void)awakeFromNib {
     [self.activityIndicator startAnimating];
+    self.filterNameLabel.shadowOffset = CGSizeMake(0, 1);
+    self.filterNameLabel.shadowBlur = 3.0f;
+    self.filterNameLabel.shadowColor = [UIColor blackColor];
 }
 
 - (void)setThumbnailImage:(UIImage *)image {

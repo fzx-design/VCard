@@ -139,6 +139,7 @@
     if(!self.isCurrentOrientationLandscape) {
         cell.transform = CGAffineTransformMakeRotation(M_PI_2);
     }
+    cell.filterNameLabel.text = info.filterName;
 }
 
 #pragma mark - Animations

@@ -10,24 +10,6 @@
 	</dict>
 	<dict>
 		<key>FilterName</key>
-		<string>未命名</string>
-		<key>RequirePurchase</key>
-		<false/>
-		<key>FilterParameter</key>
-		<dict>
-			<key>CIColorControls</key>
-			<dict>
-				<key>inputSaturation</key>
-				<real>0.5893</real>
-				<key>inputBrightness</key>
-				<real>-0.0683</real>
-				<key>inputContrast</key>
-				<real>1.3333</real>
-			</dict>
-		</dict>
-	</dict>
-	<dict>
-		<key>FilterName</key>
 		<string>日晒</string>
 		<key>RequirePurchase</key>
 		<false/>
@@ -40,7 +22,7 @@
 				<key>inputBrightness</key>
 				<real>0.0683</real>
 				<key>inputContrast</key>
-				<real>1.094</real>
+				<real>1.6</real>
 			</dict>
 		</dict>
 	</dict>

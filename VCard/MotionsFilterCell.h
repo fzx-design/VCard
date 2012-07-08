@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "MotionsFilterReader.h"
+#import "FXLabel.h"
 
 @interface MotionsFilterCell : UITableViewCell
 
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailImageView;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) IBOutlet UIImageView *iapIndicator;
+@property (nonatomic, strong) IBOutlet FXLabel *filterNameLabel;
 
 - (void)loadThumbnailImage:(UIImage *)image
             withFilterInfo:(MotionsFilterInfo *)info
