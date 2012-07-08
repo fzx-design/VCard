@@ -63,35 +63,42 @@
     [activityIndicator removeFromSuperview];
 }
 
-- (void)kv_setImageAtURL:(NSURL *)imageURL {
+- (void)kv_setImageAtURL:(NSURL *)imageURL
+              completion:(void (^)())completion
+{
     [self kv_setImageAtURL:imageURL 
      showActivityIndicator:YES 
     activityIndicatorStyle:UIActivityIndicatorViewStyleGray 
               loadingImage:nil 
-         notAvailableImage:nil];
+         notAvailableImage:nil
+                completion:completion];
 }
 
 - (void)kv_setImageAtURLWithoutCropping:(NSURL *)imageURL
+                             completion:(void (^)())completion
 {
     [self kv_setImageAtURL:imageURL 
      showActivityIndicator:NO
     activityIndicatorStyle:UIActivityIndicatorViewStyleGray 
               loadingImage:nil 
-         notAvailableImage:nil];
+         notAvailableImage:nil
+                completion:completion];
 }
 
 - (void)kv_setImageAtURL:(NSURL *)imageURL 
    showActivityIndicator:(BOOL)showActivityIndicator 
   activityIndicatorStyle:(UIActivityIndicatorViewStyle)indicatorStyle 
             loadingImage:(UIImage *)loadingImage 
-       notAvailableImage:(UIImage *)notAvailableImage 
+       notAvailableImage:(UIImage *)notAvailableImage
+              completion:(void (^)())completion
 {
     [self kv_setImageAtURL:imageURL 
                   cacheURL:imageURL 
      showActivityIndicator:showActivityIndicator 
     activityIndicatorStyle:indicatorStyle 
               loadingImage:loadingImage 
-         notAvailableImage:notAvailableImage];
+         notAvailableImage:notAvailableImage
+                completion:completion];
 }
 
 - (void)kv_setImageAtURL:(NSURL *)imageURL 
@@ -100,6 +107,7 @@
   activityIndicatorStyle:(UIActivityIndicatorViewStyle)indicatorStyle 
             loadingImage:(UIImage *)loadingImage 
        notAvailableImage:(UIImage *)notAvailableImage 
+              completion:(void (^)())completion
 {
     NSAssert([NSThread isMainThread], @"This method should be called from the main thread.");
     // Cancel any previous downloads
@@ -151,10 +159,9 @@
                     if (showActivityIndicator) {
                         [self performSelectorOnMainThread:@selector(kv_hideActivityIndicator) withObject:nil waitUntilDone:NO];
                     }
-                    self.alpha = 0.0;
-                    [UIView animateWithDuration:0.3 animations:^{
-                        self.alpha = 1.0;
-                    }];
+                    if (completion) {
+                        completion();
+                    }
                 });
                 
             });
@@ -163,12 +170,12 @@
         } else {
             if (image) {
                 self.image = image;
-                self.alpha = 0.0;
-                [UIView animateWithDuration:0.3 animations:^{
-                    self.alpha = 1.0;
-                }];
             } else {
                 self.image = notAvailableImage;
+            }
+            
+            if (completion) {
+                completion();
             }
         }
         

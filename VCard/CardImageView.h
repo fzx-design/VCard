@@ -21,6 +21,7 @@
 }
 
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIImageView *detailedImageView;
 @property (nonatomic, strong) UIImageView *gifIcon;
 @property (nonatomic, readonly) UIImage *image;
 
@@ -29,13 +30,11 @@
 - (void)loadImageFromURL:(NSString *)urlString 
               completion:(void (^)())completion;
 
-- (void)loadTweetImageFromURL:(NSString *)urlString 
-                   completion:(void (^)())completion;
 
+- (void)loadDetailedImageFromURL:(NSString *)urlString
+                      completion:(void (^)())completion;
 - (void)clearCurrentImage;
-
 - (void)reset;
-
 - (void)playReturnAnimation;
 - (void)returnToInitialPosition;
 

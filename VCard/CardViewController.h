@@ -39,6 +39,7 @@ typedef enum {
 - (void)didChangeImageScale:(CGFloat)scale;
 - (void)didReturnImageView;
 - (void)willReturnImageView;
+- (void)enterDetailedImageViewMode;
 
 @end
 

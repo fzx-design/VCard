@@ -257,8 +257,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
         
         NSString *imageURL = [UIApplication isRetinaDisplayiPad] ? targetStatus.originalPicURL : targetStatus.bmiddlePicURL;
         
-        [self.statusImageView loadTweetImageFromURL:imageURL
-                                         completion:nil];
+        [self.statusImageView loadImageFromURL:imageURL completion:nil];
     }
 }
 
@@ -745,7 +744,10 @@ static inline NSRegularExpression * UrlRegularExpression() {
             [self returnToInitialImageView];
             return;
         } else {
-            ;
+            if ([_delegate respondsToSelector:@selector(enterDetailedImageViewMode)]) {
+                [_delegate enterDetailedImageViewMode];
+            }
+            return;
         }
     }
     

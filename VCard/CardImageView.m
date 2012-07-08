@@ -94,18 +94,15 @@
     [self setUpGifIcon:urlString];
     [self.imageView kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
-    [self.imageView kv_setImageAtURL:anImageURL];
-	
+    [self.imageView kv_setImageAtURL:anImageURL completion:completion];
 }
 
-- (void)loadTweetImageFromURL:(NSString *)urlString 
-                   completion:(void (^)())completion
+- (void)loadDetailedImageFromURL:(NSString *)urlString
+                      completion:(void (^)())completion
 {
-    [self setUpGifIcon:urlString];
     [self.imageView kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
-    [self.imageView kv_setImageAtURL:anImageURL];
-	
+    [self.imageView kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
 }
 
 - (void)clearCurrentImage
@@ -130,7 +127,6 @@
     }
     
     NSString* extName = [url substringFromIndex:([url length] - 3)];
-    
     return [extName compare:@"gif"] == NSOrderedSame;    
 }
 
@@ -155,12 +151,6 @@
     [UIView animateWithDuration:0.3 animations:^{
         self.transform = CGAffineTransformMakeRotation(_initialRotation);
     }];
-    
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"!");
 }
 
 @end

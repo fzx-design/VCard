@@ -95,4 +95,9 @@
     _bottomBarView.alpha = 0.0;
 }
 
+- (void)enterDetailedImageViewMode
+{
+    NSLog(@"%@", NSStringFromCGRect(_imageView.layer.frame));
+}
+
 @end

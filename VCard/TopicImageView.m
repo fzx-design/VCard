@@ -60,7 +60,7 @@
 	
     [_imageView kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
-    [_imageView kv_setImageAtURLWithoutCropping:anImageURL];
+    [_imageView kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
 }
 
 #pragma mark - Animation

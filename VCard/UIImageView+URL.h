@@ -36,16 +36,20 @@
 // Asynchronously downloads the image at the URL if needed, whilst showing a gray activity indicator.
 // No image is shown during the download, and none is shown if no valid image could be loaded.
 // Call -kv_cancelImageDownload if you need to cancel the download.
-- (void)kv_setImageAtURL:(NSURL *)imageURL;
-- (void)kv_setImageAtURLWithoutCropping:(NSURL *)imageURL;
+- (void)kv_setImageAtURL:(NSURL *)imageURL
+              completion:(void (^)())completion;
+- (void)kv_setImageAtURLWithoutCropping:(NSURL *)imageURL
+                             completion:(void (^)())completion;
 
 // Asynchronously downloads the image at the URL if needed.
 // Call -kv_cancelImageDownload if you need to cancel the download.
-- (void)kv_setImageAtURL:(NSURL *)imageURL showActivityIndicator:(BOOL)showActivityIndicator activityIndicatorStyle:(UIActivityIndicatorViewStyle)indicatorStyle loadingImage:(UIImage *)loadingImage notAvailableImage:(UIImage *)notAvailableImage;
+- (void)kv_setImageAtURL:(NSURL *)imageURL showActivityIndicator:(BOOL)showActivityIndicator activityIndicatorStyle:(UIActivityIndicatorViewStyle)indicatorStyle loadingImage:(UIImage *)loadingImage notAvailableImage:(UIImage *)notAvailableImage
+              completion:(void (^)())completion;
 
 // The image is loaded from imageURL, but will be cached under cacheURL. This allows coallescing
 // for example in cases where the imageURL contains changing parameters which don't affect the image to load.
-- (void)kv_setImageAtURL:(NSURL *)imageURL cacheURL:(NSURL *)cacheURL showActivityIndicator:(BOOL)showActivityIndicator activityIndicatorStyle:(UIActivityIndicatorViewStyle)indicatorStyle loadingImage:(UIImage *)loadingImage notAvailableImage:(UIImage *)notAvailableImage;
+- (void)kv_setImageAtURL:(NSURL *)imageURL cacheURL:(NSURL *)cacheURL showActivityIndicator:(BOOL)showActivityIndicator activityIndicatorStyle:(UIActivityIndicatorViewStyle)indicatorStyle loadingImage:(UIImage *)loadingImage notAvailableImage:(UIImage *)notAvailableImage
+              completion:(void (^)())completion;
 
 // Cancel any ongoing asynchronous download for the image view. Also hides the activity indicator.
 - (void)kv_cancelImageDownload;

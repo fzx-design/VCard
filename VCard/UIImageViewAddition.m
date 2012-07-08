@@ -18,7 +18,7 @@
 	
     [self kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
-    [self kv_setImageAtURLWithoutCropping:anImageURL];
+    [self kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
 }
 
 @end
