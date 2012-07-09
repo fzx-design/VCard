@@ -851,10 +851,12 @@ typedef enum {
 #pragma mark - MotionsViewController delegate
 
 - (void)motionViewControllerDidCancel {
+    [self.textView becomeFirstResponder];
     [[UIApplication sharedApplication].rootViewController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)motionViewControllerDidFinish:(UIImage *)image {
+    [self.textView becomeFirstResponder];
     [self setMotionsImage:image];
     [[UIApplication sharedApplication].rootViewController dismissModalViewControllerAnimated:YES];
 }

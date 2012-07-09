@@ -7,6 +7,7 @@
 //
 
 #import "SelfProfileViewController.h"
+#import "NewLoginViewController.h"
 
 @implementation SelfProfileViewController
 
@@ -53,5 +54,9 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowSelfMentionList object:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:kNotificationObjectKeyIndex]];
 }
 
+- (IBAction)didClickAccountSettingButton:(id)sender {
+    NewLoginViewController *vc = [[NewLoginViewController alloc] init];
+    [vc show];
+}
 
 @end

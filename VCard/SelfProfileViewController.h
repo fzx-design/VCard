@@ -24,5 +24,6 @@
 
 - (IBAction)didClickCheckCommentButton:(id)sender;
 - (IBAction)didClickCheckMentionButton:(id)sender;
+- (IBAction)didClickAccountSettingButton:(id)sender;
 
 @end

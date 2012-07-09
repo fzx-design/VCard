@@ -51,27 +51,25 @@ static UIView *_backView;
 }
 
 + (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated {
-    [[UIApplication sharedApplication] presentModalViewController:vc animated:animated];
+    [[UIApplication sharedApplication] presentModalViewController:vc animated:animated duration:0.3f];
 }
 
 + (void)dismissModalViewControllerAnimated:(BOOL)animated {
-    [[UIApplication sharedApplication] dismissModalViewControllerAnimated:animated];
+    [[UIApplication sharedApplication] dismissModalViewControllerAnimated:animated duration:0.3f];
 }
 
-- (CGSize)screenSize {
-    CGFloat screenWidth = 1024, screenHeight = 748;
-    if(UIInterfaceOrientationIsPortrait(self.statusBarOrientation)) {
-        screenWidth = 768;
-        screenHeight = 1004;
-    }
-    return CGSizeMake(screenWidth, screenHeight);
++ (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated duration:(NSTimeInterval)duration {
+    [[UIApplication sharedApplication] presentModalViewController:vc animated:animated duration:duration];
 }
 
-- (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated
-{
++ (void)dismissModalViewControllerAnimated:(BOOL)animated duration:(NSTimeInterval)duration {
+    [[UIApplication sharedApplication] dismissModalViewControllerAnimated:animated duration:duration];
+}
+
+- (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated duration:(NSTimeInterval)duration {
     if (_modalViewController)
         return;
-    	
+    
     _modalViewController = vc;
 	_backView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.screenSize.width, self.screenSize.height)];
 	_backView.backgroundColor = [UIColor blackColor];
@@ -87,7 +85,7 @@ static UIView *_backView;
         frame.origin.y = self.screenSize.height;
         vc.view.frame = frame;
         
-        [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             CGRect frame = vc.view.frame;
             frame.origin.y = 20;
             vc.view.frame = frame;
@@ -99,15 +97,14 @@ static UIView *_backView;
         vc.view.frame = frame;
     }
     
-    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         _backView.alpha = 0.6f;
     } completion:nil];
-
 }
 
-- (void)dismissModalViewControllerAnimated:(BOOL)animated {
+- (void)dismissModalViewControllerAnimated:(BOOL)animated duration:(NSTimeInterval)duration {
     if(animated) {
-        [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             _backView.alpha = 0.0;
             CGRect frame = _modalViewController.view.frame;
             frame.origin.y = self.screenSize.height;
@@ -119,7 +116,7 @@ static UIView *_backView;
             _modalViewController = nil;
         }];
     } else {
-        [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             _backView.alpha = 0.0;
         } completion:^(BOOL finished) {
             [_backView removeFromSuperview];
@@ -127,6 +124,15 @@ static UIView *_backView;
             _modalViewController = nil;
         }];
     }
+}
+
+- (CGSize)screenSize {
+    CGFloat screenWidth = 1024, screenHeight = 748;
+    if(UIInterfaceOrientationIsPortrait(self.statusBarOrientation)) {
+        screenWidth = 768;
+        screenHeight = 1004;
+    }
+    return CGSizeMake(screenWidth, screenHeight);
 }
 
 + (UIPopoverController *)getAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate {

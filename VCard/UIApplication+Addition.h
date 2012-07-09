@@ -14,10 +14,12 @@
 @property (nonatomic, readonly) UIViewController *rootViewController;
 
 + (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated;
++ (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated duration:(NSTimeInterval)duration;
 
 /* If pass NO as animated parameter, the view of vc will 
  not be removed from its super view automatically. */ 
 + (void)dismissModalViewControllerAnimated:(BOOL)animated;
++ (void)dismissModalViewControllerAnimated:(BOOL)animated duration:(NSTimeInterval)duration;
 + (BOOL)isRetinaDisplayiPad;
 + (CGFloat)heightExcludingTopBar;
 + (CGFloat)screenWidth;
