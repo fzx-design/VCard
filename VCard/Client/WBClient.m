@@ -251,7 +251,6 @@ static NSString *UserID = @"";
     }
     self.httpMethod = HTTPMethodPost;
     [self loadNormalRequest];
-    
 }
 
 - (void)sendWeiBoWithText:(NSString *)text image:(UIImage *)image {

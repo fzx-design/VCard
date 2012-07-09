@@ -12,11 +12,13 @@
 @interface PostNewStatusViewController ()
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
+@property (nonatomic, assign) CGRect navLabelInitFrame;
 
 @end
 
 @implementation PostNewStatusViewController
 @synthesize locationManager = locationManager;
+@synthesize navLabelInitFrame = _navLabelInitFrame;
 
 - (id)initWithContent:(NSString *)content {
     self = [super init];
@@ -43,6 +45,7 @@
         self.textView.text = self.content;
     else
         self.textView.text = @"";
+    self.navLabelInitFrame = self.navLabel.frame;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
@@ -62,18 +65,21 @@
     [self.navLabel sizeToFit];
     __block CGRect frame = self.navLabel.frame;
     frame.origin.y = y;
+    frame.origin.x = self.navLabelInitFrame.origin.x;
     self.navLabel.frame = frame;
     
-    CGFloat width = frame.size.width;
-    frame.size.width = 0;
+    CGFloat originX = frame.origin.x;
+    frame.origin.x = originX - frame.size.width;
     self.navLabel.frame = frame;
+    self.navLabel.alpha = 0;
     self.navButton.userInteractionEnabled = NO;
-    [UIView animateWithDuration:0.3f animations:^{
-        frame.size.width = width;
+    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationCurveEaseOut animations:^{
+        frame.origin.x = originX;
         self.navLabel.frame = frame;
+        self.navLabel.alpha = 1;
         
         CGRect rightFuncViewFrame = self.functionRightView.frame;
-        rightFuncViewFrame.origin.x = _functionRightViewInitFrame.origin.x + width;
+        rightFuncViewFrame.origin.x = _functionRightViewInitFrame.origin.x + frame.size.width;
         self.functionRightView.frame = rightFuncViewFrame;
     } completion:^(BOOL finished) {
         self.navButton.userInteractionEnabled = YES;
@@ -84,11 +90,12 @@
     if(self.navLabel.text.length == 0)
         return;
     __block CGRect frame = self.navLabel.frame;
-    self.navLabel.frame = frame;
+    self.navLabel.alpha = 1;
     self.navButton.userInteractionEnabled = NO;
-    [UIView animateWithDuration:0.3f animations:^{
-        frame.size.width = 0;
+    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationCurveEaseIn animations:^{
+        frame.origin.x -= frame.size.width;
         self.navLabel.frame = frame;
+        self.navLabel.alpha = 0;
         
         CGRect rightFuncViewFrame = self.functionRightView.frame;
         rightFuncViewFrame.origin.x = _functionRightViewInitFrame.origin.x;
@@ -127,7 +134,11 @@
             if (array.count > 0) {
                 NSDictionary *dict = [array objectAtIndex:0];
                 NSLog(@"location dict:%@", dict);
-                locationString = [NSString stringWithFormat:@"%@%@%@", [dict objectForKey:@"city_name"], [dict objectForKey:@"district_name"], [dict objectForKey:@"name"]];
+                NSString *city = [dict objectForKey:@"city_name"];
+                NSString *district = [dict objectForKey:@"district_name"];
+                NSString *name = [dict objectForKey:@"name"];
+                
+                locationString = [NSString stringWithFormat:@"%@%@%@", city ? city : @"", district ? district : @"", name ? name : @""];
             }
             [self showNavLocationLabel:locationString];
         } else {
