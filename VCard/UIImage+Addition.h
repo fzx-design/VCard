@@ -11,6 +11,7 @@
 
 @interface UIImage (Addition)
 
+- (UIImage *)motionsAdjustImage;
 - (UIImage *)rotateAdjustImage;
 
 - (UIImage *)brightness:(CGFloat)brightness contrast:(CGFloat)contrast;

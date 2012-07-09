@@ -9,10 +9,42 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Addition.h"
 
+#define COMPRESS_IMAGE_MAX_WIDTH    1024
+#define COMPRESS_IMAGE_MAX_HEIGHT   1024
+
 CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
 CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
 
 @implementation UIImage (Addition)
+
+- (UIImage *)motionsAdjustImage {
+    UIImage *result = [self rotateAdjustImage];
+    result = [result compressImage];
+    return result;
+}
+
+- (UIImage *)compressImage {
+    if(self.size.width < COMPRESS_IMAGE_MAX_WIDTH && self.size.height < COMPRESS_IMAGE_MAX_HEIGHT)
+        return self;
+    UIImage *result = nil;
+    CGFloat originWidth = self.size.width;
+    CGFloat originHeight = self.size.height;
+    CGFloat scaleWidth = originWidth > COMPRESS_IMAGE_MAX_WIDTH ? COMPRESS_IMAGE_MAX_WIDTH : originWidth;
+    CGFloat scaleHeight = scaleWidth / originWidth * originHeight;
+    CGRect compressFrame = CGRectMake(0, 0, scaleWidth, scaleHeight);
+    if(scaleHeight > COMPRESS_IMAGE_MAX_HEIGHT)
+        compressFrame.size = CGSizeMake(COMPRESS_IMAGE_MAX_HEIGHT / scaleHeight * scaleWidth, COMPRESS_IMAGE_MAX_HEIGHT);
+    
+    UIGraphicsBeginImageContext(compressFrame.size);
+    [self drawInRect:compressFrame];
+    result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    NSLog(@"compress image original size:%f, %f", self.size.width, self.size.height);
+    NSLog(@"compress image compressed size:%f, %f", result.size.width, result.size.height);
+    
+    return result;
+}
 
 - (UIImage *)rotateAdjustImage {  
     

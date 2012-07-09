@@ -82,7 +82,7 @@
 #pragma mark - Logic methods
 
 - (void)configureEditImage:(UIImage *)image {
-    self.capturedImage = [image rotateAdjustImage];
+    self.capturedImage = [image motionsAdjustImage];
     NSLog(@"capture image size %@", NSStringFromCGSize(self.capturedImage.size));
 }
 

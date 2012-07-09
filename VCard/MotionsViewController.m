@@ -49,7 +49,7 @@
 - (id)initWithImage:(UIImage *)image {
     self = [self init];
     if(self) {
-        UIImage *rotatedImage = [image rotateAdjustImage];
+        UIImage *rotatedImage = [image motionsAdjustImage];
         self.originalImage = rotatedImage;
     }
     return self;
