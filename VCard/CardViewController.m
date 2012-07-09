@@ -760,6 +760,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
     [self.statusImageView.layer setAffineTransform:CGAffineTransformTranslate([self.statusImageView.layer affineTransform], point.x - _lastPoint.x, point.y - _lastPoint.y)];
     _lastPoint = [sender locationInView:self.statusImageView];
     
+    [self.statusImageView pinchResizeToScale:_scale];
+    
     if ([_delegate respondsToSelector:@selector(didChangeImageScale:)]) {
         [_delegate didChangeImageScale:sender.scale];
     }

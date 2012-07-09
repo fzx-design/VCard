@@ -97,6 +97,8 @@
 		181FE5BE1557F9AE006C98ED /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181FE5BD1557F9AE006C98ED /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		182EC05215A497990056E282 /* TopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182EC05115A497990056E282 /* TopicViewController.m */; };
 		182EC05615A499D30056E282 /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 182EC05515A499D30056E282 /* Status.m */; };
+		1833803415A9C102001DC651 /* card_image_edge.png in Resources */ = {isa = PBXBuildFile; fileRef = 1833803215A9C102001DC651 /* card_image_edge.png */; };
+		1833803515A9C102001DC651 /* card_image_edge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1833803315A9C102001DC651 /* card_image_edge@2x.png */; };
 		183AC82F15A56EAE006937C3 /* ShelfDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183AC82E15A56EAE006937C3 /* ShelfDrawerView.m */; };
 		1846F04815A72FAA00E5CF47 /* DetailImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1846F04715A72FAA00E5CF47 /* DetailImageViewController.m */; };
 		1850A457153BE4020001A905 /* CardImageViewShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1850A456153BE4020001A905 /* CardImageViewShadowView.m */; };
@@ -889,6 +891,8 @@
 		182EC05115A497990056E282 /* TopicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicViewController.m; sourceTree = "<group>"; };
 		182EC05415A499D30056E282 /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
 		182EC05515A499D30056E282 /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
+		1833803215A9C102001DC651 /* card_image_edge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_image_edge.png; sourceTree = "<group>"; };
+		1833803315A9C102001DC651 /* card_image_edge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card_image_edge@2x.png"; sourceTree = "<group>"; };
 		183AC82D15A56EAE006937C3 /* ShelfDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelfDrawerView.h; sourceTree = "<group>"; };
 		183AC82E15A56EAE006937C3 /* ShelfDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfDrawerView.m; sourceTree = "<group>"; };
 		1846F04615A72FAA00E5CF47 /* DetailImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailImageViewController.h; sourceTree = "<group>"; };
@@ -2288,6 +2292,8 @@
 		18EA4EA815346DFD005ED94F /* castview */ = {
 			isa = PBXGroup;
 			children = (
+				1833803215A9C102001DC651 /* card_image_edge.png */,
+				1833803315A9C102001DC651 /* card_image_edge@2x.png */,
 				18ED9D031568D72800627D8F /* card_location_pin@2x.png */,
 				18ED9D041568D72800627D8F /* card_location_pin.png */,
 				1850A458153BE56D0001A905 /* image_shadow_body.png */,
@@ -3690,6 +3696,8 @@
 				18A8CE8915A6CF2A0026F125 /* button_flat_hover@2x.png in Resources */,
 				E167C3F915A7FA9A006BA6E2 /* motions_capture_focus.png in Resources */,
 				E167C3FA15A7FA9A006BA6E2 /* motions_capture_focus@2x.png in Resources */,
+				1833803415A9C102001DC651 /* card_image_edge.png in Resources */,
+				1833803515A9C102001DC651 /* card_image_edge@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

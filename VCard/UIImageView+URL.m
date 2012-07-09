@@ -129,7 +129,7 @@
     
     [[KVImageCache defaultCache] loadImageAtURL:imageURL cacheURL:cacheURL imageView:self withHandler:^(UIImage * image) {
         
-        if (showActivityIndicator) {
+        if (NO) {
             dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
             
             dispatch_async(downloadQueue, ^{
@@ -172,6 +172,10 @@
                 self.image = image;
             } else {
                 self.image = notAvailableImage;
+            }
+            
+            if (showActivityIndicator) {
+                [self performSelectorOnMainThread:@selector(kv_hideActivityIndicator) withObject:nil waitUntilDone:NO];
             }
             
             if (completion) {

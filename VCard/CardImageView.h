@@ -18,8 +18,13 @@
     
     CGFloat _initialRotation;
     CGPoint _initialPosition;
+    
+    CGSize _initialSize;
+    CGFloat _deltaWidth;
+    CGFloat _deltaHeight;
 }
 
+@property (nonatomic, strong) UIImageView *coverView;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIImageView *detailedImageView;
 @property (nonatomic, strong) UIImageView *gifIcon;
@@ -37,5 +42,6 @@
 - (void)reset;
 - (void)playReturnAnimation;
 - (void)returnToInitialPosition;
+- (void)pinchResizeToScale:(CGFloat)scale;
 
 @end

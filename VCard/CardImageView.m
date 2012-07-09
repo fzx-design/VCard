@@ -32,8 +32,6 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        _shadowView = [[CardImageViewShadowView alloc] initWithFrame:self.frame];
-        [self insertSubview:_shadowView atIndex:0];
         [self insertSubview:self.imageView atIndex:1];
         self.clearsContextBeforeDrawing = YES;
         self.imageView.layer.edgeAntialiasingMask = 0;
@@ -43,24 +41,40 @@
 
 - (void)resetHeight:(CGFloat)height
 {
-    [_shadowView removeFromSuperview];
-    _shadowView = nil;
-    
     CGRect frame = CGRectMake(-4.0, 13.0, StatusImageWidth, height);
     self.transform = CGAffineTransformMakeRotation(0);
     self.frame = frame;
     
     frame.origin = CGPointMake(0.0, 0.0);
     self.imageView.frame = frame;
-
-    _shadowView = [[CardImageViewShadowView alloc] initWithFrame:self.frame];
-    [self insertSubview:_shadowView aboveSubview:self.imageView];
+    
+    _initialSize = self.imageView.frame.size;
+    
+    [self.coverView resetOriginX:frame.origin.x - 5.0];
+    [self.coverView resetOriginY:frame.origin.y - 4.0];
+    [self.coverView resetWidth:frame.size.width + 10.0];
+    [self.coverView resetHeight:frame.size.height + 10.0];
     
     CGFloat rotatingDegree = (((float) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * 4) - 2;
     _initialRotation = rotatingDegree * M_PI / 180;
     self.transform = CGAffineTransformMakeRotation(_initialRotation);
     
     _initialPosition = self.frame.origin;
+}
+
+- (void)pinchResizeToScale:(CGFloat)scale
+{
+    scale -= 1.0;
+    if (scale > 0.0 && scale < 0.5) {
+        scale /= 0.5;
+        if (_deltaWidth != 0.0) {
+            [self.imageView resetWidth:_initialSize.width + scale * _deltaWidth];
+            [self.coverView resetWidth:self.imageView.frame.size.width + 10.0];
+        } else {
+            [self.imageView resetHeight:_initialSize.height + scale * _deltaHeight];
+            [self.coverView resetHeight:self.imageView.frame.size.height + 10.0];
+        }
+    }
 }
 
 - (UIImageView*)imageView
@@ -70,9 +84,21 @@
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.clipsToBounds = YES;
         _imageView.backgroundColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0];
-        [self insertSubview:_imageView belowSubview:_shadowView];
+        [self addSubview:_imageView];
     }
     return _imageView;
+}
+
+-(UIImageView *)coverView
+{
+    if (!_coverView) {
+        _coverView = [[UIImageView alloc] initWithFrame:CGRectMake(-5, -4, self.frame.size.width + 10.0, self.frame.size.height + 10.0)];
+        self.coverView.image = [[UIImage imageNamed:@"card_image_edge.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(7.0, 8.0, 9.0, 8.0)];
+        _coverView.contentMode = UIViewContentModeScaleToFill;
+        _coverView.clipsToBounds = YES;
+        [self insertSubview:_coverView aboveSubview:_imageView];
+    }
+    return _coverView;
 }
 
 - (UIImageView *)gifIcon
@@ -94,7 +120,30 @@
     [self setUpGifIcon:urlString];
     [self.imageView kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
-    [self.imageView kv_setImageAtURL:anImageURL completion:completion];
+    [self.imageView kv_setImageAtURL:anImageURL completion:^{
+        CGFloat targetWidth = self.imageView.frame.size.width;
+        CGFloat targetHeight = self.imageView.frame.size.height;
+        CGFloat width = self.imageView.image.size.width;
+        CGFloat height = self.imageView.image.size.height;
+        
+        CGFloat widthFactor = targetWidth / width;
+        CGFloat heightFactor = targetHeight / height;
+        CGFloat scaleFactor = 0.0;
+        
+        CGFloat scaledWidth = 0.0;
+        CGFloat scaledHeight = 0.0;
+        
+        if (widthFactor > heightFactor) 
+            scaleFactor = widthFactor; // scale to fit height
+        else
+            scaleFactor = heightFactor; // scale to fit width
+        scaledWidth  = width * scaleFactor;
+        scaledHeight = height * scaleFactor;
+        
+        _deltaWidth = scaledWidth - targetWidth;
+        _deltaHeight = scaledHeight - targetHeight;
+    }];
+    
 }
 
 - (void)loadDetailedImageFromURL:(NSString *)urlString
@@ -143,6 +192,8 @@
 - (void)playReturnAnimation
 {
     self.transform = CGAffineTransformIdentity;
+    [self.imageView resetSize:_initialSize];
+    [self.coverView resetSize:CGSizeMake(_initialSize.width + 10.0, _initialSize.height + 10.0)];
 }
 
 - (void)returnToInitialPosition

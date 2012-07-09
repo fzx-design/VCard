@@ -172,7 +172,6 @@
         self.frame = CGRectMake(scrollView.contentOffset.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
         CGFloat topImageViewOriginY = scrollView.contentOffset.y > - 54.0f ? -54.0f : scrollView.contentOffset.y;
         topImageViewOriginY += self.frame.size.height;
-        topImageViewOriginY = topImageViewOriginY > 0.0 ? 0.0 : topImageViewOriginY;
         
         [topImageView resetOriginY:topImageViewOriginY];
     }
