@@ -285,10 +285,10 @@ typedef enum {
             self.paperImageHolderView.center = self.postView.center;
         } completion:^(BOOL finished) {
             _keyboardHidden = finished;
+            [self.popoverController presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton
+                                  permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }];
     }
-    
-    [self dismissPopover];
 }
 
 #pragma mark - Logic methods
@@ -617,8 +617,13 @@ typedef enum {
 }
 
 - (void)showAlbumImagePicker {
-    UIPopoverController *pc =  [UIApplication showAlbumImagePickerFromButton:self.motionsButton delegate:self];
+    UIPopoverController *pc =  [UIApplication getAlbumImagePickerFromButton:self.motionsButton delegate:self];
     self.popoverController = pc;
+    if(!self.textView.isFirstResponder)
+        [pc presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton
+          permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    else
+        [self.textView resignFirstResponder];
 }
 
 #pragma mark - Animation methods

@@ -83,6 +83,7 @@
 
 - (void)configureEditImage:(UIImage *)image {
     self.capturedImage = [image rotateAdjustImage];
+    NSLog(@"capture image size %@", NSStringFromCGSize(self.capturedImage.size));
 }
 
 - (void)configureShootImage:(UIImage *)image {

@@ -124,15 +124,21 @@ static UIView *_backView;
     }
 }
 
-+ (UIPopoverController *)showAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate {
++ (UIPopoverController *)getAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate {
     UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
     ipc.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
     ipc.delegate = delegate;
     ipc.allowsEditing = NO;
     
     UIPopoverController *pc = [[UIPopoverController alloc] initWithContentViewController:ipc];
-    pc.contentViewController.view.autoresizingMask = !UIViewAutoresizingFlexibleTopMargin;
+    //pc.contentViewController.view.autoresizingMask = !UIViewAutoresizingFlexibleTopMargin;
     pc.delegate = delegate;
+    
+    return pc;
+}
+
++ (UIPopoverController *)showAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate {
+    UIPopoverController *pc = [UIApplication getAlbumImagePickerFromButton:button delegate:delegate];
     [pc presentPopoverFromRect:button.bounds inView:button
       permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     return pc;

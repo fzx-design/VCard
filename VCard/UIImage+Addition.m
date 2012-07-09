@@ -53,9 +53,8 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
             boundHeight = bounds.size.height;  
             bounds.size.height = bounds.size.width;  
             bounds.size.width = boundHeight;  
-            transform = CGAffineTransformMakeTranslation(imageSize.height, imageSize.width);  
-            transform = CGAffineTransformScale(transform, -1.0, 1.0);  
-            transform = CGAffineTransformRotate(transform, 3.0 * M_PI_2);  
+            transform = CGAffineTransformMakeScale(-1.0, 1.0);  
+            transform = CGAffineTransformRotate(transform, M_PI_2);
             break;  
             
         case UIImageOrientationLeft: //EXIF = 6  
@@ -66,12 +65,13 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
             transform = CGAffineTransformRotate(transform, 3.0 * M_PI_2);  
             break;  
             
-        case UIImageOrientationRightMirrored: //EXIF = 7  
+        case UIImageOrientationRightMirrored: //EXIF = 7
             boundHeight = bounds.size.height;  
             bounds.size.height = bounds.size.width;  
             bounds.size.width = boundHeight;  
-            transform = CGAffineTransformMakeScale(-1.0, 1.0);  
-            transform = CGAffineTransformRotate(transform, M_PI_2);  
+            transform = CGAffineTransformMakeTranslation(imageSize.height, imageSize.width);  
+            transform = CGAffineTransformScale(transform, -1.0, 1.0);  
+            transform = CGAffineTransformRotate(transform, 3.0 * M_PI_2);
             break;  
             
         case UIImageOrientationRight: //EXIF = 8  
@@ -91,11 +91,10 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     
     CGContextRef context = UIGraphicsGetCurrentContext();  
     
-    if (orient == UIImageOrientationRight || orient == UIImageOrientationLeft) {  
+    if (orient == UIImageOrientationRight || orient == UIImageOrientationLeft || orient == UIImageOrientationRightMirrored || orient == UIImageOrientationLeftMirrored) {
         CGContextScaleCTM(context, -scaleRatio, scaleRatio);  
         CGContextTranslateCTM(context, -height, 0);  
-    }  
-    else {  
+    } else {  
         CGContextScaleCTM(context, scaleRatio, -scaleRatio);  
         CGContextTranslateCTM(context, 0, -height);  
     }  

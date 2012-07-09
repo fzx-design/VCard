@@ -23,6 +23,7 @@
 + (CGFloat)screenWidth;
 + (UIInterfaceOrientation)currentOrientation;
 
++ (UIPopoverController *)getAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate;
 + (UIPopoverController *)showAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate;
 
 @end
