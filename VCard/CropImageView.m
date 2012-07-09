@@ -180,11 +180,8 @@ typedef enum {
     UITouch * touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
     for(UIImageView *pointImageView in self.pointImageViewArray) {
-        CGRect frame = pointImageView.frame;
-        frame.origin.x -= frame.size.width / 2;
-        frame.origin.y -= frame.size.height / 2;
-        frame.size.width *= 2;
-        frame.size.height *= 2;
+        CGPoint center = pointImageView.center;
+        CGRect frame = CGRectMake(center.x - 22, center.y - 22, 44, 44);
         if(CGRectContainsPoint(frame, point)) {
             _draggingPointImageView = pointImageView;
             break;
