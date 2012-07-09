@@ -21,6 +21,7 @@
 + (BOOL)isRetinaDisplayiPad;
 + (CGFloat)heightExcludingTopBar;
 + (CGFloat)screenWidth;
++ (CGFloat)screenHeight;
 + (UIInterfaceOrientation)currentOrientation;
 
 + (UIPopoverController *)getAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate;

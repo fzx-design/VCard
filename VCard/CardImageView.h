@@ -18,7 +18,7 @@
     
     CGFloat _initialRotation;
     CGPoint _initialPosition;
-    
+    CGRect _initialFrame;
     CGSize _initialSize;
     CGFloat _deltaWidth;
     CGFloat _deltaHeight;

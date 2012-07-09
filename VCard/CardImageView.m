@@ -49,6 +49,7 @@
     self.imageView.frame = frame;
     
     _initialSize = self.imageView.frame.size;
+    _initialFrame = self.layer.frame;
     
     [self.coverView resetOriginX:frame.origin.x - 5.0];
     [self.coverView resetOriginY:frame.origin.y - 4.0];
@@ -192,6 +193,7 @@
 - (void)playReturnAnimation
 {
     self.transform = CGAffineTransformIdentity;
+//    self.layer.frame = _initialFrame;
     [self.imageView resetSize:_initialSize];
     [self.coverView resetSize:CGSizeMake(_initialSize.width + 10.0, _initialSize.height + 10.0)];
 }

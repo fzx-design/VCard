@@ -34,6 +34,11 @@ static UIView *_backView;
     return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 1024.0 : 768.0;
 }
 
++ (CGFloat)screenHeight
+{
+    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 768.0 : 1004.0;
+}
+
 + (UIInterfaceOrientation)currentOrientation
 {
     return UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? UIInterfaceOrientationPortrait : UIInterfaceOrientationLandscapeLeft;

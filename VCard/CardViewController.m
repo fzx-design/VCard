@@ -753,12 +753,15 @@ static inline NSRegularExpression * UrlRegularExpression() {
     
     CGFloat scale = 1.0 - (_lastScale - sender.scale);
     _scale += sender.scale - _lastScale;
-    [self.statusImageView.layer setAffineTransform:CGAffineTransformScale([self.statusImageView.layer affineTransform], scale, scale)];
+    if (_scale < 1.5) {
+        [self.statusImageView.layer setAffineTransform:CGAffineTransformScale([self.statusImageView.layer affineTransform], scale, scale)];
+    }    
     _lastScale = sender.scale;
     
     CGPoint point = [sender locationInView:self.statusImageView];
     [self.statusImageView.layer setAffineTransform:CGAffineTransformTranslate([self.statusImageView.layer affineTransform], point.x - _lastPoint.x, point.y - _lastPoint.y)];
     _lastPoint = [sender locationInView:self.statusImageView];
+//    NSLog(@"%@, %@", NSStringFromCGRect(self.statusImageView.layer.frame), NSStringFromCGRect(self.statusImageView.frame));
     
     [self.statusImageView pinchResizeToScale:_scale];
     
@@ -811,6 +814,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 - (void)playClipLooseAnimationAndSendNotification
 {
     _imageViewMode = CastViewImageViewModeAnimatingClip;
+    
     [self performSelector:@selector(willOpenDetailImageView) withObject:nil afterDelay:0.3];
     
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];

@@ -23,7 +23,7 @@
 @property (nonatomic, strong) IBOutlet UIScrollView         *scrollView;
 @property (nonatomic, strong) IBOutlet UserAvatarImageView  *authorAvatarImageView;
 
-@property (nonatomic, strong) UIImageView                   *imageView;
+@property (nonatomic, strong) CardImageView                 *imageView;
 @property (nonatomic, weak) CardViewController            *cardViewController;
 
 - (void)setUpWithCardViewController:(CardViewController *)cardViewController;
