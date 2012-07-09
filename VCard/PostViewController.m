@@ -747,11 +747,9 @@ typedef enum {
 - (IBAction)didClickMotionsButton:(UIButton *)sender {
     UIActionSheet *actionSheet = nil;
     if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
-        if(self.motionsImageView) {
-            MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:[UIImage imageNamed:@"Default-Landscape~ipad"]];
-            vc.delegate = self;
-            [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
-            //[self showAlbumImagePicker];
+        if(!self.motionsImageView.image) {
+            [self showAlbumImagePicker];
+            return;
         }
         else {
             actionSheet = [[UIActionSheet alloc] initWithTitle:nil
@@ -761,9 +759,7 @@ typedef enum {
                                              otherButtonTitles:@"重新选取照片", @"编辑", @"清除", nil];
             actionSheet.destructiveButtonIndex = 2;
         }
-        return;
-    }
-    if(self.motionsImageView.image) {
+    } else if(self.motionsImageView.image) {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                   delegate:self 
                                          cancelButtonTitle:nil 

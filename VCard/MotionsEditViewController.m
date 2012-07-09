@@ -424,7 +424,7 @@
 - (IBAction)didClickChangePictureButton:(UIButton *)sender {
     
     if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
-        [self.delegate editViewControllerDidChooseToShoot];
+        [self showAlbumImagePicker];
         return;
     }
     UIActionSheet *actionSheet = nil;
