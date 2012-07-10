@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
+
+@protocol LoginCellViewControllerDelegate;
 
 #define kNotificationNameLoginTextFieldShouldBeginEditing @"kNotificationNameLoginTextFieldShouldBeginEditing"
 #define kNotificationNameLoginTextFieldShouldEndEditing @"kNotificationNameLoginTextFieldShouldEndEditing"
@@ -18,5 +21,12 @@
 @property (nonatomic, strong) IBOutlet UITextField *userNameTextField;
 @property (nonatomic, strong) IBOutlet UITextField *userPasswordTextField;
 @property (nonatomic, strong) IBOutlet UIButton *loginButton;
+@property (nonatomic, weak) id<LoginCellViewControllerDelegate> delegate;
+
+@end
+
+@protocol LoginCellViewControllerDelegate <NSObject>
+
+- (void)loginCell:(LoginCellViewController *)vc didLoginUser:(User *)user;
 
 @end

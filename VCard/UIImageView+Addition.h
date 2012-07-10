@@ -1,5 +1,5 @@
 //
-//  UIImageViewAddition.h
+//  UIImageView+Addition.h
 //  PushBox
 //
 //  Created by Xie Hasky on 11-7-28.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImageView (UIImageViewAddition)
+@interface UIImageView (Addition)
 
 - (void)loadImageFromURL:(NSString *)urlString 
               completion:(void (^)())completion;

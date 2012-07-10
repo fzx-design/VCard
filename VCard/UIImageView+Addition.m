@@ -6,14 +6,13 @@
 //  Copyright 2011年 同济大学. All rights reserved.
 //
 
-#import "UIImageViewAddition.h"
+#import "UIImageView+Addition.h"
 #import "UIImageView+URL.h"
 
-@implementation UIImageView (UIImageViewAddition)
+@implementation UIImageView (Addition)
 
 - (void)loadImageFromURL:(NSString *)urlString 
-              completion:(void (^)())completion
-{
+              completion:(void (^)())completion {
     self.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
 	
     [self kv_cancelImageDownload];

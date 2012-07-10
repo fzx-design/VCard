@@ -9,7 +9,6 @@
 #import "NewLoginViewController.h"
 #import "UIApplication+Addition.h"
 #import <QuartzCore/QuartzCore.h>
-#import "LoginCellViewController.h"
 
 #define VIEW_APPEAR_ANIMATION_DURATION  0.5f
 
@@ -18,6 +17,8 @@
 
 #define SCROLL_VIEW_LANDSCAPE_CENTER    CGPointMake(512, 400)
 #define SCROLL_VIEW_PORTRAIT_CENTER     CGPointMake(384, 480)
+
+#define kLoginedUserArray @"LoginedUserArray"
 
 @interface NewLoginViewController ()
 
@@ -34,6 +35,7 @@
 @synthesize bgView = _bgView;
 @synthesize scrollView = _scrollView;
 @synthesize logoImageView = _logoImageView;
+@synthesize delegate = _delegate;
 
 @synthesize cellControllerArray = _cellControllerArray;
 @synthesize loginUserInfoArray = _loginUserInfoArray;
@@ -44,8 +46,15 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSArray *storedArray = [defaults arrayForKey:kLoginedUserArray];
+        self.loginUserInfoArray = [NSMutableArray arrayWithArray:storedArray];
+        [storedArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            User *user = [User userWithID:obj inManagedObjectContext:self.managedObjectContext];
+            [self.loginUserInfoArray addObject:user];
+        }];
+        
         self.cellControllerArray = [NSMutableArray array];
-        self.loginUserInfoArray = [NSMutableArray array];
     }
     return self;
 }
@@ -111,7 +120,8 @@
 }
 
 - (void)configureScrollView {
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * [self numberOfCellsInScrollView], self.scrollView.frame.size.height);
+    CGFloat scrollViewContentWidth = [self numberOfCellsInScrollView] > 1 ? self.scrollView.frame.size.width * [self numberOfCellsInScrollView] : self.scrollView.frame.size.width + 1;
+    self.scrollView.contentSize = CGSizeMake(scrollViewContentWidth, self.scrollView.frame.size.height);
     
     for(NSUInteger i = 0; i < [self numberOfCellsInScrollView]; i++) {
         UIViewController *vc = [self cellControllerAtIndex:i];
@@ -151,12 +161,18 @@
 }
 
 - (NSUInteger)numberOfCellsInScrollView {
-    return 4;
+    return self.loginUserInfoArray.count + 1;
 }
 
 - (UIViewController *)cellControllerAtIndex:(NSUInteger)index {
     if(index >= self.cellControllerArray.count) {
-        LoginCellViewController *vc = [[LoginCellViewController alloc] init];
+        UIViewController *vc = nil;
+        if(self.loginUserInfoArray.count <= index) {
+            vc = [[LoginCellViewController alloc] init];
+        } else {
+            User *user = [self.loginUserInfoArray objectAtIndex:index];
+            vc = [[LoginUserCellViewController alloc] initWithUser:user];
+        }
         [self.cellControllerArray addObject:vc];
         return vc;
     } else {
@@ -197,7 +213,6 @@
 
 #pragma mark - UIScrollView delegate
 
-
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     NSUInteger index = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
     self.currentCellIndex = index;
@@ -206,6 +221,30 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     NSUInteger index = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
     self.currentCellIndex = index;
+}
+
+#pragma mark - LoginUserCellViewController delegate
+
+- (void)loginUserCell:(LoginUserCellViewController *)vc didSelectUser:(User *)user {
+    [self.delegate loginViewController:self didSelectUser:user];
+}
+
+- (void)loginUserCell:(LoginUserCellViewController *)vc didDeleteUser:(User *)user {
+    
+}
+
+#pragma mark - LoginCellViewController delegate
+
+- (void)loginCell:(LoginCellViewController *)vc didLoginUser:(User *)user {
+    NSMutableArray *userIDArray = [NSMutableArray array];
+    [self.loginUserInfoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        User *user = obj;
+        [userIDArray addObject:user.userID];
+    }];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:userIDArray forKey:kLoginedUserArray];
+    [defaults synchronize];
 }
 
 @end

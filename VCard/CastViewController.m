@@ -8,7 +8,7 @@
 
 #import "CastViewController.h"
 #import "UserProfileViewController.h"
-#import "UIImageViewAddition.h"
+#import "UIImageView+Addition.h"
 #import "UIView+Resize.h"
 #import "ResourceList.h"
 #import "WBClient.h"

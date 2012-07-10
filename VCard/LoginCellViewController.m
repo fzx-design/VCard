@@ -33,6 +33,7 @@ typedef enum {
 @synthesize userNameTextField = _userNameTextField;
 @synthesize userPasswordTextField = _userPasswordTextField;
 @synthesize loginButton = _loginButton;
+@synthesize delegate = _delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -97,14 +98,16 @@ typedef enum {
     return YES;
 }
 
-#pragma mark - 
+#pragma mark - IBActions
+
 - (IBAction)loginButtonClicked:(id)sender
 {
     WBClient *client = [WBClient client];
     
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameLoginInfoAuthorized object:nil];
+            //[[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameLoginInfoAuthorized object:nil];
+            [self.delegate loginCell:self didLoginUser:nil];
         } else {
             NSLog(@"Error!");
         }

@@ -18,8 +18,16 @@
 }
 
 
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain) User *currentUser;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) User *currentUser;
+
+@end
+
+@interface CoreDataKernal : NSObject
+
+@property (nonatomic, strong) User *currentUser;
+
++ (CoreDataKernal *)getKernalInstance;
 
 @end

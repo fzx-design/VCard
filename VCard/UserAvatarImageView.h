@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "UIImageViewAddition.h"
+#import "UIImageView+Addition.h"
 
 @interface UserAvatarImageView : UIView {
     UIImageView *_vipImageView;

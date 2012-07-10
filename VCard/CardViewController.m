@@ -8,7 +8,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "CardViewController.h"
-#import "UIImageViewAddition.h"
+#import "UIImageView+Addition.h"
 #import "UIApplication+Addition.h"
 #import "NSDateAddition.h"
 #import "ResourceProvider.h"

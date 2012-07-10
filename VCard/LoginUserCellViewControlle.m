@@ -16,6 +16,8 @@
 
 @interface LoginUserCellViewController ()
 
+@property (nonatomic, strong) User *ownerUser;
+
 @end
 
 @implementation LoginUserCellViewController
@@ -23,6 +25,17 @@
 @synthesize avatarImageView = _avatarImageView;
 @synthesize userNameLabel = _userNameLabel;
 @synthesize deleteButton = _deleteButton;
+@synthesize delegate = _delegate;
+
+@synthesize ownerUser = _ownerUser;
+
+- (id)initWithUser:(User *)user {
+    self = [super init];
+    if(self) {
+        self.ownerUser = user;
+    }
+    return self;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,6 +52,10 @@
 	// Do any additional setup after loading the view.
     _avatarImageView.layer.masksToBounds = YES;
     _avatarImageView.layer.cornerRadius = CornerRadius;
+    
+    if(self.ownerUser) {
+        self.userNameLabel.text = self.ownerUser.screenName;
+    }
 }
 
 - (void)viewDidUnload
@@ -53,11 +70,11 @@
 #pragma mark - IBActions
 
 - (IBAction)didClickDeleteButton:(UIButton *)sender {
-    
+    [self.delegate loginUserCell:self didDeleteUser:self.ownerUser];
 }
 
 - (IBAction)didClickLoginButton:(UIButton *)sender {
-    
+    [self.delegate loginUserCell:self didSelectUser:self.ownerUser];
 }
 
 @end
