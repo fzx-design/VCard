@@ -9,6 +9,7 @@
 #import "NewLoginViewController.h"
 #import "UIApplication+Addition.h"
 #import <QuartzCore/QuartzCore.h>
+#import "NSNotificationCenter+Addition.h"
 
 #define VIEW_APPEAR_ANIMATION_DURATION  0.5f
 
@@ -211,6 +212,10 @@
 - (IBAction)didClickRegisterButton:(UIButton *)sender {
     [self viewDisappearAnimation];
     [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
+}
+
+- (IBAction)didClickLogoutButton:(UIButton *)sender {
+    [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:nil];
 }
 
 #pragma mark - UIScrollView delegate

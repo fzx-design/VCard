@@ -113,7 +113,6 @@ static CoreDataKernal *kernalInstance = nil;
 
 - (void)handleCoreChangeCurrentUserNotification:(NSNotification *)notification {
     NSString *currentUserID = notification.object;
-    NSLog(@"id:%@", currentUserID);
     [self configureCurrentUserWithUserID:currentUserID];
     [NSNotificationCenter postChangeCurrentUserNotification];
 }
