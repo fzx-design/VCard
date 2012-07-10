@@ -68,6 +68,27 @@ typedef enum {
 
 #pragma mark - Logic methods 
 
+- (void)login {
+    [self.userPasswordTextField resignFirstResponder];
+    if (self.userNameTextField.text == @"") {
+        [self.userNameTextField becomeFirstResponder];
+    } else if(self.userPasswordTextField.text == @"") {
+        return;
+    } else {
+        self.view.userInteractionEnabled = NO;
+        WBClient *client = [WBClient client];
+        [client setCompletionBlock:^(WBClient *client) {
+            if (!client.hasError) {
+                [self loginInfoAuthorized];
+            } else {
+                NSLog(@"Error!");
+                self.view.userInteractionEnabled = YES;
+            }
+        }];
+        [client authorizeUsingUserID:self.userNameTextField.text password:self.userPasswordTextField.text];
+    }
+}
+
 - (void)loginInfoAuthorized
 {
     WBClient *client = [WBClient client];
@@ -76,27 +97,26 @@ typedef enum {
             NSDictionary *userDict = client.responseJSONObject;
             User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
             [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:user.userID];
-            
-            [UnreadReminder initializeWithCurrentUser:user];
-            
-            Group *favouriteGroup = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
-            favouriteGroup.groupID = @"Favourites";
-            favouriteGroup.name = @"收藏";
-            favouriteGroup.type = [NSNumber numberWithInt:kGroupTypeFavourite];
-            favouriteGroup.picURL = self.currentUser.largeAvatarURL;
-            favouriteGroup.index = [NSNumber numberWithInt:0];
-            [self performSegueWithIdentifier:@"ShowRootViewController" sender:self];
-            
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
+            [UnreadReminder initializeWithCurrentUser:user];
+            [self setUpGroupFavorite];
             
             [self.delegate loginCell:self didLoginUser:user];
-        } else {
-            NSLog(@"authorize error");
         }
         self.view.userInteractionEnabled = YES;
     }];
     
     [client getUser:[WBClient currentUserID]];
+}
+
+- (void)setUpGroupFavorite
+{
+    Group *favouriteGroup = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
+    favouriteGroup.groupID = @"Favourites";
+    favouriteGroup.name = @"收藏";
+    favouriteGroup.type = [NSNumber numberWithInt:kGroupTypeFavourite];
+    favouriteGroup.picURL = self.currentUser.largeAvatarURL;
+    favouriteGroup.index = [NSNumber numberWithInt:0];
 }
 
 #pragma mark -
@@ -111,45 +131,17 @@ typedef enum {
         
     } else if([textField isEqual:self.userPasswordTextField]) {
         
-        [self.userPasswordTextField resignFirstResponder];
-        
-        if (self.userNameTextField.text == @"") {
-            [self.userNameTextField becomeFirstResponder];
-        } else {
-            self.view.userInteractionEnabled = NO;
-            WBClient *client = [WBClient client];
-            [client setCompletionBlock:^(WBClient *client) {
-                if (!client.hasError) {
-                    [self loginInfoAuthorized];
-                } else {
-                    NSLog(@"Error!");
-                }
-            }];
-            
-            [client authorizeUsingUserID:self.userNameTextField.text password:self.userPasswordTextField.text];
-        }
+        [self login];
         
     }
-    
     return YES;
 }
 
 #pragma mark - IBActions
 
 - (IBAction)loginButtonClicked:(id)sender
-{
-    WBClient *client = [WBClient client];
-    
-    [client setCompletionBlock:^(WBClient *client) {
-        if (!client.hasError) {
-            //[[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameLoginInfoAuthorized object:nil];
-            [self.delegate loginCell:self didLoginUser:nil];
-        } else {
-            NSLog(@"Error!");
-        }
-    }];
-    
-    [client authorizeUsingUserID:self.userNameTextField.text password:self.userPasswordTextField.text];
+{    
+    [self login];
 }
 
 

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
-#import "LoginUserCellViewControlle.h"
+#import "LoginUserCellViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ResourceList.h"
 #import "CastViewController.h"

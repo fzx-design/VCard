@@ -11,6 +11,7 @@
 #import "ResourceList.h"
 #import "Group.h"
 #import "NewLoginViewController.h"
+#import "NSNotificationCenter+Addition.h"
 
 #define kShelfViewControllerFrame CGRectMake(0.0, -147.0, 768.0, 147.0);
 
@@ -40,12 +41,20 @@
         [self setUpNotifications];
         [self setUpViews];
     }
+    
+    [NSNotificationCenter registerChangeCurrentUserNotificationWithSelector:@selector(handleChangeCurrentUserNotification:) target:self];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+#pragma mark - Handle notifications
+- (void)handleChangeCurrentUserNotification:(NSNotification *)notification {
+    [self setUpNotifications];
+    [self setUpViews];
 }
 
 #pragma mark - Setup Notifications
@@ -145,7 +154,7 @@
 {
     if (_castViewController == nil) {
         _castViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CastViewController"];
-        _castViewController.currentUser = self.currentUser;
+//        _castViewController.currentUser = self.currentUser;
         _castViewController.view.frame = self.view.bounds;
 //        [_castViewController initialLoad];
     }
@@ -156,7 +165,7 @@
 {
     if (_shelfViewController == nil) {
         _shelfViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ShelfViewController"];
-        _shelfViewController.currentUser = self.currentUser;
+//        _shelfViewController.currentUser = self.currentUser;
         _shelfViewController.view.frame = kShelfViewControllerFrame;
         [_shelfViewController.view resetWidth:self.view.bounds.size.width];
     }

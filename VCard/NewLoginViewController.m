@@ -169,9 +169,11 @@
         UIViewController *vc = nil;
         if(self.loginUserInfoArray.count <= index) {
             vc = [[LoginCellViewController alloc] init];
+            ((LoginCellViewController *)vc).delegate = self;
         } else {
             User *user = [self.loginUserInfoArray objectAtIndex:index];
             vc = [[LoginUserCellViewController alloc] initWithUser:user];
+            ((LoginUserCellViewController *)vc).delegate = self;
         }
         [self.cellControllerArray addObject:vc];
         return vc;

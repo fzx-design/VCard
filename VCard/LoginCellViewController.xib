@@ -62,7 +62,7 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{37.5, 21}, {175, 175}}</string>
 								<reference key="NSSuperview" ref="103204473"/>
-								<reference key="NSNextKeyView" ref="1025850382"/>
+								<reference key="NSNextKeyView" ref="473491640"/>
 								<int key="IBUIContentMode">4</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -71,7 +71,7 @@
 									<string key="NSResourceName">imageview_placeholder.png</string>
 								</object>
 							</object>
-							<object class="IBUIImageView" id="1025850382">
+							<object class="IBUIImageView" id="473491640">
 								<reference key="NSNextResponder" ref="103204473"/>
 								<int key="NSvFlags">1316</int>
 								<string key="NSFrame">{{56.5, 62}, {136, 140}}</string>
@@ -195,7 +195,6 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{190, 46}, {32, 32}}</string>
 								<reference key="NSSuperview" ref="776719064"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -294,7 +293,7 @@
 						<reference key="destination" ref="841351856"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">215</int>
+					<int key="connectionID">229</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -384,7 +383,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="561776069"/>
 							<reference ref="419875952"/>
-							<reference ref="1025850382"/>
+							<reference ref="473491640"/>
 						</array>
 						<reference key="parent" ref="66350285"/>
 					</object>
@@ -400,7 +399,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">228</int>
-						<reference key="object" ref="1025850382"/>
+						<reference key="object" ref="473491640"/>
 						<reference key="parent" ref="103204473"/>
 					</object>
 				</array>
@@ -440,7 +439,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">228</int>
+			<int key="maxID">229</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

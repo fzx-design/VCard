@@ -23,6 +23,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *loginButton;
 @property (nonatomic, weak) id<LoginCellViewControllerDelegate> delegate;
 
+- (IBAction)loginButtonClicked:(id)sender;
+
 @end
 
 @protocol LoginCellViewControllerDelegate <NSObject>

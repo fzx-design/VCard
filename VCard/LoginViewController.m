@@ -65,7 +65,7 @@
     
     if ([WBClient authorized]) {
         
-        self.currentUser = [User userWithID:[WBClient currentUserID] inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+//        self.currentUser = [User userWithID:[WBClient currentUserID] inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
         [UserAccountManager initializeWithCurrentUser:self.currentUser managedObjectContext:self.managedObjectContext];
         [UnreadReminder initializeWithCurrentUser:self.currentUser];
         [self performSegueWithIdentifier:@"ShowRootViewController" sender:self];
@@ -143,7 +143,7 @@
         if (!client.hasError) {
             NSDictionary *userDict = client.responseJSONObject;
             User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
-            self.currentUser = user;
+//            self.currentUser = user;
             
             [UserAccountManager initializeWithCurrentUser:user managedObjectContext:self.managedObjectContext];
             [UnreadReminder initializeWithCurrentUser:user];
@@ -173,7 +173,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     CoreDataViewController *vc = segue.destinationViewController;
-    vc.currentUser = self.currentUser;
+//    vc.currentUser = self.currentUser;
 }
 
 #pragma mark - Adjust View

@@ -213,7 +213,6 @@
     
     NSString *vcIdentifier = [screenName isEqualToString:self.currentUser.screenName] ? @"SelfProfileViewController" : @"FriendProfileViewController";
     UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:vcIdentifier];
-    vc.currentUser = self.currentUser;
     vc.screenName = screenName;
     
     //FIXME:
@@ -233,7 +232,6 @@
     NSString *vcIdentifier = [targetUser.screenName isEqualToString:self.currentUser.screenName] ? @"SelfProfileViewController" : @"FriendProfileViewController";
     
     UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:vcIdentifier];
-    vc.currentUser = self.currentUser;
     vc.user = targetUser;
     
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:targetUser.screenName];
@@ -248,7 +246,6 @@
     int index = indexString.intValue;
     
     CommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CommentViewController"];
-    vc.currentUser = self.currentUser;
     vc.status = status;
     vc.type = CommentTableViewControllerTypeComment;
     
@@ -264,7 +261,6 @@
     int index = indexString.intValue;
     
     CommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CommentViewController"];
-    vc.currentUser = self.currentUser;
     vc.status = status;
     vc.type = CommentTableViewControllerTypeRepost;
     
@@ -290,21 +286,18 @@
 - (void)showSelfCommentListWithStackIndex:(int)index
 {
     SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfCommentViewController"];
-    vc.currentUser = self.currentUser;
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:@""];
 }
 
 - (void)showSelfMentionListWithStackIndex:(int)index
 {
     SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
-    vc.currentUser = self.currentUser;
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:@""];
 }
 
 - (void)showSelfProfileWithStackIndex:(int)index
 {
     SelfProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfProfileViewController"];
-    vc.currentUser = self.currentUser;
     vc.user = self.currentUser;
     vc.shouldShowFollowerList = YES;
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:self.currentUser.screenName];
@@ -319,7 +312,6 @@
     int index = [indexString intValue];
     
     TopicViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TopicViewController"];
-    vc.currentUser = self.currentUser;
     vc.searchKey = searchKey;
     
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeTopic pageDescription:searchKey];
@@ -513,7 +505,6 @@
 - (IBAction)didClickSearchButton:(id)sender
 {
     UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchViewController"];
-    vc.currentUser = self.currentUser;
     
     [self stackViewAtIndex:INT64_MAX push:vc withPageType:StackViewPageTypeSearch pageDescription:self.currentUser.screenName];
 }
@@ -521,7 +512,6 @@
 - (IBAction)showProfileButtonClicked:(id)sender
 {
     UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfProfileViewController"];
-    vc.currentUser = self.currentUser;
     vc.screenName = self.currentUser.screenName;
     
     [self stackViewAtIndex:INT64_MAX push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
@@ -539,7 +529,6 @@
         _stackViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"StackViewController"];
         [_stackViewController.view resetOrigin:CGPointMake(0.0, 43.0)];
         [_stackViewController.view resetSize:self.waterflowView.frame.size];
-        _stackViewController.currentUser = self.currentUser;
         _stackViewController.delegate = self;
         
         [_coverView resetOriginX:1024.0];
@@ -827,7 +816,6 @@
 	if(cell == nil) {
         if (layoutUnit.unitType == UnitTypeCard) {
             cell = [[WaterflowCardCell alloc] initWithReuseIdentifier:CellIdentifier currentUser:self.currentUser];
-            ((WaterflowCardCell *)cell).cardViewController.currentUser = self.currentUser;
         } else if(layoutUnit.unitType == UnitTypeDivider) {
             cell = [[WaterflowDividerCell alloc] initWithReuseIdentifier:CellIdentifier currentUser:self.currentUser];
         } else {

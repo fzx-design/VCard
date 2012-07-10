@@ -694,8 +694,8 @@
 		E1998AF415919BA400BBAC55 /* post_paper_gloom_right.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF215919BA400BBAC55 /* post_paper_gloom_right.png */; };
 		E1998AF81592EB5400BBAC55 /* PostNewStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */; };
 		E1A59E9415ABE3DA001F0A94 /* LoginBgView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A59E9315ABE3D9001F0A94 /* LoginBgView.m */; };
-		E1A59EA215AC1A84001F0A94 /* LoginUserCellViewControlle.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A59E9E15AC125F001F0A94 /* LoginUserCellViewControlle.m */; };
-		E1A59EA315AC1A8C001F0A94 /* LoginUserCellViewControlle.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A59E9F15AC1260001F0A94 /* LoginUserCellViewControlle.xib */; };
+		E1A59EA215AC1A84001F0A94 /* LoginUserCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A59E9E15AC125F001F0A94 /* LoginUserCellViewController.m */; };
+		E1A59EA315AC1A8C001F0A94 /* LoginUserCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A59E9F15AC1260001F0A94 /* LoginUserCellViewController.xib */; };
 		E1A59EAB15AC24AD001F0A94 /* NSNotificationCenter+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A59EA915AC2430001F0A94 /* NSNotificationCenter+Addition.m */; };
 		E1A7EFDC15936D4B00E2B900 /* PostRepostCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */; };
 		E1AF111E15A01A67004236ED /* MotionsFilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AF111815A01A67004236ED /* MotionsFilterCell.m */; };
@@ -1597,9 +1597,9 @@
 		E1998AFC1592EBAD00BBAC55 /* PostRepostCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostRepostCommentViewController.h; sourceTree = "<group>"; };
 		E1A59E9215ABE3D8001F0A94 /* LoginBgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginBgView.h; sourceTree = "<group>"; };
 		E1A59E9315ABE3D9001F0A94 /* LoginBgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginBgView.m; sourceTree = "<group>"; };
-		E1A59E9D15AC125F001F0A94 /* LoginUserCellViewControlle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginUserCellViewControlle.h; sourceTree = "<group>"; };
-		E1A59E9E15AC125F001F0A94 /* LoginUserCellViewControlle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginUserCellViewControlle.m; sourceTree = "<group>"; };
-		E1A59E9F15AC1260001F0A94 /* LoginUserCellViewControlle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginUserCellViewControlle.xib; sourceTree = "<group>"; };
+		E1A59E9D15AC125F001F0A94 /* LoginUserCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginUserCellViewController.h; sourceTree = "<group>"; };
+		E1A59E9E15AC125F001F0A94 /* LoginUserCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginUserCellViewController.m; sourceTree = "<group>"; };
+		E1A59E9F15AC1260001F0A94 /* LoginUserCellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginUserCellViewController.xib; sourceTree = "<group>"; };
 		E1A59EA815AC242F001F0A94 /* NSNotificationCenter+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+Addition.h"; sourceTree = "<group>"; };
 		E1A59EA915AC2430001F0A94 /* NSNotificationCenter+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+Addition.m"; sourceTree = "<group>"; };
 		E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostRepostCommentViewController.m; sourceTree = "<group>"; };
@@ -1943,9 +1943,9 @@
 				1890C6B31535BE5100023A13 /* LoginCellViewController.h */,
 				1890C6B41535BE5200023A13 /* LoginCellViewController.m */,
 				E1F943F515AB263900C3A75E /* LoginCellViewController.xib */,
-				E1A59E9D15AC125F001F0A94 /* LoginUserCellViewControlle.h */,
-				E1A59E9E15AC125F001F0A94 /* LoginUserCellViewControlle.m */,
-				E1A59E9F15AC1260001F0A94 /* LoginUserCellViewControlle.xib */,
+				E1A59E9D15AC125F001F0A94 /* LoginUserCellViewController.h */,
+				E1A59E9E15AC125F001F0A94 /* LoginUserCellViewController.m */,
+				E1A59E9F15AC1260001F0A94 /* LoginUserCellViewController.xib */,
 				E127E91B15ABC7E400A2D749 /* UserSelectionCellViewController.h */,
 				E127E91C15ABC7E400A2D749 /* UserSelectionCellViewController.m */,
 				185785F21536689700C9E1B9 /* EasyTableViewCell.h */,
@@ -3763,7 +3763,7 @@
 				E1F943EE15AB0EA400C3A75E /* login_view_shadow@2x.png in Resources */,
 				E1F943EF15AB0EA400C3A75E /* login_view_shadow.png in Resources */,
 				E1F943F615AB263A00C3A75E /* LoginCellViewController.xib in Resources */,
-				E1A59EA315AC1A8C001F0A94 /* LoginUserCellViewControlle.xib in Resources */,
+				E1A59EA315AC1A8C001F0A94 /* LoginUserCellViewController.xib in Resources */,
 				E1919A7815AC50980034079B /* imageview_placeholder.png in Resources */,
 				E1919A7915AC50980034079B /* imageview_placeholder@2x.png in Resources */,
 			);
@@ -3920,7 +3920,7 @@
 				E127E91615AB2A7000A2D749 /* EasyTableView.m in Sources */,
 				E127E91D15ABC7E500A2D749 /* UserSelectionCellViewController.m in Sources */,
 				E1A59E9415ABE3DA001F0A94 /* LoginBgView.m in Sources */,
-				E1A59EA215AC1A84001F0A94 /* LoginUserCellViewControlle.m in Sources */,
+				E1A59EA215AC1A84001F0A94 /* LoginUserCellViewController.m in Sources */,
 				E1A59EAB15AC24AD001F0A94 /* NSNotificationCenter+Addition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
