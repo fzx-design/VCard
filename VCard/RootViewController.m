@@ -37,6 +37,8 @@
 {
     [super viewDidLoad];
     
+    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
+    
     if (self.currentUser == nil) {
         [[[NewLoginViewController alloc] init] show];
     } else {
