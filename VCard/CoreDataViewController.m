@@ -8,7 +8,6 @@
 
 #import "CoreDataViewController.h"
 #import "AppDelegate.h"
-#import "User.h"
 #import "NSNotificationCenter+Addition.h"
 
 #define kStoredCurrentUserID @"StoredCurrentUserID"

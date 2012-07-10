@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class User;
+#import "User.h"
 
 @interface CoreDataViewController : UIViewController <NSFetchedResultsControllerDelegate> {
     NSManagedObjectContext *_managedObjectContext;
