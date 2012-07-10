@@ -64,8 +64,8 @@
 #pragma mark - Setup Notifications
 - (void)setUpViews
 {
-//    [self.view resetOrigin:CGPointZero];
-//    [self.view resetSize:CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight])];
+    [self.view resetOrigin:CGPointZero];
+    [self.view resetSize:CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight])];
     [self.view addSubview:self.castViewController.view];
     [self.view addSubview:self.shelfViewController.view];
     self.shelfViewController.view.hidden = YES;
@@ -98,8 +98,8 @@
 {
     self.shelfViewController.view.hidden = NO;
     [UIView animateWithDuration:0.3 animations:^{
-        [self.castViewController.view resetOriginY:150.0];
-        [self.shelfViewController.view resetOriginY:0.0];
+        [_castViewController.view resetOriginY:150.0];
+        [_shelfViewController.view resetOriginY:0.0];
     } completion:^(BOOL finished) {
     }];
 }
@@ -107,10 +107,10 @@
 - (void)hideGroup:(NSNotification *)notification
 {
     [UIView animateWithDuration:0.3 animations:^{
-        [self.castViewController.view resetOriginY:0.0];
-        [self.shelfViewController.view resetOriginY:-150.0];
+        [_castViewController.view resetOriginY:0.0];
+        [_shelfViewController.view resetOriginY:-150.0];
     } completion:^(BOOL finished) {
-        self.shelfViewController.view.hidden = YES;
+        _shelfViewController.view.hidden = YES;
     }];
 }
 
@@ -144,15 +144,16 @@
     NSString *orientation = UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? kOrientationPortrait : kOrientationLandscape;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameOrientationWillChange object:orientation];
-    [self.castViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    [self.shelfViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
+    [_castViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [_shelfViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameOrientationChanged object:nil];
-    [self.castViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    [self.shelfViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [_castViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [_shelfViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 #pragma mark - Properties
@@ -160,9 +161,8 @@
 {
     if (_castViewController == nil) {
         _castViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CastViewController"];
-//        _castViewController.currentUser = self.currentUser;
-        _castViewController.view.frame = self.view.bounds;
-//        [_castViewController initialLoad];
+        [_castViewController.view resetSize:self.view.frame.size];
+        [_castViewController.view resetOrigin:CGPointZero];
     }
     return _castViewController;
 }
@@ -171,7 +171,6 @@
 {
     if (_shelfViewController == nil) {
         _shelfViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ShelfViewController"];
-//        _shelfViewController.currentUser = self.currentUser;
         _shelfViewController.view.frame = kShelfViewControllerFrame;
         [_shelfViewController.view resetWidth:self.view.bounds.size.width];
     }
