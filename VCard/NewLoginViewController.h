@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) IBOutlet UIButton *registerButton;
 @property (nonatomic, strong) IBOutlet UIView *bgView;
+@property (nonatomic, strong) IBOutlet UIImageView *logoImageView;
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 
 - (void)show;

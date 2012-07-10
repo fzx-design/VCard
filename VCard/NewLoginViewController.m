@@ -11,13 +11,20 @@
 #import <QuartzCore/QuartzCore.h>
 #import "LoginCellViewController.h"
 
-#define VIEW_APPEAR_ANIMATION_DURATION 0.5f
+#define VIEW_APPEAR_ANIMATION_DURATION  0.5f
+
+#define LOGO_VIEW_LANDSCAPE_CENTER      CGPointMake(512, 90)
+#define LOGO_VIEW_PORTRAIT_CENTER       CGPointMake(384, 125)
+
+#define SCROLL_VIEW_LANDSCAPE_CENTER    CGPointMake(512, 400)
+#define SCROLL_VIEW_PORTRAIT_CENTER     CGPointMake(384, 480)
 
 @interface NewLoginViewController ()
 
 @property (nonatomic, strong) NSMutableArray *cellControllerArray;
 @property (nonatomic, strong) NSMutableArray *loginUserInfoArray;
 @property (nonatomic, assign) NSUInteger currentCellIndex;
+@property (nonatomic, assign) CGFloat keyboardHeight;
 
 @end
 
@@ -26,9 +33,11 @@
 @synthesize registerButton = _registerButton;
 @synthesize bgView = _bgView;
 @synthesize scrollView = _scrollView;
+@synthesize logoImageView = _logoImageView;
 
 @synthesize cellControllerArray = _cellControllerArray;
 @synthesize loginUserInfoArray = _loginUserInfoArray;
+@synthesize keyboardHeight = _keyboardHeight;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,6 +56,10 @@
     // Do any additional setup after loading the view from its nib.
     [self configureUI];
     [self viewAppearAnimation];
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewDidUnload
@@ -56,6 +69,7 @@
     self.bgView = nil;
     self.registerButton = nil;
     self.scrollView = nil;
+    self.logoImageView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -64,7 +78,27 @@
 }
 
 - (void)viewWillLayoutSubviews {
-    [self layoutScrollView];
+    [self layoutSubviews];
+}
+
+#pragma mark - Notification handlers
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    NSDictionary *info = [notification userInfo];
+    CGRect keyboardBounds = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat keyboardHeight = [UIApplication isCurrentOrientationLandscape] ? keyboardBounds.size.width : keyboardBounds.size.height;
+    self.keyboardHeight = keyboardHeight;
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        [self refreshComponentFrame];
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    self.keyboardHeight = 0;
+    [UIView animateWithDuration:0.3f animations:^{
+        [self refreshComponentFrame];
+    }];
 }
 
 #pragma mark - UI methods
@@ -86,13 +120,21 @@
     }
 }
 
-- (void)layoutScrollView {
+- (void)layoutSubviews {
     for(NSUInteger i = 0; i < [self numberOfCellsInScrollView]; i++) {
         UIViewController *vc = [self cellControllerAtIndex:i];
         vc.view.center = CGPointMake(self.scrollView.frame.size.width * (i + 0.5f), self.scrollView.frame.size.height / 2);
     }
     
     self.scrollView.contentOffset = CGPointMake(self.currentCellIndex * self.scrollView.frame.size.width, 0);
+    
+    [self refreshComponentFrame];
+}
+
+- (void)refreshComponentFrame {
+    self.logoImageView.center = [UIApplication isCurrentOrientationLandscape] ? CGPointMake(LOGO_VIEW_LANDSCAPE_CENTER.x, LOGO_VIEW_LANDSCAPE_CENTER.y - self.keyboardHeight / 5 * 3) : LOGO_VIEW_PORTRAIT_CENTER;
+    
+    self.scrollView.center = [UIApplication isCurrentOrientationLandscape] ? CGPointMake(SCROLL_VIEW_LANDSCAPE_CENTER.x, SCROLL_VIEW_LANDSCAPE_CENTER.y - self.keyboardHeight / 5 * 3) : SCROLL_VIEW_PORTRAIT_CENTER;
 }
 
 - (void)show {
