@@ -37,11 +37,7 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
-    
-    if (self.currentUser == nil) {
-        [[[NewLoginViewController alloc] init] show];
-    } else {
+    if(self.currentUser) {
         [self setUpNotifications];
         [self setUpViews];
     }
@@ -53,6 +49,12 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    if (self.currentUser == nil) {
+        [[[NewLoginViewController alloc] init] show];
+    }
 }
 
 #pragma mark - Handle notifications
@@ -118,9 +120,9 @@
 - (void)showDetailImageView:(NSNotification *)notification
 {
     NSDictionary *dict = notification.object;
-//    UIImageView *imageView = [dict objectForKey:kNotificationObjectKeyImageView];
+    //    UIImageView *imageView = [dict objectForKey:kNotificationObjectKeyImageView];
     CardViewController *vc = [dict objectForKey:kNotificationObjectKeyStatus];
-//    vc.delegate = self.detailImageViewController;
+    //    vc.delegate = self.detailImageViewController;
     self.detailImageViewController.view.hidden = NO;
     self.detailImageViewController.view.userInteractionEnabled = YES;
     [self.detailImageViewController setUpWithCardViewController:vc];

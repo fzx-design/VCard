@@ -12,8 +12,6 @@
 #import "CastViewController.h"
 #import "WBClient.h"
 
-#define CornerRadius 175 / 2
-
 @interface LoginUserCellViewController ()
 
 @property (nonatomic, strong) User *ownerUser;
@@ -22,7 +20,6 @@
 
 @implementation LoginUserCellViewController
 
-@synthesize avatarImageView = _avatarImageView;
 @synthesize userNameLabel = _userNameLabel;
 @synthesize deleteButton = _deleteButton;
 @synthesize delegate = _delegate;
@@ -49,10 +46,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    _avatarImageView.layer.masksToBounds = YES;
-    _avatarImageView.layer.cornerRadius = CornerRadius;
-    
+	// Do any additional setup after loading the view.    
     if(self.ownerUser) {
         self.userNameLabel.text = self.ownerUser.screenName;
     }
@@ -64,7 +58,6 @@
     // Release any retained subviews of the main view.
     self.deleteButton = nil;
     self.userNameLabel = nil;
-    self.avatarImageView = nil;
 }
 
 #pragma mark - IBActions

@@ -169,8 +169,8 @@
     if(index >= self.cellControllerArray.count) {
         UIViewController *vc = nil;
         if(self.loginUserInfoArray.count <= index) {
-            vc = [[LoginCellViewController alloc] init];
-            ((LoginCellViewController *)vc).delegate = self;
+            vc = [[LoginInputCellViewController alloc] init];
+            ((LoginInputCellViewController *)vc).delegate = self;
         } else {
             User *user = [self.loginUserInfoArray objectAtIndex:index];
             vc = [[LoginUserCellViewController alloc] initWithUser:user];
@@ -240,9 +240,9 @@
     
 }
 
-#pragma mark - LoginCellViewController delegate
+#pragma mark - LoginInputCellViewController delegate
 
-- (void)loginCell:(LoginCellViewController *)vc didLoginUser:(User *)user {
+- (void)loginCell:(LoginInputCellViewController *)vc didLoginUser:(User *)user {
     NSMutableArray *userIDArray = [NSMutableArray array];
     [self.loginUserInfoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         User *user = obj;

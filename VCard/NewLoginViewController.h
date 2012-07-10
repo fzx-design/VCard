@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "CoreDataViewController.h"
-#import "LoginCellViewController.h"
+#import "LoginInputCellViewController.h"
 #import "LoginUserCellViewController.h"
 
 @protocol NewLoginViewControllerDelegate;
 
-@interface NewLoginViewController : CoreDataViewController <UIScrollViewDelegate, LoginUserCellViewControllerDelegate, LoginCellViewControllerDelegate>
+@interface NewLoginViewController : CoreDataViewController <UIScrollViewDelegate, LoginUserCellViewControllerDelegate, LoginInputCellViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIButton *registerButton;
 @property (nonatomic, strong) IBOutlet UIView *bgView;

@@ -1,5 +1,5 @@
 //
-//  LoginCellViewController.h
+//  LoginInputCellViewController.h
 //  VCard
 //
 //  Created by 王 紫川 on 12-7-10.
@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "User.h"
+#import "LoginCellViewController.h"
 
 @protocol LoginUserCellViewControllerDelegate;
 
-@interface LoginUserCellViewController : UIViewController
+@interface LoginUserCellViewController : LoginCellViewController
 
-@property (nonatomic, strong) IBOutlet UIImageView *avatarImageView;
 @property (nonatomic, strong) IBOutlet UILabel *userNameLabel;
 @property (nonatomic, strong) IBOutlet UIButton *deleteButton;
 @property (nonatomic, weak) id<LoginUserCellViewControllerDelegate> delegate;

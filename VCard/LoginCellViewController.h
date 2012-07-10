@@ -9,26 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "CoreDataViewController.h"
 
-@protocol LoginCellViewControllerDelegate;
-
-#define kNotificationNameLoginTextFieldShouldBeginEditing @"kNotificationNameLoginTextFieldShouldBeginEditing"
-#define kNotificationNameLoginTextFieldShouldEndEditing @"kNotificationNameLoginTextFieldShouldEndEditing"
-#define kNotificationNameLoginInfoAuthorized @"kNotificationNameLoginInfoAuthorized"
-
-@interface LoginCellViewController : CoreDataViewController <UITextFieldDelegate>
+@interface LoginCellViewController : CoreDataViewController
 
 @property (nonatomic, strong) IBOutlet UIImageView *avatarImageView;
-@property (nonatomic, strong) IBOutlet UITextField *userNameTextField;
-@property (nonatomic, strong) IBOutlet UITextField *userPasswordTextField;
+@property (nonatomic, strong) IBOutlet UIImageView *avatarBgImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *gloomImageView;
 @property (nonatomic, strong) IBOutlet UIButton *loginButton;
-@property (nonatomic, weak) id<LoginCellViewControllerDelegate> delegate;
-
-- (IBAction)loginButtonClicked:(id)sender;
-
-@end
-
-@protocol LoginCellViewControllerDelegate <NSObject>
-
-- (void)loginCell:(LoginCellViewController *)vc didLoginUser:(User *)user;
 
 @end

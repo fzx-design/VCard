@@ -43,7 +43,7 @@
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
 						<string key="NSFrameSize">{292, 450}</string>
 						<reference key="NSSuperview" ref="66350285"/>
-						<reference key="NSNextKeyView" ref="103204473"/>
+						<reference key="NSNextKeyView" ref="405563829"/>
 						<int key="IBUIContentMode">4</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -62,7 +62,7 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{37.5, 21}, {175, 175}}</string>
 								<reference key="NSSuperview" ref="103204473"/>
-								<reference key="NSNextKeyView" ref="473491640"/>
+								<reference key="NSNextKeyView" ref="500245590"/>
 								<int key="IBUIContentMode">4</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -71,10 +71,10 @@
 									<string key="NSResourceName">imageview_placeholder.png</string>
 								</object>
 							</object>
-							<object class="IBUIImageView" id="473491640">
+							<object class="IBUIImageView" id="208564424">
 								<reference key="NSNextResponder" ref="103204473"/>
 								<int key="NSvFlags">1316</int>
-								<string key="NSFrame">{{56.5, 62}, {136, 140}}</string>
+								<string key="NSFrame">{{56, 62}, {136, 140}}</string>
 								<reference key="NSSuperview" ref="103204473"/>
 								<reference key="NSNextKeyView" ref="776719064"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -84,6 +84,17 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">avatar_placeholder.png</string>
 								</object>
+							</object>
+							<object class="IBUIImageView" id="500245590">
+								<reference key="NSNextResponder" ref="103204473"/>
+								<int key="NSvFlags">1325</int>
+								<object class="NSPSMatrix" key="NSFrameMatrix"/>
+								<string key="NSFrame">{{38, 21}, {175, 175}}</string>
+								<reference key="NSSuperview" ref="103204473"/>
+								<reference key="NSNextKeyView" ref="208564424"/>
+								<int key="IBUIContentMode">4</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
 							<object class="IBUIImageView" id="561776069">
 								<reference key="NSNextResponder" ref="103204473"/>
@@ -195,6 +206,7 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{190, 46}, {32, 32}}</string>
 								<reference key="NSSuperview" ref="776719064"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -233,6 +245,20 @@
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="935835596"/>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+					</object>
+					<object class="IBUIImageView" id="405563829">
+						<reference key="NSNextResponder" ref="66350285"/>
+						<int key="NSvFlags">1316</int>
+						<string key="NSFrameSize">{292, 450}</string>
+						<reference key="NSSuperview" ref="66350285"/>
+						<reference key="NSNextKeyView" ref="103204473"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">login_card_gloom.png</string>
+						</object>
 					</object>
 				</array>
 				<object class="NSPSMatrix" key="NSFrameMatrix"/>
@@ -280,11 +306,27 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">avatarImageView</string>
+						<string key="label">avatarBgImageView</string>
 						<reference key="source" ref="841351856"/>
 						<reference key="destination" ref="419875952"/>
 					</object>
-					<int key="connectionID">213</int>
+					<int key="connectionID">232</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">avatarImageView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="500245590"/>
+					</object>
+					<int key="connectionID">233</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">gloomImageView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="405563829"/>
+					</object>
+					<int key="connectionID">234</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -338,6 +380,7 @@
 							<reference ref="305724919"/>
 							<reference ref="776719064"/>
 							<reference ref="103204473"/>
+							<reference ref="405563829"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -383,14 +426,10 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="561776069"/>
 							<reference ref="419875952"/>
-							<reference ref="473491640"/>
+							<reference ref="208564424"/>
+							<reference ref="500245590"/>
 						</array>
 						<reference key="parent" ref="66350285"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">200</int>
-						<reference key="object" ref="561776069"/>
-						<reference key="parent" ref="103204473"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">201</int>
@@ -399,13 +438,28 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">228</int>
-						<reference key="object" ref="473491640"/>
+						<reference key="object" ref="208564424"/>
+						<reference key="parent" ref="103204473"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">200</int>
+						<reference key="object" ref="561776069"/>
+						<reference key="parent" ref="103204473"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">230</int>
+						<reference key="object" ref="405563829"/>
+						<reference key="parent" ref="66350285"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">231</int>
+						<reference key="object" ref="500245590"/>
 						<reference key="parent" ref="103204473"/>
 					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
-				<string key="-1.CustomClassName">LoginCellViewController</string>
+				<string key="-1.CustomClassName">LoginInputCellViewController</string>
 				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -434,12 +488,16 @@
 				<string key="217.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="218.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="228.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="230.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="231.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<reference key="231.IBUserGuides" ref="0"/>
+				<boolean value="NO" key="231.showNotes"/>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">229</int>
+			<int key="maxID">234</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
@@ -452,6 +510,7 @@
 			<string key="imageview_placeholder.png">{175, 175}</string>
 			<string key="login_avatar_cover.png">{247, 286}</string>
 			<string key="login_card_bg.png">{292, 450}</string>
+			<string key="login_card_gloom.png">{292, 450}</string>
 			<string key="login_textfield_bg.png">{228, 82}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1875</string>

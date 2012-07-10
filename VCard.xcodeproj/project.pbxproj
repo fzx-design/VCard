@@ -139,7 +139,7 @@
 		188E53081596EB6B00A30AB8 /* SelfCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E53071596EB6B00A30AB8 /* SelfCommentTableViewCell.m */; };
 		1890C68A15356BCB00023A13 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C68915356BCB00023A13 /* LoginViewController.m */; };
 		1890C69115356F6F00023A13 /* BaseLayoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C69015356F6F00023A13 /* BaseLayoutView.m */; };
-		1890C6B51535BE5200023A13 /* LoginCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B41535BE5200023A13 /* LoginCellViewController.m */; };
+		1890C6B51535BE5200023A13 /* LoginInputCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B41535BE5200023A13 /* LoginInputCellViewController.m */; };
 		189D9DE215496FA300E922D9 /* UIImageView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D9DE115496FA300E922D9 /* UIImageView+Addition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		189D9E6215A596A100AD72EA /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D9E6115A596A100AD72EA /* Group.m */; };
 		189F394B159D40CC00FD2E0F /* UnreadReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F394A159D40CC00FD2E0F /* UnreadReminder.m */; };
@@ -690,6 +690,10 @@
 		E167C3FA15A7FA9A006BA6E2 /* motions_capture_focus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E167C3F815A7FA9A006BA6E2 /* motions_capture_focus@2x.png */; };
 		E1919A7815AC50980034079B /* imageview_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = E1919A7615AC50980034079B /* imageview_placeholder.png */; };
 		E1919A7915AC50980034079B /* imageview_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1919A7715AC50980034079B /* imageview_placeholder@2x.png */; };
+		E1919A7D15AC75570034079B /* login_card_gloom.png in Resources */ = {isa = PBXBuildFile; fileRef = E1919A7B15AC75570034079B /* login_card_gloom.png */; };
+		E1919A7E15AC75570034079B /* login_card_gloom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1919A7C15AC75570034079B /* login_card_gloom@2x.png */; };
+		E1919A8115AC76150034079B /* LoginCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1919A8015AC76140034079B /* LoginCellViewController.m */; };
+		E1919A8315AC76250034079B /* LoginInputCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1919A8215AC76250034079B /* LoginInputCellViewController.xib */; };
 		E1998AF315919BA400BBAC55 /* post_paper_gloom_left.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF115919BA400BBAC55 /* post_paper_gloom_left.png */; };
 		E1998AF415919BA400BBAC55 /* post_paper_gloom_right.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF215919BA400BBAC55 /* post_paper_gloom_right.png */; };
 		E1998AF81592EB5400BBAC55 /* PostNewStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */; };
@@ -758,7 +762,6 @@
 		E1F4EBE115971D24000B84D4 /* button_post_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EBDB15971D24000B84D4 /* button_post_hover@2x.png */; };
 		E1F943EE15AB0EA400C3A75E /* login_view_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F943EC15AB0EA400C3A75E /* login_view_shadow@2x.png */; };
 		E1F943EF15AB0EA400C3A75E /* login_view_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F943ED15AB0EA400C3A75E /* login_view_shadow.png */; };
-		E1F943F615AB263A00C3A75E /* LoginCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1F943F515AB263900C3A75E /* LoginCellViewController.xib */; };
 		E1FE8AFD15A9CFD8009636A4 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE8AFA15A9CDC0009636A4 /* FXLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E1FE8B1515AAD45B009636A4 /* avatar_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = E1FE8B0715AAD45B009636A4 /* avatar_placeholder.png */; };
 		E1FE8B1615AAD45B009636A4 /* avatar_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1FE8B0815AAD45B009636A4 /* avatar_placeholder@2x.png */; };
@@ -970,8 +973,8 @@
 		1890C6A21535A87900023A13 /* ResourceList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResourceList.h; sourceTree = "<group>"; };
 		1890C6B01535B57A00023A13 /* EasyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableView.h; sourceTree = "<group>"; };
 		1890C6B11535B57A00023A13 /* EasyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableView.m; sourceTree = "<group>"; };
-		1890C6B31535BE5100023A13 /* LoginCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCellViewController.h; sourceTree = "<group>"; };
-		1890C6B41535BE5200023A13 /* LoginCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCellViewController.m; sourceTree = "<group>"; };
+		1890C6B31535BE5100023A13 /* LoginInputCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginInputCellViewController.h; sourceTree = "<group>"; };
+		1890C6B41535BE5200023A13 /* LoginInputCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginInputCellViewController.m; sourceTree = "<group>"; };
 		189D9DE015496FA300E922D9 /* UIImageView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Addition.h"; sourceTree = "<group>"; };
 		189D9DE115496FA300E922D9 /* UIImageView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Addition.m"; sourceTree = "<group>"; };
 		189D9E6015A596A100AD72EA /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
@@ -1590,6 +1593,11 @@
 		E167C3F815A7FA9A006BA6E2 /* motions_capture_focus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_capture_focus@2x.png"; sourceTree = "<group>"; };
 		E1919A7615AC50980034079B /* imageview_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageview_placeholder.png; sourceTree = "<group>"; };
 		E1919A7715AC50980034079B /* imageview_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "imageview_placeholder@2x.png"; sourceTree = "<group>"; };
+		E1919A7B15AC75570034079B /* login_card_gloom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_card_gloom.png; sourceTree = "<group>"; };
+		E1919A7C15AC75570034079B /* login_card_gloom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_card_gloom@2x.png"; sourceTree = "<group>"; };
+		E1919A7F15AC76140034079B /* LoginCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCellViewController.h; sourceTree = "<group>"; };
+		E1919A8015AC76140034079B /* LoginCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCellViewController.m; sourceTree = "<group>"; };
+		E1919A8215AC76250034079B /* LoginInputCellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginInputCellViewController.xib; sourceTree = "<group>"; };
 		E1998AF115919BA400BBAC55 /* post_paper_gloom_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post_paper_gloom_left.png; sourceTree = "<group>"; };
 		E1998AF215919BA400BBAC55 /* post_paper_gloom_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post_paper_gloom_right.png; sourceTree = "<group>"; };
 		E1998AF61592EB5400BBAC55 /* PostNewStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostNewStatusViewController.h; sourceTree = "<group>"; };
@@ -1665,7 +1673,6 @@
 		E1F4EBDB15971D24000B84D4 /* button_post_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_post_hover@2x.png"; sourceTree = "<group>"; };
 		E1F943EC15AB0EA400C3A75E /* login_view_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_view_shadow@2x.png"; sourceTree = "<group>"; };
 		E1F943ED15AB0EA400C3A75E /* login_view_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_view_shadow.png; sourceTree = "<group>"; };
-		E1F943F515AB263900C3A75E /* LoginCellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginCellViewController.xib; sourceTree = "<group>"; };
 		E1FE8AF915A9CDBF009636A4 /* FXLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXLabel.h; sourceTree = "<group>"; };
 		E1FE8AFA15A9CDC0009636A4 /* FXLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXLabel.m; sourceTree = "<group>"; };
 		E1FE8B0715AAD45B009636A4 /* avatar_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar_placeholder.png; sourceTree = "<group>"; };
@@ -1938,23 +1945,25 @@
 			children = (
 				1890C6B01535B57A00023A13 /* EasyTableView.h */,
 				1890C6B11535B57A00023A13 /* EasyTableView.m */,
-				1890C68815356BCB00023A13 /* LoginViewController.h */,
-				1890C68915356BCB00023A13 /* LoginViewController.m */,
-				1890C6B31535BE5100023A13 /* LoginCellViewController.h */,
-				1890C6B41535BE5200023A13 /* LoginCellViewController.m */,
-				E1F943F515AB263900C3A75E /* LoginCellViewController.xib */,
+				185785F21536689700C9E1B9 /* EasyTableViewCell.h */,
+				185785F31536689700C9E1B9 /* EasyTableViewCell.m */,
+				E1A59E9215ABE3D8001F0A94 /* LoginBgView.h */,
+				E1A59E9315ABE3D9001F0A94 /* LoginBgView.m */,
+				E1919A7F15AC76140034079B /* LoginCellViewController.h */,
+				E1919A8015AC76140034079B /* LoginCellViewController.m */,
+				1890C6B31535BE5100023A13 /* LoginInputCellViewController.h */,
+				1890C6B41535BE5200023A13 /* LoginInputCellViewController.m */,
+				E1919A8215AC76250034079B /* LoginInputCellViewController.xib */,
 				E1A59E9D15AC125F001F0A94 /* LoginUserCellViewController.h */,
 				E1A59E9E15AC125F001F0A94 /* LoginUserCellViewController.m */,
 				E1A59E9F15AC1260001F0A94 /* LoginUserCellViewController.xib */,
-				E127E91B15ABC7E400A2D749 /* UserSelectionCellViewController.h */,
-				E127E91C15ABC7E400A2D749 /* UserSelectionCellViewController.m */,
-				185785F21536689700C9E1B9 /* EasyTableViewCell.h */,
-				185785F31536689700C9E1B9 /* EasyTableViewCell.m */,
+				1890C68815356BCB00023A13 /* LoginViewController.h */,
+				1890C68915356BCB00023A13 /* LoginViewController.m */,
 				E1FE8B2515AAF099009636A4 /* NewLoginViewController.h */,
 				E1FE8B2615AAF099009636A4 /* NewLoginViewController.m */,
 				E1FE8B2A15AAF0C2009636A4 /* NewLoginViewController.xib */,
-				E1A59E9215ABE3D8001F0A94 /* LoginBgView.h */,
-				E1A59E9315ABE3D9001F0A94 /* LoginBgView.m */,
+				E127E91B15ABC7E400A2D749 /* UserSelectionCellViewController.h */,
+				E127E91C15ABC7E400A2D749 /* UserSelectionCellViewController.m */,
 			);
 			name = LoginComponent;
 			sourceTree = "<group>";
@@ -2448,6 +2457,8 @@
 		18EA4EF115346DFD005ED94F /* login */ = {
 			isa = PBXGroup;
 			children = (
+				E1919A7B15AC75570034079B /* login_card_gloom.png */,
+				E1919A7C15AC75570034079B /* login_card_gloom@2x.png */,
 				E1FE8B0715AAD45B009636A4 /* avatar_placeholder.png */,
 				E1FE8B0815AAD45B009636A4 /* avatar_placeholder@2x.png */,
 				E1919A7615AC50980034079B /* imageview_placeholder.png */,
@@ -3762,10 +3773,12 @@
 				E1FE8B2B15AAF0C2009636A4 /* NewLoginViewController.xib in Resources */,
 				E1F943EE15AB0EA400C3A75E /* login_view_shadow@2x.png in Resources */,
 				E1F943EF15AB0EA400C3A75E /* login_view_shadow.png in Resources */,
-				E1F943F615AB263A00C3A75E /* LoginCellViewController.xib in Resources */,
 				E1A59EA315AC1A8C001F0A94 /* LoginUserCellViewController.xib in Resources */,
 				E1919A7815AC50980034079B /* imageview_placeholder.png in Resources */,
 				E1919A7915AC50980034079B /* imageview_placeholder@2x.png in Resources */,
+				E1919A7D15AC75570034079B /* login_card_gloom.png in Resources */,
+				E1919A7E15AC75570034079B /* login_card_gloom@2x.png in Resources */,
+				E1919A8315AC76250034079B /* LoginInputCellViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3815,7 +3828,7 @@
 				187348821523443B00F562E7 /* WBClient.m in Sources */,
 				1890C68A15356BCB00023A13 /* LoginViewController.m in Sources */,
 				1890C69115356F6F00023A13 /* BaseLayoutView.m in Sources */,
-				1890C6B51535BE5200023A13 /* LoginCellViewController.m in Sources */,
+				1890C6B51535BE5200023A13 /* LoginInputCellViewController.m in Sources */,
 				185785F41536689700C9E1B9 /* EasyTableViewCell.m in Sources */,
 				18DF3734153905A800C783C9 /* BaseNavigationBar.m in Sources */,
 				188BA4EB15398DC900344288 /* BaseCardBackgroundView.m in Sources */,
@@ -3922,6 +3935,7 @@
 				E1A59E9415ABE3DA001F0A94 /* LoginBgView.m in Sources */,
 				E1A59EA215AC1A84001F0A94 /* LoginUserCellViewController.m in Sources */,
 				E1A59EAB15AC24AD001F0A94 /* NSNotificationCenter+Addition.m in Sources */,
+				E1919A8115AC76150034079B /* LoginCellViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
