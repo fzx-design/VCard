@@ -12,6 +12,7 @@
 #import "Group.h"
 #import "NewLoginViewController.h"
 #import "NSNotificationCenter+Addition.h"
+#import "UIApplication+Addition.h"
 
 #define kShelfViewControllerFrame CGRectMake(0.0, -147.0, 768.0, 147.0);
 
@@ -35,6 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     if (self.currentUser == nil) {
         [[[NewLoginViewController alloc] init] show];
     } else {
@@ -60,6 +62,8 @@
 #pragma mark - Setup Notifications
 - (void)setUpViews
 {
+//    [self.view resetOrigin:CGPointZero];
+//    [self.view resetSize:CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight])];
     [self.view addSubview:self.castViewController.view];
     [self.view addSubview:self.shelfViewController.view];
     self.shelfViewController.view.hidden = YES;
