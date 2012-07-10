@@ -1,0 +1,52 @@
+//
+//  LoginBgView.m
+//  VCard
+//
+//  Created by 王 紫川 on 12-7-10.
+//  Copyright (c) 2012年 Mondev. All rights reserved.
+//
+
+#import "LoginBgView.h"
+
+#define SCROLL_VIEW_FRAME CGRectMake(0, 175, 1024, 450)
+#define SCROLL_VIEW_REAL_FRAME CGRectMake(256, 175, 512, 450)
+#define LOGIN_SCROOL_VIEW_TAG   2001
+
+@implementation LoginBgView
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+    }
+    return self;
+}
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+}
+*/
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    __block UIView *subview = [super hitTest:point withEvent:event];
+    
+    if(CGRectContainsPoint(SCROLL_VIEW_FRAME, point)) {
+        [[self subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            UIView *view = obj;
+            if(view.tag == LOGIN_SCROOL_VIEW_TAG) {
+                subview = view;
+                *stop = YES;
+            }
+        }];
+        if(CGRectContainsPoint(SCROLL_VIEW_REAL_FRAME, point))
+            subview = [subview hitTest:[subview convertPoint:point fromView:self] withEvent:event];
+    }
+    return subview;
+}
+
+@end

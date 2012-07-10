@@ -104,7 +104,7 @@
 							</object>
 							<object class="IBUILabel" id="514017627">
 								<reference key="NSNextResponder" ref="19742546"/>
-								<int key="NSvFlags">269</int>
+								<int key="NSvFlags">301</int>
 								<string key="NSFrame">{{462, 690}, {100, 24}}</string>
 								<reference key="NSSuperview" ref="19742546"/>
 								<reference key="NSNextKeyView" ref="13028397"/>
@@ -138,7 +138,7 @@
 							</object>
 							<object class="IBUIImageView" id="395839130">
 								<reference key="NSNextResponder" ref="19742546"/>
-								<int key="NSvFlags">293</int>
+								<int key="NSvFlags">301</int>
 								<string key="NSFrame">{{400, 50}, {224, 74}}</string>
 								<reference key="NSSuperview" ref="19742546"/>
 								<reference key="NSNextKeyView" ref="478749213"/>
@@ -152,12 +152,12 @@
 							</object>
 							<object class="IBUIScrollView" id="478749213">
 								<reference key="NSNextResponder" ref="19742546"/>
-								<int key="NSvFlags">295</int>
-								<string key="NSFrame">{{0, 161}, {1024, 478}}</string>
+								<int key="NSvFlags">303</int>
+								<string key="NSFrame">{{256, 175}, {512, 450}}</string>
 								<reference key="NSSuperview" ref="19742546"/>
 								<reference key="NSNextKeyView" ref="514017627"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUITag">2001</int>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<bool key="IBUIPagingEnabled">YES</bool>
 								<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
@@ -313,6 +313,7 @@
 				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="125.CustomClassName">LoginBgView</string>
 				<string key="125.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="179.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="1" key="179.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>

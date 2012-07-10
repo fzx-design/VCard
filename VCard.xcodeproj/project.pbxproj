@@ -691,6 +691,7 @@
 		E1998AF315919BA400BBAC55 /* post_paper_gloom_left.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF115919BA400BBAC55 /* post_paper_gloom_left.png */; };
 		E1998AF415919BA400BBAC55 /* post_paper_gloom_right.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF215919BA400BBAC55 /* post_paper_gloom_right.png */; };
 		E1998AF81592EB5400BBAC55 /* PostNewStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */; };
+		E1A59E9415ABE3DA001F0A94 /* LoginBgView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A59E9315ABE3D9001F0A94 /* LoginBgView.m */; };
 		E1A7EFDC15936D4B00E2B900 /* PostRepostCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */; };
 		E1AF111E15A01A67004236ED /* MotionsFilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AF111815A01A67004236ED /* MotionsFilterCell.m */; };
 		E1AF111F15A01A67004236ED /* MotionsFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1AF111915A01A67004236ED /* MotionsFilterCell.xib */; };
@@ -1549,7 +1550,7 @@
 		E122D531159DAA6600E17D3B /* MotionsFilterReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsFilterReader.h; sourceTree = "<group>"; };
 		E122D532159DAA6700E17D3B /* MotionsFilterReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsFilterReader.m; sourceTree = "<group>"; };
 		E122D535159DAACB00E17D3B /* MotionsFilterInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MotionsFilterInfo.plist; sourceTree = "<group>"; };
-		E127E91B15ABC7E400A2D749 /* UserSelectionCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = UserSelectionCellViewController.h; sourceTree = "<group>"; };
+		E127E91B15ABC7E400A2D749 /* UserSelectionCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSelectionCellViewController.h; sourceTree = "<group>"; };
 		E127E91C15ABC7E400A2D749 /* UserSelectionCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSelectionCellViewController.m; sourceTree = "<group>"; };
 		E12B6FDA1599663A00711A6B /* MultiInterfaceOrientationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiInterfaceOrientationViewController.h; sourceTree = "<group>"; };
 		E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiInterfaceOrientationViewController.m; sourceTree = "<group>"; };
@@ -1588,6 +1589,8 @@
 		E1998AF61592EB5400BBAC55 /* PostNewStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostNewStatusViewController.h; sourceTree = "<group>"; };
 		E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostNewStatusViewController.m; sourceTree = "<group>"; };
 		E1998AFC1592EBAD00BBAC55 /* PostRepostCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostRepostCommentViewController.h; sourceTree = "<group>"; };
+		E1A59E9215ABE3D8001F0A94 /* LoginBgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginBgView.h; sourceTree = "<group>"; };
+		E1A59E9315ABE3D9001F0A94 /* LoginBgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginBgView.m; sourceTree = "<group>"; };
 		E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostRepostCommentViewController.m; sourceTree = "<group>"; };
 		E1AF111715A01A67004236ED /* MotionsFilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsFilterCell.h; sourceTree = "<group>"; };
 		E1AF111815A01A67004236ED /* MotionsFilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsFilterCell.m; sourceTree = "<group>"; };
@@ -1936,6 +1939,8 @@
 				E1FE8B2515AAF099009636A4 /* NewLoginViewController.h */,
 				E1FE8B2615AAF099009636A4 /* NewLoginViewController.m */,
 				E1FE8B2A15AAF0C2009636A4 /* NewLoginViewController.xib */,
+				E1A59E9215ABE3D8001F0A94 /* LoginBgView.h */,
+				E1A59E9315ABE3D9001F0A94 /* LoginBgView.m */,
 			);
 			name = LoginComponent;
 			sourceTree = "<group>";
@@ -3893,6 +3898,7 @@
 				E1FE8B2815AAF09A009636A4 /* NewLoginViewController.m in Sources */,
 				E127E91615AB2A7000A2D749 /* EasyTableView.m in Sources */,
 				E127E91D15ABC7E500A2D749 /* UserSelectionCellViewController.m in Sources */,
+				E1A59E9415ABE3DA001F0A94 /* LoginBgView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
