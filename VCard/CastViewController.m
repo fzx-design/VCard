@@ -75,6 +75,7 @@
     [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
     _coreDataIdentifier = kCoreDataIdentifierDefault;
     [self setUpVariables];
+    [self initialLoad];
 }
 
 - (void)setUpVariables

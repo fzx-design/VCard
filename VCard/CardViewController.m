@@ -63,6 +63,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     BOOL _imageAlreadyLoaded;
     CGFloat _lastScale;
     CGFloat _scale;
+    CGFloat _currentScale;
     CGPoint _lastPoint;
     UIPinchGestureRecognizer *_pinchGestureRecognizer;
     UIRotationGestureRecognizer *_rotationGestureRecognizer;
@@ -726,7 +727,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
     if (sender.state == UIGestureRecognizerStateBegan) {
         _lastScale = 1.0;
         _scale = 1.0;
-        _lastPoint = [sender locationInView:self.statusImageView];
+        _currentScale = 1.0;
+        _lastPoint = [sender locationInView:[UIApplication sharedApplication].rootViewController.view];
         
         if (_imageViewMode == CastViewImageViewModeNormal) {
             [self playClipLooseAnimationAndSendNotification];
@@ -740,28 +742,41 @@ static inline NSRegularExpression * UrlRegularExpression() {
     }
         
     if (sender.state == UIGestureRecognizerStateEnded || (sender.state == UIGestureRecognizerStateChanged && sender.numberOfTouches < 2)) {
-        if (_scale < 1.5) {
+        
+        self.statusImageView.userInteractionEnabled = NO;
+        self.statusImageView.userInteractionEnabled = YES;
+        
+        if (_scale < 1.2 && sender.velocity < 2) {
             [self returnToInitialImageView];
             return;
         } else {
-            if ([_delegate respondsToSelector:@selector(enterDetailedImageViewMode)]) {
-                [_delegate enterDetailedImageViewMode];
+            if ([_delegate respondsToSelector:@selector(enterDetailedImageViewMode:)]) {
+                [_delegate enterDetailedImageViewMode:_scale];
             }
             return;
         }
     }
     
     CGFloat scale = 1.0 - (_lastScale - sender.scale);
+//    if (_currentScale < self.statusImageView.targetScale) {
+        [self.statusImageView setTransform:CGAffineTransformScale([self.statusImageView.layer affineTransform], scale, scale)];
+//    }
+    _currentScale *= scale;
+    
     _scale += sender.scale - _lastScale;
-    if (_scale < 1.5) {
-        [self.statusImageView.layer setAffineTransform:CGAffineTransformScale([self.statusImageView.layer affineTransform], scale, scale)];
-    }    
     _lastScale = sender.scale;
     
-    CGPoint point = [sender locationInView:self.statusImageView];
-    [self.statusImageView.layer setAffineTransform:CGAffineTransformTranslate([self.statusImageView.layer affineTransform], point.x - _lastPoint.x, point.y - _lastPoint.y)];
-    _lastPoint = [sender locationInView:self.statusImageView];
-//    NSLog(@"%@, %@", NSStringFromCGRect(self.statusImageView.layer.frame), NSStringFromCGRect(self.statusImageView.frame));
+    CGPoint point = [sender locationInView:[UIApplication sharedApplication].rootViewController.view];
+    
+    CGFloat deltaX = point.x - _lastPoint.x;
+    CGFloat deltaY = point.y - _lastPoint.y;
+    
+    CGPoint _lastCenter = self.statusImageView.center;
+    _lastCenter.x += deltaX;
+    _lastCenter.y += deltaY;
+    
+    self.statusImageView.center = _lastCenter;
+    _lastPoint = [sender locationInView:[UIApplication sharedApplication].rootViewController.view];
     
     [self.statusImageView pinchResizeToScale:_scale];
     
@@ -813,9 +828,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 
 - (void)playClipLooseAnimationAndSendNotification
 {
-    _imageViewMode = CastViewImageViewModeAnimatingClip;
-    
-    [self performSelector:@selector(willOpenDetailImageView) withObject:nil afterDelay:0.3];
+    [self willOpenDetailImageView];
     
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
     rotationAnimation.toValue = [NSNumber numberWithFloat:1.1];
@@ -825,7 +838,16 @@ static inline NSRegularExpression * UrlRegularExpression() {
     rotationAnimation.duration = 0.3;
     
     [self.clipImageView.layer removeAllAnimations];
-    [self.clipImageView.layer addAnimation:rotationAnimation forKey:@"swingAnimation"];
+    [self.clipImageView.layer addAnimation:rotationAnimation forKey:@"rotation"];
+    
+    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeOutAnimation.fromValue = [NSNumber numberWithFloat:1];
+    fadeOutAnimation.toValue = [NSNumber numberWithFloat:0];
+    fadeOutAnimation.duration = 0.3;
+    fadeOutAnimation.removedOnCompletion = NO;
+    
+    [self.clipImageView.layer addAnimation:fadeOutAnimation forKey:@"opacity"];
+    self.clipImageView.layer.opacity = 0;
 }
 
 - (void)playClipTightenAnimation
@@ -840,7 +862,16 @@ static inline NSRegularExpression * UrlRegularExpression() {
     rotationAnimation.duration = 0.3;
     
     [self.clipImageView.layer removeAllAnimations];
-    [self.clipImageView.layer addAnimation:rotationAnimation forKey:@"swingAnimation"];
+    [self.clipImageView.layer addAnimation:rotationAnimation forKey:@"rotation"];
+    
+    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeOutAnimation.fromValue = [NSNumber numberWithFloat:0];
+    fadeOutAnimation.toValue = [NSNumber numberWithFloat:1];
+    fadeOutAnimation.duration = 0.3;
+    fadeOutAnimation.removedOnCompletion = NO;
+    
+    [self.clipImageView.layer addAnimation:fadeOutAnimation forKey:@"opacity"];
+    self.clipImageView.layer.opacity = 1;
 }
 
 @end

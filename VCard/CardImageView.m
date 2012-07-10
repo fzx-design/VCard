@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+URL.h"
 #import "UIView+Resize.h"
+#import "UIApplication+Addition.h"
 
 @implementation CardImageView
 
@@ -66,7 +67,7 @@
 - (void)pinchResizeToScale:(CGFloat)scale
 {
     scale -= 1.0;
-    if (scale > 0.0 && scale < 0.5) {
+    if (scale > 0.0 && scale <= 0.5) {
         scale /= 0.5;
         if (_deltaWidth != 0.0) {
             [self.imageView resetWidth:_initialSize.width + scale * _deltaWidth];
@@ -78,41 +79,19 @@
     }
 }
 
-- (UIImageView*)imageView
+- (void)playReturnAnimation
 {
-    if (!_imageView) {
-        _imageView = [[UIImageView alloc] initWithFrame:self.frame];
-        _imageView.contentMode = UIViewContentModeScaleAspectFill;
-        _imageView.clipsToBounds = YES;
-        _imageView.backgroundColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0];
-        [self addSubview:_imageView];
-    }
-    return _imageView;
+    self.transform = CGAffineTransformIdentity;
+    [self.imageView resetSize:_initialSize];
+    [self.coverView resetSize:CGSizeMake(_initialSize.width + 10.0, _initialSize.height + 10.0)];
 }
 
--(UIImageView *)coverView
+- (void)returnToInitialPosition
 {
-    if (!_coverView) {
-        _coverView = [[UIImageView alloc] initWithFrame:CGRectMake(-5, -4, self.frame.size.width + 10.0, self.frame.size.height + 10.0)];
-        self.coverView.image = [[UIImage imageNamed:@"card_image_edge.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(7.0, 8.0, 9.0, 8.0)];
-        _coverView.contentMode = UIViewContentModeScaleToFill;
-        _coverView.clipsToBounds = YES;
-        [self insertSubview:_coverView aboveSubview:_imageView];
-    }
-    return _coverView;
-}
-
-- (UIImageView *)gifIcon
-{
-    if (!_gifIcon) {
-        _gifIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kRLIconGif]];
-        _gifIcon.contentMode = UIViewContentModeTop;
-        _gifIcon.hidden = YES;
-        
-        [_gifIcon resetSize:CGSizeMake(32.0, 20.0)];
-        [self addSubview:_gifIcon];
-    }
-    return _gifIcon;
+    [self resetOrigin:_initialPosition];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.transform = CGAffineTransformMakeRotation(_initialRotation);
+    }];
 }
 
 - (void)loadImageFromURL:(NSString *)urlString 
@@ -134,15 +113,24 @@
         CGFloat scaledWidth = 0.0;
         CGFloat scaledHeight = 0.0;
         
-        if (widthFactor > heightFactor) 
+        if (widthFactor > heightFactor)
             scaleFactor = widthFactor; // scale to fit height
         else
             scaleFactor = heightFactor; // scale to fit width
+        
         scaledWidth  = width * scaleFactor;
         scaledHeight = height * scaleFactor;
         
         _deltaWidth = scaledWidth - targetWidth;
         _deltaHeight = scaledHeight - targetHeight;
+        
+        widthFactor = [UIApplication screenWidth] / scaledWidth;
+        heightFactor = [UIApplication screenHeight] / scaledHeight;
+        
+        if (widthFactor > heightFactor)
+            _targetScale = heightFactor; // scale to fit height
+        else
+            _targetScale = widthFactor; // scale to fit width
     }];
     
 }
@@ -190,20 +178,46 @@
     return self.imageView.image;
 }
 
-- (void)playReturnAnimation
+- (CGSize)targetSize
 {
-    self.transform = CGAffineTransformIdentity;
-//    self.layer.frame = _initialFrame;
-    [self.imageView resetSize:_initialSize];
-    [self.coverView resetSize:CGSizeMake(_initialSize.width + 10.0, _initialSize.height + 10.0)];
+    return CGSizeMake(_initialSize.width +  _deltaWidth, _initialSize.height +  _deltaHeight);
 }
 
-- (void)returnToInitialPosition
+- (UIImageView*)imageView
 {
-    [self resetOrigin:_initialPosition];
-    [UIView animateWithDuration:0.3 animations:^{
-        self.transform = CGAffineTransformMakeRotation(_initialRotation);
-    }];
+    if (!_imageView) {
+        _imageView = [[UIImageView alloc] initWithFrame:self.frame];
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
+        _imageView.clipsToBounds = YES;
+        _imageView.backgroundColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0];
+        [self addSubview:_imageView];
+    }
+    return _imageView;
+}
+
+-(UIImageView *)coverView
+{
+    if (!_coverView) {
+        _coverView = [[UIImageView alloc] initWithFrame:CGRectMake(-5, -4, self.frame.size.width + 10.0, self.frame.size.height + 10.0)];
+        self.coverView.image = [[UIImage imageNamed:@"card_image_edge.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(7.0, 8.0, 9.0, 8.0)];
+        _coverView.contentMode = UIViewContentModeScaleToFill;
+        _coverView.clipsToBounds = YES;
+        [self insertSubview:_coverView aboveSubview:_imageView];
+    }
+    return _coverView;
+}
+
+- (UIImageView *)gifIcon
+{
+    if (!_gifIcon) {
+        _gifIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kRLIconGif]];
+        _gifIcon.contentMode = UIViewContentModeTop;
+        _gifIcon.hidden = YES;
+        
+        [_gifIcon resetSize:CGSizeMake(32.0, 20.0)];
+        [self addSubview:_gifIcon];
+    }
+    return _gifIcon;
 }
 
 @end

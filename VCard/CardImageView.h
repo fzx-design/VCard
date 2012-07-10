@@ -29,6 +29,7 @@
 @property (nonatomic, strong) UIImageView *detailedImageView;
 @property (nonatomic, strong) UIImageView *gifIcon;
 @property (nonatomic, readonly) UIImage *image;
+@property (nonatomic, assign) CGFloat targetScale;
 
 - (void)resetHeight:(CGFloat)height;
 
@@ -43,5 +44,6 @@
 - (void)playReturnAnimation;
 - (void)returnToInitialPosition;
 - (void)pinchResizeToScale:(CGFloat)scale;
+- (CGSize)targetSize;
 
 @end
