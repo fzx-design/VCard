@@ -139,8 +139,7 @@
 		188E53081596EB6B00A30AB8 /* SelfCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E53071596EB6B00A30AB8 /* SelfCommentTableViewCell.m */; };
 		1890C68A15356BCB00023A13 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C68915356BCB00023A13 /* LoginViewController.m */; };
 		1890C69115356F6F00023A13 /* BaseLayoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C69015356F6F00023A13 /* BaseLayoutView.m */; };
-		1890C6B21535B57B00023A13 /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B11535B57A00023A13 /* EasyTableView.m */; };
-		1890C6B51535BE5200023A13 /* UserSelectionCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B41535BE5200023A13 /* UserSelectionCellViewController.m */; };
+		1890C6B51535BE5200023A13 /* LoginCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B41535BE5200023A13 /* LoginCellViewController.m */; };
 		189D9DE215496FA300E922D9 /* UIImageViewAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D9DE115496FA300E922D9 /* UIImageViewAddition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		189D9E6215A596A100AD72EA /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D9E6115A596A100AD72EA /* Group.m */; };
 		189F394B159D40CC00FD2E0F /* UnreadReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F394A159D40CC00FD2E0F /* UnreadReminder.m */; };
@@ -656,6 +655,8 @@
 		E111D757159B34E000C68A5C /* motions_slider_thumb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E111D755159B34E000C68A5C /* motions_slider_thumb@2x.png */; };
 		E122D533159DAA6800E17D3B /* MotionsFilterReader.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D532159DAA6700E17D3B /* MotionsFilterReader.m */; };
 		E122D536159DAACC00E17D3B /* MotionsFilterInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = E122D535159DAACB00E17D3B /* MotionsFilterInfo.plist */; };
+		E127E91615AB2A7000A2D749 /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B11535B57A00023A13 /* EasyTableView.m */; };
+		E127E91D15ABC7E500A2D749 /* UserSelectionCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E127E91C15ABC7E400A2D749 /* UserSelectionCellViewController.m */; };
 		E12B6FDC1599663B00711A6B /* MultiInterfaceOrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */; };
 		E12B6FED159992D700711A6B /* MotionsViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B6315995114006A9CFD /* MotionsViewController-landscape.xib */; };
 		E135F7DB155E6196008494D8 /* button_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C3155E6196008494D8 /* button_delete.png */; };
@@ -751,6 +752,7 @@
 		E1F4EBE115971D24000B84D4 /* button_post_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EBDB15971D24000B84D4 /* button_post_hover@2x.png */; };
 		E1F943EE15AB0EA400C3A75E /* login_view_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F943EC15AB0EA400C3A75E /* login_view_shadow@2x.png */; };
 		E1F943EF15AB0EA400C3A75E /* login_view_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F943ED15AB0EA400C3A75E /* login_view_shadow.png */; };
+		E1F943F615AB263A00C3A75E /* LoginCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1F943F515AB263900C3A75E /* LoginCellViewController.xib */; };
 		E1FE8AFB15A9CDC0009636A4 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE8AFA15A9CDC0009636A4 /* FXLabel.m */; };
 		E1FE8AFD15A9CFD8009636A4 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE8AFA15A9CDC0009636A4 /* FXLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E1FE8B1515AAD45B009636A4 /* avatar_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = E1FE8B0715AAD45B009636A4 /* avatar_placeholder.png */; };
@@ -963,8 +965,8 @@
 		1890C6A21535A87900023A13 /* ResourceList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResourceList.h; sourceTree = "<group>"; };
 		1890C6B01535B57A00023A13 /* EasyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableView.h; sourceTree = "<group>"; };
 		1890C6B11535B57A00023A13 /* EasyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableView.m; sourceTree = "<group>"; };
-		1890C6B31535BE5100023A13 /* UserSelectionCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSelectionCellViewController.h; sourceTree = "<group>"; };
-		1890C6B41535BE5200023A13 /* UserSelectionCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSelectionCellViewController.m; sourceTree = "<group>"; };
+		1890C6B31535BE5100023A13 /* LoginCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCellViewController.h; sourceTree = "<group>"; };
+		1890C6B41535BE5200023A13 /* LoginCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCellViewController.m; sourceTree = "<group>"; };
 		189D9DE015496FA300E922D9 /* UIImageViewAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewAddition.h; sourceTree = "<group>"; };
 		189D9DE115496FA300E922D9 /* UIImageViewAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewAddition.m; sourceTree = "<group>"; };
 		189D9E6015A596A100AD72EA /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
@@ -1547,6 +1549,8 @@
 		E122D531159DAA6600E17D3B /* MotionsFilterReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsFilterReader.h; sourceTree = "<group>"; };
 		E122D532159DAA6700E17D3B /* MotionsFilterReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsFilterReader.m; sourceTree = "<group>"; };
 		E122D535159DAACB00E17D3B /* MotionsFilterInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MotionsFilterInfo.plist; sourceTree = "<group>"; };
+		E127E91B15ABC7E400A2D749 /* UserSelectionCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = UserSelectionCellViewController.h; sourceTree = "<group>"; };
+		E127E91C15ABC7E400A2D749 /* UserSelectionCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSelectionCellViewController.m; sourceTree = "<group>"; };
 		E12B6FDA1599663A00711A6B /* MultiInterfaceOrientationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiInterfaceOrientationViewController.h; sourceTree = "<group>"; };
 		E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiInterfaceOrientationViewController.m; sourceTree = "<group>"; };
 		E135F7C3155E6196008494D8 /* button_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_delete.png; sourceTree = "<group>"; };
@@ -1647,6 +1651,7 @@
 		E1F4EBDB15971D24000B84D4 /* button_post_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_post_hover@2x.png"; sourceTree = "<group>"; };
 		E1F943EC15AB0EA400C3A75E /* login_view_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_view_shadow@2x.png"; sourceTree = "<group>"; };
 		E1F943ED15AB0EA400C3A75E /* login_view_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_view_shadow.png; sourceTree = "<group>"; };
+		E1F943F515AB263900C3A75E /* LoginCellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginCellViewController.xib; sourceTree = "<group>"; };
 		E1FE8AF915A9CDBF009636A4 /* FXLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXLabel.h; sourceTree = "<group>"; };
 		E1FE8AFA15A9CDC0009636A4 /* FXLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXLabel.m; sourceTree = "<group>"; };
 		E1FE8B0715AAD45B009636A4 /* avatar_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar_placeholder.png; sourceTree = "<group>"; };
@@ -1921,8 +1926,11 @@
 				1890C6B11535B57A00023A13 /* EasyTableView.m */,
 				1890C68815356BCB00023A13 /* LoginViewController.h */,
 				1890C68915356BCB00023A13 /* LoginViewController.m */,
-				1890C6B31535BE5100023A13 /* UserSelectionCellViewController.h */,
-				1890C6B41535BE5200023A13 /* UserSelectionCellViewController.m */,
+				1890C6B31535BE5100023A13 /* LoginCellViewController.h */,
+				1890C6B41535BE5200023A13 /* LoginCellViewController.m */,
+				E1F943F515AB263900C3A75E /* LoginCellViewController.xib */,
+				E127E91B15ABC7E400A2D749 /* UserSelectionCellViewController.h */,
+				E127E91C15ABC7E400A2D749 /* UserSelectionCellViewController.m */,
 				185785F21536689700C9E1B9 /* EasyTableViewCell.h */,
 				185785F31536689700C9E1B9 /* EasyTableViewCell.m */,
 				E1FE8B2515AAF099009636A4 /* NewLoginViewController.h */,
@@ -3731,6 +3739,7 @@
 				E1FE8B2B15AAF0C2009636A4 /* NewLoginViewController.xib in Resources */,
 				E1F943EE15AB0EA400C3A75E /* login_view_shadow@2x.png in Resources */,
 				E1F943EF15AB0EA400C3A75E /* login_view_shadow.png in Resources */,
+				E1F943F615AB263A00C3A75E /* LoginCellViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3780,8 +3789,7 @@
 				187348821523443B00F562E7 /* WBClient.m in Sources */,
 				1890C68A15356BCB00023A13 /* LoginViewController.m in Sources */,
 				1890C69115356F6F00023A13 /* BaseLayoutView.m in Sources */,
-				1890C6B21535B57B00023A13 /* EasyTableView.m in Sources */,
-				1890C6B51535BE5200023A13 /* UserSelectionCellViewController.m in Sources */,
+				1890C6B51535BE5200023A13 /* LoginCellViewController.m in Sources */,
 				185785F41536689700C9E1B9 /* EasyTableViewCell.m in Sources */,
 				18DF3734153905A800C783C9 /* BaseNavigationBar.m in Sources */,
 				188BA4EB15398DC900344288 /* BaseCardBackgroundView.m in Sources */,
@@ -3883,6 +3891,8 @@
 				1846F04815A72FAA00E5CF47 /* DetailImageViewController.m in Sources */,
 				E1FE8AFD15A9CFD8009636A4 /* FXLabel.m in Sources */,
 				E1FE8B2815AAF09A009636A4 /* NewLoginViewController.m in Sources */,
+				E127E91615AB2A7000A2D749 /* EasyTableView.m in Sources */,
+				E127E91D15ABC7E500A2D749 /* UserSelectionCellViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

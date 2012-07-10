@@ -18,6 +18,7 @@
 
 @synthesize registerButton = _registerButton;
 @synthesize bgView = _bgView;
+@synthesize scrollView = _scrollView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,6 +43,7 @@
     // Dispose of any resources that can be recreated.
     self.bgView = nil;
     self.registerButton = nil;
+    self.scrollView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -53,6 +55,12 @@
 
 - (void)configureUI {
     [ThemeResourceProvider configButtonPaperLight:self.registerButton];
+    self.view.frame = CGRectMake(0, 0, [UIApplication screenWidth], [UIApplication screenHeight]);
+    
+    [self configureScrollView];
+}
+
+- (void)configureScrollView {
 }
 
 - (void)show {
@@ -83,6 +91,16 @@
     } completion:^(BOOL finished) {
     }];
     [UIApplication dismissModalViewControllerAnimated:NO duration:0.7f];
+}
+
+#pragma mark - UIScrollView delegate
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
 }
 
 @end

@@ -29,7 +29,7 @@
 {
     if (!_userSelectionCellViewController) {
                 
-        _userSelectionCellViewController = [storyboard instantiateViewControllerWithIdentifier:@"UserSelectionCellViewController"];
+        _userSelectionCellViewController = [[UserSelectionCellViewController alloc] init];
 //        _userSelectionCellViewController.view.autoresizingMask = UIViewAutoresizingNone ;
         _userSelectionCellViewController.view.tag = CELL_CONTENT_TAG;
 

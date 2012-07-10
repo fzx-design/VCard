@@ -264,15 +264,16 @@
     cell.bounds	= CGRectMake(0, 0, self.bounds.size.height, _cellWidthOrHeight);
 }
 
+- (NSString *)customCellClassName {
+    return @"EasyTableViewCell";
+}
 
-- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
-{
-    static NSString *CellIdentifier = @"EasyTableViewCell";
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
+    NSString *cellIdentifier = [self customCellClassName] ? [self customCellClassName] : @"EasyTableViewCell";
     
-    UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell = [[EasyTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier storyBoard:self.mainStoryboard];
+        cell  = [[EasyTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
 		
 		[self setCell:cell boundsForOrientation:_orientation];
 		

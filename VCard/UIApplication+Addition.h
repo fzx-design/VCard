@@ -24,7 +24,7 @@
 + (CGFloat)heightExcludingTopBar;
 + (CGFloat)screenWidth;
 + (CGFloat)screenHeight;
-+ (UIInterfaceOrientation)currentOrientation;
++ (BOOL)isCurrentOrientationLandscape;
 
 + (UIPopoverController *)getAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate;
 + (UIPopoverController *)showAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate;

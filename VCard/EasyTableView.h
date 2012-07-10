@@ -72,7 +72,6 @@ typedef enum {
 @property (nonatomic, readonly) EasyTableViewOrientation orientation;
 @property (nonatomic, assign) CGPoint contentOffset;
 @property (nonatomic, assign) NSUInteger numberOfCells;
-
 @property (nonatomic, strong) UIStoryboard *mainStoryboard;
 
 - (id)initWithFrame:(CGRect)frame numberOfColumns:(NSUInteger)numCells ofWidth:(CGFloat)cellWidth;
@@ -81,5 +80,6 @@ typedef enum {
 - (void)selectCellAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated;
 - (UIView *)viewAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath*)indexPathForView:(UIView *)cell;
+- (NSString *)customCellClassName;
 
 @end
