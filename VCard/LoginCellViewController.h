@@ -12,16 +12,9 @@
 #define kNotificationNameLoginTextFieldShouldEndEditing @"kNotificationNameLoginTextFieldShouldEndEditing"
 #define kNotificationNameLoginInfoAuthorized @"kNotificationNameLoginInfoAuthorized"
 
-@interface LoginCellViewController : UIViewController <UITextFieldDelegate> {
-    UIImageView * _avatarImageView;
-    UIImageView * _avatarImageViewBG;
-    UITextField * _userNameTextField;
-    UITextField * _userPasswordTextField;
-    UIButton *_loginButton;
-}
+@interface LoginCellViewController : UIViewController <UITextFieldDelegate>
 
 @property (nonatomic, strong) IBOutlet UIImageView *avatarImageView;
-@property (nonatomic, strong) IBOutlet UIImageView *avatarImageViewBG;
 @property (nonatomic, strong) IBOutlet UITextField *userNameTextField;
 @property (nonatomic, strong) IBOutlet UITextField *userPasswordTextField;
 @property (nonatomic, strong) IBOutlet UIButton *loginButton;

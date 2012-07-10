@@ -29,7 +29,6 @@ typedef enum {
 
 @implementation LoginCellViewController
 
-@synthesize avatarImageViewBG = _avatarImageViewBG;
 @synthesize avatarImageView = _avatarImageView;
 @synthesize userNameTextField = _userNameTextField;
 @synthesize userPasswordTextField = _userPasswordTextField;
@@ -52,17 +51,9 @@ typedef enum {
     _shouldLowerKeyboard = YES;
     _currentActiveTextfield = ActiveTextfieldNone;
     
-    _userNameTextField.delegate = self;
-    _userPasswordTextField.delegate = self;
-    
     _avatarImageView.image = [UIImage imageNamed:kRLAvatarPlaceHolder];
     _avatarImageView.layer.masksToBounds = YES;
-    _avatarImageView.layer.cornerRadius = CornerRadius;
-    
-    _avatarImageViewBG.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
-    _avatarImageViewBG.layer.masksToBounds = YES;
-    _avatarImageViewBG.layer.cornerRadius = CornerRadius;
-    
+    _avatarImageView.layer.cornerRadius = CornerRadius;    
 }
 
 - (void)viewDidUnload

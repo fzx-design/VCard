@@ -143,6 +143,13 @@
 
 #pragma mark - Logic methods
 
+- (void)setCurrentCellIndex:(NSUInteger)currentCellIndex {
+    if(_currentCellIndex != currentCellIndex) {
+        [self.view endEditing:YES];
+    }
+    _currentCellIndex = currentCellIndex;
+}
+
 - (NSUInteger)numberOfCellsInScrollView {
     return 4;
 }

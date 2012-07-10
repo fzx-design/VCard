@@ -692,6 +692,8 @@
 		E1998AF415919BA400BBAC55 /* post_paper_gloom_right.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF215919BA400BBAC55 /* post_paper_gloom_right.png */; };
 		E1998AF81592EB5400BBAC55 /* PostNewStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */; };
 		E1A59E9415ABE3DA001F0A94 /* LoginBgView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A59E9315ABE3D9001F0A94 /* LoginBgView.m */; };
+		E1A59EA015AC1261001F0A94 /* LoginUserCellViewControlle.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A59E9E15AC125F001F0A94 /* LoginUserCellViewControlle.m */; };
+		E1A59EA115AC1261001F0A94 /* LoginUserCellViewControlle.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A59E9F15AC1260001F0A94 /* LoginUserCellViewControlle.xib */; };
 		E1A7EFDC15936D4B00E2B900 /* PostRepostCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */; };
 		E1AF111E15A01A67004236ED /* MotionsFilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AF111815A01A67004236ED /* MotionsFilterCell.m */; };
 		E1AF111F15A01A67004236ED /* MotionsFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1AF111915A01A67004236ED /* MotionsFilterCell.xib */; };
@@ -1591,6 +1593,9 @@
 		E1998AFC1592EBAD00BBAC55 /* PostRepostCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostRepostCommentViewController.h; sourceTree = "<group>"; };
 		E1A59E9215ABE3D8001F0A94 /* LoginBgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginBgView.h; sourceTree = "<group>"; };
 		E1A59E9315ABE3D9001F0A94 /* LoginBgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginBgView.m; sourceTree = "<group>"; };
+		E1A59E9D15AC125F001F0A94 /* LoginUserCellViewControlle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginUserCellViewControlle.h; sourceTree = "<group>"; };
+		E1A59E9E15AC125F001F0A94 /* LoginUserCellViewControlle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginUserCellViewControlle.m; sourceTree = "<group>"; };
+		E1A59E9F15AC1260001F0A94 /* LoginUserCellViewControlle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginUserCellViewControlle.xib; sourceTree = "<group>"; };
 		E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostRepostCommentViewController.m; sourceTree = "<group>"; };
 		E1AF111715A01A67004236ED /* MotionsFilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsFilterCell.h; sourceTree = "<group>"; };
 		E1AF111815A01A67004236ED /* MotionsFilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsFilterCell.m; sourceTree = "<group>"; };
@@ -1932,6 +1937,9 @@
 				1890C6B31535BE5100023A13 /* LoginCellViewController.h */,
 				1890C6B41535BE5200023A13 /* LoginCellViewController.m */,
 				E1F943F515AB263900C3A75E /* LoginCellViewController.xib */,
+				E1A59E9D15AC125F001F0A94 /* LoginUserCellViewControlle.h */,
+				E1A59E9E15AC125F001F0A94 /* LoginUserCellViewControlle.m */,
+				E1A59E9F15AC1260001F0A94 /* LoginUserCellViewControlle.xib */,
 				E127E91B15ABC7E400A2D749 /* UserSelectionCellViewController.h */,
 				E127E91C15ABC7E400A2D749 /* UserSelectionCellViewController.m */,
 				185785F21536689700C9E1B9 /* EasyTableViewCell.h */,
@@ -3753,6 +3761,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				181AB93315230AC1007A2A51 /* InfoPlist.strings in Resources */,
+				E1A59EA115AC1261001F0A94 /* LoginUserCellViewControlle.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3909,6 +3918,7 @@
 				181AB93615230AC1007A2A51 /* VCardTests.m in Sources */,
 				E1BCBFBD159D565B0086FA7E /* MotionsSlider.m in Sources */,
 				E1FE8AFB15A9CDC0009636A4 /* FXLabel.m in Sources */,
+				E1A59EA015AC1261001F0A94 /* LoginUserCellViewControlle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
