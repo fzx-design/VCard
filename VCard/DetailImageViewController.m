@@ -121,7 +121,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
     
     CGFloat scale = sqrt(_imageView.transform.a * _imageView.transform.a + _imageView.transform.c * _imageView.transform.c);
-    CGFloat targetScale = _imageView.targetScale;
+    CGFloat targetScale = [UIApplication isCurrentOrientationLandscape] ? _imageView.targetHorizontalScale : _imageView.targetVerticalScale;
     
     [_imageView pinchResizeToScale:1.5];
         
@@ -177,32 +177,32 @@
 }
 
 #pragma mark - ScrollView Delegate
-//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-//{
-//    return _imageView;
-//}
-//
-//- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view
-//{
-//    CGSize boundsSize = self.scrollView.bounds.size;
-//    CGRect contentsFrame = self.imageView.frame;
-//    
-//    if (contentsFrame.size.width < boundsSize.width) {
-//        contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2.0f;
-//    } else {
-//        contentsFrame.origin.x = 0.0f;
-//    }
-//    
-//    if (contentsFrame.size.height < boundsSize.height) {
-//        contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2.0f;
-//    } else {
-//        contentsFrame.origin.y = 0.0f;
-//    }
-//    
-//    self.imageView.frame = contentsFrame;
-//    
-////    self.imageView.frame = frame;
-////    self.scrollView.contentSize = size;
-//}
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return _imageView;
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view
+{
+    CGSize boundsSize = self.scrollView.bounds.size;
+    CGRect contentsFrame = self.imageView.frame;
+    
+    if (contentsFrame.size.width < boundsSize.width) {
+        contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2.0f;
+    } else {
+        contentsFrame.origin.x = 0.0f;
+    }
+    
+    if (contentsFrame.size.height < boundsSize.height) {
+        contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2.0f;
+    } else {
+        contentsFrame.origin.y = 0.0f;
+    }
+    
+    self.imageView.frame = contentsFrame;
+    
+//    self.imageView.frame = frame;
+//    self.scrollView.contentSize = size;
+}
 
 @end

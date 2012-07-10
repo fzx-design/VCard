@@ -29,7 +29,8 @@
 @property (nonatomic, strong) UIImageView *detailedImageView;
 @property (nonatomic, strong) UIImageView *gifIcon;
 @property (nonatomic, readonly) UIImage *image;
-@property (nonatomic, assign) CGFloat targetScale;
+@property (nonatomic, assign) CGFloat targetVerticalScale;
+@property (nonatomic, assign) CGFloat targetHorizontalScale;
 
 - (void)resetHeight:(CGFloat)height;
 

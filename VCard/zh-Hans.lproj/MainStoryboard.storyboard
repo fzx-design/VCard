@@ -8,10 +8,15 @@
         <!--Navigation Controller-->
         <scene sceneID="jCw-kM-Udw">
             <objects>
+<<<<<<< HEAD
                 <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="rLP-Ra-ZR8" sceneMemberID="viewController">
+=======
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cHR-7n-pWN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="rLP-Ra-ZR8" sceneMemberID="viewController">
+>>>>>>> 修复status bar隐藏后会有纹理的问题，原因是navigation bar应该show。。
                     <navigationItem key="navigationItem" id="bUl-ex-2I2"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackTranslucent" id="RGe-x5-FEm" customClass="BaseNavigationBar">
                         <autoresizingMask key="autoresizingMask"/>
@@ -22,7 +27,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cHR-7n-pWN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2316" y="-295"/>
+            <point key="canvasLocation" x="-2316" y="-305"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="ilv-Xw-sI2">
@@ -34,7 +39,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="0oA-jN-feX"/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -48,10 +52,10 @@
             <objects>
                 <viewController storyboardIdentifier="DetailImageViewController" id="zUq-I3-41J" customClass="DetailImageViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="keC-dZ-nEv">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" id="sSe-Wt-EjQ">
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="sSe-Wt-EjQ">
                                 <rect key="frame" x="0.0" y="-20" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </scrollView>
@@ -146,7 +150,6 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -164,7 +167,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HjK-b9-EtB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-404" y="-363"/>
+            <point key="canvasLocation" x="-404" y="-295"/>
         </scene>
         <!--Card View Controller-->
         <scene sceneID="cow-Ge-Jm5">
@@ -543,7 +546,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tcQ-il-wUK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2213" y="-1241"/>
+            <point key="canvasLocation" x="-2201" y="-1239"/>
         </scene>
         <!--Cast View Controller-->
         <scene sceneID="OtA-Oh-wxl">
@@ -735,7 +738,6 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="createStatusButton" destination="21S-pA-gf9" id="QE1-9O-W1W"/>
@@ -784,7 +786,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b8M-0f-oMD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-404" y="-1482"/>
+            <point key="canvasLocation" x="-404" y="-1460"/>
         </scene>
         <!--Self Profile View Controller-->
         <scene sceneID="dbd-8T-Fec">

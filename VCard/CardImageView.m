@@ -124,13 +124,21 @@
         _deltaWidth = scaledWidth - targetWidth;
         _deltaHeight = scaledHeight - targetHeight;
         
-        widthFactor = [UIApplication screenWidth] / scaledWidth;
-        heightFactor = [UIApplication screenHeight] / scaledHeight;
+        widthFactor = 1024.0 / scaledWidth;
+        heightFactor = 748.0 / scaledHeight;
         
         if (widthFactor > heightFactor)
-            _targetScale = heightFactor; // scale to fit height
+            _targetHorizontalScale = heightFactor; // scale to fit height
         else
-            _targetScale = widthFactor; // scale to fit width
+            _targetHorizontalScale = widthFactor; // scale to fit width
+        
+        widthFactor = 748.0 / scaledWidth;
+        heightFactor = 1024.0 / scaledHeight;
+        
+        if (widthFactor > heightFactor)
+            _targetVerticalScale = heightFactor; // scale to fit height
+        else
+            _targetVerticalScale = widthFactor; // scale to fit width
     }];
     
 }

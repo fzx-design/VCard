@@ -34,6 +34,7 @@
         
         _topBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 768, 44)];
         _topBar.image = [[UIImage imageNamed:kRLTopBarBG] resizableImageWithCapInsets:UIEdgeInsetsZero];
+        _topBar.clipsToBounds = YES;
         [_topBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         
         _topBarShadow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, 768, 15)];
