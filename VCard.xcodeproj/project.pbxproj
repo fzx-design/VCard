@@ -754,7 +754,6 @@
 		E1F4EBDF15971D24000B84D4 /* button_post_bg_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EBD915971D24000B84D4 /* button_post_bg_error@2x.png */; };
 		E1F4EBE015971D24000B84D4 /* button_post_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EBDA15971D24000B84D4 /* button_post_hover.png */; };
 		E1F4EBE115971D24000B84D4 /* button_post_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F4EBDB15971D24000B84D4 /* button_post_hover@2x.png */; };
-<<<<<<< HEAD
 		E1F943EE15AB0EA400C3A75E /* login_view_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F943EC15AB0EA400C3A75E /* login_view_shadow@2x.png */; };
 		E1F943EF15AB0EA400C3A75E /* login_view_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F943ED15AB0EA400C3A75E /* login_view_shadow.png */; };
 		E1F943F615AB263A00C3A75E /* LoginCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1F943F515AB263900C3A75E /* LoginCellViewController.xib */; };
@@ -776,9 +775,7 @@
 		E1FE8B2215AAD45B009636A4 /* title_large@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1FE8B1415AAD45B009636A4 /* title_large@2x.png */; };
 		E1FE8B2815AAF09A009636A4 /* NewLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE8B2615AAF099009636A4 /* NewLoginViewController.m */; };
 		E1FE8B2B15AAF0C2009636A4 /* NewLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FE8B2A15AAF0C2009636A4 /* NewLoginViewController.xib */; };
-=======
 		E1FE8AFD15A9CFD8009636A4 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE8AFA15A9CDC0009636A4 /* FXLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
->>>>>>> 手势放大位置调整正确，放大手势结束时进入全屏模式完成
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
