@@ -48,7 +48,7 @@
         // Custom initialization
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSArray *storedArray = [defaults arrayForKey:kLoginUserArray];
-        self.loginUserInfoArray = [NSMutableArray arrayWithArray:storedArray];
+        self.loginUserInfoArray = [NSMutableArray array];
         [storedArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             User *user = [User userWithID:obj inManagedObjectContext:self.managedObjectContext];
             [self.loginUserInfoArray addObject:user];

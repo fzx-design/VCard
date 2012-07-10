@@ -36,9 +36,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.navigationController.navigationBarHidden = YES;
-    if (self.currentUser) {
+    if(self.currentUser) {
         [self setUpNotifications];
         [self setUpViews];
     }

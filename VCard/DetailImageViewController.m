@@ -16,6 +16,7 @@
     BOOL _statusBarHidden;
     CGFloat _lastScale;
     CGPoint _lastPoint;
+    CGRect _contentFrame;
     UIPinchGestureRecognizer *_pinchGestureRecognizer;
 }
 
@@ -147,6 +148,9 @@
     CGFloat width = [_imageView targetSize].width * scaleX;
     CGFloat height = [_imageView targetSize].height * scaleY;
     
+    _scrollView.contentSize = CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight]);
+    _contentFrame = CGRectMake(_imageView.frame.origin.x, _imageView.frame.origin.y, width, height);
+    
     [_imageView resetOrigin:CGPointMake(screenWidth / 2 - width / 2, screenHeight / 2 - height / 2)];
     
     [UIView commitAnimations];
@@ -185,21 +189,21 @@
 - (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view
 {
     CGSize boundsSize = self.scrollView.bounds.size;
-    CGRect contentsFrame = self.imageView.frame;
+//    CGRect contentsFrame = self.imageView.frame;
     
-    if (contentsFrame.size.width < boundsSize.width) {
-        contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2.0f;
+    if (_contentFrame.size.width < boundsSize.width) {
+        _contentFrame.origin.x = (boundsSize.width - _contentFrame.size.width) / 2.0f;
     } else {
-        contentsFrame.origin.x = 0.0f;
+        _contentFrame.origin.x = 0.0f;
     }
     
-    if (contentsFrame.size.height < boundsSize.height) {
-        contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2.0f;
+    if (_contentFrame.size.height < boundsSize.height) {
+        _contentFrame.origin.y = (boundsSize.height - _contentFrame.size.height) / 2.0f;
     } else {
-        contentsFrame.origin.y = 0.0f;
+        _contentFrame.origin.y = 0.0f;
     }
     
-    self.imageView.frame = contentsFrame;
+    [_imageView resetOrigin:_contentFrame.origin];
     
 //    self.imageView.frame = frame;
 //    self.scrollView.contentSize = size;
