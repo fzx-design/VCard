@@ -202,13 +202,13 @@
     } completion:^(BOOL finished) {
         [self.view removeFromSuperview];
     }];
-    [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
 }
 
 #pragma mark - IBActions 
 
 - (IBAction)didClickRegisterButton:(UIButton *)sender {
     [self viewDisappearAnimation];
+    [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
 }
 
 #pragma mark - UIScrollView delegate
@@ -245,6 +245,9 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:userIDArray forKey:kLoginedUserArray];
     [defaults synchronize];
+    
+    [self viewDisappearAnimation];
+    [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
 }
 
 @end

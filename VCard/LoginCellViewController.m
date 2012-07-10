@@ -86,8 +86,14 @@ typedef enum {
             favouriteGroup.picURL = self.currentUser.largeAvatarURL;
             favouriteGroup.index = [NSNumber numberWithInt:0];
             [self performSegueWithIdentifier:@"ShowRootViewController" sender:self];
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
+            
+            [self.delegate loginCell:self didLoginUser:user];
+        } else {
+            NSLog(@"authorize error");
         }
+        self.view.userInteractionEnabled = YES;
     }];
     
     [client getUser:[WBClient currentUserID]];
@@ -110,8 +116,8 @@ typedef enum {
         if (self.userNameTextField.text == @"") {
             [self.userNameTextField becomeFirstResponder];
         } else {
+            self.view.userInteractionEnabled = NO;
             WBClient *client = [WBClient client];
-            
             [client setCompletionBlock:^(WBClient *client) {
                 if (!client.hasError) {
                     [self loginInfoAuthorized];

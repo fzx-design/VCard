@@ -25,7 +25,6 @@ static CoreDataKernal *kernalInstance = nil;
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize fetchedResultsController = _fetchedResultsController;
-@synthesize currentUser = _currentUser;
 
 - (void)configureRequest:(NSFetchRequest *)request
 {
