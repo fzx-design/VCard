@@ -125,14 +125,14 @@
         _deltaHeight = scaledHeight - targetHeight;
         
         widthFactor = 1024.0 / scaledWidth;
-        heightFactor = 748.0 / scaledHeight;
+        heightFactor = 768.0 / scaledHeight;
         
         if (widthFactor > heightFactor)
             _targetHorizontalScale = heightFactor; // scale to fit height
         else
             _targetHorizontalScale = widthFactor; // scale to fit width
         
-        widthFactor = 748.0 / scaledWidth;
+        widthFactor = 768.0 / scaledWidth;
         heightFactor = 1024.0 / scaledHeight;
         
         if (widthFactor > heightFactor)

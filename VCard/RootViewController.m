@@ -36,15 +36,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-<<<<<<< HEAD
-    
-    if(self.currentUser) {
-=======
     self.navigationController.navigationBarHidden = YES;
-    if (self.currentUser == nil) {
-        [[[NewLoginViewController alloc] init] show];
-    } else {
->>>>>>> 修复status bar隐藏后会有纹理的问题，原因是navigation bar应该show。。
+    if(self.currentUser) {
         [self setUpNotifications];
         [self setUpViews];
     }
