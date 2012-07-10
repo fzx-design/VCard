@@ -10,6 +10,7 @@
 #import "WBClient.h"
 #import "ResourceList.h"
 #import "Group.h"
+#import "NewLoginViewController.h"
 
 #define kShelfViewControllerFrame CGRectMake(0.0, -147.0, 768.0, 147.0);
 
@@ -33,9 +34,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationController.navigationBarHidden = YES;
-    [self setUpNotifications];
-    [self setUpViews];
+    if (self.currentUser == nil) {
+        [[[NewLoginViewController alloc] init] show];
+    } else {
+        [self setUpNotifications];
+        [self setUpViews];
+    }
 }
 
 - (void)viewDidUnload
