@@ -19,7 +19,7 @@
 #define SCROLL_VIEW_LANDSCAPE_CENTER    CGPointMake(512, 400)
 #define SCROLL_VIEW_PORTRAIT_CENTER     CGPointMake(384, 480)
 
-#define kLoginedUserArray @"LoginedUserArray"
+#define kLoginUserArray @"LoginUserArray"
 
 @interface NewLoginViewController ()
 
@@ -36,7 +36,6 @@
 @synthesize bgView = _bgView;
 @synthesize scrollView = _scrollView;
 @synthesize logoImageView = _logoImageView;
-@synthesize delegate = _delegate;
 
 @synthesize cellControllerArray = _cellControllerArray;
 @synthesize loginUserInfoArray = _loginUserInfoArray;
@@ -48,7 +47,7 @@
     if (self) {
         // Custom initialization
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSArray *storedArray = [defaults arrayForKey:kLoginedUserArray];
+        NSArray *storedArray = [defaults arrayForKey:kLoginUserArray];
         self.loginUserInfoArray = [NSMutableArray arrayWithArray:storedArray];
         [storedArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             User *user = [User userWithID:obj inManagedObjectContext:self.managedObjectContext];
@@ -152,6 +151,10 @@
     [UIApplication presentModalViewController:self animated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
 }
 
+- (void)removeCellAtIndex:(NSUInteger)index {
+    
+}
+
 #pragma mark - Logic methods
 
 - (void)setCurrentCellIndex:(NSUInteger)currentCellIndex {
@@ -180,6 +183,26 @@
         return vc;
     } else {
         return [self.cellControllerArray objectAtIndex:index];
+    }
+}
+
+- (void)insertNewUser:(User *)newUser {
+    NSMutableArray *userIDArray = [NSMutableArray array];
+    __block BOOL userAlreadyLogin = NO;
+    [self.loginUserInfoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        User *user = obj;
+        if([user.userID isEqualToString:newUser.userID])
+            userAlreadyLogin = YES;
+        [userIDArray addObject:user.userID];
+    }];
+    
+    if(!userAlreadyLogin) {
+        [self.loginUserInfoArray addObject:newUser];
+        [userIDArray addObject:newUser.userID];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:userIDArray forKey:kLoginUserArray];
+        [defaults synchronize];
     }
 }
 
@@ -233,7 +256,11 @@
 #pragma mark - LoginUserCellViewController delegate
 
 - (void)loginUserCell:(LoginUserCellViewController *)vc didSelectUser:(User *)user {
-    [self.delegate loginViewController:self didSelectUser:user];
+    // To Do:将通知vc刷新view从notification方式改为delegate方式
+    [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:user.userID];
+    
+    [self viewDisappearAnimation];
+    [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
 }
 
 - (void)loginUserCell:(LoginUserCellViewController *)vc didDeleteUser:(User *)user {
@@ -242,16 +269,8 @@
 
 #pragma mark - LoginInputCellViewController delegate
 
-- (void)loginCell:(LoginInputCellViewController *)vc didLoginUser:(User *)user {
-    NSMutableArray *userIDArray = [NSMutableArray array];
-    [self.loginUserInfoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        User *user = obj;
-        [userIDArray addObject:user.userID];
-    }];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:userIDArray forKey:kLoginedUserArray];
-    [defaults synchronize];
+- (void)loginInputCell:(LoginInputCellViewController *)vc didLoginUser:(User *)user {
+    [self insertNewUser:user];
     
     [self viewDisappearAnimation];
     [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];

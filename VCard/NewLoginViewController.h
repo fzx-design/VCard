@@ -11,25 +11,16 @@
 #import "LoginInputCellViewController.h"
 #import "LoginUserCellViewController.h"
 
-@protocol NewLoginViewControllerDelegate;
-
 @interface NewLoginViewController : CoreDataViewController <UIScrollViewDelegate, LoginUserCellViewControllerDelegate, LoginInputCellViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIButton *registerButton;
 @property (nonatomic, strong) IBOutlet UIView *bgView;
 @property (nonatomic, strong) IBOutlet UIImageView *logoImageView;
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, weak) id<NewLoginViewControllerDelegate> delegate;
 
 - (void)show;
 
 - (IBAction)didClickRegisterButton:(UIButton *)sender;
 - (IBAction)didClickLogoutButton:(UIButton *)sender;
-
-@end
-
-@protocol NewLoginViewControllerDelegate <NSObject>
-
-- (void)loginViewController:(NewLoginViewController *)vc didSelectUser:(User *)user;
 
 @end

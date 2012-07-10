@@ -27,6 +27,6 @@
 
 @protocol LoginInputCellViewControllerDelegate <NSObject>
 
-- (void)loginCell:(LoginInputCellViewController *)vc didLoginUser:(User *)user;
+- (void)loginInputCell:(LoginInputCellViewController *)vc didLoginUser:(User *)user;
 
 @end

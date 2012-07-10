@@ -88,12 +88,12 @@ typedef enum {
         if (!client.hasError) {
             NSDictionary *userDict = client.responseJSONObject;
             User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
-            [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:user.userID];
+
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
             [UnreadReminder initializeWithCurrentUser:user];
             [self setUpGroupFavorite];
             
-            [self.delegate loginCell:self didLoginUser:user];
+            [self.delegate loginInputCell:self didLoginUser:user];
         }
         self.view.userInteractionEnabled = YES;
     }];
