@@ -208,7 +208,7 @@
 
 - (CGRect)frameForTableView
 {
-    CGFloat originY = self.checkStatusesButton.frame.origin.y + self.checkStatusesButton.frame.size.height;
+    CGFloat originY = self.checkStatusesButton.frame.origin.y + self.checkStatusesButton.frame.size.height + 2;
     CGFloat height = [UIApplication heightExcludingTopBar] - originY;
     return CGRectMake(24.0, originY, 382.0, height);
 }
