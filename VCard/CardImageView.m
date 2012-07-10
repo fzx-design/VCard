@@ -99,8 +99,8 @@
 {
     [self setUpGifIcon:urlString];
     [self.imageView kv_cancelImageDownload];
-    NSURL *anImageURL = [NSURL URLWithString:urlString];
-    [self.imageView kv_setImageAtURL:anImageURL completion:^{
+    NSURL *url = [NSURL URLWithString:urlString];
+    [self.imageView kv_setImageAtURL:url completion:^{
         CGFloat targetWidth = self.imageView.frame.size.width;
         CGFloat targetHeight = self.imageView.frame.size.height;
         CGFloat width = self.imageView.image.size.width;
@@ -138,9 +138,7 @@
 - (void)loadDetailedImageFromURL:(NSString *)urlString
                       completion:(void (^)())completion
 {
-    [self.imageView kv_cancelImageDownload];
-    NSURL *anImageURL = [NSURL URLWithString:urlString];
-    [self.imageView kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
+//    [self.imageView kv_setDetailedImageAtURL:urlString completion:completion];
 }
 
 - (void)clearCurrentImage

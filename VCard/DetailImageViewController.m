@@ -13,6 +13,7 @@
 #import "NSDateAddition.h"
 
 @interface DetailImageViewController () {
+    BOOL _statusBarHidden;
     CGFloat _lastScale;
     CGPoint _lastPoint;
     UIPinchGestureRecognizer *_pinchGestureRecognizer;
@@ -35,7 +36,14 @@
 {
     [super viewDidLoad];
     [ThemeResourceProvider configBackButtonDark:_returnButton];
-	// Do any additional setup after loading the view.
+    _pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchEvent:)];
+    _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapEvent:)];
+    [_scrollView addGestureRecognizer:_pinchGestureRecognizer];
+    [_scrollView addGestureRecognizer:_tapGestureRecognizer];
+    _scrollView.delegate = self;
+    _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
+    _scrollView.maximumZoomScale = 5.0;
+    _scrollView.minimumZoomScale = 0.5;
 }
 
 - (void)viewDidUnload
@@ -50,7 +58,7 @@
     _cardViewController = cardViewController;
     _cardViewController.delegate = self;
     _lastPoint = [_cardViewController.view convertPoint:_imageView.frame.origin toView:self.view];
-    _lastPoint.y += 5.0;
+    _lastPoint.y += 20.0;
     [_imageView resetOrigin:_lastPoint];
     Status *targetStatus = _cardViewController.status;
     [_authorAvatarImageView loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
@@ -58,6 +66,10 @@
     _authorNameLabel.text = targetStatus.author.screenName;
     _timeStampLabel.text = [targetStatus.createdAt stringRepresentation];
     [self.scrollView addSubview:_imageView];
+    
+    if (cardViewController.imageViewMode == CastViewImageViewModeDetailed) {
+        [self enterDetailedImageViewMode];
+    }
 }
 
 #pragma mark - IBAction
@@ -97,58 +109,13 @@
     _bottomBarView.alpha = 0.0;
 }
 
-- (void)enterDetailedImageViewMode:(CGFloat)currentScale
+- (void)enterDetailedImageViewMode
 {
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:0.3f];
-//    
-//    NSLog(@"original: %@", NSStringFromCGRect(_imageView.frame));
-//    
-//    _topBarView.alpha = 1.0;
-//    _bottomBarView.alpha = 1.0;
-//    self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
-//    
-//    CGFloat scale = sqrt(_imageView.layer.affineTransform.a * _imageView.layer.affineTransform.a + _imageView.layer.affineTransform.c * _imageView.layer.affineTransform.c);
-//    CGFloat targetScale = _imageView.targetScale;
-//    
-//    [_imageView pinchResizeToScale:1.5];
-//    
-//    if (scale > targetScale) {
-//        scale = targetScale;
-//    }
-//    scale = 1.0 - (scale - targetScale);
-//    
-//    CGAffineTransform transform = _imageView.layer.affineTransform;
-//    CGFloat angle = atan2(transform.b, transform.a);
-//    transform = CGAffineTransformRotate(transform, -angle);
-//    _imageView.layer.affineTransform = transform;
-//    _imageView.layer.affineTransform = CGAffineTransformScale(_imageView.layer.affineTransform, scale, scale);
-//    
-//    CGFloat screenWidth = [UIApplication screenWidth];
-//    CGFloat screenHeight = [UIApplication screenHeight];
-//    
-//    NSLog(@"before edit: %@", NSStringFromCGRect(_imageView.frame));
-//    
-//    CGFloat a = _imageView.layer.affineTransform.a;
-//    CGFloat b = _imageView.layer.affineTransform.b;
-//    CGFloat c = _imageView.layer.affineTransform.c;
-//    CGFloat d = _imageView.layer.affineTransform.d;
-//    
-//    CGFloat scaleX = sqrt(a * a + c * c);
-//    CGFloat scaleY = sqrt(b * b + d * d);
-//    
-//    CGFloat width = [_imageView targetSize].width * scaleX;
-//    CGFloat height = [_imageView targetSize].height * scaleY;
-//    
-//    [_imageView resetOrigin:CGPointMake(screenWidth / 2 - width / 2, screenHeight / 2 - height / 2)];
-//    
-//    [UIView commitAnimations];
-//    
-//    NSLog(@"center: %@", NSStringFromCGPoint(_imageView.center));
-    
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3f];
     
+    _statusBarHidden = NO;
+    _imageView.userInteractionEnabled = NO;
     _topBarView.alpha = 1.0;
     _bottomBarView.alpha = 1.0;
     self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
@@ -183,6 +150,59 @@
     [_imageView resetOrigin:CGPointMake(screenWidth / 2 - width / 2, screenHeight / 2 - height / 2)];
     
     [UIView commitAnimations];
+    
+    Status *targetStatus = self.cardViewController.status;
+    if (self.cardViewController.isReposted) {
+        targetStatus = targetStatus.repostStatus;
+    }
+    [_imageView loadDetailedImageFromURL:targetStatus.originalPicURL completion:nil];
 }
+
+#pragma mark - Handle Gesture Events
+- (void)handlePinchEvent:(UIPinchGestureRecognizer *)sender
+{
+    
+}
+
+- (void)handleTapEvent:(UITapGestureRecognizer *)sender
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        CGFloat alpha = _statusBarHidden ? 1.0 : 0.0;
+        _topBarView.alpha = alpha;
+        _bottomBarView.alpha = alpha;
+    } completion:^(BOOL finished) {
+        _statusBarHidden = !_statusBarHidden;
+    }];
+    [[UIApplication sharedApplication] setStatusBarHidden:!_statusBarHidden withAnimation:UIStatusBarAnimationFade];
+}
+
+#pragma mark - ScrollView Delegate
+//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+//{
+//    return _imageView;
+//}
+//
+//- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view
+//{
+//    CGSize boundsSize = self.scrollView.bounds.size;
+//    CGRect contentsFrame = self.imageView.frame;
+//    
+//    if (contentsFrame.size.width < boundsSize.width) {
+//        contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2.0f;
+//    } else {
+//        contentsFrame.origin.x = 0.0f;
+//    }
+//    
+//    if (contentsFrame.size.height < boundsSize.height) {
+//        contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2.0f;
+//    } else {
+//        contentsFrame.origin.y = 0.0f;
+//    }
+//    
+//    self.imageView.frame = contentsFrame;
+//    
+////    self.imageView.frame = frame;
+////    self.scrollView.contentSize = size;
+//}
 
 @end

@@ -67,7 +67,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     CGPoint _lastPoint;
     UIPinchGestureRecognizer *_pinchGestureRecognizer;
     UIRotationGestureRecognizer *_rotationGestureRecognizer;
-    CastViewImageViewMode _imageViewMode;
+    UITapGestureRecognizer *_tapGestureRecognizer;
 }
 
 @end
@@ -136,6 +136,12 @@ static inline NSRegularExpression * UrlRegularExpression() {
     _pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     _pinchGestureRecognizer.delegate = self;
     [self.statusImageView addGestureRecognizer:_pinchGestureRecognizer];
+    
+    _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    _tapGestureRecognizer.numberOfTapsRequired = 1;
+    _tapGestureRecognizer.numberOfTouchesRequired = 1;
+    _tapGestureRecognizer.delegate = self;
+    [self.statusImageView addGestureRecognizer:_tapGestureRecognizer];
 }
 
 - (void)viewDidUnload
@@ -744,14 +750,13 @@ static inline NSRegularExpression * UrlRegularExpression() {
     if (sender.state == UIGestureRecognizerStateEnded || (sender.state == UIGestureRecognizerStateChanged && sender.numberOfTouches < 2)) {
         
         self.statusImageView.userInteractionEnabled = NO;
-        self.statusImageView.userInteractionEnabled = YES;
         
         if (_scale < 1.2 && sender.velocity < 2) {
             [self returnToInitialImageView];
             return;
         } else {
-            if ([_delegate respondsToSelector:@selector(enterDetailedImageViewMode:)]) {
-                [_delegate enterDetailedImageViewMode:_scale];
+            if ([_delegate respondsToSelector:@selector(enterDetailedImageViewMode)]) {
+                [_delegate enterDetailedImageViewMode];
             }
             return;
         }
@@ -759,7 +764,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     
     CGFloat scale = 1.0 - (_lastScale - sender.scale);
 //    if (_currentScale < self.statusImageView.targetScale) {
-        [self.statusImageView setTransform:CGAffineTransformScale([self.statusImageView.layer affineTransform], scale, scale)];
+        [self.statusImageView setTransform:CGAffineTransformScale(self.statusImageView.transform, scale, scale)];
 //    }
     _currentScale *= scale;
     
@@ -803,6 +808,17 @@ static inline NSRegularExpression * UrlRegularExpression() {
     }
 }
 
+- (void)handleTapGesture:(UITapGestureRecognizer *)sender
+{
+    [self willOpenDetailImageViewDirectly];
+}
+
+- (void)willOpenDetailImageViewDirectly
+{
+    _imageViewMode = CastViewImageViewModeDetailed;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowDetailImageView object:[NSDictionary dictionaryWithObjectsAndKeys:self, kNotificationObjectKeyStatus,self.statusImageView, kNotificationObjectKeyImageView, nil]];
+}
+
 - (void)returnToInitialImageView
 {
     [UIView animateWithDuration:0.3 animations:^{
@@ -816,6 +832,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
         [self.cardBackground insertSubview:self.statusImageView belowSubview:self.clipImageView];
         [self playClipTightenAnimation];
         _imageViewMode = CastViewImageViewModeNormal;
+        self.statusImageView.userInteractionEnabled = YES;
     }];
 }
 
