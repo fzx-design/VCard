@@ -76,21 +76,24 @@ typedef enum {
             NSDictionary *userDict = client.responseJSONObject;
             User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
             [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:user.userID];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
             
             [UnreadReminder initializeWithCurrentUser:user];
-            
-            Group *favouriteGroup = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
-            favouriteGroup.groupID = @"Favourites";
-            favouriteGroup.name = @"收藏";
-            favouriteGroup.type = [NSNumber numberWithInt:kGroupTypeFavourite];
-            favouriteGroup.picURL = self.currentUser.largeAvatarURL;
-            favouriteGroup.index = [NSNumber numberWithInt:0];
-            [self performSegueWithIdentifier:@"ShowRootViewController" sender:self];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
+            [self setUpGroupFavorite];
         }
     }];
     
     [client getUser:[WBClient currentUserID]];
+}
+
+- (void)setUpGroupFavorite
+{
+    Group *favouriteGroup = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
+    favouriteGroup.groupID = @"Favourites";
+    favouriteGroup.name = @"收藏";
+    favouriteGroup.type = [NSNumber numberWithInt:kGroupTypeFavourite];
+    favouriteGroup.picURL = self.currentUser.largeAvatarURL;
+    favouriteGroup.index = [NSNumber numberWithInt:0];
 }
 
 #pragma mark -

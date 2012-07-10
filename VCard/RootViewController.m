@@ -145,7 +145,7 @@
 {
     if (_castViewController == nil) {
         _castViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CastViewController"];
-        _castViewController.currentUser = self.currentUser;
+//        _castViewController.currentUser = self.currentUser;
         _castViewController.view.frame = self.view.bounds;
 //        [_castViewController initialLoad];
     }
@@ -156,7 +156,7 @@
 {
     if (_shelfViewController == nil) {
         _shelfViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ShelfViewController"];
-        _shelfViewController.currentUser = self.currentUser;
+//        _shelfViewController.currentUser = self.currentUser;
         _shelfViewController.view.frame = kShelfViewControllerFrame;
         [_shelfViewController.view resetWidth:self.view.bounds.size.width];
     }

@@ -18,7 +18,6 @@
 	{
 		self.reuseIdentifier = reuseIdentifier;
         self.autoresizingMask = UIViewAutoresizingNone;
-        self.cardViewController.currentUser = currentUser_;
     }
 	
 	return self;

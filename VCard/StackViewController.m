@@ -93,9 +93,7 @@
         }
     }
     
-    vc.pageIndex = _controllerStack.count;
-    vc.currentUser = self.currentUser;
-    
+    vc.pageIndex = _controllerStack.count;    
     [vc.view resetHeight:self.view.frame.size.height];
     
     [self.controllerStack addObject:vc];
