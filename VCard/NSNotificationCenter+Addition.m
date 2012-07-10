@@ -25,7 +25,7 @@
 }
 
 + (void)postCoreChangeCurrentUserNotificationWithUserID:(NSString *)userID {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kCoreChangeCurrentUserNotification object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kCoreChangeCurrentUserNotification object:userID userInfo:nil];
 }
 
 + (void)registerCoreChangeCurrentUserNotificationWithSelector:(SEL)aSelector target:(id)aTarget {
