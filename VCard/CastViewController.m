@@ -871,11 +871,12 @@
 #pragma mark - PostViewController Delegate
 
 - (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message {
+    [vc dismissViewUpwards];
     
 }
 
 - (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
-    [vc dismissViewUpwards];
+    
 }
 
 - (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {

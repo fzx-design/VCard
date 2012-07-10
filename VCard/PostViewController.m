@@ -83,7 +83,6 @@ typedef enum {
 @synthesize topicButton = _topicButton;
 @synthesize repostCommentCheckmarkButton = _repostCommentCheckmarkButton;
 @synthesize navActivityIndicator = _navActivityIndicator;
-@synthesize postActivityIndicator = _postActivityIndicator;
 @synthesize navLabel = _navLabel;
 @synthesize functionLeftNavView = _functionLeftNavView;
 @synthesize functionLeftCheckmarkView = _functionLeftCheckmarkView;
@@ -187,7 +186,6 @@ typedef enum {
     // Do any additional setup after loading the view from its nib.
     
     self.navActivityIndicator.hidden = YES;
-    self.postActivityIndicator.hidden = YES;
     self.navLabel.text = @"";
     _functionRightViewInitFrame = self.functionRightView.frame;
     self.postRootView.delegate = self;
@@ -234,7 +232,6 @@ typedef enum {
     self.repostCommentCheckmarkButton = nil;
     self.repostCommentButton = nil;
     self.motionsView = nil;
-    self.postActivityIndicator = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

@@ -80,9 +80,6 @@
     [self.delegate postViewController:self willPostMessage:self.textView.text];
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
-        self.postButton.hidden = NO;
-        self.postActivityIndicator.hidden = YES;
-        [self.postActivityIndicator stopAnimating];
         if(!client.hasError) {
             NSLog(@"post succeeded");
             [self.delegate postViewController:self didPostMessage:self.textView.text];
@@ -108,10 +105,6 @@
         } else
             [client sendRepostWithText:self.textView.text weiboID:self.weiboID commentType:RepostWeiboTypeCommentCurrent];
     }
-    
-    self.postButton.hidden = YES;
-    self.postActivityIndicator.hidden = NO;
-    [self.postActivityIndicator startAnimating];
 }
 
 - (IBAction)didClickRepostCommentCheckmarkButton:(UIButton *)sender {

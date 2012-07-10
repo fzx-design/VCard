@@ -183,9 +183,6 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         NSLog(@"post finish:%@", client.responseJSONObject);
-        self.postButton.hidden = NO;
-        self.postActivityIndicator.hidden = YES;
-        [self.postActivityIndicator stopAnimating];
         if(!client.hasError) {
             NSLog(@"post succeeded");
             [self.delegate postViewController:self didPostMessage:self.textView.text];
@@ -193,7 +190,6 @@
             NSLog(@"post failed");
             [self.delegate postViewController:self didFailPostMessage:self.textView.text];
         }
-        sender.userInteractionEnabled = YES;
     }];
     if(!_located)
         [client sendWeiBoWithText:self.textView.text image:self.motionsOriginalImage];
@@ -203,10 +199,6 @@
         [client sendWeiBoWithText:self.textView.text image:self.motionsOriginalImage longtitude:lon latitude:lat];
     }
     [self.delegate postViewController:self willPostMessage:self.textView.text];
-    
-    self.postButton.hidden = YES;
-    self.postActivityIndicator.hidden = NO;
-    [self.postActivityIndicator startAnimating];
 }
 
 @end

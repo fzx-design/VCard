@@ -213,10 +213,10 @@
 #pragma mark - PostViewController Delegate
 
 - (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message {
+    [vc dismissViewUpwards];
 }
 
 - (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
-    [vc dismissViewUpwards];
     [_delegate commentTableViewCellDidComment];
 }
 
@@ -228,7 +228,7 @@
     if(vc.type == PostViewControllerTypeRepost)
         [vc dismissViewToRect:[self convertRect:self.moreActionButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
     else 
-        [vc dismissViewToRect:[self convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
+        [vc dismissViewToRect:[self convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];        
 }
 
 #pragma mark - UIActionSheet delegate

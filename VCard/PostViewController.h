@@ -44,14 +44,12 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UIButton     *repostCommentButton;
 @property (nonatomic, strong) IBOutlet UIImageView  *postImageView;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *navActivityIndicator;
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *postActivityIndicator;
 @property (nonatomic, strong) IBOutlet UILabel      *navLabel;
 @property (nonatomic, strong) IBOutlet UIView       *functionLeftNavView;
 @property (nonatomic, strong) IBOutlet UIView       *functionLeftCheckmarkView;
 @property (nonatomic, strong) IBOutlet UIView       *functionRightView;
 @property (nonatomic, strong) IBOutlet UIView       *motionsView;     
 @property (nonatomic, strong) IBOutlet UILabel      *topBarLabel;
-
 
 @property (nonatomic, strong) IBOutlet UIImageView  *leftPaperImageView;
 @property (nonatomic, strong) IBOutlet UIImageView  *rightPaperImageView;
