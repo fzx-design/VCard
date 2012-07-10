@@ -13,7 +13,7 @@
 
 @protocol NewLoginViewControllerDelegate;
 
-@interface NewLoginViewController : CoreDataViewController <UIScrollViewDelegate, LoginUserCellViewControlle>
+@interface NewLoginViewController : CoreDataViewController <UIScrollViewDelegate, LoginUserCellViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIButton *registerButton;
 @property (nonatomic, strong) IBOutlet UIView *bgView;

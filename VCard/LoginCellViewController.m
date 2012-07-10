@@ -11,6 +11,9 @@
 #import "ResourceList.h"
 #import "CastViewController.h"
 #import "WBClient.h"
+#import "UnreadReminder.h"
+#import "Group.h"
+#import "NSNotificationCenter+Addition.h"
 
 #define CornerRadius 175 / 2
 
@@ -63,6 +66,33 @@ typedef enum {
     // Release any retained subviews of the main view.
 }
 
+#pragma mark - Logic methods 
+
+- (void)loginInfoAuthorized
+{
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSDictionary *userDict = client.responseJSONObject;
+            User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+            [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:user.userID];
+            
+            [UnreadReminder initializeWithCurrentUser:user];
+            
+            Group *favouriteGroup = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
+            favouriteGroup.groupID = @"Favourites";
+            favouriteGroup.name = @"收藏";
+            favouriteGroup.type = [NSNumber numberWithInt:kGroupTypeFavourite];
+            favouriteGroup.picURL = self.currentUser.largeAvatarURL;
+            favouriteGroup.index = [NSNumber numberWithInt:0];
+            [self performSegueWithIdentifier:@"ShowRootViewController" sender:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
+        }
+    }];
+    
+    [client getUser:[WBClient currentUserID]];
+}
+
 #pragma mark -
 #pragma mark UITextField Delegate
 
@@ -84,7 +114,7 @@ typedef enum {
             
             [client setCompletionBlock:^(WBClient *client) {
                 if (!client.hasError) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameLoginInfoAuthorized object:nil];
+                    [self loginInfoAuthorized];
                 } else {
                     NSLog(@"Error!");
                 }

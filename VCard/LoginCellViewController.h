@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "User.h"
+#import "CoreDataViewController.h"
 
 @protocol LoginCellViewControllerDelegate;
 
@@ -15,7 +15,7 @@
 #define kNotificationNameLoginTextFieldShouldEndEditing @"kNotificationNameLoginTextFieldShouldEndEditing"
 #define kNotificationNameLoginInfoAuthorized @"kNotificationNameLoginInfoAuthorized"
 
-@interface LoginCellViewController : UIViewController <UITextFieldDelegate>
+@interface LoginCellViewController : CoreDataViewController <UITextFieldDelegate>
 
 @property (nonatomic, strong) IBOutlet UIImageView *avatarImageView;
 @property (nonatomic, strong) IBOutlet UITextField *userNameTextField;

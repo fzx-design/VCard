@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong) User *currentUser;
+@property (nonatomic, readonly) User *currentUser;
 
 @end
 

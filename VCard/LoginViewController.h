@@ -14,7 +14,7 @@
 
 @interface LoginViewController : CoreDataViewController <EasyTableViewDelegate> {
     UIImageView * _logoImageView;
-    EasyTableView *_userSelectionTableView;
+    EasyTableView *_userSelectionTavatar_placeholderableView;
     UserSelectionCellViewController *_currentUserCell;
     
     UIInterfaceOrientation _currentOrientation;
