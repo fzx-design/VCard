@@ -48,9 +48,12 @@ typedef enum {
     ActionSheetTypeNone,
     ActionSheetTypeDestruct,
     ActionSheetTypeMotions,
+    PopoverAlbumImagePicker,
 } ActionSheetType;
 
-@interface PostViewController ()
+@interface PostViewController () {
+    ActionSheetType _shouldPresentActionSheetType;
+}
 
 @property (nonatomic, assign) CGFloat keyboardHeight;
 @property (nonatomic, strong) PostHintView *currentHintView;
@@ -197,6 +200,7 @@ typedef enum {
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(deviceRotationDidChange:) name:kNotificationNameOrientationChanged object:nil];
+    [center addObserver:self selector:@selector(deviceRotationWillChange:) name:kNotificationNameOrientationWillChange object:nil];
     [center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
@@ -241,6 +245,17 @@ typedef enum {
 #pragma mark - Notification handlers
 
 - (void)deviceRotationDidChange:(NSNotification *)notification {
+    if(_shouldPresentActionSheetType == ActionSheetTypeDestruct) {
+        [self didClickCancelButton:self.cancelButton];
+    } else if(_shouldPresentActionSheetType == ActionSheetTypeMotions) {
+        [self didClickMotionsButton:self.motionsButton];
+    } else if(_shouldPresentActionSheetType == PopoverAlbumImagePicker) {
+        [self showAlbumImagePicker];
+    }
+    _shouldPresentActionSheetType = ActionSheetTypeNone;
+}
+
+- (void)deviceRotationWillChange:(NSNotification *)notification {
     [self dismissPopover];
 }
 
@@ -438,11 +453,13 @@ typedef enum {
 
 - (void)dismissPopover {
     if(self.actionSheet) {
+        _shouldPresentActionSheetType = self.currentActionSheetType;
         [self.actionSheet dismissWithClickedButtonIndex:-1 animated:NO];
     }
     if(self.popoverController) {
         [self.popoverController dismissPopoverAnimated:YES];
         self.popoverController = nil;
+        _shouldPresentActionSheetType = PopoverAlbumImagePicker;
     }
 }
 
