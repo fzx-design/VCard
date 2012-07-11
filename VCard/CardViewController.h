@@ -28,10 +28,9 @@
 
 typedef enum {
     CastViewImageViewModeNormal,
-    CastViewImageViewModeAnimatingClip,
-    CastViewImageViewModeEndedAnimatingClip,
     CastViewImageViewModePinching,
-    CastViewImageViewModeDetailed,
+    CastViewImageViewModeDetailedNormal,
+    CastViewImageViewModeDetailedZooming,
 } CastViewImageViewMode;
 
 @protocol CardViewControllerDelegate <NSObject>
@@ -40,6 +39,7 @@ typedef enum {
 - (void)didReturnImageView;
 - (void)willReturnImageView;
 - (void)enterDetailedImageViewMode;
+- (void)imageViewTapped;
 
 @end
 

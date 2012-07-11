@@ -14,10 +14,10 @@
 
 @interface DetailImageViewController () {
     BOOL _statusBarHidden;
+    BOOL _shouldUseScrollViewZooming;
     CGFloat _lastScale;
     CGPoint _lastPoint;
     CGRect _contentFrame;
-    UIPinchGestureRecognizer *_pinchGestureRecognizer;
 }
 
 @end
@@ -37,14 +37,10 @@
 {
     [super viewDidLoad];
     [ThemeResourceProvider configBackButtonDark:_returnButton];
-    _pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchEvent:)];
     _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapEvent:)];
-    [_scrollView addGestureRecognizer:_pinchGestureRecognizer];
     [_scrollView addGestureRecognizer:_tapGestureRecognizer];
     _scrollView.delegate = self;
     _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
-    _scrollView.maximumZoomScale = 5.0;
-    _scrollView.minimumZoomScale = 0.5;
 }
 
 - (void)viewDidUnload
@@ -68,7 +64,7 @@
     _timeStampLabel.text = [targetStatus.createdAt stringRepresentation];
     [self.scrollView addSubview:_imageView];
     
-    if (cardViewController.imageViewMode == CastViewImageViewModeDetailed) {
+    if (cardViewController.imageViewMode == CastViewImageViewModeDetailedNormal) {
         [self enterDetailedImageViewMode];
     }
 }
@@ -112,11 +108,13 @@
 
 - (void)enterDetailedImageViewMode
 {
+    self.cardViewController.imageViewMode = CastViewImageViewModeDetailedNormal;
+    
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3f];
     
     _statusBarHidden = NO;
-    _imageView.userInteractionEnabled = NO;
+    _shouldUseScrollViewZooming = YES;
     _topBarView.alpha = 1.0;
     _bottomBarView.alpha = 1.0;
     self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
@@ -162,13 +160,7 @@
     [_imageView loadDetailedImageFromURL:targetStatus.originalPicURL completion:nil];
 }
 
-#pragma mark - Handle Gesture Events
-- (void)handlePinchEvent:(UIPinchGestureRecognizer *)sender
-{
-    
-}
-
-- (void)handleTapEvent:(UITapGestureRecognizer *)sender
+- (void)imageViewTapped
 {
     [UIView animateWithDuration:0.3 animations:^{
         CGFloat alpha = _statusBarHidden ? 1.0 : 0.0;
@@ -180,33 +172,18 @@
     [[UIApplication sharedApplication] setStatusBarHidden:!_statusBarHidden withAnimation:UIStatusBarAnimationFade];
 }
 
-#pragma mark - ScrollView Delegate
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+#pragma mark - Handle Gesture Events
+#pragma mark - ScrollView Gesture
+- (void)handleTapEvent:(UITapGestureRecognizer *)sender
 {
-    return _imageView;
-}
-
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view
-{
-    CGSize boundsSize = self.scrollView.bounds.size;
-//    CGRect contentsFrame = self.imageView.frame;
-    
-    if (_contentFrame.size.width < boundsSize.width) {
-        _contentFrame.origin.x = (boundsSize.width - _contentFrame.size.width) / 2.0f;
-    } else {
-        _contentFrame.origin.x = 0.0f;
-    }
-    
-    if (_contentFrame.size.height < boundsSize.height) {
-        _contentFrame.origin.y = (boundsSize.height - _contentFrame.size.height) / 2.0f;
-    } else {
-        _contentFrame.origin.y = 0.0f;
-    }
-    
-    [_imageView resetOrigin:_contentFrame.origin];
-    
-//    self.imageView.frame = frame;
-//    self.scrollView.contentSize = size;
+    [UIView animateWithDuration:0.3 animations:^{
+        CGFloat alpha = _statusBarHidden ? 1.0 : 0.0;
+        _topBarView.alpha = alpha;
+        _bottomBarView.alpha = alpha;
+    } completion:^(BOOL finished) {
+        _statusBarHidden = !_statusBarHidden;
+    }];
+    [[UIApplication sharedApplication] setStatusBarHidden:!_statusBarHidden withAnimation:UIStatusBarAnimationFade];
 }
 
 @end
