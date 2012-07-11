@@ -20,6 +20,7 @@
     CGPoint _initialPosition;
     CGRect _initialFrame;
     CGSize _initialSize;
+    CGFloat _initialScale;
     CGFloat _deltaWidth;
     CGFloat _deltaHeight;
 }
@@ -31,6 +32,7 @@
 @property (nonatomic, readonly) UIImage *image;
 @property (nonatomic, assign) CGFloat targetVerticalScale;
 @property (nonatomic, assign) CGFloat targetHorizontalScale;
+@property (nonatomic, assign) CGFloat currentScale;
 
 - (void)resetHeight:(CGFloat)height;
 
@@ -45,6 +47,8 @@
 - (void)playReturnAnimation;
 - (void)returnToInitialPosition;
 - (void)pinchResizeToScale:(CGFloat)scale;
+- (void)resetCurrentScale;
+- (CGFloat)scaleOffset;
 - (CGSize)targetSize;
 
 @end

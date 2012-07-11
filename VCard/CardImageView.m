@@ -67,7 +67,10 @@
 - (void)pinchResizeToScale:(CGFloat)scale
 {
     scale -= 1.0;
-    if (scale > 0.0 && scale <= 0.5) {
+    if (scale >= 0.5) {
+        scale = 0.5;
+    }
+    if (scale > 0.0) {
         scale /= 0.5;
         if (_deltaWidth != 0.0) {
             [self.imageView resetWidth:_initialSize.width + scale * _deltaWidth];
@@ -79,6 +82,18 @@
     }
 }
 
+- (void)resetCurrentScale
+{
+    _currentScale = sqrt(self.transform.a * self.transform.a + self.transform.c * self.transform.c);
+    _initialScale = _currentScale;
+}
+
+- (CGFloat)scaleOffset
+{
+    CGFloat offset = _currentScale - _initialScale;
+    return offset;
+}
+
 - (void)playReturnAnimation
 {
     self.transform = CGAffineTransformIdentity;
@@ -88,6 +103,7 @@
 
 - (void)returnToInitialPosition
 {
+    [self resetSize:_initialSize];
     [self resetOrigin:_initialPosition];
     [UIView animateWithDuration:0.3 animations:^{
         self.transform = CGAffineTransformMakeRotation(_initialRotation);

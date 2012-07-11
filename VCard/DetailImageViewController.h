@@ -25,7 +25,6 @@
 
 @property (nonatomic, weak) CardViewController              *cardViewController;
 @property (nonatomic, weak) CardImageView                   *imageView;
-@property (nonatomic, strong) UIPinchGestureRecognizer      *pinchGestureRecognizer;
 @property (nonatomic, strong) UITapGestureRecognizer        *tapGestureRecognizer;
 
 - (void)setUpWithCardViewController:(CardViewController *)cardViewController;
