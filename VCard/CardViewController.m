@@ -727,9 +727,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 
 #pragma mark Pinch
 - (void)handlePinchGesture:(UIPinchGestureRecognizer *)sender
-{
-    NSLog(@"%@", NSStringFromCGRect(self.statusImageView.frame));
-    
+{    
     [self recordPinchGestureInitialStatus:sender];
     
     if (_imageViewMode == CastViewImageViewModePinchingOut || _imageViewMode == CastViewImageViewModePinchingIn) {
@@ -768,12 +766,54 @@ static inline NSRegularExpression * UrlRegularExpression() {
 
 - (void)handleImageViewZoomingWithGesture:(UIPinchGestureRecognizer *)sender
 {
+    BOOL gestureEnd = [self checkAndHanleZoomGestureEnd:sender];
     
+    if (!gestureEnd) {
+        [self resetZoomingScaleWithPinchGesture:sender];
+    }
+}
+
+- (BOOL)checkAndHanleZoomGestureEnd:(UIPinchGestureRecognizer *)sender
+{
+    BOOL result = NO;
+    if (sender.state == UIGestureRecognizerStateEnded || (sender.state == UIGestureRecognizerStateChanged && sender.numberOfTouches < 2)) {
+        
+        self.statusImageView.userInteractionEnabled = NO;
+        self.statusImageView.userInteractionEnabled = YES;
+        
+        BOOL shouldReturn = YES;
+        if ([_delegate respondsToSelector:@selector(shouldQuitZoomingMode)]) {
+            shouldReturn = [_delegate shouldQuitZoomingMode];
+        }
+        
+        if (shouldReturn) {
+            if ([_delegate respondsToSelector:@selector(enterDetailedImageViewMode)]) {
+                [_delegate enterDetailedImageViewMode];
+            }
+        }
+        
+        result = YES;
+    }
+    return result;
+}
+
+- (void)resetZoomingScaleWithPinchGesture:(UIPinchGestureRecognizer *)sender
+{
+    CGFloat scale = 1.0 - (_lastScale - sender.scale);
+    [self.statusImageView setTransform:CGAffineTransformScale(self.statusImageView.transform, scale, scale)];
+    self.statusImageView.currentScale += sender.scale - _lastScale;
+    _lastScale = sender.scale;
+        
+    _lastPoint = [sender locationInView:[UIApplication sharedApplication].rootViewController.view];
+    
+    if ([_delegate respondsToSelector:@selector(didZoomImageViewWithScale:centerPoint:)]) {
+        [_delegate didZoomImageViewWithScale:scale centerPoint:_lastPoint];
+    }
 }
 
 - (void)handleImageViewPinchWithGesture:(UIPinchGestureRecognizer *)sender
 {
-    BOOL gestureEnd = [self checkAndHanleGestureEnd:sender];
+    BOOL gestureEnd = [self checkAndHanlePinchGestureEnd:sender];
     
     if (!gestureEnd) {
         [self resetScaleWithPinchGesture:sender];
@@ -788,7 +828,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     }
 }
 
-- (BOOL)checkAndHanleGestureEnd:(UIPinchGestureRecognizer *)sender
+- (BOOL)checkAndHanlePinchGestureEnd:(UIPinchGestureRecognizer *)sender
 {
     BOOL result = NO;
     if (sender.state == UIGestureRecognizerStateEnded || (sender.state == UIGestureRecognizerStateChanged && sender.numberOfTouches < 2)) {

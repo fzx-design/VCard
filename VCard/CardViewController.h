@@ -41,6 +41,8 @@ typedef enum {
 - (void)willReturnImageView;
 - (void)enterDetailedImageViewMode;
 - (void)imageViewTapped;
+- (BOOL)shouldQuitZoomingMode;
+- (void)didZoomImageViewWithScale:(CGFloat)scale centerPoint:(CGPoint)point;
 
 @end
 

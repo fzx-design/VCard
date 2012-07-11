@@ -29,7 +29,7 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(-1, -1, self.bounds.size.width + 2, self.bounds.size.height + 2)];
         _backImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         _backImageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
         [self addSubview:_backImageView];

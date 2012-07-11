@@ -16,8 +16,8 @@
     BOOL _statusBarHidden;
     BOOL _shouldUseScrollViewZooming;
     CGFloat _lastScale;
-    CGPoint _lastPoint;
-    CGRect _contentFrame;
+    CGPoint _initialPoint;
+    CGFloat _currentScale;
 }
 
 @end
@@ -54,9 +54,9 @@
     _imageView = cardViewController.statusImageView;
     _cardViewController = cardViewController;
     _cardViewController.delegate = self;
-    _lastPoint = [_cardViewController.view convertPoint:_imageView.frame.origin toView:self.view];
-    _lastPoint.y += 20.0;
-    [_imageView resetOrigin:_lastPoint];
+    _initialPoint = [_cardViewController.view convertPoint:_imageView.frame.origin toView:self.view];
+    _initialPoint.y += 20.0;
+    [_imageView resetOrigin:_initialPoint];
     Status *targetStatus = _cardViewController.status;
     [_authorAvatarImageView loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
     [_authorAvatarImageView setVerifiedType:[targetStatus.author verifiedTypeOfUser]];
@@ -105,7 +105,7 @@
 
 - (void)willReturnImageView
 {
-    [_imageView resetOrigin:_lastPoint];
+    [_imageView resetOrigin:_initialPoint];
     self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
     _topBarView.alpha = 0.0;
     _bottomBarView.alpha = 0.0;
@@ -119,6 +119,7 @@
     [UIView setAnimationDuration:0.3f];
     
     _statusBarHidden = NO;
+    _currentScale = 1.0;
     _topBarView.alpha = 1.0;
     _bottomBarView.alpha = 1.0;
     self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
@@ -163,6 +164,28 @@
     CGFloat width = [_imageView targetSize].width * targetScale;
     CGFloat height = [_imageView targetSize].height * targetScale;
     [_imageView resetSize:CGSizeMake(width, height)];
+}
+
+- (void)didZoomImageViewWithScale:(CGFloat)scale centerPoint:(CGPoint)center
+{
+    _currentScale *= scale;
+    
+    CGSize contentSize = _scrollView.frame.size;
+    contentSize.width *= scale;
+    contentSize.height *= scale;
+    _scrollView.contentSize = contentSize;
+    
+    CGRect zoomRect;
+    zoomRect.size.height = _scrollView.frame.size.height / scale;
+    zoomRect.size.width  = _scrollView.frame.size.width  / scale;
+    zoomRect.origin.x = center.x - (zoomRect.size.width  / 2.0);
+    zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0);
+    [_scrollView zoomToRect:zoomRect animated:YES];
+}
+
+- (BOOL)shouldQuitZoomingMode
+{
+    return _currentScale <= 1.0;
 }
 
 - (void)imageViewTapped
