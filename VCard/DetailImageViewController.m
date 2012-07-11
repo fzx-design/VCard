@@ -170,10 +170,6 @@
 {
     _currentScale *= scale;
     
-    CGSize contentSize = _scrollView.frame.size;
-    contentSize.width *= scale;
-    contentSize.height *= scale;
-    _scrollView.contentSize = contentSize;
     
     CGRect zoomRect;
     zoomRect.size.height = _scrollView.frame.size.height / scale;
@@ -181,6 +177,24 @@
     zoomRect.origin.x = center.x - (zoomRect.size.width  / 2.0);
     zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0);
     [_scrollView zoomToRect:zoomRect animated:YES];
+    _scrollView.contentSize = _imageView.frame.size;
+
+    CGSize boundsSize = _scrollView.bounds.size;
+    CGRect contentsFrame = _imageView.frame;
+    
+    if (contentsFrame.size.width < boundsSize.width) {
+        contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2.0f;
+    } else {
+        contentsFrame.origin.x = 0.0f;
+    }
+    
+    if (contentsFrame.size.height < boundsSize.height) {
+        contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2.0f;
+    } else {
+        contentsFrame.origin.y = 0.0f;
+    }
+    
+    _imageView.frame = contentsFrame;
 }
 
 - (BOOL)shouldQuitZoomingMode
