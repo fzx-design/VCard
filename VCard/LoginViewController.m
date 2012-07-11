@@ -161,7 +161,21 @@
 }
 
 - (void)removeCellAtIndex:(NSUInteger)index {
+    LoginCellViewController *middle = [self.cellControllerArray objectAtIndex:index];
+    LoginCellViewController *right = index < self.cellControllerArray.count - 1 ?  [self.cellControllerArray objectAtIndex:index + 1] : nil;
+    [self.cellControllerArray removeObject:middle];
     
+    self.view.userInteractionEnabled = NO;
+    [UIView animateWithDuration:0.3f animations:^{
+        middle.gloomImageView.alpha = 1;
+        right.gloomImageView.alpha = 0;
+        [middle.view resetOriginY:-1000];
+        [right.view resetOriginX:middle.view.frame.origin.x];
+    } completion:^(BOOL finished) {
+        [self layoutScrollView];
+        [middle.view removeFromSuperview];
+        self.view.userInteractionEnabled = YES;
+    }];
 }
 
 - (void)configureCellGloom {
@@ -206,6 +220,25 @@
     } else {
         return [self.cellControllerArray objectAtIndex:index];
     }
+}
+
+// return -1 if user not exist, else return the index of the user in self.loginUserInfoArray
+- (NSUInteger)deleteUser:(User *)oldUser {
+    NSMutableArray *userIDArray = [NSMutableArray array];
+    __block NSUInteger index = -1;
+    [self.loginUserInfoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        User *user = obj;
+        if([user.userID isEqualToString:oldUser.userID])
+            index = idx;
+        else
+            [userIDArray addObject:user.userID];
+    }];
+    
+    if(index != -1) {
+        [self.loginUserInfoArray removeObject:oldUser];        
+        [NSUserDefaults setLoginUserArray:userIDArray];
+    }
+    return index;
 }
 
 - (void)insertNewUser:(User *)newUser {
@@ -255,11 +288,6 @@
 - (IBAction)didClickRegisterButton:(UIButton *)sender {
     [self viewDisappearAnimation];
     [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
-}
-
-- (IBAction)didClickLogoutButton:(UIButton *)sender {
-    [NSUserDefaults setLoginUserArray:nil];
-    [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:nil];
 }
 
 #pragma mark - UIScrollView delegate
@@ -318,7 +346,13 @@
 }
 
 - (void)loginUserCell:(LoginUserCellViewController *)vc didDeleteUser:(User *)user {
+    NSUInteger index = [self deleteUser:user];
+    [self removeCellAtIndex:index];
     
+    if(self.loginUserInfoArray.count == 0) {
+        [NSUserDefaults setLoginUserArray:nil];
+        [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:nil];
+    }
 }
 
 #pragma mark - LoginInputCellViewController delegate
