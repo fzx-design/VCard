@@ -82,6 +82,7 @@
 - (void)playReturnAnimation
 {
     self.transform = CGAffineTransformIdentity;
+    [self resetSize:_initialSize];
     [self.imageView resetSize:_initialSize];
     [self.coverView resetSize:CGSizeMake(_initialSize.width + 10.0, _initialSize.height + 10.0)];
 }

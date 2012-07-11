@@ -730,16 +730,6 @@ static inline NSRegularExpression * UrlRegularExpression() {
 {
     [self recordPinchGestureInitialStatus:sender];
     
-    if (_imageViewMode == CastViewImageViewModeNormal) {
-        [self playClipLooseAnimationAndSendNotification];
-        [self willOpenDetailImageView];
-        return;
-    }
-    
-    if (_imageViewMode == CastViewImageViewModeDetailedNormal) {
-        //TODO:
-    }
-    
     BOOL gestureEnd = [self checkAndHanleGestureEnd:sender];
     
     if (!gestureEnd) {
@@ -762,6 +752,20 @@ static inline NSRegularExpression * UrlRegularExpression() {
         _currentScale = 1.0;
         _scale = 1.0;
         _lastPoint = [sender locationInView:[UIApplication sharedApplication].rootViewController.view];
+        
+        if (_imageViewMode == CastViewImageViewModeNormal) {
+            [self playClipLooseAnimationAndSendNotification];
+            [self willOpenDetailImageView];
+            return;
+        }
+        
+        if (_imageViewMode == CastViewImageViewModeDetailedNormal) {
+            if (sender.scale >= 1.0) {
+                _imageViewMode = CastViewImageViewModeDetailedZooming;
+            } else {
+                _imageViewMode = CastViewImageViewModePinching;
+            }
+        }
     }
 }
 

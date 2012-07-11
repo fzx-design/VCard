@@ -150,6 +150,7 @@
     _contentFrame = CGRectMake(_imageView.frame.origin.x, _imageView.frame.origin.y, width, height);
     
     [_imageView resetOrigin:CGPointMake(screenWidth / 2 - width / 2, screenHeight / 2 - height / 2)];
+    [_imageView resetSize:CGSizeMake(width, height)];
     
     [UIView commitAnimations];
     
