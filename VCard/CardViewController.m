@@ -748,9 +748,16 @@ static inline NSRegularExpression * UrlRegularExpression() {
         [self.statusImageView resetCurrentScale];
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
         
+        NSLog(@"%f", sender.velocity);
+        
         if (_imageViewMode == CastViewImageViewModeNormal) {
-            [self playClipLooseAnimationAndSendNotification];
-            [self willOpenDetailImageView];
+            if (sender.velocity > 2.0) {
+                [self willOpenDetailImageViewDirectly];
+            } else {
+                [self playClipLooseAnimationAndSendNotification];
+                [self willOpenDetailImageView];
+            }
+            
             return;
         }
         
