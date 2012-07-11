@@ -7,9 +7,6 @@
 //
 
 #import "LoginCellViewController.h"
-#import <QuartzCore/QuartzCore.h>
-
-#define CornerRadius 174 / 2
 
 @interface LoginCellViewController ()
 
@@ -35,11 +32,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.avatarImageView.layer.masksToBounds = YES;
-    self.avatarImageView.layer.cornerRadius = CornerRadius;
-    
-    self.avatarBgImageView.layer.masksToBounds = YES;
-    self.avatarBgImageView.layer.cornerRadius = CornerRadius;
 }
 
 - (void)viewDidUnload
