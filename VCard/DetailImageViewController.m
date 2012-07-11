@@ -113,9 +113,6 @@
 
 - (void)enterDetailedImageViewMode
 {
-    
-    NSLog(@"___%@", NSStringFromCGRect(_imageView.frame));
-    
     self.cardViewController.imageViewMode = CastViewImageViewModeDetailedNormal;
     
     [UIView beginAnimations:nil context:NULL];
