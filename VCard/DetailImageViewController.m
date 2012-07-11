@@ -113,57 +113,59 @@
 
 - (void)enterDetailedImageViewMode
 {
+    
+    NSLog(@"___%@", NSStringFromCGRect(_imageView.frame));
+    
     self.cardViewController.imageViewMode = CastViewImageViewModeDetailedNormal;
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3f];
     
     _statusBarHidden = NO;
-    _shouldUseScrollViewZooming = YES;
     _topBarView.alpha = 1.0;
     _bottomBarView.alpha = 1.0;
     self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
-    
-    CGFloat scale = sqrt(_imageView.transform.a * _imageView.transform.a + _imageView.transform.c * _imageView.transform.c);
-    CGFloat targetScale = [UIApplication isCurrentOrientationLandscape] ? _imageView.targetHorizontalScale : _imageView.targetVerticalScale;
-    
+
     [_imageView pinchResizeToScale:1.5];
-        
-    scale = targetScale / scale;
+    
+    CGFloat targetScale = [UIApplication isCurrentOrientationLandscape] ? _imageView.targetHorizontalScale : _imageView.targetVerticalScale;
     
     CGAffineTransform transform = _imageView.transform;
     CGFloat angle = atan2(transform.b, transform.a);
     transform = CGAffineTransformRotate(transform, -angle);
+    
+    CGFloat scale = sqrt(transform.a * transform.a + transform.c * transform.c);
+    scale = targetScale / scale;
+    transform = CGAffineTransformScale(transform, scale, scale);
+    
     _imageView.transform = transform;
-    _imageView.transform = CGAffineTransformScale(_imageView.transform, scale, scale);
     
     CGFloat screenWidth = [UIApplication screenWidth];
     CGFloat screenHeight = [UIApplication screenHeight];
     
-    CGFloat a = _imageView.transform.a;
-    CGFloat b = _imageView.transform.b;
-    CGFloat c = _imageView.transform.c;
-    CGFloat d = _imageView.transform.d;
-    
-    CGFloat scaleX = sqrt(a * a + c * c);
-    CGFloat scaleY = sqrt(b * b + d * d);
-    
-    CGFloat width = [_imageView targetSize].width * scaleX;
-    CGFloat height = [_imageView targetSize].height * scaleY;
-    
-    _scrollView.contentSize = CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight]);
-    _contentFrame = CGRectMake(_imageView.frame.origin.x, _imageView.frame.origin.y, width, height);
+    CGFloat width = [_imageView targetSize].width * targetScale;
+    CGFloat height = [_imageView targetSize].height * targetScale;
     
     [_imageView resetOrigin:CGPointMake(screenWidth / 2 - width / 2, screenHeight / 2 - height / 2)];
-    [_imageView resetSize:CGSizeMake(width, height)];
+    _scrollView.contentSize = CGSizeMake(screenWidth, screenHeight);
     
     [UIView commitAnimations];
+    
+    [self performSelector:@selector(resetImageViewSize) withObject:nil afterDelay:0.3];
     
     Status *targetStatus = self.cardViewController.status;
     if (self.cardViewController.isReposted) {
         targetStatus = targetStatus.repostStatus;
     }
     [_imageView loadDetailedImageFromURL:targetStatus.originalPicURL completion:nil];
+}
+
+- (void)resetImageViewSize
+{
+    CGFloat targetScale = [UIApplication isCurrentOrientationLandscape] ? _imageView.targetHorizontalScale : _imageView.targetVerticalScale;
+    CGFloat width = [_imageView targetSize].width * targetScale;
+    CGFloat height = [_imageView targetSize].height * targetScale;
+    [_imageView resetSize:CGSizeMake(width, height)];
 }
 
 - (void)imageViewTapped

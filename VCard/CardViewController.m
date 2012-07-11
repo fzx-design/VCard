@@ -728,6 +728,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
 #pragma mark Pinch
 - (void)handlePinchGesture:(UIPinchGestureRecognizer *)sender
 {
+    NSLog(@"%@", NSStringFromCGRect(self.statusImageView.frame));
+    
     [self recordPinchGestureInitialStatus:sender];
     
     if (_imageViewMode == CastViewImageViewModePinchingOut || _imageViewMode == CastViewImageViewModePinchingIn) {

@@ -97,13 +97,13 @@
 - (void)playReturnAnimation
 {
     self.transform = CGAffineTransformIdentity;
-    [self resetSize:_initialSize];
     [self.imageView resetSize:_initialSize];
     [self.coverView resetSize:CGSizeMake(_initialSize.width + 10.0, _initialSize.height + 10.0)];
 }
 
 - (void)returnToInitialPosition
 {
+    [self resetSize:_initialSize];
     [self resetOrigin:_initialPosition];
     [UIView animateWithDuration:0.3 animations:^{
         self.transform = CGAffineTransformMakeRotation(_initialRotation);
