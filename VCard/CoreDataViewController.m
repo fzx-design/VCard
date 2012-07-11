@@ -9,6 +9,7 @@
 #import "CoreDataViewController.h"
 #import "AppDelegate.h"
 #import "NSNotificationCenter+Addition.h"
+#import "WBClient.h"
 
 #define kStoredCurrentUserID @"StoredCurrentUserID"
 
@@ -25,6 +26,23 @@ static CoreDataKernal *kernalInstance = nil;
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize fetchedResultsController = _fetchedResultsController;
 
+#pragma mark - CoreData methods
+
++ (void)saveContext
+{
+    NSError *error = nil;
+    AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *managedObjectContext = delegate.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        } 
+    }
+}
+
 - (void)configureRequest:(NSFetchRequest *)request
 {
     
@@ -38,6 +56,8 @@ static CoreDataKernal *kernalInstance = nil;
     }
     return _managedObjectContext;
 }
+
+#pragma mark - Logic methods
 
 - (CoreDataKernal *)kernal {
     return [CoreDataKernal getKernalInstance];
@@ -102,9 +122,15 @@ static CoreDataKernal *kernalInstance = nil;
     User *currentUser = [User userWithID:currentUserID inManagedObjectContext:appDelegate.managedObjectContext];
     self.currentUser = currentUser;
     
+    NSLog(@"configure current user name %@", currentUser.screenName);
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:currentUserID forKey:kStoredCurrentUserID];
     [defaults synchronize];
+    
+    if(self.currentUser == nil) {
+        [[WBClient client] logOut];
+    }
 }
 
 #pragma mark -
@@ -113,6 +139,7 @@ static CoreDataKernal *kernalInstance = nil;
 - (void)handleCoreChangeCurrentUserNotification:(NSNotification *)notification {
     NSString *currentUserID = notification.object;
     [self configureCurrentUserWithUserID:currentUserID];
+    [CoreDataViewController saveContext];
     [NSNotificationCenter postChangeCurrentUserNotification];
 }
 

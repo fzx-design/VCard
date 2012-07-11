@@ -207,7 +207,6 @@ static inline NSRegularExpression * UrlRegularExpression() {
     _alreadyConfigured = YES;
     _imageViewMode = CastViewImageViewModeNormal;
     _pageIndex = pageIndex_;
-    _currentUser = user;
     
     [self setUpStatus:status_];
     

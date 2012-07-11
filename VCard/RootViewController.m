@@ -10,7 +10,7 @@
 #import "WBClient.h"
 #import "ResourceList.h"
 #import "Group.h"
-#import "NewLoginViewController.h"
+#import "LoginViewController.h"
 #import "NSNotificationCenter+Addition.h"
 #import "UIApplication+Addition.h"
 
@@ -53,12 +53,13 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     if (self.currentUser == nil) {
-        [[[NewLoginViewController alloc] init] show];
+        [[[LoginViewController alloc] init] show];
     }
 }
 
 #pragma mark - Handle notifications
 - (void)handleChangeCurrentUserNotification:(NSNotification *)notification {
+    NSLog(@"current user name:%@", self.currentUser.screenName);
     [self setUpNotifications];
     [self setUpViews];
 }

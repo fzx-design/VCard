@@ -104,8 +104,6 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 - (WCCompletionBlock)completionBlock;
 
 + (id)client;
-+ (id)currentUserID;
-+ (BOOL)authorized;
 
 - (id)init;
 - (void)logOut;

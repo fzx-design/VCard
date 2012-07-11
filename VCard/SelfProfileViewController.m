@@ -7,7 +7,7 @@
 //
 
 #import "SelfProfileViewController.h"
-#import "NewLoginViewController.h"
+#import "LoginViewController.h"
 
 @implementation SelfProfileViewController
 
@@ -55,7 +55,7 @@
 }
 
 - (IBAction)didClickAccountSettingButton:(id)sender {
-    NewLoginViewController *vc = [[NewLoginViewController alloc] init];
+    LoginViewController *vc = [[LoginViewController alloc] init];
     [vc show];
 }
 

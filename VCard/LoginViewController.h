@@ -2,27 +2,25 @@
 //  LoginViewController.h
 //  VCard
 //
-//  Created by 海山 叶 on 12-4-11.
+//  Created by 王 紫川 on 12-7-9.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "CoreDataViewController.h"
-#import "BaseLayoutView.h"
-#import "EasyTableView.h"
-#import "UserSelectionCellViewController.h"
+#import "LoginInputCellViewController.h"
+#import "LoginUserCellViewController.h"
 
-@interface LoginViewController : CoreDataViewController <EasyTableViewDelegate> {
-    UIImageView * _logoImageView;
-    EasyTableView *_userSelectionTavatar_placeholderableView;
-    UserSelectionCellViewController *_currentUserCell;
-    
-    UIInterfaceOrientation _currentOrientation;
-    BOOL _isEditingTextfield;
-}
+@interface LoginViewController : CoreDataViewController <UIScrollViewDelegate, LoginUserCellViewControllerDelegate, LoginInputCellViewControllerDelegate>
 
+@property (nonatomic, strong) IBOutlet UIButton *registerButton;
+@property (nonatomic, strong) IBOutlet UIView *bgView;
 @property (nonatomic, strong) IBOutlet UIImageView *logoImageView;
-@property (nonatomic, strong) EasyTableView *userSelectionTableView;
-@property (nonatomic, strong) UserSelectionCellViewController *currentUserCell;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+
+- (void)show;
+
+- (IBAction)didClickRegisterButton:(UIButton *)sender;
+- (IBAction)didClickLogoutButton:(UIButton *)sender;
 
 @end

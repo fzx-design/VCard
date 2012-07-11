@@ -109,7 +109,6 @@
 		1850A462153BE56D0001A905 /* image_shadow_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 1850A45C153BE56D0001A905 /* image_shadow_top.png */; };
 		1850A463153BE56D0001A905 /* image_shadow_top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1850A45D153BE56D0001A905 /* image_shadow_top@2x.png */; };
 		1850A478153C0ADC0001A905 /* libicucore.A.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1850A477153C0ADC0001A905 /* libicucore.A.dylib */; };
-		185785F41536689700C9E1B9 /* EasyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185785F31536689700C9E1B9 /* EasyTableViewCell.m */; };
 		186224F5159EAF550099FF60 /* notification_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186224F3159EAF550099FF60 /* notification_shadow@2x.png */; };
 		186224F6159EAF550099FF60 /* notification_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 186224F4159EAF550099FF60 /* notification_shadow.png */; };
 		186224FC159EB3860099FF60 /* button_mention_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 186224F8159EB3860099FF60 /* button_mention_hover.png */; };
@@ -137,7 +136,6 @@
 		188E52FC1596EA1B00A30AB8 /* SelfCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E52FB1596EA1B00A30AB8 /* SelfCommentViewController.m */; };
 		188E53051596EB4600A30AB8 /* SelfCommentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E53041596EB4600A30AB8 /* SelfCommentTableViewController.m */; };
 		188E53081596EB6B00A30AB8 /* SelfCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E53071596EB6B00A30AB8 /* SelfCommentTableViewCell.m */; };
-		1890C68A15356BCB00023A13 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C68915356BCB00023A13 /* LoginViewController.m */; };
 		1890C69115356F6F00023A13 /* BaseLayoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C69015356F6F00023A13 /* BaseLayoutView.m */; };
 		1890C6B51535BE5200023A13 /* LoginInputCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B41535BE5200023A13 /* LoginInputCellViewController.m */; };
 		189D9DE215496FA300E922D9 /* UIImageView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D9DE115496FA300E922D9 /* UIImageView+Addition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -655,8 +653,6 @@
 		E111D757159B34E000C68A5C /* motions_slider_thumb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E111D755159B34E000C68A5C /* motions_slider_thumb@2x.png */; };
 		E122D533159DAA6800E17D3B /* MotionsFilterReader.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D532159DAA6700E17D3B /* MotionsFilterReader.m */; };
 		E122D536159DAACC00E17D3B /* MotionsFilterInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = E122D535159DAACB00E17D3B /* MotionsFilterInfo.plist */; };
-		E127E91615AB2A7000A2D749 /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B11535B57A00023A13 /* EasyTableView.m */; };
-		E127E91D15ABC7E500A2D749 /* UserSelectionCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E127E91C15ABC7E400A2D749 /* UserSelectionCellViewController.m */; };
 		E12B6FDC1599663B00711A6B /* MultiInterfaceOrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */; };
 		E12B6FED159992D700711A6B /* MotionsViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1031B6315995114006A9CFD /* MotionsViewController-landscape.xib */; };
 		E135F7DB155E6196008494D8 /* button_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7C3155E6196008494D8 /* button_delete.png */; };
@@ -694,12 +690,14 @@
 		E1919A7E15AC75570034079B /* login_card_gloom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1919A7C15AC75570034079B /* login_card_gloom@2x.png */; };
 		E1919A8115AC76150034079B /* LoginCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1919A8015AC76140034079B /* LoginCellViewController.m */; };
 		E1919A8315AC76250034079B /* LoginInputCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1919A8215AC76250034079B /* LoginInputCellViewController.xib */; };
+		E1919A8D15AC8F990034079B /* LoginUserCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1919A8915AC8F810034079B /* LoginUserCellViewController.m */; };
+		E1919A8E15AC8FA60034079B /* LoginUserCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1919A8A15AC8F820034079B /* LoginUserCellViewController.xib */; };
+		E1919A9515AD37550034079B /* login_button_large_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = E1919A9315AD37550034079B /* login_button_large_hl.png */; };
+		E1919A9615AD37550034079B /* login_button_large_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1919A9415AD37550034079B /* login_button_large_hl@2x.png */; };
 		E1998AF315919BA400BBAC55 /* post_paper_gloom_left.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF115919BA400BBAC55 /* post_paper_gloom_left.png */; };
 		E1998AF415919BA400BBAC55 /* post_paper_gloom_right.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF215919BA400BBAC55 /* post_paper_gloom_right.png */; };
 		E1998AF81592EB5400BBAC55 /* PostNewStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */; };
 		E1A59E9415ABE3DA001F0A94 /* LoginBgView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A59E9315ABE3D9001F0A94 /* LoginBgView.m */; };
-		E1A59EA215AC1A84001F0A94 /* LoginUserCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A59E9E15AC125F001F0A94 /* LoginUserCellViewController.m */; };
-		E1A59EA315AC1A8C001F0A94 /* LoginUserCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A59E9F15AC1260001F0A94 /* LoginUserCellViewController.xib */; };
 		E1A59EAB15AC24AD001F0A94 /* NSNotificationCenter+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A59EA915AC2430001F0A94 /* NSNotificationCenter+Addition.m */; };
 		E1A7EFDC15936D4B00E2B900 /* PostRepostCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */; };
 		E1AF111E15A01A67004236ED /* MotionsFilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AF111815A01A67004236ED /* MotionsFilterCell.m */; };
@@ -777,8 +775,8 @@
 		E1FE8B2015AAD45B009636A4 /* login_textfield_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1FE8B1215AAD45B009636A4 /* login_textfield_bg@2x.png */; };
 		E1FE8B2115AAD45B009636A4 /* title_large.png in Resources */ = {isa = PBXBuildFile; fileRef = E1FE8B1315AAD45B009636A4 /* title_large.png */; };
 		E1FE8B2215AAD45B009636A4 /* title_large@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1FE8B1415AAD45B009636A4 /* title_large@2x.png */; };
-		E1FE8B2815AAF09A009636A4 /* NewLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE8B2615AAF099009636A4 /* NewLoginViewController.m */; };
-		E1FE8B2B15AAF0C2009636A4 /* NewLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FE8B2A15AAF0C2009636A4 /* NewLoginViewController.xib */; };
+		E1FE8B2815AAF09A009636A4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE8B2615AAF099009636A4 /* LoginViewController.m */; };
+		E1FE8B2B15AAF0C2009636A4 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FE8B2A15AAF0C2009636A4 /* LoginViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -924,8 +922,6 @@
 		1850A45C153BE56D0001A905 /* image_shadow_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_shadow_top.png; sourceTree = "<group>"; };
 		1850A45D153BE56D0001A905 /* image_shadow_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image_shadow_top@2x.png"; sourceTree = "<group>"; };
 		1850A477153C0ADC0001A905 /* libicucore.A.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.A.dylib; path = usr/lib/libicucore.A.dylib; sourceTree = SDKROOT; };
-		185785F21536689700C9E1B9 /* EasyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableViewCell.h; sourceTree = "<group>"; };
-		185785F31536689700C9E1B9 /* EasyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableViewCell.m; sourceTree = "<group>"; };
 		186224F3159EAF550099FF60 /* notification_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_shadow@2x.png"; sourceTree = "<group>"; };
 		186224F4159EAF550099FF60 /* notification_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification_shadow.png; sourceTree = "<group>"; };
 		186224F8159EB3860099FF60 /* button_mention_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_mention_hover.png; sourceTree = "<group>"; };
@@ -966,13 +962,9 @@
 		188E53041596EB4600A30AB8 /* SelfCommentTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfCommentTableViewController.m; sourceTree = "<group>"; };
 		188E53061596EB6B00A30AB8 /* SelfCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfCommentTableViewCell.h; sourceTree = "<group>"; };
 		188E53071596EB6B00A30AB8 /* SelfCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfCommentTableViewCell.m; sourceTree = "<group>"; };
-		1890C68815356BCB00023A13 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		1890C68915356BCB00023A13 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1890C68F15356F6F00023A13 /* BaseLayoutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseLayoutView.h; sourceTree = "<group>"; };
 		1890C69015356F6F00023A13 /* BaseLayoutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseLayoutView.m; sourceTree = "<group>"; };
 		1890C6A21535A87900023A13 /* ResourceList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResourceList.h; sourceTree = "<group>"; };
-		1890C6B01535B57A00023A13 /* EasyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableView.h; sourceTree = "<group>"; };
-		1890C6B11535B57A00023A13 /* EasyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableView.m; sourceTree = "<group>"; };
 		1890C6B31535BE5100023A13 /* LoginInputCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginInputCellViewController.h; sourceTree = "<group>"; };
 		1890C6B41535BE5200023A13 /* LoginInputCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginInputCellViewController.m; sourceTree = "<group>"; };
 		189D9DE015496FA300E922D9 /* UIImageView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Addition.h"; sourceTree = "<group>"; };
@@ -1557,8 +1549,6 @@
 		E122D531159DAA6600E17D3B /* MotionsFilterReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsFilterReader.h; sourceTree = "<group>"; };
 		E122D532159DAA6700E17D3B /* MotionsFilterReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsFilterReader.m; sourceTree = "<group>"; };
 		E122D535159DAACB00E17D3B /* MotionsFilterInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MotionsFilterInfo.plist; sourceTree = "<group>"; };
-		E127E91B15ABC7E400A2D749 /* UserSelectionCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSelectionCellViewController.h; sourceTree = "<group>"; };
-		E127E91C15ABC7E400A2D749 /* UserSelectionCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSelectionCellViewController.m; sourceTree = "<group>"; };
 		E12B6FDA1599663A00711A6B /* MultiInterfaceOrientationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiInterfaceOrientationViewController.h; sourceTree = "<group>"; };
 		E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiInterfaceOrientationViewController.m; sourceTree = "<group>"; };
 		E135F7C3155E6196008494D8 /* button_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_delete.png; sourceTree = "<group>"; };
@@ -1598,6 +1588,11 @@
 		E1919A7F15AC76140034079B /* LoginCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCellViewController.h; sourceTree = "<group>"; };
 		E1919A8015AC76140034079B /* LoginCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCellViewController.m; sourceTree = "<group>"; };
 		E1919A8215AC76250034079B /* LoginInputCellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginInputCellViewController.xib; sourceTree = "<group>"; };
+		E1919A8815AC8F810034079B /* LoginUserCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginUserCellViewController.h; sourceTree = "<group>"; };
+		E1919A8915AC8F810034079B /* LoginUserCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginUserCellViewController.m; sourceTree = "<group>"; };
+		E1919A8A15AC8F820034079B /* LoginUserCellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginUserCellViewController.xib; sourceTree = "<group>"; };
+		E1919A9315AD37550034079B /* login_button_large_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_button_large_hl.png; sourceTree = "<group>"; };
+		E1919A9415AD37550034079B /* login_button_large_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_button_large_hl@2x.png"; sourceTree = "<group>"; };
 		E1998AF115919BA400BBAC55 /* post_paper_gloom_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post_paper_gloom_left.png; sourceTree = "<group>"; };
 		E1998AF215919BA400BBAC55 /* post_paper_gloom_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post_paper_gloom_right.png; sourceTree = "<group>"; };
 		E1998AF61592EB5400BBAC55 /* PostNewStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostNewStatusViewController.h; sourceTree = "<group>"; };
@@ -1605,9 +1600,6 @@
 		E1998AFC1592EBAD00BBAC55 /* PostRepostCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostRepostCommentViewController.h; sourceTree = "<group>"; };
 		E1A59E9215ABE3D8001F0A94 /* LoginBgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginBgView.h; sourceTree = "<group>"; };
 		E1A59E9315ABE3D9001F0A94 /* LoginBgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginBgView.m; sourceTree = "<group>"; };
-		E1A59E9D15AC125F001F0A94 /* LoginUserCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginUserCellViewController.h; sourceTree = "<group>"; };
-		E1A59E9E15AC125F001F0A94 /* LoginUserCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginUserCellViewController.m; sourceTree = "<group>"; };
-		E1A59E9F15AC1260001F0A94 /* LoginUserCellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginUserCellViewController.xib; sourceTree = "<group>"; };
 		E1A59EA815AC242F001F0A94 /* NSNotificationCenter+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+Addition.h"; sourceTree = "<group>"; };
 		E1A59EA915AC2430001F0A94 /* NSNotificationCenter+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+Addition.m"; sourceTree = "<group>"; };
 		E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostRepostCommentViewController.m; sourceTree = "<group>"; };
@@ -1689,9 +1681,9 @@
 		E1FE8B1215AAD45B009636A4 /* login_textfield_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_textfield_bg@2x.png"; sourceTree = "<group>"; };
 		E1FE8B1315AAD45B009636A4 /* title_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_large.png; sourceTree = "<group>"; };
 		E1FE8B1415AAD45B009636A4 /* title_large@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title_large@2x.png"; sourceTree = "<group>"; };
-		E1FE8B2515AAF099009636A4 /* NewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewLoginViewController.h; sourceTree = "<group>"; };
-		E1FE8B2615AAF099009636A4 /* NewLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewLoginViewController.m; sourceTree = "<group>"; };
-		E1FE8B2A15AAF0C2009636A4 /* NewLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewLoginViewController.xib; sourceTree = "<group>"; };
+		E1FE8B2515AAF099009636A4 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		E1FE8B2615AAF099009636A4 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		E1FE8B2A15AAF0C2009636A4 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1943,27 +1935,19 @@
 		18A6850715370EB900D58B7D /* LoginComponent */ = {
 			isa = PBXGroup;
 			children = (
-				1890C6B01535B57A00023A13 /* EasyTableView.h */,
-				1890C6B11535B57A00023A13 /* EasyTableView.m */,
-				185785F21536689700C9E1B9 /* EasyTableViewCell.h */,
-				185785F31536689700C9E1B9 /* EasyTableViewCell.m */,
 				E1A59E9215ABE3D8001F0A94 /* LoginBgView.h */,
 				E1A59E9315ABE3D9001F0A94 /* LoginBgView.m */,
 				E1919A7F15AC76140034079B /* LoginCellViewController.h */,
 				E1919A8015AC76140034079B /* LoginCellViewController.m */,
+				E1919A8815AC8F810034079B /* LoginUserCellViewController.h */,
+				E1919A8915AC8F810034079B /* LoginUserCellViewController.m */,
+				E1919A8A15AC8F820034079B /* LoginUserCellViewController.xib */,
 				1890C6B31535BE5100023A13 /* LoginInputCellViewController.h */,
 				1890C6B41535BE5200023A13 /* LoginInputCellViewController.m */,
 				E1919A8215AC76250034079B /* LoginInputCellViewController.xib */,
-				E1A59E9D15AC125F001F0A94 /* LoginUserCellViewController.h */,
-				E1A59E9E15AC125F001F0A94 /* LoginUserCellViewController.m */,
-				E1A59E9F15AC1260001F0A94 /* LoginUserCellViewController.xib */,
-				1890C68815356BCB00023A13 /* LoginViewController.h */,
-				1890C68915356BCB00023A13 /* LoginViewController.m */,
-				E1FE8B2515AAF099009636A4 /* NewLoginViewController.h */,
-				E1FE8B2615AAF099009636A4 /* NewLoginViewController.m */,
-				E1FE8B2A15AAF0C2009636A4 /* NewLoginViewController.xib */,
-				E127E91B15ABC7E400A2D749 /* UserSelectionCellViewController.h */,
-				E127E91C15ABC7E400A2D749 /* UserSelectionCellViewController.m */,
+				E1FE8B2515AAF099009636A4 /* LoginViewController.h */,
+				E1FE8B2615AAF099009636A4 /* LoginViewController.m */,
+				E1FE8B2A15AAF0C2009636A4 /* LoginViewController.xib */,
 			);
 			name = LoginComponent;
 			sourceTree = "<group>";
@@ -2457,6 +2441,8 @@
 		18EA4EF115346DFD005ED94F /* login */ = {
 			isa = PBXGroup;
 			children = (
+				E1919A9315AD37550034079B /* login_button_large_hl.png */,
+				E1919A9415AD37550034079B /* login_button_large_hl@2x.png */,
 				E1919A7B15AC75570034079B /* login_card_gloom.png */,
 				E1919A7C15AC75570034079B /* login_card_gloom@2x.png */,
 				E1FE8B0715AAD45B009636A4 /* avatar_placeholder.png */,
@@ -3770,15 +3756,17 @@
 				E1FE8B2015AAD45B009636A4 /* login_textfield_bg@2x.png in Resources */,
 				E1FE8B2115AAD45B009636A4 /* title_large.png in Resources */,
 				E1FE8B2215AAD45B009636A4 /* title_large@2x.png in Resources */,
-				E1FE8B2B15AAF0C2009636A4 /* NewLoginViewController.xib in Resources */,
+				E1FE8B2B15AAF0C2009636A4 /* LoginViewController.xib in Resources */,
 				E1F943EE15AB0EA400C3A75E /* login_view_shadow@2x.png in Resources */,
 				E1F943EF15AB0EA400C3A75E /* login_view_shadow.png in Resources */,
-				E1A59EA315AC1A8C001F0A94 /* LoginUserCellViewController.xib in Resources */,
 				E1919A7815AC50980034079B /* imageview_placeholder.png in Resources */,
 				E1919A7915AC50980034079B /* imageview_placeholder@2x.png in Resources */,
 				E1919A7D15AC75570034079B /* login_card_gloom.png in Resources */,
 				E1919A7E15AC75570034079B /* login_card_gloom@2x.png in Resources */,
 				E1919A8315AC76250034079B /* LoginInputCellViewController.xib in Resources */,
+				E1919A8E15AC8FA60034079B /* LoginUserCellViewController.xib in Resources */,
+				E1919A9515AD37550034079B /* login_button_large_hl.png in Resources */,
+				E1919A9615AD37550034079B /* login_button_large_hl@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3826,10 +3814,8 @@
 				187348731523407A00F562E7 /* WBRequest.m in Sources */,
 				187348791523424500F562E7 /* WBUtil.m in Sources */,
 				187348821523443B00F562E7 /* WBClient.m in Sources */,
-				1890C68A15356BCB00023A13 /* LoginViewController.m in Sources */,
 				1890C69115356F6F00023A13 /* BaseLayoutView.m in Sources */,
 				1890C6B51535BE5200023A13 /* LoginInputCellViewController.m in Sources */,
-				185785F41536689700C9E1B9 /* EasyTableViewCell.m in Sources */,
 				18DF3734153905A800C783C9 /* BaseNavigationBar.m in Sources */,
 				188BA4EB15398DC900344288 /* BaseCardBackgroundView.m in Sources */,
 				188BA4F41539AAD100344288 /* CardViewController.m in Sources */,
@@ -3929,13 +3915,11 @@
 				189D9E6215A596A100AD72EA /* Group.m in Sources */,
 				1846F04815A72FAA00E5CF47 /* DetailImageViewController.m in Sources */,
 				E1FE8AFD15A9CFD8009636A4 /* FXLabel.m in Sources */,
-				E1FE8B2815AAF09A009636A4 /* NewLoginViewController.m in Sources */,
-				E127E91615AB2A7000A2D749 /* EasyTableView.m in Sources */,
-				E127E91D15ABC7E500A2D749 /* UserSelectionCellViewController.m in Sources */,
+				E1FE8B2815AAF09A009636A4 /* LoginViewController.m in Sources */,
 				E1A59E9415ABE3DA001F0A94 /* LoginBgView.m in Sources */,
-				E1A59EA215AC1A84001F0A94 /* LoginUserCellViewController.m in Sources */,
 				E1A59EAB15AC24AD001F0A94 /* NSNotificationCenter+Addition.m in Sources */,
 				E1919A8115AC76150034079B /* LoginCellViewController.m in Sources */,
+				E1919A8D15AC8F990034079B /* LoginUserCellViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

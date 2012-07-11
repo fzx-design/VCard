@@ -27,8 +27,6 @@ typedef enum {
     HTTPMethodGet,
 } HTTPMethod;
 
-static NSString *UserID = @"";
-
 @interface WBClient()
 
 @property (nonatomic, copy) NSString *path;
@@ -74,17 +72,6 @@ static NSString *UserID = @"";
     return [[WBClient alloc] init]; 
 }
 
-+ (id)currentUserID
-{
-    return UserID;
-}
-
-+ (BOOL)authorized
-{
-    UserID = [[NSUserDefaults standardUserDefaults] valueForKey:kUserDefaultCurrentUserID];
-    return UserID != nil;
-}
-
 - (id)init
 {
     if (self = [super init]) {
@@ -107,6 +94,7 @@ static NSString *UserID = @"";
 
 - (void)dealloc
 {
+    NSLog(@"WBClient dealloc");
     [_appKey release], _appKey = nil;
     [_appSecret release], _appSecret = nil;
     
@@ -162,7 +150,7 @@ static NSString *UserID = @"";
 	[SFHFKeychainUtils deleteItemForUsername:kWBKeychainAccessToken andServiceName:serviceName error:nil];
 	[SFHFKeychainUtils deleteItemForUsername:kWBKeychainExpireTime andServiceName:serviceName error:nil];
     
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultAuthorized];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:kUserDefaultAuthorized];
 }
 
 #pragma mark - WBEngine Public Methods
@@ -197,7 +185,6 @@ static NSString *UserID = @"";
 
 #pragma mark Authorization
 
-
 - (void)logOut
 {
     [self deleteAuthorizeDataInKeychain];
@@ -205,6 +192,8 @@ static NSString *UserID = @"";
     if ([_delegate respondsToSelector:@selector(engineDidLogOut:)]) {
         [_delegate clientDidLogOut:self];
     }
+    
+    [self autorelease];
 }
 
 - (BOOL)isLoggedIn
@@ -341,28 +330,28 @@ static NSString *UserID = @"";
                             _redirectURI, @"redirect_uri",
                             userID, @"username",
                             password, @"password", nil];
-    
     self.params = params;
     
     [self setPreCompletionBlock:^(WBClient *client) {
-        
-        if ([self.responseJSONObject isKindOfClass:[NSDictionary class]]) {
+        if (!client.hasError && [self.responseJSONObject isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dict = (NSDictionary*)client.responseJSONObject;
             
             self.accessToken = [dict objectForKey:@"access_token"];
             self.userID = [dict objectForKey:@"uid"];
             self.expireTime = [[NSDate date] timeIntervalSince1970] + [[dict objectForKey:@"expires_in"] intValue];
-            
-            UserID = self.userID;
-            
+                        
             [self saveAuthorizeDataToKeychain];
             
-            WBClient *client = [WBClient client];
-            [client authorizeWithAdvancedAppKeyUsingUserID:userID password:password];
+            WBClient *advancedAuthorizeClient = [WBClient client];
+            [advancedAuthorizeClient setCompletionBlock:client.completionBlock];
+            client.completionBlock = nil;
+            [advancedAuthorizeClient authorizeWithAdvancedAppKeyUsingUserID:userID password:password];
+            
+            NSLog(@"login step 2");
+        } else {
+            NSLog(@"login step 2 error");
         }
-        
     }];
-    
     [self loadAuthorizeRequest];
 }
 

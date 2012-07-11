@@ -2,56 +2,61 @@
 //  LoginViewController.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-4-11.
+//  Created by 王 紫川 on 12-7-9.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
 #import "LoginViewController.h"
-#import "ResourceList.h"
-#import "WBClient.h"
-#import "User.h"
-#import "Group.h"
-#import "Status.h"
-#import "UnreadReminder.h"
-#import "CardViewController.h"
-#import "UserAccountManager.h"
+#import "UIApplication+Addition.h"
+#import <QuartzCore/QuartzCore.h>
+#import "NSNotificationCenter+Addition.h"
+#import "UIView+Resize.h"
 
-#define NUM_OF_CELLS                1
+#define VIEW_APPEAR_ANIMATION_DURATION  0.5f
 
-#define PORTRAIT_WIDTH				768
-#define HORIZONTAL_TABLEVIEW_HEIGHT	478
-#define VERTICAL_TABLEVIEW_WIDTH	768
-#define TABLE_BACKGROUND_COLOR		[UIColor clearColor]
-#define UserSelectionFrame          CGRectMake(0, UserPortraitOriginY, PORTRAIT_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT)
+#define LOGO_VIEW_LANDSCAPE_CENTER      CGPointMake(512, 90)
+#define LOGO_VIEW_PORTRAIT_CENTER       CGPointMake(384, 125)
 
-#define LogoPortraitOriginY 105
-#define LogoLandscapeOriginY 45
-#define UserPortraitOriginY  255
-#define UserLandscapeOriginY 165
+#define SCROLL_VIEW_LANDSCAPE_CENTER    CGPointMake(512, 400)
+#define SCROLL_VIEW_PORTRAIT_CENTER     CGPointMake(384, 480)
 
-#define FrameNormalPortrait CGRectMake(0, 0, 768, 1004)
-#define FrameNormalLandscape CGRectMake(0, 0, 1024, 748)
-#define FrameEditingTextViewLandscape CGRectMake(0, -220, 1024, 768 + 220)
-#define OffsetOrigin 0
+#define kLoginUserArray @"LoginUserArray"
 
 @interface LoginViewController ()
+
+@property (nonatomic, strong) NSMutableArray *cellControllerArray;
+@property (nonatomic, strong) NSMutableArray *loginUserInfoArray;
+@property (nonatomic, assign) NSUInteger currentCellIndex;
+@property (nonatomic, assign) CGFloat keyboardHeight;
+@property (nonatomic, readonly) LoginInputCellViewController *loginInputCellViewController;
 
 @end
 
 @implementation LoginViewController
 
+@synthesize registerButton = _registerButton;
+@synthesize bgView = _bgView;
+@synthesize scrollView = _scrollView;
 @synthesize logoImageView = _logoImageView;
-@synthesize userSelectionTableView = _userSelectionTableView;
-@synthesize currentUserCell = _currentUserCell;
 
-#pragma mark -
-#pragma mark LifeCycle
+@synthesize cellControllerArray = _cellControllerArray;
+@synthesize loginUserInfoArray = _loginUserInfoArray;
+@synthesize keyboardHeight = _keyboardHeight;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSArray *storedArray = [defaults arrayForKey:kLoginUserArray];
+        self.loginUserInfoArray = [NSMutableArray array];
+        [storedArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            User *user = [User userWithID:obj inManagedObjectContext:self.managedObjectContext];
+            [self.loginUserInfoArray addObject:user];
+        }];
+        
+        self.cellControllerArray = [NSMutableArray array];
     }
     return self;
 }
@@ -59,190 +64,258 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    [self configureUI];
+    [self viewAppearAnimation];
     
-    [self setupParameters];
-    [self setNotificationSettings];
-    
-    if ([WBClient authorized]) {
-        
-//        self.currentUser = [User userWithID:[WBClient currentUserID] inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
-        [UserAccountManager initializeWithCurrentUser:self.currentUser managedObjectContext:self.managedObjectContext];
-        [UnreadReminder initializeWithCurrentUser:self.currentUser];
-        [self performSegueWithIdentifier:@"ShowRootViewController" sender:self];
-    } else {
-        [self setupHorizontalView];
-    }
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    // Dispose of any resources that can be recreated.
+    self.bgView = nil;
+    self.registerButton = nil;
+    self.scrollView = nil;
+    self.logoImageView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    _currentOrientation = interfaceOrientation;
 	return YES;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [self setLogoAndLoginViewWhenRotating];
+- (void)viewWillLayoutSubviews {
+    [self layoutSubviews];
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
+#pragma mark - Notification handlers
 
-    [self setViewOffsetForEditingMode];
-}
-
-- (void)setNotificationSettings
-{
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(loginTextFieldShouldBeginEditing:) 
-                   name:UIKeyboardWillShowNotification
-                 object:nil];
-    [center addObserver:self selector:@selector(loginTextFieldShouldEndEditing:) 
-                   name:UIKeyboardWillHideNotification 
-                 object:nil];
+- (void)keyboardWillShow:(NSNotification *)notification {
+    NSDictionary *info = [notification userInfo];
+    CGRect keyboardBounds = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat keyboardHeight = [UIApplication isCurrentOrientationLandscape] ? keyboardBounds.size.width : keyboardBounds.size.height;
+    self.keyboardHeight = keyboardHeight;
     
-    [center addObserver:self selector:@selector(loginInfoAuthorized:) 
-                   name:kNotificationNameLoginInfoAuthorized 
-                 object:nil];
-    
-}
-
-#pragma mark -
-#pragma mark Initialization
-
-- (void)setupParameters
-{
-    _isEditingTextfield = NO;
-}
-
-- (void)loginTextFieldShouldBeginEditing:(id)sender
-{
-    _isEditingTextfield = YES;
-    [self setViewOffsetForEditingMode];
-}
-
-- (void)loginTextFieldShouldEndEditing:(id)sender
-{
-    _isEditingTextfield = NO;
-    [self setViewOffsetForEditingMode];
-}
-
-
-#pragma mark - Functional Methods
-
-- (void)loginInfoAuthorized:(id)sender
-{
-    WBClient *client = [WBClient client];
-    [client setCompletionBlock:^(WBClient *client) {
-        if (!client.hasError) {
-            NSDictionary *userDict = client.responseJSONObject;
-            User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
-//            self.currentUser = user;
-            
-            [UserAccountManager initializeWithCurrentUser:user managedObjectContext:self.managedObjectContext];
-            [UnreadReminder initializeWithCurrentUser:user];
-            
-            Group *favouriteGroup = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
-            favouriteGroup.groupID = @"Favourites";
-            favouriteGroup.name = @"收藏";
-            favouriteGroup.type = [NSNumber numberWithInt:kGroupTypeFavourite];
-            favouriteGroup.picURL = self.currentUser.largeAvatarURL;
-            favouriteGroup.index = [NSNumber numberWithInt:0];
-//            [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
-            [self performSegueWithIdentifier:@"ShowRootViewController" sender:self];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
-//            [self performSelector:@selector(pushRootViewController) withObject:nil afterDelay:0.1];
-        }
+    [UIView animateWithDuration:0.25f animations:^{
+        [self layoutOtherComponent];
     }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    self.keyboardHeight = 0;
+    [UIView animateWithDuration:0.25f animations:^{
+        [self layoutOtherComponent];
+    }];
+}
+
+#pragma mark - UI methods
+
+- (void)configureUI {
+    [ThemeResourceProvider configButtonPaperLight:self.registerButton];
+    self.view.frame = CGRectMake(0, 0, [UIApplication screenWidth], [UIApplication screenHeight]);
     
-    [client getUser:[WBClient currentUserID]];
+    [self configureScrollView];
+    [self configureCellGloom];
 }
 
-- (void)pushRootViewController
-{
-    [self performSegueWithIdentifier:@"PushRootViewController" sender:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
+- (void)configureScrollView {
+    for(NSUInteger i = 0; i < [self numberOfCellsInScrollView]; i++) {
+        UIViewController *vc = [self cellControllerAtIndex:i];
+        [self.scrollView addSubview:vc.view];
+    }
+    [self layoutScrollView];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    CoreDataViewController *vc = segue.destinationViewController;
-//    vc.currentUser = self.currentUser;
-}
-
-#pragma mark - Adjust View
-
-- (void)setViewOffsetForEditingMode
-{
-    CGRect targetFrame;
-    if (UIInterfaceOrientationIsPortrait(_currentOrientation)) {
-        targetFrame = FrameNormalPortrait;
-    } else {
-        targetFrame = _isEditingTextfield ? FrameEditingTextViewLandscape : FrameNormalLandscape;
+- (void)layoutScrollView {
+    CGFloat scrollViewContentWidth = [self numberOfCellsInScrollView] > 1 ? self.scrollView.frame.size.width * [self numberOfCellsInScrollView] : self.scrollView.frame.size.width + 1;
+    self.scrollView.contentSize = CGSizeMake(scrollViewContentWidth, self.scrollView.frame.size.height);
+    
+    for(NSUInteger i = 0; i < [self numberOfCellsInScrollView]; i++) {
+        UIViewController *vc = [self cellControllerAtIndex:i];
+        vc.view.center = CGPointMake(self.scrollView.frame.size.width * (i + 0.5f), self.scrollView.frame.size.height / 2);
     }
     
-    [UIView animateWithDuration:0.3 animations:^{
-        self.view.frame = targetFrame;
+    self.scrollView.contentOffset = CGPointMake(self.currentCellIndex * self.scrollView.frame.size.width, 0);
+}
+
+- (void)layoutSubviews {
+    [self layoutScrollView];
+    [self layoutOtherComponent];
+}
+
+- (void)layoutOtherComponent {
+    self.logoImageView.center = [UIApplication isCurrentOrientationLandscape] ? CGPointMake(LOGO_VIEW_LANDSCAPE_CENTER.x, LOGO_VIEW_LANDSCAPE_CENTER.y) : LOGO_VIEW_PORTRAIT_CENTER;
+    
+    self.scrollView.center = [UIApplication isCurrentOrientationLandscape] ? CGPointMake(SCROLL_VIEW_LANDSCAPE_CENTER.x, SCROLL_VIEW_LANDSCAPE_CENTER.y) : SCROLL_VIEW_PORTRAIT_CENTER;
+    
+    [self.bgView resetOriginY:-self.keyboardHeight / 5 * 3];
+}
+
+- (void)show {
+    [UIApplication presentModalViewController:self animated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
+}
+
+- (void)removeCellAtIndex:(NSUInteger)index {
+    
+}
+
+- (void)configureCellGloom {
+    LoginCellViewController *left = self.currentCellIndex > 0 ? [self.cellControllerArray objectAtIndex:self.currentCellIndex - 1] : nil;
+    LoginCellViewController *middle = [self.cellControllerArray objectAtIndex:self.currentCellIndex];
+    LoginCellViewController *right = self.currentCellIndex < [self numberOfCellsInScrollView] - 1 ? [self.cellControllerArray objectAtIndex:self.currentCellIndex + 1] : nil;
+    CGFloat halfScreenWidth = [UIApplication screenWidth] / 2;
+    CGFloat scrollViewWidth = self.scrollView.frame.size.width;
+    CGFloat relativeOffsetX = self.scrollView.contentOffset.x - self.currentCellIndex * scrollViewWidth;
+    
+    left.gloomImageView.alpha = fabs(middle.view.center.x - left.view.center.x + relativeOffsetX) / halfScreenWidth;
+    middle.gloomImageView.alpha = fabs(relativeOffsetX) / halfScreenWidth;
+    right.gloomImageView.alpha = fabs(right.view.center.x - middle.view.center.x - relativeOffsetX) / halfScreenWidth;
+    
+    NSLog(@"relative offset x %f", relativeOffsetX);
+    NSLog(@"left %f, middle %f, right %f", fabs(middle.view.center.x - left.view.center.x + relativeOffsetX), fabs(relativeOffsetX) / halfScreenWidth, fabs(right.view.center.x - middle.view.center.x + relativeOffsetX));
+}
+
+#pragma mark - Logic methods
+
+- (LoginInputCellViewController *)loginInputCellViewController {
+    return [self.cellControllerArray lastObject];
+}
+
+- (void)setCurrentCellIndex:(NSUInteger)currentCellIndex {
+    NSLog(@"set cureent cell index %d", currentCellIndex);
+    if(_currentCellIndex != currentCellIndex) {
+        if(currentCellIndex == self.cellControllerArray.count - 1) {
+            [self.loginInputCellViewController.userNameTextField becomeFirstResponder];
+        } else {
+            [self.view endEditing:YES];
+        }
+    }
+    _currentCellIndex = currentCellIndex;
+}
+
+- (NSUInteger)numberOfCellsInScrollView {
+    return self.loginUserInfoArray.count + 1;
+}
+
+- (UIViewController *)cellControllerAtIndex:(NSUInteger)index {
+    if(index >= self.cellControllerArray.count) {
+        UIViewController *vc = nil;
+        if(self.loginUserInfoArray.count <= index) {
+            vc = [[LoginInputCellViewController alloc] init];
+            ((LoginInputCellViewController *)vc).delegate = self;
+        } else {
+            User *user = [self.loginUserInfoArray objectAtIndex:index];
+            vc = [[LoginUserCellViewController alloc] initWithUser:user];
+            ((LoginUserCellViewController *)vc).delegate = self;
+        }
+        [self.cellControllerArray addObject:vc];
+        return vc;
+    } else {
+        return [self.cellControllerArray objectAtIndex:index];
+    }
+}
+
+- (void)insertNewUser:(User *)newUser {
+    NSMutableArray *userIDArray = [NSMutableArray array];
+    __block BOOL userAlreadyLogin = NO;
+    [self.loginUserInfoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        User *user = obj;
+        if([user.userID isEqualToString:newUser.userID])
+            userAlreadyLogin = YES;
+        [userIDArray addObject:user.userID];
     }];
-
+    
+    if(!userAlreadyLogin) {
+        [self.loginUserInfoArray addObject:newUser];
+        [userIDArray addObject:newUser.userID];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:userIDArray forKey:kLoginUserArray];
+        [defaults synchronize];
+    }
 }
 
-- (void)setLogoAndLoginViewWhenRotating
-{
-    CGRect logoFrame = self.logoImageView.frame;
-    CGRect userSelectionFrame = self.userSelectionTableView.frame;
-    
-    logoFrame.origin.y = UIInterfaceOrientationIsPortrait(_currentOrientation) ? LogoPortraitOriginY : LogoLandscapeOriginY;
-    userSelectionFrame.origin.y = UIInterfaceOrientationIsPortrait(_currentOrientation) ? UserPortraitOriginY : UserLandscapeOriginY;
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.logoImageView.frame = logoFrame;
-        self.userSelectionTableView.frame = userSelectionFrame;
+#pragma mark - Animations
+
+- (void)viewAppearAnimation {
+    __block CGRect frame = self.view.frame;
+    frame.origin = CGPointMake(0, -frame.size.height);
+    self.view.frame = frame;
+    [UIView animateWithDuration:VIEW_APPEAR_ANIMATION_DURATION animations:^{
+        frame.origin = CGPointMake(0, 0);
+        self.view.frame = frame;
     }];
 }
 
+- (void)viewDisappearAnimation {
+    __block CGRect frame = self.view.frame;
+    frame.origin = CGPointMake(0, 0);
+    self.view.frame = frame;
+    [UIView animateWithDuration:VIEW_APPEAR_ANIMATION_DURATION animations:^{
+        frame.origin = CGPointMake(0, -frame.size.height);
+        self.view.frame = frame;
+    } completion:^(BOOL finished) {
+        [self.view removeFromSuperview];
+    }];
+}
 
-#pragma mark -
-#pragma mark EasyTableView Initialization
+#pragma mark - IBActions 
 
-- (void)setupHorizontalView {
-	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:UserSelectionFrame 
-                                               numberOfColumns:NUM_OF_CELLS 
-                                                       ofWidth:VERTICAL_TABLEVIEW_WIDTH];
-	self.userSelectionTableView = view;
-	
-	_userSelectionTableView.delegate = self;
-	_userSelectionTableView.tableView.backgroundColor = TABLE_BACKGROUND_COLOR;
-	_userSelectionTableView.tableView.allowsSelection = NO;
-	_userSelectionTableView.tableView.separatorColor = [UIColor clearColor];
-	_userSelectionTableView.cellBackgroundColor = [UIColor clearColor];
-    _userSelectionTableView.mainStoryboard = self.storyboard;
-	_userSelectionTableView.autoresizingMask =  UIViewAutoresizingFlexibleWidth;
-	
-	[self.view addSubview:_userSelectionTableView];
+- (IBAction)didClickRegisterButton:(UIButton *)sender {
+    [self viewDisappearAnimation];
+    [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
+}
+
+- (IBAction)didClickLogoutButton:(UIButton *)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:nil forKey:kLoginUserArray];
+    [defaults synchronize];
+    [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:nil];
+}
+
+#pragma mark - UIScrollView delegate
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if(!decelerate) {
+        NSUInteger index = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
+        self.currentCellIndex = index;
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    NSUInteger index = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
+    self.currentCellIndex = index;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self configureCellGloom];
+}
+
+#pragma mark - LoginUserCellViewController delegate
+
+- (void)loginUserCell:(LoginUserCellViewController *)vc didSelectUser:(User *)user {
+    [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:user.userID];
+    
+    [self viewDisappearAnimation];
+    [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
+}
+
+- (void)loginUserCell:(LoginUserCellViewController *)vc didDeleteUser:(User *)user {
     
 }
 
-#pragma mark -
-#pragma mark EasyTableViewDelegate
+#pragma mark - LoginInputCellViewController delegate
 
-// Second delegate populates the views with data from a data source
-
-- (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath *)indexPath {
-
+- (void)loginInputCell:(LoginInputCellViewController *)vc didLoginUser:(User *)user {
+    [self insertNewUser:user];
+    [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:user.userID];
+    
+    [self viewDisappearAnimation];
+    [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
 }
-
-// Optional delegate to track the selection of a particular cell
-
-- (void)easyTableView:(EasyTableView *)easyTableView selectedView:(UIView *)selectedView atIndexPath:(NSIndexPath *)indexPath deselectedView:(UIView *)deselectedView {
-
-}
-
 
 @end

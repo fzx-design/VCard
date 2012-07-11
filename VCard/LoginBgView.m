@@ -9,10 +9,10 @@
 #import "LoginBgView.h"
 #import "UIApplication+Addition.h"
     
-#define SCROLL_VIEW_LANDSCAPE_FRAME         CGRectMake(0, 175, 1024, 450)
+#define SCROLL_VIEW_LANDSCAPE_FRAME         CGRectMake(0, 40, 1024, 748 - 44)
 #define SCROLL_VIEW_REAL_LANDSCAPE_FRAME    CGRectMake(256, 175, 512, 450)
 
-#define SCROLL_VIEW_PORTRAIT_FRAME          CGRectMake(0, 225, 768, 450)
+#define SCROLL_VIEW_PORTRAIT_FRAME          CGRectMake(0, 40, 768, 1004 - 44)
 #define SCROLL_VIEW_REAL_PORTRAIT_FRAME     CGRectMake(192, 225, 384, 450)
 
 #define LOGIN_SCROOL_VIEW_TAG   2001

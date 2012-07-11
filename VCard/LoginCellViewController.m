@@ -9,7 +9,7 @@
 #import "LoginCellViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define CornerRadius 175 / 2
+#define CornerRadius 174 / 2
 
 @interface LoginCellViewController ()
 

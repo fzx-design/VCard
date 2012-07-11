@@ -69,11 +69,13 @@ typedef enum {
     } else {
         self.view.userInteractionEnabled = NO;
         WBClient *client = [WBClient client];
+        NSLog(@"login step 1");
         [client setCompletionBlock:^(WBClient *client) {
+            NSLog(@"login step 3");
             if (!client.hasError) {
-                [self loginInfoAuthorized];
+                [self getLoginUserInfo];
             } else {
-                NSLog(@"Error!");
+                NSLog(@"login step 3 error");
                 self.view.userInteractionEnabled = YES;
             }
         }];
@@ -81,10 +83,11 @@ typedef enum {
     }
 }
 
-- (void)loginInfoAuthorized
+- (void)getLoginUserInfo
 {
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
+        NSLog(@"login step 4");
         if (!client.hasError) {
             NSDictionary *userDict = client.responseJSONObject;
             User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
@@ -94,11 +97,13 @@ typedef enum {
             [self setUpGroupFavorite];
             
             [self.delegate loginInputCell:self didLoginUser:user];
+        } else {
+            NSLog(@"login step 4 error:%@", client.responseJSONObject);
         }
         self.view.userInteractionEnabled = YES;
     }];
     
-    [client getUser:[WBClient currentUserID]];
+    [client getUser:client.userID];
 }
 
 - (void)setUpGroupFavorite
