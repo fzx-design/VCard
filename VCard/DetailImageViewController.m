@@ -79,7 +79,7 @@
 - (void)didChangeImageScale:(CGFloat)scale
 {
     CGFloat offset = [_imageView scaleOffset];
-    if (offset > 0) {
+    if (self.cardViewController.imageViewMode == CastViewImageViewModePinchingOut) {
         offset = offset > 0.5 ? 0.5 : offset;
     } else {
         offset = offset < -0.5 ? 0.0 : 0.5 + offset;
