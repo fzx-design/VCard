@@ -7,33 +7,17 @@
 //
 
 #import "LoginInputCellViewController.h"
-#import <QuartzCore/QuartzCore.h>
-#import "ResourceList.h"
-#import "CastViewController.h"
-#import "WBClient.h"
-#import "UnreadReminder.h"
-#import "Group.h"
-#import "NSNotificationCenter+Addition.h"
-#import "NSUserDefaults+Addition.h"
+#import "UIView+Addition.h"
 
-typedef enum {
-    ActiveTextfieldNone,
-    ActiveTextfieldName,
-    ActiveTextfieldPassword,
-} ActiveTextfield;
+@interface LoginInputCellViewController ()
 
-
-@interface LoginInputCellViewController () {
-    BOOL _shouldLowerKeyboard;
-    ActiveTextfield _currentActiveTextfield;
-}
 @end
 
 @implementation LoginInputCellViewController
 
 @synthesize userNameTextField = _userNameTextField;
 @synthesize userPasswordTextField = _userPasswordTextField;
-@synthesize delegate = _delegate;
+@synthesize activityIndicator = _activityIndicator;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,19 +31,19 @@ typedef enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    self.activityIndicator.hidden = YES;
     
-    //self.userNameTextField.text = @"";
-    //self.userPasswordTextField.text = @"";
-    
-    _shouldLowerKeyboard = YES;
-    _currentActiveTextfield = ActiveTextfieldNone;
+    self.userNameTextField.text = @"";
+    self.userPasswordTextField.text = @"";
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    self.activityIndicator = nil;
+    self.userNameTextField = nil;
+    self.userPasswordTextField = nil;
 }
 
 #pragma mark - Logic methods 
@@ -70,30 +54,18 @@ typedef enum {
     } else if(self.userPasswordTextField.text == @"") {
         return;
     } else {
+        self.loginButton.hidden = YES;
+        self.activityIndicator.hidden = NO;
+        [self.activityIndicator startAnimating];
+        
         [self.userPasswordTextField resignFirstResponder];
-        self.view.userInteractionEnabled = NO;
-        
-        WBClient *client = [WBClient client];
-        
-        [client setCompletionBlock:^(WBClient *client) {
-            if (!client.hasError) {
-                NSDictionary *userDict = client.responseJSONObject;
-                User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
-                
-                [NSUserDefaults insertUserAccountInfoWithUserID:user.userID account:self.userNameTextField.text password:self.userPasswordTextField.text];
-                
-                [UnreadReminder initializeWithCurrentUser:user];
-                
-                [self.delegate loginInputCell:self didLoginUser:user];
-                
-                NSLog(@"login step 3 succeeded");
-            } else {
-                NSLog(@"login step 3 failed");
+        [self loginUsingAccount:self.userNameTextField.text password:self.userPasswordTextField.text completion:^(BOOL succeeded) {
+            if(!succeeded) {
+                self.loginButton.hidden = NO;
+                self.activityIndicator.hidden = YES;
+                [self.activityIndicator stopAnimating];
             }
-            self.view.userInteractionEnabled = YES;
         }];
-
-        [client authorizeUsingUserID:self.userNameTextField.text password:self.userPasswordTextField.text];
     }
 }
 

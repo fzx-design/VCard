@@ -7,12 +7,9 @@
 //
 
 #import "LoginUserCellViewController.h"
-#import <QuartzCore/QuartzCore.h>
-#import "ResourceList.h"
-#import "CastViewController.h"
-#import "WBClient.h"
 #import "UIView+Addition.h"
 #import "UIImageView+Addition.h"
+#import "NSUserDefaults+Addition.h"
 
 @interface LoginUserCellViewController ()
 
@@ -53,7 +50,6 @@
         self.userNameLabel.text = self.ownerUser.screenName;
         [self.avatarImageView loadImageFromURL:self.ownerUser.largeAvatarURL completion:^{
             [self.avatarImageView fadeIn];
-            NSLog(@"frame %@", NSStringFromCGRect(self.avatarImageView.frame));
         }];
     }
 }
@@ -69,11 +65,16 @@
 #pragma mark - IBActions
 
 - (IBAction)didClickDeleteButton:(UIButton *)sender {
-    [self.delegate loginUserCell:self didDeleteUser:self.ownerUser];
+    [self.delegate loginCellDidDeleteUser:self.ownerUser];
 }
 
 - (IBAction)didClickLoginButton:(UIButton *)sender {
-    [self.delegate loginUserCell:self didSelectUser:self.ownerUser];
+    [self.loginButton setTitle:@"登录中" forState:UIControlStateNormal];
+    UserAccountInfo *accountInfo = [NSUserDefaults getUserAccountInfoWithUserID:self.ownerUser.userID];
+    [self loginUsingAccount:accountInfo.account password:accountInfo.password completion:^(BOOL succeeded) {
+        if(!succeeded)
+            [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    }];
 }
 
 @end

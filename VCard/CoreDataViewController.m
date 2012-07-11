@@ -11,6 +11,7 @@
 #import "NSNotificationCenter+Addition.h"
 #import "NSUserDefaults+Addition.h"
 #import "WBClient.h"
+#import "UnreadReminder.h"
 
 static CoreDataKernal *kernalInstance = nil;
 
@@ -108,6 +109,8 @@ static CoreDataKernal *kernalInstance = nil;
     NSLog(@"configure current user name %@", currentUser.screenName);
     
     [NSUserDefaults setCurrentUserID:currentUser.userID];
+    
+    [UnreadReminder initializeWithCurrentUser:currentUser];
     
     if(self.currentUser == nil) {
         [[WBClient client] logOut];

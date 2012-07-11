@@ -12,8 +12,8 @@
 #import "NSNotificationCenter+Addition.h"
 #import "NSUserDefaults+Addition.h"
 #import "UIView+Resize.h"
-#import "WBClient.h"
-#import "UnreadReminder.h"
+#import "LoginInputCellViewController.h"
+#import "LoginUserCellViewController.h"
 
 #define VIEW_APPEAR_ANIMATION_DURATION  0.5f
 
@@ -169,7 +169,7 @@
     [UIView animateWithDuration:0.3f animations:^{
         middle.gloomImageView.alpha = 1;
         right.gloomImageView.alpha = 0;
-        [middle.view resetOriginY:-1000];
+        [middle.view resetOriginY:1000];
         [right.view resetOriginX:middle.view.frame.origin.x];
     } completion:^(BOOL finished) {
         [self layoutScrollView];
@@ -235,7 +235,8 @@
     }];
     
     if(index != -1) {
-        [self.loginUserInfoArray removeObject:oldUser];        
+        [self.loginUserInfoArray removeObject:oldUser];
+        userIDArray = userIDArray.count > 0 ? userIDArray : nil;
         [NSUserDefaults setLoginUserArray:userIDArray];
     }
     return index;
@@ -254,7 +255,6 @@
     if(!userAlreadyLogin) {
         [self.loginUserInfoArray addObject:newUser];
         [userIDArray addObject:newUser.userID];
-        
         [NSUserDefaults setLoginUserArray:userIDArray];
     }
 }
@@ -316,53 +316,29 @@
     [self configureCellGloom];
 }
 
-#pragma mark - LoginUserCellViewController delegate
+#pragma mark - LoginCellViewController delegate
 
-- (void)loginUserCell:(LoginUserCellViewController *)vc didSelectUser:(User *)user {
-    self.view.userInteractionEnabled = NO;
-    UserAccountInfo *accountInfo = [NSUserDefaults getUserAccountInfoWithUserID:user.userID];
-    
-    WBClient *client = [WBClient client];
-    
-    [client setCompletionBlock:^(WBClient *client) {
-        if (!client.hasError) {
-            NSDictionary *userDict = client.responseJSONObject;
-            User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
-                        
-            [UnreadReminder initializeWithCurrentUser:user];
-                        
-            [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:user.userID];
-            [self viewDisappearAnimation];
-            [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
-            
-            NSLog(@"login step 3 succeeded");
-        } else {
-            NSLog(@"login step 3 failed");
-        }
-        self.view.userInteractionEnabled = YES;
-    }];
-    
-    [client authorizeUsingUserID:accountInfo.account password:accountInfo.password];
-}
-
-- (void)loginUserCell:(LoginUserCellViewController *)vc didDeleteUser:(User *)user {
-    NSUInteger index = [self deleteUser:user];
-    [self removeCellAtIndex:index];
-    
-    if(self.loginUserInfoArray.count == 0) {
-        [NSUserDefaults setLoginUserArray:nil];
-        [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:nil];
-    }
-}
-
-#pragma mark - LoginInputCellViewController delegate
-
-- (void)loginInputCell:(LoginInputCellViewController *)vc didLoginUser:(User *)user {
+- (void)loginCellDidLoginUser:(User *)user {
     [self insertNewUser:user];
-    [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:user.userID];
-    
     [self viewDisappearAnimation];
     [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
+}
+
+- (void)loginCellWillLoginUser {
+    self.view.userInteractionEnabled = NO;
+}
+
+- (void)loginCellDidFailLoginUser {
+    self.view.userInteractionEnabled = YES;
+}
+
+- (void)loginCellDidDeleteUser:(User *)user {
+    if([self.currentUser.userID isEqualToString:user.userID]) {
+        [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:nil];
+    }
+    
+    NSUInteger index = [self deleteUser:user];
+    [self removeCellAtIndex:index];
 }
 
 @end
