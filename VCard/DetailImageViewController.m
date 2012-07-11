@@ -78,14 +78,19 @@
 #pragma mark - CardViewControllerDelegate
 - (void)didChangeImageScale:(CGFloat)scale
 {
-    CGFloat alpha = scale - 1.0;
-    alpha /= 0.5;
+    CGFloat offset = [_imageView scaleOffset];
+    if (offset > 0) {
+        offset = offset > 0.5 ? 0.5 : offset;
+    } else {
+        offset = offset < -0.5 ? 0.0 : 0.5 + offset;
+    }
+    CGFloat alpha = offset /= 0.5;
     if (alpha < 0.0) {
         alpha = 0.0;
     } else {
         alpha = alpha;
     }
-    _topBarView.alpha =alpha;
+    _topBarView.alpha = alpha;
     _bottomBarView.alpha = alpha;
     self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:alpha];
 }
@@ -174,7 +179,7 @@
 }
 
 #pragma mark - Handle Gesture Events
-#pragma mark - ScrollView Gesture
+#pragma mark ScrollView Gesture
 - (void)handleTapEvent:(UITapGestureRecognizer *)sender
 {
     [UIView animateWithDuration:0.3 animations:^{

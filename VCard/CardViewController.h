@@ -28,7 +28,8 @@
 
 typedef enum {
     CastViewImageViewModeNormal,
-    CastViewImageViewModePinching,
+    CastViewImageViewModePinchingOut,
+    CastViewImageViewModePinchingIn,
     CastViewImageViewModeDetailedNormal,
     CastViewImageViewModeDetailedZooming,
 } CastViewImageViewMode;

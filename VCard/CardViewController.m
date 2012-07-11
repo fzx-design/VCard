@@ -730,18 +730,10 @@ static inline NSRegularExpression * UrlRegularExpression() {
 {
     [self recordPinchGestureInitialStatus:sender];
     
-    BOOL gestureEnd = [self checkAndHanleGestureEnd:sender];
-    
-    if (!gestureEnd) {
-        [self resetScaleWithPinchGesture:sender];
-        
-        [self resetPositionWithPinchGesture:sender];
-        
-        [self.statusImageView pinchResizeToScale:_scale];
-        
-        if ([_delegate respondsToSelector:@selector(didChangeImageScale:)]) {
-            [_delegate didChangeImageScale:sender.scale];
-        }
+    if (_imageViewMode == CastViewImageViewModePinchingOut || _imageViewMode == CastViewImageViewModePinchingIn) {
+        [self handleImageViewPinchWithGesture:sender];
+    } else if (_imageViewMode == CastViewImageViewModeDetailedZooming) {
+        [self handleImageViewZoomingWithGesture:sender];
     }
 }
 
@@ -753,6 +745,9 @@ static inline NSRegularExpression * UrlRegularExpression() {
         _scale = 1.0;
         _lastPoint = [sender locationInView:[UIApplication sharedApplication].rootViewController.view];
         
+        [self.statusImageView resetCurrentScale];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+        
         if (_imageViewMode == CastViewImageViewModeNormal) {
             [self playClipLooseAnimationAndSendNotification];
             [self willOpenDetailImageView];
@@ -763,8 +758,30 @@ static inline NSRegularExpression * UrlRegularExpression() {
             if (sender.scale >= 1.0) {
                 _imageViewMode = CastViewImageViewModeDetailedZooming;
             } else {
-                _imageViewMode = CastViewImageViewModePinching;
+                _imageViewMode = CastViewImageViewModePinchingIn;
             }
+        }
+    }
+}
+
+- (void)handleImageViewZoomingWithGesture:(UIPinchGestureRecognizer *)sender
+{
+    
+}
+
+- (void)handleImageViewPinchWithGesture:(UIPinchGestureRecognizer *)sender
+{
+    BOOL gestureEnd = [self checkAndHanleGestureEnd:sender];
+    
+    if (!gestureEnd) {
+        [self resetScaleWithPinchGesture:sender];
+        
+        [self resetPositionWithPinchGesture:sender];
+        
+        [self.statusImageView pinchResizeToScale:self.statusImageView.currentScale];
+        
+        if ([_delegate respondsToSelector:@selector(didChangeImageScale:)]) {
+            [_delegate didChangeImageScale:sender.scale];
         }
     }
 }
@@ -777,13 +794,22 @@ static inline NSRegularExpression * UrlRegularExpression() {
         self.statusImageView.userInteractionEnabled = NO;
         self.statusImageView.userInteractionEnabled = YES;
         
-        if (_scale < 1.2 && sender.velocity < 2) {
+        BOOL shouldReturn = YES;
+        
+        if (_imageViewMode == CastViewImageViewModePinchingOut) {
+            shouldReturn = [self.statusImageView scaleOffset] < 0.2 && sender.velocity < 2;
+        } else if (_imageViewMode == CastViewImageViewModePinchingIn){
+            shouldReturn = [self.statusImageView scaleOffset] < -0.2 || sender.velocity > 2;
+        }
+        
+        if (shouldReturn) {
             [self returnToInitialImageView];
         } else {
             if ([_delegate respondsToSelector:@selector(enterDetailedImageViewMode)]) {
                 [_delegate enterDetailedImageViewMode];
             }
         }
+        
         result = YES;
     }
     return result;
@@ -793,9 +819,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
 {
     CGFloat scale = 1.0 - (_lastScale - sender.scale);
     [self.statusImageView setTransform:CGAffineTransformScale(self.statusImageView.transform, scale, scale)];
-    _scale += sender.scale - _lastScale;
+    self.statusImageView.currentScale += sender.scale - _lastScale;
     _lastScale = sender.scale;
-    _currentScale *= scale;
 }
 
 - (void)resetPositionWithPinchGesture:(UIPinchGestureRecognizer *)sender
@@ -837,7 +862,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 {
     if (_imageViewMode == CastViewImageViewModeNormal) {
         [self willOpenDetailImageViewDirectly];
-    } else if (_imageViewMode != CastViewImageViewModePinching){
+    } else if (_imageViewMode != CastViewImageViewModePinchingOut){
         if ([_delegate respondsToSelector:@selector(imageViewTapped)]) {
             [_delegate imageViewTapped];
         }
@@ -870,7 +895,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 #pragma mark Adjust Clip Behavior
 - (void)willOpenDetailImageView
 {
-    _imageViewMode = CastViewImageViewModePinching;
+    _imageViewMode = CastViewImageViewModePinchingOut;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowDetailImageView object:[NSDictionary dictionaryWithObjectsAndKeys:self, kNotificationObjectKeyStatus,self.statusImageView, kNotificationObjectKeyImageView, nil]];
 }
 
