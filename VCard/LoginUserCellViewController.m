@@ -53,6 +53,7 @@
         self.userNameLabel.text = self.ownerUser.screenName;
         [self.avatarImageView loadImageFromURL:self.ownerUser.largeAvatarURL completion:^{
             [self.avatarImageView fadeIn];
+            NSLog(@"frame %@", NSStringFromCGRect(self.avatarImageView.frame));
         }];
     }
 }

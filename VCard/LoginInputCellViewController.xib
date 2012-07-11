@@ -43,7 +43,7 @@
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
 						<string key="NSFrame">{{0, 25}, {292, 450}}</string>
 						<reference key="NSSuperview" ref="66350285"/>
-						<reference key="NSNextKeyView" ref="506845449"/>
+						<reference key="NSNextKeyView" ref="406529568"/>
 						<int key="IBUIContentMode">4</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -62,7 +62,7 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{43, 21}, {174, 174}}</string>
 								<reference key="NSSuperview" ref="103204473"/>
-								<reference key="NSNextKeyView" ref="226120339"/>
+								<reference key="NSNextKeyView" ref="863596947"/>
 								<int key="IBUIContentMode">4</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -71,7 +71,7 @@
 									<string key="NSResourceName">imageview_placeholder.png</string>
 								</object>
 							</object>
-							<object class="IBUIImageView" id="226120339">
+							<object class="IBUIImageView" id="863596947">
 								<reference key="NSNextResponder" ref="103204473"/>
 								<int key="NSvFlags">1317</int>
 								<string key="NSFrame">{{62, 62}, {136, 140}}</string>
@@ -136,8 +136,6 @@
 								<string key="NSFrame">{{12, 2}, {208, 40}}</string>
 								<reference key="NSSuperview" ref="776719064"/>
 								<reference key="NSNextKeyView" ref="503124287"/>
-								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<string key="IBUIPlaceholder">新浪帐号</string>
@@ -151,15 +149,15 @@
 								</object>
 								<int key="IBUIClearButtonMode">1</int>
 								<string key="IBUIText">610955867@qq.com</string>
-								<object class="NSColor" key="IBUITextColor" id="172388991">
+								<object class="NSColor" key="IBUITextColor" id="867110699">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
 								</object>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="788313569">
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="1064122471">
 									<int key="type">2</int>
 									<double key="pointSize">14</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="911423221">
+								<object class="NSFont" key="IBUIFont" id="729282106">
 									<string key="NSName">Helvetica-Bold</string>
 									<double key="NSSize">14</double>
 									<int key="NSfFlags">16</int>
@@ -172,8 +170,6 @@
 								<string key="NSFrame">{{12, 40}, {180, 40}}</string>
 								<reference key="NSSuperview" ref="776719064"/>
 								<reference key="NSNextKeyView" ref="435740531"/>
-								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<string key="IBUIPlaceholder">密码</string>
@@ -188,9 +184,9 @@
 									<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								</object>
 								<string key="IBUIText">5656496</string>
-								<reference key="IBUITextColor" ref="172388991"/>
-								<reference key="IBUIFontDescription" ref="788313569"/>
-								<reference key="IBUIFont" ref="911423221"/>
+								<reference key="IBUITextColor" ref="867110699"/>
+								<reference key="IBUIFontDescription" ref="1064122471"/>
+								<reference key="IBUIFont" ref="729282106"/>
 							</object>
 							<object class="IBUIButton" id="435740531">
 								<reference key="NSNextResponder" ref="776719064"/>
@@ -230,14 +226,14 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrame">{{32, 338}, {228, 82}}</string>
+						<string key="NSFrame">{{32, 338}, {228, 84}}</string>
 						<reference key="NSSuperview" ref="66350285"/>
 						<reference key="NSNextKeyView" ref="424493586"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="935835596"/>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
-					<object class="IBUIImageView" id="506845449">
+					<object class="IBUIImageView" id="406529568">
 						<reference key="NSNextResponder" ref="66350285"/>
 						<int key="NSvFlags">1325</int>
 						<string key="NSFrame">{{0, 25}, {292, 450}}</string>
@@ -307,7 +303,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">gloomImageView</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="506845449"/>
+						<reference key="destination" ref="406529568"/>
 					</object>
 					<int key="connectionID">234</int>
 				</object>
@@ -363,7 +359,7 @@
 							<reference ref="305724919"/>
 							<reference ref="776719064"/>
 							<reference ref="103204473"/>
-							<reference ref="506845449"/>
+							<reference ref="406529568"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -409,7 +405,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="561776069"/>
 							<reference ref="419875952"/>
-							<reference ref="226120339"/>
+							<reference ref="863596947"/>
 						</array>
 						<reference key="parent" ref="66350285"/>
 					</object>
@@ -420,7 +416,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">228</int>
-						<reference key="object" ref="226120339"/>
+						<reference key="object" ref="863596947"/>
 						<reference key="parent" ref="103204473"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -430,7 +426,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">230</int>
-						<reference key="object" ref="506845449"/>
+						<reference key="object" ref="406529568"/>
 						<reference key="parent" ref="66350285"/>
 					</object>
 				</array>

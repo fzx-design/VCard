@@ -186,18 +186,6 @@
     return [self.cellControllerArray lastObject];
 }
 
-- (void)setCurrentCellIndex:(NSUInteger)currentCellIndex {
-    NSLog(@"set cureent cell index %d", currentCellIndex);
-    if(_currentCellIndex != currentCellIndex) {
-        if(currentCellIndex == self.cellControllerArray.count - 1) {
-            [self.loginInputCellViewController.userNameTextField becomeFirstResponder];
-        } else {
-            [self.view endEditing:YES];
-        }
-    }
-    _currentCellIndex = currentCellIndex;
-}
-
 - (NSUInteger)numberOfCellsInScrollView {
     return self.loginUserInfoArray.count + 1;
 }
@@ -277,15 +265,23 @@
 #pragma mark - UIScrollView delegate
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    NSUInteger index = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
+    self.currentCellIndex = index;
+    
     if(!decelerate) {
-        NSUInteger index = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
-        self.currentCellIndex = index;
+        if(self.currentCellIndex != self.cellControllerArray.count - 1) {
+            [self.view endEditing:YES];
+        }
     }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     NSUInteger index = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
     self.currentCellIndex = index;
+    
+    if(self.currentCellIndex != self.cellControllerArray.count - 1) {
+        [self.view endEditing:YES];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
