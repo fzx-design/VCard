@@ -196,7 +196,7 @@ typedef enum {
     [self configureTextView];
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(deviceRotateDidChanged:) name:kNotificationNameOrientationChanged object:nil];
+    [center addObserver:self selector:@selector(deviceRotationDidChange:) name:kNotificationNameOrientationChanged object:nil];
     [center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
@@ -240,7 +240,7 @@ typedef enum {
 
 #pragma mark - Notification handlers
 
-- (void)deviceRotateDidChanged:(NSNotification *)notification {
+- (void)deviceRotationDidChange:(NSNotification *)notification {
     [self dismissPopover];
 }
 

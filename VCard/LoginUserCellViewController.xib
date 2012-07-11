@@ -118,12 +118,12 @@
 								<int key="NSvFlags">1293</int>
 								<string key="NSFrame">{{0, 48}, {230, 52}}</string>
 								<reference key="NSSuperview" ref="845569547"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
+								<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
 								<string key="IBUITitleShadowOffset">{0, 1}</string>
 								<string key="IBUINormalTitle">登录</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor">

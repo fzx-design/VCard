@@ -11,9 +11,12 @@
 #import "UIImageView+Addition.h"
 #import "NSUserDefaults+Addition.h"
 
-@interface LoginUserCellViewController ()
+@interface LoginUserCellViewController () {
+    BOOL _shouldPresentDeleteUserActionSheet;
+}
 
 @property (nonatomic, strong) User *ownerUser;
+@property (nonatomic, strong) UIActionSheet *actionSheet;
 
 @end
 
@@ -22,6 +25,7 @@
 @synthesize userNameLabel = _userNameLabel;
 @synthesize deleteButton = _deleteButton;
 @synthesize delegate = _delegate;
+@synthesize actionSheet = _actionSheet;
 
 @synthesize ownerUser = _ownerUser;
 
@@ -52,6 +56,10 @@
             [self.avatarImageView fadeIn];
         }];
     }
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];    
+    [center addObserver:self selector:@selector(deviceRotationDidChange:) name:kNotificationNameOrientationChanged object:nil];
+    [center addObserver:self selector:@selector(deviceRotationWillChange:) name:kNotificationNameOrientationWillChange object:nil];
 }
 
 - (void)viewDidUnload
@@ -62,18 +70,51 @@
     self.userNameLabel = nil;
 }
 
+#pragma mark - Notification handlers
+
+- (void)deviceRotationDidChange:(NSNotification *)notification {
+    if(_shouldPresentDeleteUserActionSheet)
+        [self presentDeleteUserActionSheet];
+    _shouldPresentDeleteUserActionSheet = NO;
+}
+
+- (void)deviceRotationWillChange:(NSNotification *)notification {
+    if(self.actionSheet)
+        _shouldPresentDeleteUserActionSheet = YES;
+    [self.actionSheet dismissWithClickedButtonIndex:-1 animated:NO];
+}
+
+#pragma mark - UI methods
+
+- (void)presentDeleteUserActionSheet {
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"删除账户" otherButtonTitles:nil];
+    [sheet showFromRect:self.deleteButton.bounds inView:self.deleteButton animated:YES];
+    self.actionSheet = sheet;
+}
+
+#pragma UIActionSheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == actionSheet.destructiveButtonIndex)
+        [self.delegate loginCellDidDeleteUser:self.ownerUser];
+    self.actionSheet = nil;
+}
+
 #pragma mark - IBActions
 
 - (IBAction)didClickDeleteButton:(UIButton *)sender {
-    [self.delegate loginCellDidDeleteUser:self.ownerUser];
+    [self presentDeleteUserActionSheet];
 }
 
 - (IBAction)didClickLoginButton:(UIButton *)sender {
     [self.loginButton setTitle:@"登录中" forState:UIControlStateNormal];
+    self.loginButton.enabled = NO;
     UserAccountInfo *accountInfo = [NSUserDefaults getUserAccountInfoWithUserID:self.ownerUser.userID];
     [self loginUsingAccount:accountInfo.account password:accountInfo.password completion:^(BOOL succeeded) {
-        if(!succeeded)
+        if(!succeeded) {
             [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
+            self.loginButton.enabled = YES;
+        }
     }];
 }
 
