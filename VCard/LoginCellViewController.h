@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "CoreDataViewController.h"
 
 @protocol LoginCellViewControllerDelegate;
@@ -22,6 +23,8 @@
 - (void)loginUsingAccount:(NSString *)account
                  password:(NSString *)password
                completion:(void (^)(BOOL succeeded))compeltion;
+
+- (void)swingOnceThenHalt:(CALayer *)layer angle:(CGFloat)angle;
 
 @end
 

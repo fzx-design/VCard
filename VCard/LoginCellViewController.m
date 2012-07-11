@@ -82,4 +82,39 @@
     [client authorizeUsingUserID:account password:password];
 }
 
+- (void)swingOnceThenHalt:(CALayer *)layer angle:(CGFloat)angle {
+    self.view.layer.anchorPoint = CGPointMake(0.5, 0.074);
+    self.view.layer.position = CGPointMake(95.0, 90.0 - self.view.frame.size.height * 0.84);
+    
+    CAAnimationGroup* animationGroup = [CAAnimationGroup animation];
+    NSMutableArray* animationArray = [NSMutableArray arrayWithCapacity:6];
+    
+    CABasicAnimation *readyAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+    readyAnimation.toValue = [NSNumber numberWithFloat:angle];
+    readyAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    readyAnimation.fillMode = kCAFillModeForwards;
+    readyAnimation.removedOnCompletion = NO;
+    readyAnimation.duration = 0.15;
+    readyAnimation.beginTime = 0.0;
+    
+    [animationArray addObject:readyAnimation];
+    
+    for (int i = 0; i < 5; i++) {
+        CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+        rotationAnimation.toValue = [NSNumber numberWithFloat:((4-i)/5.0)*((4-i)/5.0)*angle*(-1+2*(i%2))];
+        rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        rotationAnimation.fillMode = kCAFillModeForwards;
+        rotationAnimation.removedOnCompletion = NO;
+        rotationAnimation.duration = 0.4;
+        rotationAnimation.beginTime = i * 0.4 + 0.15;
+        
+        [animationArray addObject:rotationAnimation];
+    }
+    [animationGroup setAnimations:animationArray];
+    [animationGroup setDuration:2.15];
+    
+    [self.view.layer removeAllAnimations];
+    [self.view.layer addAnimation:animationGroup forKey:@"swingAnimation"];
+}
+
 @end
