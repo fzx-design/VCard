@@ -62,8 +62,10 @@
     NSLog(@"current user name:%@", self.currentUser.screenName);
     self.castViewController = nil;
     self.shelfViewController = nil;
-    [self setUpNotifications];
-    [self setUpViews];
+    if(self.currentUser) {
+        [self setUpNotifications];
+        [self setUpViews];
+    }
 }
 
 #pragma mark - Setup Notifications
