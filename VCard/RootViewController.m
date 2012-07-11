@@ -60,6 +60,8 @@
 #pragma mark - Handle notifications
 - (void)handleChangeCurrentUserNotification:(NSNotification *)notification {
     NSLog(@"current user name:%@", self.currentUser.screenName);
+    self.castViewController = nil;
+    self.shelfViewController = nil;
     [self setUpNotifications];
     [self setUpViews];
 }

@@ -347,9 +347,10 @@ typedef enum {
             client.completionBlock = nil;
             [advancedAuthorizeClient authorizeWithAdvancedAppKeyUsingUserID:userID password:password];
             
-            NSLog(@"login step 2");
+            NSLog(@"login step 1 succeeded");
         } else {
-            NSLog(@"login step 2 error");
+            client.hasError = YES;
+            NSLog(@"login step 1 failed");
         }
     }];
     [self loadAuthorizeRequest];
@@ -367,12 +368,22 @@ typedef enum {
     self.params = params;
     
     [self setPreCompletionBlock:^(WBClient *client) {
-        if ([self.responseJSONObject isKindOfClass:[NSDictionary class]]) {
+        if([self.responseJSONObject isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dict = (NSDictionary*)client.responseJSONObject;
             self.advancedToken = [dict objectForKey:@"access_token"];
             
             NSString *serviceName = [[self urlSchemeString] stringByAppendingString:kWBKeychainServiceNameSuffix];
             [SFHFKeychainUtils storeUsername:kWBKeychainAdvancedToken andPassword:_advancedToken forServiceName:serviceName updateExisting:YES error:nil];
+            
+            WBClient *getUserInfoClient = [WBClient client];
+            [getUserInfoClient setCompletionBlock:client.completionBlock];
+            client.completionBlock = nil;
+            [getUserInfoClient getUser:client.userID];
+            
+            NSLog(@"login step 2 succeeded");
+        } else {
+            client.hasError = YES;
+            NSLog(@"login step 2 failed");
         }
     }];
     

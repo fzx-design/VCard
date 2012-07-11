@@ -694,6 +694,7 @@
 		E1919A8E15AC8FA60034079B /* LoginUserCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1919A8A15AC8F820034079B /* LoginUserCellViewController.xib */; };
 		E1919A9515AD37550034079B /* login_button_large_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = E1919A9315AD37550034079B /* login_button_large_hl.png */; };
 		E1919A9615AD37550034079B /* login_button_large_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1919A9415AD37550034079B /* login_button_large_hl@2x.png */; };
+		E1919A9915AD678B0034079B /* NSUserDefaults+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = E1919A9815AD678B0034079B /* NSUserDefaults+Addition.m */; };
 		E1998AF315919BA400BBAC55 /* post_paper_gloom_left.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF115919BA400BBAC55 /* post_paper_gloom_left.png */; };
 		E1998AF415919BA400BBAC55 /* post_paper_gloom_right.png in Resources */ = {isa = PBXBuildFile; fileRef = E1998AF215919BA400BBAC55 /* post_paper_gloom_right.png */; };
 		E1998AF81592EB5400BBAC55 /* PostNewStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */; };
@@ -1593,6 +1594,8 @@
 		E1919A8A15AC8F820034079B /* LoginUserCellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginUserCellViewController.xib; sourceTree = "<group>"; };
 		E1919A9315AD37550034079B /* login_button_large_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_button_large_hl.png; sourceTree = "<group>"; };
 		E1919A9415AD37550034079B /* login_button_large_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_button_large_hl@2x.png"; sourceTree = "<group>"; };
+		E1919A9715AD678B0034079B /* NSUserDefaults+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Addition.h"; sourceTree = "<group>"; };
+		E1919A9815AD678B0034079B /* NSUserDefaults+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Addition.m"; sourceTree = "<group>"; };
 		E1998AF115919BA400BBAC55 /* post_paper_gloom_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post_paper_gloom_left.png; sourceTree = "<group>"; };
 		E1998AF215919BA400BBAC55 /* post_paper_gloom_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post_paper_gloom_right.png; sourceTree = "<group>"; };
 		E1998AF61592EB5400BBAC55 /* PostNewStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostNewStatusViewController.h; sourceTree = "<group>"; };
@@ -2118,20 +2121,22 @@
 		18E707D8153D2E020012092E /* Catagaories */ = {
 			isa = PBXGroup;
 			children = (
-				E1A59EA815AC242F001F0A94 /* NSNotificationCenter+Addition.h */,
-				E1A59EA915AC2430001F0A94 /* NSNotificationCenter+Addition.m */,
 				18E707DF153D2E2C0012092E /* NSDateAddition.h */,
 				18E707E0153D2E2C0012092E /* NSDateAddition.m */,
+				E1A59EA815AC242F001F0A94 /* NSNotificationCenter+Addition.h */,
+				E1A59EA915AC2430001F0A94 /* NSNotificationCenter+Addition.m */,
+				E1919A9715AD678B0034079B /* NSUserDefaults+Addition.h */,
+				E1919A9815AD678B0034079B /* NSUserDefaults+Addition.m */,
 				E1097D40157F9AD700BD0640 /* UIApplication+Addition.h */,
 				E1097D41157F9AD700BD0640 /* UIApplication+Addition.m */,
 				18ED9CE41568BA1800627D8F /* UIImage+Addition.h */,
 				18ED9CE51568BA1900627D8F /* UIImage+Addition.m */,
 				E1097D42157F9AD700BD0640 /* UIImage+ProportionalFill.h */,
 				E1097D43157F9AD700BD0640 /* UIImage+ProportionalFill.m */,
-				E1097D44157F9AD700BD0640 /* UIImageView+ContentScale.h */,
-				E1097D45157F9AD700BD0640 /* UIImageView+ContentScale.m */,
 				189D9DE015496FA300E922D9 /* UIImageView+Addition.h */,
 				189D9DE115496FA300E922D9 /* UIImageView+Addition.m */,
+				E1097D44157F9AD700BD0640 /* UIImageView+ContentScale.h */,
+				E1097D45157F9AD700BD0640 /* UIImageView+ContentScale.m */,
 				E1097D49157F9BBF00BD0640 /* UIView+Addition.h */,
 				E1097D4A157F9BBF00BD0640 /* UIView+Addition.m */,
 				18114506156CDB9E00B3BF21 /* UIView+Resize.h */,
@@ -3920,6 +3925,7 @@
 				E1A59EAB15AC24AD001F0A94 /* NSNotificationCenter+Addition.m in Sources */,
 				E1919A8115AC76150034079B /* LoginCellViewController.m in Sources */,
 				E1919A8D15AC8F990034079B /* LoginUserCellViewController.m in Sources */,
+				E1919A9915AD678B0034079B /* NSUserDefaults+Addition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

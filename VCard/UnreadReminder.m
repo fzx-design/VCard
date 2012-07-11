@@ -25,10 +25,9 @@ static UnreadReminder *sharedUnreadReminder;
 {
     if (sharedUnreadReminder == nil) {
         sharedUnreadReminder = [[UnreadReminder alloc] init];
-        sharedUnreadReminder.currentUser = user;
-        
         [sharedUnreadReminder setUpTimer];
     }
+    sharedUnreadReminder.currentUser = user;
 }
 
 + (int)unreadStatusCountForCurrentUser

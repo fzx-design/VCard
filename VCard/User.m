@@ -97,17 +97,6 @@
     return result;
 }
 
-+ (User *)userWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context {
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    
-    [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"userID == %@", userID]];
-    
-    User *res = [[context executeFetchRequest:request error:NULL] lastObject];
-    
-    return res;
-}
-
 + (User *)userWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];

@@ -14,6 +14,7 @@
 #import "UnreadReminder.h"
 #import "Group.h"
 #import "NSNotificationCenter+Addition.h"
+#import "NSUserDefaults+Addition.h"
 
 typedef enum {
     ActiveTextfieldNone,
@@ -48,6 +49,9 @@ typedef enum {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    //self.userNameTextField.text = @"";
+    //self.userPasswordTextField.text = @"";
+    
     _shouldLowerKeyboard = YES;
     _currentActiveTextfield = ActiveTextfieldNone;
 }
@@ -61,75 +65,47 @@ typedef enum {
 #pragma mark - Logic methods 
 
 - (void)login {
-    [self.userPasswordTextField resignFirstResponder];
     if (self.userNameTextField.text == @"") {
         [self.userNameTextField becomeFirstResponder];
     } else if(self.userPasswordTextField.text == @"") {
         return;
     } else {
+        [self.userPasswordTextField resignFirstResponder];
         self.view.userInteractionEnabled = NO;
+        
         WBClient *client = [WBClient client];
-        NSLog(@"login step 1");
+        
         [client setCompletionBlock:^(WBClient *client) {
-            NSLog(@"login step 3");
             if (!client.hasError) {
-                [self getLoginUserInfo];
+                NSDictionary *userDict = client.responseJSONObject;
+                User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+                
+                [NSUserDefaults insertUserAccountInfoWithUserID:user.userID account:self.userNameTextField.text password:self.userPasswordTextField.text];
+                
+                [UnreadReminder initializeWithCurrentUser:user];
+                
+                [self.delegate loginInputCell:self didLoginUser:user];
+                
+                NSLog(@"login step 3 succeeded");
             } else {
-                NSLog(@"login step 3 error");
-                self.view.userInteractionEnabled = YES;
+                NSLog(@"login step 3 failed");
             }
+            self.view.userInteractionEnabled = YES;
         }];
+
         [client authorizeUsingUserID:self.userNameTextField.text password:self.userPasswordTextField.text];
     }
 }
 
-- (void)getLoginUserInfo
-{
-    WBClient *client = [WBClient client];
-    [client setCompletionBlock:^(WBClient *client) {
-        NSLog(@"login step 4");
-        if (!client.hasError) {
-            NSDictionary *userDict = client.responseJSONObject;
-            User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
-
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
-            [UnreadReminder initializeWithCurrentUser:user];
-            [self setUpGroupFavorite];
-            
-            [self.delegate loginInputCell:self didLoginUser:user];
-        } else {
-            NSLog(@"login step 4 error:%@", client.responseJSONObject);
-        }
-        self.view.userInteractionEnabled = YES;
-    }];
-    
-    [client getUser:client.userID];
-}
-
-- (void)setUpGroupFavorite
-{
-    Group *favouriteGroup = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
-    favouriteGroup.groupID = @"Favourites";
-    favouriteGroup.name = @"收藏";
-    favouriteGroup.type = [NSNumber numberWithInt:kGroupTypeFavourite];
-    favouriteGroup.picURL = self.currentUser.largeAvatarURL;
-    favouriteGroup.index = [NSNumber numberWithInt:0];
-}
 
 #pragma mark -
 #pragma mark UITextField Delegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if ([textField isEqual:self.userNameTextField]) {
-        
         [self.userPasswordTextField becomeFirstResponder];
-        
     } else if([textField isEqual:self.userPasswordTextField]) {
-        
         [self login];
-        
     }
     return YES;
 }
@@ -140,6 +116,5 @@ typedef enum {
 {    
     [self login];
 }
-
 
 @end

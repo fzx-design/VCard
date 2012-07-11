@@ -12,9 +12,7 @@
 @implementation UIImageView (Addition)
 
 - (void)loadImageFromURL:(NSString *)urlString 
-              completion:(void (^)())completion {
-    self.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
-	
+              completion:(void (^)())completion {	
     [self kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
     [self kv_setImageAtURLWithoutCropping:anImageURL completion:completion];

@@ -10,7 +10,10 @@
 #import "UIApplication+Addition.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSNotificationCenter+Addition.h"
+#import "NSUserDefaults+Addition.h"
 #import "UIView+Resize.h"
+#import "WBClient.h"
+#import "UnreadReminder.h"
 
 #define VIEW_APPEAR_ANIMATION_DURATION  0.5f
 
@@ -19,8 +22,6 @@
 
 #define SCROLL_VIEW_LANDSCAPE_CENTER    CGPointMake(512, 400)
 #define SCROLL_VIEW_PORTRAIT_CENTER     CGPointMake(384, 480)
-
-#define kLoginUserArray @"LoginUserArray"
 
 @interface LoginViewController ()
 
@@ -48,11 +49,11 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSArray *storedArray = [defaults arrayForKey:kLoginUserArray];
+        NSArray *storedArray = [NSUserDefaults getLoginUserArray];
+        
         self.loginUserInfoArray = [NSMutableArray array];
         [storedArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            User *user = [User userWithID:obj inManagedObjectContext:self.managedObjectContext];
+            User *user = [User userWithID:obj inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
             [self.loginUserInfoArray addObject:user];
         }];
         
@@ -233,9 +234,7 @@
         [self.loginUserInfoArray addObject:newUser];
         [userIDArray addObject:newUser.userID];
         
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:userIDArray forKey:kLoginUserArray];
-        [defaults synchronize];
+        [NSUserDefaults setLoginUserArray:userIDArray];
     }
 }
 
@@ -271,9 +270,7 @@
 }
 
 - (IBAction)didClickLogoutButton:(UIButton *)sender {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:nil forKey:kLoginUserArray];
-    [defaults synchronize];
+    [NSUserDefaults setLoginUserArray:nil];
     [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:nil];
 }
 
@@ -298,10 +295,30 @@
 #pragma mark - LoginUserCellViewController delegate
 
 - (void)loginUserCell:(LoginUserCellViewController *)vc didSelectUser:(User *)user {
-    [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:user.userID];
+    self.view.userInteractionEnabled = NO;
+    UserAccountInfo *accountInfo = [NSUserDefaults getUserAccountInfoWithUserID:user.userID];
     
-    [self viewDisappearAnimation];
-    [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
+    WBClient *client = [WBClient client];
+    
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSDictionary *userDict = client.responseJSONObject;
+            User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+                        
+            [UnreadReminder initializeWithCurrentUser:user];
+                        
+            [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:user.userID];
+            [self viewDisappearAnimation];
+            [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
+            
+            NSLog(@"login step 3 succeeded");
+        } else {
+            NSLog(@"login step 3 failed");
+        }
+        self.view.userInteractionEnabled = YES;
+    }];
+    
+    [client authorizeUsingUserID:accountInfo.account password:accountInfo.password];
 }
 
 - (void)loginUserCell:(LoginUserCellViewController *)vc didDeleteUser:(User *)user {

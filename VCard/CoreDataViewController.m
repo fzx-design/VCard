@@ -9,9 +9,8 @@
 #import "CoreDataViewController.h"
 #import "AppDelegate.h"
 #import "NSNotificationCenter+Addition.h"
+#import "NSUserDefaults+Addition.h"
 #import "WBClient.h"
-
-#define kStoredCurrentUserID @"StoredCurrentUserID"
 
 static CoreDataKernal *kernalInstance = nil;
 
@@ -27,21 +26,6 @@ static CoreDataKernal *kernalInstance = nil;
 @synthesize fetchedResultsController = _fetchedResultsController;
 
 #pragma mark - CoreData methods
-
-+ (void)saveContext
-{
-    NSError *error = nil;
-    AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *managedObjectContext = delegate.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        } 
-    }
-}
 
 - (void)configureRequest:(NSFetchRequest *)request
 {
@@ -102,8 +86,7 @@ static CoreDataKernal *kernalInstance = nil;
 - (id)init {
     self = [super init];
     if(self) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *currentUserID = [defaults stringForKey:kStoredCurrentUserID];
+        NSString *currentUserID = [NSUserDefaults getCurrentUserID];
         [self configureCurrentUserWithUserID:currentUserID];
         [NSNotificationCenter registerCoreChangeCurrentUserNotificationWithSelector:@selector(handleCoreChangeCurrentUserNotification:) target:self];
     }
@@ -119,14 +102,12 @@ static CoreDataKernal *kernalInstance = nil;
 
 - (void)configureCurrentUserWithUserID:(NSString *)currentUserID {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    User *currentUser = [User userWithID:currentUserID inManagedObjectContext:appDelegate.managedObjectContext];
+    User *currentUser = [User userWithID:currentUserID inManagedObjectContext:appDelegate.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
     self.currentUser = currentUser;
     
     NSLog(@"configure current user name %@", currentUser.screenName);
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:currentUserID forKey:kStoredCurrentUserID];
-    [defaults synchronize];
+    [NSUserDefaults setCurrentUserID:currentUser.userID];
     
     if(self.currentUser == nil) {
         [[WBClient client] logOut];
@@ -139,7 +120,7 @@ static CoreDataKernal *kernalInstance = nil;
 - (void)handleCoreChangeCurrentUserNotification:(NSNotification *)notification {
     NSString *currentUserID = notification.object;
     [self configureCurrentUserWithUserID:currentUserID];
-    [CoreDataViewController saveContext];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
     [NSNotificationCenter postChangeCurrentUserNotification];
 }
 

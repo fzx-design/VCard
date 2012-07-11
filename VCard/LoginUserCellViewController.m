@@ -11,6 +11,8 @@
 #import "ResourceList.h"
 #import "CastViewController.h"
 #import "WBClient.h"
+#import "UIView+Addition.h"
+#import "UIImageView+Addition.h"
 
 @interface LoginUserCellViewController ()
 
@@ -49,6 +51,9 @@
 	// Do any additional setup after loading the view.    
     if(self.ownerUser) {
         self.userNameLabel.text = self.ownerUser.screenName;
+        [self.avatarImageView loadImageFromURL:self.ownerUser.largeAvatarURL completion:^{
+            [self.avatarImageView fadeIn];
+        }];
     }
 }
 
