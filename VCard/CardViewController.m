@@ -135,6 +135,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     
     _pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     _pinchGestureRecognizer.delegate = self;
+    _pinchGestureRecognizer.delaysTouchesEnded = YES;
     [self.statusImageView addGestureRecognizer:_pinchGestureRecognizer];
     
     _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
@@ -903,7 +904,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
 - (void)playClipLooseAnimationAndSendNotification
 {
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-    rotationAnimation.toValue = [NSNumber numberWithFloat:1.1];
+    rotationAnimation.fromValue = [NSNumber numberWithFloat:0.0];
+    rotationAnimation.toValue = [NSNumber numberWithFloat:0.7];
     rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     rotationAnimation.fillMode = kCAFillModeForwards;
     rotationAnimation.removedOnCompletion = NO;
@@ -925,7 +927,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 - (void)playClipTightenAnimation
 {
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-    rotationAnimation.fromValue = [NSNumber numberWithFloat:1.1];
+    rotationAnimation.fromValue = [NSNumber numberWithFloat:0.7];
     rotationAnimation.toValue = [NSNumber numberWithFloat:0.0];
     rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     rotationAnimation.fillMode = kCAFillModeForwards;
