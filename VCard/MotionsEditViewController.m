@@ -19,7 +19,9 @@
 
 #define FILTER_TABLE_VIEW_CENTER CGPointMake(77, 540)
 
-@interface MotionsEditViewController ()
+@interface MotionsEditViewController () {
+    BOOL _useForAvatar;
+}
 
 @property (nonatomic, assign, getter = isDirty) BOOL dirty;
 @property (nonatomic, strong) UIImage *originalImage;
@@ -72,11 +74,13 @@
     return self;
 }
 
-- (id)initWithImage:(UIImage *)image {
+- (id)initWithImage:(UIImage *)image useForAvatar:(BOOL)useForAvatar {
     self = [self init];
     if(self) {
         self.originalImage = image;
         self.modifiedImage = self.originalImage;
+        
+        _useForAvatar = useForAvatar;
     }
     return self;
 }
@@ -397,7 +401,7 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             UIImage *filteredImage = self.filteredImage;
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.cropImageViewController = [[CropImageViewController alloc] initWithImage:self.modifiedImage filteredImage:filteredImage];
+                self.cropImageViewController = [[CropImageViewController alloc] initWithImage:self.modifiedImage filteredImage:filteredImage useForAvatar:_useForAvatar];
                 self.cropImageViewController.delegate = self;
                 self.cropImageViewController.view.frame = self.filterImageView.frame;
                 

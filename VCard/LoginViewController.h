@@ -21,6 +21,5 @@
 - (void)show;
 
 - (IBAction)didClickRegisterButton:(UIButton *)sender;
-- (IBAction)didClickLogoutButton:(UIButton *)sender;
 
 @end

@@ -12,7 +12,9 @@
 #import "UIImage+ProportionalFill.h"
 #import "UIImage+Addition.h"
 
-@interface CropImageViewController ()
+@interface CropImageViewController () {
+    BOOL _useForAvatar;
+}
 
 @property (nonatomic, strong) UIImage *filteredImage;
 @property (nonatomic, strong) UIImage *originalImage;
@@ -43,8 +45,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.cropImageBgView.image = self.filteredImage ? self.filteredImage : self.originalImage;
-    CGSize cropImageSize = CGSizeMake(self.cropImageBgView.contentScaleFactor * self.originalImage.size.width, self.cropImageBgView.contentScaleFactor * self.originalImage.size.height);
-    [self.cropImageView setCropImageInitSize:cropImageSize center:self.cropImageBgView.center];
+    
+    CGFloat w = self.cropImageBgView.contentScaleFactor * self.originalImage.size.width;
+    CGFloat h = self.cropImageBgView.contentScaleFactor * self.originalImage.size.height;
+    CGSize cropImageSize = CGSizeMake(w, h);
+    if(_useForAvatar) {
+        CGFloat min = fminf(w, h);
+        cropImageSize = CGSizeMake(min, min);
+    }
+    
+    [self.cropImageView setCropImageInitSize:cropImageSize center:self.cropImageBgView.center lockRatio:_useForAvatar];
     self.cropImageView.bgImageView = self.cropImageBgView;
     [ThemeResourceProvider configButtonDark:self.cancelButton];
 }
@@ -60,13 +70,15 @@
     self.cancelButton = nil;
 }
 
-- (id)initWithImage:(UIImage *)image filteredImage:(UIImage *)filteredImage {
+- (id)initWithImage:(UIImage *)image filteredImage:(UIImage *)filteredImage useForAvatar:(BOOL)useForAvatar {
     self = [super init];
     if(self) {
         self.originalImage = image;
         self.filteredImage = filteredImage;
         if(image == filteredImage)
             self.filteredImage = nil;
+        
+        _useForAvatar = useForAvatar;
     }
     return self;
 }

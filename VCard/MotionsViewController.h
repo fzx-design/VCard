@@ -27,7 +27,8 @@
 @property (nonatomic, strong) IBOutlet UIImageView  *rightCameraCoverImageView;
 @property (nonatomic, strong) IBOutlet UIView       *captureBgView;
 
-- (id)initWithImage:(UIImage *)image;
+- (id)initWithImage:(UIImage *)image useForAvatar:(BOOL)useForAvatar;
+- (void)show;
 
 - (IBAction)didClickCancelButton:(UIButton *)sender;
 

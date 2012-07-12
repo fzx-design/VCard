@@ -8,8 +8,11 @@
 
 #import "MotionsViewController.h"
 #import "UIImage+Addition.h"
+#import "UIApplication+Addition.h"
 
-@interface MotionsViewController ()
+@interface MotionsViewController () {
+    BOOL _useForAvatar;
+}
 
 @property (nonatomic, strong) UIImage *originalImage;
 @property (nonatomic, assign) CGRect leftCameraCoverCloseFrame;
@@ -46,11 +49,12 @@
     return self;
 }
 
-- (id)initWithImage:(UIImage *)image {
+- (id)initWithImage:(UIImage *)image useForAvatar:(BOOL)useForAvatar {
     self = [self init];
     if(self) {
         UIImage *rotatedImage = [image motionsAdjustImage];
         self.originalImage = rotatedImage;
+        _useForAvatar = useForAvatar;
     }
     return self;
 }
@@ -150,7 +154,7 @@
 - (MotionsEditViewController *)editViewController {
     if(!_editViewController) {
         //NSLog(@"create edit vc");
-        _editViewController = [[MotionsEditViewController alloc] initWithImage:self.originalImage];
+        _editViewController = [[MotionsEditViewController alloc] initWithImage:self.originalImage useForAvatar:_useForAvatar];
         _editViewController.delegate = self;
         [self.subViewControllers addObject:_editViewController];
     }
@@ -158,6 +162,10 @@
 }
 
 #pragma mark - UI methods
+
+- (void)show {
+    [[UIApplication sharedApplication].rootViewController presentModalViewController:self animated:YES];
+}
 
 - (void)configureCameraCover {
     if(self.isCameraCoverHidden) {

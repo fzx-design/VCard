@@ -36,7 +36,7 @@
 - (IBAction)didClickFinishEditButton:(UIButton *)sender;
 - (IBAction)didClickChangePictureButton:(UIButton *)sender;
 
-- (id)initWithImage:(UIImage *)image;
+- (id)initWithImage:(UIImage *)image useForAvatar:(BOOL)useForAvatar;
 - (void)hideEditAccessoriesAnimationWithCompletion:(void (^)(void))completion;
 - (void)showEditAccessoriesAnimationWithCompletion:(void (^)(void))completion;
     

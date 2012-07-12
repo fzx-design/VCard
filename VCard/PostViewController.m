@@ -968,11 +968,11 @@ typedef enum {
         } else if(buttonIndex == MOTIONS_ACTION_SHEET_SHOOT_INDEX) {
             MotionsViewController *vc = [[MotionsViewController alloc] init];
             vc.delegate = self;
-            [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+            [vc show];
         } else if(buttonIndex == MOTIONS_ACTION_SHEET_EDIT_INDEX) {
-            MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:self.motionsOriginalImage];
+            MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:self.motionsOriginalImage useForAvatar:NO];
             vc.delegate = self;
-            [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+            [vc show];
         } else if(buttonIndex == MOTIONS_ACTION_SHEET_CLEAR_INDEX) {
             [self.motionsImageView fadeOutWithCompletion:^{
                 [self setMotionsImage:nil];
@@ -991,9 +991,9 @@ typedef enum {
     [self.popoverController dismissPopoverAnimated:YES];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     
-    MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:image];
+    MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:image useForAvatar:YES];
     vc.delegate = self;
-    [[UIApplication sharedApplication].rootViewController presentModalViewController:vc animated:YES];
+    [vc show];
     
     self.popoverController = nil;
 }

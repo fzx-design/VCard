@@ -27,6 +27,6 @@
 @property (nonatomic, assign) CGFloat scaleFactor;
 @property (nonatomic, weak) UIImageView *bgImageView;
 
-- (void)setCropImageInitSize:(CGSize)size center:(CGPoint)center;
+- (void)setCropImageInitSize:(CGSize)size center:(CGPoint)center lockRatio:(BOOL)lockRatio;
 
 @end

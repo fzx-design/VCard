@@ -22,7 +22,9 @@ typedef enum {
 #define DEFAULT_ASSIST_CROP_SECTION_NUM 2
 #define MAX_SCALE_FACTOR 3
 
-@interface CropImageView() 
+@interface CropImageView() {
+    BOOL _lockRatio;
+}
 
 @property (nonatomic, strong) NSMutableArray *pointImageViewArray;
 @property (nonatomic, assign) CGFloat dragDistanceX;
@@ -294,9 +296,10 @@ typedef enum {
     _draggingPointImageView = nil;
 }
 
-- (void)setCropImageInitSize:(CGSize)size center:(CGPoint)center {
+- (void)setCropImageInitSize:(CGSize)size center:(CGPoint)center lockRatio:(BOOL)lockRatio {
     _cropImageInitSize = size;
     _cropImageInitCenter = center;
+    _lockRatio = lockRatio;
     [self setDefault];
 }
 
