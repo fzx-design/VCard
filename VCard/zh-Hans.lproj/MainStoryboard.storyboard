@@ -865,6 +865,9 @@
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="didClickChangeAvatarButton:" destination="m0Z-sD-uNg" eventType="touchUpInside" id="Djj-6o-jz4"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QaX-fJ-2R5">
                                         <rect key="frame" x="52" y="253" width="96" height="70"/>
@@ -2594,9 +2597,10 @@
         <class className="SelfProfileViewController" superclassName="UserProfileViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfProfileViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didClickAccountSettingButton:"/>
-                <relationship kind="action" name="didClickCheckCommentButton:"/>
-                <relationship kind="action" name="didClickCheckMentionButton:"/>
+                <relationship kind="action" name="didClickAccountSettingButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickChangeAvatarButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickCheckCommentButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickCheckMentionButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="accountSettingButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="changeAvatarButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkCommentButton" candidateClass="UIButton"/>

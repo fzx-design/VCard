@@ -44,18 +44,28 @@
     // Release any retained subviews of the main view.
 }
 
-- (IBAction)didClickCheckCommentButton:(id)sender
+- (IBAction)didClickCheckCommentButton:(UIButton *)sender
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowSelfCommentList object:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:kNotificationObjectKeyIndex]];
 }
 
-- (IBAction)didClickCheckMentionButton:(id)sender
+- (IBAction)didClickCheckMentionButton:(UIButton *)sender
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowSelfMentionList object:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:kNotificationObjectKeyIndex]];
 }
 
+<<<<<<< HEAD
 - (IBAction)didClickAccountSettingButton:(id)sender {
     LoginViewController *vc = [[LoginViewController alloc] init];
+=======
+- (IBAction)didClickChangeAvatarButton:(UIButton *)sender
+{
+    
+}
+
+- (IBAction)didClickAccountSettingButton:(UIButton *)sender {
+    NewLoginViewController *vc = [[NewLoginViewController alloc] init];
+>>>>>>> 添加更换头像的点击事件
     [vc show];
 }
 

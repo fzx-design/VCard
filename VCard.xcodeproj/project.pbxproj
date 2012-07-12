@@ -354,6 +354,7 @@
 		18EA50411534711A005ED94F /* cell_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA503B1534711A005ED94F /* cell_hover@2x.png */; };
 		18EA50441534711A005ED94F /* stackview_pre_shadow_cover.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA503E1534711A005ED94F /* stackview_pre_shadow_cover.png */; };
 		18EA50451534711A005ED94F /* stackview_pre_shadow_cover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA503F1534711A005ED94F /* stackview_pre_shadow_cover@2x.png */; };
+		18EB247C15AE93380047530E /* UIScrollView+ZoomToPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB247B15AE93380047530E /* UIScrollView+ZoomToPoint.m */; };
 		18ED04AF1558B76200EF6641 /* ResourceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ED04AE1558B76200EF6641 /* ResourceProvider.m */; };
 		18ED9CE61568BA1900627D8F /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ED9CE51568BA1900627D8F /* UIImage+Addition.m */; };
 		18ED9CED1568BF6C00627D8F /* castview_bg_unit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18ED9CEB1568BF6C00627D8F /* castview_bg_unit@2x.png */; };
@@ -1241,6 +1242,8 @@
 		18EA503B1534711A005ED94F /* cell_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell_hover@2x.png"; sourceTree = "<group>"; };
 		18EA503E1534711A005ED94F /* stackview_pre_shadow_cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stackview_pre_shadow_cover.png; sourceTree = "<group>"; };
 		18EA503F1534711A005ED94F /* stackview_pre_shadow_cover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stackview_pre_shadow_cover@2x.png"; sourceTree = "<group>"; };
+		18EB247A15AE93380047530E /* UIScrollView+ZoomToPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+ZoomToPoint.h"; sourceTree = "<group>"; };
+		18EB247B15AE93380047530E /* UIScrollView+ZoomToPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+ZoomToPoint.m"; sourceTree = "<group>"; };
 		18ED04AD1558B76200EF6641 /* ResourceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceProvider.h; sourceTree = "<group>"; };
 		18ED04AE1558B76200EF6641 /* ResourceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceProvider.m; sourceTree = "<group>"; };
 		18ED9CE41568BA1800627D8F /* UIImage+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Addition.h"; sourceTree = "<group>"; };
@@ -2181,6 +2184,8 @@
 				E1097D4A157F9BBF00BD0640 /* UIView+Addition.m */,
 				18114506156CDB9E00B3BF21 /* UIView+Resize.h */,
 				18114507156CDB9E00B3BF21 /* UIView+Resize.m */,
+				18EB247A15AE93380047530E /* UIScrollView+ZoomToPoint.h */,
+				18EB247B15AE93380047530E /* UIScrollView+ZoomToPoint.m */,
 			);
 			name = Catagaories;
 			sourceTree = "<group>";
@@ -4012,8 +4017,12 @@
 				E1A59E9415ABE3DA001F0A94 /* LoginBgView.m in Sources */,
 				E1A59EAB15AC24AD001F0A94 /* NSNotificationCenter+Addition.m in Sources */,
 				E1919A8115AC76150034079B /* LoginCellViewController.m in Sources */,
+<<<<<<< HEAD
 				E1919A8D15AC8F990034079B /* LoginUserCellViewController.m in Sources */,
 				E1919A9915AD678B0034079B /* NSUserDefaults+Addition.m in Sources */,
+=======
+				18EB247C15AE93380047530E /* UIScrollView+ZoomToPoint.m in Sources */,
+>>>>>>> 添加更换头像的点击事件
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

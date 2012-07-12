@@ -22,8 +22,9 @@
 @property (nonatomic, strong) IBOutlet UIButton *accountSettingButton;
 @property (nonatomic, assign) BOOL shouldShowFollowerList;
 
-- (IBAction)didClickCheckCommentButton:(id)sender;
-- (IBAction)didClickCheckMentionButton:(id)sender;
-- (IBAction)didClickAccountSettingButton:(id)sender;
+- (IBAction)didClickCheckCommentButton:(UIButton *)sender;
+- (IBAction)didClickCheckMentionButton:(UIButton *)sender;
+- (IBAction)didClickAccountSettingButton:(UIButton *)sender;
+- (IBAction)didClickChangeAvatarButton:(UIButton *)sender;
 
 @end

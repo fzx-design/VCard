@@ -11,6 +11,7 @@
 #import "UIApplication+Addition.h"
 #import "User.h"
 #import "NSDateAddition.h"
+#import "UIScrollView+ZoomToPoint.h"
 
 @interface DetailImageViewController () {
     BOOL _statusBarHidden;
@@ -41,8 +42,6 @@
     [_scrollView addGestureRecognizer:_tapGestureRecognizer];
     _scrollView.delegate = self;
     _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
-//    _scrollView.maximumZoomScale = 5.0;
-//    _scrollView.minimumZoomScale = 0.5;
 }
 
 - (void)viewDidUnload
@@ -172,22 +171,32 @@
 {
     _currentScale *= scale;
     
-    if (_currentScale < 5.0) {
-        CGRect zoomRect;
-        zoomRect.size.height = _scrollView.frame.size.height / scale;
-        zoomRect.size.width  = _scrollView.frame.size.width  / scale;
-        zoomRect.origin.x = center.x - (zoomRect.size.width  / 2.0);
-        zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0);
-        [_scrollView zoomToRect:zoomRect animated:YES];
-        _scrollView.contentSize = _imageView.frame.size;
-    }
+//    CGPoint point = center;
+//    
+//    center.x -= _imageView.frame.origin.x - _scrollView.contentOffset.x;
+//    center.y -= _imageView.frame.origin.y - _scrollView.contentOffset.y;
+    CGRect frame = _imageView.frame;
+    
+    [_scrollView zoomToPoint:center withScale:scale animated:YES];
+    _scrollView.contentSize = _imageView.frame.size;
+    
+    NSLog(@"before %@, after %@", NSStringFromCGRect(frame), NSStringFromCGRect(_imageView.frame));
+    
+//    if (_currentScale < 5.0) {
+//        CGRect zoomRect;
+//        zoomRect.size.height = _scrollView.frame.size.height / scale;
+//        zoomRect.size.width  = _scrollView.frame.size.width  / scale;
+//        zoomRect.origin.x = center.x - point.x;
+//        zoomRect.origin.y = center.y - point.y;
+//        [_scrollView zoomToRect:zoomRect animated:YES];
+//        _scrollView.contentSize = _imageView.frame.size;
+//    }
     
     CGPoint contentOffset = _scrollView.contentOffset;
     contentOffset.x -= offset.x;
     contentOffset.y -= offset.y;
     
     _scrollView.contentOffset = contentOffset;
-    
 }
 
 - (void)willStartZooming
@@ -259,11 +268,6 @@
         _statusBarHidden = !_statusBarHidden;
     }];
     [[UIApplication sharedApplication] setStatusBarHidden:!_statusBarHidden withAnimation:UIStatusBarAnimationFade];
-}
-
-- (void)scrollViewDidZoom:(UIScrollView *)scrollView
-{
-    NSLog(@"!");
 }
 
 @end

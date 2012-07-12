@@ -747,9 +747,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
         
         [self.statusImageView resetCurrentScale];
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-        
-        NSLog(@"%f", sender.velocity);
-        
+                
         if (_imageViewMode == CastViewImageViewModeNormal) {
             if (sender.velocity > 2.0) {
                 [self willOpenDetailImageViewDirectly];
@@ -787,7 +785,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 - (BOOL)checkAndHanleZoomGestureEnd:(UIPinchGestureRecognizer *)sender
 {
     BOOL result = NO;
-    if (sender.state == UIGestureRecognizerStateEnded || (sender.state == UIGestureRecognizerStateChanged && sender.numberOfTouches < 2)) {
+    if (sender.state == UIGestureRecognizerStateEnded || (sender.numberOfTouches < 2)) {
         
         self.statusImageView.userInteractionEnabled = NO;
         self.statusImageView.userInteractionEnabled = YES;
