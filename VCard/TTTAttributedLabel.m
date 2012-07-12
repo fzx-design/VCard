@@ -316,6 +316,10 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     [self addLinkWithTextCheckingResult:[NSTextCheckingResult quoteCheckingResultWithRange:range replacementString:string]];
 }
 
+- (void)addEmotionToString:(NSString *)string withRange:(NSRange)range {
+    [self addLinkWithTextCheckingResult:[NSTextCheckingResult correctionCheckingResultWithRange:range replacementString:string]];
+}
+
 #pragma mark -
 
 - (void)temporarilyHighlightSubstringWithResult:(NSTextCheckingResult *)result {
