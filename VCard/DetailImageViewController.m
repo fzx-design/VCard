@@ -41,6 +41,8 @@
     [_scrollView addGestureRecognizer:_tapGestureRecognizer];
     _scrollView.delegate = self;
     _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
+//    _scrollView.maximumZoomScale = 5.0;
+//    _scrollView.minimumZoomScale = 0.5;
 }
 
 - (void)viewDidUnload
@@ -166,19 +168,35 @@
     [_imageView resetSize:CGSizeMake(width, height)];
 }
 
-- (void)didZoomImageViewWithScale:(CGFloat)scale centerPoint:(CGPoint)center
+- (void)didZoomImageViewWithScale:(CGFloat)scale centerPoint:(CGPoint)center offset:(CGPoint)offset
 {
     _currentScale *= scale;
     
+    if (_currentScale < 5.0) {
+        CGRect zoomRect;
+        zoomRect.size.height = _scrollView.frame.size.height / scale;
+        zoomRect.size.width  = _scrollView.frame.size.width  / scale;
+        zoomRect.origin.x = center.x - (zoomRect.size.width  / 2.0);
+        zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0);
+        [_scrollView zoomToRect:zoomRect animated:YES];
+        _scrollView.contentSize = _imageView.frame.size;
+    }
     
-    CGRect zoomRect;
-    zoomRect.size.height = _scrollView.frame.size.height / scale;
-    zoomRect.size.width  = _scrollView.frame.size.width  / scale;
-    zoomRect.origin.x = center.x - (zoomRect.size.width  / 2.0);
-    zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0);
-    [_scrollView zoomToRect:zoomRect animated:YES];
-    _scrollView.contentSize = _imageView.frame.size;
+    CGPoint contentOffset = _scrollView.contentOffset;
+    contentOffset.x -= offset.x;
+    contentOffset.y -= offset.y;
+    
+    _scrollView.contentOffset = contentOffset;
+    
+}
 
+- (void)willStartZooming
+{
+    
+}
+
+- (void)didEndZooming
+{
     CGSize boundsSize = _scrollView.bounds.size;
     CGRect contentsFrame = _imageView.frame;
     
@@ -194,7 +212,22 @@
         contentsFrame.origin.y = 0.0f;
     }
     
-    _imageView.frame = contentsFrame;
+    CGFloat offsetX = _imageView.frame.origin.x - contentsFrame.origin.x;
+    CGFloat offsetY = _imageView.frame.origin.y - contentsFrame.origin.y;
+    
+    CGPoint contentOffset = CGPointMake(_scrollView.contentOffset.x - offsetX, _scrollView.contentOffset.y - offsetY);
+    
+    if (contentOffset.x < 0.0) {
+        contentOffset.x = 0.0;
+    }
+    if (contentOffset.y < 0.0) {
+        contentOffset.y = 0.0;
+    }
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        _scrollView.contentOffset = contentOffset;
+        _imageView.frame = contentsFrame;
+    }];
 }
 
 - (BOOL)shouldQuitZoomingMode
@@ -226,6 +259,11 @@
         _statusBarHidden = !_statusBarHidden;
     }];
     [[UIApplication sharedApplication] setStatusBarHidden:!_statusBarHidden withAnimation:UIStatusBarAnimationFade];
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    NSLog(@"!");
 }
 
 @end

@@ -764,6 +764,10 @@ static inline NSRegularExpression * UrlRegularExpression() {
         if (_imageViewMode == CastViewImageViewModeDetailedNormal) {
             if (sender.scale >= 1.0) {
                 _imageViewMode = CastViewImageViewModeDetailedZooming;
+                if ([_delegate respondsToSelector:@selector(willStartZooming)]) {
+                    [_delegate willStartZooming];
+                }
+                
             } else {
                 _imageViewMode = CastViewImageViewModePinchingIn;
             }
@@ -797,6 +801,10 @@ static inline NSRegularExpression * UrlRegularExpression() {
             if ([_delegate respondsToSelector:@selector(enterDetailedImageViewMode)]) {
                 [_delegate enterDetailedImageViewMode];
             }
+        } else {
+            if ([_delegate respondsToSelector:@selector(enterDetailedImageViewMode)]) {
+                [_delegate didEndZooming];
+            }
         }
         
         result = YES;
@@ -810,11 +818,16 @@ static inline NSRegularExpression * UrlRegularExpression() {
     [self.statusImageView setTransform:CGAffineTransformScale(self.statusImageView.transform, scale, scale)];
     self.statusImageView.currentScale += sender.scale - _lastScale;
     _lastScale = sender.scale;
-        
-    _lastPoint = [sender locationInView:[UIApplication sharedApplication].rootViewController.view];
     
-    if ([_delegate respondsToSelector:@selector(didZoomImageViewWithScale:centerPoint:)]) {
-        [_delegate didZoomImageViewWithScale:scale centerPoint:_lastPoint];
+    CGPoint point = [sender locationInView:[UIApplication sharedApplication].rootViewController.view];
+    
+    CGFloat deltaX = point.x - _lastPoint.x;
+    CGFloat deltaY = point.y - _lastPoint.y;
+        
+    _lastPoint = point;
+    
+    if ([_delegate respondsToSelector:@selector(didZoomImageViewWithScale:centerPoint:offset:)]) {
+        [_delegate didZoomImageViewWithScale:scale centerPoint:_lastPoint offset:CGPointMake(deltaX, deltaY)];
     }
 }
 
