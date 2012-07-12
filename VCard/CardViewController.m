@@ -66,6 +66,15 @@ static inline NSRegularExpression * EmotionRegularExpression() {
     return __emotionRegularExpression;
 }
 
+static NSRegularExpression *__emotionIDRegularExpression;
+static inline NSRegularExpression * EmotionIDRegularExpression() {
+    if (!__emotionIDRegularExpression) {
+        __emotionIDRegularExpression = [[NSRegularExpression alloc] initWithPattern:@" \\[[[a-e][0-9] ]*\\] " options:NSRegularExpressionCaseInsensitive error:nil];
+    }
+    
+    return __emotionIDRegularExpression;
+}
+
 
 @interface CardViewController () {
     BOOL _doesImageExist;
@@ -450,20 +459,29 @@ static inline NSRegularExpression * EmotionRegularExpression() {
 
 + (void)setSummaryText:(NSString *)originalText toLabel:(TTTAttributedLabel*)label
 {
-    __block NSString *text = originalText;
+    NSString *text = originalText;
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    
     NSRange stringRange = NSMakeRange(0, [text length]);
     NSRegularExpression *regexp = EmotionRegularExpression();
     [regexp enumerateMatchesInString:text options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
         NSRange range = result.range;
         if (range.length != 1) {
             NSString *string = [text substringWithRange:range];
-            EmoticonsInfo *info = [[EmoticonsInfoReader sharedReader] emoticonsInfoForKey:string];
-            if (info) {
-                text = [text stringByReplacingOccurrencesOfString:info.keyName withString:info.emoticonIdentifier];
-            }
+            [array addObject:string];
         }
     }];
     
+    for (NSString *ketString in array) {
+        NSString *key = [ketString substringWithRange:NSMakeRange(1, ketString.length - 2)];
+        EmoticonsInfo *info = [[EmoticonsInfoReader sharedReader] emoticonsInfoForKey:key];
+        if (info) {
+            NSString *string = [NSString stringWithFormat:@" %@ ", info.emoticonIdentifier];
+            text = [text stringByReplacingOccurrencesOfString:ketString withString:string];
+        }
+    }
+    
+    stringRange = NSMakeRange(0, [text length]);
     [label setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         NSRange stringRange = NSMakeRange(0, [mutableAttributedString length]);
 
@@ -483,7 +501,7 @@ static inline NSRegularExpression * EmotionRegularExpression() {
             [self configureFontForAttributedString:mutableAttributedString withRange:result.range];
         }];
         
-        regexp = EmotionRegularExpression();
+        regexp = EmotionIDRegularExpression();
         [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
             [self configureEmotionsForAttributedString:mutableAttributedString withRange:result.range];
         }];
@@ -523,14 +541,14 @@ static inline NSRegularExpression * EmotionRegularExpression() {
         }
     }];
     
-    regexp = EmotionRegularExpression();
+    regexp = EmotionIDRegularExpression();
     [regexp enumerateMatchesInString:text options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
         NSRange range = result.range;
         if (range.length != 1) {
             NSString *string = [text substringWithRange:range];
-            EmoticonsInfo *info = [[EmoticonsInfoReader sharedReader] emoticonsInfoForKey:string];
+            EmoticonsInfo *info = [[EmoticonsInfoReader sharedReader] emoticonsInfoForIdentifier:string];
             if (info) {
-                [label addEmotionToString:info.keyName withRange:range];
+                [label addEmotionToString:info.imageFileName withRange:range];
             }
         }
     }];
@@ -552,7 +570,7 @@ static inline NSRegularExpression * EmotionRegularExpression() {
 
 + (void)configureEmotionsForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange
 {
-    UIFont *font = [UIFont boldSystemFontOfSize:10.0f];
+    UIFont *font = [UIFont boldSystemFontOfSize:8.0f];
     CTFontRef systemFont = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
     [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:stringRange];
     [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)systemFont range:stringRange];

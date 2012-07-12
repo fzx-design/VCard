@@ -21,11 +21,14 @@
 // THE SOFTWARE.
 
 #import "TTTAttributedLabel.h"
+#import "EmoticonsInfoReader.h"
 
 #define kTTTLineBreakWordWrapTextWidthScalingFactor (M_PI / M_E)
+#define RegexClearColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:0.0] CGColor]
 
 NSString * const kTTTStrikeOutAttributeName = @"TTTStrikeOutAttribute";
 NSString * const kTTTButtonAttributeName = @"kTTTButtonAttribute";
+NSString * const kTTTEmoticonAttributeName = @"kTTTEmoticonAttributeName";
 NSString * const kTTTTemporaryAttributesAttributeName = @"TTTTemporaryAttributesAttribute";
 
 static inline CTTextAlignment CTTextAlignmentFromUITextAlignment(UITextAlignment alignment) {
@@ -318,6 +321,15 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 
 - (void)addEmotionToString:(NSString *)string withRange:(NSRange)range {
     [self addLinkWithTextCheckingResult:[NSTextCheckingResult correctionCheckingResultWithRange:range replacementString:string]];
+    
+    NSMutableAttributedString *mutableAttributedString = [self.attributedText mutableCopy];
+    [mutableAttributedString removeAttribute:(NSString *)kTTTEmoticonAttributeName range:range];
+    [mutableAttributedString addAttribute:(NSString *)kTTTEmoticonAttributeName value:string range:range];
+
+    [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:range];
+    [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)RegexClearColor range:range];
+    
+    self.attributedText = mutableAttributedString;
 }
 
 #pragma mark -
@@ -452,8 +464,9 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     
     [self drawButton:frame inRect:rect context:c];
     
-    CTFrameDraw(frame, c);
+    [self drawEmoticons:frame inRect:rect context:c];
     
+    CTFrameDraw(frame, c);
     
     CFRelease(frame);
     CFRelease(path);
@@ -543,6 +556,85 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     CGContextAddArcToPoint(context, minx, maxy, minx, midy, radius);
     CGContextClosePath(context);
     CGContextDrawPath(context, kCGPathFillStroke);
+}
+
+- (void)drawEmoticons:(CTFrameRef)frame inRect:(CGRect)rect context:(CGContextRef)c
+{
+    NSArray *lines = (NSArray *)CTFrameGetLines(frame);
+    CGPoint origins[[lines count]];
+    CTFrameGetLineOrigins(frame, CFRangeMake(0, 0), origins);
+    
+    NSUInteger lineIndex = 0;
+    for (id line in lines) {        
+        CGRect lineBounds = CTLineGetImageBounds((CTLineRef)line, c);
+        lineBounds.origin.x = origins[lineIndex].x;
+        lineBounds.origin.y = origins[lineIndex].y;
+        
+        BOOL foundExpression = NO;
+        CGRect buttonFrame = CGRectZero;
+
+        NSString *imageFileName = nil;
+        
+        for (id glyphRun in (NSArray *)CTLineGetGlyphRuns((CTLineRef)line)) {
+            NSDictionary *attributes = (NSDictionary *)CTRunGetAttributes((CTRunRef) glyphRun);
+            NSString *result = [attributes objectForKey:kTTTEmoticonAttributeName];
+            
+            if (result) {
+                imageFileName = result;
+                
+                CGRect runBounds = CGRectZero;
+                CGFloat ascent = 0.0f;
+                CGFloat descent = 0.0f;
+                
+                runBounds.size.width = CTRunGetTypographicBounds((CTRunRef)glyphRun, CFRangeMake(0, 0), &ascent, &descent, NULL);
+                runBounds.size.height = ascent + descent;
+                
+                CGFloat xOffset = CTLineGetOffsetForStringIndex((CTLineRef)line, CTRunGetStringRange((CTRunRef)glyphRun).location, NULL);
+                runBounds.origin.x = origins[lineIndex].x + rect.origin.x + xOffset;
+                runBounds.origin.y = origins[lineIndex].y + rect.origin.y;
+                runBounds.origin.y -= descent;
+                
+                if (CGRectGetWidth(runBounds) > CGRectGetWidth(lineBounds)) {
+                    runBounds.size.width = CGRectGetWidth(lineBounds);
+                }
+                
+                if (!foundExpression) {
+                    buttonFrame = runBounds;
+                    buttonFrame.origin.y -= 1;
+                    buttonFrame.size.height += 4;
+                    buttonFrame.size.width += 4;
+                    buttonFrame.origin.x -= 2;
+                } else {
+                    buttonFrame.size.width += runBounds.size.width;
+                }
+                
+                foundExpression = YES;
+                
+            } else {
+                if (foundExpression) {
+                    [self drawEmoticonWithRect:buttonFrame andFileName:imageFileName];
+                    foundExpression = NO;
+                }
+            }
+        }
+        
+        lineIndex++;
+    }
+}
+
+- (void)drawEmoticonWithRect:(CGRect)rect andFileName:(NSString *)imageFileName
+{
+    UIImage *emoticon = [UIImage imageNamed:imageFileName];
+    CGRect emoticonFrame = CGRectMake(rect.origin.x - 2, rect.size.height - rect.origin.y - 7.0, 25.0, 25.0);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    UIGraphicsPushContext(context);
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 0.0, 25.0);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    [emoticon drawInRect:emoticonFrame];
+    CGContextRestoreGState(context);
+    UIGraphicsPopContext();
 }
 
 #pragma mark - TTTAttributedLabel
@@ -662,7 +754,6 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     } else {
         
         [self drawFramesetter:self.framesetter textRange:textRange inRect:textRect context:c];
-
     }  
     
     // If we adjusted the font size, set it back to its original size

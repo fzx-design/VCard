@@ -121,9 +121,6 @@ static EmoticonsInfoReader *readerInstance;
     EmoticonsInfo *info = [self.emoticonsInfoDict objectForKey:key];
     info.priorityLevel = info.priorityLevel + EMOTICONS_PRIORITY_LEVEL_INTERVAL;
     [self.emoticonsInfoDict setObject:info forKey:key];
-    
-    NSLog(@"key:%@, priority level:%d", key, info.priorityLevel);
-    
     if(info.priorityLevel > MAX_EMOTICONS_PRIORITY_LEVEL) {
         [self.emoticonsInfoDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             EmoticonsInfo *item = obj;
@@ -151,10 +148,8 @@ static EmoticonsInfoReader *readerInstance;
         self.imageFileName = [dict objectForKey:kImageFileName];
         NSNumber *level = [dict objectForKey:kPriorityLevel];
         self.priorityLevel = level.integerValue;
-        
-        NSNumber *initLevel = [dict objectForKey:kInitPriorityLevel];
-        initLevel = initLevel ? initLevel : level;
-        self.emoticonIdentifier = [NSString stringWithFormat:@"[%x]", self.priorityLevel];        
+        self.emoticonIdentifier = [NSString stringWithFormat:@" [%2x] ", self.priorityLevel];
+        NSLog(@"identifier %@", self.emoticonIdentifier);
     }
     return self;
 }
