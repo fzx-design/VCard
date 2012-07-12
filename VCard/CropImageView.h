@@ -8,18 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CropImageView : UIView {
-    UIImageView *_draggingPointImageView;
-    CGPoint _formerTouchPoint;
-    
-    CGFloat _minimumXArray[4];
-    CGFloat _minimumYArray[4];
-    CGFloat _maximumXArray[4];
-    CGFloat _maximumYArray[4];
-    
-    CGSize _cropImageInitSize;
-    CGPoint _cropImageInitCenter;
-}
+@interface CropImageView : UIView
 
 @property (nonatomic, readonly) CGRect cropImageRect;
 @property (nonatomic, readonly) CGRect cropEditRect;

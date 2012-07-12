@@ -49,11 +49,6 @@
     CGFloat w = self.cropImageBgView.contentScaleFactor * self.originalImage.size.width;
     CGFloat h = self.cropImageBgView.contentScaleFactor * self.originalImage.size.height;
     CGSize cropImageSize = CGSizeMake(w, h);
-    if(_useForAvatar) {
-        CGFloat min = fminf(w, h);
-        cropImageSize = CGSizeMake(min, min);
-    }
-    
     [self.cropImageView setCropImageInitSize:cropImageSize center:self.cropImageBgView.center lockRatio:_useForAvatar];
     self.cropImageView.bgImageView = self.cropImageBgView;
     [ThemeResourceProvider configButtonDark:self.cancelButton];

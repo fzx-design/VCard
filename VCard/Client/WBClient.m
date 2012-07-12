@@ -213,6 +213,18 @@ typedef enum {
     return NO;
 }
 
+#pragma mark Upload avatar
+
+- (void)uploadAvatar:(UIImage *)image {
+    self.path = @"statuses/upload.json";
+    //NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    [self.params setObject:image forKey:@"pic"];
+    self.postDataType = kWBRequestPostDataTypeMultipart;
+    
+    self.httpMethod = HTTPMethodPost;
+    [self loadNormalRequest];
+}
+
 #pragma mark Post
 
 - (void)sendWeiBoWithText:(NSString *)text

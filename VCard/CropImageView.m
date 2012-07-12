@@ -23,6 +23,17 @@ typedef enum {
 #define MAX_SCALE_FACTOR 3
 
 @interface CropImageView() {
+    UIImageView *_draggingPointImageView;
+    CGPoint _formerTouchPoint;
+    
+    CGFloat _minimumXArray[4];
+    CGFloat _minimumYArray[4];
+    CGFloat _maximumXArray[4];
+    CGFloat _maximumYArray[4];
+    
+    CGSize _cropImageInitSize;
+    CGPoint _cropImageInitCenter;
+    
     BOOL _lockRatio;
 }
 
@@ -75,10 +86,6 @@ typedef enum {
     CGPoint center = _cropImageInitCenter;
     CGPoint leftTopPoint = CGPointMake(center.x - _cropImageInitSize.width / 2, center.y - _cropImageInitSize.height / 2);
     CGPoint rightBottomPoint = CGPointMake(center.x + _cropImageInitSize.width / 2, center.y + _cropImageInitSize.height / 2);
-    [self pointImageViewWithIdentifier:PointPositionLeftTop].center = leftTopPoint;
-    [self pointImageViewWithIdentifier:PointPositionRightBottom].center = rightBottomPoint;
-    [self pointImageViewWithIdentifier:PointPositionLeftBottom].center = CGPointMake(leftTopPoint.x, rightBottomPoint.y);
-    [self pointImageViewWithIdentifier:PointPositionRightTop].center = CGPointMake(rightBottomPoint.x, leftTopPoint.y);
     
     CGFloat minimumXArray[] = {leftTopPoint.x, leftTopPoint.x + MINIMUM_INTERVAL, leftTopPoint.x + MINIMUM_INTERVAL, leftTopPoint.x};
     CGFloat minimumYArray[] = {leftTopPoint.y, leftTopPoint.y, leftTopPoint.y + MINIMUM_INTERVAL, leftTopPoint.y + MINIMUM_INTERVAL};
@@ -92,14 +99,24 @@ typedef enum {
         _maximumYArray[i] = maximumYArray[i];
     }
     
+    if(_lockRatio) {
+        CGFloat min = fminf(_cropImageInitSize.width / 2, _cropImageInitSize.height / 2);
+        leftTopPoint = CGPointMake(center.x - min, center.y - min);
+        rightBottomPoint = CGPointMake(center.x + min, center.y + min);
+    }
+    
+    [self pointImageViewWithIdentifier:PointPositionLeftTop].center = leftTopPoint;
+    [self pointImageViewWithIdentifier:PointPositionRightBottom].center = rightBottomPoint;
+    [self pointImageViewWithIdentifier:PointPositionLeftBottom].center = CGPointMake(leftTopPoint.x, rightBottomPoint.y);
+    [self pointImageViewWithIdentifier:PointPositionRightTop].center = CGPointMake(rightBottomPoint.x, leftTopPoint.y);
+    
 }
 
 - (UIImageView *)pointImageViewWithIdentifier:(PointPositionIdentifier)identifier {
     return [self.pointImageViewArray objectAtIndex:identifier];
 }
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
+#pragma mark - Draw methods
 
 - (void)drawShadow {
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -178,6 +195,154 @@ typedef enum {
     [self drawLine];
 }
 
+#pragma mark - Logic methods
+
+- (CGPoint)movePullerWithDistanceX:(CGFloat)distanceX distanceY:(CGFloat)distanceY touchPoint:(CGPoint)point {
+    
+    CGPoint result = point;
+    
+    if(_lockRatio) {
+        CGFloat distance = fabsf(distanceX) > fabsf(distanceY) ? fabsf(distanceX) : fabsf(distanceY);
+        distanceX = distanceY > 0 ? distance : distance * -1;
+        distanceY = distanceX;
+        PointPositionIdentifier pointIdentifier = [self.pointImageViewArray indexOfObject:_draggingPointImageView];
+        if(pointIdentifier % 2 == 1)
+            distanceX *= -1;
+    }
+    
+    CGPoint preservedPoint[4];
+    for(int i = 0; i < 4; i++) {
+        preservedPoint[i] = [self pointImageViewWithIdentifier:i].center;
+    }
+        
+    CGPoint center = _draggingPointImageView.center;
+    center.x += distanceX;
+    center.y += distanceY;
+    _draggingPointImageView.center = center;
+    
+    PointPositionIdentifier pointIdentifier = [self.pointImageViewArray indexOfObject:_draggingPointImageView];
+    PointPositionIdentifier oppositePointIdentifier = (pointIdentifier + 2) % 4;
+    UIImageView *oppositePointImageView = [self.pointImageViewArray objectAtIndex:oppositePointIdentifier];
+    
+    BOOL dragingPointXInvalid = (oppositePointImageView.center.x - _draggingPointImageView.center.x) * (oppositePointIdentifier % 3 ? 1 : -1) < MINIMUM_INTERVAL;
+    BOOL dragingPointYInvalid = (oppositePointImageView.center.y - _draggingPointImageView.center.y) * (oppositePointIdentifier > 1 ? 1 : -1) < MINIMUM_INTERVAL;
+    
+    CGFloat x = - _cropImageInitSize.width / 2 * self.scaleFactor;
+    CGFloat y = - _cropImageInitSize.height / 2 * self.scaleFactor;
+    CGFloat w = _cropImageInitSize.width * self.scaleFactor;
+    CGFloat h = _cropImageInitSize.height * self.scaleFactor;
+    CGPoint leftTop = [self pointImageViewWithIdentifier:PointPositionLeftTop].center;
+    CGPoint rightBottom = [self pointImageViewWithIdentifier:PointPositionRightBottom].center;
+    
+    CGRect bound = CGRectMake(x, y, w, h);
+    bound = [CropImageView getRotatedImageBound:bound withRotation:self.rotationFactor];
+    bound.origin.x += self.bgImageView.center.x;
+    bound.origin.y += self.bgImageView.center.y;
+    
+    if(leftTop.x < bound.origin.x || rightBottom.x > bound.origin.x + bound.size.width)
+        dragingPointXInvalid = YES;
+    if(leftTop.y < bound.origin.y || rightBottom.y > bound.origin.y + bound.size.height)
+        dragingPointYInvalid = YES;
+    
+    if(_lockRatio) {
+        __block BOOL outOfBounds = NO;
+        [self.pointImageViewArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            UIImageView *pointImageView = obj;
+            if(pointImageView.center.x < _minimumXArray[idx])
+                outOfBounds = YES;
+            if(pointImageView.center.x > _maximumXArray[idx])
+                outOfBounds = YES;
+            if(pointImageView.center.y < _minimumYArray[idx])
+                outOfBounds = YES;
+            if(pointImageView.center.y > _maximumYArray[idx])
+                outOfBounds = YES;
+        }];
+        
+        if(dragingPointXInvalid || dragingPointYInvalid || outOfBounds) {
+            dragingPointXInvalid = YES;
+            dragingPointYInvalid = YES;
+        }
+    }
+    
+    if(dragingPointXInvalid) {
+        center.x -= distanceX;
+        _draggingPointImageView.center = center;
+        result.x = _formerTouchPoint.x;
+    }
+    if(dragingPointYInvalid) {
+        center.y -= distanceY;
+        _draggingPointImageView.center = center;
+        result.y = _formerTouchPoint.y;
+    }
+    
+    UIImageView *pointWithSameX = [self pointImageViewWithIdentifier:(pointIdentifier + 1) % 4];
+    UIImageView *pointWithSameY = [self pointImageViewWithIdentifier:(pointIdentifier + 3) % 4];
+    if(pointIdentifier % 2 == 0) {
+        UIImageView *temp = pointWithSameX;
+        pointWithSameX = pointWithSameY;
+        pointWithSameY = temp;
+    }
+    pointWithSameX.center = CGPointMake(_draggingPointImageView.center.x, pointWithSameX.center.y);
+    pointWithSameY.center = CGPointMake(pointWithSameY.center.x, _draggingPointImageView.center.y);
+    
+    [self.pointImageViewArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UIImageView *pointImageView = obj;
+        if(pointImageView.center.x < _minimumXArray[idx])
+            pointImageView.center = CGPointMake(_minimumXArray[idx], pointImageView.center.y);
+        if(pointImageView.center.x > _maximumXArray[idx])
+            pointImageView.center = CGPointMake(_maximumXArray[idx], pointImageView.center.y);
+        if(pointImageView.center.y < _minimumYArray[idx])
+            pointImageView.center = CGPointMake(pointImageView.center.x, _minimumYArray[idx]);
+        if(pointImageView.center.y > _maximumYArray[idx])
+            pointImageView.center = CGPointMake(pointImageView.center.x, _maximumYArray[idx]);
+    }];
+    
+    if(![self isRotateValid:self.rotationFactor]) {
+        NSLog(@"move point rotate invalid");
+        for(int i = 0; i < 4; i++) {
+            [self pointImageViewWithIdentifier:i].center = preservedPoint[i];
+        }
+    }
+    
+    return result;
+}
+
+- (void)moveBgImageViewWithDistanceX:(CGFloat)distanceX distanceY:(CGFloat)distanceY {
+    CGPoint center = self.bgImageView.center;
+    center.y += distanceY;
+    center.x += distanceX;
+    //NSLog(@"old:x:%f, y:%f, w:%f, h:%f",self.bgImageView.frame.origin.x,self.bgImageView.frame.origin.y,self.bgImageView.frame.size.width,self.bgImageView.frame.size.height);
+    CGFloat x = - _cropImageInitSize.width / 2 * self.scaleFactor;
+    CGFloat y = - _cropImageInitSize.height / 2 * self.scaleFactor;
+    CGFloat w = _cropImageInitSize.width * self.scaleFactor;
+    CGFloat h = _cropImageInitSize.height * self.scaleFactor;
+    CGPoint leftTop = [self pointImageViewWithIdentifier:PointPositionLeftTop].center;
+    CGPoint rightBottom = [self pointImageViewWithIdentifier:PointPositionRightBottom].center;
+    
+    CGRect bound = CGRectMake(x, y, w, h);
+    bound = [CropImageView getRotatedImageBound:bound withRotation:self.rotationFactor];
+    bound.origin.x += center.x;
+    bound.origin.y += center.y;
+    //NSLog(@"leftTop:%f,%f, rightBottom:%f,%f", leftTop.x, leftTop.y,rightBottom.x, rightBottom.y);
+    //NSLog(@"bound:%f,%f,%f,%f",bound.origin.x,bound.origin.y,bound.origin.x + bound.size.width,bound.origin.y + bound.size.height);
+    
+    self.dragDistanceX += distanceX;
+    if(leftTop.x < bound.origin.x || rightBottom.x > bound.origin.x + bound.size.width || ![self isRotateValid:self.rotationFactor]) {
+        center.x -= distanceX;
+        self.dragDistanceX -= distanceX;
+    }
+    
+    self.dragDistanceY += distanceY;
+    if(leftTop.y < bound.origin.y || rightBottom.y > bound.origin.y + bound.size.height || ![self isRotateValid:self.rotationFactor]) {
+        center.y -= distanceY;
+        self.dragDistanceY -= distanceY;
+    }
+    
+    self.bgImageView.center = center;
+}
+
+#pragma mark - Touch handler
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch * touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
@@ -198,94 +363,10 @@ typedef enum {
     CGFloat distanceX = point.x - _formerTouchPoint.x;
     CGFloat distanceY = point.y - _formerTouchPoint.y;
     if(_draggingPointImageView) {
-
-        CGPoint preservedPoint[4];
-        for(int i = 0; i < 4; i++) {
-            preservedPoint[i] = [self pointImageViewWithIdentifier:i].center;
-        }
-        
-        CGPoint center = _draggingPointImageView.center;
-        center.x += distanceX;
-        center.y += distanceY;
-        _draggingPointImageView.center = center;
-        
-        PointPositionIdentifier pointIdentifier = [self.pointImageViewArray indexOfObject:_draggingPointImageView];
-        PointPositionIdentifier oppositePointIdentifier = (pointIdentifier + 2) % 4;
-        UIImageView *oppositePointImageView = [self.pointImageViewArray objectAtIndex:oppositePointIdentifier];
-        if((oppositePointImageView.center.x - _draggingPointImageView.center.x) * (oppositePointIdentifier % 3 ? 1 : -1) < MINIMUM_INTERVAL ) {
-            center.x -= distanceX;
-            _draggingPointImageView.center = center;
-            point.x = _formerTouchPoint.x;
-        }
-        if((oppositePointImageView.center.y - _draggingPointImageView.center.y) * (oppositePointIdentifier > 1 ? 1 : -1) < MINIMUM_INTERVAL) {
-            center.y -= distanceY;
-            _draggingPointImageView.center = center;
-            point.y = _formerTouchPoint.y;
-        }
-        
-        UIImageView *pointWithSameX = [self pointImageViewWithIdentifier:(pointIdentifier + 1) % 4];
-        UIImageView *pointWithSameY = [self pointImageViewWithIdentifier:(pointIdentifier + 3) % 4];
-        if(pointIdentifier % 2 == 0) {
-            UIImageView *temp = pointWithSameX;
-            pointWithSameX = pointWithSameY;
-            pointWithSameY = temp;
-        }
-        pointWithSameX.center = CGPointMake(_draggingPointImageView.center.x, pointWithSameX.center.y);
-        pointWithSameY.center = CGPointMake(pointWithSameY.center.x, _draggingPointImageView.center.y);
-        
-        [self.pointImageViewArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            UIImageView *pointImageView = obj;
-            if(pointImageView.center.x < _minimumXArray[idx])
-                pointImageView.center = CGPointMake(_minimumXArray[idx], pointImageView.center.y);
-            if(pointImageView.center.x > _maximumXArray[idx])
-                pointImageView.center = CGPointMake(_maximumXArray[idx], pointImageView.center.y);
-            if(pointImageView.center.y < _minimumYArray[idx])
-                pointImageView.center = CGPointMake(pointImageView.center.x, _minimumYArray[idx]);
-            if(pointImageView.center.y > _maximumYArray[idx])
-                pointImageView.center = CGPointMake(pointImageView.center.x, _maximumYArray[idx]);
-        }];
-        
-        if(![self isRotateValid:self.rotationFactor]) {
-            NSLog(@"move point rotate invalid");
-            for(int i = 0; i < 4; i++) {
-                [self pointImageViewWithIdentifier:i].center = preservedPoint[i];
-            }
-        }
+        point = [self movePullerWithDistanceX:distanceX distanceY:distanceY touchPoint:point];
     }
     else {
-        CGPoint center = self.bgImageView.center;
-        center.y += distanceY;
-        center.x += distanceX;
-        //NSLog(@"old:x:%f, y:%f, w:%f, h:%f",self.bgImageView.frame.origin.x,self.bgImageView.frame.origin.y,self.bgImageView.frame.size.width,self.bgImageView.frame.size.height);
-        CGFloat x = - _cropImageInitSize.width / 2 * self.scaleFactor;
-        CGFloat y = - _cropImageInitSize.height / 2 * self.scaleFactor;
-        CGFloat w = _cropImageInitSize.width * self.scaleFactor;
-        CGFloat h = _cropImageInitSize.height * self.scaleFactor;
-        //NSLog(@"x:%f, y:%f, w:%f, h:%f, s:%f", x, y, w, h, self.scaleFactor);
-        CGPoint leftTop = [self pointImageViewWithIdentifier:PointPositionLeftTop].center;
-        CGPoint rightBottom = [self pointImageViewWithIdentifier:PointPositionRightBottom].center;
-        //NSLog(@"left:%f, top:%f, right:%f, bottom:%f", leftTop.x, leftTop.y, rightBottom.x, rightBottom.y);
-        
-        CGRect bound = CGRectMake(x, y, w, h);
-        bound = [CropImageView getRotatedImageBound:bound withRotation:self.rotationFactor];
-        bound.origin.x += center.x;
-        bound.origin.y += center.y;
-        NSLog(@"leftTop:%f,%f, rightBottom:%f,%f", leftTop.x, leftTop.y,rightBottom.x, rightBottom.y);
-        NSLog(@"bound:%f,%f,%f,%f",bound.origin.x,bound.origin.y,bound.origin.x + bound.size.width,bound.origin.y + bound.size.height);
-        
-        self.dragDistanceX += distanceX;
-        if(leftTop.x < bound.origin.x || rightBottom.x > bound.origin.x + bound.size.width || ![self isRotateValid:self.rotationFactor]) {
-            center.x -= distanceX;
-            self.dragDistanceX -= distanceX;
-        }
-        
-        self.dragDistanceY += distanceY;
-        if(leftTop.y < bound.origin.y || rightBottom.y > bound.origin.y + bound.size.height || ![self isRotateValid:self.rotationFactor]) {
-            center.y -= distanceY;
-            self.dragDistanceY -= distanceY;
-        }
-        
-        self.bgImageView.center = center;
+        [self moveBgImageViewWithDistanceX:distanceX distanceY:distanceY];
     }
     
     _formerTouchPoint = point;
@@ -334,7 +415,7 @@ typedef enum {
 }
 
 #pragma mark -
-#pragma mark Pinch & rotate methods 
+#pragma mark Pinch & Rotate methods 
 
 - (BOOL)isRotateValid:(CGFloat)rotation {
     CGRect rect1 = CGRectMake(0, 0, self.bgImageView.image.size.width, self.bgImageView.image.size.height);
