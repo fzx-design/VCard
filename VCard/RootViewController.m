@@ -23,6 +23,7 @@
 @implementation RootViewController
 
 @synthesize castViewController = _castViewController;
+@synthesize shelfViewController = _shelfViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -161,6 +162,18 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameOrientationChanged object:nil];
     [_castViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
     [_shelfViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+}
+
+- (void)setCastViewController:(CastViewController *)castViewController
+{
+    [_castViewController.view removeFromSuperview];
+    _castViewController = castViewController;
+}
+
+- (void)setShelfViewController:(ShelfViewController *)shelfViewController
+{
+    [_shelfViewController.view removeFromSuperview];
+    _shelfViewController = shelfViewController;
 }
 
 #pragma mark - Properties

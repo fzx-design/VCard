@@ -11,7 +11,7 @@
 #import "CardViewController.h"
 #import "Status.h"
 
-@interface DetailImageViewController : UIViewController <CardViewControllerDelegate, UIScrollViewDelegate>
+@interface DetailImageViewController : UIViewController <CardViewControllerDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView               *topBarView;
 @property (nonatomic, strong) IBOutlet UIView               *bottomBarView;

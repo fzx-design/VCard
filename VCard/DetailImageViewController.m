@@ -20,6 +20,8 @@
     CGPoint _initialPoint;
     CGFloat _currentScale;
     CGPoint _touchCenter;
+    
+    UIRotationGestureRecognizer *_rotationGestureRecognizer;
 }
 
 @end
@@ -43,6 +45,12 @@
     [_scrollView addGestureRecognizer:_tapGestureRecognizer];
     _scrollView.delegate = self;
     _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
+    _scrollView.maximumZoomScale = 5.0;
+    _scrollView.minimumZoomScale = 0.5;
+    _rotationGestureRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotationGesture:)];
+    _rotationGestureRecognizer.delegate = self;
+    [_scrollView addGestureRecognizer:_rotationGestureRecognizer];
+    
 }
 
 - (void)viewDidUnload
@@ -116,6 +124,7 @@
 - (void)enterDetailedImageViewMode
 {
     self.cardViewController.imageViewMode = CastViewImageViewModeDetailedNormal;
+    _imageView.userInteractionEnabled = NO;
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3f];
@@ -277,6 +286,49 @@
         _statusBarHidden = !_statusBarHidden;
     }];
     [[UIApplication sharedApplication] setStatusBarHidden:!_statusBarHidden withAnimation:UIStatusBarAnimationFade];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    // if the gesture recognizers are on different views, don't allow simultaneous recognition
+    if (gestureRecognizer.view != otherGestureRecognizer.view)
+        return NO;
+    
+    // if either of the gesture recognizers is the long press, don't allow simultaneous recognition
+    if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]] || [otherGestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]])
+        return NO;
+    
+    return YES;
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return _imageView;
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    CGSize boundsSize = _scrollView.bounds.size;
+    CGRect contentsFrame = _imageView.frame;
+    
+    if (contentsFrame.size.width < boundsSize.width) {
+        contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2.0f;
+    } else {
+        contentsFrame.origin.x = 0.0f;
+    }
+    
+    if (contentsFrame.size.height < boundsSize.height) {
+        contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2.0f;
+    } else {
+        contentsFrame.origin.y = 0.0f;
+    }
+    
+    _imageView.frame = contentsFrame;
+}
+
+- (void)handleRotationGesture:(UIRotationGestureRecognizer *)sender
+{
+    NSLog(@"%f", sender.rotation);
 }
 
 @end

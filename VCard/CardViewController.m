@@ -448,7 +448,21 @@ static inline NSRegularExpression * EmotionRegularExpression() {
     [self setSummaryText:string toLabel:label];
 }
 
-+ (void)setSummaryText:(NSString *)text toLabel:(TTTAttributedLabel*)label{
++ (void)setSummaryText:(NSString *)originalText toLabel:(TTTAttributedLabel*)label
+{
+    __block NSString *text = originalText;
+    NSRange stringRange = NSMakeRange(0, [text length]);
+    NSRegularExpression *regexp = EmotionRegularExpression();
+    [regexp enumerateMatchesInString:text options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        NSRange range = result.range;
+        if (range.length != 1) {
+            NSString *string = [text substringWithRange:range];
+            EmoticonsInfo *info = [[EmoticonsInfoReader sharedReader] emoticonsInfoForKey:string];
+            if (info) {
+                text = [text stringByReplacingOccurrencesOfString:info.keyName withString:info.emoticonIdentifier];
+            }
+        }
+    }];
     
     [label setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         NSRange stringRange = NSMakeRange(0, [mutableAttributedString length]);
@@ -477,9 +491,7 @@ static inline NSRegularExpression * EmotionRegularExpression() {
         return mutableAttributedString;
     }];
     
-    NSRegularExpression *regexp = NameRegularExpression();
-    
-    NSRange stringRange = NSMakeRange(0, [text length]);
+    regexp = NameRegularExpression();
     [regexp enumerateMatchesInString:text options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
         NSRange range = result.range;
         if (range.length != 1) {
