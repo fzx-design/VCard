@@ -13,6 +13,7 @@
 
 - (UIImage *)motionsAdjustImage;
 - (UIImage *)rotateAdjustImage;
+- (UIImage *)compressImageToSize:(CGSize)size;
 
 - (UIImage *)brightness:(CGFloat)brightness contrast:(CGFloat)contrast;
 - (UIImage *)shadowAmount:(CGFloat)shadowAmountValue;

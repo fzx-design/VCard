@@ -216,13 +216,12 @@ typedef enum {
 #pragma mark Upload avatar
 
 - (void)uploadAvatar:(UIImage *)image {
-    self.path = @"statuses/upload.json";
-    //NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
-    [self.params setObject:image forKey:@"pic"];
+    self.path = @"account/avatar/upload.json";
+    [self.params setObject:image forKey:@"image"];
     self.postDataType = kWBRequestPostDataTypeMultipart;
     
     self.httpMethod = HTTPMethodPost;
-    [self loadNormalRequest];
+    [self loadAdvancedRequest];
 }
 
 #pragma mark Post

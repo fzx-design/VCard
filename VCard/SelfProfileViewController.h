@@ -7,8 +7,9 @@
 //
 
 #import "UserProfileViewController.h"
+#import "MotionsViewController.h"
 
-@interface SelfProfileViewController : UserProfileViewController {
+@interface SelfProfileViewController : UserProfileViewController<MotionsViewControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
     
     UIButton *_changeAvatarButton;
     UIButton *_checkCommentButton;

@@ -211,4 +211,6 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                               count:(int)count
                             feature:(int)feature;
 
+- (void)uploadAvatar:(UIImage *)image;
+
 @end

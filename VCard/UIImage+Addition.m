@@ -19,21 +19,21 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
 
 - (UIImage *)motionsAdjustImage {
     UIImage *result = [self rotateAdjustImage];
-    result = [result compressImage];
+    result = [result compressImageToSize:CGSizeMake(COMPRESS_IMAGE_MAX_WIDTH, COMPRESS_IMAGE_MAX_HEIGHT)];
     return result;
 }
 
-- (UIImage *)compressImage {
-    if(self.size.width < COMPRESS_IMAGE_MAX_WIDTH && self.size.height < COMPRESS_IMAGE_MAX_HEIGHT)
+- (UIImage *)compressImageToSize:(CGSize)size {
+    if(self.size.width < size.width && self.size.height < size.height)
         return self;
     UIImage *result = nil;
     CGFloat originWidth = self.size.width;
     CGFloat originHeight = self.size.height;
-    CGFloat scaleWidth = originWidth > COMPRESS_IMAGE_MAX_WIDTH ? COMPRESS_IMAGE_MAX_WIDTH : originWidth;
+    CGFloat scaleWidth = originWidth > size.width ? size.width : originWidth;
     CGFloat scaleHeight = scaleWidth / originWidth * originHeight;
     CGRect compressFrame = CGRectMake(0, 0, scaleWidth, scaleHeight);
-    if(scaleHeight > COMPRESS_IMAGE_MAX_HEIGHT)
-        compressFrame.size = CGSizeMake(COMPRESS_IMAGE_MAX_HEIGHT / scaleHeight * scaleWidth, COMPRESS_IMAGE_MAX_HEIGHT);
+    if(scaleHeight > size.height)
+        compressFrame.size = CGSizeMake(size.height / scaleHeight * scaleWidth, size.height);
     
     UIGraphicsBeginImageContext(compressFrame.size);
     [self drawInRect:compressFrame];

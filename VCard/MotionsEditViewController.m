@@ -11,6 +11,7 @@
 #import "UIView+Addition.h"
 #import "CropImageViewController.h"
 #import "UIApplication+Addition.h"
+#import "UIImage+Addition.h"
 
 #define CROP_BUTTON_TAG 1001
 
@@ -21,6 +22,7 @@
 
 @interface MotionsEditViewController () {
     BOOL _useForAvatar;
+    BOOL _shouldShowCropView;
 }
 
 @property (nonatomic, assign, getter = isDirty) BOOL dirty;
@@ -81,6 +83,7 @@
         self.modifiedImage = self.originalImage;
         
         _useForAvatar = useForAvatar;
+        _shouldShowCropView = useForAvatar;
     }
     return self;
 }
@@ -164,6 +167,8 @@
             [self.activityIndicator fadeOutWithCompletion:^{
                 [self.activityIndicator stopAnimating];
             }];
+            
+            [self didClickCropButton:self.cropButton];
         });
     });
 }
@@ -353,7 +358,13 @@
     if(filterImageViewEmpty)
         [self.filterImageView fadeIn];
     self.filterImage = filterImage;
+    
     [(NSObject *)self.delegate performSelector:@selector(editViewControllerDidBecomeActiveWithCompletion:) withObject:nil afterDelay:0.3f];
+    
+    if(_shouldShowCropView) {
+        [self performSelector:@selector(didClickCropButton:) withObject:self.cropButton afterDelay:0.3f];
+    }
+    _shouldShowCropView = NO;
 }
 
 - (void)configureSlider {
@@ -454,6 +465,7 @@
     [self.activityIndicator startAnimating];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *filteredImage = self.filteredImage;
+        filteredImage = [filteredImage compressImageToSize:CGSizeMake(180, 180)];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate editViewControllerDidFinishEditImage:filteredImage];
         });

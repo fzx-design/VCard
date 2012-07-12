@@ -52,6 +52,9 @@
     [self.cropImageView setCropImageInitSize:cropImageSize center:self.cropImageBgView.center lockRatio:_useForAvatar];
     self.cropImageView.bgImageView = self.cropImageBgView;
     [ThemeResourceProvider configButtonDark:self.cancelButton];
+    
+    if(_useForAvatar)
+        self.cancelButton.hidden = YES;
 }
 
 - (void)viewDidUnload
