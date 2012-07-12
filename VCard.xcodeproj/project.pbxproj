@@ -4017,12 +4017,9 @@
 				E1A59E9415ABE3DA001F0A94 /* LoginBgView.m in Sources */,
 				E1A59EAB15AC24AD001F0A94 /* NSNotificationCenter+Addition.m in Sources */,
 				E1919A8115AC76150034079B /* LoginCellViewController.m in Sources */,
-<<<<<<< HEAD
 				E1919A8D15AC8F990034079B /* LoginUserCellViewController.m in Sources */,
 				E1919A9915AD678B0034079B /* NSUserDefaults+Addition.m in Sources */,
-=======
 				18EB247C15AE93380047530E /* UIScrollView+ZoomToPoint.m in Sources */,
->>>>>>> 添加更换头像的点击事件
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
