@@ -38,8 +38,8 @@
 {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
+    [self setUpNotifications];
     if(self.currentUser) {
-        [self setUpNotifications];
         [self setUpViews];
     }
     
@@ -64,7 +64,6 @@
     self.castViewController = nil;
     self.shelfViewController = nil;
     if(self.currentUser) {
-        [self setUpNotifications];
         [self setUpViews];
     }
 }
@@ -106,7 +105,7 @@
 {
     self.shelfViewController.view.hidden = NO;
     [UIView animateWithDuration:0.3 animations:^{
-        [_castViewController.view resetOriginY:150.0];
+        [_castViewController.view resetOriginY:_shelfViewController.view.frame.size.height];
         [_shelfViewController.view resetOriginY:0.0];
     } completion:^(BOOL finished) {
     }];
@@ -116,7 +115,7 @@
 {
     [UIView animateWithDuration:0.3 animations:^{
         [_castViewController.view resetOriginY:0.0];
-        [_shelfViewController.view resetOriginY:-150.0];
+        [_shelfViewController.view resetOriginY:-_shelfViewController.view.frame.size.height];
     } completion:^(BOOL finished) {
         _shelfViewController.view.hidden = YES;
     }];

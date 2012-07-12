@@ -47,6 +47,13 @@
     [self setUpSettingView];
     [self setUpGroupsInfo];
     [self setUpNotifications];
+    
+    UIInterfaceOrientation toInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    
+    [self updatePageControlAndScrollViewSize:toInterfaceOrientation];
+    [self resetContentSize:toInterfaceOrientation];
+    [self resetContentLayout:toInterfaceOrientation];
+    [self resetSettingViewLayout:toInterfaceOrientation];
 }
 
 - (void)viewDidUnload
