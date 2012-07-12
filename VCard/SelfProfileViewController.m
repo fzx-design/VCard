@@ -130,8 +130,14 @@ typedef enum {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowSelfMentionList object:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:kNotificationObjectKeyIndex]];
 }
 
+<<<<<<< HEAD
 - (IBAction)didClickChangeAvatarButton:(UIButton *)sender {
     [self presentChoosePhotoSourceActionSheet];
+=======
+- (IBAction)didClickChangeAvatarButton:(UIButton *)sender
+{
+    
+>>>>>>> 放大照片处理到一半
 }
 
 - (IBAction)didClickAccountSettingButton:(UIButton *)sender {

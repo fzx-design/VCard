@@ -19,6 +19,7 @@
     CGFloat _lastScale;
     CGPoint _initialPoint;
     CGFloat _currentScale;
+    CGPoint _touchCenter;
 }
 
 @end
@@ -171,26 +172,33 @@
 {
     _currentScale *= scale;
     
-//    CGPoint point = center;
-//    
-//    center.x -= _imageView.frame.origin.x - _scrollView.contentOffset.x;
-//    center.y -= _imageView.frame.origin.y - _scrollView.contentOffset.y;
-    CGRect frame = _imageView.frame;
-    
-    [_scrollView zoomToPoint:center withScale:scale animated:YES];
-    _scrollView.contentSize = _imageView.frame.size;
-    
-    NSLog(@"before %@, after %@", NSStringFromCGRect(frame), NSStringFromCGRect(_imageView.frame));
-    
-//    if (_currentScale < 5.0) {
-//        CGRect zoomRect;
-//        zoomRect.size.height = _scrollView.frame.size.height / scale;
-//        zoomRect.size.width  = _scrollView.frame.size.width  / scale;
+    if (_currentScale < 5.0) {
+        CGRect zoomRect;
+        zoomRect.size.height = _scrollView.frame.size.height / scale;
+        zoomRect.size.width  = _scrollView.frame.size.width  / scale;
+        
+        _touchCenter.x *= scale;
+        _touchCenter.y *= scale;
+        
+        zoomRect.origin.x = _touchCenter.x - zoomRect.size.width;
+        zoomRect.origin.y = _touchCenter.y - zoomRect.size.height;
+        
+        NSLog(@"%@", NSStringFromCGRect(zoomRect));
+        
 //        zoomRect.origin.x = center.x - point.x;
 //        zoomRect.origin.y = center.y - point.y;
-//        [_scrollView zoomToRect:zoomRect animated:YES];
-//        _scrollView.contentSize = _imageView.frame.size;
-//    }
+        [_scrollView zoomToRect:zoomRect animated:YES];
+        _scrollView.contentSize = _imageView.frame.size;
+        
+    }
+    
+    _scrollView.contentSize = _imageView.frame.size;
+    
+    CGFloat offsetX = _imageView.frame.size.width - [UIApplication screenWidth];
+    CGFloat offsetY = _imageView.frame.size.height - [UIApplication screenWidth];
+    
+    offsetX = center.x / [UIApplication screenWidth] * offsetX;
+    offsetY = center.y / [UIApplication screenHeight] * offsetY;
     
     CGPoint contentOffset = _scrollView.contentOffset;
     contentOffset.x -= offset.x;
@@ -199,9 +207,10 @@
     _scrollView.contentOffset = contentOffset;
 }
 
-- (void)willStartZooming
-{
-    
+- (void)willStartZooming:(CGPoint)center
+{    
+    _touchCenter.x = center.x - _imageView.frame.origin.x;
+    _touchCenter.y = center.y - _imageView.frame.origin.y;
 }
 
 - (void)didEndZooming
