@@ -36,9 +36,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [[EmoticonsInfoReader sharedReader] userDefaultsSynchronize]; 
     [self configureScrollView];
     [self configureBorder];
+    
+    [[EmoticonsInfoReader sharedReader] storePriorityLevel];
 }
 
 - (void)viewDidUnload
