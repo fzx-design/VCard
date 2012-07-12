@@ -243,6 +243,8 @@ extern NSString * const kTTTButtonAttributeName;
  */
 - (void)addLinkToDate:(NSDate *)date timeZone:(NSTimeZone *)timeZone duration:(NSTimeInterval)duration withRange:(NSRange)range;
 
+- (void)addEmotionToString:(NSString *)string withRange:(NSRange)range;
+
 @end
 
 /**

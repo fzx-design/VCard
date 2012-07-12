@@ -17,6 +17,7 @@
 #import "WBClient.h"
 #import "UIApplication+Addition.h"
 #import "UIView+Resize.h"
+#import "EmoticonsInfoReader.h"
 
 #define MaxCardSize CGSizeMake(326,9999)
 
@@ -54,6 +55,15 @@ static inline NSRegularExpression * UrlRegularExpression() {
     }
     
     return __urlRegularExpression;
+}
+
+static NSRegularExpression *__emotionRegularExpression;
+static inline NSRegularExpression * EmotionRegularExpression() {
+    if (!__emotionRegularExpression) {
+        __emotionRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"\\[[[\\u4E00-\\u9FA5][a-z]]*\\]" options:NSRegularExpressionCaseInsensitive error:nil];
+    }
+    
+    return __emotionRegularExpression;
 }
 
 
@@ -459,6 +469,11 @@ static inline NSRegularExpression * UrlRegularExpression() {
             [self configureFontForAttributedString:mutableAttributedString withRange:result.range];
         }];
         
+        regexp = EmotionRegularExpression();
+        [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+            [self configureEmotionsForAttributedString:mutableAttributedString withRange:result.range];
+        }];
+        
         return mutableAttributedString;
     }];
     
@@ -496,6 +511,18 @@ static inline NSRegularExpression * UrlRegularExpression() {
         }
     }];
     
+    regexp = EmotionRegularExpression();
+    [regexp enumerateMatchesInString:text options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        NSRange range = result.range;
+        if (range.length != 1) {
+            NSString *string = [text substringWithRange:range];
+            EmoticonsInfo *info = [[EmoticonsInfoReader sharedReader] emoticonsInfoForKey:string];
+            if (info) {
+                [label addEmotionToString:info.keyName withRange:range];
+            }
+        }
+    }];
+    
 }
 
 + (void)configureFontForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange
@@ -509,6 +536,14 @@ static inline NSRegularExpression * UrlRegularExpression() {
         [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)RegexColor range:stringRange];
         
     }
+}
+
++ (void)configureEmotionsForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange
+{
+    UIFont *font = [UIFont boldSystemFontOfSize:10.0f];
+    CTFontRef systemFont = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
+    [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:stringRange];
+    [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)systemFont range:stringRange];
 }
 
 #pragma mark - IBActions
