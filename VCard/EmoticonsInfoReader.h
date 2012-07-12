@@ -13,7 +13,10 @@
 @interface EmoticonsInfoReader : NSObject
 
 + (EmoticonsInfoReader *)sharedReader;
+
 - (EmoticonsInfo *)emoticonsInfoForKey:(NSString *)key;
+- (EmoticonsInfo *)emoticonsInfoForIdentifier:(NSString *)identifier;
+
 - (NSArray *)emoticonsInfoArray;
 - (void)addEmoticonsPriorityLevelForKey:(NSString *)key;
 - (void)storePriorityLevel;

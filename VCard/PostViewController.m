@@ -991,7 +991,7 @@ typedef enum {
     [self.popoverController dismissPopoverAnimated:YES];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     
-    MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:image useForAvatar:YES];
+    MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:image useForAvatar:NO];
     vc.delegate = self;
     [vc show];
     

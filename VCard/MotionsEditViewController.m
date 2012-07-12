@@ -168,7 +168,8 @@
                 [self.activityIndicator stopAnimating];
             }];
             
-            [self didClickCropButton:self.cropButton];
+            if(_useForAvatar)
+                [self didClickCropButton:self.cropButton];
         });
     });
 }

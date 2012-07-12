@@ -92,6 +92,18 @@ static EmoticonsInfoReader *readerInstance;
     return [self.emoticonsInfoDict objectForKey:key];
 }
 
+- (EmoticonsInfo *)emoticonsInfoForIdentifier:(NSString *)identifier {
+    __block EmoticonsInfo *result = nil;
+    [self.emoticonsInfoDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        EmoticonsInfo *info = obj;
+        if([info.emoticonIdentifier isEqualToString:identifier]) {
+            result = info;
+            *stop = YES;
+        }
+    }];
+    return result;
+}
+
 - (NSArray *)emoticonsInfoArray {
     __block NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.emoticonsInfoDict.count];
     [self.emoticonsInfoDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
