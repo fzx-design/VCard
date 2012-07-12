@@ -762,8 +762,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
         if (_imageViewMode == CastViewImageViewModeDetailedNormal) {
             if (sender.scale >= 1.0) {
                 _imageViewMode = CastViewImageViewModeDetailedZooming;
-                if ([_delegate respondsToSelector:@selector(willStartZooming)]) {
-                    [_delegate willStartZooming];
+                if ([_delegate respondsToSelector:@selector(willStartZooming:)]) {
+                    [_delegate willStartZooming:[sender locationInView:[UIApplication sharedApplication].rootViewController.view]];
                 }
                 
             } else {
