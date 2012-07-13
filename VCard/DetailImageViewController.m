@@ -42,6 +42,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _hasViewInDetailedMode = NO;
     [ThemeResourceProvider configBackButtonDark:_returnButton];
     _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapEvent:)];
     [_scrollView addGestureRecognizer:_tapGestureRecognizer];
@@ -65,6 +66,12 @@
     [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:kUserDefaultKeyShouldScrollToTop];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+    if (_cardViewController) {
+        [cardViewController resetFailedImageView];
+        return;
+    }
+    
+    _hasViewInDetailedMode = YES;
     _imageView = cardViewController.statusImageView;
     _cardViewController = cardViewController;
     _cardViewController.delegate = self;
@@ -114,6 +121,7 @@
 {
     [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultKeyShouldScrollToTop];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    _hasViewInDetailedMode = NO;
     self.view.hidden = YES;
     self.view.userInteractionEnabled = NO;
     _cardViewController.delegate = nil;

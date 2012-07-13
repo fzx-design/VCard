@@ -154,7 +154,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     
     _pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     _pinchGestureRecognizer.delegate = self;
-    _pinchGestureRecognizer.delaysTouchesEnded = YES;
+//    _pinchGestureRecognizer.delaysTouchesEnded = YES;
     [self.statusImageView addGestureRecognizer:_pinchGestureRecognizer];
     
     _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
@@ -798,7 +798,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 #pragma mark Pinch
 - (void)handlePinchGesture:(UIPinchGestureRecognizer *)sender
-{    
+{
     [self recordPinchGestureInitialStatus:sender];
     
     [self handleImageViewPinchWithGesture:sender];
@@ -947,6 +947,23 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     }];
 }
 
+- (void)resetFailedImageView
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.statusImageView.transform = CGAffineTransformIdentity;
+        [self.statusImageView playReturnAnimation];
+        [self.statusImageView returnToInitialPosition];
+        self.statusImageView.gifIcon.alpha = 1.0;
+    }];
+    [self playClipTightenAnimation];
+    _imageViewMode = CastViewImageViewModeNormal;
+    self.statusImageView.userInteractionEnabled = YES;
+    _pinchGestureRecognizer.enabled = NO;
+    _rotationGestureRecognizer.enabled = NO;
+    _pinchGestureRecognizer.enabled = YES;
+    _rotationGestureRecognizer.enabled = YES;
+}
+
 - (void)recoverFromPause
 {
     if (_imageViewMode == CastViewImageViewModePinchingOut) {
@@ -958,6 +975,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 {
     _imageViewMode = CastViewImageViewModeDetailedNormal;
     [self sendShowDetailImageViewNotification];
+    
 }
 
 - (void)willOpenDetailImageView

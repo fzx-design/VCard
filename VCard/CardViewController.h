@@ -123,5 +123,6 @@ typedef enum {
 - (void)prepareForReuse;
 - (void)returnToInitialImageView;
 - (void)handleRotationGesture:(UIRotationGestureRecognizer *)sender;
+- (void)resetFailedImageView;
 
 @end

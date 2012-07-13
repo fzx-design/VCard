@@ -26,6 +26,7 @@
 @property (nonatomic, weak) CardViewController              *cardViewController;
 @property (nonatomic, weak) CardImageView                   *imageView;
 @property (nonatomic, strong) UITapGestureRecognizer        *tapGestureRecognizer;
+@property (nonatomic, readonly) BOOL                        hasViewInDetailedMode;
 
 - (void)setUpWithCardViewController:(CardViewController *)cardViewController;
 - (IBAction)didClickReturnButton:(id)sender;
