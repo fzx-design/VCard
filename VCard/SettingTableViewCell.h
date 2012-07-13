@@ -11,8 +11,10 @@
 @interface SettingTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UISwitch *itemSwitch;
+@property (nonatomic, strong) UIButton *itemWatchButton;
 
 - (void)setSwitch;
 - (void)setDisclosureIndicator;
+- (void)setWatchButton;
 
 @end

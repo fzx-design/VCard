@@ -660,7 +660,7 @@
 		E1097F23157FA31E00BD0640 /* transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097F22157FA31E00BD0640 /* transparent.png */; };
 		E1097F32157FA63B00BD0640 /* button_finish_large.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097F30157FA63B00BD0640 /* button_finish_large.png */; };
 		E1097F33157FA63B00BD0640 /* button_finish_large@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097F31157FA63B00BD0640 /* button_finish_large@2x.png */; };
-		E10D04BE15AF030C00492A87 /* AppInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10D04BC15AF030C00492A87 /* AppInfoViewController.m */; };
+		E10D04BE15AF030C00492A87 /* SettingAppInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10D04BC15AF030C00492A87 /* SettingAppInfoViewController.m */; };
 		E10D04CC15AF07A600492A87 /* SettingInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = E10D04C915AF07A600492A87 /* SettingInfo.plist */; };
 		E10D04CD15AF07A600492A87 /* SettingInfoReader.m in Sources */ = {isa = PBXBuildFile; fileRef = E10D04CB15AF07A600492A87 /* SettingInfoReader.m */; };
 		E10D04D415AF0C5900492A87 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10D04D215AF0C5800492A87 /* SettingViewController.m */; };
@@ -737,6 +737,7 @@
 		E17A2B9715AFBC1200E70A5D /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A2B9515AFBC1100E70A5D /* SettingTableViewCell.m */; };
 		E17A2BA815AFEBE400E70A5D /* icon_settings_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = E17A2BA415AFEBE400E70A5D /* icon_settings_empty.png */; };
 		E17A2BA915AFEBE400E70A5D /* icon_settings_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E17A2BA515AFEBE400E70A5D /* icon_settings_empty@2x.png */; };
+		E17A2BAF15B0106A00E70A5D /* SettingAppInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E17A2BAE15B0106800E70A5D /* SettingAppInfoViewController.xib */; };
 		E1919A7815AC50980034079B /* imageview_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = E1919A7615AC50980034079B /* imageview_placeholder.png */; };
 		E1919A7915AC50980034079B /* imageview_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1919A7715AC50980034079B /* imageview_placeholder@2x.png */; };
 		E1919A7D15AC75570034079B /* login_card_gloom.png in Resources */ = {isa = PBXBuildFile; fileRef = E1919A7B15AC75570034079B /* login_card_gloom.png */; };
@@ -1632,8 +1633,8 @@
 		E1097F22157FA31E00BD0640 /* transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transparent.png; sourceTree = "<group>"; };
 		E1097F30157FA63B00BD0640 /* button_finish_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_finish_large.png; sourceTree = "<group>"; };
 		E1097F31157FA63B00BD0640 /* button_finish_large@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_finish_large@2x.png"; sourceTree = "<group>"; };
-		E10D04BB15AF030C00492A87 /* AppInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfoViewController.h; sourceTree = "<group>"; };
-		E10D04BC15AF030C00492A87 /* AppInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInfoViewController.m; sourceTree = "<group>"; };
+		E10D04BB15AF030C00492A87 /* SettingAppInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingAppInfoViewController.h; sourceTree = "<group>"; };
+		E10D04BC15AF030C00492A87 /* SettingAppInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingAppInfoViewController.m; sourceTree = "<group>"; };
 		E10D04C915AF07A600492A87 /* SettingInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SettingInfo.plist; sourceTree = "<group>"; };
 		E10D04CA15AF07A600492A87 /* SettingInfoReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingInfoReader.h; sourceTree = "<group>"; };
 		E10D04CB15AF07A600492A87 /* SettingInfoReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingInfoReader.m; sourceTree = "<group>"; };
@@ -1717,6 +1718,7 @@
 		E17A2B9515AFBC1100E70A5D /* SettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewCell.m; sourceTree = "<group>"; };
 		E17A2BA415AFEBE400E70A5D /* icon_settings_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_settings_empty.png; sourceTree = "<group>"; };
 		E17A2BA515AFEBE400E70A5D /* icon_settings_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings_empty@2x.png"; sourceTree = "<group>"; };
+		E17A2BAE15B0106800E70A5D /* SettingAppInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingAppInfoViewController.xib; sourceTree = "<group>"; };
 		E1919A7615AC50980034079B /* imageview_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageview_placeholder.png; sourceTree = "<group>"; };
 		E1919A7715AC50980034079B /* imageview_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "imageview_placeholder@2x.png"; sourceTree = "<group>"; };
 		E1919A7B15AC75570034079B /* login_card_gloom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_card_gloom.png; sourceTree = "<group>"; };
@@ -3197,8 +3199,9 @@
 				E10D04DA15AF0E5300492A87 /* SettingRootViewController.xib */,
 				E17A2B9415AFBC1100E70A5D /* SettingTableViewCell.h */,
 				E17A2B9515AFBC1100E70A5D /* SettingTableViewCell.m */,
-				E10D04BB15AF030C00492A87 /* AppInfoViewController.h */,
-				E10D04BC15AF030C00492A87 /* AppInfoViewController.m */,
+				E10D04BB15AF030C00492A87 /* SettingAppInfoViewController.h */,
+				E10D04BC15AF030C00492A87 /* SettingAppInfoViewController.m */,
+				E17A2BAE15B0106800E70A5D /* SettingAppInfoViewController.xib */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -4089,6 +4092,7 @@
 				E10D052115AFB47400492A87 /* settings_shadow@2x.png in Resources */,
 				E17A2BA815AFEBE400E70A5D /* icon_settings_empty.png in Resources */,
 				E17A2BA915AFEBE400E70A5D /* icon_settings_empty@2x.png in Resources */,
+<<<<<<< HEAD
 				18F2456A15B1237B000DCD38 /* button_next_pale.png in Resources */,
 				18F2456B15B1237B000DCD38 /* button_next_pale@2x.png in Resources */,
 				18F2456C15B1237B000DCD38 /* button_previous_pale.png in Resources */,
@@ -4097,6 +4101,9 @@
 				18F2456F15B1237B000DCD38 /* button_reload_pale@2x.png in Resources */,
 				18F2457015B1237B000DCD38 /* button_stop_pale.png in Resources */,
 				18F2457115B1237B000DCD38 /* button_stop_pale@2x.png in Resources */,
+=======
+				E17A2BAF15B0106A00E70A5D /* SettingAppInfoViewController.xib in Resources */,
+>>>>>>> 关于界面搭建完成。
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4252,7 +4259,7 @@
 				E1919A8D15AC8F990034079B /* LoginUserCellViewController.m in Sources */,
 				E1919A9915AD678B0034079B /* NSUserDefaults+Addition.m in Sources */,
 				18EB247C15AE93380047530E /* UIScrollView+ZoomToPoint.m in Sources */,
-				E10D04BE15AF030C00492A87 /* AppInfoViewController.m in Sources */,
+				E10D04BE15AF030C00492A87 /* SettingAppInfoViewController.m in Sources */,
 				E10D04CD15AF07A600492A87 /* SettingInfoReader.m in Sources */,
 				E10D04D415AF0C5900492A87 /* SettingViewController.m in Sources */,
 				E10D04DE15AF0E6500492A87 /* SettingRootViewController.m in Sources */,

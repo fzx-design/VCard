@@ -11,6 +11,7 @@
 
 @implementation SettingTableViewCell
 
+@synthesize itemWatchButton = _itemWatchButton;
 @synthesize itemSwitch = _itemSwitch;
 
 - (id)init {
@@ -34,6 +35,13 @@
 - (void)setDisclosureIndicator {
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     self.selectionStyle = UITableViewCellSelectionStyleBlue;
+}
+
+- (void)setWatchButton {
+    self.itemWatchButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 32)];
+    [self.itemWatchButton setImage:[UIImage imageNamed:@"button_about_follow"] forState:UIControlStateNormal];
+    self.accessoryView = self.itemSwitch;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 @end

@@ -15,10 +15,10 @@
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeDisclosure</string>
 					<key>kNibFileName</key>
-					<string>AppInfoViewController</string>
+					<string>SettingAppInfoViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kPushNavigationController</string>
-                    <key>kItemImageFileName</key>
+					<key>kItemImageFileName</key>
 					<string>icon_settings_about</string>
 				</dict>
 				<dict>
@@ -30,24 +30,24 @@
 					<string>LegacyViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kPushNavigationController</string>
-                    <key>kItemImageFileName</key>
+					<key>kItemImageFileName</key>
 					<string>icon_settings_legal</string>
 				</dict>
 			</array>
 		</dict>
-        <dict>
+		<dict>
 			<key>kSectionName</key>
 			<string>Group1</string>
 			<key>kSectionArray</key>
 			<array>
-                <dict>
+				<dict>
 					<key>kItemTitle</key>
 					<string>当前用户名</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeDisclosure</string>
-                    <key>kItemContent</key>
+					<key>kItemContent</key>
 					<string>注销</string>
-                    <key>kItemImageFileName</key>
+					<key>kItemImageFileName</key>
 					<string>icon_settings_empty</string>
 				</dict>
 				<dict>
@@ -59,7 +59,7 @@
 					<string>LoginViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kModalViewController</string>
-                    <key>kItemImageFileName</key>
+					<key>kItemImageFileName</key>
 					<string>icon_settings_switch</string>
 				</dict>
 				<dict>
@@ -71,7 +71,7 @@
 					<string>LegacyViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kPushNavigationController</string>
-                    <key>kItemImageFileName</key>
+					<key>kItemImageFileName</key>
 					<string>icon_settings_new</string>
 				</dict>
 			</array>
@@ -90,10 +90,10 @@
 					<string>SettingUIStyleViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kPushNavigationController</string>
-                    <key>kItemImageFileName</key>
+					<key>kItemImageFileName</key>
 					<string>icon_settings_font</string>
 				</dict>
-                <dict>
+				<dict>
 					<key>kItemTitle</key>
 					<string>亮度</string>
 					<key>kAccessoryType</key>
@@ -102,28 +102,28 @@
 					<string>SettingUIStyleViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kPushNavigationController</string>
-                    <key>kItemImageFileName</key>
+					<key>kItemImageFileName</key>
 					<string>icon_settings_brightness</string>
 				</dict>
-                <dict>
+				<dict>
 					<key>kItemTitle</key>
 					<string>显示图片</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeSwitch</string>
-                    <key>kItemImageFileName</key>
+					<key>kItemImageFileName</key>
 					<string>icon_settings_image</string>
 				</dict>
-                <dict>
+				<dict>
 					<key>kItemTitle</key>
 					<string>高清图片</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeSwitch</string>
-                    <key>kItemImageFileName</key>
+					<key>kItemImageFileName</key>
 					<string>icon_settings_retina</string>
 				</dict>
 			</array>
 		</dict>
-        <dict>
+		<dict>
 			<key>kSectionName</key>
 			<string>Group3</string>
 			<key>kSectionArray</key>
@@ -137,20 +137,20 @@
 					<string>SettingUIStyleViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kPushNavigationController</string>
-                    <key>kItemImageFileName</key>
+					<key>kItemImageFileName</key>
 					<string>icon_settings_notifications</string>
 				</dict>
-                <dict>
+				<dict>
 					<key>kItemTitle</key>
 					<string>音效</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeSwitch</string>
-                    <key>kItemImageFileName</key>
+					<key>kItemImageFileName</key>
 					<string>icon_settings_sound</string>
 				</dict>
 			</array>
 		</dict>
-        <dict>
+		<dict>
 			<key>kSectionName</key>
 			<string>Group4</string>
 			<key>kSectionArray</key>
@@ -160,12 +160,12 @@
 					<string>自动定位</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeSwitch</string>
-                    <key>kItemImageFileName</key>
+					<key>kItemImageFileName</key>
 					<string>icon_settings_locate</string>
 				</dict>
 			</array>
 		</dict>
-        <dict>
+		<dict>
 			<key>kSectionName</key>
 			<string>Group5</string>
 			<key>kSectionArray</key>
@@ -175,8 +175,51 @@
 					<string>智能节省流量</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeSwitch</string>
-                    <key>kItemImageFileName</key>
+					<key>kItemImageFileName</key>
 					<string>icon_settings_cellcular</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	<key>kSettingAppInfoSectionArray</key>
+	<array>
+		<dict>
+			<key>kSectionName</key>
+			<string>kSettingAppInfoSectionAbout</string>
+			<key>kSectionArray</key>
+			<array>
+				<dict>
+					<key>kItemTitle</key>
+					<string>告诉朋友</string>
+					<key>kAccessoryType</key>
+					<string>kAccessoryTypeDisclosure</string>
+				</dict>
+				<dict>
+					<key>kItemTitle</key>
+					<string>为VCard评分</string>
+					<key>kAccessoryType</key>
+					<string>kAccessoryTypeDisclosure</string>
+				</dict>
+				<dict>
+					<key>kItemTitle</key>
+					<string>问题反馈和意见</string>
+					<key>kAccessoryType</key>
+					<string>kAccessoryTypeDisclosure</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>kSectionName</key>
+			<string>kSettingAppInfoSectionTeam</string>
+			<key>kSectionArray</key>
+			<array>
+				<dict>
+					<key>kItemTitle</key>
+					<string>VCard微博</string>
+					<key>kAccessoryType</key>
+					<string>kAccessoryTypeWatchButton</string>
+					<key>kItemImageFileName</key>
+					<string>icon_settings_empty</string>
 				</dict>
 			</array>
 		</dict>

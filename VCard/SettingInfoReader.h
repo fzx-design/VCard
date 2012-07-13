@@ -14,10 +14,14 @@
 #define kAccessoryTypeNone          @"kAccessoryTypeNone"
 #define kAccessoryTypeSwitch        @"kAccessoryTypeSwitch"
 #define kAccessoryTypeDisclosure    @"kAccessoryTypeDisclosure"
+#define kAccessoryTypeWatchButton    @"kAccessoryTypeWatchButton"
 
 @interface SettingInfoReader : NSObject
 
++ (SettingInfoReader *)sharedReader;
+
 - (NSArray *)getSettingInfoSectionArray;
+- (NSArray *)getSettingAppInfoSectionArray;
 
 @end
 

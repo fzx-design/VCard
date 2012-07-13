@@ -110,8 +110,7 @@
 }
 
 - (void)configureDataSource {
-    SettingInfoReader *reader = [[SettingInfoReader alloc] init];
-    NSArray *sectionArray = [reader getSettingInfoSectionArray];
+    NSArray *sectionArray = [[SettingInfoReader sharedReader] getSettingInfoSectionArray];
     for(SettingInfoSection *section in sectionArray) {
         NSLog(@"section %@", section.sectionTitle);
         [self.dataSourceIndexArray addObject:section.sectionTitle];
@@ -163,6 +162,7 @@
         UIView *superView = self.navigationController.view.superview;
         superView.frame = tempBlackView.frame;
         [[UIApplication sharedApplication].rootViewController.view addSubview:superView];
+        superView.userInteractionEnabled = NO;
         
         [UIView animateWithDuration:0.5f animations:^{
             tempBlackView.alpha = 0;
@@ -176,18 +176,10 @@
             [vc performSelector:@selector(show)];
         else
             [UIApplication presentModalViewController:vc animated:YES];
+    } else if([info.wayToPresentViewController isEqualToString:kPushNavigationController]) {
+        UIViewController *vc = [[NSClassFromString(info.nibFileName) alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
-
-- (void)dismissView {
-    [self.navigationController.view.superview removeFromSuperview];
-}
-
-#pragma mark - Select Cell handler
-
-- (void)didSelectCell {
-    
-}
-
 
 @end

@@ -6,7 +6,12 @@
 //  Copyright (c) 2012年 Tongji Apple Club. All rights reserved.
 //
 
+#import "SettingInfoReader.h"
+
+static SettingInfoReader *readerInstance;
+
 #define kSettingInfoSectionArray        @"kSettingInfoSectionArray"
+#define kSettingAppInfoSectionArray     @"kSettingAppInfoSectionArray"
 #define kSectionName                    @"kSectionName"
 #define kSectionArray                   @"kSectionArray"
 
@@ -17,8 +22,6 @@
 #define kItemContent                    @"kItemContent"
 #define kItemImageFileName              @"kItemImageFileName"
 
-#import "SettingInfoReader.h"
-
 @interface SettingInfoReader()
 
 @property (nonatomic, strong) NSDictionary *settingInfoMap;
@@ -28,6 +31,13 @@
 @implementation SettingInfoReader
 
 @synthesize settingInfoMap = _settingInfoMap;
+
++ (SettingInfoReader *)sharedReader {
+    if(!readerInstance) {
+        readerInstance = [[SettingInfoReader alloc] init];
+    }
+    return readerInstance;
+}
 
 - (id)init {
     self = [super init];
@@ -42,8 +52,8 @@
     self.settingInfoMap = [[NSDictionary alloc] initWithContentsOfFile:configFilePath]; 
 }
 
-- (NSArray *)getSettingInfoSectionArray {
-    NSArray *sectonArray = [NSArray arrayWithArray:[self.settingInfoMap objectForKey:kSettingInfoSectionArray]];
+- (NSArray *)getInfoSectionArrayForKey:(NSString *)sectionArrayKey {
+    NSArray *sectonArray = [NSArray arrayWithArray:[self.settingInfoMap objectForKey:sectionArrayKey]];
     NSMutableArray *result = [NSMutableArray array];
     for(NSDictionary *sectionDict in sectonArray) {
         SettingInfoSection *section = [[SettingInfoSection alloc] init];
@@ -58,6 +68,14 @@
         [result addObject:section];
     }
     return result;
+}
+
+- (NSArray *)getSettingAppInfoSectionArray {
+    return [self getInfoSectionArrayForKey:kSettingAppInfoSectionArray];
+}
+
+- (NSArray *)getSettingInfoSectionArray {
+    return [self getInfoSectionArrayForKey:kSettingInfoSectionArray];
 }
 
 @end

@@ -13,8 +13,7 @@
 #define kStoredUserAccountInfoUserID        @"kStoredUserAccountInfoUserID"
 #define kStoredUserAccountInfoAccount       @"StoredUserAccountInfoAccount"
 #define kStoredUserAccountInfoPassword      @"StoredUserAccountInfoPassword"
-
-#define kStoredLoginUserArray @"StoredLoginUserArray"
+#define kStoredLoginUserArray               @"StoredLoginUserArray"
 
 #define KeyForStoredUserAccountInfo(userID) ([NSString stringWithFormat:@"%@_%@", kStoredUserAccountInfo, (userID)])
 
