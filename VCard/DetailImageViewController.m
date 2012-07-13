@@ -15,11 +15,13 @@
 
 @interface DetailImageViewController () {
     BOOL _statusBarHidden;
-    BOOL _shouldUseScrollViewZooming;
+    BOOL _firstZoom;
+    BOOL _secondZoom;
     CGFloat _lastScale;
     CGPoint _initialPoint;
     CGFloat _currentScale;
     CGPoint _touchCenter;
+    CGFloat _originScale;
     
     UIRotationGestureRecognizer *_rotationGestureRecognizer;
 }
@@ -88,8 +90,9 @@
 #pragma mark - CardViewControllerDelegate
 - (void)didChangeImageScale:(CGFloat)scale
 {
-    CGFloat offset = [_imageView scaleOffset];
+    CGFloat offset = scale;
     if (self.cardViewController.imageViewMode == CastViewImageViewModePinchingOut) {
+        offset = [_imageView scaleOffset];
         offset = offset > 0.5 ? 0.5 : offset;
     } else {
         offset = offset < -0.5 ? 0.0 : 0.5 + offset;
@@ -116,25 +119,29 @@
 - (void)willReturnImageView
 {
     [_imageView resetOrigin:_initialPoint];
-    self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
-    _topBarView.alpha = 0.0;
-    _bottomBarView.alpha = 0.0;
+    [self setBackgroundAlphaTo:0.0];
+    [self recoverScrollViewRotation];
 }
 
 - (void)enterDetailedImageViewMode
 {
-    self.cardViewController.imageViewMode = CastViewImageViewModeDetailedNormal;
+    _cardViewController.imageViewMode = CastViewImageViewModeDetailedNormal;
     _imageView.userInteractionEnabled = NO;
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3f];
-    
     _statusBarHidden = NO;
     _currentScale = 1.0;
-    _topBarView.alpha = 1.0;
-    _bottomBarView.alpha = 1.0;
-    self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self setBackgroundAlphaTo:1.0];
+        [self initDetialedImageViewTransform];
+        [self initScrollView];
+    }];
+    
+    [self performSelector:@selector(resetImageViewSize) withObject:nil afterDelay:0.3];
+    [self loadDetailedImage];
+}
 
+- (void)initDetialedImageViewTransform
+{
     [_imageView pinchResizeToScale:1.5];
     
     CGFloat targetScale = [UIApplication isCurrentOrientationLandscape] ? _imageView.targetHorizontalScale : _imageView.targetVerticalScale;
@@ -156,17 +163,23 @@
     CGFloat height = [_imageView targetSize].height * targetScale;
     
     [_imageView resetOrigin:CGPointMake(screenWidth / 2 - width / 2, screenHeight / 2 - height / 2)];
-    _scrollView.contentSize = CGSizeMake(screenWidth, screenHeight);
-    
-    [UIView commitAnimations];
-    
-    [self performSelector:@selector(resetImageViewSize) withObject:nil afterDelay:0.3];
-    
-    Status *targetStatus = self.cardViewController.status;
-    if (self.cardViewController.isReposted) {
-        targetStatus = targetStatus.repostStatus;
-    }
-    [_imageView loadDetailedImageFromURL:targetStatus.originalPicURL completion:nil];
+}
+
+- (void)initScrollView
+{
+    _scrollView.contentSize = CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight]);
+    _originScale = _scrollView.zoomScale;
+    _scrollView.minimumZoomScale = _originScale;
+    _scrollView.maximumZoomScale = _originScale * 2;
+    _firstZoom = YES;
+    _secondZoom = NO;
+}
+
+- (void)setBackgroundAlphaTo:(CGFloat)alpha
+{
+    _topBarView.alpha = alpha;
+    _bottomBarView.alpha = alpha;
+    self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:alpha];
 }
 
 - (void)resetImageViewSize
@@ -177,89 +190,13 @@
     [_imageView resetSize:CGSizeMake(width, height)];
 }
 
-- (void)didZoomImageViewWithScale:(CGFloat)scale centerPoint:(CGPoint)center offset:(CGPoint)offset
+- (void)loadDetailedImage
 {
-    _currentScale *= scale;
-    
-    if (_currentScale < 5.0) {
-        CGRect zoomRect;
-        zoomRect.size.height = _scrollView.frame.size.height / scale;
-        zoomRect.size.width  = _scrollView.frame.size.width  / scale;
-        
-        _touchCenter.x *= scale;
-        _touchCenter.y *= scale;
-        
-        zoomRect.origin.x = _touchCenter.x - zoomRect.size.width;
-        zoomRect.origin.y = _touchCenter.y - zoomRect.size.height;
-        
-        NSLog(@"%@", NSStringFromCGRect(zoomRect));
-        
-//        zoomRect.origin.x = center.x - point.x;
-//        zoomRect.origin.y = center.y - point.y;
-        [_scrollView zoomToRect:zoomRect animated:YES];
-        _scrollView.contentSize = _imageView.frame.size;
-        
+    Status *targetStatus = self.cardViewController.status;
+    if (self.cardViewController.isReposted) {
+        targetStatus = targetStatus.repostStatus;
     }
-    
-    _scrollView.contentSize = _imageView.frame.size;
-    
-    CGFloat offsetX = _imageView.frame.size.width - [UIApplication screenWidth];
-    CGFloat offsetY = _imageView.frame.size.height - [UIApplication screenWidth];
-    
-    offsetX = center.x / [UIApplication screenWidth] * offsetX;
-    offsetY = center.y / [UIApplication screenHeight] * offsetY;
-    
-    CGPoint contentOffset = _scrollView.contentOffset;
-    contentOffset.x -= offset.x;
-    contentOffset.y -= offset.y;
-    
-    _scrollView.contentOffset = contentOffset;
-}
-
-- (void)willStartZooming:(CGPoint)center
-{    
-    _touchCenter.x = center.x - _imageView.frame.origin.x;
-    _touchCenter.y = center.y - _imageView.frame.origin.y;
-}
-
-- (void)didEndZooming
-{
-    CGSize boundsSize = _scrollView.bounds.size;
-    CGRect contentsFrame = _imageView.frame;
-    
-    if (contentsFrame.size.width < boundsSize.width) {
-        contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2.0f;
-    } else {
-        contentsFrame.origin.x = 0.0f;
-    }
-    
-    if (contentsFrame.size.height < boundsSize.height) {
-        contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2.0f;
-    } else {
-        contentsFrame.origin.y = 0.0f;
-    }
-    
-    CGFloat offsetX = _imageView.frame.origin.x - contentsFrame.origin.x;
-    CGFloat offsetY = _imageView.frame.origin.y - contentsFrame.origin.y;
-    
-    CGPoint contentOffset = CGPointMake(_scrollView.contentOffset.x - offsetX, _scrollView.contentOffset.y - offsetY);
-    
-    if (contentOffset.x < 0.0) {
-        contentOffset.x = 0.0;
-    }
-    if (contentOffset.y < 0.0) {
-        contentOffset.y = 0.0;
-    }
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        _scrollView.contentOffset = contentOffset;
-        _imageView.frame = contentsFrame;
-    }];
-}
-
-- (BOOL)shouldQuitZoomingMode
-{
-    return _currentScale <= 1.0;
+    [_imageView loadDetailedImageFromURL:targetStatus.originalPicURL completion:nil];
 }
 
 - (void)imageViewTapped
@@ -290,11 +227,9 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    // if the gesture recognizers are on different views, don't allow simultaneous recognition
     if (gestureRecognizer.view != otherGestureRecognizer.view)
         return NO;
     
-    // if either of the gesture recognizers is the long press, don't allow simultaneous recognition
     if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]] || [otherGestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]])
         return NO;
     
@@ -308,6 +243,17 @@
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView
 {
+    if (_firstZoom && _scrollView.zoomScale != _originScale) {
+        _firstZoom = NO;
+        if (_scrollView.zoomScale > _originScale) {
+            _cardViewController.imageViewMode = CastViewImageViewModeDetailedZooming;
+        } else {
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+            _cardViewController.imageViewMode = CastViewImageViewModePinchingIn;
+            _scrollView.minimumZoomScale = 0.0;
+        }
+    }
+    
     CGSize boundsSize = _scrollView.bounds.size;
     CGRect contentsFrame = _imageView.frame;
     
@@ -324,11 +270,45 @@
     }
     
     _imageView.frame = contentsFrame;
+    
+    if (_cardViewController.imageViewMode == CastViewImageViewModePinchingIn) {
+        [self didChangeImageScale:_scrollView.zoomScale - _originScale];
+    }
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale
+{
+    _firstZoom = YES;
+    if (_cardViewController.imageViewMode == CastViewImageViewModePinchingIn) {
+        if (_scrollView.pinchGestureRecognizer.velocity > 2.0 || _scrollView.zoomScale < _originScale - 0.1) {
+            [_cardViewController returnToInitialImageView];
+        } else {
+            [self recoverScrollViewRotation];
+            _scrollView.minimumZoomScale = _originScale;
+            [_scrollView setZoomScale:_originScale animated:YES];
+            _cardViewController.imageViewMode = CastViewImageViewModeDetailedNormal;
+        }
+    } else if (_cardViewController.imageViewMode == CastViewImageViewModeDetailedZooming) {
+        if (_scrollView.zoomScale < _scrollView.minimumZoomScale) {
+            _cardViewController.imageViewMode = CastViewImageViewModeDetailedNormal;
+        }
+    }
+}
+
+- (void)recoverScrollViewRotation
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        CGAffineTransform transform = _scrollView.transform;
+        CGFloat angle = atan2(transform.b, transform.a);
+        _scrollView.transform = CGAffineTransformRotate(transform, -angle);
+    }];
 }
 
 - (void)handleRotationGesture:(UIRotationGestureRecognizer *)sender
 {
-    NSLog(@"%f", sender.rotation);
+    if (_imageView && _cardViewController.imageViewMode == CastViewImageViewModePinchingIn) {
+        [_cardViewController handleRotationGesture:sender];
+    }
 }
 
 @end

@@ -73,8 +73,8 @@
 {
     [self.view resetOrigin:CGPointZero];
     [self.view resetSize:CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight])];
-    [self.view addSubview:self.castViewController.view];
-    [self.view addSubview:self.shelfViewController.view];
+    [self.view insertSubview:self.castViewController.view belowSubview:self.detailImageViewController.view];
+    [self.view insertSubview:self.shelfViewController.view  belowSubview:self.detailImageViewController.view];
     self.shelfViewController.view.hidden = YES;
 }
 
@@ -121,7 +121,6 @@
     }];
 }
 
-#pragma mark Detail Image View Controller Notifications
 - (void)showDetailImageView:(NSNotification *)notification
 {
     NSDictionary *dict = notification.object;
@@ -196,12 +195,12 @@
     return _shelfViewController;
 }
 
-#pragma mark - Detail Image View Controller
 - (DetailImageViewController *)detailImageViewController
 {
     if (!_detailImageViewController) {
         _detailImageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailImageViewController"];
         _detailImageViewController.view.frame = self.view.bounds;
+        _detailImageViewController.view.hidden = YES;
         [self.view addSubview:_detailImageViewController.view];
     }
     return _detailImageViewController;

@@ -795,11 +795,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 {    
     [self recordPinchGestureInitialStatus:sender];
     
-    if (_imageViewMode == CastViewImageViewModePinchingOut || _imageViewMode == CastViewImageViewModePinchingIn) {
-        [self handleImageViewPinchWithGesture:sender];
-    } else if (_imageViewMode == CastViewImageViewModeDetailedZooming) {
-        [self handleImageViewZoomingWithGesture:sender];
-    }
+    [self handleImageViewPinchWithGesture:sender];
 }
 
 - (void)recordPinchGestureInitialStatus:(UIPinchGestureRecognizer *)sender
@@ -820,77 +816,8 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
                 [self playClipLooseAnimationAndSendNotification];
                 [self willOpenDetailImageView];
             }
-            
             return;
         }
-        
-        if (_imageViewMode == CastViewImageViewModeDetailedNormal) {
-            if (sender.scale >= 1.0) {
-                _imageViewMode = CastViewImageViewModeDetailedZooming;
-                if ([_delegate respondsToSelector:@selector(willStartZooming:)]) {
-                    [_delegate willStartZooming:[sender locationInView:[UIApplication sharedApplication].rootViewController.view]];
-                }
-                
-            } else {
-                _imageViewMode = CastViewImageViewModePinchingIn;
-            }
-        }
-    }
-}
-
-- (void)handleImageViewZoomingWithGesture:(UIPinchGestureRecognizer *)sender
-{
-    BOOL gestureEnd = [self checkAndHanleZoomGestureEnd:sender];
-    
-    if (!gestureEnd) {
-        [self resetZoomingScaleWithPinchGesture:sender];
-    }
-}
-
-- (BOOL)checkAndHanleZoomGestureEnd:(UIPinchGestureRecognizer *)sender
-{
-    BOOL result = NO;
-    if (sender.state == UIGestureRecognizerStateEnded || (sender.numberOfTouches < 2)) {
-        
-        self.statusImageView.userInteractionEnabled = NO;
-        self.statusImageView.userInteractionEnabled = YES;
-        
-        BOOL shouldReturn = YES;
-        if ([_delegate respondsToSelector:@selector(shouldQuitZoomingMode)]) {
-            shouldReturn = [_delegate shouldQuitZoomingMode];
-        }
-        
-        if (shouldReturn) {
-            if ([_delegate respondsToSelector:@selector(enterDetailedImageViewMode)]) {
-                [_delegate enterDetailedImageViewMode];
-            }
-        } else {
-            if ([_delegate respondsToSelector:@selector(enterDetailedImageViewMode)]) {
-                [_delegate didEndZooming];
-            }
-        }
-        
-        result = YES;
-    }
-    return result;
-}
-
-- (void)resetZoomingScaleWithPinchGesture:(UIPinchGestureRecognizer *)sender
-{
-    CGFloat scale = 1.0 - (_lastScale - sender.scale);
-    [self.statusImageView setTransform:CGAffineTransformScale(self.statusImageView.transform, scale, scale)];
-    self.statusImageView.currentScale += sender.scale - _lastScale;
-    _lastScale = sender.scale;
-    
-    CGPoint point = [sender locationInView:[UIApplication sharedApplication].rootViewController.view];
-    
-    CGFloat deltaX = point.x - _lastPoint.x;
-    CGFloat deltaY = point.y - _lastPoint.y;
-        
-    _lastPoint = point;
-    
-    if ([_delegate respondsToSelector:@selector(didZoomImageViewWithScale:centerPoint:offset:)]) {
-        [_delegate didZoomImageViewWithScale:scale centerPoint:_lastPoint offset:CGPointMake(deltaX, deltaY)];
     }
 }
 
@@ -917,7 +844,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     if (sender.state == UIGestureRecognizerStateEnded || (sender.state == UIGestureRecognizerStateChanged && sender.numberOfTouches < 2)) {
         
         self.statusImageView.userInteractionEnabled = NO;
-        self.statusImageView.userInteractionEnabled = YES;
         
         BOOL shouldReturn = YES;
         
@@ -977,9 +903,9 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         }
     }
     
-    if ([sender state] == UIGestureRecognizerStateChanged) {
-        [sender view].transform = CGAffineTransformRotate([[sender view] transform], [sender rotation]);
-        [sender setRotation:0];
+    if (sender.state == UIGestureRecognizerStateChanged) {
+        sender.view.transform = CGAffineTransformRotate(sender.view.transform, sender.rotation);
+        sender.rotation = 0;
     }
 }
 
