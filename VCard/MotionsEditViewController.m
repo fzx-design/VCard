@@ -466,7 +466,8 @@
     [self.activityIndicator startAnimating];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *filteredImage = self.filteredImage;
-        filteredImage = [filteredImage compressImageToSize:CGSizeMake(180, 180)];
+        if(_useForAvatar)
+            filteredImage = [filteredImage compressImageToSize:CGSizeMake(180, 180)];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate editViewControllerDidFinishEditImage:filteredImage];
         });

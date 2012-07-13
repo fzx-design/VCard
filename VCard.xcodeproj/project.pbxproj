@@ -649,6 +649,14 @@
 		E1097F23157FA31E00BD0640 /* transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097F22157FA31E00BD0640 /* transparent.png */; };
 		E1097F32157FA63B00BD0640 /* button_finish_large.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097F30157FA63B00BD0640 /* button_finish_large.png */; };
 		E1097F33157FA63B00BD0640 /* button_finish_large@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1097F31157FA63B00BD0640 /* button_finish_large@2x.png */; };
+		E10D04BE15AF030C00492A87 /* AppInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10D04BC15AF030C00492A87 /* AppInfoViewController.m */; };
+		E10D04CC15AF07A600492A87 /* SettingInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = E10D04C915AF07A600492A87 /* SettingInfo.plist */; };
+		E10D04CD15AF07A600492A87 /* SettingInfoReader.m in Sources */ = {isa = PBXBuildFile; fileRef = E10D04CB15AF07A600492A87 /* SettingInfoReader.m */; };
+		E10D04D415AF0C5900492A87 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10D04D215AF0C5800492A87 /* SettingViewController.m */; };
+		E10D04D915AF0D5800492A87 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E10D04D815AF0D5700492A87 /* SettingViewController.xib */; };
+		E10D04DB15AF0E5400492A87 /* SettingRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E10D04DA15AF0E5300492A87 /* SettingRootViewController.xib */; };
+		E10D04DE15AF0E6500492A87 /* SettingRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10D04DD15AF0E6500492A87 /* SettingRootViewController.m */; };
+		E10D04DF15AF1E8700492A87 /* WTGroupTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10D04CF15AF0AF000492A87 /* WTGroupTableViewController.m */; };
 		E111D74B159B243E00C68A5C /* CropImageViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E111D74A159B243D00C68A5C /* CropImageViewController-landscape.xib */; };
 		E111D756159B34E000C68A5C /* motions_slider_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = E111D754159B34E000C68A5C /* motions_slider_thumb.png */; };
 		E111D757159B34E000C68A5C /* motions_slider_thumb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E111D755159B34E000C68A5C /* motions_slider_thumb@2x.png */; };
@@ -1567,6 +1575,19 @@
 		E1097F22157FA31E00BD0640 /* transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transparent.png; sourceTree = "<group>"; };
 		E1097F30157FA63B00BD0640 /* button_finish_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_finish_large.png; sourceTree = "<group>"; };
 		E1097F31157FA63B00BD0640 /* button_finish_large@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_finish_large@2x.png"; sourceTree = "<group>"; };
+		E10D04BB15AF030C00492A87 /* AppInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfoViewController.h; sourceTree = "<group>"; };
+		E10D04BC15AF030C00492A87 /* AppInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInfoViewController.m; sourceTree = "<group>"; };
+		E10D04C915AF07A600492A87 /* SettingInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SettingInfo.plist; sourceTree = "<group>"; };
+		E10D04CA15AF07A600492A87 /* SettingInfoReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingInfoReader.h; sourceTree = "<group>"; };
+		E10D04CB15AF07A600492A87 /* SettingInfoReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingInfoReader.m; sourceTree = "<group>"; };
+		E10D04CE15AF0AF000492A87 /* WTGroupTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTGroupTableViewController.h; sourceTree = "<group>"; };
+		E10D04CF15AF0AF000492A87 /* WTGroupTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTGroupTableViewController.m; sourceTree = "<group>"; };
+		E10D04D115AF0C5700492A87 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		E10D04D215AF0C5800492A87 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		E10D04D815AF0D5700492A87 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		E10D04DA15AF0E5300492A87 /* SettingRootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingRootViewController.xib; sourceTree = "<group>"; };
+		E10D04DC15AF0E6400492A87 /* SettingRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingRootViewController.h; sourceTree = "<group>"; };
+		E10D04DD15AF0E6500492A87 /* SettingRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingRootViewController.m; sourceTree = "<group>"; };
 		E111D74A159B243D00C68A5C /* CropImageViewController-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "CropImageViewController-landscape.xib"; sourceTree = "<group>"; };
 		E111D754159B34E000C68A5C /* motions_slider_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_slider_thumb.png; sourceTree = "<group>"; };
 		E111D755159B34E000C68A5C /* motions_slider_thumb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_slider_thumb@2x.png"; sourceTree = "<group>"; };
@@ -1978,7 +1999,7 @@
 			name = SelfCommentTableView;
 			sourceTree = "<group>";
 		};
-		18A6850715370EB900D58B7D /* LoginComponent */ = {
+		18A6850715370EB900D58B7D /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				E1A59E9215ABE3D8001F0A94 /* LoginBgView.h */,
@@ -1995,7 +2016,7 @@
 				E1FE8B2615AAF099009636A4 /* LoginViewController.m */,
 				E1FE8B2A15AAF0C2009636A4 /* LoginViewController.xib */,
 			);
-			name = LoginComponent;
+			name = Login;
 			sourceTree = "<group>";
 		};
 		18A6850915370ED900D58B7D /* Basic */ = {
@@ -2197,14 +2218,15 @@
 				18E5592B153FA01300ECCA3B /* CoreDataTableViewController.m */,
 				18E55927153F9F5C00ECCA3B /* CoreDataViewController.h */,
 				18E55928153F9F5C00ECCA3B /* CoreDataViewController.m */,
-				18E558FF153EF55600ECCA3B /* RootViewController.h */,
-				18E55900153EF55600ECCA3B /* RootViewController.m */,
+				E10D04BA15AF02CB00492A87 /* Setting */,
 				188BA4F01539AA9200344288 /* CastView */,
 				18E707F2153D3EEF0012092E /* CustomViews */,
 				E1097CF7157F998900BD0640 /* Emoticons */,
-				18A6850715370EB900D58B7D /* LoginComponent */,
+				18A6850715370EB900D58B7D /* Login */,
 				E1097CF4157F997B00BD0640 /* Motions */,
 				E1097CF6157F998300BD0640 /* Post */,
+				18E558FF153EF55600ECCA3B /* RootViewController.h */,
+				18E55900153EF55600ECCA3B /* RootViewController.m */,
 				18A997EB15A1AA8800C2E7A5 /* Shelf */,
 				18E34C9315706786006DCFF6 /* StackView */,
 			);
@@ -3053,6 +3075,26 @@
 			path = emoticons;
 			sourceTree = "<group>";
 		};
+		E10D04BA15AF02CB00492A87 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				E10D04CE15AF0AF000492A87 /* WTGroupTableViewController.h */,
+				E10D04CF15AF0AF000492A87 /* WTGroupTableViewController.m */,
+				E10D04C915AF07A600492A87 /* SettingInfo.plist */,
+				E10D04CA15AF07A600492A87 /* SettingInfoReader.h */,
+				E10D04CB15AF07A600492A87 /* SettingInfoReader.m */,
+				E10D04D115AF0C5700492A87 /* SettingViewController.h */,
+				E10D04D215AF0C5800492A87 /* SettingViewController.m */,
+				E10D04D815AF0D5700492A87 /* SettingViewController.xib */,
+				E10D04DC15AF0E6400492A87 /* SettingRootViewController.h */,
+				E10D04DD15AF0E6500492A87 /* SettingRootViewController.m */,
+				E10D04DA15AF0E5300492A87 /* SettingRootViewController.xib */,
+				E10D04BB15AF030C00492A87 /* AppInfoViewController.h */,
+				E10D04BC15AF030C00492A87 /* AppInfoViewController.m */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
 		E136F90715A320280019700F /* Edit */ = {
 			isa = PBXGroup;
 			children = (
@@ -3865,6 +3907,9 @@
 				E1919AC015AD87020034079B /* topbar_msg@2x.png in Resources */,
 				E1919AC115AD87020034079B /* topbar_msg_hl.png in Resources */,
 				E1919AC215AD87020034079B /* topbar_msg_hl@2x.png in Resources */,
+				E10D04CC15AF07A600492A87 /* SettingInfo.plist in Resources */,
+				E10D04D915AF0D5800492A87 /* SettingViewController.xib in Resources */,
+				E10D04DB15AF0E5400492A87 /* SettingRootViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4020,6 +4065,11 @@
 				E1919A8D15AC8F990034079B /* LoginUserCellViewController.m in Sources */,
 				E1919A9915AD678B0034079B /* NSUserDefaults+Addition.m in Sources */,
 				18EB247C15AE93380047530E /* UIScrollView+ZoomToPoint.m in Sources */,
+				E10D04BE15AF030C00492A87 /* AppInfoViewController.m in Sources */,
+				E10D04CD15AF07A600492A87 /* SettingInfoReader.m in Sources */,
+				E10D04D415AF0C5900492A87 /* SettingViewController.m in Sources */,
+				E10D04DE15AF0E6500492A87 /* SettingRootViewController.m in Sources */,
+				E10D04DF15AF1E8700492A87 /* WTGroupTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

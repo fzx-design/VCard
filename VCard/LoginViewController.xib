@@ -102,7 +102,6 @@
 								<string key="NSFrame">{{7, 6}, {50, 32}}</string>
 								<reference key="NSSuperview" ref="19742546"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -384,20 +383,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">LoginViewController</string>
 					<string key="superclassName">CoreDataViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="didClickLogoutButton:">UIButton</string>
-						<string key="didClickRegisterButton:">UIButton</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="didClickLogoutButton:">
-							<string key="name">didClickLogoutButton:</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBActionInfo" key="didClickRegisterButton:">
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">didClickRegisterButton:</string>
+						<string key="NS.object.0">UIButton</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">didClickRegisterButton:</string>
+						<object class="IBActionInfo" key="NS.object.0">
 							<string key="name">didClickRegisterButton:</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
-					</dictionary>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="bgView">UIView</string>
 						<string key="logoImageView">UIImageView</string>

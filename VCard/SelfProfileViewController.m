@@ -7,7 +7,7 @@
 //
 
 #import "SelfProfileViewController.h"
-#import "LoginViewController.h"
+#import "SettingViewController.h"
 #import "UIApplication+Addition.h"
 #import "WBClient.h"
 
@@ -135,7 +135,7 @@ typedef enum {
 }
 
 - (IBAction)didClickAccountSettingButton:(UIButton *)sender {
-    LoginViewController *vc = [[LoginViewController alloc] init];
+    SettingViewController *vc = [[SettingViewController alloc] init];
     [vc show];
 }
 
