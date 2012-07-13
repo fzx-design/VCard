@@ -14,6 +14,7 @@
 #define kNibFileName                    @"kNibFileName"
 #define kAccessoryType                  @"kAccessoryType"
 #define kItemTitle                      @"kItemTitle"
+#define kItemImageFileName              @"kItemImageFileName"
 
 #import "SettingInfoReader.h"
 
@@ -49,11 +50,7 @@
         NSArray *infoArray = [sectionDict objectForKey:kSectionArray];
         NSMutableArray *parsedInfoArray = [NSMutableArray arrayWithCapacity:4];
         for(NSDictionary *infoDict in infoArray) {
-            SettingInfo *info = [[SettingInfo alloc] init];
-            info.itemTitle = [infoDict objectForKey:kItemTitle];
-            info.nibFileName = [infoDict objectForKey:kNibFileName];
-            info.accessoryType = [infoDict objectForKey:kAccessoryType];
-            info.wayToPresentViewController = [infoDict objectForKey:kWayToPresentViewController];
+            SettingInfo *info = [[SettingInfo alloc] initWithInfoDict:infoDict];
             [parsedInfoArray addObject:info];
         }
         section.itemArray = parsedInfoArray;
@@ -75,7 +72,20 @@
 
 @synthesize itemTitle = _itemTitle;
 @synthesize nibFileName = _nibFileName;
+@synthesize imageFileName = _imageFileName;
 @synthesize wayToPresentViewController = _wayToPresentViewController;
 @synthesize accessoryType = _accessoryType;
+
+- (id)initWithInfoDict:(NSDictionary *)infoDict {
+    self = [super init];
+    if(self) {
+        self.itemTitle = [infoDict objectForKey:kItemTitle];
+        self.nibFileName = [infoDict objectForKey:kNibFileName];
+        self.imageFileName = [infoDict objectForKey:kItemImageFileName];
+        self.accessoryType = [infoDict objectForKey:kAccessoryType];
+        self.wayToPresentViewController = [infoDict objectForKey:kWayToPresentViewController];
+    }
+    return self;
+}
 
 @end

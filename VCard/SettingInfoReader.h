@@ -10,6 +10,8 @@
 
 #define kPushNavigationController   @"kPushNavigationController"
 #define kModalViewController        @"kModalViewController"
+
+#define kAccessoryTypeNone          @"kAccessoryTypeNone"
 #define kAccessoryTypeSwitch        @"kAccessoryTypeSwitch"
 #define kAccessoryTypeDisclosure    @"kAccessoryTypeDisclosure"
 
@@ -30,7 +32,10 @@
 
 @property (nonatomic, strong) NSString *itemTitle;
 @property (nonatomic, strong) NSString *nibFileName;
+@property (nonatomic, strong) NSString *imageFileName;
 @property (nonatomic, strong) NSString *accessoryType;
 @property (nonatomic, strong) NSString *wayToPresentViewController;
+
+- (id)initWithInfoDict:(NSDictionary *)infoDict;
 
 @end

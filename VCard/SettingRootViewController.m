@@ -10,12 +10,17 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIApplication+Addition.h"
 #import "SettingInfoReader.h"
+#import "SettingTableViewCell.h"
 
 @interface SettingRootViewController ()
+
+@property (nonatomic, strong) NSMutableArray *settingSectionInfoDictionary;
 
 @end
 
 @implementation SettingRootViewController
+
+@synthesize settingSectionInfoDictionary = _settingSectionInfoDictionary;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,6 +48,7 @@
 {
     [super viewDidUnload];
     // Dispose of any resources that can be recreated.
+    self.tableView = nil;
 }
 
 #pragma mark - IBActions
@@ -60,15 +66,39 @@
 
 - (void)configureDataSource {
     SettingInfoReader *reader = [[SettingInfoReader alloc] init];
-    //    NSArray *sectionArray = [reader getSettingInfoSectionArray];
-    //    for(SettingInfoSection *section in sectionArray) {
-    //        [self.dataSourceIndexArray addObject:section.sectionTitle];
-    //        NSMutableArray *itemTitleArray = [NSMutableArray array];
-    //        for(SettingInfo *info in section.itemArray) {
-    //            [itemTitleArray addObject:info];
-    //        }
-    //        [self.dataSourceDictionary setValue:itemTitleArray forKey:section.sectionTitle];
-    //    }
+    NSArray *sectionArray = [reader getSettingInfoSectionArray];
+    for(SettingInfoSection *section in sectionArray) {
+        NSLog(@"section %@", section.sectionTitle);
+        [self.dataSourceIndexArray addObject:section.sectionTitle];
+        [self.settingSectionInfoDictionary addObject:section];
+        NSMutableArray *itemTitleArray = [NSMutableArray array];
+        for(SettingInfo *info in section.itemArray) {
+            [itemTitleArray addObject:info];
+        }
+        [self.dataSourceDictionary setValue:itemTitleArray forKey:section.sectionTitle];
+    }
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    SettingTableViewCell *settingCell = (SettingTableViewCell *)cell;
+    
+    //SettingInfoSection *sectionInfo = ;
+    NSArray *sectionInfoArray = [self.dataSourceDictionary objectForKey:[self.dataSourceIndexArray objectAtIndex:indexPath.section]];
+    SettingInfo *info = [sectionInfoArray objectAtIndex:indexPath.row];
+    
+    settingCell.textLabel.text = info.itemTitle;
+    settingCell.imageView.image = [UIImage imageNamed:info.imageFileName];
+    
+    if([info.accessoryType isEqualToString:kAccessoryTypeSwitch]) {
+        settingCell.accessoryType = UITableViewCellAccessoryNone;
+        settingCell.itemSwitch.hidden = NO;
+    } else if([info.accessoryType isEqualToString:kAccessoryTypeDisclosure]) {
+        settingCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        settingCell.itemSwitch.hidden = YES;
+    } else {
+        settingCell.accessoryType = UITableViewCellAccessoryNone;
+        settingCell.itemSwitch.hidden = YES;
+    }
 }
 
 @end

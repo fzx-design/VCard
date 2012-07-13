@@ -18,6 +18,8 @@
 					<string>AppInfoViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kPushNavigationController</string>
+                    <key>kItemImageFileName</key>
+					<string>icon_settings_about</string>
 				</dict>
 				<dict>
 					<key>kItemTitle</key>
@@ -28,6 +30,8 @@
 					<string>LegacyViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kPushNavigationController</string>
+                    <key>kItemImageFileName</key>
+					<string>icon_settings_legal</string>
 				</dict>
 			</array>
 		</dict>
@@ -45,6 +49,8 @@
 					<string>AppInfoViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kPushNavigationController</string>
+                    <key>kItemImageFileName</key>
+					<string>icon_settings_switch</string>
 				</dict>
 				<dict>
 					<key>kItemTitle</key>
@@ -55,6 +61,8 @@
 					<string>LegacyViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kPushNavigationController</string>
+                    <key>kItemImageFileName</key>
+					<string>icon_settings_new</string>
 				</dict>
 			</array>
 		</dict>
@@ -72,6 +80,8 @@
 					<string>SettingUIStyleViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kPushNavigationController</string>
+                    <key>kItemImageFileName</key>
+					<string>icon_settings_font</string>
 				</dict>
                 <dict>
 					<key>kItemTitle</key>
@@ -82,6 +92,32 @@
 					<string>SettingUIStyleViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kPushNavigationController</string>
+                    <key>kItemImageFileName</key>
+					<string>icon_settings_brightness</string>
+				</dict>
+                <dict>
+					<key>kItemTitle</key>
+					<string>显示图片</string>
+					<key>kAccessoryType</key>
+					<string>kAccessoryTypeSwitch</string>
+					<key>kNibFileName</key>
+					<string>SettingUIStyleViewController</string>
+					<key>kWayToPresentViewController</key>
+					<string>kPushNavigationController</string>
+                    <key>kItemImageFileName</key>
+					<string>icon_settings_image</string>
+				</dict>
+                <dict>
+					<key>kItemTitle</key>
+					<string>高清图片</string>
+					<key>kAccessoryType</key>
+					<string>kAccessoryTypeSwitch</string>
+					<key>kNibFileName</key>
+					<string>SettingUIStyleViewController</string>
+					<key>kWayToPresentViewController</key>
+					<string>kPushNavigationController</string>
+                    <key>kItemImageFileName</key>
+					<string>icon_settings_retina</string>
 				</dict>
 			</array>
 		</dict>
@@ -99,6 +135,8 @@
 					<string>AppInfoViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kModalViewController</string>
+                    <key>kItemImageFileName</key>
+					<string>icon_settings_locate</string>
 				</dict>
 			</array>
 		</dict>
@@ -116,6 +154,8 @@
 					<string>AppInfoViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kModalViewController</string>
+                    <key>kItemImageFileName</key>
+					<string>icon_settings_cellcular</string>
 				</dict>
 			</array>
 		</dict>

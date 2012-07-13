@@ -10,6 +10,8 @@
 
 @interface SettingViewController : UIViewController
 
+@property (nonatomic, strong) IBOutlet UIImageView *shadowImageView;
+
 - (void)show;
 
 @end

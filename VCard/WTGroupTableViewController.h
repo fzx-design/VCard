@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSMutableDictionary *dataSourceDictionary;
 
 //methods to overwrite
+- (NSString *)customCellClassName;
 - (void)configureDataSource;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
