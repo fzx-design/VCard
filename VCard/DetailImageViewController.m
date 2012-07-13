@@ -62,6 +62,9 @@
 
 - (void)setUpWithCardViewController:(CardViewController *)cardViewController
 {
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:kUserDefaultKeyShouldScrollToTop];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     _imageView = cardViewController.statusImageView;
     _cardViewController = cardViewController;
     _cardViewController.delegate = self;
@@ -109,12 +112,15 @@
 
 - (void)didReturnImageView
 {
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultKeyShouldScrollToTop];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     self.view.hidden = YES;
     self.view.userInteractionEnabled = NO;
     _cardViewController.delegate = nil;
     _cardViewController = nil;
     _imageView = nil;
     _scrollView.zoomScale = 1.0;
+    _scrollView.contentOffset = CGPointZero;
 }
 
 - (void)willReturnImageView
@@ -122,6 +128,7 @@
     [_imageView resetOrigin:_initialPoint];
     [self setBackgroundAlphaTo:0.0];
     [self recoverScrollViewRotation];
+    _scrollView.contentOffset = CGPointZero;
 }
 
 - (void)enterDetailedImageViewMode

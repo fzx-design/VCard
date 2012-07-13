@@ -34,9 +34,10 @@
     // Override point for customization after application launch.
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(saveContext) 
-                                                 name:kNotificationNameShouldSaveContext 
+                                                 name:kNotificationNameShouldSaveContext
                                                object:nil];
     [ResourceProvider initialize];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultKeyShouldScrollToTop];
     
     return YES;
 }

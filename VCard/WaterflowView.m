@@ -400,6 +400,12 @@
     [self checkLoadMore];
 }
 
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    NSNumber *shouldSystemSupportScrollsTopTop = [[NSUserDefaults standardUserDefaults] valueForKey:kUserDefaultKeyShouldScrollToTop];
+    return self.scrollsToTop && shouldSystemSupportScrollsTopTop.boolValue;
+}
+
 - (void)checkLoadMore
 {
     if (self.contentOffset.y > self.contentSize.height - 1000.0) {

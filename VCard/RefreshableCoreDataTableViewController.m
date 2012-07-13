@@ -158,6 +158,13 @@
     return view.frame.origin.y <= originY && view.frame.origin.y + view.frame.size.height > originY;
 }
 
+#pragma mark - UIScrollView Delegate
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    NSNumber *shouldSystemSupportScrollsTopTop = [[NSUserDefaults standardUserDefaults] valueForKey:kUserDefaultKeyShouldScrollToTop];
+    return self.tableView.scrollsToTop && shouldSystemSupportScrollsTopTop.boolValue;
+}
+
 #pragma mark - Properties
 - (BaseLayoutView*)backgroundViewA
 {

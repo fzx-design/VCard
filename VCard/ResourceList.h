@@ -109,6 +109,7 @@
 #define kNotificationObjectKeyDataSourceDescription     @"kNotificationObjectKeyDataSourceDescription"
 
 #define kUserDefaultKeyRefreshingInterval               @"kUserDefaultKeyRefreshingInterval"
+#define kUserDefaultKeyShouldScrollToTop                @"kUserDefaultKeyShouldScrollToTop"
 
 #define kUserGroupInfoArray                             @"kUserGroupInfoArray"
 
