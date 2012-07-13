@@ -128,46 +128,6 @@
     }
     
     [[KVImageCache defaultCache] loadImageAtURL:imageURL cacheURL:cacheURL imageView:self withHandler:^(UIImage * image) {
-        
-        if (NO) {
-            dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
-            
-            dispatch_async(downloadQueue, ^{
-                
-                UIImage *targetImage = nil;
-                if (!image) {
-                    self.image = notAvailableImage;
-                } else {
-                    CGSize imageSizeWithBorder = CGSizeMake(self.frame.size.width + 2, self.frame.size.height + 2);
-                    
-                    UIImage *tmpImage = [image imageByScalingAndCroppingForSize:imageSizeWithBorder];
-                    
-                    if (UIGraphicsBeginImageContextWithOptions != NULL) {
-                        UIGraphicsBeginImageContextWithOptions(imageSizeWithBorder, NO, 0.0);
-                    } else {
-                        UIGraphicsBeginImageContext(imageSizeWithBorder);
-                    }
-                    [tmpImage drawInRect:(CGRect){{1, 1}, self.frame.size}];
-                    targetImage = UIGraphicsGetImageFromCurrentImageContext();
-                    UIGraphicsEndImageContext();
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (image) {
-                        [self setImage:targetImage];
-                    }
-                    if (showActivityIndicator) {
-                        [self performSelectorOnMainThread:@selector(kv_hideActivityIndicator) withObject:nil waitUntilDone:NO];
-                    }
-                    if (completion) {
-                        completion();
-                    }
-                });
-                
-            });
-            
-            dispatch_release(downloadQueue);
-        } else {
             if (image) {
                 self.image = image;
             } else {
@@ -181,8 +141,32 @@
             if (completion) {
                 completion();
             }
+    }];
+}
+
+- (void)kv_setDetailedImageAtURL:(NSString *)imageURLString
+                      completion:(void (^)())completion
+{
+    NSAssert([NSThread isMainThread], @"This method should be called from the main thread.");
+    // Cancel any previous downloads
+    [[KVImageCache defaultCache] cancelDownloadForImageView:self];    
+    [self kv_hideActivityIndicator];
+    
+    
+    if (!imageURLString) {
+        return;
+    }
+    
+    NSURL *imageURL = [NSURL URLWithString:imageURLString];
+    
+    [[KVImageCache defaultCache] loadImageAtURL:imageURL cacheURL:imageURL imageView:self withHandler:^(UIImage * image) {
+        if (image) {
+            self.image = image;
         }
         
+        if (completion) {
+            completion();
+        }
     }];
 }
 

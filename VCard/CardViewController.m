@@ -802,8 +802,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     [self recordPinchGestureInitialStatus:sender];
     
     [self handleImageViewPinchWithGesture:sender];
-    
-    NSLog(@"%@", NSStringFromCGPoint(self.statusImageView.frame.origin));
 }
 
 - (void)recordPinchGestureInitialStatus:(UIPinchGestureRecognizer *)sender
@@ -821,7 +819,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
             if (sender.velocity > 2.0) {
                 [self willOpenDetailImageViewDirectly];
             } else {
-                [self playClipLooseAnimationAndSendNotification];
                 [self willOpenDetailImageView];
             }
             return;
@@ -890,9 +887,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     
     CGFloat deltaX = point.x - _lastPoint.x;
     CGFloat deltaY = point.y - _lastPoint.y;
-    
-    NSLog(@"%@", NSStringFromCGPoint(point));
-    
+        
     CGPoint _lastCenter = self.statusImageView.center;
     _lastCenter.x += deltaX;
     _lastCenter.y += deltaY;
@@ -934,6 +929,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 - (void)willOpenDetailImageViewDirectly
 {
+    [self playClipLooseAnimationAndSendNotification];
     _imageViewMode = CastViewImageViewModeDetailedNormal;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowDetailImageView object:[NSDictionary dictionaryWithObjectsAndKeys:self, kNotificationObjectKeyStatus,self.statusImageView, kNotificationObjectKeyImageView, nil]];
 }
@@ -967,6 +963,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 #pragma mark Adjust Clip Behavior
 - (void)willOpenDetailImageView
 {
+    [self playClipLooseAnimationAndSendNotification];
     _imageViewMode = CastViewImageViewModePinchingOut;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowDetailImageView object:[NSDictionary dictionaryWithObjectsAndKeys:self, kNotificationObjectKeyStatus,self.statusImageView, kNotificationObjectKeyImageView, nil]];
 }

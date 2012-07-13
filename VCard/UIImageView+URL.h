@@ -57,4 +57,7 @@
 - (void)kv_showActivityIndicatorWithStyle:(UIActivityIndicatorViewStyle)indicatorStyle;
 - (void)kv_hideActivityIndicator;
 
+- (void)kv_setDetailedImageAtURL:(NSString *)imageURL
+                      completion:(void (^)())completion;
+
 @end

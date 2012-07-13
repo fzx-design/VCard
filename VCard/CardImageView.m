@@ -162,7 +162,7 @@
 - (void)loadDetailedImageFromURL:(NSString *)urlString
                       completion:(void (^)())completion
 {
-//    [self.imageView kv_setDetailedImageAtURL:urlString completion:completion];
+    [self.imageView kv_setDetailedImageAtURL:urlString completion:completion];
 }
 
 - (void)clearCurrentImage

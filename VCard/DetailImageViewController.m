@@ -195,7 +195,9 @@
     if (self.cardViewController.isReposted) {
         targetStatus = targetStatus.repostStatus;
     }
-    [_imageView loadDetailedImageFromURL:targetStatus.originalPicURL completion:nil];
+    [_imageView loadDetailedImageFromURL:targetStatus.originalPicURL completion:^{
+        NSLog(@"%@", targetStatus.originalPicURL);
+    }];
 }
 
 - (void)imageViewTapped
