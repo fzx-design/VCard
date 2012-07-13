@@ -905,7 +905,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     
     if ([sender state] == UIGestureRecognizerStateBegan) {
         if (_imageViewMode == CastViewImageViewModeNormal) {
-            [self playClipLooseAnimationAndSendNotification];
+            [self playClipLooseAnimation];
             [self willOpenDetailImageView];
         }
     }
@@ -927,17 +927,11 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     }
 }
 
-- (void)willOpenDetailImageViewDirectly
-{
-    [self playClipLooseAnimationAndSendNotification];
-    _imageViewMode = CastViewImageViewModeDetailedNormal;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowDetailImageView object:[NSDictionary dictionaryWithObjectsAndKeys:self, kNotificationObjectKeyStatus,self.statusImageView, kNotificationObjectKeyImageView, nil]];
-}
-
 - (void)returnToInitialImageView
 {
     [UIView animateWithDuration:0.3 animations:^{
         [self.statusImageView playReturnAnimation];
+        self.statusImageView.gifIcon.alpha = 1.0;
         [_delegate willReturnImageView];
     } completion:^(BOOL finished) {
         if ([_delegate respondsToSelector:@selector(didReturnImageView)]) {
@@ -960,15 +954,28 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     }
 }
 
-#pragma mark Adjust Clip Behavior
+- (void)willOpenDetailImageViewDirectly
+{
+    _imageViewMode = CastViewImageViewModeDetailedNormal;
+    [self sendShowDetailImageViewNotification];
+}
+
 - (void)willOpenDetailImageView
 {
-    [self playClipLooseAnimationAndSendNotification];
     _imageViewMode = CastViewImageViewModePinchingOut;
+    [self sendShowDetailImageViewNotification];
+}
+
+- (void)sendShowDetailImageViewNotification
+{
+    self.statusImageView.gifIcon.alpha = 0.0;
+    [self playClipLooseAnimation];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowDetailImageView object:[NSDictionary dictionaryWithObjectsAndKeys:self, kNotificationObjectKeyStatus,self.statusImageView, kNotificationObjectKeyImageView, nil]];
 }
 
-- (void)playClipLooseAnimationAndSendNotification
+#pragma mark Adjust Clip Behavior
+
+- (void)playClipLooseAnimation
 {
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
     rotationAnimation.fromValue = [NSNumber numberWithFloat:0.0];

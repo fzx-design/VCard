@@ -11,6 +11,7 @@
 #import "UIImageView+URL.h"
 #import "UIView+Resize.h"
 #import "UIApplication+Addition.h"
+#import "UIImage+animatedImageWithGIF.h"
 
 @implementation CardImageView
 
@@ -96,6 +97,10 @@
 
 - (void)playReturnAnimation
 {
+    if (_isGIF) {
+        self.imageView.image = _staticGIFImage;
+    }
+    
     self.transform = CGAffineTransformIdentity;
     [self.imageView resetSize:_initialSize];
     [self.coverView resetSize:CGSizeMake(_initialSize.width + 10.0, _initialSize.height + 10.0)];
@@ -114,9 +119,11 @@
               completion:(void (^)())completion
 {
     [self setUpGifIcon:urlString];
+    
     [self.imageView kv_cancelImageDownload];
     NSURL *url = [NSURL URLWithString:urlString];
-    [self.imageView kv_setImageAtURL:url completion:^{
+    
+    void (^imageLoadingCompletion)() = ^{
         CGFloat targetWidth = self.imageView.frame.size.width;
         CGFloat targetHeight = self.imageView.frame.size.height;
         CGFloat width = self.imageView.image.size.width;
@@ -155,14 +162,41 @@
             _targetVerticalScale = heightFactor; // scale to fit height
         else
             _targetVerticalScale = widthFactor; // scale to fit width
-    }];
+    };
     
+    [self.imageView kv_setImageAtURL:url completion:imageLoadingCompletion];
 }
 
 - (void)loadDetailedImageFromURL:(NSString *)urlString
                       completion:(void (^)())completion
 {
-    [self.imageView kv_setDetailedImageAtURL:urlString completion:completion];
+    if (_isGIF) {
+        urlString = [urlString stringByReplacingOccurrencesOfString:@"jpg" withString:@"gif"];
+        urlString = [urlString stringByReplacingOccurrencesOfString:@"large" withString:@"bmiddle"];
+        NSURL *url = [NSURL URLWithString:urlString];
+        
+        dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
+        
+        dispatch_async(downloadQueue, ^{
+                        
+            NSData *imageData = [NSData dataWithContentsOfURL:url];
+            UIImage *image = [UIImage animatedImageWithGIFData:imageData];
+            _staticGIFImage = self.imageView.image;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                self.imageView.image = image;
+                if (completion) {
+                    completion();
+                }				
+            });
+            
+        });
+        
+        dispatch_release(downloadQueue);
+    } else {
+        
+        [self.imageView kv_setDetailedImageAtURL:urlString completion:completion];
+    }
 }
 
 - (void)clearCurrentImage
@@ -172,9 +206,9 @@
 
 - (void)setUpGifIcon:(NSString *)urlString
 {
-    BOOL isGif = [self checkGif:urlString];
-    self.gifIcon.hidden = !isGif;
-    if (isGif) {
+    _isGIF = [self checkGif:urlString];
+    self.gifIcon.hidden = !_isGIF;
+    if (_isGIF) {
         [self bringSubviewToFront:self.gifIcon];
         [self.gifIcon resetOrigin:CGPointMake(self.frame.size.width - 50, self.frame.size.height - 40)];
     }
@@ -187,12 +221,13 @@
     }
     
     NSString* extName = [url substringFromIndex:([url length] - 3)];
-    return [extName compare:@"gif"] == NSOrderedSame;    
+    return  [extName compare:@"gif"] == NSOrderedSame;
 }
 
 - (void)reset
 {
     self.gifIcon.hidden = YES;
+    _isGIF = NO;
 }
 
 - (UIImage *)image

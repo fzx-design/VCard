@@ -144,6 +144,8 @@
 		189F3956159D4B1C00FD2E0F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F3955159D4B1C00FD2E0F /* User.m */; };
 		189F3959159D80C500FD2E0F /* indicator_body@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189F3957159D80C500FD2E0F /* indicator_body@2x.png */; };
 		189F395A159D80C500FD2E0F /* indicator_body.png in Resources */ = {isa = PBXBuildFile; fileRef = 189F3958159D80C500FD2E0F /* indicator_body.png */; };
+		189F486D15B050630006DC84 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189F486C15B050620006DC84 /* ImageIO.framework */; };
+		189F487B15B05BE90006DC84 /* UIImage+animatedImageWithGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F487A15B05BE90006DC84 /* UIImage+animatedImageWithGIF.m */; };
 		18A685171537110B00D58B7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A685161537110B00D58B7D /* QuartzCore.framework */; };
 		18A8CE8415A6CF2A0026F125 /* banner_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A8CE7E15A6CF2A0026F125 /* banner_bg.png */; };
 		18A8CE8515A6CF2A0026F125 /* banner_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A8CE7F15A6CF2A0026F125 /* banner_bg@2x.png */; };
@@ -1040,6 +1042,9 @@
 		189F3955159D4B1C00FD2E0F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		189F3957159D80C500FD2E0F /* indicator_body@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator_body@2x.png"; sourceTree = "<group>"; };
 		189F3958159D80C500FD2E0F /* indicator_body.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator_body.png; sourceTree = "<group>"; };
+		189F486C15B050620006DC84 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		189F487915B05BE90006DC84 /* UIImage+animatedImageWithGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedImageWithGIF.h"; sourceTree = "<group>"; };
+		189F487A15B05BE90006DC84 /* UIImage+animatedImageWithGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedImageWithGIF.m"; sourceTree = "<group>"; };
 		18A685161537110B00D58B7D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		18A8CE7E15A6CF2A0026F125 /* banner_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner_bg.png; sourceTree = "<group>"; };
 		18A8CE7F15A6CF2A0026F125 /* banner_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner_bg@2x.png"; sourceTree = "<group>"; };
@@ -1825,6 +1830,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				189F486D15B050630006DC84 /* ImageIO.framework in Frameworks */,
 				1850A478153C0ADC0001A905 /* libicucore.A.dylib in Frameworks */,
 				1809ED5D159ADA1200A841BC /* MessageUI.framework in Frameworks */,
 				E1097D57157F9C1D00BD0640 /* AVFoundation.framework in Frameworks */,
@@ -1892,6 +1898,7 @@
 			isa = PBXGroup;
 			children = (
 				1850A477153C0ADC0001A905 /* libicucore.A.dylib */,
+				189F486C15B050620006DC84 /* ImageIO.framework */,
 				1809ED5C159ADA1200A841BC /* MessageUI.framework */,
 				E1097D56157F9C1D00BD0640 /* AVFoundation.framework */,
 				E1097D54157F9C1000BD0640 /* CoreImage.framework */,
@@ -2274,6 +2281,8 @@
 				18114507156CDB9E00B3BF21 /* UIView+Resize.m */,
 				18EB247A15AE93380047530E /* UIScrollView+ZoomToPoint.h */,
 				18EB247B15AE93380047530E /* UIScrollView+ZoomToPoint.m */,
+				189F487915B05BE90006DC84 /* UIImage+animatedImageWithGIF.h */,
+				189F487A15B05BE90006DC84 /* UIImage+animatedImageWithGIF.m */,
 			);
 			name = Catagaories;
 			sourceTree = "<group>";
@@ -4212,6 +4221,7 @@
 				E10D04DE15AF0E6500492A87 /* SettingRootViewController.m in Sources */,
 				E10D04DF15AF1E8700492A87 /* WTGroupTableViewController.m in Sources */,
 				E17A2B9715AFBC1200E70A5D /* SettingTableViewCell.m in Sources */,
+				189F487B15B05BE90006DC84 /* UIImage+animatedImageWithGIF.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

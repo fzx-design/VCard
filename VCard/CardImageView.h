@@ -15,6 +15,7 @@
     CardImageViewShadowView *_shadowView;
     UIImageView *_imageView;
     UIImageView *_gifIcon;
+    UIImage *_staticGIFImage;
     
     CGFloat _initialRotation;
     CGPoint _initialPosition;
@@ -23,6 +24,7 @@
     CGFloat _initialScale;
     CGFloat _deltaWidth;
     CGFloat _deltaHeight;
+    BOOL _isGIF;
 }
 
 @property (nonatomic, strong) UIImageView *coverView;
