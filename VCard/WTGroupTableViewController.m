@@ -69,11 +69,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         if (name) {
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:name owner:self options:nil];
-            cell = [nib lastObject];
+            cell = [[NSClassFromString(name) alloc] init];
         }
         else {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
     }
     

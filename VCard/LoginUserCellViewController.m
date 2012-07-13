@@ -87,7 +87,7 @@
 #pragma mark - UI methods
 
 - (void)presentDeleteUserActionSheet {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"删除账户" otherButtonTitles:nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"删除帐户" otherButtonTitles:nil];
     [sheet showFromRect:self.deleteButton.bounds inView:self.deleteButton animated:YES];
     self.actionSheet = sheet;
 }

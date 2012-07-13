@@ -31,6 +31,7 @@
 @interface SettingInfo : NSObject
 
 @property (nonatomic, strong) NSString *itemTitle;
+@property (nonatomic, strong) NSString *itemContent;
 @property (nonatomic, strong) NSString *nibFileName;
 @property (nonatomic, strong) NSString *imageFileName;
 @property (nonatomic, strong) NSString *accessoryType;

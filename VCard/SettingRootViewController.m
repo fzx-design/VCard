@@ -11,16 +11,19 @@
 #import "UIApplication+Addition.h"
 #import "SettingInfoReader.h"
 #import "SettingTableViewCell.h"
+#import "UIImageView+Addition.h"
 
 @interface SettingRootViewController ()
 
 @property (nonatomic, strong) NSMutableArray *settingSectionInfoDictionary;
+@property (nonatomic, strong) UIImage *currentUserAvatarImage;
 
 @end
 
 @implementation SettingRootViewController
 
 @synthesize settingSectionInfoDictionary = _settingSectionInfoDictionary;
+@synthesize currentUserAvatarImage = _currentUserAvatarImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,7 +39,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStyleBordered target:self action:@selector(didClickFinishButton)];
-    self.navigationItem.title = @"账户和设置";
+    self.navigationItem.title = @"帐户和设置";
     self.navigationItem.leftBarButtonItem = barButton;
     
     self.navigationController.view.layer.masksToBounds = YES;
@@ -49,6 +52,29 @@
     [super viewDidUnload];
     // Dispose of any resources that can be recreated.
     self.tableView = nil;
+}
+
+#pragma mark - Logic method
+
+- (UIImage *)currentUserAvatarImage {
+    if(!_currentUserAvatarImage) {
+        UIImageView *cropImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [cropImageView loadImageFromURL:self.currentUser.profileImageURL completion:^{
+            
+            cropImageView.layer.cornerRadius = 4.0f;
+            cropImageView.layer.masksToBounds = YES;
+            
+            UIGraphicsBeginImageContext(cropImageView.bounds.size);
+            [cropImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+            UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            _currentUserAvatarImage = croppedImage;
+            
+            [self.tableView reloadData];
+        }];
+    }
+    return _currentUserAvatarImage;
 }
 
 #pragma mark - IBActions
@@ -88,16 +114,17 @@
     
     settingCell.textLabel.text = info.itemTitle;
     settingCell.imageView.image = [UIImage imageNamed:info.imageFileName];
+    settingCell.detailTextLabel.text = info.itemContent;
     
     if([info.accessoryType isEqualToString:kAccessoryTypeSwitch]) {
-        settingCell.accessoryType = UITableViewCellAccessoryNone;
-        settingCell.itemSwitch.hidden = NO;
+        [settingCell setSwitch];
     } else if([info.accessoryType isEqualToString:kAccessoryTypeDisclosure]) {
-        settingCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        settingCell.itemSwitch.hidden = YES;
-    } else {
-        settingCell.accessoryType = UITableViewCellAccessoryNone;
-        settingCell.itemSwitch.hidden = YES;
+        [settingCell setDisclosureIndicator];
+    }
+    
+    if([info.itemTitle isEqualToString:@"当前用户名"]) {
+        settingCell.textLabel.text = self.currentUser.screenName;
+        settingCell.imageView.image = self.currentUserAvatarImage;
     }
 }
 

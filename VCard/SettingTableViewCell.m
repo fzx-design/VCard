@@ -16,10 +16,6 @@
 - (id)init {
     self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:NSStringFromClass([self class])];
     if(self) {
-        self.itemSwitch = [[UISwitch alloc] init];
-        [self.itemSwitch resetOriginX:self.contentView.frame.size.width - self.itemSwitch.frame.size.width - self.imageView.frame.origin.x];
-        self.itemSwitch.autoresizingMask = !UIViewAutoresizingFlexibleRightMargin;
-        [self.contentView addSubview:self.itemSwitch];
     }
     return self;
 }
@@ -29,6 +25,17 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setSwitch {
+    self.itemSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 94, 27)];
+    self.accessoryView = self.itemSwitch;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+- (void)setDisclosureIndicator {
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    self.selectionStyle = UITableViewCellSelectionStyleBlue;
 }
 
 @end

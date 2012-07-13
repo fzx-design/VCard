@@ -12,4 +12,7 @@
 
 @property (nonatomic, strong) UISwitch *itemSwitch;
 
+- (void)setSwitch;
+- (void)setDisclosureIndicator;
+
 @end

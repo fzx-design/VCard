@@ -14,6 +14,7 @@
 #define kNibFileName                    @"kNibFileName"
 #define kAccessoryType                  @"kAccessoryType"
 #define kItemTitle                      @"kItemTitle"
+#define kItemContent                    @"kItemContent"
 #define kItemImageFileName              @"kItemImageFileName"
 
 #import "SettingInfoReader.h"
@@ -80,6 +81,7 @@
     self = [super init];
     if(self) {
         self.itemTitle = [infoDict objectForKey:kItemTitle];
+        self.itemContent = [infoDict objectForKey:kItemContent];
         self.nibFileName = [infoDict objectForKey:kNibFileName];
         self.imageFileName = [infoDict objectForKey:kItemImageFileName];
         self.accessoryType = [infoDict objectForKey:kAccessoryType];

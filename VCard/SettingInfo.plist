@@ -40,9 +40,17 @@
 			<string>Group1</string>
 			<key>kSectionArray</key>
 			<array>
+                <dict>
+					<key>kItemTitle</key>
+					<string>当前用户名</string>
+					<key>kAccessoryType</key>
+					<string>kAccessoryTypeDisclosure</string>
+                    <key>kItemContent</key>
+					<string>注销</string>
+				</dict>
 				<dict>
 					<key>kItemTitle</key>
-					<string>切换账户</string>
+					<string>切换帐户</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeDisclosure</string>
 					<key>kNibFileName</key>
@@ -54,7 +62,7 @@
 				</dict>
 				<dict>
 					<key>kItemTitle</key>
-					<string>添加新账户</string>
+					<string>添加新帐户</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeDisclosure</string>
 					<key>kNibFileName</key>
@@ -100,10 +108,6 @@
 					<string>显示图片</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeSwitch</string>
-					<key>kNibFileName</key>
-					<string>SettingUIStyleViewController</string>
-					<key>kWayToPresentViewController</key>
-					<string>kPushNavigationController</string>
                     <key>kItemImageFileName</key>
 					<string>icon_settings_image</string>
 				</dict>
@@ -112,12 +116,35 @@
 					<string>高清图片</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeSwitch</string>
+                    <key>kItemImageFileName</key>
+					<string>icon_settings_retina</string>
+				</dict>
+			</array>
+		</dict>
+        <dict>
+			<key>kSectionName</key>
+			<string>Group3</string>
+			<key>kSectionArray</key>
+			<array>
+				<dict>
+					<key>kItemTitle</key>
+					<string>消息提示</string>
+					<key>kAccessoryType</key>
+					<string>kAccessoryTypeDisclosure</string>
 					<key>kNibFileName</key>
 					<string>SettingUIStyleViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kPushNavigationController</string>
                     <key>kItemImageFileName</key>
-					<string>icon_settings_retina</string>
+					<string>icon_settings_notifications</string>
+				</dict>
+                <dict>
+					<key>kItemTitle</key>
+					<string>音效</string>
+					<key>kAccessoryType</key>
+					<string>kAccessoryTypeSwitch</string>
+                    <key>kItemImageFileName</key>
+					<string>icon_settings_sound</string>
 				</dict>
 			</array>
 		</dict>
@@ -131,10 +158,6 @@
 					<string>自动定位</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeSwitch</string>
-					<key>kNibFileName</key>
-					<string>AppInfoViewController</string>
-					<key>kWayToPresentViewController</key>
-					<string>kModalViewController</string>
                     <key>kItemImageFileName</key>
 					<string>icon_settings_locate</string>
 				</dict>
@@ -150,10 +173,6 @@
 					<string>智能节省流量</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeSwitch</string>
-					<key>kNibFileName</key>
-					<string>AppInfoViewController</string>
-					<key>kWayToPresentViewController</key>
-					<string>kModalViewController</string>
                     <key>kItemImageFileName</key>
 					<string>icon_settings_cellcular</string>
 				</dict>
