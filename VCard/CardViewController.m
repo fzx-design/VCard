@@ -162,6 +162,12 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     _tapGestureRecognizer.numberOfTouchesRequired = 1;
     _tapGestureRecognizer.delegate = self;
     [self.statusImageView addGestureRecognizer:_tapGestureRecognizer];
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(recoverFromPause)
+                   name:UIApplicationDidBecomeActiveNotification
+                 object:nil];
 }
 
 - (void)viewDidUnload
@@ -796,6 +802,8 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     [self recordPinchGestureInitialStatus:sender];
     
     [self handleImageViewPinchWithGesture:sender];
+    
+    NSLog(@"%@", NSStringFromCGPoint(self.statusImageView.frame.origin));
 }
 
 - (void)recordPinchGestureInitialStatus:(UIPinchGestureRecognizer *)sender
@@ -841,17 +849,15 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 - (BOOL)checkAndHanlePinchGestureEnd:(UIPinchGestureRecognizer *)sender
 {
     BOOL result = NO;
-    if (sender.state == UIGestureRecognizerStateEnded || (sender.state == UIGestureRecognizerStateChanged && sender.numberOfTouches < 2)) {
+    if (sender.state == UIGestureRecognizerStateEnded || (sender.state == UIGestureRecognizerStateChanged && sender.numberOfTouches < 2) || sender.numberOfTouches > 2) {
         
         self.statusImageView.userInteractionEnabled = NO;
+        _pinchGestureRecognizer.enabled = NO;
+        _rotationGestureRecognizer.enabled = NO;
         
         BOOL shouldReturn = YES;
         
-        if (_imageViewMode == CastViewImageViewModePinchingOut) {
-            shouldReturn = [self.statusImageView scaleOffset] < 0.2 && sender.velocity < 2;
-        } else if (_imageViewMode == CastViewImageViewModePinchingIn){
-            shouldReturn = [self.statusImageView scaleOffset] < -0.2 || sender.velocity > 2;
-        }
+        shouldReturn = [self.statusImageView scaleOffset] < 0.2 && sender.velocity < 2;
         
         if (shouldReturn) {
             [self returnToInitialImageView];
@@ -878,8 +884,14 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 {
     CGPoint point = [sender locationInView:[UIApplication sharedApplication].rootViewController.view];
     
+    if (point.x == 0.0 && point.y == 0.0) {
+        return;
+    }
+    
     CGFloat deltaX = point.x - _lastPoint.x;
     CGFloat deltaY = point.y - _lastPoint.y;
+    
+    NSLog(@"%@", NSStringFromCGPoint(point));
     
     CGPoint _lastCenter = self.statusImageView.center;
     _lastCenter.x += deltaX;
@@ -940,7 +952,16 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         [self playClipTightenAnimation];
         _imageViewMode = CastViewImageViewModeNormal;
         self.statusImageView.userInteractionEnabled = YES;
+        _pinchGestureRecognizer.enabled = YES;
+        _rotationGestureRecognizer.enabled = YES;
     }];
+}
+
+- (void)recoverFromPause
+{
+    if (_imageViewMode == CastViewImageViewModePinchingOut) {
+        [self returnToInitialImageView];
+    }
 }
 
 #pragma mark Adjust Clip Behavior

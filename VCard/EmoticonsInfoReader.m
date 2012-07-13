@@ -149,7 +149,6 @@ static EmoticonsInfoReader *readerInstance;
         NSNumber *level = [dict objectForKey:kPriorityLevel];
         self.priorityLevel = level.integerValue;
         self.emoticonIdentifier = [NSString stringWithFormat:@" [%2x] ", self.priorityLevel];
-        NSLog(@"identifier %@", self.emoticonIdentifier);
     }
     return self;
 }

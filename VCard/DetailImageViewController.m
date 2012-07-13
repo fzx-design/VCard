@@ -52,7 +52,6 @@
     _rotationGestureRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotationGesture:)];
     _rotationGestureRecognizer.delegate = self;
     [_scrollView addGestureRecognizer:_rotationGestureRecognizer];
-    
 }
 
 - (void)viewDidUnload
