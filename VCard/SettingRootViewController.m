@@ -160,10 +160,15 @@
         tempBlackView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [[UIApplication sharedApplication].rootViewController.view addSubview:tempBlackView];
         
+        UIView *superView = self.navigationController.view.superview;
+        superView.frame = tempBlackView.frame;
+        [[UIApplication sharedApplication].rootViewController.view addSubview:superView];
+        
         [UIView animateWithDuration:0.5f animations:^{
             tempBlackView.alpha = 0;
         } completion:^(BOOL finished) {
             [tempBlackView removeFromSuperview];
+            [superView removeFromSuperview];
         }];
         
         UIViewController *vc = [[NSClassFromString(info.nibFileName) alloc] init];
