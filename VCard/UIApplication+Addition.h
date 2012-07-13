@@ -20,6 +20,7 @@
  not be removed from its super view automatically. */ 
 + (void)dismissModalViewControllerAnimated:(BOOL)animated;
 + (void)dismissModalViewControllerAnimated:(BOOL)animated duration:(NSTimeInterval)duration;
+
 + (BOOL)isRetinaDisplayiPad;
 + (CGFloat)heightExcludingTopBar;
 + (CGFloat)screenWidth;

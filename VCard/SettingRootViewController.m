@@ -12,6 +12,7 @@
 #import "SettingInfoReader.h"
 #import "SettingTableViewCell.h"
 #import "UIImageView+Addition.h"
+#import "UIView+Resize.h"
 
 @interface SettingRootViewController ()
 
@@ -58,14 +59,32 @@
 
 - (UIImage *)currentUserAvatarImage {
     if(!_currentUserAvatarImage) {
-        UIImageView *cropImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-        [cropImageView loadImageFromURL:self.currentUser.profileImageURL completion:^{
+        UIImageView *avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+        if (UIGraphicsBeginImageContextWithOptions != NULL) {
+            [avatarImageView resetSize:CGSizeMake(29, 29)];
+        }
+        avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+        
+        [avatarImageView loadImageFromURL:self.currentUser.profileImageURL completion:^{
             
-            cropImageView.layer.cornerRadius = 4.0f;
-            cropImageView.layer.masksToBounds = YES;
+            avatarImageView.layer.cornerRadius = 4.0f;
+            avatarImageView.layer.masksToBounds = YES;
             
-            UIGraphicsBeginImageContext(cropImageView.bounds.size);
-            [cropImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+            avatarImageView.layer.borderColor = [UIColor colorWithRed:71 / 255. green:74 / 255. blue:78 / 255. alpha:1].CGColor;
+            if (UIGraphicsBeginImageContextWithOptions != NULL) {
+                avatarImageView.layer.borderWidth = 0.5;
+            } else {
+                avatarImageView.layer.borderWidth = 1;
+            }
+            
+            
+            CGSize targetSize = CGSizeMake(30, 30);
+            if (UIGraphicsBeginImageContextWithOptions != NULL) {
+                UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.0);
+            } else {
+                UIGraphicsBeginImageContext(targetSize);
+            }
+            [avatarImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
             UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
             
@@ -127,5 +146,43 @@
         settingCell.imageView.image = self.currentUserAvatarImage;
     }
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSArray *sectionInfoArray = [self.dataSourceDictionary objectForKey:[self.dataSourceIndexArray objectAtIndex:indexPath.section]];
+    SettingInfo *info = [sectionInfoArray objectAtIndex:indexPath.row];
+    
+    if([info.wayToPresentViewController isEqualToString:kModalViewController]) {
+        [UIApplication dismissModalViewControllerAnimated:NO duration:0];
+        
+        UIView *tempBlackView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, [UIApplication screenWidth], [UIApplication screenHeight])];
+        tempBlackView.backgroundColor = [UIColor blackColor];
+        tempBlackView.alpha = 0.6f;
+        tempBlackView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [[UIApplication sharedApplication].rootViewController.view addSubview:tempBlackView];
+        
+        [UIView animateWithDuration:0.5f animations:^{
+            tempBlackView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [tempBlackView removeFromSuperview];
+        }];
+        
+        UIViewController *vc = [[NSClassFromString(info.nibFileName) alloc] init];
+        if([vc respondsToSelector:@selector(show)])
+            [vc performSelector:@selector(show)];
+        else
+            [UIApplication presentModalViewController:vc animated:YES];
+    }
+}
+
+- (void)dismissView {
+    [self.navigationController.view.superview removeFromSuperview];
+}
+
+#pragma mark - Select Cell handler
+
+- (void)didSelectCell {
+    
+}
+
 
 @end

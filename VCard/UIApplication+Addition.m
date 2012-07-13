@@ -97,6 +97,7 @@ static UIView *_backView;
         vc.view.frame = frame;
     }
     
+    _backView.alpha = 0;
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         _backView.alpha = 0.6f;
     } completion:nil];
@@ -104,8 +105,9 @@ static UIView *_backView;
 
 - (void)dismissModalViewControllerAnimated:(BOOL)animated duration:(NSTimeInterval)duration {
     if(animated) {
+        _backView.alpha = 0.6f;
         [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            _backView.alpha = 0.0;
+            _backView.alpha = 0;
             CGRect frame = _modalViewController.view.frame;
             frame.origin.y = self.screenSize.height;
             _modalViewController.view.frame = frame;
@@ -116,13 +118,22 @@ static UIView *_backView;
             _modalViewController = nil;
         }];
     } else {
-        [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            _backView.alpha = 0.0;
-        } completion:^(BOOL finished) {
+        if(duration > 0) {
+            _backView.alpha = 0.6f;
+            [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                _backView.alpha = 0;
+            } completion:^(BOOL finished) {
+                [_backView removeFromSuperview];
+                _backView = nil;
+                [_modalViewController.view removeFromSuperview];
+                _modalViewController = nil;
+            }];
+        } else {
             [_backView removeFromSuperview];
             _backView = nil;
+            [_modalViewController.view removeFromSuperview];
             _modalViewController = nil;
-        }];
+        }
     }
 }
 

@@ -279,7 +279,6 @@
         frame.origin = CGPointMake(0, -frame.size.height);
         self.view.frame = frame;
     } completion:^(BOOL finished) {
-        [self.view removeFromSuperview];
     }];
 }
 

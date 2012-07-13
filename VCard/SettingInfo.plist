@@ -47,6 +47,8 @@
 					<string>kAccessoryTypeDisclosure</string>
                     <key>kItemContent</key>
 					<string>注销</string>
+                    <key>kItemImageFileName</key>
+					<string>icon_settings_empty</string>
 				</dict>
 				<dict>
 					<key>kItemTitle</key>
@@ -54,9 +56,9 @@
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeDisclosure</string>
 					<key>kNibFileName</key>
-					<string>AppInfoViewController</string>
+					<string>LoginViewController</string>
 					<key>kWayToPresentViewController</key>
-					<string>kPushNavigationController</string>
+					<string>kModalViewController</string>
                     <key>kItemImageFileName</key>
 					<string>icon_settings_switch</string>
 				</dict>
