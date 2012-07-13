@@ -245,16 +245,18 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    if (_statusBarHidden) {
-        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-    }
+    [UIView animateWithDuration:0.3 animations:^{
+        _topBarView.alpha = 1.0;
+        _bottomBarView.alpha = 1.0;
+    }];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    _statusBarHidden = YES;
 }
 
 #pragma mark - Handle Gesture Events
 #pragma mark ScrollView Gesture
 - (void)handleTapEvent:(UITapGestureRecognizer *)sender
 {
-
     [UIView animateWithDuration:0.3 animations:^{
         CGFloat alpha = _statusBarHidden ? 1.0 : 0.0;
         _topBarView.alpha = alpha;
@@ -349,6 +351,98 @@
     if (_imageView && _cardViewController.imageViewMode == CastViewImageViewModePinchingIn) {
         [_cardViewController handleRotationGesture:sender];
     }
+}
+
+#pragma mark - IBActions
+- (IBAction)didClickCommentButton:(UIButton *)sender
+{
+    [self commentStatus];
+}
+
+- (IBAction)didClickMoreActionButton:(UIButton *)sender
+{
+    NSString *favourTitle = _cardViewController.status.favorited.boolValue ? @"取消收藏" : @"收藏";
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self 
+                                                    cancelButtonTitle:nil 
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"转发", favourTitle, @"存储图像", nil];
+    actionSheet.delegate = self;
+    [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+}
+
+#pragma mark - PostViewController Delegate
+
+- (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message {
+    [vc dismissViewUpwards];
+}
+
+- (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
+    if(vc.type == PostViewControllerTypeRepost)
+        [vc dismissViewToRect:[self.bottomBarView convertRect:self.moreActionButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
+    else
+        [vc dismissViewToRect:[self.bottomBarView convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    if(buttonIndex == 0) {
+        [self repostStatus];
+    } else if(buttonIndex == 1) {
+        [self favouriteStatus];
+    } else if(buttonIndex == 2) {
+        [self saveImage];
+    }
+}
+
+- (void)commentStatus
+{
+    NSString *targetUserName = _cardViewController.status.author.screenName;
+    NSString *targetStatusID = _cardViewController.status.statusID;
+    CGRect frame = [self.bottomBarView convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    
+    PostViewController *vc = [PostViewController getCommentWeiboViewControllerWithWeiboID:targetStatusID
+                                                                           weiboOwnerName:targetUserName delegate:self];
+    [vc showViewFromRect:frame];
+}
+
+- (void)repostStatus
+{
+    NSString *targetUserName = _cardViewController.status.author.screenName;
+    NSString *targetStatusID = _cardViewController.status.statusID;
+    NSString *targetStatusContent = nil;
+    if(_cardViewController.status.repostStatus)
+        targetStatusContent = _cardViewController.status.text;
+    CGRect frame = [self.bottomBarView convertRect:self.moreActionButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    PostViewController *vc = [PostViewController getRepostViewControllerWithWeiboID:targetStatusID
+                                                                     weiboOwnerName:targetUserName
+                                                                            content:targetStatusContent
+                                                                           delegate:self];
+    [vc showViewFromRect:frame];
+}
+
+- (void)favouriteStatus
+{
+    //TODO: Favourite a status
+}
+
+- (void)saveImage
+{
+    UIImageWriteToSavedPhotosAlbum(self.imageView.image, self, @selector(image:finishedSavingWithError:contextInfo:), NULL);
+}
+
+
+-(void)image:(UIImage *)image finishedSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+   //TODO: Show download succeess Info
 }
 
 @end

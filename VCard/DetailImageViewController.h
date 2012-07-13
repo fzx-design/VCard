@@ -11,7 +11,7 @@
 #import "CardViewController.h"
 #import "Status.h"
 
-@interface DetailImageViewController : UIViewController <CardViewControllerDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate>
+@interface DetailImageViewController : UIViewController <CardViewControllerDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate, PostViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView               *topBarView;
 @property (nonatomic, strong) IBOutlet UIView               *bottomBarView;
@@ -29,5 +29,7 @@
 
 - (void)setUpWithCardViewController:(CardViewController *)cardViewController;
 - (IBAction)didClickReturnButton:(id)sender;
+- (IBAction)didClickCommentButton:(UIButton *)sender;
+- (IBAction)didClickMoreActionButton:(UIButton *)sender;
 
 @end
