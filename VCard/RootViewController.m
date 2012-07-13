@@ -153,6 +153,7 @@
     
     [_castViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     [_shelfViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [_detailImageViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -160,6 +161,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameOrientationChanged object:nil];
     [_castViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
     [_shelfViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [_detailImageViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 - (void)setCastViewController:(CastViewController *)castViewController

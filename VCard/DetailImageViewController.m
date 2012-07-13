@@ -114,6 +114,8 @@
     self.view.userInteractionEnabled = NO;
     _cardViewController.delegate = nil;
     _cardViewController = nil;
+    _imageView = nil;
+    _scrollView.zoomScale = 1.0;
 }
 
 - (void)willReturnImageView
@@ -170,9 +172,7 @@
     _scrollView.contentSize = CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight]);
     _originScale = _scrollView.zoomScale;
     _scrollView.minimumZoomScale = _originScale;
-    _scrollView.maximumZoomScale = _originScale * 2;
-    _firstZoom = YES;
-    _secondZoom = NO;
+    _scrollView.maximumZoomScale = _originScale * 5.0;
 }
 
 - (void)setBackgroundAlphaTo:(CGFloat)alpha
@@ -211,10 +211,73 @@
     [[UIApplication sharedApplication] setStatusBarHidden:!_statusBarHidden withAnimation:UIStatusBarAnimationFade];
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    CGFloat targetScale = UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? _imageView.targetHorizontalScale : _imageView.targetVerticalScale;
+    
+    CGAffineTransform transform = _imageView.transform;
+    CGFloat scale = sqrt(transform.a * transform.a + transform.c * transform.c);
+    scale = targetScale / scale;
+    transform = CGAffineTransformScale(transform, scale, scale);
+    
+    _imageView.transform = transform;
+    
+    CGFloat screenHeight = [UIApplication screenWidth];
+    CGFloat screenWidth = [UIApplication screenHeight];
+    
+    CGFloat width = [_imageView targetSize].width * targetScale;
+    CGFloat height = [_imageView targetSize].height * targetScale;
+    
+    [_imageView resetOrigin:CGPointMake(screenWidth / 2 - width / 2, screenHeight / 2 - height / 2)];
+    
+    scale = _scrollView.zoomScale / _originScale;
+    
+    _scrollView.contentSize = CGSizeMake(width, height);
+    _originScale = _scrollView.zoomScale;
+    _scrollView.minimumZoomScale = _originScale;
+    _scrollView.maximumZoomScale = _originScale * 5.0;
+    
+    scale *= _originScale;
+    
+    [_imageView resetSize:CGSizeMake(width, height)];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    if (_statusBarHidden) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    }
+    
+    NSLog(@"contentOffset %@", NSStringFromCGPoint(_scrollView.contentOffset));
+}
+
+//- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+//{
+//    CGFloat screenWidth = [UIApplication screenWidth];
+//    CGFloat screenHeight = [UIApplication screenHeight];
+//    
+//    if (_scrollView.zoomScale == _originScale) {
+//        CGFloat scaleFactor = _scrollView.contentSize.width > _scrollView.contentSize.height ? screenWidth / screenHeight : screenHeight / screenWidth;
+//        
+//        CGFloat currentScale = _scrollView.zoomScale * scaleFactor;
+//        
+//        NSLog(@"before %f, after %f", _scrollView.zoomScale, currentScale);
+//        [_scrollView setZoomScale:currentScale animated:YES];
+//        _scrollView.maximumZoomScale = currentScale * 5;
+//        _scrollView.minimumZoomScale = currentScale;
+//        _originScale = currentScale;
+//        
+//        _scrollView.contentSize = CGSizeMake(screenWidth, screenHeight);
+//    }
+//}
+
 #pragma mark - Handle Gesture Events
 #pragma mark ScrollView Gesture
 - (void)handleTapEvent:(UITapGestureRecognizer *)sender
 {
+
     [UIView animateWithDuration:0.3 animations:^{
         CGFloat alpha = _statusBarHidden ? 1.0 : 0.0;
         _topBarView.alpha = alpha;
