@@ -15,6 +15,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackTranslucent" id="RGe-x5-FEm" customClass="BaseNavigationBar">
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <connections>
                         <segue destination="iUP-hU-wvp" kind="relationship" relationship="rootViewController" id="seu-5W-o6E"/>
@@ -53,7 +54,7 @@
                         <subviews>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" id="sSe-Wt-EjQ">
                                 <rect key="frame" x="0.0" y="-20" width="768" height="1024"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                             </scrollView>
                             <view contentMode="scaleToFill" id="3d8-ws-5Fx">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="68"/>

@@ -241,37 +241,15 @@
     
     [_imageView resetSize:CGSizeMake(width, height)];
     
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     if (_statusBarHidden) {
-        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     }
-    
-    NSLog(@"contentOffset %@", NSStringFromCGPoint(_scrollView.contentOffset));
 }
-
-//- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-//{
-//    CGFloat screenWidth = [UIApplication screenWidth];
-//    CGFloat screenHeight = [UIApplication screenHeight];
-//    
-//    if (_scrollView.zoomScale == _originScale) {
-//        CGFloat scaleFactor = _scrollView.contentSize.width > _scrollView.contentSize.height ? screenWidth / screenHeight : screenHeight / screenWidth;
-//        
-//        CGFloat currentScale = _scrollView.zoomScale * scaleFactor;
-//        
-//        NSLog(@"before %f, after %f", _scrollView.zoomScale, currentScale);
-//        [_scrollView setZoomScale:currentScale animated:YES];
-//        _scrollView.maximumZoomScale = currentScale * 5;
-//        _scrollView.minimumZoomScale = currentScale;
-//        _originScale = currentScale;
-//        
-//        _scrollView.contentSize = CGSizeMake(screenWidth, screenHeight);
-//    }
-//}
 
 #pragma mark - Handle Gesture Events
 #pragma mark ScrollView Gesture

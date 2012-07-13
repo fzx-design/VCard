@@ -153,7 +153,7 @@
     
     [_castViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     [_shelfViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    [_detailImageViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [_detailImageViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];    
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
