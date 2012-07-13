@@ -64,7 +64,7 @@
 }
 
 - (void)kv_setImageAtURL:(NSURL *)imageURL
-              completion:(void (^)())completion
+              completion:(void (^)(BOOL succeeded))completion
 {
     [self kv_setImageAtURL:imageURL 
      showActivityIndicator:YES 
@@ -75,7 +75,7 @@
 }
 
 - (void)kv_setImageAtURLWithoutCropping:(NSURL *)imageURL
-                             completion:(void (^)())completion
+                             completion:(void (^)(BOOL succeeded))completion
 {
     [self kv_setImageAtURL:imageURL 
      showActivityIndicator:NO
@@ -90,7 +90,7 @@
   activityIndicatorStyle:(UIActivityIndicatorViewStyle)indicatorStyle 
             loadingImage:(UIImage *)loadingImage 
        notAvailableImage:(UIImage *)notAvailableImage
-              completion:(void (^)())completion
+              completion:(void (^)(BOOL succeeded))completion
 {
     [self kv_setImageAtURL:imageURL 
                   cacheURL:imageURL 
@@ -107,7 +107,7 @@
   activityIndicatorStyle:(UIActivityIndicatorViewStyle)indicatorStyle 
             loadingImage:(UIImage *)loadingImage 
        notAvailableImage:(UIImage *)notAvailableImage 
-              completion:(void (^)())completion
+              completion:(void (^)(BOOL succeeded))completion
 {
     NSAssert([NSThread isMainThread], @"This method should be called from the main thread.");
     // Cancel any previous downloads
@@ -139,7 +139,7 @@
             }
             
             if (completion) {
-                completion();
+                completion(image != nil);
             }
     }];
 }

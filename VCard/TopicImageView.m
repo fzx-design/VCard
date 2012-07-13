@@ -54,7 +54,7 @@
 }
 
 - (void)loadImageFromURL:(NSString *)urlString 
-              completion:(void (^)())completion
+              completion:(void (^)(BOOL succeeded))completion
 {
     _imageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
 	

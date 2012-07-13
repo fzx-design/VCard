@@ -12,7 +12,7 @@
 @implementation UIImageView (Addition)
 
 - (void)loadImageFromURL:(NSString *)urlString 
-              completion:(void (^)())completion {	
+              completion:(void (^)(BOOL succeeded))completion {
     [self kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
     [self kv_setImageAtURLWithoutCropping:anImageURL completion:completion];

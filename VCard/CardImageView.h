@@ -35,6 +35,7 @@
 @property (nonatomic, assign) CGFloat targetVerticalScale;
 @property (nonatomic, assign) CGFloat targetHorizontalScale;
 @property (nonatomic, assign) CGFloat currentScale;
+@property (nonatomic, assign) BOOL loadingCompleted;
 
 - (void)resetHeight:(CGFloat)height;
 

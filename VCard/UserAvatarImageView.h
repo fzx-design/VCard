@@ -22,7 +22,7 @@
 - (void)reset;
 
 - (void)loadImageFromURL:(NSString *)urlString 
-              completion:(void (^)())completion;
+              completion:(void (^)(BOOL succeeded))completion;
 
 // Animation
 - (void)swingOnce:(CALayer*)layer toAngle:(CGFloat)toAngle;

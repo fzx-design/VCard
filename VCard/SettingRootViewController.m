@@ -65,7 +65,7 @@
         }
         avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
         
-        [avatarImageView loadImageFromURL:self.currentUser.profileImageURL completion:^{
+        [avatarImageView loadImageFromURL:self.currentUser.profileImageURL completion:^(BOOL succeeded){
             
             avatarImageView.layer.cornerRadius = 4.0f;
             avatarImageView.layer.masksToBounds = YES;

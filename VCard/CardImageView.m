@@ -118,12 +118,15 @@
 - (void)loadImageFromURL:(NSString *)urlString 
               completion:(void (^)())completion
 {
+    _loadingCompleted = NO;
     [self setUpGifIcon:urlString];
-    
     [self.imageView kv_cancelImageDownload];
-    NSURL *url = [NSURL URLWithString:urlString];
+    for (UIGestureRecognizer *gestureRecognizer in self.gestureRecognizers) {
+        gestureRecognizer.enabled = NO;
+    }
     
-    void (^imageLoadingCompletion)() = ^{
+    NSURL *url = [NSURL URLWithString:urlString];
+    void (^imageLoadingCompletion)(BOOL succeeded) = ^(BOOL succeeded){
         CGFloat targetWidth = self.imageView.frame.size.width;
         CGFloat targetHeight = self.imageView.frame.size.height;
         CGFloat width = self.imageView.image.size.width;
@@ -162,6 +165,13 @@
             _targetVerticalScale = heightFactor; // scale to fit height
         else
             _targetVerticalScale = widthFactor; // scale to fit width
+        
+        _loadingCompleted = YES;
+        if (succeeded) {
+            for (UIGestureRecognizer *gestureRecognizer in self.gestureRecognizers) {
+                gestureRecognizer.enabled = YES;
+            }
+        }
     };
     
     [self.imageView kv_setImageAtURL:url completion:imageLoadingCompletion];
@@ -171,6 +181,7 @@
                       completion:(void (^)())completion
 {
     if (_isGIF) {
+        _staticGIFImage = self.imageView.image;
         urlString = [urlString stringByReplacingOccurrencesOfString:@"jpg" withString:@"gif"];
         urlString = [urlString stringByReplacingOccurrencesOfString:@"large" withString:@"bmiddle"];
         NSURL *url = [NSURL URLWithString:urlString];
@@ -181,13 +192,12 @@
                         
             NSData *imageData = [NSData dataWithContentsOfURL:url];
             UIImage *image = [UIImage animatedImageWithGIFData:imageData];
-            _staticGIFImage = self.imageView.image;
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 self.imageView.image = image;
                 if (completion) {
                     completion();
-                }				
+                }
             });
             
         });

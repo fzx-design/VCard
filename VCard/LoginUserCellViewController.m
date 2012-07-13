@@ -52,7 +52,7 @@
 	// Do any additional setup after loading the view.    
     if(self.ownerUser) {
         self.userNameLabel.text = self.ownerUser.screenName;
-        [self.avatarImageView loadImageFromURL:self.ownerUser.largeAvatarURL completion:^{
+        [self.avatarImageView loadImageFromURL:self.ownerUser.largeAvatarURL completion:^(BOOL succeeded){
             [self.avatarImageView fadeIn];
         }];
     }
