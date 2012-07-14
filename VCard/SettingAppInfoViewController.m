@@ -15,6 +15,8 @@
 #define kVCardAppStoreURL       @"http://itunes.apple.com/cn/app/id420598288?mt=8"
 #define kTeamMemberCell         @"kTeamMemberCell"
 
+#define POST_VIEW_SHOW_FROM_RECT    CGRectMake(([UIApplication screenWidth] - 44) / 2, ([UIApplication screenHeight] - 44) / 2, 44, 44)
+
 @interface SettingAppInfoViewController ()
 
 @property (nonatomic, strong) NSMutableDictionary *teamMemberAvatarCache;
@@ -158,27 +160,13 @@
 #pragma mark - IBActions
 
 - (void)didClickTellFriendsCell {
-    
+    PostViewController *vc = [PostViewController getNewStatusViewControllerWithPrefixContent:@"@VCard微博 客户端很酷！推荐有 iPad 的童鞋们试试看。kVCardAppStoreURL" delegate:self];
+    [vc showViewFromRect:POST_VIEW_SHOW_FROM_RECT];
 }
 
 - (void)didClickFeedbackCell {
-    return;
-    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-    if (picker) {
-        picker.mailComposeDelegate = self;
-        picker.modalPresentationStyle = UIModalPresentationPageSheet;
-        
-        NSString *subject = [NSString stringWithFormat:@"VCard HD 新浪微博用户反馈"];
-        
-        NSString *receiver = [NSString stringWithFormat:@"vcardhd@gmail.com"];
-        [picker setToRecipients:[NSArray arrayWithObject:receiver]];
-        
-        [picker setSubject:subject];
-        NSString *emailBody = [NSString stringWithFormat:@"反馈类型（功能建议 / 程序漏洞）：\n\n描述："];
-        [picker setMessageBody:emailBody isHTML:NO];
-        
-        [[[UIApplication sharedApplication] rootViewController] presentModalViewController:picker animated:YES];
-    }
+    PostViewController *vc = [PostViewController getNewStatusViewControllerWithPrefixContent:@"@VCard微博 客户端很酷！推荐有 iPad 的童鞋们试试看。kVCardAppStoreURL" delegate:self];
+    [vc showViewFromRect:POST_VIEW_SHOW_FROM_RECT];
 }
 
 - (void)didClickRateCell {
@@ -208,6 +196,24 @@
     }];
     [client follow:user.userID];
     
+}
+
+#pragma mark - PostViewController Delegate
+
+- (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message {
+    [vc dismissViewUpwards];
+}
+
+- (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
+    [vc dismissViewToRect:POST_VIEW_SHOW_FROM_RECT];
 }
 
 @end

@@ -10,14 +10,57 @@
 #import "AppDelegate.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
-static UIViewController *_modalViewController;
-static UIView *_backView;
+#define MODAL_BACK_VIEW_MAX_ALPHA               (0.6f)
 
-@interface UIApplication() 
+
+static NSMutableArray *_modalViewControllerStack = nil;
+static NSMutableArray *_backViewStack = nil;
+
+@interface UIApplication()
+
+@property (nonatomic, readonly) NSMutableArray *modalViewControllerStack;
+@property (nonatomic, readonly) NSMutableArray *backViewStack;
+@property (nonatomic, readonly) UIView *topBackView;
 
 @end
 
 @implementation UIApplication (Addition)
+
+- (NSMutableArray *)modalViewControllerStack {
+    if(_modalViewControllerStack == nil) {
+        _modalViewControllerStack = [NSMutableArray array];
+    }
+    return _modalViewControllerStack;
+}
+
+- (NSMutableArray *)backViewStack {
+    if(_backViewStack == nil) {
+        _backViewStack = [NSMutableArray array];
+    }
+    return _backViewStack;
+}
+
++ (UIView *)createBackView {
+    UIView *result = nil;
+    result = [[UIView alloc] initWithFrame:CGRectMake(0, 20, [UIApplication screenWidth], [UIApplication screenHeight])];
+    result.backgroundColor = [UIColor blackColor];
+    result.alpha = 0;
+    result.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    return result;
+}
+
+- (UIView *)topBackView {
+    return self.backViewStack.lastObject;
+}
+
+- (UIViewController *)topModalViewController {
+    return self.modalViewControllerStack.lastObject;
+}
+
+- (void)dismissModalViewController:(UIViewController *)vc {
+    [self.modalViewControllerStack removeObject:vc];
+}
+
 
 + (BOOL)isRetinaDisplayiPad
 {
@@ -51,11 +94,12 @@ static UIView *_backView;
 }
 
 + (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated {
-    [[UIApplication sharedApplication] presentModalViewController:vc animated:animated duration:0.3f];
+    [[UIApplication sharedApplication] presentModalViewController:vc animated:animated duration:MODAL_APPEAR_ANIMATION_DEFAULT_DURATION];
 }
 
-+ (void)dismissModalViewControllerAnimated:(BOOL)animated {
-    [[UIApplication sharedApplication] dismissModalViewControllerAnimated:animated duration:0.3f];
++ (void)dismissModalViewControllerAnimated:(BOOL)animated {    
+    UIApplication *application = [UIApplication sharedApplication];
+    [application dismissModalViewController:application.topModalViewController animated:animated duration:MODAL_APPEAR_ANIMATION_DEFAULT_DURATION];
 }
 
 + (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated duration:(NSTimeInterval)duration {
@@ -63,21 +107,25 @@ static UIView *_backView;
 }
 
 + (void)dismissModalViewControllerAnimated:(BOOL)animated duration:(NSTimeInterval)duration {
-    [[UIApplication sharedApplication] dismissModalViewControllerAnimated:animated duration:duration];
+    UIApplication *application = [UIApplication sharedApplication];
+    [application dismissModalViewController:application.topModalViewController animated:animated duration:duration];
+}
+
++ (void)dismissModalViewController:(UIViewController *)vc animated:(BOOL)animated duration:(NSTimeInterval)duration {
+    [[UIApplication sharedApplication] dismissModalViewController:vc animated:animated duration:duration];
 }
 
 - (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated duration:(NSTimeInterval)duration {
-    if (_modalViewController)
+    if([self.modalViewControllerStack containsObject:vc])
         return;
     
-    _modalViewController = vc;
-	_backView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.screenSize.width, self.screenSize.height)];
-	_backView.backgroundColor = [UIColor blackColor];
-    _backView.alpha = 0;
-    _backView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    UIView *oldBackView = self.topBackView;
+    UIView *newBackView = [UIApplication createBackView];
+    [self.backViewStack addObject:newBackView];
+    [self.rootViewController.view addSubview:newBackView];
     
-	[self.rootViewController.view addSubview:_backView];
-	[self.rootViewController.view addSubview:vc.view];
+    [self.modalViewControllerStack addObject:vc];
+    [self.rootViewController.view addSubview:vc.view];
     
     if(animated) {
         CGRect frame = vc.view.frame;
@@ -85,7 +133,7 @@ static UIView *_backView;
         frame.origin.y = self.screenSize.height;
         vc.view.frame = frame;
         
-        [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:duration animations:^{
             CGRect frame = vc.view.frame;
             frame.origin.y = 20;
             vc.view.frame = frame;
@@ -97,44 +145,39 @@ static UIView *_backView;
         vc.view.frame = frame;
     }
     
-    _backView.alpha = 0;
-    [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        _backView.alpha = 0.6f;
+    [UIView animateWithDuration:duration animations:^{
+        oldBackView.alpha = 0;
+        newBackView.alpha = MODAL_BACK_VIEW_MAX_ALPHA;
     } completion:nil];
 }
 
-- (void)dismissModalViewControllerAnimated:(BOOL)animated duration:(NSTimeInterval)duration {
+- (void)dismissModalViewController:(UIViewController *)vc animated:(BOOL)animated duration:(NSTimeInterval)duration {
+    if(self.modalViewControllerStack.count == 0)
+        return;
+    
+    if(![self.modalViewControllerStack containsObject:vc])
+        return;
+        
     if(animated) {
-        _backView.alpha = 0.6f;
-        [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            _backView.alpha = 0;
-            CGRect frame = _modalViewController.view.frame;
+        [UIView animateWithDuration:duration animations:^{
+            CGRect frame = vc.view.frame;
             frame.origin.y = self.screenSize.height;
-            _modalViewController.view.frame = frame;
-        } completion:^(BOOL finished) {
-            [_backView removeFromSuperview];
-            _backView = nil;
-            [_modalViewController.view removeFromSuperview];
-            _modalViewController = nil;
-        }];
-    } else {
-        if(duration > 0) {
-            _backView.alpha = 0.6f;
-            [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                _backView.alpha = 0;
-            } completion:^(BOOL finished) {
-                [_backView removeFromSuperview];
-                _backView = nil;
-                [_modalViewController.view removeFromSuperview];
-                _modalViewController = nil;
-            }];
-        } else {
-            [_backView removeFromSuperview];
-            _backView = nil;
-            [_modalViewController.view removeFromSuperview];
-            _modalViewController = nil;
-        }
+            vc.view.frame = frame;
+        } completion:nil];
     }
+    
+    UIView *newBackView = self.topBackView;
+    [self.backViewStack removeLastObject];
+    UIView *oldBackView = self.topBackView;
+    
+    [UIView animateWithDuration:duration animations:^{
+        oldBackView.alpha = MODAL_BACK_VIEW_MAX_ALPHA;
+        newBackView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [vc.view removeFromSuperview];
+        [newBackView removeFromSuperview];
+        [self.modalViewControllerStack removeObject:vc];
+    }];
 }
 
 - (CGSize)screenSize {

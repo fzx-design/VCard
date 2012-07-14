@@ -65,6 +65,9 @@ typedef enum {
 + (id)getNewStatusViewControllerWithAtUserName:(NSString *)name
                                       delegate:(id<PostViewControllerDelegate>)delegate;
 
++ (id)getNewStatusViewControllerWithPrefixContent:(NSString *)prefix
+                                      delegate:(id<PostViewControllerDelegate>)delegate;
+
 + (id)getNewStatusViewControllerWithDelegate:(id<PostViewControllerDelegate>)delegate;
 
 + (id)getRepostViewControllerWithWeiboID:(NSString *)weiboID

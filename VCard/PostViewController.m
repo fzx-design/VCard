@@ -124,7 +124,13 @@ typedef enum {
 
 + (id)getNewStatusViewControllerWithAtUserName:(NSString *)name
                                       delegate:(id<PostViewControllerDelegate>)delegate {
-    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeNewStatus delegate:delegate weiboID:nil replyID:nil weiboOwnerName:nil weiboContent:[NSString stringWithFormat:@"@%@", name]];
+    return [PostViewController getNewStatusViewControllerWithPrefixContent:[NSString stringWithFormat:@"@%@", name] delegate:delegate];
+}
+
++ (id)getNewStatusViewControllerWithPrefixContent:(NSString *)prefix
+                                         delegate:(id<PostViewControllerDelegate>)delegate {
+    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeNewStatus delegate:delegate weiboID:nil replyID:nil weiboOwnerName:nil weiboContent:prefix];
+    
 }
 
 + (id)getRepostViewControllerWithWeiboID:(NSString *)weiboID

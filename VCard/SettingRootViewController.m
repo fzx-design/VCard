@@ -115,31 +115,17 @@
 #pragma mark - UI methods
 
 - (void)presentModalViewController:(UIViewController *)modalViewController {
-    [UIApplication dismissModalViewControllerAnimated:NO duration:0];
-    
-    UIView *tempBlackView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, [UIApplication screenWidth], [UIApplication screenHeight])];
-    tempBlackView.backgroundColor = [UIColor blackColor];
-    tempBlackView.alpha = 0.6f;
-    tempBlackView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [[UIApplication sharedApplication].rootViewController.view addSubview:tempBlackView];
-    
-    UIView *superView = self.navigationController.view.superview;
-    superView.frame = tempBlackView.frame;
-    [[UIApplication sharedApplication].rootViewController.view addSubview:superView];
-    superView.userInteractionEnabled = NO;
-    
-    [UIView animateWithDuration:0.5f animations:^{
-        tempBlackView.alpha = 0;
-    } completion:^(BOOL finished) {
-        [tempBlackView removeFromSuperview];
-        [superView removeFromSuperview];
-    }];
-    
+    UIViewController *vc = [UIApplication sharedApplication].topModalViewController;
+    [self performSelector:@selector(dismissModalViewController:) withObject:vc afterDelay:1.0f];
     
     if([modalViewController respondsToSelector:@selector(show)])
         [modalViewController performSelector:@selector(show)];
     else
         [UIApplication presentModalViewController:modalViewController animated:YES];
+}
+
+- (void)dismissModalViewController:(UIViewController *)modalViewController {
+    [UIApplication dismissModalViewController:modalViewController animated:NO duration:MODAL_APPEAR_ANIMATION_DEFAULT_DURATION];
 }
 
 #pragma mark -

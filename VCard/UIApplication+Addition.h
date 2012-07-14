@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#define MODAL_APPEAR_ANIMATION_DEFAULT_DURATION (0.3f)
+
 @interface UIApplication (Addition)
 
 @property (nonatomic, readonly) CGSize screenSize;
 @property (nonatomic, readonly) UIViewController *rootViewController;
+
+@property (nonatomic, readonly) UIViewController *topModalViewController;
 
 + (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated;
 + (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated duration:(NSTimeInterval)duration;
@@ -20,6 +24,7 @@
  not be removed from its super view automatically. */ 
 + (void)dismissModalViewControllerAnimated:(BOOL)animated;
 + (void)dismissModalViewControllerAnimated:(BOOL)animated duration:(NSTimeInterval)duration;
++ (void)dismissModalViewController:(UIViewController *)vc animated:(BOOL)animated duration:(NSTimeInterval)duration;
 
 + (BOOL)isRetinaDisplayiPad;
 + (CGFloat)heightExcludingTopBar;
