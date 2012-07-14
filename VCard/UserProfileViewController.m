@@ -213,6 +213,12 @@
     return CGRectMake(24.0, originY, 382.0, height);
 }
 
+- (void)showWithPurpose
+{
+    [self showFollowers:nil];
+    [self.followerController refresh];
+}
+
 #pragma mark - Properties
 - (ProfileRelationTableViewController *)friendController
 {

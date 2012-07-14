@@ -45,6 +45,12 @@
     self.commentTableViewController.tableView.scrollsToTop = NO;
 }
 
+- (void)showWithPurpose
+{
+    [self didClickCheckStatusButton:nil];
+    [self.statusTableViewController refresh];
+}
+
 - (IBAction)didClickCheckCommentButton:(id)sender
 {
     self.checkCommentButton.selected = YES;

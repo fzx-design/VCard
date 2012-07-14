@@ -19,6 +19,8 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, readonly) User *currentUser;
 
++ (User *)getCurrentUser;
+
 @end
 
 @interface CoreDataKernal : NSObject

@@ -52,6 +52,12 @@
     self.commentTableViewController.tableView.scrollsToTop = NO;
 }
 
+- (void)showWithPurpose
+{
+    [self didClickSwitchToMeButton:nil];
+    [self.commentTableViewController refresh];
+}
+
 #pragma mark - Setup
 
 - (void)viewDidLoad

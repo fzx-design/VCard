@@ -92,5 +92,11 @@
     _active = NO;
 }
 
+//To be overloaded
+- (void)showWithPurpose
+{
+    
+}
+
 
 @end
