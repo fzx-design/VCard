@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class UserAccountInfo;
+@class SettingOptionInfo;
 
 @interface NSUserDefaults (Addition)
 
@@ -23,6 +24,14 @@
 + (NSArray *)getLoginUserArray;
 + (void)setLoginUserArray:(NSArray *)array;
 
++ (BOOL)isAutoTrafficSavingEnabled;
++ (BOOL)isAutoLocateEnabled;
++ (BOOL)isSoundEffectEnabled;
++ (BOOL)isPictureEnabled;
++ (BOOL)isRetinaDisplayEnabled;
+
++ (SettingOptionInfo *)getInfoForOptionKey:(NSString *)optionKey;
+
 @end
 
 @interface UserAccountInfo : NSObject
@@ -32,5 +41,17 @@
 @property (nonatomic, strong) NSString *password;
 
 - (id)initWithInfoDict:(NSDictionary *)dict;
+
+@end
+
+@interface SettingOptionInfo : NSObject
+
+@property (nonatomic, strong) NSArray *optionsArray;
+@property (nonatomic, strong) NSArray *optionChosenStatusArray;
+@property (nonatomic, strong) NSString *optionKey;
+@property (nonatomic, strong) NSString *optionName;
+@property (nonatomic, assign) BOOL allowMultiOptions;
+
+- (id)initWithOptionKey:(NSString *)optionKey;
 
 @end

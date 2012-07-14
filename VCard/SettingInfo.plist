@@ -101,9 +101,9 @@
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeDisclosure</string>
 					<key>kNibFileName</key>
-					<string>SettingUIStyleViewController</string>
+					<string>SettingOptionFontSize</string>
 					<key>kWayToPresentViewController</key>
-					<string>kPushNavigationController</string>
+					<string>kPushOptionViewController</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_font</string>
 				</dict>
@@ -113,7 +113,7 @@
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeDisclosure</string>
 					<key>kNibFileName</key>
-					<string>SettingUIStyleViewController</string>
+					<string>SettingBrightnessViewController</string>
 					<key>kWayToPresentViewController</key>
 					<string>kPushNavigationController</string>
 					<key>kItemImageFileName</key>
@@ -152,9 +152,9 @@
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeDisclosure</string>
 					<key>kNibFileName</key>
-					<string>SettingUIStyleViewController</string>
+					<string>SettingOptionNotification</string>
 					<key>kWayToPresentViewController</key>
-					<string>kPushNavigationController</string>
+					<string>kPushOptionViewController</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_notifications</string>
 				</dict>

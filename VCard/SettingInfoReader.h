@@ -12,6 +12,7 @@
 #define kModalViewController        @"kModalViewController"
 #define kUseSelector                @"kUseSelector"
 #define kUseSelectorWithObject      @"kUseSelectorWithObject"
+#define kPushOptionViewController   @"kPushOptionViewController"
 
 #define kAccessoryTypeNone          @"kAccessoryTypeNone"
 #define kAccessoryTypeSwitch        @"kAccessoryTypeSwitch"

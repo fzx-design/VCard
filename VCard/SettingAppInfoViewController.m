@@ -67,10 +67,6 @@
 #pragma mark -
 #pragma mark WTGroupTableViewController methods to overwrite
 
-- (NSString *)customCellClassName {
-    return @"SettingTableViewCell";
-}
-
 - (void)configureDataSource {
     NSArray *sectionArray = [[SettingInfoReader sharedReader] getSettingAppInfoSectionArray];
     for(SettingInfoSection *section in sectionArray) {

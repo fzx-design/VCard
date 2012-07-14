@@ -63,16 +63,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *name = [self customCellClassName];    
-    NSString *cellIdentifier = name ? name : @"Cell";
+    NSString *name = [self customCellClassName];
+    NSString *cellIdentifier = name ? name : @"SettingTableViewCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         if (name) {
-            cell = [[NSClassFromString(name) alloc] init];
+            cell = [[[NSBundle mainBundle] loadNibNamed:cellIdentifier owner:self options:nil] lastObject];
         }
         else {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            cell = [[NSClassFromString(cellIdentifier) alloc] init];
         }
     }
     

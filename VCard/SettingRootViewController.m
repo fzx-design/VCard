@@ -14,6 +14,7 @@
 #import "UIView+Resize.h"
 #import "UIImage+Addition.h"
 #import "LoginViewController.h"
+#import "SettingOptionViewController.h"
 
 #define kSettingCurrentUserCell @"kSettingCurrentUserCell"
 
@@ -91,6 +92,11 @@
     [self presentModalViewController:vc];
 }
 
+- (void)didClickOptionCell:(NSString *)optionKey {
+    SettingOptionViewController *vc = [[SettingOptionViewController alloc] initWithOptionKey:optionKey];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - UIAlertView delegate
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -132,10 +138,6 @@
 
 #pragma mark -
 #pragma mark WTGroupTableViewController methods to overwrite
-
-- (NSString *)customCellClassName {
-    return @"SettingTableViewCell";
-}
 
 - (void)configureDataSource {
     NSArray *sectionArray = [[SettingInfoReader sharedReader] getSettingInfoSectionArray];
@@ -202,6 +204,8 @@
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [self performSelector:NSSelectorFromString(info.nibFileName)];
 #pragma clang diagnostic pop
+    } else if([info.wayToPresentViewController isEqualToString:kPushOptionViewController]) {
+        [self didClickOptionCell:info.nibFileName];
     }
 }
 

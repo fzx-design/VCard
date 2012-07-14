@@ -21,9 +21,55 @@
 #define kSettingEnableRetinaDisplay         @"SettingEnableRetinaDisplay"
 #define kSettingEnablePicture               @"SettingEnablePicture"
 
+#define kVCard4_0_Initialized               @"VCard4_0_Initialized"
+
+#define kSettingOptionFontSize              @"SettingOptionFontSize"
+#define kSettingOptionNotification          @"SettingOptionNotification"
+
 #define KeyForStoredUserAccountInfo(userID) ([NSString stringWithFormat:@"%@_%@", kStoredUserAccountInfo, (userID)])
 
+typedef enum {
+    SettingOptionFontSizeTypeSmall,
+    SettingOptionFontSizeTypeNormal,
+    SettingOptionFontSizeTypeBig,
+} SettingOptionFontSizeType;
+
+typedef enum {
+    SettingOptionFontNotificationTypeComment,
+    SettingOptionFontNotificationTypeFollower,
+    SettingOptionFontNotificationTypeMention,
+    SettingOptionFontNotificationTypeMessage,
+} SettingOptionFontNotificationType;
+
 @implementation NSUserDefaults (Addition)
+
++ (void)initialize {
+    [NSUserDefaults initializeVCard_4_0];
+}
+
++ (void)initializeVCard_4_0 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if(![defaults boolForKey:kVCard4_0_Initialized]) {
+        [defaults setBool:NO forKey:kSettingEnableAutoTrafficSaving];
+        [defaults setBool:YES forKey:kSettingEnableAutoLocate];
+        [defaults setBool:YES forKey:kSettingEnableSoundEffect];
+        [defaults setBool:YES forKey:kSettingEnableRetinaDisplay];
+        [defaults setBool:YES forKey:kSettingEnablePicture];
+        
+        [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:NO], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:NO], nil] forKey:kSettingOptionFontSize];
+        [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], nil] forKey:kSettingOptionNotification];
+        
+    }
+    [defaults setBool:YES forKey:kVCard4_0_Initialized];
+    [defaults synchronize];
+}
+
++ (SettingOptionInfo *)getInfoForOptionKey:(NSString *)optionKey {
+    SettingOptionInfo *result = [[SettingOptionInfo alloc] initWithOptionKey:optionKey];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    result.optionChosenStatusArray = [defaults arrayForKey:optionKey];
+    return result;
+}
 
 + (BOOL)isAutoTrafficSavingEnabled {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -109,6 +155,31 @@
         self.userID = [dict objectForKey:kStoredUserAccountInfoUserID];
         self.account = [dict objectForKey:kStoredUserAccountInfoAccount];
         self.password = [dict objectForKey:kStoredUserAccountInfoPassword];
+    }
+    return self;
+}
+
+@end
+
+@implementation SettingOptionInfo
+
+@synthesize optionKey = _optionKey;
+@synthesize optionsArray = _optionsArray;
+@synthesize optionChosenStatusArray = _chosenOptionIndexesArray;
+@synthesize optionName = _optionName;
+@synthesize allowMultiOptions = _allowMultiOptions;
+
+- (id)initWithOptionKey:(NSString *)optionKey {
+    self = [super init];
+    if(self) {
+        if([optionKey isEqualToString:kSettingOptionFontSize]) {
+            self.optionsArray = [NSArray arrayWithObjects:@"小", @"正常", @"大", nil];
+            self.optionName = @"字体大小";
+        } else if([optionKey isEqualToString:kSettingOptionNotification]) {
+            self.allowMultiOptions = YES;
+            self.optionsArray = [NSArray arrayWithObjects:@"新评论", @"新粉丝", @"提到我的", @"新私信", nil];
+            self.optionName = @"消息提示";
+        }
     }
     return self;
 }
