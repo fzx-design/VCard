@@ -31,8 +31,10 @@
 
 @property (nonatomic, strong) NSString *sectionIdentifier;
 @property (nonatomic, strong) NSArray *itemArray;
-@property (nonatomic, assign) NSString *sectionHeader;
-@property (nonatomic, assign) NSString *sectionFooter;
+@property (nonatomic, strong) NSString *sectionHeader;
+@property (nonatomic, strong) NSString *sectionFooter;
+
+- (id)initWithDict:(NSDictionary *)dict;
 
 @end
 

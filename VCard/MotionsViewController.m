@@ -293,6 +293,7 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
 }
 
 - (void)editViewControllerDidFinishEditImage:(UIImage *)image {
+    [self performSelectorInBackground:@selector(saveImageInBackground:) withObject:image];
     [self.delegate motionViewControllerDidFinish:image];
 }
 
@@ -306,6 +307,13 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
         [self configureShootViewController];
         [self.shootViewController showShootAccessoriesAnimationWithCompletion:nil];
     }];
+}
+
+#pragma mark -
+#pragma mark Save image methods
+
+- (void)saveImageInBackground:(UIImage *)image {
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 }
 
 @end

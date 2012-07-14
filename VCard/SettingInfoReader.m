@@ -58,10 +58,7 @@ static SettingInfoReader *readerInstance;
     NSArray *sectonArray = [NSArray arrayWithArray:[self.settingInfoMap objectForKey:sectionArrayKey]];
     NSMutableArray *result = [NSMutableArray array];
     for(NSDictionary *sectionDict in sectonArray) {
-        SettingInfoSection *section = [[SettingInfoSection alloc] init];
-        section.sectionIdentifier = [sectionDict objectForKey:kSectionIdentifier];
-        section.sectionHeader = [sectionDict objectForKey:kSectionHeader];
-        section.sectionFooter = [sectionDict objectForKey:kSectionFooter];
+        SettingInfoSection *section = [[SettingInfoSection alloc] initWithDict:sectionDict];
         NSArray *infoArray = [sectionDict objectForKey:kSectionArray];
         NSMutableArray *parsedInfoArray = [NSMutableArray arrayWithCapacity:4];
         for(NSDictionary *infoDict in infoArray) {
@@ -90,6 +87,17 @@ static SettingInfoReader *readerInstance;
 @synthesize itemArray = _itemArray;
 @synthesize sectionHeader = _sectionHeader;
 @synthesize sectionFooter = _sectionFooter;
+
+- (id)initWithDict:(NSDictionary *)dict {
+    self = [super init];
+    if(self) {
+        self.sectionIdentifier = [dict objectForKey:kSectionIdentifier];
+        self.sectionHeader = [dict objectForKey:kSectionHeader];
+        self.sectionFooter = [dict objectForKey:kSectionFooter];
+        self.sectionFooter = [self.sectionFooter stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+    }
+    return self;
+}
 
 @end
 

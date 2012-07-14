@@ -231,6 +231,8 @@
                 <string>kSettingAppInfoSectionTeam</string>
                 <key>kSectionHeader</key>
                 <string>团队</string>
+                <key>kSectionFooter</key>
+                <string>\n4.0\n© Mondev</string>
                 <key>kSectionArray</key>
                 <array>
                     <dict>

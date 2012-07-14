@@ -12,6 +12,4 @@
 
 @interface SettingAppInfoViewController : WTGroupTableViewController <MFMailComposeViewControllerDelegate>
 
-@property (nonatomic, strong) IBOutlet UIView *appInfoView;
-
 @end
