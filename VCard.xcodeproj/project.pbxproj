@@ -4128,15 +4128,12 @@
 				18F2457115B1237B000DCD38 /* button_stop_pale@2x.png in Resources */,
 				E17A2BAF15B0106A00E70A5D /* SettingAppInfoViewController.xib in Resources */,
 				E119DCB915B13C7A00B7A446 /* SettingLegacyViewController.xib in Resources */,
-<<<<<<< HEAD
 				E1ABFD7015B17AE9006F3237 /* icon_settings_gesture.png in Resources */,
 				E1ABFD7115B17AE9006F3237 /* icon_settings_gesture@2x.png in Resources */,
-=======
 				18E6FA8115B18B28003B5A39 /* button_arrow_card_hover@2x.png in Resources */,
 				18E6FA8215B18B28003B5A39 /* button_arrow_card@2x.png in Resources */,
 				18E6FA8315B18B28003B5A39 /* button_arrow_card_hover.png in Resources */,
 				18E6FA8415B18B28003B5A39 /* button_arrow_card.png in Resources */,
->>>>>>> 更改个人评论列表图片素材
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
