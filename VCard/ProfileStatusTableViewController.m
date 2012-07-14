@@ -166,6 +166,7 @@
 {
     NSString *statusID = notification.object;
     [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
 }
 
 - (CGFloat)randomImageHeight
