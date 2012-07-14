@@ -170,6 +170,10 @@
     
     if([info.accessoryType isEqualToString:kAccessoryTypeSwitch]) {
         [settingCell setSwitch];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        settingCell.itemSwitch.on = [defaults boolForKey:info.nibFileName];
+        
     } else if([info.accessoryType isEqualToString:kAccessoryTypeDisclosure]) {
         [settingCell setDisclosureIndicator];
     }
@@ -209,6 +213,18 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
 	SettingInfoSection *sectionInfo = [self.settingSectionInfoArray objectAtIndex:section];
     return sectionInfo.sectionFooter;
+}
+
+#pragma mark - SettingTableViewCell delegate
+
+- (void)settingTableViewCell:(SettingTableViewCell *)cell didChangeSwitch:(UISwitch *)sender {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSArray *sectionInfoArray = [self.dataSourceDictionary objectForKey:[self.dataSourceIndexArray objectAtIndex:indexPath.section]];
+    SettingInfo *info = [sectionInfoArray objectAtIndex:indexPath.row];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:sender.on forKey:info.nibFileName];
+    [defaults synchronize];
 }
 
 @end

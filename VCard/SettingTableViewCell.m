@@ -29,6 +29,9 @@
 
 - (void)setSwitch {
     self.itemSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 94, 27)];
+    
+    [self.itemSwitch addTarget:self action:@selector(didCLickSwitch:) forControlEvents:UIControlEventValueChanged];
+    
     self.accessoryView = self.itemSwitch;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.accessoryType = UITableViewCellAccessoryNone;
@@ -67,6 +70,11 @@
 - (void)didClickWatchButton:(UIButton *)sender {
     if([self.delegate respondsToSelector:@selector(settingTableViewCell:didClickWatchButton:)])
         [self.delegate settingTableViewCell:self didClickWatchButton:sender];
+}
+
+- (void)didCLickSwitch:(UISwitch *)sender {
+    if([self.delegate respondsToSelector:@selector(settingTableViewCell:didChangeSwitch:)])
+        [self.delegate settingTableViewCell:self didChangeSwitch:sender];
 }
 
 @end

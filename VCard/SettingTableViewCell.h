@@ -25,6 +25,7 @@
 @protocol SettingTableViewCellDelegate <NSObject>
 
 @optional
-- (void)settingTableViewCell:(SettingTableViewCell *)cell didClickWatchButton:(UIButton *)button;
+- (void)settingTableViewCell:(SettingTableViewCell *)cell didClickWatchButton:(UIButton *)sender;
+- (void)settingTableViewCell:(SettingTableViewCell *)cell didChangeSwitch:(UISwitch *)sender;
 
 @end
