@@ -47,6 +47,7 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet BaseNavigationView *navigationView;
 @property (nonatomic, strong) IBOutlet WaterflowView *waterflowView;
 @property (nonatomic, strong) IBOutlet RefreshIndicatorView *refreshIndicatorView;
+@property (nonatomic, strong) IBOutlet RefreshIndicatorView *postIndicatorView;
 @property (nonatomic, strong) IBOutlet UIImageView *profileImageView;
 @property (nonatomic, strong) IBOutlet UIButton *searchButton;
 @property (nonatomic, strong) IBOutlet UIButton *groupButton;

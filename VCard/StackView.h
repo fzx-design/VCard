@@ -24,12 +24,10 @@
 
 @interface StackView : UIView <UIScrollViewDelegate> {
     UIScrollView *_scrollView;
-    UIButton *_returnButton;
     __unsafe_unretained id<StackViewDelegate> _delegate;
 }
 
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) UIButton *returnButton;
 @property (nonatomic, assign) id<StackViewDelegate> delegate;
 
 - (void)addNewPage:(UIView *)newPage

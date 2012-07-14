@@ -84,6 +84,7 @@
     _loading = NO;
     _nextPage = 1;
     _refreshIndicatorView.hidden = YES;
+    _postIndicatorView.hidden = YES;
     _refreshing = YES;
     _dataSource = CastviewDataSourceNone;
     _coverView = [[UIView alloc] initWithFrame:CGRectMake(1024.0, 0.0, 0.0, 0.0)];
@@ -168,6 +169,15 @@
     [center addObserver:self
                selector:@selector(returnToNormalTimeline)
                    name:kNotificationNameShouldReturnToNormalTimeline
+                 object:nil];
+    
+    [center addObserver:self
+               selector:@selector(showPostIndicator)
+                   name:kNotificationNameShouldShowPostIndicator
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(hidePostIndicator)
+                   name:kNotificationNameShouldHidePostIndicator
                  object:nil];
 }
 
@@ -463,6 +473,26 @@
 - (void)changeUserAvatar
 {
     [self.profileImageView loadImageFromURL:self.currentUser.largeAvatarURL completion:nil];
+}
+
+#pragma mark Post Indicator
+- (void)showPostIndicator
+{
+    _postIndicatorView.hidden = NO;
+    [_postIndicatorView startLoadingAnimation];
+        
+    self.createStatusButton.alpha = 0.0;
+}
+
+- (void)hidePostIndicator
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        _postIndicatorView.alpha = 0.0;
+        self.createStatusButton.alpha = 1.0;
+    } completion:^(BOOL finished) {
+        _postIndicatorView.hidden = YES;
+        _postIndicatorView.alpha = 1.0;
+    }];
 }
 
 #pragma mark - IBActions
