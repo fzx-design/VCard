@@ -78,16 +78,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    if(_controllerType == LoginViewControllerTypeCreateNewUser) {
+        self.currentCellIndex = [self numberOfCellsInScrollView] - 1;
+    } else if(_controllerType == LoginViewControllerTypeDeleteCurrentUser) {
+        [self performSelector:@selector(postDeleteCurrentUserNotification) withObject:nil afterDelay:VIEW_APPEAR_ANIMATION_DURATION];
+    }
+    
     [self configureUI];
     [self viewAppearAnimation];
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
-    if(_controllerType == LoginViewControllerTypeDeleteCurrentUser) {
-        [self performSelector:@selector(postDeleteCurrentUserNotification) withObject:nil afterDelay:VIEW_APPEAR_ANIMATION_DURATION];
-    }
 }
 
 - (void)viewDidUnload

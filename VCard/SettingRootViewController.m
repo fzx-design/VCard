@@ -86,6 +86,11 @@
     [alert show];
 }
 
+- (void)didClickCreateNewAccountCell {
+    LoginViewController *vc = [[LoginViewController alloc] initWithType:LoginViewControllerTypeCreateNewUser];
+    [self presentModalViewController:vc];
+}
+
 #pragma mark - UIAlertView delegate
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {

@@ -72,9 +72,9 @@
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeDisclosure</string>
 					<key>kNibFileName</key>
-					<string>LegacyViewController</string>
+					<string>didClickCreateNewAccountCell</string>
 					<key>kWayToPresentViewController</key>
-					<string>kPushNavigationController</string>
+					<string>kUseSelector</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_new</string>
 				</dict>

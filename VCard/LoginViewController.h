@@ -13,6 +13,7 @@
 typedef enum {
     LoginViewControllerTypeDefault = 0,
     LoginViewControllerTypeDeleteCurrentUser = 1,
+    LoginViewControllerTypeCreateNewUser = 2,
 } LoginViewControllerType;
 
 
