@@ -149,7 +149,7 @@
 - (IBAction)didClickMoreActionButton:(UIButton *)sender
 {
     if (_comment) {
-        NSString *deleteTitle = [self.comment.author isEqualToUser:[UserAccountManager currentUser]] ? @"删除" : nil;
+        NSString *deleteTitle = [self.comment.author isEqualToUser:[CoreDataViewController getCurrentUser]] ? @"删除" : nil;
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                                  delegate:self 
                                                         cancelButtonTitle:nil 
