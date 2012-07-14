@@ -10,6 +10,6 @@
 #import "WTGroupTableViewController.h"
 #import "SettingTableViewCell.h"
 
-@interface SettingRootViewController : WTGroupTableViewController <SettingTableViewCellDelegate>
+@interface SettingRootViewController : WTGroupTableViewController <SettingTableViewCellDelegate, UIAlertViewDelegate>
 
 @end

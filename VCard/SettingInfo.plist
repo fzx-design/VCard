@@ -49,6 +49,10 @@
 					<string>注销</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_empty</string>
+                    <key>kWayToPresentViewController</key>
+					<string>kUseSelector</string>
+                    <key>kNibFileName</key>
+					<string>didClickLogoutCell</string>
 				</dict>
 				<dict>
 					<key>kItemTitle</key>

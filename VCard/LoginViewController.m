@@ -23,7 +23,9 @@
 #define SCROLL_VIEW_LANDSCAPE_CENTER    CGPointMake(512, 400)
 #define SCROLL_VIEW_PORTRAIT_CENTER     CGPointMake(384, 480)
 
-@interface LoginViewController ()
+@interface LoginViewController () {
+    LoginViewControllerType _controllerType;
+}
 
 @property (nonatomic, strong) NSMutableArray *cellControllerArray;
 @property (nonatomic, strong) NSMutableArray *loginUserInfoArray;
@@ -44,11 +46,20 @@
 @synthesize loginUserInfoArray = _loginUserInfoArray;
 @synthesize keyboardHeight = _keyboardHeight;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+- (id)initWithType:(LoginViewControllerType)type {
+    _controllerType = type;
+    self = [self init];
+    if(self) {
+        if(_controllerType == LoginViewControllerTypeDeleteCurrentUser) {
+            [self deleteUser:self.currentUser];
+        }
+    }
+    return self;
+}
+
+- (id)init {
+    self = [super init];
+    if(self) {
         NSArray *storedArray = [NSUserDefaults getLoginUserArray];
         
         self.loginUserInfoArray = [NSMutableArray array];
@@ -66,12 +77,17 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
     [self configureUI];
     [self viewAppearAnimation];
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    if(_controllerType == LoginViewControllerTypeDeleteCurrentUser) {
+        [self performSelector:@selector(postDeleteCurrentUserNotification) withObject:nil afterDelay:VIEW_APPEAR_ANIMATION_DURATION];
+    }
 }
 
 - (void)viewDidUnload
@@ -129,6 +145,7 @@
         [self.scrollView addSubview:vc.view];
     }
     [self layoutScrollView];
+    NSLog(@"scroll view :%@", NSStringFromCGRect(self.scrollView.frame));
 }
 
 - (void)layoutScrollView {
@@ -195,6 +212,10 @@
 }
 
 #pragma mark - Logic methods
+
+- (void)postDeleteCurrentUserNotification {
+    [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:nil];
+}
 
 - (LoginInputCellViewController *)loginInputCellViewController {
     return [self.cellControllerArray lastObject];
@@ -320,6 +341,7 @@
 - (void)loginCellDidLoginUser:(User *)user {
     [self insertNewUser:user];
     [self viewDisappearAnimation];
+    
     [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
 }
 

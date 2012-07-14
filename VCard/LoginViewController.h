@@ -10,6 +10,11 @@
 #import "CoreDataViewController.h"
 #import "LoginCellViewController.h"
 
+typedef enum {
+    LoginViewControllerTypeDefault = 0,
+    LoginViewControllerTypeDeleteCurrentUser = 1,
+} LoginViewControllerType;
+
 
 @interface LoginViewController : CoreDataViewController <UIScrollViewDelegate, LoginCellViewControllerDelegate>
 
@@ -19,6 +24,8 @@
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 
 - (void)show;
+
+- (id)initWithType:(LoginViewControllerType)type;
 
 - (IBAction)didClickRegisterButton:(UIButton *)sender;
 
