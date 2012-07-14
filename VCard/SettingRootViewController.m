@@ -63,42 +63,8 @@
 
 - (UIImage *)currentUserAvatarImage {
     if(!_currentUserAvatarImage) {
-<<<<<<< HEAD
-        UIImageView *avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-        if (UIGraphicsBeginImageContextWithOptions != NULL) {
-            [avatarImageView resetSize:CGSizeMake(29, 29)];
-        }
-        avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-        
-        [avatarImageView loadImageFromURL:self.currentUser.profileImageURL completion:^(BOOL succeeded){
-            
-            avatarImageView.layer.cornerRadius = 4.0f;
-            avatarImageView.layer.masksToBounds = YES;
-            
-            avatarImageView.layer.borderColor = [UIColor colorWithRed:71 / 255. green:74 / 255. blue:78 / 255. alpha:1].CGColor;
-            if (UIGraphicsBeginImageContextWithOptions != NULL) {
-                avatarImageView.layer.borderWidth = 0.5;
-            } else {
-                avatarImageView.layer.borderWidth = 1;
-            }
-            
-            
-            CGSize targetSize = CGSizeMake(30, 30);
-            if (UIGraphicsBeginImageContextWithOptions != NULL) {
-                UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.0);
-            } else {
-                UIGraphicsBeginImageContext(targetSize);
-            }
-            [avatarImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
-            UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
-            
-            _currentUserAvatarImage = croppedImage;
-            
-=======
         [UIImage loadSettingAvatarImageFromURL:self.currentUser.profileImageURL completion:^(UIImage *result) {
             _currentUserAvatarImage = result;
->>>>>>> setting加入header footer。
             [self.tableView reloadData];
         }];
     }

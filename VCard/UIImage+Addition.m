@@ -506,7 +506,7 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     }
     avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     
-    [avatarImageView loadImageFromURL:avatarURL completion:^{
+    [avatarImageView loadImageFromURL:avatarURL completion:^(BOOL succeeded) {
         
         avatarImageView.layer.cornerRadius = 4.0f;
         avatarImageView.layer.masksToBounds = YES;
