@@ -33,6 +33,14 @@
 					<key>kItemImageFileName</key>
 					<string>icon_settings_legal</string>
 				</dict>
+                <dict>
+					<key>kItemTitle</key>
+					<string>手势操作指南</string>
+					<key>kAccessoryType</key>
+					<string>kAccessoryTypeDisclosure</string>
+					<key>kItemImageFileName</key>
+					<string>icon_settings_gesture</string>
+				</dict>
 			</array>
 		</dict>
 		<dict>
@@ -118,6 +126,8 @@
 					<string>kAccessoryTypeSwitch</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_image</string>
+                    <key>kNibFileName</key>
+					<string>SettingEnablePicture</string>
 				</dict>
 				<dict>
 					<key>kItemTitle</key>
@@ -126,6 +136,8 @@
 					<string>kAccessoryTypeSwitch</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_retina</string>
+                    <key>kNibFileName</key>
+					<string>SettingEnableRetinaDisplay</string>
 				</dict>
 			</array>
 		</dict>
@@ -153,6 +165,8 @@
 					<string>kAccessoryTypeSwitch</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_sound</string>
+                    <key>kNibFileName</key>
+					<string>SettingEnableSoundEffect</string>
 				</dict>
 			</array>
 		</dict>
@@ -170,6 +184,8 @@
 					<string>kAccessoryTypeSwitch</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_locate</string>
+                    <key>kNibFileName</key>
+					<string>SettingEnableAutoLocate</string>
 				</dict>
 			</array>
 		</dict>
@@ -187,6 +203,8 @@
 					<string>kAccessoryTypeSwitch</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_cellcular</string>
+                    <key>kNibFileName</key>
+					<string>SettingEnableAutoTrafficSaving</string>
 				</dict>
 			</array>
 		</dict>

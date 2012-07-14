@@ -10,14 +10,45 @@
 
 #define kStoredCurrentUserID                @"StoredCurrentUserID"
 #define kStoredUserAccountInfo              @"StoredUserAccountInfo"
-#define kStoredUserAccountInfoUserID        @"kStoredUserAccountInfoUserID"
+#define kStoredUserAccountInfoUserID        @"StoredUserAccountInfoUserID"
 #define kStoredUserAccountInfoAccount       @"StoredUserAccountInfoAccount"
 #define kStoredUserAccountInfoPassword      @"StoredUserAccountInfoPassword"
 #define kStoredLoginUserArray               @"StoredLoginUserArray"
 
+#define kSettingEnableAutoTrafficSaving     @"SettingEnableAutoTrafficSaving"
+#define kSettingEnableAutoLocate            @"SettingEnableAutoLocate"
+#define kSettingEnableSoundEffect           @"SettingEnableSoundEffect"
+#define kSettingEnableRetinaDisplay         @"SettingEnableRetinaDisplay"
+#define kSettingEnablePicture               @"SettingEnablePicture"
+
 #define KeyForStoredUserAccountInfo(userID) ([NSString stringWithFormat:@"%@_%@", kStoredUserAccountInfo, (userID)])
 
 @implementation NSUserDefaults (Addition)
+
++ (BOOL)isAutoTrafficSavingEnabled {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kSettingEnableAutoTrafficSaving];
+}
+
++ (BOOL)isAutoLocateEnabled {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kSettingEnableAutoLocate];
+}
+
++ (BOOL)isSoundEffectEnabled {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kSettingEnableSoundEffect];
+}
+
++ (BOOL)isPictureEnabled {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kSettingEnablePicture];
+}
+
++ (BOOL)isRetinaDisplayEnabled {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kSettingEnableRetinaDisplay];
+}
 
 + (void)insertUserAccountInfoWithUserID:(NSString *)userID
                      account:(NSString *)account

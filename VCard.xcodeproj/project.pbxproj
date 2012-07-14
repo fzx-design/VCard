@@ -777,6 +777,8 @@
 		E1A59E9415ABE3DA001F0A94 /* LoginBgView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A59E9315ABE3D9001F0A94 /* LoginBgView.m */; };
 		E1A59EAB15AC24AD001F0A94 /* NSNotificationCenter+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A59EA915AC2430001F0A94 /* NSNotificationCenter+Addition.m */; };
 		E1A7EFDC15936D4B00E2B900 /* PostRepostCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */; };
+		E1ABFD7015B17AE9006F3237 /* icon_settings_gesture.png in Resources */ = {isa = PBXBuildFile; fileRef = E1ABFD6E15B17AE9006F3237 /* icon_settings_gesture.png */; };
+		E1ABFD7115B17AE9006F3237 /* icon_settings_gesture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1ABFD6F15B17AE9006F3237 /* icon_settings_gesture@2x.png */; };
 		E1AF111E15A01A67004236ED /* MotionsFilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AF111815A01A67004236ED /* MotionsFilterCell.m */; };
 		E1AF111F15A01A67004236ED /* MotionsFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1AF111915A01A67004236ED /* MotionsFilterCell.xib */; };
 		E1AF112015A01A67004236ED /* MotionsFilterTableViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1AF111A15A01A67004236ED /* MotionsFilterTableViewController-landscape.xib */; };
@@ -1768,6 +1770,8 @@
 		E1A59EA815AC242F001F0A94 /* NSNotificationCenter+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+Addition.h"; sourceTree = "<group>"; };
 		E1A59EA915AC2430001F0A94 /* NSNotificationCenter+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+Addition.m"; sourceTree = "<group>"; };
 		E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostRepostCommentViewController.m; sourceTree = "<group>"; };
+		E1ABFD6E15B17AE9006F3237 /* icon_settings_gesture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_settings_gesture.png; sourceTree = "<group>"; };
+		E1ABFD6F15B17AE9006F3237 /* icon_settings_gesture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings_gesture@2x.png"; sourceTree = "<group>"; };
 		E1AF111715A01A67004236ED /* MotionsFilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsFilterCell.h; sourceTree = "<group>"; };
 		E1AF111815A01A67004236ED /* MotionsFilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsFilterCell.m; sourceTree = "<group>"; };
 		E1AF111915A01A67004236ED /* MotionsFilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MotionsFilterCell.xib; sourceTree = "<group>"; };
@@ -3217,8 +3221,6 @@
 		E10D04E515AFB47400492A87 /* settings */ = {
 			isa = PBXGroup;
 			children = (
-				E17A2BA415AFEBE400E70A5D /* icon_settings_empty.png */,
-				E17A2BA515AFEBE400E70A5D /* icon_settings_empty@2x.png */,
 				E10D04E615AFB47400492A87 /* button_about_follow.png */,
 				E10D04E715AFB47400492A87 /* button_about_follow@2x.png */,
 				E10D04E815AFB47400492A87 /* button_about_followed.png */,
@@ -3229,8 +3231,12 @@
 				E10D04ED15AFB47400492A87 /* icon_settings_brightness@2x.png */,
 				E10D04EE15AFB47400492A87 /* icon_settings_cellcular.png */,
 				E10D04EF15AFB47400492A87 /* icon_settings_cellcular@2x.png */,
+				E17A2BA415AFEBE400E70A5D /* icon_settings_empty.png */,
+				E17A2BA515AFEBE400E70A5D /* icon_settings_empty@2x.png */,
 				E10D04F015AFB47400492A87 /* icon_settings_font.png */,
 				E10D04F115AFB47400492A87 /* icon_settings_font@2x.png */,
+				E1ABFD6E15B17AE9006F3237 /* icon_settings_gesture.png */,
+				E1ABFD6F15B17AE9006F3237 /* icon_settings_gesture@2x.png */,
 				E10D04F215AFB47400492A87 /* icon_settings_image.png */,
 				E10D04F315AFB47400492A87 /* icon_settings_image@2x.png */,
 				E10D04F415AFB47400492A87 /* icon_settings_legal.png */,
@@ -4110,6 +4116,8 @@
 				18F2457115B1237B000DCD38 /* button_stop_pale@2x.png in Resources */,
 				E17A2BAF15B0106A00E70A5D /* SettingAppInfoViewController.xib in Resources */,
 				E119DCB915B13C7A00B7A446 /* SettingLegacyViewController.xib in Resources */,
+				E1ABFD7015B17AE9006F3237 /* icon_settings_gesture.png in Resources */,
+				E1ABFD7115B17AE9006F3237 /* icon_settings_gesture@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -144,8 +144,13 @@
         [self.dataSourceIndexArray addObject:section.sectionIdentifier];
         [self.settingSectionInfoArray addObject:section];
         NSMutableArray *itemTitleArray = [NSMutableArray array];
-        for(SettingInfo *info in section.itemArray) {
-            [itemTitleArray addObject:info];
+        for(SettingInfo *info in section.itemArray) {            
+            if([info.itemTitle isEqualToString:@"高清图片"]) {
+                if([UIApplication isRetinaDisplayiPad])
+                    [itemTitleArray addObject:info];
+            } else {
+                [itemTitleArray addObject:info];
+            }
         }
         [self.dataSourceDictionary setValue:itemTitleArray forKey:section.sectionIdentifier];
     }
