@@ -95,6 +95,9 @@
 #define kNotificationNameShouldShowDetailImageView      @"kNotificationNameShouldShowDetailImageView"
 #define kNotificationNameShouldHideDetailImageView      @"kNotificationNameShouldHideDetailImageView"
 
+#define kNotificationNameShouldShowPostIndicator        @"kNotificationNameShouldShowPostIndicator"
+#define kNotificationNameShouldHidePostIndicator        @"kNotificationNameShouldHidePostIndicator"
+
 #define kNotificationObjectKeyUser                      @"kNotificationObjectKeyUser"
 #define kNotificationObjectKeyIndex                     @"kNotificationObjectKeyIndex"
 #define kNotificationObjectKeyUserName                  @"kNotificationObjectKeyUserName"

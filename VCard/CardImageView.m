@@ -174,6 +174,11 @@
             for (UIGestureRecognizer *gestureRecognizer in self.gestureRecognizers) {
                 gestureRecognizer.enabled = YES;
             }
+            
+            self.imageView.alpha = 0.0;
+            [UIView animateWithDuration:0.3 animations:^{
+                self.imageView.alpha = 1.0;
+            }];
         }
     };
     
@@ -195,10 +200,11 @@
             NSData *imageData = [NSData dataWithContentsOfURL:url];
             UIImage *image = [UIImage animatedImageWithGIFData:imageData];
             dispatch_async(dispatch_get_main_queue(), ^{
-                
-                self.imageView.image = image;
-                if (completion) {
-                    completion();
+                if (_imageViewMode != CastViewImageViewModeNormal) {
+                    self.imageView.image = image;
+                    if (completion) {
+                        completion();
+                    }
                 }
             });
             

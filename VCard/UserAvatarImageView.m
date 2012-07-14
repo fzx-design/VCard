@@ -96,6 +96,24 @@
 	
     [_imageView kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
+    [_imageView kv_setImageAtURLWithoutCropping:anImageURL completion:^(BOOL succeeded) {
+        if (completion) {
+            completion(succeeded);
+        }
+        if (succeeded) {
+            _imageView.alpha = 0.0;
+            [UIView animateWithDuration:0.3 animations:^{
+                _imageView.alpha = 1.0;
+            }];
+        }
+    }];
+}
+
+- (void)loadImageWithoutFadeFromURL:(NSString *)urlString
+                         completion:(void (^)(BOOL))completion
+{
+    [_imageView kv_cancelImageDownload];
+    NSURL *anImageURL = [NSURL URLWithString:urlString];
     [_imageView kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
 }
 

@@ -10,6 +10,7 @@
 
 #define kChangeCurrentUserNotification @"kChangeCurrentUserNotification"
 #define kCoreChangeCurrentUserNotification @"kCoreChangeCurrentUserNotification"
+#define kNotificationNameShouldChangeUserAvatar @"kNotificationNameShouldChangeUserAvatar"
 
 @implementation NSNotificationCenter (Addition)
 
@@ -32,6 +33,18 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:aTarget selector:aSelector
                    name:kCoreChangeCurrentUserNotification 
+                 object:nil];
+}
+
++ (void)postChangeUserAvatarNotification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldChangeUserAvatar object:nil userInfo:nil];
+}
+
++ (void)registerChangeUserAvatarNotificationWith:(SEL)aSelector target:(id)aTarget {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:aTarget selector:aSelector
+                   name:kNotificationNameShouldChangeUserAvatar
                  object:nil];
 }
 

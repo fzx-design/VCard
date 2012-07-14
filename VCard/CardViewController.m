@@ -232,7 +232,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     }
     
     _alreadyConfigured = YES;
-    _imageViewMode = CastViewImageViewModeNormal;
+    self.statusImageView.imageViewMode = CastViewImageViewModeNormal;
     _pageIndex = pageIndex_;
     
     [self setUpStatus:status_];
@@ -821,7 +821,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         [self.statusImageView resetCurrentScale];
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
                 
-        if (_imageViewMode == CastViewImageViewModeNormal) {
+        if (self.statusImageView.imageViewMode == CastViewImageViewModeNormal) {
             if (sender.velocity > 2.0) {
                 [self willOpenDetailImageViewDirectly];
             } else {
@@ -905,12 +905,12 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 #pragma mark Rotation
 - (void)handleRotationGesture:(UIRotationGestureRecognizer *)sender
 {
-    if (_imageViewMode == CastViewImageViewModeDetailedZooming || _imageViewMode == CastViewImageViewModeDetailedNormal) {
+    if (self.statusImageView.imageViewMode == CastViewImageViewModeDetailedZooming || self.statusImageView.imageViewMode == CastViewImageViewModeDetailedNormal) {
         return;
     }
     
     if ([sender state] == UIGestureRecognizerStateBegan) {
-        if (_imageViewMode == CastViewImageViewModeNormal) {
+        if (self.statusImageView.imageViewMode == CastViewImageViewModeNormal) {
             [self playClipLooseAnimation];
             [self willOpenDetailImageView];
         }
@@ -924,9 +924,9 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)sender
 {
-    if (_imageViewMode == CastViewImageViewModeNormal) {
+    if (self.statusImageView.imageViewMode == CastViewImageViewModeNormal) {
         [self willOpenDetailImageViewDirectly];
-    } else if (_imageViewMode != CastViewImageViewModePinchingOut){
+    } else if (self.statusImageView.imageViewMode != CastViewImageViewModePinchingOut){
         if ([_delegate respondsToSelector:@selector(imageViewTapped)]) {
             [_delegate imageViewTapped];
         }
@@ -946,7 +946,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         [self.statusImageView returnToInitialPosition];
         [self.cardBackground insertSubview:self.statusImageView belowSubview:self.clipImageView];
         [self playClipTightenAnimation];
-        _imageViewMode = CastViewImageViewModeNormal;
+        self.statusImageView.imageViewMode = CastViewImageViewModeNormal;
         self.statusImageView.userInteractionEnabled = YES;
         _pinchGestureRecognizer.enabled = YES;
         _rotationGestureRecognizer.enabled = YES;
@@ -962,7 +962,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         self.statusImageView.gifIcon.alpha = 1.0;
     }];
     [self playClipTightenAnimation];
-    _imageViewMode = CastViewImageViewModeNormal;
+    self.statusImageView.imageViewMode = CastViewImageViewModeNormal;
     self.statusImageView.userInteractionEnabled = YES;
     _pinchGestureRecognizer.enabled = NO;
     _rotationGestureRecognizer.enabled = NO;
@@ -972,21 +972,21 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 - (void)recoverFromPause
 {
-    if (_imageViewMode == CastViewImageViewModePinchingOut) {
+    if (self.statusImageView.imageViewMode == CastViewImageViewModePinchingOut) {
         [self returnToInitialImageView];
     }
 }
 
 - (void)willOpenDetailImageViewDirectly
 {
-    _imageViewMode = CastViewImageViewModeDetailedNormal;
+    self.statusImageView.imageViewMode = CastViewImageViewModeDetailedNormal;
     [self sendShowDetailImageViewNotification];
     
 }
 
 - (void)willOpenDetailImageView
 {
-    _imageViewMode = CastViewImageViewModePinchingOut;
+    self.statusImageView.imageViewMode = CastViewImageViewModePinchingOut;
     [self sendShowDetailImageViewNotification];
 }
 

@@ -10,6 +10,7 @@
 #import "SettingViewController.h"
 #import "UIApplication+Addition.h"
 #import "WBClient.h"
+#import "NSNotificationCenter+Addition.h"
 
 #define MOTIONS_EDIT_ACTION_SHEET_SHOOT_INDEX    0
 #define MOTIONS_EDIT_ACTION_SHEET_ALBUM_INDEX    1
@@ -51,13 +52,14 @@ typedef enum {
 {
     [super viewDidLoad];
     self.user = self.currentUser;
-    
     [super setUpViews];
     if (_shouldShowFollowerList) {
         [self showFollowers:nil];
     } else {
         [self showStatuses:nil];
     }
+    [self loadUserAndChangeAvatar];
+    
     [ThemeResourceProvider configButtonPaperLight:_accountSettingButton];
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];    
@@ -179,8 +181,8 @@ typedef enum {
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if(!client.hasError) {
-            NSDictionary *userDict = client.responseJSONObject;
-            [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+            
+            [self loadUserAndChangeAvatar];
             
             NSLog(@"upload avatar succeeded");
         } else {
@@ -190,6 +192,22 @@ typedef enum {
     }];
     [client uploadAvatar:image];
     [[UIApplication sharedApplication].rootViewController dismissModalViewControllerAnimated:YES];
+}
+
+- (void)loadUserAndChangeAvatar
+{
+    WBClient *userClient = [WBClient client];
+    
+    [userClient setCompletionBlock:^(WBClient *client) {
+        if (!userClient.hasError) {
+            NSDictionary *userDict = client.responseJSONObject;
+            User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+            [NSNotificationCenter postChangeUserAvatarNotification];
+            [_avatarImageView loadImageWithoutFadeFromURL:user.largeAvatarURL completion:nil];
+        }
+    }];
+    
+    [userClient getUser:self.currentUser.userID];
 }
 
 - (void)motionViewControllerDidCancel {

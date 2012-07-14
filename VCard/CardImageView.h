@@ -11,6 +11,14 @@
 
 #define StatusImageWidth 370
 
+typedef enum {
+    CastViewImageViewModeNormal,
+    CastViewImageViewModePinchingOut,
+    CastViewImageViewModePinchingIn,
+    CastViewImageViewModeDetailedNormal,
+    CastViewImageViewModeDetailedZooming,
+} CastViewImageViewMode;
+
 @interface CardImageView : UIView {
     CardImageViewShadowView *_shadowView;
     UIImageView *_imageView;
@@ -27,15 +35,16 @@
     BOOL _isGIF;
 }
 
-@property (nonatomic, strong) UIImageView *coverView;
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UIImageView *detailedImageView;
-@property (nonatomic, strong) UIImageView *gifIcon;
-@property (nonatomic, readonly) UIImage *image;
-@property (nonatomic, assign) CGFloat targetVerticalScale;
-@property (nonatomic, assign) CGFloat targetHorizontalScale;
-@property (nonatomic, assign) CGFloat currentScale;
-@property (nonatomic, assign) BOOL loadingCompleted;
+@property (nonatomic, strong) UIImageView           *coverView;
+@property (nonatomic, strong) UIImageView           *imageView;
+@property (nonatomic, strong) UIImageView           *detailedImageView;
+@property (nonatomic, strong) UIImageView           *gifIcon;
+@property (nonatomic, readonly) UIImage             *image;
+@property (nonatomic, assign) CGFloat               targetVerticalScale;
+@property (nonatomic, assign) CGFloat               targetHorizontalScale;
+@property (nonatomic, assign) CGFloat               currentScale;
+@property (nonatomic, assign) BOOL                  loadingCompleted;
+@property (nonatomic, assign) CastViewImageViewMode imageViewMode;
 
 - (void)resetHeight:(CGFloat)height;
 

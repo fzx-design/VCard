@@ -26,7 +26,6 @@
 
 @implementation StackView
 
-@synthesize returnButton = _returnButton;
 @synthesize scrollView = _scrollView;
 @synthesize delegate = _delegate;
 
@@ -66,12 +65,6 @@
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.delegate = self;
     _scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
-    
-    _returnButton = [[UIButton alloc] initWithFrame:CGRectMake(-256.0, 0.0, 640.0, 961.0)];
-    _returnButton.autoresizingMask = UIViewAutoresizingNone;
-    [_returnButton addTarget:self action:@selector(returnButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_scrollView addSubview:_returnButton];
     
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
     [self addSubview:_scrollView];
@@ -241,7 +234,7 @@
         return _scrollView;
         
     } else {
-        return [_returnButton pointInside:superPoint withEvent:event] ? _returnButton : _scrollView;
+        return _scrollView;
     }
 }
 

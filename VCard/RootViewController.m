@@ -41,9 +41,25 @@
     [self setUpNotifications];
     if(self.currentUser) {
         [self setUpViews];
+        [self loadUserAndChangeAvatar];
     }
     
     [NSNotificationCenter registerChangeCurrentUserNotificationWithSelector:@selector(handleChangeCurrentUserNotification:) target:self];
+}
+
+- (void)loadUserAndChangeAvatar
+{
+    WBClient *userClient = [WBClient client];
+    
+    [userClient setCompletionBlock:^(WBClient *client) {
+        if (!userClient.hasError) {
+            NSDictionary *userDict = client.responseJSONObject;
+            [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+            [NSNotificationCenter postChangeUserAvatarNotification];
+        }
+    }];
+    
+    [userClient getUser:self.currentUser.userID];
 }
 
 - (void)viewDidUnload

@@ -26,14 +26,6 @@
 #define CardTailHeight 24
 #define CardTailOffset -55
 
-typedef enum {
-    CastViewImageViewModeNormal,
-    CastViewImageViewModePinchingOut,
-    CastViewImageViewModePinchingIn,
-    CastViewImageViewModeDetailedNormal,
-    CastViewImageViewModeDetailedZooming,
-} CastViewImageViewMode;
-
 @protocol CardViewControllerDelegate <NSObject>
 
 - (void)didChangeImageScale:(CGFloat)scale;
@@ -103,7 +95,6 @@ typedef enum {
 @property (nonatomic, assign) NSInteger imageHeight;
 @property (nonatomic, assign) NSInteger pageIndex;
 @property (nonatomic, assign) BOOL isReposted;
-@property (nonatomic, assign) CastViewImageViewMode imageViewMode;
 
 @property (nonatomic, weak) id<CardViewControllerDelegate> delegate;
 

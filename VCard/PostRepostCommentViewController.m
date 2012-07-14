@@ -78,15 +78,19 @@
 - (IBAction)didClickPostButton:(UIButton *)sender {
     sender.userInteractionEnabled = NO;
     [self.delegate postViewController:self willPostMessage:self.textView.text];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowPostIndicator object:nil];
+    
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if(!client.hasError) {
             NSLog(@"post succeeded");
             [self performSelectorInBackground:@selector(saveImageInBackground:) withObject:self.motionsOriginalImage];
             [self.delegate postViewController:self didPostMessage:self.textView.text];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
         } else {
             NSLog(@"post failed");
             [self.delegate postViewController:self didFailPostMessage:self.textView.text];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
         }
         sender.userInteractionEnabled = YES;
     }];

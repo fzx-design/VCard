@@ -187,9 +187,10 @@
             NSLog(@"post succeeded");
             [self performSelectorInBackground:@selector(saveImageInBackground:) withObject:self.motionsOriginalImage];
             [self.delegate postViewController:self didPostMessage:self.textView.text];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
         } else {
             NSLog(@"post failed");
-            [self.delegate postViewController:self didFailPostMessage:self.textView.text];
+            [self.delegate postViewController:self didFailPostMessage:self.textView.text];[[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
         }
     }];
     if(!_located)
@@ -200,6 +201,8 @@
         [client sendWeiBoWithText:self.textView.text image:self.motionsOriginalImage longtitude:lon latitude:lat];
     }
     [self.delegate postViewController:self willPostMessage:self.textView.text];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowPostIndicator object:nil];
 }
 
 @end
