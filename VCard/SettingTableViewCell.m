@@ -30,11 +30,13 @@
     self.itemSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 94, 27)];
     self.accessoryView = self.itemSwitch;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.accessoryType = UITableViewCellAccessoryNone;
 }
 
 - (void)setDisclosureIndicator {
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     self.selectionStyle = UITableViewCellSelectionStyleBlue;
+    self.accessoryView = nil;
 }
 
 - (void)setWatchButton {
@@ -42,6 +44,7 @@
     [self.itemWatchButton setImage:[UIImage imageNamed:@"button_about_follow"] forState:UIControlStateNormal];
     self.accessoryView = self.itemSwitch;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.accessoryType = UITableViewCellAccessoryNone;
 }
 
 @end

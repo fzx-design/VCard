@@ -12,7 +12,9 @@ static SettingInfoReader *readerInstance;
 
 #define kSettingInfoSectionArray        @"kSettingInfoSectionArray"
 #define kSettingAppInfoSectionArray     @"kSettingAppInfoSectionArray"
-#define kSectionName                    @"kSectionName"
+#define kSectionHeader                  @"kSectionHeader"
+#define kSectionFooter                  @"kSectionFooter"
+#define kSectionIdentifier              @"kSectionIdentifier"
 #define kSectionArray                   @"kSectionArray"
 
 #define kWayToPresentViewController     @"kWayToPresentViewController"
@@ -57,7 +59,9 @@ static SettingInfoReader *readerInstance;
     NSMutableArray *result = [NSMutableArray array];
     for(NSDictionary *sectionDict in sectonArray) {
         SettingInfoSection *section = [[SettingInfoSection alloc] init];
-        section.sectionTitle = [sectionDict objectForKey:kSectionName];
+        section.sectionIdentifier = [sectionDict objectForKey:kSectionIdentifier];
+        section.sectionHeader = [sectionDict objectForKey:kSectionHeader];
+        section.sectionFooter = [sectionDict objectForKey:kSectionFooter];
         NSArray *infoArray = [sectionDict objectForKey:kSectionArray];
         NSMutableArray *parsedInfoArray = [NSMutableArray arrayWithCapacity:4];
         for(NSDictionary *infoDict in infoArray) {
@@ -82,8 +86,10 @@ static SettingInfoReader *readerInstance;
 
 @implementation SettingInfoSection
 
-@synthesize sectionTitle = _sectionTitle;
+@synthesize sectionIdentifier = _sectionTitle;
 @synthesize itemArray = _itemArray;
+@synthesize sectionHeader = _sectionHeader;
+@synthesize sectionFooter = _sectionFooter;
 
 @end
 

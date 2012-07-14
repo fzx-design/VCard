@@ -10,11 +10,13 @@
 
 #define kPushNavigationController   @"kPushNavigationController"
 #define kModalViewController        @"kModalViewController"
+#define kUseSelector                @"kUseSelector"
+#define kUseSelectorWithObject      @"kUseSelectorWithObject"
 
 #define kAccessoryTypeNone          @"kAccessoryTypeNone"
 #define kAccessoryTypeSwitch        @"kAccessoryTypeSwitch"
 #define kAccessoryTypeDisclosure    @"kAccessoryTypeDisclosure"
-#define kAccessoryTypeWatchButton    @"kAccessoryTypeWatchButton"
+#define kAccessoryTypeWatchButton   @"kAccessoryTypeWatchButton"
 
 @interface SettingInfoReader : NSObject
 
@@ -27,8 +29,10 @@
 
 @interface SettingInfoSection : NSObject
 
-@property (nonatomic, strong) NSString *sectionTitle;
+@property (nonatomic, strong) NSString *sectionIdentifier;
 @property (nonatomic, strong) NSArray *itemArray;
+@property (nonatomic, assign) NSString *sectionHeader;
+@property (nonatomic, assign) NSString *sectionFooter;
 
 @end
 

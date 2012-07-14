@@ -11,19 +11,22 @@
 #import "UIApplication+Addition.h"
 #import "SettingInfoReader.h"
 #import "SettingTableViewCell.h"
-#import "UIImageView+Addition.h"
+#import "UIImage+Addition.h"
 #import "UIView+Resize.h"
+#import "UIImage+Addition.h"
+
+#define kSettingCurrentUserCell @"kSettingCurrentUserCell"
 
 @interface SettingRootViewController ()
 
-@property (nonatomic, strong) NSMutableArray *settingSectionInfoDictionary;
+@property (nonatomic, strong) NSMutableArray *settingSectionInfoArray;
 @property (nonatomic, strong) UIImage *currentUserAvatarImage;
 
 @end
 
 @implementation SettingRootViewController
 
-@synthesize settingSectionInfoDictionary = _settingSectionInfoDictionary;
+@synthesize settingSectionInfoArray = _settingSectionInfoArray;
 @synthesize currentUserAvatarImage = _currentUserAvatarImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -31,6 +34,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.settingSectionInfoArray = [NSMutableArray array];
     }
     return self;
 }
@@ -59,6 +63,7 @@
 
 - (UIImage *)currentUserAvatarImage {
     if(!_currentUserAvatarImage) {
+<<<<<<< HEAD
         UIImageView *avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
         if (UIGraphicsBeginImageContextWithOptions != NULL) {
             [avatarImageView resetSize:CGSizeMake(29, 29)];
@@ -90,6 +95,10 @@
             
             _currentUserAvatarImage = croppedImage;
             
+=======
+        [UIImage loadSettingAvatarImageFromURL:self.currentUser.profileImageURL completion:^(UIImage *result) {
+            _currentUserAvatarImage = result;
+>>>>>>> setting加入header footer。
             [self.tableView reloadData];
         }];
     }
@@ -112,14 +121,14 @@
 - (void)configureDataSource {
     NSArray *sectionArray = [[SettingInfoReader sharedReader] getSettingInfoSectionArray];
     for(SettingInfoSection *section in sectionArray) {
-        NSLog(@"section %@", section.sectionTitle);
-        [self.dataSourceIndexArray addObject:section.sectionTitle];
-        [self.settingSectionInfoDictionary addObject:section];
+        NSLog(@"section %@", section.sectionIdentifier);
+        [self.dataSourceIndexArray addObject:section.sectionIdentifier];
+        [self.settingSectionInfoArray addObject:section];
         NSMutableArray *itemTitleArray = [NSMutableArray array];
         for(SettingInfo *info in section.itemArray) {
             [itemTitleArray addObject:info];
         }
-        [self.dataSourceDictionary setValue:itemTitleArray forKey:section.sectionTitle];
+        [self.dataSourceDictionary setValue:itemTitleArray forKey:section.sectionIdentifier];
     }
 }
 
@@ -140,9 +149,11 @@
         [settingCell setDisclosureIndicator];
     }
     
-    if([info.itemTitle isEqualToString:@"当前用户名"]) {
+    if([info.itemTitle isEqualToString:kSettingCurrentUserCell]) {
         settingCell.textLabel.text = self.currentUser.screenName;
-        settingCell.imageView.image = self.currentUserAvatarImage;
+        UIImage *avatarImage = self.currentUserAvatarImage;
+        if(avatarImage)
+            settingCell.imageView.image = avatarImage;
     }
 }
 
@@ -150,36 +161,20 @@
     NSArray *sectionInfoArray = [self.dataSourceDictionary objectForKey:[self.dataSourceIndexArray objectAtIndex:indexPath.section]];
     SettingInfo *info = [sectionInfoArray objectAtIndex:indexPath.row];
     
-    if([info.wayToPresentViewController isEqualToString:kModalViewController]) {
-        [UIApplication dismissModalViewControllerAnimated:NO duration:0];
-        
-        UIView *tempBlackView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, [UIApplication screenWidth], [UIApplication screenHeight])];
-        tempBlackView.backgroundColor = [UIColor blackColor];
-        tempBlackView.alpha = 0.6f;
-        tempBlackView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [[UIApplication sharedApplication].rootViewController.view addSubview:tempBlackView];
-        
-        UIView *superView = self.navigationController.view.superview;
-        superView.frame = tempBlackView.frame;
-        [[UIApplication sharedApplication].rootViewController.view addSubview:superView];
-        superView.userInteractionEnabled = NO;
-        
-        [UIView animateWithDuration:0.5f animations:^{
-            tempBlackView.alpha = 0;
-        } completion:^(BOOL finished) {
-            [tempBlackView removeFromSuperview];
-            [superView removeFromSuperview];
-        }];
-        
-        UIViewController *vc = [[NSClassFromString(info.nibFileName) alloc] init];
-        if([vc respondsToSelector:@selector(show)])
-            [vc performSelector:@selector(show)];
-        else
-            [UIApplication presentModalViewController:vc animated:YES];
-    } else if([info.wayToPresentViewController isEqualToString:kPushNavigationController]) {
+    if([info.wayToPresentViewController isEqualToString:kPushNavigationController]) {
         UIViewController *vc = [[NSClassFromString(info.nibFileName) alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    SettingInfoSection *sectionInfo = [self.settingSectionInfoArray objectAtIndex:section];
+    return sectionInfo.sectionHeader;
+}
+
+- (NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+	SettingInfoSection *sectionInfo = [self.settingSectionInfoArray objectAtIndex:section];
+    return sectionInfo.sectionFooter;
 }
 
 @end

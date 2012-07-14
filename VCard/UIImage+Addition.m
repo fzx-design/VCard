@@ -8,6 +8,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Addition.h"
+#import "UIView+Resize.h"
+#import "UIImageView+Addition.h"
 
 #define COMPRESS_IMAGE_MAX_WIDTH    1024
 #define COMPRESS_IMAGE_MAX_HEIGHT   1024
@@ -494,6 +496,43 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     UIGraphicsEndImageContext();
     
     return image;
+}
+
++ (void)loadSettingAvatarImageFromURL:(NSString *)avatarURL
+                              completion:(void (^)(UIImage *result))completion {
+    UIImageView *avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    if (UIGraphicsBeginImageContextWithOptions != NULL) {
+        [avatarImageView resetSize:CGSizeMake(29, 29)];
+    }
+    avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    [avatarImageView loadImageFromURL:avatarURL completion:^{
+        
+        avatarImageView.layer.cornerRadius = 4.0f;
+        avatarImageView.layer.masksToBounds = YES;
+        
+        avatarImageView.layer.borderColor = [UIColor colorWithRed:71 / 255. green:74 / 255. blue:78 / 255. alpha:1].CGColor;
+        if (UIGraphicsBeginImageContextWithOptions != NULL) {
+            avatarImageView.layer.borderWidth = 0.5;
+        } else {
+            avatarImageView.layer.borderWidth = 1;
+        }
+        
+        
+        CGSize targetSize = CGSizeMake(30, 30);
+        if (UIGraphicsBeginImageContextWithOptions != NULL) {
+            UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.0);
+        } else {
+            UIGraphicsBeginImageContext(targetSize);
+        }
+        [avatarImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+        UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+                
+        if(completion) {
+            completion(croppedImage);
+        }
+    }];
 }
 
 @end

@@ -701,6 +701,8 @@
 		E111D74B159B243E00C68A5C /* CropImageViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E111D74A159B243D00C68A5C /* CropImageViewController-landscape.xib */; };
 		E111D756159B34E000C68A5C /* motions_slider_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = E111D754159B34E000C68A5C /* motions_slider_thumb.png */; };
 		E111D757159B34E000C68A5C /* motions_slider_thumb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E111D755159B34E000C68A5C /* motions_slider_thumb@2x.png */; };
+		E119DCB815B13C7000B7A446 /* SettingLegacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E119DCAA15B098F200B7A446 /* SettingLegacyViewController.m */; };
+		E119DCB915B13C7A00B7A446 /* SettingLegacyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E119DCAB15B098F300B7A446 /* SettingLegacyViewController.xib */; };
 		E122D533159DAA6800E17D3B /* MotionsFilterReader.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D532159DAA6700E17D3B /* MotionsFilterReader.m */; };
 		E122D536159DAACC00E17D3B /* MotionsFilterInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = E122D535159DAACB00E17D3B /* MotionsFilterInfo.plist */; };
 		E12B6FDC1599663B00711A6B /* MultiInterfaceOrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B6FDB1599663B00711A6B /* MultiInterfaceOrientationViewController.m */; };
@@ -1679,6 +1681,9 @@
 		E111D74A159B243D00C68A5C /* CropImageViewController-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "CropImageViewController-landscape.xib"; sourceTree = "<group>"; };
 		E111D754159B34E000C68A5C /* motions_slider_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_slider_thumb.png; sourceTree = "<group>"; };
 		E111D755159B34E000C68A5C /* motions_slider_thumb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_slider_thumb@2x.png"; sourceTree = "<group>"; };
+		E119DCA915B098F200B7A446 /* SettingLegacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingLegacyViewController.h; sourceTree = "<group>"; };
+		E119DCAA15B098F200B7A446 /* SettingLegacyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingLegacyViewController.m; sourceTree = "<group>"; };
+		E119DCAB15B098F300B7A446 /* SettingLegacyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingLegacyViewController.xib; sourceTree = "<group>"; };
 		E122D531159DAA6600E17D3B /* MotionsFilterReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsFilterReader.h; sourceTree = "<group>"; };
 		E122D532159DAA6700E17D3B /* MotionsFilterReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsFilterReader.m; sourceTree = "<group>"; };
 		E122D535159DAACB00E17D3B /* MotionsFilterInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MotionsFilterInfo.plist; sourceTree = "<group>"; };
@@ -1852,8 +1857,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				189F486D15B050630006DC84 /* ImageIO.framework in Frameworks */,
-				1850A478153C0ADC0001A905 /* libicucore.A.dylib in Frameworks */,
 				1809ED5D159ADA1200A841BC /* MessageUI.framework in Frameworks */,
+				1850A478153C0ADC0001A905 /* libicucore.A.dylib in Frameworks */,
 				E1097D57157F9C1D00BD0640 /* AVFoundation.framework in Frameworks */,
 				181AB90F15230AC1007A2A51 /* CoreGraphics.framework in Frameworks */,
 				E1097D55157F9C1000BD0640 /* CoreImage.framework in Frameworks */,
@@ -3202,6 +3207,9 @@
 				E10D04BB15AF030C00492A87 /* SettingAppInfoViewController.h */,
 				E10D04BC15AF030C00492A87 /* SettingAppInfoViewController.m */,
 				E17A2BAE15B0106800E70A5D /* SettingAppInfoViewController.xib */,
+				E119DCA915B098F200B7A446 /* SettingLegacyViewController.h */,
+				E119DCAA15B098F200B7A446 /* SettingLegacyViewController.m */,
+				E119DCAB15B098F300B7A446 /* SettingLegacyViewController.xib */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -4092,7 +4100,6 @@
 				E10D052115AFB47400492A87 /* settings_shadow@2x.png in Resources */,
 				E17A2BA815AFEBE400E70A5D /* icon_settings_empty.png in Resources */,
 				E17A2BA915AFEBE400E70A5D /* icon_settings_empty@2x.png in Resources */,
-<<<<<<< HEAD
 				18F2456A15B1237B000DCD38 /* button_next_pale.png in Resources */,
 				18F2456B15B1237B000DCD38 /* button_next_pale@2x.png in Resources */,
 				18F2456C15B1237B000DCD38 /* button_previous_pale.png in Resources */,
@@ -4101,9 +4108,8 @@
 				18F2456F15B1237B000DCD38 /* button_reload_pale@2x.png in Resources */,
 				18F2457015B1237B000DCD38 /* button_stop_pale.png in Resources */,
 				18F2457115B1237B000DCD38 /* button_stop_pale@2x.png in Resources */,
-=======
 				E17A2BAF15B0106A00E70A5D /* SettingAppInfoViewController.xib in Resources */,
->>>>>>> 关于界面搭建完成。
+				E119DCB915B13C7A00B7A446 /* SettingLegacyViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4267,6 +4273,7 @@
 				E17A2B9715AFBC1200E70A5D /* SettingTableViewCell.m in Sources */,
 				189F487B15B05BE90006DC84 /* UIImage+animatedImageWithGIF.m in Sources */,
 				184CE7B515B10B6C001358FB /* InnerBrowserViewController.m in Sources */,
+				E119DCB815B13C7000B7A446 /* SettingLegacyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

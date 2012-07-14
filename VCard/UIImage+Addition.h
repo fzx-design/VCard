@@ -29,4 +29,7 @@
 - (UIImage *)scaleImageToSize:(CGSize)newSize;
 + (UIImage *)screenShot;
 
++ (void)loadSettingAvatarImageFromURL:(NSString *)avatarURL
+                           completion:(void (^)(UIImage *result))completion;
+
 @end

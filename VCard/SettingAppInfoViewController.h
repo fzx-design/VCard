@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 #import "WTGroupTableViewController.h"
 
-@interface SettingAppInfoViewController : WTGroupTableViewController
+@interface SettingAppInfoViewController : WTGroupTableViewController <MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *appInfoView;
 
