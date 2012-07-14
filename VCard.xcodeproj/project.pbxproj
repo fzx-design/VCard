@@ -218,6 +218,10 @@
 		18E55922153F95AB00ECCA3B /* WaterflowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E55921153F95AB00ECCA3B /* WaterflowCell.m */; };
 		18E5592D153FA13E00ECCA3B /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5592B153FA01300ECCA3B /* CoreDataTableViewController.m */; };
 		18E5592E153FA14200ECCA3B /* CoreDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E55928153F9F5C00ECCA3B /* CoreDataViewController.m */; };
+		18E6FA8115B18B28003B5A39 /* button_arrow_card_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E6FA7D15B18B28003B5A39 /* button_arrow_card_hover@2x.png */; };
+		18E6FA8215B18B28003B5A39 /* button_arrow_card@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E6FA7E15B18B28003B5A39 /* button_arrow_card@2x.png */; };
+		18E6FA8315B18B28003B5A39 /* button_arrow_card_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E6FA7F15B18B28003B5A39 /* button_arrow_card_hover.png */; };
+		18E6FA8415B18B28003B5A39 /* button_arrow_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E6FA8015B18B28003B5A39 /* button_arrow_card.png */; };
 		18E707C9153D28A60012092E /* VCard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18E707C7153D28A60012092E /* VCard.xcdatamodeld */; };
 		18E707E4153D2E2C0012092E /* NSDateAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E707E0153D2E2C0012092E /* NSDateAddition.m */; };
 		18E707EF153D32680012092E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E707EE153D32680012092E /* CoreData.framework */; };
@@ -1164,6 +1168,10 @@
 		18E55928153F9F5C00ECCA3B /* CoreDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataViewController.m; sourceTree = "<group>"; };
 		18E5592A153FA01200ECCA3B /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		18E5592B153FA01300ECCA3B /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
+		18E6FA7D15B18B28003B5A39 /* button_arrow_card_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_arrow_card_hover@2x.png"; sourceTree = "<group>"; };
+		18E6FA7E15B18B28003B5A39 /* button_arrow_card@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_arrow_card@2x.png"; sourceTree = "<group>"; };
+		18E6FA7F15B18B28003B5A39 /* button_arrow_card_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_arrow_card_hover.png; sourceTree = "<group>"; };
+		18E6FA8015B18B28003B5A39 /* button_arrow_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_arrow_card.png; sourceTree = "<group>"; };
 		18E707C8153D28A60012092E /* VCard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VCard.xcdatamodel; sourceTree = "<group>"; };
 		18E707DF153D2E2C0012092E /* NSDateAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDateAddition.h; sourceTree = "<group>"; };
 		18E707E0153D2E2C0012092E /* NSDateAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateAddition.m; sourceTree = "<group>"; };
@@ -2395,6 +2403,10 @@
 		18EA4E5915346DFD005ED94F /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				18E6FA7D15B18B28003B5A39 /* button_arrow_card_hover@2x.png */,
+				18E6FA7E15B18B28003B5A39 /* button_arrow_card@2x.png */,
+				18E6FA7F15B18B28003B5A39 /* button_arrow_card_hover.png */,
+				18E6FA8015B18B28003B5A39 /* button_arrow_card.png */,
 				18F2456215B1237B000DCD38 /* button_next_pale.png */,
 				18F2456315B1237B000DCD38 /* button_next_pale@2x.png */,
 				18F2456415B1237B000DCD38 /* button_previous_pale.png */,
@@ -4116,8 +4128,15 @@
 				18F2457115B1237B000DCD38 /* button_stop_pale@2x.png in Resources */,
 				E17A2BAF15B0106A00E70A5D /* SettingAppInfoViewController.xib in Resources */,
 				E119DCB915B13C7A00B7A446 /* SettingLegacyViewController.xib in Resources */,
+<<<<<<< HEAD
 				E1ABFD7015B17AE9006F3237 /* icon_settings_gesture.png in Resources */,
 				E1ABFD7115B17AE9006F3237 /* icon_settings_gesture@2x.png in Resources */,
+=======
+				18E6FA8115B18B28003B5A39 /* button_arrow_card_hover@2x.png in Resources */,
+				18E6FA8215B18B28003B5A39 /* button_arrow_card@2x.png in Resources */,
+				18E6FA8315B18B28003B5A39 /* button_arrow_card_hover.png in Resources */,
+				18E6FA8415B18B28003B5A39 /* button_arrow_card.png in Resources */,
+>>>>>>> 更改个人评论列表图片素材
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
