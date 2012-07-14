@@ -109,18 +109,6 @@
 				</dict>
 				<dict>
 					<key>kItemTitle</key>
-					<string>亮度</string>
-					<key>kAccessoryType</key>
-					<string>kAccessoryTypeDisclosure</string>
-					<key>kNibFileName</key>
-					<string>SettingBrightnessViewController</string>
-					<key>kWayToPresentViewController</key>
-					<string>kPushNavigationController</string>
-					<key>kItemImageFileName</key>
-					<string>icon_settings_brightness</string>
-				</dict>
-				<dict>
-					<key>kItemTitle</key>
 					<string>显示图片</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeSwitch</string>

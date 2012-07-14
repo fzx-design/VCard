@@ -784,9 +784,6 @@
 		E1ABFD7015B17AE9006F3237 /* icon_settings_gesture.png in Resources */ = {isa = PBXBuildFile; fileRef = E1ABFD6E15B17AE9006F3237 /* icon_settings_gesture.png */; };
 		E1ABFD7115B17AE9006F3237 /* icon_settings_gesture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1ABFD6F15B17AE9006F3237 /* icon_settings_gesture@2x.png */; };
 		E1ABFD7915B18E19006F3237 /* SettingOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ABFD7815B18E19006F3237 /* SettingOptionViewController.m */; };
-		E1ABFD7C15B19CF7006F3237 /* SettingBrightnessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ABFD7B15B19CF7006F3237 /* SettingBrightnessViewController.m */; };
-		E1ABFD7E15B19D8A006F3237 /* SettingBrightnessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1ABFD7D15B19D8A006F3237 /* SettingBrightnessCell.xib */; };
-		E1ABFD8115B19F32006F3237 /* SettingBrightnessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ABFD8015B19F31006F3237 /* SettingBrightnessCell.m */; };
 		E1AF111E15A01A67004236ED /* MotionsFilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AF111815A01A67004236ED /* MotionsFilterCell.m */; };
 		E1AF111F15A01A67004236ED /* MotionsFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1AF111915A01A67004236ED /* MotionsFilterCell.xib */; };
 		E1AF112015A01A67004236ED /* MotionsFilterTableViewController-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1AF111A15A01A67004236ED /* MotionsFilterTableViewController-landscape.xib */; };
@@ -1786,11 +1783,6 @@
 		E1ABFD6F15B17AE9006F3237 /* icon_settings_gesture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings_gesture@2x.png"; sourceTree = "<group>"; };
 		E1ABFD7715B18E18006F3237 /* SettingOptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingOptionViewController.h; sourceTree = "<group>"; };
 		E1ABFD7815B18E19006F3237 /* SettingOptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingOptionViewController.m; sourceTree = "<group>"; };
-		E1ABFD7A15B19CF6006F3237 /* SettingBrightnessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingBrightnessViewController.h; sourceTree = "<group>"; };
-		E1ABFD7B15B19CF7006F3237 /* SettingBrightnessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingBrightnessViewController.m; sourceTree = "<group>"; };
-		E1ABFD7D15B19D8A006F3237 /* SettingBrightnessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingBrightnessCell.xib; sourceTree = "<group>"; };
-		E1ABFD7F15B19F30006F3237 /* SettingBrightnessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingBrightnessCell.h; sourceTree = "<group>"; };
-		E1ABFD8015B19F31006F3237 /* SettingBrightnessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingBrightnessCell.m; sourceTree = "<group>"; };
 		E1AF111715A01A67004236ED /* MotionsFilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsFilterCell.h; sourceTree = "<group>"; };
 		E1AF111815A01A67004236ED /* MotionsFilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsFilterCell.m; sourceTree = "<group>"; };
 		E1AF111915A01A67004236ED /* MotionsFilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MotionsFilterCell.xib; sourceTree = "<group>"; };
@@ -3239,11 +3231,6 @@
 				E119DCAB15B098F300B7A446 /* SettingLegacyViewController.xib */,
 				E1ABFD7715B18E18006F3237 /* SettingOptionViewController.h */,
 				E1ABFD7815B18E19006F3237 /* SettingOptionViewController.m */,
-				E1ABFD7A15B19CF6006F3237 /* SettingBrightnessViewController.h */,
-				E1ABFD7B15B19CF7006F3237 /* SettingBrightnessViewController.m */,
-				E1ABFD7F15B19F30006F3237 /* SettingBrightnessCell.h */,
-				E1ABFD8015B19F31006F3237 /* SettingBrightnessCell.m */,
-				E1ABFD7D15B19D8A006F3237 /* SettingBrightnessCell.xib */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -4152,7 +4139,6 @@
 				18E6FA8215B18B28003B5A39 /* button_arrow_card@2x.png in Resources */,
 				18E6FA8315B18B28003B5A39 /* button_arrow_card_hover.png in Resources */,
 				18E6FA8415B18B28003B5A39 /* button_arrow_card.png in Resources */,
-				E1ABFD7E15B19D8A006F3237 /* SettingBrightnessCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4318,8 +4304,6 @@
 				184CE7B515B10B6C001358FB /* InnerBrowserViewController.m in Sources */,
 				E119DCB815B13C7000B7A446 /* SettingLegacyViewController.m in Sources */,
 				E1ABFD7915B18E19006F3237 /* SettingOptionViewController.m in Sources */,
-				E1ABFD7C15B19CF7006F3237 /* SettingBrightnessViewController.m in Sources */,
-				E1ABFD8115B19F32006F3237 /* SettingBrightnessCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
