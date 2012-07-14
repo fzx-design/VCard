@@ -37,12 +37,26 @@
     _toMeNextPage = 1;
     _byMeNextPage = 1;
     _hasMoreViews = YES;
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(refreshAfterDeletingComment:)
+                   name:kNotificationNameShouldDeleteComment
+                 object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)refreshAfterDeletingComment:(NSNotification *)notification
+{
+    NSString *commentID = notification.object;
+    [Comment deleteCommentWithID:commentID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
+    [self.managedObjectContext processPendingChanges];
+    
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
 }
 
 #pragma mark - Data Operation

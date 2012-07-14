@@ -156,9 +156,11 @@
 {
     NSString *commentID = notification.object;
     [Comment deleteCommentWithID:commentID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
+    [self.managedObjectContext processPendingChanges];
     self.status.commentsCount = [NSString stringWithFormat:@"%d", self.status.commentsCount.intValue - 1];
     [self performSelector:@selector(updateHeaderViewInfo) withObject:nil afterDelay:0.001];
     [self performSelector:@selector(updateVisibleCells) withObject:nil afterDelay:0.005];
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
 }
 
 #pragma mark - Core Data Table View Method
