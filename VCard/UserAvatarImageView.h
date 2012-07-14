@@ -23,6 +23,8 @@
 
 - (void)loadImageFromURL:(NSString *)urlString 
               completion:(void (^)(BOOL succeeded))completion;
+- (void)loadImageWithoutFadeFromURL:(NSString *)urlString
+                         completion:(void (^)(BOOL))completion;
 
 // Animation
 - (void)swingOnce:(CALayer*)layer toAngle:(CGFloat)toAngle;

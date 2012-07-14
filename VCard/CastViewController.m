@@ -23,6 +23,7 @@
 #import "SelfCommentViewController.h"
 #import "SelfProfileViewController.h"
 #import "TopicViewController.h"
+#import "NSNotificationCenter+Addition.h"
 
 @interface CastViewController () {
     BOOL _loading;
@@ -92,6 +93,8 @@
 
 - (void)setUpNotification
 {
+    [NSNotificationCenter registerChangeUserAvatarNotificationWith:@selector(changeUserAvatar) target:self];
+    
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
                selector:@selector(showUserByName:)
@@ -454,6 +457,12 @@
     _refreshing = YES;
     [self loadMoreData];
     [_navigationView hideInfoBar];
+}
+
+#pragma mark Change User Avatar
+- (void)changeUserAvatar
+{
+    [self.profileImageView loadImageFromURL:self.currentUser.largeAvatarURL completion:nil];
 }
 
 #pragma mark - IBActions

@@ -11,7 +11,7 @@
 
 @implementation UIImageView (Addition)
 
-- (void)loadImageFromURL:(NSString *)urlString 
+- (void)loadImageFromURL:(NSString *)urlString
               completion:(void (^)(BOOL succeeded))completion {
     [self kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];

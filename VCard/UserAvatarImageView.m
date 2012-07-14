@@ -101,12 +101,20 @@
             completion(succeeded);
         }
         if (succeeded) {
-            self.alpha = 0.0;
+            _imageView.alpha = 0.0;
             [UIView animateWithDuration:0.3 animations:^{
-                self.alpha = 1.0;
+                _imageView.alpha = 1.0;
             }];
         }
     }];
+}
+
+- (void)loadImageWithoutFadeFromURL:(NSString *)urlString
+                         completion:(void (^)(BOOL))completion
+{
+    [_imageView kv_cancelImageDownload];
+    NSURL *anImageURL = [NSURL URLWithString:urlString];
+    [_imageView kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
 }
 
 - (void)reset

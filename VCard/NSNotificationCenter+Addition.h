@@ -12,8 +12,10 @@
 
 + (void)postChangeCurrentUserNotification;
 + (void)postCoreChangeCurrentUserNotificationWithUserID:(NSString *)userID;
++ (void)postChangeUserAvatarNotification;
 
 + (void)registerCoreChangeCurrentUserNotificationWithSelector:(SEL)aSelector target:(id)aTarget;
 + (void)registerChangeCurrentUserNotificationWithSelector:(SEL)aSelector target:(id)aTarget;
- 
++ (void)registerChangeUserAvatarNotificationWith:(SEL)aSelector target:(id)aTarget;
+
 @end
