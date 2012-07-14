@@ -127,6 +127,9 @@
     
     NSURL *url = [NSURL URLWithString:urlString];
     void (^imageLoadingCompletion)(BOOL succeeded) = ^(BOOL succeeded){
+        
+        _staticGIFImage = self.imageView.image;
+        
         CGFloat targetWidth = self.imageView.frame.size.width;
         CGFloat targetHeight = self.imageView.frame.size.height;
         CGFloat width = self.imageView.image.size.width;
@@ -181,7 +184,6 @@
                       completion:(void (^)())completion
 {
     if (_isGIF) {
-        _staticGIFImage = self.imageView.image;
         urlString = [urlString stringByReplacingOccurrencesOfString:@"jpg" withString:@"gif"];
         urlString = [urlString stringByReplacingOccurrencesOfString:@"large" withString:@"bmiddle"];
         NSURL *url = [NSURL URLWithString:urlString];
@@ -238,6 +240,7 @@
 {
     self.gifIcon.hidden = YES;
     _isGIF = NO;
+    _staticGIFImage = nil;
 }
 
 - (UIImage *)image

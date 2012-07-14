@@ -14,6 +14,7 @@
 #import "UIApplication+Addition.h"
 #import "UserAccountManager.h"
 #import "WBClient.h"
+#import "InnerBrowserViewController.h"
 
 #define kActionSheetCommentCopyIndex   0
 #define kActionSheetCommentDelete      1
@@ -198,6 +199,11 @@
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithQuate:(NSString *)quate
 {
     [self sendShowTopicNotification:quate];
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url
+{
+    [InnerBrowserViewController loadLinkWithURL:url];
 }
 
 - (void)sendUserNameClickedNotificationWithName:(NSString *)userName

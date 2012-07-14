@@ -23,7 +23,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cHR-7n-pWN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2316" y="-305"/>
+            <point key="canvasLocation" x="-3404" y="-305"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="ilv-Xw-sI2">
@@ -42,7 +42,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AMF-ee-j0K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1309" y="-295"/>
+            <point key="canvasLocation" x="-2245" y="-295"/>
         </scene>
         <!--Detail Image View Controller-->
         <scene sceneID="qGb-8d-JpK">
@@ -172,7 +172,151 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HjK-b9-EtB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-404" y="-295"/>
+            <point key="canvasLocation" x="-1289" y="-281"/>
+        </scene>
+        <!--Inner Browser View Controller-->
+        <scene sceneID="v0q-aI-fA9">
+            <objects>
+                <viewController storyboardIdentifier="InnerBrowserViewController" id="loP-K2-i3y" customClass="InnerBrowserViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gnH-pL-IKQ">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView multipleTouchEnabled="YES" contentMode="scaleToFill" scalesPageToFit="YES" id="YUi-eR-3Q8">
+                                <rect key="frame" x="0.0" y="43" width="768" height="918"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                            <view contentMode="scaleToFill" id="SZH-vq-p3d">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="68"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="black_topbar_bg_unit.png" id="iDD-eW-Uz4">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="68"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zhN-ea-F6N">
+                                        <rect key="frame" x="8" y="5" width="47" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <size key="titleShadowOffset" width="0.0" height="1"/>
+                                        <state key="normal" title="关闭">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didClickReturnButton:" destination="loP-K2-i3y" eventType="touchUpInside" id="bPJ-iv-FtH"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="bag-gP-SO8">
+                                        <rect key="frame" x="80" y="10" width="609" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="fYD-gL-57a">
+                                <rect key="frame" x="0.0" y="937" width="768" height="67"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="black_bar_bg_unit.png" id="DrZ-8v-M6z">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="67"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="IS2-7U-a8y">
+                                        <rect key="frame" x="717" y="25" width="44" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="button_share_pale.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didClickMoreActionButton:" destination="loP-K2-i3y" eventType="touchUpInside" id="Ts4-tC-cqr"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="t5A-Cw-PiJ">
+                                        <rect key="frame" x="0.0" y="25" width="44" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="button_previous_pale.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="goBack" destination="YUi-eR-3Q8" eventType="touchUpInside" id="SZh-T7-yMW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="hLT-ca-YqH">
+                                        <rect key="frame" x="52" y="25" width="44" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="button_next_pale.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="goForward" destination="YUi-eR-3Q8" eventType="touchUpInside" id="0E9-ZT-Zrw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="yNc-QI-FbQ">
+                                        <rect key="frame" x="104" y="25" width="44" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="button_reload_pale.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didClickReloadButton:" destination="loP-K2-i3y" eventType="touchUpInside" id="Gdy-Q0-Y6p"/>
+                                        </connections>
+                                    </button>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="white" id="f2l-6e-AGM">
+                                        <rect key="frame" x="168" y="36" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="backButton" destination="t5A-Cw-PiJ" id="lGX-Cx-cPF"/>
+                        <outlet property="forwardButton" destination="hLT-ca-YqH" id="0mP-sh-LOe"/>
+                        <outlet property="loadingIndicator" destination="f2l-6e-AGM" id="k8w-Zx-dgR"/>
+                        <outlet property="moreActionButton" destination="IS2-7U-a8y" id="b1u-zi-9gt"/>
+                        <outlet property="reloadButton" destination="yNc-QI-FbQ" id="cnt-Zd-jQF"/>
+                        <outlet property="returnButton" destination="zhN-ea-F6N" id="y54-vs-oUB"/>
+                        <outlet property="titleLabel" destination="bag-gP-SO8" id="ZEK-ap-hZc"/>
+                        <outlet property="webView" destination="YUi-eR-3Q8" id="uUv-IS-WoU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bar-Vx-vi4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-404" y="-281"/>
         </scene>
         <!--Card View Controller-->
         <scene sceneID="cow-Ge-Jm5">
@@ -2340,6 +2484,9 @@
         <image name="button_menu_search.png" width="25" height="25"/>
         <image name="button_menu_search_hover.png" width="25" height="25"/>
         <image name="button_modify_avatar.png" width="107" height="32"/>
+        <image name="button_next_pale.png" width="22" height="22"/>
+        <image name="button_previous_pale.png" width="22" height="22"/>
+        <image name="button_reload_pale.png" width="22" height="22"/>
         <image name="button_segments.png" width="107" height="33"/>
         <image name="button_share.png" width="34" height="34"/>
         <image name="button_share_hover.png" width="34" height="34"/>
@@ -2372,6 +2519,359 @@
         <image name="topbar_avatar_cover.png" width="28" height="28"/>
         <image name="topic_pic_pin.png" width="32" height="32"/>
     </resources>
+    <classes>
+        <class className="BaseCardBackgroundView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCardBackgroundView.h"/>
+        </class>
+        <class className="BaseNavigationBar" superclassName="UINavigationBar">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationBar.h"/>
+        </class>
+        <class className="BaseNavigationView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationView.h"/>
+        </class>
+        <class className="BaseStackLayoutView" superclassName="UIImageView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseStackLayoutView.h"/>
+        </class>
+        <class className="CardImageView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardImageView.h"/>
+        </class>
+        <class className="CardViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickRepostButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="nameButtonClicked:"/>
+                <relationship kind="outlet" name="cardBackground" candidateClass="BaseCardBackgroundView"/>
+                <relationship kind="outlet" name="clipImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="favoredImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="locationPinImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="originalStatusLabel" candidateClass="TTTAttributedLabel"/>
+                <relationship kind="outlet" name="originalUserAvatar" candidateClass="UserAvatarImageView"/>
+                <relationship kind="outlet" name="originalUserNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="originalUserNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="repostButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="repostCardBackground" candidateClass="BaseCardBackgroundView"/>
+                <relationship kind="outlet" name="repostStatusInfoView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="repostStatusLabel" candidateClass="TTTAttributedLabel"/>
+                <relationship kind="outlet" name="repostUserAvatar" candidateClass="UserAvatarImageView"/>
+                <relationship kind="outlet" name="repostUserNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="repostUserNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="statusImageView" candidateClass="CardImageView"/>
+                <relationship kind="outlet" name="statusInfoView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CastViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CastViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickCreateStatusButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickGroupButton:"/>
+                <relationship kind="action" name="didClickSearchButton:"/>
+                <relationship kind="action" name="didClickUnreadCommentButton:" candidateClass="UnreadIndicatorButton"/>
+                <relationship kind="action" name="didClickUnreadFollowerButton:" candidateClass="UnreadIndicatorButton"/>
+                <relationship kind="action" name="didClickUnreadMentionButton:" candidateClass="UnreadIndicatorButton"/>
+                <relationship kind="action" name="refreshButtonClicked:"/>
+                <relationship kind="action" name="showProfileButtonClicked:"/>
+                <relationship kind="outlet" name="createStatusButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="groupButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="navigationView" candidateClass="BaseNavigationView"/>
+                <relationship kind="outlet" name="profileImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="refreshButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="refreshIndicatorView" candidateClass="RefreshIndicatorView"/>
+                <relationship kind="outlet" name="searchButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="showProfileButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="unreadCommentIndicatorButton" candidateClass="UnreadIndicatorButton"/>
+                <relationship kind="outlet" name="unreadCountButton" candidateClass="UnreadCountButton"/>
+                <relationship kind="outlet" name="unreadFollowerIndicatorButton" candidateClass="UnreadIndicatorButton"/>
+                <relationship kind="outlet" name="unreadIndicatorView" candidateClass="UnreadIndicatorView"/>
+                <relationship kind="outlet" name="unreadMentionIndicatorButton" candidateClass="UnreadIndicatorButton"/>
+                <relationship kind="outlet" name="waterflowView" candidateClass="WaterflowView"/>
+            </relationships>
+        </class>
+        <class className="CommentViewController" superclassName="StackViewPageController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickChangeSourceButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="changeSourceButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CoreDataTableViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="CoreDataViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataViewController.h"/>
+        </class>
+        <class className="DetailImageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailImageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickMoreActionButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickReturnButton:"/>
+                <relationship kind="outlet" name="authorAvatarImageView" candidateClass="UserAvatarImageView"/>
+                <relationship kind="outlet" name="authorNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="bottomBarView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="moreActionButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="returnButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="topBarView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="DividerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DividerViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="leftPattern" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="rightPattern" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="FriendProfileViewController" superclassName="UserProfileViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendProfileViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickMentionButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickRelationButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="mentionButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="moreInfoButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="relationshipButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="InnerBrowserViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InnerBrowserViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickMoreActionButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickReloadButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickReturnButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="forwardButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="loadingIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="moreActionButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="reloadButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="returnButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="ProfileCommentStatusTableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileCommentStatusTableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dividerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="leftpatternImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="rightpatternImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="ProfileCommentTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileCommentTableViewCell.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickMoreActionButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickUserNameButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
+                <relationship kind="outlet" name="baseCardBackgroundView" candidateClass="BaseCardBackgroundView"/>
+                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="commentContentLabel" candidateClass="TTTAttributedLabel"/>
+                <relationship kind="outlet" name="commentInfoView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="downThreadImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="moreActionButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="screenNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="upThreadImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="ProfileCommentTableViewController" superclassName="RefreshableCoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileCommentTableViewController.h"/>
+        </class>
+        <class className="ProfileRelationTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileRelationTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
+                <relationship kind="outlet" name="cellSelectionImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="infoLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="ProfileRelationTableViewController" superclassName="RefreshableCoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileRelationTableViewController.h"/>
+        </class>
+        <class className="ProfileStatusTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileStatusTableViewCell.h"/>
+        </class>
+        <class className="ProfileStatusTableViewController" superclassName="RefreshableCoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileStatusTableViewController.h"/>
+        </class>
+        <class className="RefreshIndicatorView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RefreshIndicatorView.h"/>
+        </class>
+        <class className="RefreshableCoreDataTableViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RefreshableCoreDataTableViewController.h"/>
+        </class>
+        <class className="RootViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RootViewController.h"/>
+        </class>
+        <class className="SearchTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchTableViewController.h"/>
+        </class>
+        <class className="SearchViewController" superclassName="StackViewPageController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="SelfCommentTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfCommentTableViewCell.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickMoreActionButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickUserNameButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickViewDetailButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
+                <relationship kind="outlet" name="baseCardBackgroundView" candidateClass="BaseCardBackgroundView"/>
+                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="commentContentLabel" candidateClass="TTTAttributedLabel"/>
+                <relationship kind="outlet" name="commentInfoView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="moreActionButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="screenNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="viewDetailButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="SelfCommentTableViewController" superclassName="RefreshableCoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfCommentTableViewController.h"/>
+        </class>
+        <class className="SelfCommentViewController" superclassName="StackViewPageController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfCommentViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickSwitchByMeButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickSwitchToMeButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="byMeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="toMeButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="SelfMentionViewController" superclassName="StackViewPageController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfMentionViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickCheckCommentButton:"/>
+                <relationship kind="action" name="didClickCheckStatusButton:"/>
+                <relationship kind="outlet" name="checkCommentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkStatusButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="SelfProfileViewController" superclassName="UserProfileViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfProfileViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickAccountSettingButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickChangeAvatarButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickCheckCommentButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickCheckMentionButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="accountSettingButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="changeAvatarButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkCommentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkMentionButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="ShelfBackgroundView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShelfBackgroundView.h"/>
+        </class>
+        <class className="ShelfPageControl" superclassName="UIPageControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShelfPageControl.h"/>
+        </class>
+        <class className="ShelfScrollView" superclassName="UIScrollView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShelfScrollView.h"/>
+        </class>
+        <class className="ShelfViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShelfViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didChangePageControlValue:" candidateClass="UIPageControl"/>
+                <relationship kind="action" name="didChangeValueOfSlider:" candidateClass="UISlider"/>
+                <relationship kind="action" name="didClickDetialSettingButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickSwitchModeButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didEndDraggingSlider:" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="brightnessSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="detailSettingButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="fontSizeSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="pageControl" candidateClass="ShelfPageControl"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="shelfBorderImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="switchToPicButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="switchToTextButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="StackView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackView.h"/>
+        </class>
+        <class className="StackViewController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="stackView" candidateClass="StackView"/>
+            </relationships>
+        </class>
+        <class className="StackViewPageController" superclassName="CoreDataViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackViewPageController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="backgroundView" candidateClass="BaseStackLayoutView"/>
+            </relationships>
+        </class>
+        <class className="TTTAttributedLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TTTAttributedLabel.h"/>
+        </class>
+        <class className="TopicImageView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopicImageView.h"/>
+        </class>
+        <class className="TopicViewController" superclassName="StackViewPageController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopicViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickFollowTopicButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="followTopicButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="topicTitleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="UnreadCountButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UnreadCountButton.h"/>
+        </class>
+        <class className="UnreadIndicatorButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UnreadIndicatorButton.h"/>
+        </class>
+        <class className="UnreadIndicatorView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UnreadIndicatorView.h"/>
+        </class>
+        <class className="UserAvatarImageView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserAvatarImageView.h"/>
+        </class>
+        <class className="UserProfileViewController" superclassName="StackViewPageController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="showFollowers:"/>
+                <relationship kind="action" name="showFriends:"/>
+                <relationship kind="action" name="showStatuses:"/>
+                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
+                <relationship kind="outlet" name="checkFollowersButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkFriendsButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkStatusesButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="discriptionLabel" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="discriptionShadowLabel" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="followerCountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="friendCountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="genderImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="statusCountLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="WaterflowView" superclassName="UIScrollView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WaterflowView.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

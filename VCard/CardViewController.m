@@ -18,6 +18,7 @@
 #import "UIApplication+Addition.h"
 #import "UIView+Resize.h"
 #import "EmoticonsInfoReader.h"
+#import "InnerBrowserViewController.h"
 
 #define MaxCardSize CGSizeMake(326,9999)
 
@@ -618,6 +619,11 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithQuate:(NSString *)quate
 {
     [self sendShowTopicNotification:quate];
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url
+{
+    [InnerBrowserViewController loadLinkWithURL:url];
 }
 
 
