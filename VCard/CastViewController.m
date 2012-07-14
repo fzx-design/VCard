@@ -299,18 +299,21 @@
 - (void)showSelfCommentListWithStackIndex:(int)index
 {
     SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfCommentViewController"];
+    vc.loadWithPurpose = YES;
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:@""];
 }
 
 - (void)showSelfMentionListWithStackIndex:(int)index
 {
     SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
+    vc.loadWithPurpose = YES;
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:@""];
 }
 
 - (void)showSelfProfileWithStackIndex:(int)index
 {
     SelfProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfProfileViewController"];
+    vc.loadWithPurpose = YES;
     vc.user = self.currentUser;
     vc.shouldShowFollowerList = YES;
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:self.currentUser.screenName];

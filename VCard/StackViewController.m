@@ -63,6 +63,9 @@
     StackViewPageController *searchResult = [self checkStackForType:pageType description:pageDescription];
     if (searchResult) {
         [self.stackView scrollToTargetView:searchResult.view];
+        if (vc.loadWithPurpose) {
+            [searchResult showWithPurpose];
+        }
     } else {
         [self addViewController:vc atIndex:targetIndex];
     }
