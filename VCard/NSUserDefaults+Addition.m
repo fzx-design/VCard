@@ -71,6 +71,12 @@ typedef enum {
     return result;
 }
 
++ (void)setSettingOptionInfo:(SettingOptionInfo *)info {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:info.optionChosenStatusArray forKey:info.optionKey];
+    [defaults synchronize];
+}
+
 + (BOOL)isAutoTrafficSavingEnabled {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults boolForKey:kSettingEnableAutoTrafficSaving];
@@ -180,6 +186,7 @@ typedef enum {
             self.optionsArray = [NSArray arrayWithObjects:@"新评论", @"新粉丝", @"提到我的", @"新私信", nil];
             self.optionName = @"消息提示";
         }
+        self.optionKey = optionKey;
     }
     return self;
 }

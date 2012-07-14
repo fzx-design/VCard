@@ -64,14 +64,25 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSNumber *chosenNumber = [self.optionInfo.optionChosenStatusArray objectAtIndex:indexPath.row];
+    if(chosenNumber.boolValue == YES && self.optionInfo.allowMultiOptions == NO)
+        return;
+    
     NSMutableArray *array = [NSMutableArray array];
     [self.optionInfo.optionChosenStatusArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSNumber *chosen = obj;
-        if(idx == indexPath.row)
-            chosen = [NSNumber numberWithBool:chosen.boolValue];
-        [array addObject:chosen];
+        if(!self.optionInfo.allowMultiOptions) {
+            NSNumber *item = [NSNumber numberWithBool:idx == indexPath.row ? YES : NO];
+            [array addObject:item];
+        } else {
+            NSNumber *oldStatus = obj;
+            NSNumber *item = [NSNumber numberWithBool:idx == indexPath.row ? !chosenNumber.boolValue : oldStatus.boolValue];
+            [array addObject:item];
+        }
     }];
     self.optionInfo.optionChosenStatusArray = array;
+    
+    [NSUserDefaults setSettingOptionInfo:self.optionInfo];
+    
     [self.tableView reloadData];
 }
 

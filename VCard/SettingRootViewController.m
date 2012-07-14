@@ -14,6 +14,7 @@
 #import "UIView+Resize.h"
 #import "UIImage+Addition.h"
 #import "LoginViewController.h"
+#import "NSUserDefaults+Addition.h"
 #import "SettingOptionViewController.h"
 
 #define kSettingCurrentUserCell @"kSettingCurrentUserCell"
@@ -58,6 +59,11 @@
     [super viewDidUnload];
     // Dispose of any resources that can be recreated.
     self.tableView = nil;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [self.tableView reloadData];
+    NSLog(@"aView显示时...老子又出来了");
 }
 
 #pragma mark - Logic method
@@ -185,6 +191,21 @@
         UIImage *avatarImage = self.currentUserAvatarImage;
         if(avatarImage)
             settingCell.imageView.image = avatarImage;
+    }
+    
+    if([info.wayToPresentViewController isEqualToString:kPushOptionViewController]) {
+        SettingOptionInfo *optionInfo = [NSUserDefaults getInfoForOptionKey:info.nibFileName];
+        __block NSMutableString *detailText = [NSMutableString string];
+        [optionInfo.optionsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSNumber *chosen = [optionInfo.optionChosenStatusArray objectAtIndex:idx];
+            if(chosen.boolValue) {
+                NSString *string = obj;
+                if(detailText.length > 0)
+                    string = [NSString stringWithFormat:@"、%@", string];
+                [detailText appendString:string];
+            }
+        }];
+        settingCell.detailTextLabel.text = detailText;
     }
 }
 

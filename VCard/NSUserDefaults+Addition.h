@@ -31,6 +31,7 @@
 + (BOOL)isRetinaDisplayEnabled;
 
 + (SettingOptionInfo *)getInfoForOptionKey:(NSString *)optionKey;
++ (void)setSettingOptionInfo:(SettingOptionInfo *)info;
 
 @end
 
