@@ -85,7 +85,7 @@
     _timeStampLabel.text = [targetStatus.createdAt stringRepresentation];
     [self.scrollView addSubview:_imageView];
     
-    if (cardViewController.imageViewMode == CastViewImageViewModeDetailedNormal) {
+    if (_imageView.imageViewMode == CastViewImageViewModeDetailedNormal) {
         [self enterDetailedImageViewMode];
     }
 }
@@ -100,7 +100,7 @@
 - (void)didChangeImageScale:(CGFloat)scale
 {
     CGFloat offset = scale;
-    if (self.cardViewController.imageViewMode == CastViewImageViewModePinchingOut) {
+    if (_imageView.imageViewMode == CastViewImageViewModePinchingOut) {
         offset = [_imageView scaleOffset];
         offset = offset > 0.5 ? 0.5 : offset;
     } else {
@@ -141,7 +141,7 @@
 
 - (void)enterDetailedImageViewMode
 {
-    _cardViewController.imageViewMode = CastViewImageViewModeDetailedNormal;
+    _imageView.imageViewMode = CastViewImageViewModeDetailedNormal;
     _imageView.userInteractionEnabled = NO;
     _statusBarHidden = NO;
     _currentScale = 1.0;
@@ -305,10 +305,10 @@
     if (_firstZoom && _scrollView.zoomScale != _originScale) {
         _firstZoom = NO;
         if (_scrollView.zoomScale > _originScale) {
-            _cardViewController.imageViewMode = CastViewImageViewModeDetailedZooming;
+            _imageView.imageViewMode = CastViewImageViewModeDetailedZooming;
         } else {
             [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-            _cardViewController.imageViewMode = CastViewImageViewModePinchingIn;
+            _imageView.imageViewMode = CastViewImageViewModePinchingIn;
             _scrollView.minimumZoomScale = 0.0;
         }
     }
@@ -330,7 +330,7 @@
     
     _imageView.frame = contentsFrame;
     
-    if (_cardViewController.imageViewMode == CastViewImageViewModePinchingIn) {
+    if (_imageView.imageViewMode == CastViewImageViewModePinchingIn) {
         [self didChangeImageScale:_scrollView.zoomScale - _originScale];
     }
 }
@@ -338,18 +338,18 @@
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale
 {
     _firstZoom = YES;
-    if (_cardViewController.imageViewMode == CastViewImageViewModePinchingIn) {
+    if (_imageView.imageViewMode == CastViewImageViewModePinchingIn) {
         if (_scrollView.pinchGestureRecognizer.velocity > 2.0 || _scrollView.zoomScale < _originScale - 0.1) {
             [_cardViewController returnToInitialImageView];
         } else {
             [self recoverScrollViewRotation];
             _scrollView.minimumZoomScale = _originScale;
             [_scrollView setZoomScale:_originScale animated:YES];
-            _cardViewController.imageViewMode = CastViewImageViewModeDetailedNormal;
+            _imageView.imageViewMode = CastViewImageViewModeDetailedNormal;
         }
-    } else if (_cardViewController.imageViewMode == CastViewImageViewModeDetailedZooming) {
+    } else if (_imageView.imageViewMode == CastViewImageViewModeDetailedZooming) {
         if (_scrollView.zoomScale < _scrollView.minimumZoomScale) {
-            _cardViewController.imageViewMode = CastViewImageViewModeDetailedNormal;
+            _imageView.imageViewMode = CastViewImageViewModeDetailedNormal;
         }
     }
 }
@@ -365,7 +365,7 @@
 
 - (void)handleRotationGesture:(UIRotationGestureRecognizer *)sender
 {
-    if (_imageView && _cardViewController.imageViewMode == CastViewImageViewModePinchingIn) {
+    if (_imageView && _imageView.imageViewMode == CastViewImageViewModePinchingIn) {
         [_cardViewController handleRotationGesture:sender];
     }
 }

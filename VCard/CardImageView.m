@@ -195,10 +195,11 @@
             NSData *imageData = [NSData dataWithContentsOfURL:url];
             UIImage *image = [UIImage animatedImageWithGIFData:imageData];
             dispatch_async(dispatch_get_main_queue(), ^{
-                
-                self.imageView.image = image;
-                if (completion) {
-                    completion();
+                if (_imageViewMode != CastViewImageViewModeNormal) {
+                    self.imageView.image = image;
+                    if (completion) {
+                        completion();
+                    }
                 }
             });
             
