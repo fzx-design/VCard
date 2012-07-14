@@ -146,7 +146,9 @@
 
 - (void)stackBecomedEmpty
 {
-    [_delegate clearStack];
+    if ([_delegate respondsToSelector:@selector(clearStack)]) {
+        [_delegate clearStack];
+    }
 }
 
 - (void)stackViewDidScroll

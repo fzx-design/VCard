@@ -97,6 +97,7 @@
 
 #define kNotificationNameShouldShowPostIndicator        @"kNotificationNameShouldShowPostIndicator"
 #define kNotificationNameShouldHidePostIndicator        @"kNotificationNameShouldHidePostIndicator"
+#define kNotificationNameShouldRefreshAfterPost         @"kNotificationNameShouldRefreshAfterPost"
 
 #define kNotificationObjectKeyUser                      @"kNotificationObjectKeyUser"
 #define kNotificationObjectKeyIndex                     @"kNotificationObjectKeyIndex"

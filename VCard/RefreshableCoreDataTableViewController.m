@@ -191,6 +191,7 @@
 - (void)commentTableViewCellDidComment
 {
     [self refresh];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldRefreshAfterPost object:nil];
 }
 
 @end

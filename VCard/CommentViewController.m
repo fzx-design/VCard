@@ -160,6 +160,7 @@
 
 - (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
     [self refresh];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldRefreshAfterPost object:nil];
 }
 
 - (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {

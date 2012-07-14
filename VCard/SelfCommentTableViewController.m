@@ -42,6 +42,10 @@
                selector:@selector(refreshAfterDeletingComment:)
                    name:kNotificationNameShouldDeleteComment
                  object:nil];
+    [center addObserver:self
+               selector:@selector(refreshAfterPostingComment)
+                   name:kNotificationNameShouldRefreshAfterPost
+                 object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,6 +61,13 @@
     [self.managedObjectContext processPendingChanges];
     
     [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
+}
+
+- (void)refreshAfterPostingComment
+{
+    if (self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
+        [self refresh];
+    }
 }
 
 #pragma mark - Data Operation

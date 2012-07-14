@@ -18,6 +18,7 @@
     CGFloat _previousOffset;
     BOOL _bounceBack;
     BOOL _covered;
+    BOOL _touchLock;
     BOOL _shouldRecordDeceleratingFirst;
     BOOL _shouldRecordDeceleratingSecond;
 }
@@ -35,6 +36,7 @@
     if (self) {
         [self setUpScrollView];
         _covered = NO;
+        _touchLock = NO;
     }
     return self;
 }
@@ -45,6 +47,7 @@
     if (self) {
         [self setUpScrollView];
         _covered = NO;
+        _touchLock = NO;
     }
     return self;
 }
@@ -102,6 +105,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         [_scrollView setContentOffset:CGPointMake(newPage.frame.origin.x, 0.0)];
     } completion:^(BOOL finished) {
+        _touchLock = YES;
         if (completion) {
             completion();
         }
@@ -180,7 +184,9 @@
             [self resetOriginX:self.frame.origin.x + 200.0];
         } completion:^(BOOL finished) {
             //FIXME: Crashed
-            [_delegate stackBecomedEmpty];
+            if ([_delegate respondsToSelector:@selector(stackBecomedEmpty)]) {
+                [_delegate stackBecomedEmpty];
+            }
         }];
     }
     [_delegate stackViewDidEndScrolling];
@@ -214,6 +220,13 @@
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
+    if (_touchLock) {
+        if (_scrollView.contentOffset.x < 50.0) {
+            _scrollView.userInteractionEnabled = NO;
+            return nil;
+        }
+    }
+    
     CGPoint cp = [self convertPoint:point toView:_scrollView];
     if ([_scrollView pointInside:cp withEvent:event]) {
         return [_scrollView hitTest:cp withEvent:event];
