@@ -71,6 +71,7 @@
         return;
     }
     
+    _firstZoom = YES;
     _hasViewInDetailedMode = YES;
     _imageView = cardViewController.statusImageView;
     _cardViewController = cardViewController;
