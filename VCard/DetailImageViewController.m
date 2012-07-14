@@ -238,8 +238,8 @@
     
     _imageView.transform = transform;
     
-    CGFloat screenHeight = [UIApplication screenWidth];
-    CGFloat screenWidth = [UIApplication screenHeight];
+    CGFloat screenWidth = UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? 1024.0 : 768.0;
+    CGFloat screenHeight = UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? 768.0 : 1024.0;
     
     CGFloat width = [_imageView targetSize].width * targetScale;
     CGFloat height = [_imageView targetSize].height * targetScale;
