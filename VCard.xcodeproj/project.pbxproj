@@ -3388,7 +3388,7 @@
 		181AB8FD15230AC1007A2A51 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = Mondev;
 			};
 			buildConfigurationList = 181AB90015230AC1007A2A51 /* Build configuration list for PBXProject "VCard" */;

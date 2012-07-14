@@ -10,7 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIApplication+Addition.h"
 #import "SettingInfoReader.h"
-#import "SettingTableViewCell.h"
 #import "UIImage+Addition.h"
 #import "UIView+Resize.h"
 #import "UIImage+Addition.h"
@@ -100,6 +99,7 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     SettingTableViewCell *settingCell = (SettingTableViewCell *)cell;
+    settingCell.delegate = self;
     
     //SettingInfoSection *sectionInfo = ;
     NSArray *sectionInfoArray = [self.dataSourceDictionary objectForKey:[self.dataSourceIndexArray objectAtIndex:indexPath.section]];

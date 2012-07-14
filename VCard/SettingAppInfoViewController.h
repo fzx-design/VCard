@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 #import "WTGroupTableViewController.h"
+#import "SettingTableViewCell.h"
 
-@interface SettingAppInfoViewController : WTGroupTableViewController <MFMailComposeViewControllerDelegate>
+@interface SettingAppInfoViewController : WTGroupTableViewController <MFMailComposeViewControllerDelegate, SettingTableViewCellDelegate>
 
 @end

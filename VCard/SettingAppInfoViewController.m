@@ -8,7 +8,6 @@
 
 #import "SettingAppInfoViewController.h"
 #import "SettingInfoReader.h"
-#import "SettingTableViewCell.h"
 #import "UIApplication+Addition.h"
 #import "UIImage+Addition.h"
 #import "WBClient.h"
@@ -87,6 +86,7 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     SettingTableViewCell *settingCell = (SettingTableViewCell *)cell;
+    settingCell.delegate = self;
     
     //SettingInfoSection *sectionInfo = ;
     NSArray *sectionInfoArray = [self.dataSourceDictionary objectForKey:[self.dataSourceIndexArray objectAtIndex:indexPath.section]];
@@ -111,7 +111,17 @@
             UIImage *avatarImage = [self avatarImageForUser:user];
             if(avatarImage)
                 settingCell.imageView.image = avatarImage;
-                
+            
+            if(user.following.boolValue) {
+                settingCell.itemWatchButton.enabled = NO;
+            } else {
+                settingCell.itemWatchButton.enabled = YES;
+            }
+            
+            if([user.userID isEqualToString:self.currentUser.userID]) {
+                settingCell.itemWatchButton.enabled = NO;
+                [settingCell.itemWatchButton setTitle:@"就是你" forState:UIControlStateDisabled];
+            }
         } else {
             settingCell.textLabel.text = @"加载中";
             
@@ -122,6 +132,7 @@
                 [self.tableView reloadData];
             }];
             [client getUser:info.nibFileName];
+            settingCell.itemWatchButton.enabled = NO;
         }
     }
 }
@@ -177,6 +188,30 @@
 - (void)didClickRateCell {
     NSString *urlString = kVCardAppStoreURL;
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+}
+
+#pragma mark - SettingTableViewCell delegate
+
+- (void)settingTableViewCell:(SettingTableViewCell *)cell didClickWatchButton:(UIButton *)button {
+    button.enabled = NO;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    NSArray *sectionInfoArray = [self.dataSourceDictionary objectForKey:[self.dataSourceIndexArray objectAtIndex:indexPath.section]];
+    SettingInfo *info = [sectionInfoArray objectAtIndex:indexPath.row];
+    User *user = [User userWithID:info.nibFileName inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+    
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if(!client.hasError) {
+            user.following = [NSNumber numberWithBool:YES];
+            NSLog(@"follow succeeded");
+        } else {
+            NSLog(@"follow failed");
+            button.enabled = YES;
+        }
+    }];
+    [client follow:user.userID];
+    
 }
 
 @end

@@ -8,13 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SettingTableViewCellDelegate;
+
 @interface SettingTableViewCell : UITableViewCell
 
+@property (nonatomic, weak) id<SettingTableViewCellDelegate> delegate;
 @property (nonatomic, strong) UISwitch *itemSwitch;
 @property (nonatomic, strong) UIButton *itemWatchButton;
 
 - (void)setSwitch;
 - (void)setDisclosureIndicator;
 - (void)setWatchButton;
+
+@end
+
+@protocol SettingTableViewCellDelegate <NSObject>
+
+@optional
+- (void)settingTableViewCell:(SettingTableViewCell *)cell didClickWatchButton:(UIButton *)button;
 
 @end

@@ -1006,4 +1006,12 @@ typedef enum {
     self.popoverController = nil;
 }
 
+#pragma mark -
+#pragma mark Save image methods
+
+- (void)saveImageInBackground:(UIImage *)image {
+    if(image)
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+}
+
 @end

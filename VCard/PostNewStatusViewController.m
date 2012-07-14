@@ -185,6 +185,7 @@
         NSLog(@"post finish:%@", client.responseJSONObject);
         if(!client.hasError) {
             NSLog(@"post succeeded");
+            [self performSelectorInBackground:@selector(saveImageInBackground:) withObject:self.motionsOriginalImage];
             [self.delegate postViewController:self didPostMessage:self.textView.text];
         } else {
             NSLog(@"post failed");

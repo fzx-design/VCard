@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "WTGroupTableViewController.h"
+#import "SettingTableViewCell.h"
 
-@interface SettingRootViewController : WTGroupTableViewController
+@interface SettingRootViewController : WTGroupTableViewController <SettingTableViewCellDelegate>
 
 @end

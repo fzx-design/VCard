@@ -94,6 +94,8 @@ typedef enum {
 - (void)dismissViewToRect:(CGRect)rect;
 - (void)dismissViewUpwards;
 
+- (void)saveImageInBackground:(UIImage *)image;
+
 @end
 
 @protocol PostViewControllerDelegate <NSObject>
