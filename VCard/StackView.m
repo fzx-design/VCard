@@ -184,9 +184,11 @@
             [self resetOriginX:self.frame.origin.x + 200.0];
         } completion:^(BOOL finished) {
             //FIXME: Crashed
-            if ([_delegate respondsToSelector:@selector(stackBecomedEmpty)]) {
-                [_delegate stackBecomedEmpty];
-            }
+//            if ([_delegate respondsToSelector:@selector(stackBecomedEmpty)]) {
+//                [_delegate stackBecomedEmpty];
+//            }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldClearStack object:nil];
         }];
     }
     [_delegate stackViewDidEndScrolling];

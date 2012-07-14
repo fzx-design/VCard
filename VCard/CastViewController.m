@@ -179,6 +179,10 @@
                selector:@selector(hidePostIndicator)
                    name:kNotificationNameShouldHidePostIndicator
                  object:nil];
+    [center addObserver:self
+               selector:@selector(clearStack)
+                   name:kNotificationNameShouldClearStack
+                 object:nil];
 }
 
 - (void)viewDidUnload
