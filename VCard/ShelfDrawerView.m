@@ -19,6 +19,8 @@
              picURL:(NSString *)url
               index:(NSInteger)index
                type:(int)type
+              empty:(BOOL)empty
+
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -29,14 +31,14 @@
         _imageLoaded = url && ![url isEqualToString:@""];
         
         self.opaque = YES;
-        [self setUpDrawerImageView];
+        [self setUpDrawerImageViewWithType:type empty:empty];
         [self setTopicLabel];
         [self loadImageFromURL:url completion:nil];
     }
     return self;
 }
 
-- (void)setUpDrawerImageView
+- (void)setUpDrawerImageViewWithType:(int)type empty:(BOOL)empty
 {
     _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
     
@@ -44,9 +46,15 @@
     _backImageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
     
     _photoFrameImageView = [[UIImageView alloc] initWithFrame:kPhotoFrameFrame];
+    
+    
     NSString *imageName = @"shelf_drawer.png";
     if (_type == 0) {
         imageName = @"shelf_drawer_favorites.png";
+    } else if (_type == 1) {
+        imageName = @"";
+    } else {
+        imageName = @"";
     }
     _photoFrameImageView.image = [UIImage imageNamed:imageName];
     _photoFrameImageView.opaque = YES;

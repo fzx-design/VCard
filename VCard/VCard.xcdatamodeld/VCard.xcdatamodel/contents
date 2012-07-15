@@ -35,7 +35,9 @@
         </relationship>
     </entity>
     <entity name="Group" representedClassName="Group" syncable="YES">
+        <attribute name="count" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="groupID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupUserID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="1000" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="picURL" optional="YES" attributeType="String" syncable="YES"/>

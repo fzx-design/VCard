@@ -2,19 +2,22 @@
 //  Group.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-7-5.
+//  Created by 海山 叶 on 12-7-15.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
 #import "Group.h"
 
+
 @implementation Group
 
+@dynamic groupID;
+@dynamic index;
 @dynamic name;
 @dynamic picURL;
-@dynamic groupID;
 @dynamic type;
-@dynamic index;
+@dynamic groupUserID;
+@dynamic count;
 
 + (Group *)groupWithID:(NSString *)groupID inManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -58,6 +61,7 @@
     result.picURL = [url stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"];
     result.name = [dict objectForKey:@"name"];
     result.type = [NSNumber numberWithInt:kGroupTypeGroup];
+    result.count = [NSNumber numberWithInt:[[dict objectForKey:@"member_count"] intValue]];
     
     return result;
 }
@@ -107,6 +111,5 @@
     
     [context deleteObject:[[context executeFetchRequest:request error:NULL] lastObject]];
 }
-
 
 @end

@@ -142,7 +142,6 @@
 		1890C69115356F6F00023A13 /* BaseLayoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C69015356F6F00023A13 /* BaseLayoutView.m */; };
 		1890C6B51535BE5200023A13 /* LoginInputCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B41535BE5200023A13 /* LoginInputCellViewController.m */; };
 		189D9DE215496FA300E922D9 /* UIImageView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D9DE115496FA300E922D9 /* UIImageView+Addition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		189D9E6215A596A100AD72EA /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D9E6115A596A100AD72EA /* Group.m */; };
 		189F394B159D40CC00FD2E0F /* UnreadReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F394A159D40CC00FD2E0F /* UnreadReminder.m */; };
 		189F3956159D4B1C00FD2E0F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F3955159D4B1C00FD2E0F /* User.m */; };
 		189F3959159D80C500FD2E0F /* indicator_body@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189F3957159D80C500FD2E0F /* indicator_body@2x.png */; };
@@ -170,6 +169,7 @@
 		18C1903715945D1700DA1A6A /* comments_thread_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903315945D1700DA1A6A /* comments_thread_up.png */; };
 		18C1903815945D1700DA1A6A /* comments_thread_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903415945D1700DA1A6A /* comments_thread_up@2x.png */; };
 		18C1903B15946C5F00DA1A6A /* ProfileCommentStatusTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1903A15946C5E00DA1A6A /* ProfileCommentStatusTableCell.m */; };
+		18CCC61F15B300FC00DF94F5 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CCC61E15B300FC00DF94F5 /* Group.m */; };
 		18D3E430159D875B00626D75 /* UnreadCountButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D3E42F159D875B00626D75 /* UnreadCountButton.m */; };
 		18DBAE4B1573156000918ED4 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE4A1573155F00918ED4 /* UserProfileViewController.m */; };
 		18DBAE581573498F00918ED4 /* ProfileRelationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DBAE571573498F00918ED4 /* ProfileRelationTableViewCell.m */; };
@@ -1096,8 +1096,6 @@
 		1890C6B41535BE5200023A13 /* LoginInputCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginInputCellViewController.m; sourceTree = "<group>"; };
 		189D9DE015496FA300E922D9 /* UIImageView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Addition.h"; sourceTree = "<group>"; };
 		189D9DE115496FA300E922D9 /* UIImageView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Addition.m"; sourceTree = "<group>"; };
-		189D9E6015A596A100AD72EA /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
-		189D9E6115A596A100AD72EA /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
 		189F3949159D40CC00FD2E0F /* UnreadReminder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnreadReminder.h; sourceTree = "<group>"; };
 		189F394A159D40CC00FD2E0F /* UnreadReminder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnreadReminder.m; sourceTree = "<group>"; };
 		189F3954159D4B1C00FD2E0F /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -1138,6 +1136,8 @@
 		18C1903415945D1700DA1A6A /* comments_thread_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comments_thread_up@2x.png"; sourceTree = "<group>"; };
 		18C1903915946C5E00DA1A6A /* ProfileCommentStatusTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCommentStatusTableCell.h; sourceTree = "<group>"; };
 		18C1903A15946C5E00DA1A6A /* ProfileCommentStatusTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCommentStatusTableCell.m; sourceTree = "<group>"; };
+		18CCC61D15B300FC00DF94F5 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
+		18CCC61E15B300FC00DF94F5 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
 		18D3E42E159D875B00626D75 /* UnreadCountButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnreadCountButton.h; sourceTree = "<group>"; };
 		18D3E42F159D875B00626D75 /* UnreadCountButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnreadCountButton.m; sourceTree = "<group>"; };
 		18DBAE491573155F00918ED4 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
@@ -2370,8 +2370,8 @@
 		18E707D3153D2C6B0012092E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				189D9E6015A596A100AD72EA /* Group.h */,
-				189D9E6115A596A100AD72EA /* Group.m */,
+				18CCC61D15B300FC00DF94F5 /* Group.h */,
+				18CCC61E15B300FC00DF94F5 /* Group.m */,
 				18EE8E26159DE6160032D69B /* Comment.h */,
 				18EE8E27159DE6160032D69B /* Comment.m */,
 				189F3954159D4B1C00FD2E0F /* User.h */,
@@ -4455,7 +4455,6 @@
 				182EC05615A499D30056E282 /* Status.m in Sources */,
 				18AC570815A5295200ADDBAF /* ShelfPageControl.m in Sources */,
 				183AC82F15A56EAE006937C3 /* ShelfDrawerView.m in Sources */,
-				189D9E6215A596A100AD72EA /* Group.m in Sources */,
 				1846F04815A72FAA00E5CF47 /* DetailImageViewController.m in Sources */,
 				E1FE8AFD15A9CFD8009636A4 /* FXLabel.m in Sources */,
 				E1FE8B2815AAF09A009636A4 /* LoginViewController.m in Sources */,
@@ -4481,6 +4480,7 @@
 				18EE547415B19DF3006EA93A /* SearchTableViewHighlightsCell.m in Sources */,
 				186BCE2015B299C400B3FC71 /* SearchUserResultViewController.m in Sources */,
 				182887E415B2D35E004B3675 /* UIView+Swing.m in Sources */,
+				18CCC61F15B300FC00DF94F5 /* Group.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

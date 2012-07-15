@@ -417,7 +417,14 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
                 NSArray* array = (NSArray*)client.responseJSONObject;
                 if (array.count > 0) {
                     NSDictionary *dic = (NSDictionary *)[array objectAtIndex:0];
-                    locationString = [NSString stringWithFormat:@"在 %@%@%@", [dic objectForKey:@"city_name"], [dic objectForKey:@"district_name"], [dic objectForKey:@"name"]];
+
+                    NSString *city = [dic objectForKey:@"city_name"];
+                    NSString *disctrict = [dic objectForKey:@"district_name"];
+                    NSString *name = [dic objectForKey:@"name"];
+                    
+                    locationString = city == nil ? @"" : city;
+                    locationString = disctrict == nil ? locationString : [locationString stringByAppendingString:disctrict];
+                    locationString = name == nil ? locationString : [locationString stringByAppendingString:name];
                 }
                 
                 if ([self.status.statusID isEqualToString:_previousStatus.statusID]) {

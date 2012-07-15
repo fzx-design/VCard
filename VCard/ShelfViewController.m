@@ -351,7 +351,9 @@
                                                                topicName:group.name
                                                                   picURL:group.picURL
                                                                    index:index
-                                                                    type:group.type.intValue];
+                                                                    type:group.type.intValue
+                                                                   empty:group.count.intValue == 0];
+    
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeCastViewSource:)];
     tapGestureRecognizer.numberOfTapsRequired = 1;
     [drawerView addGestureRecognizer:tapGestureRecognizer];

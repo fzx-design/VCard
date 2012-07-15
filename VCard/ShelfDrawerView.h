@@ -25,7 +25,8 @@
           topicName:(NSString *)name
              picURL:(NSString *)url
               index:(NSInteger)index
-               type:(int)type;
+               type:(int)type
+              empty:(BOOL)empty;
 
 - (void)loadImageFromURL:(NSString *)urlString 
               completion:(void (^)(BOOL succeeded))completion;

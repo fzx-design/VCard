@@ -99,10 +99,6 @@
         rotationAnimation.duration = 0.4;
         rotationAnimation.beginTime = i * 0.4;
         
-//        if (i == 0) {
-//            rotationAnimation.fromValue = [NSNumber numberWithFloat:angle];
-//        }
-        
         [animationArray addObject:rotationAnimation];
     }
     [animationGroup setAnimations:animationArray];

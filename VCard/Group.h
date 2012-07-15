@@ -1,8 +1,8 @@
 //
 //  Group.h
+//  VCard
 //
-//
-//  Created by 海山 叶 on 12-7-5.
+//  Created by 海山 叶 on 12-7-15.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -15,16 +15,19 @@
 
 @interface Group : NSManagedObject
 
+@property (nonatomic, retain) NSString * groupID;
+@property (nonatomic, retain) NSNumber * index;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * picURL;
-@property (nonatomic, retain) NSString * groupID;
 @property (nonatomic, retain) NSNumber * type;
-@property (nonatomic, retain) NSNumber * index;
+@property (nonatomic, retain) NSString * groupUserID;
+@property (nonatomic, retain) NSNumber * count;
 
 + (Group *)insertGroupInfo:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context;
 + (Group *)insertTopicInfo:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context;
 + (Group *)insertTopicWithName:(NSString *)name andID:(NSString *)trendID inManangedObjectContext:(NSManagedObjectContext *)context;
 + (Group *)groupWithName:(NSString *)name inManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteGroupWithGroupID:(NSString *)groupID inManagedObjectContext:(NSManagedObjectContext *)context;
+
 
 @end
