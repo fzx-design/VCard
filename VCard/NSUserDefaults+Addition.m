@@ -36,10 +36,6 @@
 
 + (void)initialize {
     [NSUserDefaults initializeVCard_4_0];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:NO forKey:kHasShownGuideBook];
-    [defaults synchronize];
 }
 
 + (void)initializeVCard_4_0 {
@@ -56,6 +52,7 @@
         
         [defaults setBool:NO forKey:kHasShownShelfTips];
         [defaults setBool:NO forKey:kHasShownStackTips];
+        [defaults setBool:NO forKey:kHasShownGuideBook];
         
     }
     [defaults setBool:YES forKey:kVCard4_0_Initialized];
