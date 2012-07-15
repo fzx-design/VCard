@@ -28,6 +28,10 @@
 
 @interface LoginViewController () {
     LoginViewControllerType _controllerType;
+    CGFloat _previousOffset;
+    BOOL _bounceBack;
+    BOOL _shouldRecordDeceleratingFirst;
+    BOOL _shouldRecordDeceleratingSecond;
 }
 
 @property (nonatomic, strong) NSMutableArray *cellControllerArray;
@@ -325,6 +329,12 @@
             [self.view endEditing:YES];
         }
     }
+    
+    _shouldRecordDeceleratingFirst = decelerate;
+    if (decelerate) {
+        _previousOffset = scrollView.contentOffset.x;
+        _bounceBack = scrollView.contentOffset.x > scrollView.contentSize.width;
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -338,6 +348,31 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self configureCellGloom];
+}
+
+- (void)recordScrollViewSpeed
+{
+    if (_shouldRecordDeceleratingFirst) {
+        _previousOffset = self.scrollView.contentOffset.x;
+        _shouldRecordDeceleratingFirst = NO;
+        _shouldRecordDeceleratingSecond = YES;
+    } else if (_shouldRecordDeceleratingSecond){
+        CGFloat offset = self.scrollView.contentOffset.x - _previousOffset;
+        if (_bounceBack) {
+            offset = -(abs(offset));
+        }
+        [self swingToAngle:offset];
+        _shouldRecordDeceleratingSecond = NO;
+    }
+}
+
+- (void)swingToAngle:(CGFloat)speed
+{
+    CGFloat angle = -0.089 * speed / 20 * M_PI;
+    for (LoginCellViewController *vc in self.cellControllerArray) {
+        
+        [vc swingOnceThenHaltToAngle:angle];
+    }
 }
 
 #pragma mark - LoginCellViewController delegate

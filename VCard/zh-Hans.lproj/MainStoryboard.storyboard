@@ -623,10 +623,14 @@
                                         <rect key="frame" x="0.0" y="119" width="768" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="g4Z-wk-yON">
+                                        <rect key="frame" x="365" y="20" width="38" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </pageControl>
                                 </subviews>
                             </scrollView>
                             <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="3gZ-Vm-jz5" customClass="ShelfPageControl">
-                                <rect key="frame" x="304" y="0.0" width="161" height="36"/>
+                                <rect key="frame" x="362" y="0.0" width="45" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="didChangePageControlValue:" destination="bkR-vE-OC4" eventType="valueChanged" id="5Fo-MW-3xh"/>

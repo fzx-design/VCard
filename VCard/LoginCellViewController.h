@@ -24,7 +24,7 @@
                  password:(NSString *)password
                completion:(void (^)(BOOL succeeded))compeltion;
 
-- (void)swingOnceThenHalt:(CALayer *)layer angle:(CGFloat)angle;
+- (void)swingOnceThenHaltToAngle:(CGFloat)angle;
 
 @end
 
