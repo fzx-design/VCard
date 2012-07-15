@@ -472,7 +472,6 @@ typedef enum {
 - (void)configureTextView {
     [self updateTextCountAndPostButton];
     [self.textView becomeFirstResponder];
-    self.textView.selectedRange = NSMakeRange(0, 0);
 }
 
 - (void)configureViewFrame {

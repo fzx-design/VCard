@@ -160,12 +160,12 @@
 #pragma mark - IBActions
 
 - (void)didClickTellFriendsCell {
-    PostViewController *vc = [PostViewController getNewStatusViewControllerWithPrefixContent:@"@VCard微博 客户端很酷！推荐有 iPad 的童鞋们试试看。kVCardAppStoreURL" delegate:self];
+    PostViewController *vc = [PostViewController getNewStatusViewControllerWithPrefixContent:[NSString stringWithFormat:@"@VCard微博 客户端很酷！推荐有 iPad 的童鞋们试试看。%@", kVCardAppStoreURL] delegate:self];
     [vc showViewFromRect:POST_VIEW_SHOW_FROM_RECT];
 }
 
 - (void)didClickFeedbackCell {
-    PostViewController *vc = [PostViewController getNewStatusViewControllerWithPrefixContent:@"@VCard微博 客户端很酷！推荐有 iPad 的童鞋们试试看。kVCardAppStoreURL" delegate:self];
+    PostViewController *vc = [PostViewController getNewStatusViewControllerWithPrefixContent:[NSString stringWithFormat:@"@VCard微博 客户端很酷！推荐有 iPad 的童鞋们试试看。%@", kVCardAppStoreURL] delegate:self];
     [vc showViewFromRect:POST_VIEW_SHOW_FROM_RECT];
 }
 

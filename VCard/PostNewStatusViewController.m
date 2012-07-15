@@ -46,6 +46,9 @@
     else
         self.textView.text = @"";
     self.navLabelInitFrame = self.navLabel.frame;
+    
+    self.textView.selectedRange = NSMakeRange(self.textView.text.length, 0);
+
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     

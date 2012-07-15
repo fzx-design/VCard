@@ -157,6 +157,8 @@ static NSMutableArray *_backViewStack = nil;
     
     if(![self.modalViewControllerStack containsObject:vc])
         return;
+    
+    NSUInteger index = [self.modalViewControllerStack indexOfObject:vc];
         
     if(animated) {
         [UIView animateWithDuration:duration animations:^{
@@ -166,16 +168,16 @@ static NSMutableArray *_backViewStack = nil;
         } completion:nil];
     }
     
-    UIView *newBackView = self.topBackView;
-    [self.backViewStack removeLastObject];
-    UIView *oldBackView = self.topBackView;
+    UIView *backViewToRemove = [self.backViewStack objectAtIndex:index];;
+    [self.backViewStack removeObject:backViewToRemove];
+    UIView *backViewToAppear = self.topBackView;
     
     [UIView animateWithDuration:duration animations:^{
-        oldBackView.alpha = MODAL_BACK_VIEW_MAX_ALPHA;
-        newBackView.alpha = 0;
+        backViewToAppear.alpha = MODAL_BACK_VIEW_MAX_ALPHA;
+        backViewToRemove.alpha = 0;
     } completion:^(BOOL finished) {
         [vc.view removeFromSuperview];
-        [newBackView removeFromSuperview];
+        [backViewToRemove removeFromSuperview];
         [self.modalViewControllerStack removeObject:vc];
     }];
 }

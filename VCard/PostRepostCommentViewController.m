@@ -65,6 +65,9 @@
         [self.repostCommentButton setTitle:@"同时转发" forState:UIControlStateNormal];
         self.topBarLabel.text = [NSString stringWithFormat:@"回复 %@", self.weiboOwnerName];
     }
+    
+    self.textView.selectedRange = NSMakeRange(0, 0);
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
