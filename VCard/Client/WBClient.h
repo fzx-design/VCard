@@ -178,6 +178,7 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 
 - (void)getAtUsersSuggestions:(NSString *)q;
 - (void)getTopicSuggestions:(NSString *)q;
+- (void)getUserSuggestions:(NSString *)q;
 
 - (void)follow:(NSString *)userID;
 - (void)unfollow:(NSString *)userID;
@@ -197,6 +198,7 @@ typedef void (^WCCompletionBlock)(WBClient *client);
               count:(int)count;
 - (void)getGroups;
 - (void)getTrends;
+- (void)getHotTopics;
 - (void)checkIsTrendFollowed:(NSString *)trendName;
 - (void)followTrend:(NSString *)trendName;
 - (void)unfollowTrend:(NSString *)trendName;

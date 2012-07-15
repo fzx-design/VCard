@@ -184,7 +184,7 @@
 
 - (void)initScrollView
 {
-    _scrollView.contentSize = CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight]);
+    _scrollView.contentSize = CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight] - 20);
     _originScale = _scrollView.zoomScale;
     _scrollView.minimumZoomScale = _originScale;
     _scrollView.maximumZoomScale = _originScale * 5.0;
@@ -249,7 +249,7 @@
     
     scale = _scrollView.zoomScale / _originScale;
     
-    _scrollView.contentSize = CGSizeMake(width, height);
+    _scrollView.contentSize = CGSizeMake(width, height - 20);
     _originScale = _scrollView.zoomScale;
     _scrollView.minimumZoomScale = _originScale;
     _scrollView.maximumZoomScale = _originScale * 5.0;

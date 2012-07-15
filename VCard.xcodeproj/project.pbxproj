@@ -222,6 +222,7 @@
 		18E6FA8215B18B28003B5A39 /* button_arrow_card@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E6FA7E15B18B28003B5A39 /* button_arrow_card@2x.png */; };
 		18E6FA8315B18B28003B5A39 /* button_arrow_card_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E6FA7F15B18B28003B5A39 /* button_arrow_card_hover.png */; };
 		18E6FA8415B18B28003B5A39 /* button_arrow_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E6FA8015B18B28003B5A39 /* button_arrow_card.png */; };
+		18E6FA8C15B197D6003B5A39 /* SearchTableviewSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6FA8B15B197D5003B5A39 /* SearchTableviewSectionView.m */; };
 		18E707C9153D28A60012092E /* VCard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18E707C7153D28A60012092E /* VCard.xcdatamodeld */; };
 		18E707E4153D2E2C0012092E /* NSDateAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E707E0153D2E2C0012092E /* NSDateAddition.m */; };
 		18E707EF153D32680012092E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E707EE153D32680012092E /* CoreData.framework */; };
@@ -378,6 +379,8 @@
 		18ED9D211568D92100627D8F /* button_comment_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 18ED9D1D1568D92100627D8F /* button_comment_hover.png */; };
 		18ED9D221568D92100627D8F /* button_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 18ED9D1E1568D92100627D8F /* button_comment.png */; };
 		18ED9D231568D92100627D8F /* button_comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18ED9D1F1568D92100627D8F /* button_comment@2x.png */; };
+		18EE547115B19DBF006EA93A /* SearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE547015B19DBF006EA93A /* SearchTableViewCell.m */; };
+		18EE547415B19DF3006EA93A /* SearchTableViewHighlightsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE547315B19DF3006EA93A /* SearchTableViewHighlightsCell.m */; };
 		18EE8E28159DE6160032D69B /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8E27159DE6160032D69B /* Comment.m */; };
 		18F1E4DE1574F47200EB71DD /* side_tableview_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F1E4DC1574F47200EB71DD /* side_tableview_bg@2x.png */; };
 		18F1E4DF1574F47200EB71DD /* side_tableview_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F1E4DD1574F47200EB71DD /* side_tableview_bg.png */; };
@@ -1201,6 +1204,8 @@
 		18E6FA7E15B18B28003B5A39 /* button_arrow_card@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_arrow_card@2x.png"; sourceTree = "<group>"; };
 		18E6FA7F15B18B28003B5A39 /* button_arrow_card_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_arrow_card_hover.png; sourceTree = "<group>"; };
 		18E6FA8015B18B28003B5A39 /* button_arrow_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_arrow_card.png; sourceTree = "<group>"; };
+		18E6FA8A15B197D5003B5A39 /* SearchTableviewSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableviewSectionView.h; sourceTree = "<group>"; };
+		18E6FA8B15B197D5003B5A39 /* SearchTableviewSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableviewSectionView.m; sourceTree = "<group>"; };
 		18E707C8153D28A60012092E /* VCard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VCard.xcdatamodel; sourceTree = "<group>"; };
 		18E707DF153D2E2C0012092E /* NSDateAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDateAddition.h; sourceTree = "<group>"; };
 		18E707E0153D2E2C0012092E /* NSDateAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateAddition.m; sourceTree = "<group>"; };
@@ -1361,6 +1366,10 @@
 		18ED9D1D1568D92100627D8F /* button_comment_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_comment_hover.png; sourceTree = "<group>"; };
 		18ED9D1E1568D92100627D8F /* button_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_comment.png; sourceTree = "<group>"; };
 		18ED9D1F1568D92100627D8F /* button_comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_comment@2x.png"; sourceTree = "<group>"; };
+		18EE546F15B19DBF006EA93A /* SearchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableViewCell.h; sourceTree = "<group>"; };
+		18EE547015B19DBF006EA93A /* SearchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewCell.m; sourceTree = "<group>"; };
+		18EE547215B19DF3006EA93A /* SearchTableViewHighlightsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableViewHighlightsCell.h; sourceTree = "<group>"; };
+		18EE547315B19DF3006EA93A /* SearchTableViewHighlightsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewHighlightsCell.m; sourceTree = "<group>"; };
 		18EE8E26159DE6160032D69B /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		18EE8E27159DE6160032D69B /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		18F1E4DC1574F47200EB71DD /* side_tableview_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "side_tableview_bg@2x.png"; sourceTree = "<group>"; };
@@ -2239,6 +2248,12 @@
 		18BF4A1415A471E80001F653 /* SearchTableView */ = {
 			isa = PBXGroup;
 			children = (
+				18E6FA8A15B197D5003B5A39 /* SearchTableviewSectionView.h */,
+				18E6FA8B15B197D5003B5A39 /* SearchTableviewSectionView.m */,
+				18EE546F15B19DBF006EA93A /* SearchTableViewCell.h */,
+				18EE547015B19DBF006EA93A /* SearchTableViewCell.m */,
+				18EE547215B19DF3006EA93A /* SearchTableViewHighlightsCell.h */,
+				18EE547315B19DF3006EA93A /* SearchTableViewHighlightsCell.m */,
 				18BF4A1515A474830001F653 /* SearchTableViewController.h */,
 				18BF4A1615A474830001F653 /* SearchTableViewController.m */,
 			);
@@ -4432,8 +4447,14 @@
 				189F487B15B05BE90006DC84 /* UIImage+animatedImageWithGIF.m in Sources */,
 				184CE7B515B10B6C001358FB /* InnerBrowserViewController.m in Sources */,
 				E119DCB815B13C7000B7A446 /* SettingLegacyViewController.m in Sources */,
+<<<<<<< HEAD
 				E1ABFD7915B18E19006F3237 /* SettingOptionViewController.m in Sources */,
 				E1F7F88A15B2C95B00712019 /* TipsViewController.m in Sources */,
+=======
+				18E6FA8C15B197D6003B5A39 /* SearchTableviewSectionView.m in Sources */,
+				18EE547115B19DBF006EA93A /* SearchTableViewCell.m in Sources */,
+				18EE547415B19DF3006EA93A /* SearchTableViewHighlightsCell.m in Sources */,
+>>>>>>> 搜索联想完成
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

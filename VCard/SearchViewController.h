@@ -9,9 +9,14 @@
 #import "StackViewPageController.h"
 #import "SearchTableViewController.h"
 
-@interface SearchViewController : StackViewPageController <UITextFieldDelegate>
+@interface SearchViewController : StackViewPageController <UISearchBarDelegate>
 
 @property (nonatomic, strong) SearchTableViewController *searchTableViewController;
-@property (nonatomic, strong) IBOutlet UITextField *textField;
+@property (nonatomic, strong) IBOutlet UIView           *segmentView;
+@property (nonatomic, strong) IBOutlet UIButton         *searchUserButton;
+@property (nonatomic, strong) IBOutlet UIButton         *searchStatusButton;
+@property (nonatomic, strong) IBOutlet UISearchBar      *searchBar;
+
+- (IBAction)didClickSegmentButton:(UIButton *)sender;
 
 @end

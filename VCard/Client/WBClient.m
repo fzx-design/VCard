@@ -309,6 +309,13 @@ typedef enum {
     [self loadNormalRequest];
 }
 
+- (void)getUserSuggestions:(NSString *)q
+{
+    self.path = @"search/suggestions/users.json";
+    [self.params setObject:q forKey:@"q"];
+    [self loadNormalRequest];
+}
+
 - (void)getUser:(NSString *)userID_
 {
     self.path = @"users/show.json";
@@ -790,6 +797,12 @@ typedef enum {
     self.path = @"trends.json";
     [self.params setObject:self.userID forKey:@"uid"];
     [self.params setObject:[NSString stringWithFormat:@"%d", 200] forKey:@"count"];
+    [self loadNormalRequest];
+}
+
+- (void)getHotTopics
+{
+    self.path = @"trends/daily.json";
     [self loadNormalRequest];
 }
 

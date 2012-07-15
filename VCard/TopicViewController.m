@@ -68,22 +68,11 @@
     [self.backgroundView addSubview:self.topShadowImageView];
     
     [ThemeResourceProvider configButtonPaperLight:_followTopicButton];
-    _topicTitleLabel.text = [NSString stringWithFormat:@"# %@ #", _searchKey];
+    _topicTitleLabel.text = [NSString stringWithFormat:@"#%@#", _searchKey];
 }
 
 - (void)loadTopicStatus
 {
-//    WBClient *client = [WBClient client];
-//    [client setCompletionBlock:^(WBClient *client) {
-//        if (!client.hasError) {
-//            NSDictionary *dict = client.responseJSONObject;
-//            _isTopicFollowed = [[dict objectForKey:@"is_follow"] boolValue];
-//            NSString *buttonText = _isTopicFollowed ? @"取消关注" : @"关注话题";
-//            _followTopicButton.titleLabel.text = buttonText;
-//        }
-//    }];
-//    [client checkIsTrendFollowed:_searchKey];
-    
     _group = [Group groupWithName:_searchKey inManagedObjectContext:self.managedObjectContext];
     _isTopicFollowed = _group != nil;
     NSString *buttonText = _isTopicFollowed ? @"取消关注" : @"关注话题";

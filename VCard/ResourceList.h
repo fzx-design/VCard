@@ -115,6 +115,7 @@
 
 #define kUserDefaultKeyRefreshingInterval               @"kUserDefaultKeyRefreshingInterval"
 #define kUserDefaultKeyShouldScrollToTop                @"kUserDefaultKeyShouldScrollToTop"
+#define kUserDefaultKeySearchHistory                    @""
 
 #define kUserGroupInfoArray                             @"kUserGroupInfoArray"
 

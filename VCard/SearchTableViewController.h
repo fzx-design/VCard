@@ -8,8 +8,33 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SearchTableViewController : UITableViewController
+typedef enum {
+    SearchTableViewStateNormal,
+    SearchTableviewStateTyping,
+    SearchTableViewStateSearching,
+} SearchTableViewState;
 
-@property (nonatomic, assign) NSInteger pageIndex;
+typedef enum {
+    SearchingTargetTypeStatus,
+    SearchingTargetTypeUser,
+} SearchingTargetType;
+
+@interface SearchTableViewController : UITableViewController <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, assign) NSInteger                 pageIndex;
+@property (nonatomic, strong) NSMutableArray            *hotTopics;
+@property (nonatomic, strong) NSMutableArray            *searchUserHistoryList;
+@property (nonatomic, strong) NSMutableArray            *searchStatusHistoryList;
+
+@property (nonatomic, strong) NSMutableArray            *searchNameSuggestions;
+@property (nonatomic, strong) NSMutableArray            *searchStatusSuggestions;
+
+@property (nonatomic, strong) NSString                  *searchKey;
+@property (nonatomic, readonly) SearchTableViewState    tableViewState;
+@property (nonatomic, readonly) SearchingTargetType     searchingType;
+
+- (void)setState:(SearchTableViewState)state;
+- (void)setSearchingType:(SearchingTargetType)searchingType;
+- (void)updateSuggestionWithKey:(NSString *)key;
 
 @end
