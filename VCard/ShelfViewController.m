@@ -313,6 +313,8 @@
     
     [self.fetchedResultsController performFetch:nil];
     [self setUpScrollView];
+    
+    _coverView.alpha = 1.0;
 }
 
 - (void)setUpScrollView

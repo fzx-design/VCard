@@ -136,6 +136,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         [_castViewController.view resetOriginY:_shelfViewController.view.frame.size.height];
         [_shelfViewController.view resetOriginY:0.0];
+        _shelfViewController.coverView.alpha = 0.0;
     } completion:^(BOOL finished) {
 <<<<<<< HEAD
         if(![NSUserDefaults hasShownShelfTips]) {
@@ -153,6 +154,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         [_castViewController.view resetOriginY:0.0];
         [_shelfViewController.view resetOriginY:-_shelfViewController.view.frame.size.height];
+        _shelfViewController.coverView.alpha = 1.0;
     } completion:^(BOOL finished) {
         [_shelfViewController didHideShelf];
     }];
@@ -234,6 +236,7 @@
     if (offset >= 0.0 && offset <= 150.0) {
         [self.castViewController.view resetOriginY:ceilf(offset)];
         [self.shelfViewController.view resetOriginY:ceilf(offset - 150.0)];
+        self.shelfViewController.coverView.alpha = (150.0 - offset) / 150.0;
     }
 }
 

@@ -31,6 +31,7 @@
 @property (nonatomic, strong) IBOutlet ShelfPageControl *pageControl;
 //@property (nonatomic, strong) NSMutableArray            *groupInfoArray;
 @property (nonatomic, strong) NSMutableArray            *drawerViewArray;
+@property (nonatomic, strong) IBOutlet UIView           *coverView;
 
 - (IBAction)didChangeValueOfSlider:(UISlider *)sender;
 - (IBAction)didEndDraggingSlider:(UISlider *)sender;
