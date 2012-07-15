@@ -9,6 +9,8 @@
 #import "StackViewController.h"
 #import "StackViewPageController.h"
 #import "UIView+Resize.h"
+#import "TipsViewController.h"
+#import "NSUserDefaults+Addition.h"
 
 @interface StackViewController () {
     StackViewPageController *_activePageViewController;
@@ -42,6 +44,10 @@
     
     //FIXME: Debug
     //    self.view.backgroundColor = [UIColor blackColor];
+    if(![NSUserDefaults hasShownStackTips]) {
+        [[[TipsViewController alloc] initWithType:TipsViewControllerTypeStack] show];
+        [NSUserDefaults setShownStackTips:YES];
+    }
 }
 
 - (void)viewDidUnload

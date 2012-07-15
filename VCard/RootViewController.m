@@ -15,6 +15,7 @@
 #import "UIApplication+Addition.h"
 #import "NSUserDefaults+Addition.h"
 #import "GuideBookViewController.h"
+#import "TipsViewController.h"
 
 #define kShelfViewControllerFrame CGRectMake(0.0, -150.0, 768.0, 150.0);
 
@@ -78,7 +79,7 @@
 
 #pragma mark - Handle notifications
 
-- (void)showTipsView {
+- (void)showGuideBookView {
     if(![NSUserDefaults hasShownGuideBook]) {
         [[[GuideBookViewController alloc] init] show];
         [NSUserDefaults setShownGuideBook:YES];
@@ -92,7 +93,7 @@
         [self setUpViews];
         [self.castViewController refresh];
         
-        [self performSelector:@selector(showTipsView) withObject:nil afterDelay:1.0f];
+        [self performSelector:@selector(showGuideBookView) withObject:nil afterDelay:1.0f];
     }
 }
 
@@ -136,6 +137,10 @@
         [_castViewController.view resetOriginY:_shelfViewController.view.frame.size.height];
         [_shelfViewController.view resetOriginY:0.0];
     } completion:^(BOOL finished) {
+        if(![NSUserDefaults hasShownShelfTips]) {
+            [[[TipsViewController alloc] initWithType:TipsViewControllerTypeShelf] show];
+            [NSUserDefaults setShownShelfTips:YES];
+        }
     }];
 }
 
