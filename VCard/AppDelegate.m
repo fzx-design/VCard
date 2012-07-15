@@ -26,6 +26,8 @@
     [dict setObject:[NSNumber numberWithBool:NO] forKey:kUserDefaultAuthorized];
 	[dict setObject:[NSNumber numberWithInt:10] forKey:kUserDefaultKeyRefreshingInterval];
     [dict setObject:[NSMutableArray array] forKey:kUserGroupInfoArray];
+    [dict setObject:[NSMutableArray array] forKey:kUserDefaultKeySearchStatusHistoryList];
+    [dict setObject:[NSMutableArray array] forKey:kUserDefaultKeySearchUserHistoryList];
 	[userDefault registerDefaults:dict];
 }
 

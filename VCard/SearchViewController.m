@@ -41,6 +41,7 @@
     _segmentView.hidden = YES;
     [[_searchBar.subviews objectAtIndex:0] removeFromSuperview];
     _searchBar.delegate = self;
+    _searchBarCoverView.image = [[UIImage imageNamed:kRLCastViewBGUnit] resizableImageWithCapInsets:UIEdgeInsetsZero];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
@@ -159,6 +160,7 @@
         _searchTableViewController.view.frame = [self frameForTableView];
         _searchTableViewController.tableView.frame = [self frameForTableView];
         _searchTableViewController.delegate = self;
+        [self.backgroundView insertSubview:_searchTableViewController.view belowSubview:_searchBarCoverView];
     }
     return _searchTableViewController;
 }

@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) SearchTableViewController *searchTableViewController;
 @property (nonatomic, strong) IBOutlet UIView           *segmentView;
+@property (nonatomic, strong) IBOutlet UIImageView      *searchBarCoverView;
 @property (nonatomic, strong) IBOutlet UIButton         *searchUserButton;
 @property (nonatomic, strong) IBOutlet UIButton         *searchStatusButton;
 @property (nonatomic, strong) IBOutlet UISearchBar      *searchBar;

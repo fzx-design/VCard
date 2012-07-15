@@ -2145,6 +2145,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="384" height="961"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" red="0.63529411759999999" green="0.63529411759999999" blue="0.60784313729999995" alpha="0.51000000000000001" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchTableViewCell" rowHeight="50" id="df2-do-jDq" customClass="SearchTableViewCell">
                                 <rect key="frame" x="0.0" y="22" width="384" height="50"/>
@@ -2175,49 +2176,49 @@
                                     <outlet property="titleLabel" destination="jpJ-Qe-Ohl" id="a8N-R9-gEZ"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchTableViewHighlightsCell" rowHeight="320" id="ckA-zu-y3j" customClass="SearchTableViewHighlightsCell">
-                                <rect key="frame" x="0.0" y="72" width="384" height="320"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchTableViewHighlightsCell" rowHeight="360" id="ckA-zu-y3j" customClass="SearchTableViewHighlightsCell">
+                                <rect key="frame" x="0.0" y="72" width="384" height="360"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="384" height="319"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384" height="359"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" id="azZ-T9-hEY">
-                                            <rect key="frame" x="0.0" y="0.0" width="384" height="466"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="360"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" id="yHI-Bt-8jp" customClass="TopicImageView">
-                                                    <rect key="frame" x="17" y="44" width="85" height="85"/>
+                                                    <rect key="frame" x="25" y="35" width="85" height="85"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <view contentMode="scaleToFill" id="dc4-0o-3GO" customClass="TopicImageView">
-                                                    <rect key="frame" x="150" y="44" width="85" height="85"/>
+                                                    <rect key="frame" x="150" y="35" width="85" height="85"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <view contentMode="scaleToFill" id="75K-Q7-j5E" customClass="TopicImageView">
-                                                    <rect key="frame" x="286" y="44" width="85" height="85"/>
+                                                    <rect key="frame" x="277" y="35" width="85" height="85"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <view contentMode="scaleToFill" id="0b7-bh-ZMD" customClass="TopicImageView">
-                                                    <rect key="frame" x="17" y="182" width="85" height="85"/>
+                                                    <rect key="frame" x="25" y="204" width="85" height="85"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <view contentMode="scaleToFill" id="fId-IU-4k2" customClass="TopicImageView">
-                                                    <rect key="frame" x="150" y="182" width="85" height="85"/>
+                                                    <rect key="frame" x="150" y="204" width="85" height="85"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <view contentMode="scaleToFill" id="Ekt-ZK-u6v" customClass="TopicImageView">
-                                                    <rect key="frame" x="286" y="182" width="85" height="85"/>
+                                                    <rect key="frame" x="277" y="204" width="85" height="85"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="话题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="eZv-Kc-UNe">
-                                                    <rect key="frame" x="0.0" y="137" width="112" height="21"/>
+                                                    <rect key="frame" x="8" y="139" width="112" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -2226,7 +2227,7 @@
                                                     <size key="shadowOffset" width="0.0" height="1"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="话题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="gsz-6W-YJJ">
-                                                    <rect key="frame" x="133" y="137" width="112" height="21"/>
+                                                    <rect key="frame" x="133" y="139" width="112" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -2235,7 +2236,7 @@
                                                     <size key="shadowOffset" width="0.0" height="1"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="话题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="2wO-Tw-VYV">
-                                                    <rect key="frame" x="269" y="137" width="112" height="21"/>
+                                                    <rect key="frame" x="260" y="139" width="112" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -2244,7 +2245,7 @@
                                                     <size key="shadowOffset" width="0.0" height="1"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="话题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="T7l-OT-js7">
-                                                    <rect key="frame" x="0.0" y="275" width="112" height="21"/>
+                                                    <rect key="frame" x="8" y="305" width="112" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -2253,7 +2254,7 @@
                                                     <size key="shadowOffset" width="0.0" height="1"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="话题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="6Xk-SB-xuT">
-                                                    <rect key="frame" x="136" y="275" width="112" height="21"/>
+                                                    <rect key="frame" x="136" y="305" width="112" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -2262,7 +2263,7 @@
                                                     <size key="shadowOffset" width="0.0" height="1"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="话题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="hbZ-V2-xYn">
-                                                    <rect key="frame" x="272" y="275" width="112" height="21"/>
+                                                    <rect key="frame" x="263" y="305" width="112" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -2271,27 +2272,27 @@
                                                     <size key="shadowOffset" width="0.0" height="1"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topic_pic_pin.png" id="pRU-Zh-PZ4">
-                                                    <rect key="frame" x="40" y="23" width="32" height="32"/>
+                                                    <rect key="frame" x="48" y="14" width="32" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topic_pic_pin.png" id="BIz-kX-09q">
-                                                    <rect key="frame" x="173" y="23" width="32" height="32"/>
+                                                    <rect key="frame" x="173" y="14" width="32" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topic_pic_pin.png" id="bYd-wZ-Krg">
-                                                    <rect key="frame" x="309" y="23" width="32" height="32"/>
+                                                    <rect key="frame" x="300" y="14" width="32" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topic_pic_pin.png" id="nO4-Ua-vTN">
-                                                    <rect key="frame" x="40" y="161" width="32" height="32"/>
+                                                    <rect key="frame" x="48" y="183" width="32" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topic_pic_pin.png" id="VUV-va-ZKR">
-                                                    <rect key="frame" x="173" y="161" width="32" height="32"/>
+                                                    <rect key="frame" x="173" y="183" width="32" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topic_pic_pin.png" id="GlN-jg-PCm">
-                                                    <rect key="frame" x="309" y="161" width="32" height="32"/>
+                                                    <rect key="frame" x="300" y="183" width="32" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -2328,8 +2329,17 @@
                                 <rect key="frame" x="-20" y="0.0" width="431" height="961"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="U6z-i2-UUu">
+                                        <rect key="frame" x="24" y="0.0" width="384" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <searchBar contentMode="redraw" barStyle="blackTranslucent" placeholder="搜索" id="4D3-Zx-ihO">
+                                        <rect key="frame" x="25" y="0.0" width="374" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                    </searchBar>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" id="HlG-dt-Zni">
-                                        <rect key="frame" x="20" y="44" width="384" height="50"/>
+                                        <rect key="frame" x="24" y="44" width="384" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="G0a-wf-nsR">
@@ -2380,11 +2390,6 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <searchBar contentMode="redraw" barStyle="blackTranslucent" placeholder="搜索" id="4D3-Zx-ihO">
-                                        <rect key="frame" x="25" y="0.0" width="374" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                    </searchBar>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -2398,6 +2403,7 @@
                     <connections>
                         <outlet property="backgroundView" destination="WW3-gx-rBx" id="CWX-dV-AZJ"/>
                         <outlet property="searchBar" destination="4D3-Zx-ihO" id="ylG-eZ-tX7"/>
+                        <outlet property="searchBarCoverView" destination="U6z-i2-UUu" id="UCH-n1-dsu"/>
                         <outlet property="searchStatusButton" destination="G0a-wf-nsR" id="EkK-xb-1bH"/>
                         <outlet property="searchUserButton" destination="JgL-hN-P8b" id="4t8-c7-aqd"/>
                         <outlet property="segmentView" destination="HlG-dt-Zni" id="wsN-zT-jjf"/>
@@ -2558,380 +2564,6 @@
         <image name="topbar_avatar_cover.png" width="28" height="28"/>
         <image name="topic_pic_pin.png" width="32" height="32"/>
     </resources>
-    <classes>
-        <class className="BaseCardBackgroundView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCardBackgroundView.h"/>
-        </class>
-        <class className="BaseNavigationBar" superclassName="UINavigationBar">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationBar.h"/>
-        </class>
-        <class className="BaseNavigationView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationView.h"/>
-        </class>
-        <class className="BaseStackLayoutView" superclassName="UIImageView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseStackLayoutView.h"/>
-        </class>
-        <class className="CardImageView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardImageView.h"/>
-        </class>
-        <class className="CardViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickRepostButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="nameButtonClicked:"/>
-                <relationship kind="outlet" name="cardBackground" candidateClass="BaseCardBackgroundView"/>
-                <relationship kind="outlet" name="clipImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="favoredImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="locationPinImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="originalStatusLabel" candidateClass="TTTAttributedLabel"/>
-                <relationship kind="outlet" name="originalUserAvatar" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="originalUserNameButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="originalUserNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="repostButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="repostCardBackground" candidateClass="BaseCardBackgroundView"/>
-                <relationship kind="outlet" name="repostStatusInfoView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="repostStatusLabel" candidateClass="TTTAttributedLabel"/>
-                <relationship kind="outlet" name="repostUserAvatar" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="repostUserNameButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="repostUserNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="statusImageView" candidateClass="CardImageView"/>
-                <relationship kind="outlet" name="statusInfoView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="CastViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CastViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickCreateStatusButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickGroupButton:"/>
-                <relationship kind="action" name="didClickSearchButton:"/>
-                <relationship kind="action" name="didClickUnreadCommentButton:" candidateClass="UnreadIndicatorButton"/>
-                <relationship kind="action" name="didClickUnreadFollowerButton:" candidateClass="UnreadIndicatorButton"/>
-                <relationship kind="action" name="didClickUnreadMentionButton:" candidateClass="UnreadIndicatorButton"/>
-                <relationship kind="action" name="refreshButtonClicked:"/>
-                <relationship kind="action" name="showProfileButtonClicked:"/>
-                <relationship kind="outlet" name="createStatusButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="groupButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="navigationView" candidateClass="BaseNavigationView"/>
-                <relationship kind="outlet" name="postIndicatorView" candidateClass="RefreshIndicatorView"/>
-                <relationship kind="outlet" name="profileImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="refreshButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="refreshIndicatorView" candidateClass="RefreshIndicatorView"/>
-                <relationship kind="outlet" name="searchButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="showProfileButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="unreadCommentIndicatorButton" candidateClass="UnreadIndicatorButton"/>
-                <relationship kind="outlet" name="unreadCountButton" candidateClass="UnreadCountButton"/>
-                <relationship kind="outlet" name="unreadFollowerIndicatorButton" candidateClass="UnreadIndicatorButton"/>
-                <relationship kind="outlet" name="unreadIndicatorView" candidateClass="UnreadIndicatorView"/>
-                <relationship kind="outlet" name="unreadMentionIndicatorButton" candidateClass="UnreadIndicatorButton"/>
-                <relationship kind="outlet" name="waterflowView" candidateClass="WaterflowView"/>
-            </relationships>
-        </class>
-        <class className="CommentViewController" superclassName="StackViewPageController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickChangeSourceButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="changeSourceButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="CoreDataTableViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="CoreDataViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataViewController.h"/>
-        </class>
-        <class className="DetailImageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailImageViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickMoreActionButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickReturnButton:"/>
-                <relationship kind="outlet" name="authorAvatarImageView" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="authorNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="bottomBarView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="moreActionButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="returnButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="topBarView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="DividerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DividerViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="leftPattern" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="rightPattern" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="FriendProfileViewController" superclassName="UserProfileViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendProfileViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickMentionButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickRelationButton:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="mentionButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="moreInfoButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="relationshipButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="InnerBrowserViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InnerBrowserViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickMoreActionButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickReloadButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickReturnButton:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="forwardButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="loadingIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="moreActionButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="reloadButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="returnButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="ProfileCommentStatusTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileCommentStatusTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dividerView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="leftpatternImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="rightpatternImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="ProfileCommentTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileCommentTableViewCell.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickMoreActionButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickUserNameButton:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="baseCardBackgroundView" candidateClass="BaseCardBackgroundView"/>
-                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="commentContentLabel" candidateClass="TTTAttributedLabel"/>
-                <relationship kind="outlet" name="commentInfoView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="downThreadImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="moreActionButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="screenNameButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="upThreadImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="ProfileCommentTableViewController" superclassName="RefreshableCoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileCommentTableViewController.h"/>
-        </class>
-        <class className="ProfileRelationTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileRelationTableViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="cellSelectionImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="infoLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="ProfileRelationTableViewController" superclassName="RefreshableCoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileRelationTableViewController.h"/>
-        </class>
-        <class className="ProfileStatusTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileStatusTableViewCell.h"/>
-        </class>
-        <class className="ProfileStatusTableViewController" superclassName="RefreshableCoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileStatusTableViewController.h"/>
-        </class>
-        <class className="RefreshIndicatorView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RefreshIndicatorView.h"/>
-        </class>
-        <class className="RefreshableCoreDataTableViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RefreshableCoreDataTableViewController.h"/>
-        </class>
-        <class className="RootViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RootViewController.h"/>
-        </class>
-        <class className="SearchTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchTableViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cellSelectionImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SearchTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchTableViewController.h"/>
-        </class>
-        <class className="SearchTableViewHighlightsCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchTableViewHighlightsCell.h"/>
-        </class>
-        <class className="SearchUserResultViewController" superclassName="StackViewPageController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchUserResultViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SearchViewController" superclassName="StackViewPageController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickSegmentButton:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="searchStatusButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="searchUserButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="segmentView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="SelfCommentTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfCommentTableViewCell.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickCommentButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickMoreActionButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickUserNameButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickViewDetailButton:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="baseCardBackgroundView" candidateClass="BaseCardBackgroundView"/>
-                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="commentContentLabel" candidateClass="TTTAttributedLabel"/>
-                <relationship kind="outlet" name="commentInfoView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="moreActionButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="screenNameButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="timeStampLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="viewDetailButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SelfCommentTableViewController" superclassName="RefreshableCoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfCommentTableViewController.h"/>
-        </class>
-        <class className="SelfCommentViewController" superclassName="StackViewPageController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfCommentViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickSwitchByMeButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickSwitchToMeButton:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="byMeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="toMeButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SelfMentionViewController" superclassName="StackViewPageController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfMentionViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickCheckCommentButton:"/>
-                <relationship kind="action" name="didClickCheckStatusButton:"/>
-                <relationship kind="outlet" name="checkCommentButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkStatusButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SelfProfileViewController" superclassName="UserProfileViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelfProfileViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickAccountSettingButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickChangeAvatarButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickCheckCommentButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickCheckMentionButton:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="accountSettingButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="changeAvatarButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkCommentButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkMentionButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="ShelfBackgroundView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShelfBackgroundView.h"/>
-        </class>
-        <class className="ShelfPageControl" superclassName="UIPageControl">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShelfPageControl.h"/>
-        </class>
-        <class className="ShelfScrollView" superclassName="UIScrollView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShelfScrollView.h"/>
-        </class>
-        <class className="ShelfViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShelfViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didChangePageControlValue:" candidateClass="UIPageControl"/>
-                <relationship kind="action" name="didChangeValueOfSlider:" candidateClass="UISlider"/>
-                <relationship kind="action" name="didClickDetialSettingButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didClickSwitchModeButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="didEndDraggingSlider:" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="brightnessSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="detailSettingButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="fontSizeSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="ShelfPageControl"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="shelfBorderImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="switchToPicButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="switchToTextButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="StackView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackView.h"/>
-        </class>
-        <class className="StackViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="stackView" candidateClass="StackView"/>
-            </relationships>
-        </class>
-        <class className="StackViewPageController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StackViewPageController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="backgroundView" candidateClass="BaseStackLayoutView"/>
-            </relationships>
-        </class>
-        <class className="TTTAttributedLabel" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TTTAttributedLabel.h"/>
-        </class>
-        <class className="TopicImageView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopicImageView.h"/>
-        </class>
-        <class className="TopicViewController" superclassName="StackViewPageController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopicViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickFollowTopicButton:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="followTopicButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="topicTitleLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="UnreadCountButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UnreadCountButton.h"/>
-        </class>
-        <class className="UnreadIndicatorButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UnreadIndicatorButton.h"/>
-        </class>
-        <class className="UnreadIndicatorView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UnreadIndicatorView.h"/>
-        </class>
-        <class className="UserAvatarImageView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserAvatarImageView.h"/>
-        </class>
-        <class className="UserProfileViewController" superclassName="StackViewPageController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="showFollowers:"/>
-                <relationship kind="action" name="showFriends:"/>
-                <relationship kind="action" name="showStatuses:"/>
-                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
-                <relationship kind="outlet" name="checkFollowersButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkFriendsButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkStatusesButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="discriptionLabel" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="discriptionShadowLabel" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="followerCountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="friendCountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="genderImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="statusCountLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="WaterflowView" superclassName="UIScrollView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WaterflowView.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

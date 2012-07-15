@@ -6,6 +6,7 @@
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "SearchTableViewController.h"
 #import "BaseLayoutView.h"
 #import "UIView+Resize.h"
@@ -40,8 +41,9 @@
     _searchStatusSuggestions = [[NSMutableArray alloc] initWithCapacity:5];
     _searchKey = @"";
     _searchingType = SearchingTargetTypeStatus;
-    _searchUserHistoryList = [[NSMutableArray alloc] initWithArray:[NSArray array]];
-    _searchStatusHistoryList = [[NSMutableArray alloc] initWithArray:[NSArray array]];
+    
+    _searchUserHistoryList = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] valueForKey:kUserDefaultKeySearchUserHistoryList]];
+    _searchStatusHistoryList = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] valueForKey:kUserDefaultKeySearchStatusHistoryList]];
     
     [self getHotTopics];
     
@@ -89,8 +91,6 @@
 - (void)updateSuggestionWithKey:(NSString *)key
 {
     _searchKey = key;
-    [self.tableView reloadData];
-    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.001];
     if (_searchingType == SearchingTargetTypeStatus) {
         [self updateTopicSuggestionWithKey:key];
     } else {
@@ -146,6 +146,7 @@
 {
     _tableViewState = state;
     [self.tableView reloadData];
+    [self animateReload];
     [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.001];
 }
 
@@ -153,6 +154,7 @@
 {
     _searchingType = state;
     [self.tableView reloadData];
+    [self animateReload];
     [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.001];
     [self updateSuggestionWithKey:_searchKey];
 }
@@ -213,7 +215,7 @@
     if (_tableViewState == SearchTableviewStateTyping) {
         return 50.0;
     }
-    return indexPath.section == 0 ? 320.0 : 50.0;
+    return indexPath.section == 0 ? 360.0 : 50.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -310,7 +312,7 @@
 {
     if (index == 0) {
         NSString *type = _searchingType == SearchingTargetTypeStatus ? @"微博" : @"用户";
-        [cell setOperationTitle:[NSString stringWithFormat:@"搜索包含\"%@\"的%@", _searchKey, type]];
+        [cell setTitle:[NSString stringWithFormat:@"搜索包含\"%@\"的%@", _searchKey, type]];
     } else {
         [cell setTitle:[array objectAtIndex:index - 1]];
     }
@@ -321,71 +323,45 @@
     return !_searchKey || [_searchKey isEqualToString:@""];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [_delegate didSelectCell];
+    BOOL shouldResign = NO;
     if (_tableViewState == SearchTableViewStateNormal) {
         if (indexPath.section == 1 && _hotTopics.count > 0) {
             [self addTopicPageWithSearchKey:[_hotTopics objectAtIndex:indexPath.row]];
+            shouldResign = YES;
         }
     } else {
-        [self handleCellClickedEventAtIndex:indexPath.row];
+        shouldResign = [self handleCellClickedEventAtIndex:indexPath.row];
+    }
+    
+    if (shouldResign) {
+        [_delegate didSelectCell];
+    } else {
+        [self restoreHistory];
     }
 }
 
-- (void)handleCellClickedEventAtIndex:(int)index
-{    
+- (BOOL)handleCellClickedEventAtIndex:(int)index
+{
+    BOOL shouldResign = YES;
     if (_searchingType == SearchingTargetTypeStatus) {
         if ([self isSearchKeyEmpty]) {
             if (index < _searchStatusHistoryList.count) {
                 [self addTopicPageWithSearchKey:[_searchStatusHistoryList objectAtIndex:index]];
             } else {
-                //TODO: Delete history
+                [_searchStatusHistoryList removeAllObjects];
+                shouldResign = NO;
             }
         } else {
             if (index == 0) {
                 [self addTopicPageWithSearchKey:_searchKey];
+                if ([_searchStatusHistoryList containsObject:_searchKey]) {
+                    [_searchStatusHistoryList addObject:_searchKey];
+                }
+                
             } else {
                 [self addTopicPageWithSearchKey:[_searchStatusSuggestions objectAtIndex:index - 1]];
             }
@@ -395,25 +371,37 @@
             if (index < _searchUserHistoryList.count) {
                 [self showUserProfilePageWithKey:[_searchUserHistoryList objectAtIndex:index]];
             } else {
-                //TODO: Delete history
+                [_searchUserHistoryList removeAllObjects];
+                shouldResign = NO;
             }
         } else {
             if (index == 0) {
                 [self addUserSearchPageWithSearchKey:_searchKey];
+                if (![_searchUserHistoryList containsObject:_searchKey]) {
+                    [_searchUserHistoryList addObject:_searchKey];
+                }
             } else {
                 [self showUserProfilePageWithKey:[_searchNameSuggestions objectAtIndex:index - 1]];
             }
         }
     }
+    return shouldResign;
 }
 
 - (void)search
 {
     if (_searchingType == SearchingTargetTypeStatus) {
         [self addTopicPageWithSearchKey:_searchKey];
+        if ([_searchStatusHistoryList containsObject:_searchKey]) {
+            [_searchStatusHistoryList addObject:_searchKey];
+        }
     } else {
         [self addUserSearchPageWithSearchKey:_searchKey];
+        if (![_searchUserHistoryList containsObject:_searchKey]) {
+            [_searchUserHistoryList addObject:_searchKey];
+        }
     }
+    [self restoreHistory];
 }
 
 - (void)addTopicPageWithSearchKey:(NSString *)searchKey
@@ -429,6 +417,26 @@
 - (void)showUserProfilePageWithKey:(NSString *)searchKey
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:[NSDictionary dictionaryWithObjectsAndKeys:searchKey, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+}
+
+- (void)restoreHistory
+{
+    [[NSUserDefaults standardUserDefaults] setObject:_searchStatusHistoryList forKey:kUserDefaultKeySearchStatusHistoryList];
+    [[NSUserDefaults standardUserDefaults] setObject:_searchUserHistoryList forKey:kUserDefaultKeySearchUserHistoryList];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [self reloadTableViewSection:0 withAnimation:UITableViewRowAnimationTop];
+}
+
+- (void)animateReload
+{
+    CATransition *animation = [CATransition animation];
+    [animation setType:kCATransitionFade];
+    [animation setSubtype:kCATransitionFromBottom];
+    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [animation setFillMode:kCAFillModeBoth];
+    [animation setDuration:.3];
+    [[self.tableView layer] addAnimation:animation forKey:@"UITableViewReloadDataAnimationKey"];
 }
 
 #pragma mark - Properties
