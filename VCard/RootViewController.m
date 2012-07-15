@@ -16,7 +16,7 @@
 #import "NSUserDefaults+Addition.h"
 #import "GuideBookViewController.h"
 
-#define kShelfViewControllerFrame CGRectMake(0.0, -147.0, 768.0, 147.0);
+#define kShelfViewControllerFrame CGRectMake(0.0, -150.0, 768.0, 150.0);
 
 @interface RootViewController ()
 

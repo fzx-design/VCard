@@ -9,7 +9,9 @@
 #import "ShelfDrawerView.h"
 #import "UIImageView+URL.h"
 
-#define kPhotoFrameFrame CGRectMake(-27.0, -32.0, 148.0, 144.0)
+#define kDrawerFrame CGRectMake(-27.0, -32.0, 148.0, 144.0)
+#define kEmptyDrawerFrame CGRectMake(0, 0, 150, 74)
+#define kTopicPaperFrame CGRectMake(0, 0, 160, 104)
 #define kTopicLabelFrame CGRectMake(0, 55.0, 95.0, 35.0)
 
 @implementation ShelfDrawerView
@@ -45,16 +47,18 @@
     _backImageView = [[UIImageView alloc] initWithFrame:self.bounds];
     _backImageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
     
-    _photoFrameImageView = [[UIImageView alloc] initWithFrame:kPhotoFrameFrame];
-    
     
     NSString *imageName = @"shelf_drawer.png";
+    CGRect frame;
     if (_type == 0) {
         imageName = @"shelf_drawer_favorites.png";
+        frame = kDrawerFrame;
     } else if (_type == 1) {
-        imageName = @"";
+        imageName = empty ? @"shelf_drawer_empty.png" : @"shelf_drawer.png";
+        frame = empty ? kEmptyDrawerFrame : kDrawerFrame;
     } else {
-        imageName = @"";
+        imageName = @"topic_paper.png";
+        frame = kTopicPaperFrame;
     }
     _photoFrameImageView.image = [UIImage imageNamed:imageName];
     _photoFrameImageView.opaque = YES;

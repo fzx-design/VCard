@@ -89,7 +89,7 @@
                                                              delegate:self 
                                                     cancelButtonTitle:nil 
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"复制链接", @"在safari中打开", nil];
+                                                    otherButtonTitles:@"复制链接", @"在 Safari 中打开", nil];
     actionSheet.delegate = self;
     [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
 }

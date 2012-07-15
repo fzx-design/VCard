@@ -22,7 +22,6 @@
 
 @interface ShelfViewController () {
     UIImageView *_shelfBGImageView;
-    UIImageView *_shelfEdgeImageView;
     NSInteger _numberOfPages;
     NSInteger _numberOfDrawerPerPage;
 }
@@ -261,8 +260,8 @@
 #pragma mark - Setting View Behavior
 - (void)setUpSettingView
 {
-    [_brightnessSlider setThumbImage:[UIImage imageNamed:@"motions_slider_thumb.png"] forState:UIControlStateNormal];
-	[_brightnessSlider setThumbImage:[UIImage imageNamed:@"motions_slider_thumb.png"] forState:UIControlStateHighlighted];
+    [_brightnessSlider setThumbImage:[UIImage imageNamed:@"shelf_slider_thumb.png"] forState:UIControlStateNormal];
+	[_brightnessSlider setThumbImage:[UIImage imageNamed:@"shelf_slider_thumb.png"] forState:UIControlStateHighlighted];
 	[_brightnessSlider setMinimumTrackImage:[UIImage imageNamed:@"transparent.png"] forState:UIControlStateNormal];
 	[_brightnessSlider setMaximumTrackImage:[UIImage imageNamed:@"transparent.png"] forState:UIControlStateNormal];
     
@@ -301,22 +300,14 @@
     [_scrollView resetWidth:[UIApplication screenWidth]];
     [_scrollView resetHeight:149.0];
     ShelfBackgroundView *view = (ShelfBackgroundView *)self.view;
-    view.scrollViewReference = (ShelfScrollView *)_scrollView;
+    view.scrollViewReference = (ShelfScrollView *)_scrollView; 
     
-    _shelfEdgeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 62.0, 136.0)];
-    _shelfEdgeImageView.image = [UIImage imageNamed:@"shelf_wood_edge.png"];
-    _shelfEdgeImageView.contentMode = UIViewContentModeTop;
-    _shelfEdgeImageView.autoresizingMask = UIViewAutoresizingNone;
-    _shelfEdgeImageView.userInteractionEnabled = NO;
-    [_shelfEdgeImageView resetOriginX:_scrollView.frame.size.width - _shelfEdgeImageView.frame.size.width];
-    [_scrollView insertSubview:_shelfEdgeImageView belowSubview:_shelfBorderImageView];
-    
-    _shelfBGImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 6.0, 1024.0, 136.0)];
+    _shelfBGImageView = [[UIImageView alloc] initWithFrame:CGRectMake(-62.0, 0.0, 1064.0, 150.0)];
     _shelfBGImageView.image = [UIImage imageNamed:@"shelf_bg.png"];
     _shelfBGImageView.contentMode = UIViewContentModeLeft;
     _shelfBGImageView.autoresizingMask = UIViewAutoresizingNone;
     _shelfBGImageView.userInteractionEnabled = NO;
-    [_shelfBGImageView resetOriginX:_scrollView.frame.size.width];
+    [_shelfBGImageView resetOriginX:_scrollView.frame.size.width - 62.0];
     [_scrollView insertSubview:_shelfBGImageView belowSubview:_shelfBorderImageView];
     
     [_shelfBorderImageView resetWidth:1024.0];
@@ -428,20 +419,19 @@
 
 - (void)resetBGImageView:(CGFloat)currentWidth
 {
-    [_shelfEdgeImageView resetOriginX:currentWidth - _shelfEdgeImageView.frame.size.width];
     if (_pageControl.currentPage > 0) {
         currentWidth = _pageControl.currentPage * currentWidth;
     }
-    [_shelfBGImageView resetOriginX:currentWidth];
+    [_shelfBGImageView resetOriginX:currentWidth - 62.0];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat screenWidth = [UIApplication screenWidth];
     if (scrollView.contentOffset.x >= screenWidth) {
-        [_shelfBGImageView resetOriginX:_scrollView.contentOffset.x];
+        [_shelfBGImageView resetOriginX:_scrollView.contentOffset.x - 62.0];
     } else {
-        [_shelfBGImageView resetOriginX:screenWidth];
+        [_shelfBGImageView resetOriginX:screenWidth - 62.0];
     }
     [_shelfBorderImageView resetOriginX:_scrollView.contentOffset.x];
 }
