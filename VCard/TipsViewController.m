@@ -22,6 +22,7 @@
 
 @interface TipsViewController () {
     TipsViewControllerType _controllerType;
+    BOOL _hasDismissed;
 }
 
 @end
@@ -59,10 +60,15 @@
     } else if(_controllerType == TipsViewControllerTypeStack) {
         self.tipsLabel.text = STACK_TIPS_TEXT;
     }
-    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapScreen:)];
-    [self.view addGestureRecognizer:gr];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapScreen:)];
+    [self.view addGestureRecognizer:tapGesture];
+    
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didTapScreen:)];
+    [self.view addGestureRecognizer:panGesture];
     
     [self.tipsView fadeIn];
+    
+    [self performSelector:@selector(dismissView) withObject:nil afterDelay:3.0f];
 }
 
 - (void)viewDidUnload
@@ -95,11 +101,18 @@
     }
 }
 
-#pragma mark - Logic methods 
-
-- (void)didTapScreen:(UIGestureRecognizer *)gr {
+- (void)dismissView {
+    if(_hasDismissed)
+        return;
     [UIApplication dismissModalViewControllerAnimated:NO];
     [self.view fadeOut];
+    _hasDismissed = YES;
+}
+
+#pragma mark - Logic methods
+
+- (void)didTapScreen:(UIGestureRecognizer *)gr {
+    [self dismissView];
 }
 
 #pragma mark - UI methods
