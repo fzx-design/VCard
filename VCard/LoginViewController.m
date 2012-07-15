@@ -163,7 +163,10 @@
     
     for(NSUInteger i = 0; i < [self numberOfCellsInScrollView]; i++) {
         UIViewController *vc = [self cellControllerAtIndex:i];
+        
         vc.view.center = CGPointMake(self.scrollView.frame.size.width * (i + 0.5f), self.scrollView.frame.size.height / 2);
+        vc.view.layer.anchorPoint = CGPointMake(0.5, 0.074);
+        vc.view.layer.position = CGPointMake(vc.view.frame.origin.x + vc.view.frame.size.width / 2, 14);
     }
     
     self.scrollView.contentOffset = CGPointMake(self.currentCellIndex * self.scrollView.frame.size.width, 0);
@@ -386,11 +389,15 @@
 }
 
 - (void)loginCellWillLoginUser {
-    self.view.userInteractionEnabled = NO;
+    for(UIView *view in self.scrollView.subviews) {
+        view.userInteractionEnabled = NO;
+    }
 }
 
 - (void)loginCellDidFailLoginUser {
-    self.view.userInteractionEnabled = YES;
+    for(UIView *view in self.scrollView.subviews) {
+        view.userInteractionEnabled = YES;
+    }
 }
 
 - (void)loginCellDidDeleteUser:(User *)user {

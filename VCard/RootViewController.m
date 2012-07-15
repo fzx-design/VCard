@@ -81,8 +81,8 @@
     self.shelfViewController = nil;
     if(self.currentUser) {
         [self setUpViews];
+        [self.castViewController refresh];
     }
-    [self.castViewController refresh];
 }
 
 #pragma mark - Setup Notifications
