@@ -182,6 +182,8 @@
     if([info.wayToPresentViewController isEqualToString:kPushOptionViewController]) {
         SettingOptionInfo *optionInfo = [NSUserDefaults getInfoForOptionKey:info.nibFileName];
         __block NSMutableString *detailText = [NSMutableString string];
+        __block BOOL allChosen = YES;
+        __block BOOL noneChosen = YES;
         [optionInfo.optionsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSNumber *chosen = [optionInfo.optionChosenStatusArray objectAtIndex:idx];
             if(chosen.boolValue) {
@@ -189,9 +191,18 @@
                 if(detailText.length > 0)
                     string = [NSString stringWithFormat:@"、%@", string];
                 [detailText appendString:string];
+                
+                noneChosen = NO;
+            } else {
+                allChosen = NO;
             }
         }];
         settingCell.detailTextLabel.text = detailText;
+        
+        if(allChosen)
+            settingCell.detailTextLabel.text = @"全部";
+        else if(noneChosen)
+            settingCell.detailTextLabel.text = @"无";
     }
 }
 

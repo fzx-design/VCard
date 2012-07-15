@@ -28,19 +28,6 @@
 
 #define KeyForStoredUserAccountInfo(userID) ([NSString stringWithFormat:@"%@_%@", kStoredUserAccountInfo, (userID)])
 
-typedef enum {
-    SettingOptionFontSizeTypeSmall,
-    SettingOptionFontSizeTypeNormal,
-    SettingOptionFontSizeTypeBig,
-} SettingOptionFontSizeType;
-
-typedef enum {
-    SettingOptionFontNotificationTypeComment,
-    SettingOptionFontNotificationTypeFollower,
-    SettingOptionFontNotificationTypeMention,
-    SettingOptionFontNotificationTypeMessage,
-} SettingOptionFontNotificationType;
-
 @implementation NSUserDefaults (Addition)
 
 + (void)initialize {
@@ -51,7 +38,7 @@ typedef enum {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if(![defaults boolForKey:kVCard4_0_Initialized]) {
         [defaults setBool:NO forKey:kSettingEnableAutoTrafficSaving];
-        [defaults setBool:YES forKey:kSettingEnableAutoLocate];
+        [defaults setBool:NO forKey:kSettingEnableAutoLocate];
         [defaults setBool:YES forKey:kSettingEnableSoundEffect];
         [defaults setBool:YES forKey:kSettingEnableRetinaDisplay];
         [defaults setBool:YES forKey:kSettingEnablePicture];
@@ -62,6 +49,24 @@ typedef enum {
     }
     [defaults setBool:YES forKey:kVCard4_0_Initialized];
     [defaults synchronize];
+}
+
++ (SettingOptionFontSizeType)currentFontSizeType {
+    SettingOptionInfo *info = [NSUserDefaults getInfoForOptionKey:kSettingOptionFontSize];
+    __block SettingOptionFontSizeType result;
+    [info.optionChosenStatusArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSNumber *chosenNumber = obj;
+        if(chosenNumber.boolValue) {
+            result = idx;
+            *stop = YES;
+        }
+    }];
+    return result;
+}
+
++ (NSArray *)currentNotificationStatus {
+    SettingOptionInfo *info = [NSUserDefaults getInfoForOptionKey:kSettingOptionNotification];
+    return info.optionChosenStatusArray;
 }
 
 + (SettingOptionInfo *)getInfoForOptionKey:(NSString *)optionKey {

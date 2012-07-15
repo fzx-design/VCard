@@ -8,6 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    SettingOptionFontSizeTypeSmall,
+    SettingOptionFontSizeTypeNormal,
+    SettingOptionFontSizeTypeBig,
+} SettingOptionFontSizeType;
+
+typedef enum {
+    SettingOptionFontNotificationTypeComment,
+    SettingOptionFontNotificationTypeFollower,
+    SettingOptionFontNotificationTypeMention,
+    SettingOptionFontNotificationTypeMessage,
+} SettingOptionFontNotificationType;
+
 @class UserAccountInfo;
 @class SettingOptionInfo;
 
@@ -29,6 +42,10 @@
 + (BOOL)isSoundEffectEnabled;
 + (BOOL)isPictureEnabled;
 + (BOOL)isRetinaDisplayEnabled;
+
++ (SettingOptionFontSizeType)currentFontSizeType;
+//返回一个数组，数组中的元素按 SettingOptionFontNotificationType 排列，类型均为包含一个BOOL类型数据的NSNumber。
++ (NSArray *)currentNotificationStatus;
 
 + (SettingOptionInfo *)getInfoForOptionKey:(NSString *)optionKey;
 + (void)setSettingOptionInfo:(SettingOptionInfo *)info;

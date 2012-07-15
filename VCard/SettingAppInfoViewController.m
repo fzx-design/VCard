@@ -165,7 +165,7 @@
 }
 
 - (void)didClickFeedbackCell {
-    PostViewController *vc = [PostViewController getNewStatusViewControllerWithPrefixContent:[NSString stringWithFormat:@"@VCard微博 客户端很酷！推荐有 iPad 的童鞋们试试看。%@", kVCardAppStoreURL] delegate:self];
+    PostViewController *vc = [PostViewController getNewStatusViewControllerWithAtUserName:@"VCard微博" delegate:self];
     [vc showViewFromRect:POST_VIEW_SHOW_FROM_RECT];
 }
 
