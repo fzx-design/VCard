@@ -13,6 +13,8 @@
 #import "LoginViewController.h"
 #import "NSNotificationCenter+Addition.h"
 #import "UIApplication+Addition.h"
+#import "NSUserDefaults+Addition.h"
+#import "TipsViewController.h"
 
 #define kShelfViewControllerFrame CGRectMake(0.0, -147.0, 768.0, 147.0);
 
@@ -75,6 +77,13 @@
 }
 
 #pragma mark - Handle notifications
+
+- (void)showTipsView {
+    if(![NSUserDefaults hasShownGuideBook]) {
+        [[[TipsViewController alloc] init] show];
+        [NSUserDefaults setShownGuideBook:YES];
+    }
+}
 - (void)handleChangeCurrentUserNotification:(NSNotification *)notification {
     NSLog(@"current user name:%@", self.currentUser.screenName);
     self.castViewController = nil;
@@ -82,6 +91,8 @@
     if(self.currentUser) {
         [self setUpViews];
         [self.castViewController refresh];
+        
+        [self performSelector:@selector(showTipsView) withObject:nil afterDelay:1.0f];
     }
 }
 

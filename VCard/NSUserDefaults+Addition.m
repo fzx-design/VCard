@@ -26,12 +26,18 @@
 #define kSettingOptionFontSize              @"SettingOptionFontSize"
 #define kSettingOptionNotification          @"SettingOptionNotification"
 
+#define kHasShownGuideBook                  @"HasShownGuideBook"
+
 #define KeyForStoredUserAccountInfo(userID) ([NSString stringWithFormat:@"%@_%@", kStoredUserAccountInfo, (userID)])
 
 @implementation NSUserDefaults (Addition)
 
 + (void)initialize {
     [NSUserDefaults initializeVCard_4_0];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:NO forKey:kHasShownGuideBook];
+    [defaults synchronize];
 }
 
 + (void)initializeVCard_4_0 {
@@ -62,6 +68,17 @@
         }
     }];
     return result;
+}
+
++ (BOOL)hasShownGuideBook {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kHasShownGuideBook];
+}
+
++ (void)setShownGuideBook:(BOOL)hasShown {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:hasShown forKey:kHasShownGuideBook];
+    [defaults synchronize];
 }
 
 + (NSArray *)currentNotificationStatus {

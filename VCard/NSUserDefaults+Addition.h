@@ -50,6 +50,9 @@ typedef enum {
 + (SettingOptionInfo *)getInfoForOptionKey:(NSString *)optionKey;
 + (void)setSettingOptionInfo:(SettingOptionInfo *)info;
 
++ (BOOL)hasShownGuideBook;
++ (void)setShownGuideBook:(BOOL)hasShown;
+
 @end
 
 @interface UserAccountInfo : NSObject
