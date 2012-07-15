@@ -875,6 +875,10 @@
 		E1F7F8BE15B2CA4F00712019 /* fingertips_text_chn_5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F7F8A415B2CA4F00712019 /* fingertips_text_chn_5@2x.png */; };
 		E1F7F8BF15B2CA4F00712019 /* fingertips_text_chn_welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F7F8A515B2CA4F00712019 /* fingertips_text_chn_welcome.png */; };
 		E1F7F8C015B2CA4F00712019 /* fingertips_text_chn_welcome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F7F8A615B2CA4F00712019 /* fingertips_text_chn_welcome@2x.png */; };
+		E1F7F8C815B309D900712019 /* GuideBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F7F8C615B309D900712019 /* GuideBookViewController.m */; };
+		E1F7F8C915B309D900712019 /* GuideBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1F7F8C715B309D900712019 /* GuideBookViewController.xib */; };
+		E1F7F8CD15B30B3100712019 /* fingertips_swipe_right_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F7F8CB15B30B3100712019 /* fingertips_swipe_right_bg.png */; };
+		E1F7F8CE15B30B3100712019 /* fingertips_swipe_right_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F7F8CC15B30B3100712019 /* fingertips_swipe_right_bg@2x.png */; };
 		E1F943EE15AB0EA400C3A75E /* login_view_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F943EC15AB0EA400C3A75E /* login_view_shadow@2x.png */; };
 		E1F943EF15AB0EA400C3A75E /* login_view_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F943ED15AB0EA400C3A75E /* login_view_shadow.png */; };
 		E1FE8AFD15A9CFD8009636A4 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE8AFA15A9CDC0009636A4 /* FXLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1915,6 +1919,11 @@
 		E1F7F8A415B2CA4F00712019 /* fingertips_text_chn_5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fingertips_text_chn_5@2x.png"; sourceTree = "<group>"; };
 		E1F7F8A515B2CA4F00712019 /* fingertips_text_chn_welcome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fingertips_text_chn_welcome.png; sourceTree = "<group>"; };
 		E1F7F8A615B2CA4F00712019 /* fingertips_text_chn_welcome@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fingertips_text_chn_welcome@2x.png"; sourceTree = "<group>"; };
+		E1F7F8C515B309D900712019 /* GuideBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideBookViewController.h; sourceTree = "<group>"; };
+		E1F7F8C615B309D900712019 /* GuideBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideBookViewController.m; sourceTree = "<group>"; };
+		E1F7F8C715B309D900712019 /* GuideBookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideBookViewController.xib; sourceTree = "<group>"; };
+		E1F7F8CB15B30B3100712019 /* fingertips_swipe_right_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fingertips_swipe_right_bg.png; sourceTree = "<group>"; };
+		E1F7F8CC15B30B3100712019 /* fingertips_swipe_right_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fingertips_swipe_right_bg@2x.png"; sourceTree = "<group>"; };
 		E1F943EC15AB0EA400C3A75E /* login_view_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_view_shadow@2x.png"; sourceTree = "<group>"; };
 		E1F943ED15AB0EA400C3A75E /* login_view_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_view_shadow.png; sourceTree = "<group>"; };
 		E1FE8AF915A9CDBF009636A4 /* FXLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXLabel.h; sourceTree = "<group>"; };
@@ -3453,6 +3462,9 @@
 		E1F7F88115B2BEBC00712019 /* Tips */ = {
 			isa = PBXGroup;
 			children = (
+				E1F7F8C515B309D900712019 /* GuideBookViewController.h */,
+				E1F7F8C615B309D900712019 /* GuideBookViewController.m */,
+				E1F7F8C715B309D900712019 /* GuideBookViewController.xib */,
 				E1F7F88715B2C95B00712019 /* TipsViewController.h */,
 				E1F7F88815B2C95B00712019 /* TipsViewController.m */,
 				E1F7F88915B2C95B00712019 /* TipsViewController.xib */,
@@ -3477,6 +3489,8 @@
 				E1F7F89815B2CA4F00712019 /* fingertips_bg@2x.png */,
 				E1F7F89915B2CA4F00712019 /* fingertips_icon.png */,
 				E1F7F89A15B2CA4F00712019 /* fingertips_icon@2x.png */,
+				E1F7F8CB15B30B3100712019 /* fingertips_swipe_right_bg.png */,
+				E1F7F8CC15B30B3100712019 /* fingertips_swipe_right_bg@2x.png */,
 				E1F7F89B15B2CA4F00712019 /* fingertips_text_chn_1.png */,
 				E1F7F89C15B2CA4F00712019 /* fingertips_text_chn_1@2x.png */,
 				E1F7F89D15B2CA4F00712019 /* fingertips_text_chn_2.png */,
@@ -4293,6 +4307,8 @@
 				E1F7F8BE15B2CA4F00712019 /* fingertips_text_chn_5@2x.png in Resources */,
 				E1F7F8BF15B2CA4F00712019 /* fingertips_text_chn_welcome.png in Resources */,
 				E1F7F8C015B2CA4F00712019 /* fingertips_text_chn_welcome@2x.png in Resources */,
+				E1F7F8CD15B30B3100712019 /* fingertips_swipe_right_bg.png in Resources */,
+				E1F7F8CE15B30B3100712019 /* fingertips_swipe_right_bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4301,6 +4317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				181AB93315230AC1007A2A51 /* InfoPlist.strings in Resources */,
+				E1F7F8C915B309D900712019 /* GuideBookViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4462,7 +4479,6 @@
 				18E6FA8C15B197D6003B5A39 /* SearchTableviewSectionView.m in Sources */,
 				18EE547115B19DBF006EA93A /* SearchTableViewCell.m in Sources */,
 				18EE547415B19DF3006EA93A /* SearchTableViewHighlightsCell.m in Sources */,
-
 				186BCE2015B299C400B3FC71 /* SearchUserResultViewController.m in Sources */,
 				182887E415B2D35E004B3675 /* UIView+Swing.m in Sources */,
 			);
@@ -4474,6 +4490,7 @@
 			files = (
 				181AB93615230AC1007A2A51 /* VCardTests.m in Sources */,
 				E1BCBFBD159D565B0086FA7E /* MotionsSlider.m in Sources */,
+				E1F7F8C815B309D900712019 /* GuideBookViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

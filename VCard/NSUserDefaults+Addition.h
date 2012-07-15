@@ -52,6 +52,10 @@ typedef enum {
 
 + (BOOL)hasShownGuideBook;
 + (void)setShownGuideBook:(BOOL)hasShown;
++ (BOOL)hasShownShelfTips;
++ (void)setShownShelfTips:(BOOL)hasShown;
++ (BOOL)hasShownStackTips;
++ (void)setShownStackTips:(BOOL)hasShown;
 
 @end
 

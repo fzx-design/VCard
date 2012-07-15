@@ -1,5 +1,5 @@
 //
-//  TipsViewControllerler.m
+//  GuideBookViewController.m
 //  VCard
 //
 //  Created by 王 紫川 on 12-7-12.
@@ -7,7 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "TipsViewController.h"
+#import "GuideBookViewController.h"
 #import "UIApplication+Addition.h"
 #import "UIView+Resize.h"
 
@@ -15,11 +15,11 @@
 #define TIP_IMAGE_FILE_NAME_PREFIX  @"fingertips_"
 #define TIP_TEXT_FILE_NAME_PREFIX   @"fingertips_text_chn_"
 
-@interface TipsViewController ()
+@interface GuideBookViewController ()
 
 @end
 
-@implementation TipsViewController
+@implementation GuideBookViewController
 
 @synthesize scrollView = _scrollView;
 @synthesize pageControl = _pageControl;
@@ -135,7 +135,7 @@
 	}];
     
     [CATransaction setValue:[NSNumber numberWithFloat:0.3f] forKey: kCATransactionAnimationDuration];
-    [self.iconImageView.layer addAnimation:[TipsViewController popoverAnimation] forKey:nil];
+    [self.iconImageView.layer addAnimation:[GuideBookViewController popoverAnimation] forKey:nil];
     [CATransaction commit];
 }
 

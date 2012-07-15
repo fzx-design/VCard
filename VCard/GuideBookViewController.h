@@ -1,5 +1,5 @@
 //
-//  TipsViewControllerler.h
+//  GuideBookViewController.h
 //  VCard
 //
 //  Created by 王 紫川 on 12-7-12.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ShelfPageControl.h"
 
-@interface TipsViewController : UIViewController <UIScrollViewDelegate>
+@interface GuideBookViewController : UIViewController <UIScrollViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet ShelfPageControl *pageControl;

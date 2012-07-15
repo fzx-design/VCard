@@ -14,7 +14,7 @@
 #import "NSNotificationCenter+Addition.h"
 #import "UIApplication+Addition.h"
 #import "NSUserDefaults+Addition.h"
-#import "TipsViewController.h"
+#import "GuideBookViewController.h"
 
 #define kShelfViewControllerFrame CGRectMake(0.0, -147.0, 768.0, 147.0);
 
@@ -80,7 +80,7 @@
 
 - (void)showTipsView {
     if(![NSUserDefaults hasShownGuideBook]) {
-        [[[TipsViewController alloc] init] show];
+        [[[GuideBookViewController alloc] init] show];
         [NSUserDefaults setShownGuideBook:YES];
     }
 }

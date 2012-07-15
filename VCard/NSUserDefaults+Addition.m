@@ -27,6 +27,8 @@
 #define kSettingOptionNotification          @"SettingOptionNotification"
 
 #define kHasShownGuideBook                  @"HasShownGuideBook"
+#define kHasShownShelfTips                  @"kHasShownShelfTips"
+#define kHasShownStackTips                  @"kHasShownStackTips"
 
 #define KeyForStoredUserAccountInfo(userID) ([NSString stringWithFormat:@"%@_%@", kStoredUserAccountInfo, (userID)])
 
@@ -52,6 +54,9 @@
         [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:NO], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:NO], nil] forKey:kSettingOptionFontSize];
         [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], nil] forKey:kSettingOptionNotification];
         
+        [defaults setBool:NO forKey:kHasShownShelfTips];
+        [defaults setBool:NO forKey:kHasShownStackTips];
+        
     }
     [defaults setBool:YES forKey:kVCard4_0_Initialized];
     [defaults synchronize];
@@ -68,6 +73,28 @@
         }
     }];
     return result;
+}
+
++ (BOOL)hasShownShelfTips {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kHasShownShelfTips];
+}
+
++ (void)setShownShelfTips:(BOOL)hasShown {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:hasShown forKey:kHasShownShelfTips];
+    [defaults synchronize];
+}
+
++ (BOOL)hasShownStackTips {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kHasShownStackTips];
+}
+
++ (void)setShownStackTips:(BOOL)hasShown {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:hasShown forKey:kHasShownStackTips];
+    [defaults synchronize];
 }
 
 + (BOOL)hasShownGuideBook {

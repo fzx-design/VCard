@@ -43,7 +43,7 @@
 					<key>kWayToPresentViewController</key>
 					<string>kModalViewController</string>
 					<key>kNibFileName</key>
-					<string>TipsViewController</string>
+					<string>GuideBookViewController</string>
 				</dict>
 			</array>
 		</dict>
