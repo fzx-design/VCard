@@ -14,6 +14,9 @@
 #import "UIView+Resize.h"
 #import "LoginInputCellViewController.h"
 #import "LoginUserCellViewController.h"
+#import "InnerBrowserViewController.h"
+
+#define kSinaWeiboRegisterURL @"http://weibo.com/signup/signup.php?ps=u3&lang=zh-cn"
 
 #define VIEW_APPEAR_ANIMATION_DURATION  0.5f
 
@@ -308,8 +311,7 @@
 #pragma mark - IBActions 
 
 - (IBAction)didClickRegisterButton:(UIButton *)sender {
-    [self viewDisappearAnimation];
-    [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
+    [InnerBrowserViewController loadLinkWithURL:[NSURL URLWithString:kSinaWeiboRegisterURL]];
 }
 
 #pragma mark - UIScrollView delegate

@@ -2339,6 +2339,7 @@
 				18E55900153EF55600ECCA3B /* RootViewController.m */,
 				1846F04615A72FAA00E5CF47 /* DetailImageViewController.h */,
 				1846F04715A72FAA00E5CF47 /* DetailImageViewController.m */,
+				E1F7F88115B2BEBC00712019 /* Tips */,
 				E10D04BA15AF02CB00492A87 /* Setting */,
 				188BA4F01539AA9200344288 /* CastView */,
 				18E707F2153D3EEF0012092E /* CustomViews */,
@@ -3364,6 +3365,13 @@
 				E1919AAE15AD87010034079B /* topbar_msg_hl@2x.png */,
 			);
 			path = msg;
+			sourceTree = "<group>";
+		};
+		E1F7F88115B2BEBC00712019 /* Tips */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Tips;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

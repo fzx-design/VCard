@@ -94,6 +94,8 @@
     [UIView setAnimationsEnabled:NO];
     [self shootViewImage];
     [self loadRootViewControllerWithInterfaceOrientation:toInterfaceOrientation];
+    
+    [[UIApplication sharedApplication].rootViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -101,6 +103,8 @@
     [UIView setAnimationsEnabled:YES];
     [self configureCameraCover];
     [self orientationTransitionAnimation:fromInterfaceOrientation];
+    
+    [[UIApplication sharedApplication].rootViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 #pragma mark - Logic methods
@@ -190,6 +194,7 @@
 
 - (IBAction)didClickCancelButton:(UIButton *)sender {
     [self.delegate motionViewControllerDidCancel];
+    [[UIApplication sharedApplication].rootViewController dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - Animations
@@ -294,6 +299,7 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
 
 - (void)editViewControllerDidFinishEditImage:(UIImage *)image {
     [self.delegate motionViewControllerDidFinish:image];
+    [[UIApplication sharedApplication].rootViewController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)editViewControllerDidChooseToShoot {

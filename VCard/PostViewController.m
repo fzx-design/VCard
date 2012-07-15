@@ -871,13 +871,11 @@ typedef enum {
 
 - (void)motionViewControllerDidCancel {
     [self.textView becomeFirstResponder];
-    [[UIApplication sharedApplication].rootViewController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)motionViewControllerDidFinish:(UIImage *)image {
     [self.textView becomeFirstResponder];
     [self setMotionsImage:image];
-    [[UIApplication sharedApplication].rootViewController dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - UITextView delegate
