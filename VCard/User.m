@@ -133,6 +133,18 @@
     }
 }
 
++ (void)deleteUsersInManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"operatedBy == %@", object]];
+    
+    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
+}
+
 + (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];

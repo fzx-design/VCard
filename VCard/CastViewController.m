@@ -23,6 +23,7 @@
 #import "SelfCommentViewController.h"
 #import "SelfProfileViewController.h"
 #import "TopicViewController.h"
+#import "SearchUserResultViewController.h"
 #import "NSNotificationCenter+Addition.h"
 
 @interface CastViewController () {
@@ -124,6 +125,10 @@
     [center addObserver:self
                selector:@selector(showTopic:)
                    name:kNotificationNameShouldShowTopic
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(showUserSearchList:)
+                   name:kNotificationNameShouldShowUserSearchList
                  object:nil];
     [center addObserver:self
                selector:@selector(refreshEnded)
@@ -335,6 +340,20 @@
     vc.searchKey = searchKey;
     
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeTopic pageDescription:searchKey];
+}
+
+- (void)showUserSearchList:(NSNotification *)notification
+{
+    NSDictionary *dictionary = notification.object;
+    
+    NSString *searchKey = [dictionary valueForKey:kNotificationObjectKeySearchKey];
+    NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
+    int index = [indexString intValue];
+    
+    SearchUserResultViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchUserResultViewController"];
+    vc.searchKey = searchKey;
+    
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeTopic pageDescription:[searchKey stringByAppendingString:@"_userSearch"]];
 }
 
 - (void)hideWaterflowView

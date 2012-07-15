@@ -26,6 +26,13 @@
 
 - (void)setTitle:(NSString *)title
 {
+    _titleLabel.textAlignment = UITextAlignmentLeft;
+    _titleLabel.text = title;
+}
+
+- (void)setOperationTitle:(NSString *)title
+{
+    _titleLabel.textAlignment = UITextAlignmentCenter;
     _titleLabel.text = title;
 }
 

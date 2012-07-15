@@ -748,13 +748,18 @@ typedef enum {
     [self loadNormalRequest];
 }
 
-- (void)searchUser:(NSString *)q
+- (void)searchUser:(NSString *)q page:(int)page count:(int)count
 {
     self.path = @"search/users.json";
-    
-    [self.params setObject:@"Gabriel" forKey:@"q"];
-    self.appKey = @"";
-    self.appSecret = @"";
+    if (q) {
+        [self.params setObject:q forKey:@"q"];
+    }
+    if (count) {
+        [self.params setObject:[NSString stringWithFormat:@"%i", count] forKey:@"count"];
+    }
+    if (page) {
+        [self.params setObject:[NSString stringWithFormat:@"%i", page] forKey:@"page"];
+    }
     
     [self loadAdvancedRequest];
 }

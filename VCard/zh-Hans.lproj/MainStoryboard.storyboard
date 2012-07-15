@@ -2158,7 +2158,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="李开复" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="jpJ-Qe-Ohl">
-                                            <rect key="frame" x="20" y="16" width="227" height="18"/>
+                                            <rect key="frame" x="20" y="16" width="344" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -2341,6 +2341,7 @@
                                                     <color key="titleColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <state key="disabled" backgroundImage="cell_hover.png"/>
                                                 <state key="selected" backgroundImage="cell_hover.png">
                                                     <color key="titleColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2350,7 +2351,7 @@
                                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="didClickSegmentButton:" destination="pCQ-QV-VS4" eventType="touchDown" id="RCz-EC-iZg"/>
+                                                    <action selector="didClickSegmentButton:" destination="pCQ-QV-VS4" eventType="touchDown" id="nUg-y8-bMJ"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JgL-hN-P8b">
@@ -2363,6 +2364,7 @@
                                                     <color key="titleColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <state key="disabled" backgroundImage="cell_hover.png"/>
                                                 <state key="selected" backgroundImage="cell_hover.png">
                                                     <color key="titleColor" red="0.23921568630000001" green="0.20392156859999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2381,7 +2383,7 @@
                                     <searchBar contentMode="redraw" barStyle="blackTranslucent" placeholder="搜索" id="4D3-Zx-ihO">
                                         <rect key="frame" x="25" y="0.0" width="374" height="44"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </searchBar>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2461,6 +2463,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ifl-eR-8o3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3417" y="-1503"/>
+        </scene>
+        <!--Search User Result View Controller-->
+        <scene sceneID="APn-9U-0qK">
+            <objects>
+                <viewController storyboardIdentifier="SearchUserResultViewController" id="gGc-hX-BaP" customClass="SearchUserResultViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PHV-Wg-1VE">
+                        <rect key="frame" x="0.0" y="0.0" width="384" height="961"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="JGI-hx-jzW" customClass="BaseStackLayoutView">
+                                <rect key="frame" x="-20" y="0.0" width="431" height="961"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="用户列表" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="nYh-3T-EIl">
+                                <rect key="frame" x="97" y="0.0" width="190" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="backgroundView" destination="JGI-hx-jzW" id="Tc7-c7-db0"/>
+                        <outlet property="titleLabel" destination="nYh-3T-EIl" id="g2x-nY-gpa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B1y-Rf-wIf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3417" y="-375"/>
         </scene>
     </scenes>
     <resources>
@@ -2730,6 +2771,12 @@
         <class className="SearchTableViewHighlightsCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchTableViewHighlightsCell.h"/>
         </class>
+        <class className="SearchUserResultViewController" superclassName="StackViewPageController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchUserResultViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
         <class className="SearchViewController" superclassName="StackViewPageController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchViewController.h"/>
             <relationships>
@@ -2738,7 +2785,6 @@
                 <relationship kind="outlet" name="searchStatusButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="searchUserButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="segmentView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
             </relationships>
         </class>
         <class className="SelfCommentTableViewCell" superclassName="UITableViewCell">

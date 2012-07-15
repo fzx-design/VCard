@@ -116,6 +116,7 @@
 		186224FD159EB3860099FF60 /* button_follow_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186224F9159EB3860099FF60 /* button_follow_hover@2x.png */; };
 		186224FE159EB3860099FF60 /* button_follow_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 186224FA159EB3860099FF60 /* button_follow_hover.png */; };
 		186224FF159EB3860099FF60 /* button_mention_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186224FB159EB3860099FF60 /* button_mention_hover@2x.png */; };
+		186BCE2015B299C400B3FC71 /* SearchUserResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186BCE1F15B299C300B3FC71 /* SearchUserResultViewController.m */; };
 		186E42FA15994ACB0069E47C /* SelfMentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E42F915994AC90069E47C /* SelfMentionViewController.m */; };
 		187348731523407A00F562E7 /* WBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348721523407A00F562E7 /* WBRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		187348791523424500F562E7 /* WBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348781523424500F562E7 /* WBUtil.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1045,6 +1046,8 @@
 		186224F9159EB3860099FF60 /* button_follow_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_follow_hover@2x.png"; sourceTree = "<group>"; };
 		186224FA159EB3860099FF60 /* button_follow_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_follow_hover.png; sourceTree = "<group>"; };
 		186224FB159EB3860099FF60 /* button_mention_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_mention_hover@2x.png"; sourceTree = "<group>"; };
+		186BCE1E15B299C300B3FC71 /* SearchUserResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchUserResultViewController.h; sourceTree = "<group>"; };
+		186BCE1F15B299C300B3FC71 /* SearchUserResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchUserResultViewController.m; sourceTree = "<group>"; };
 		186E42F815994AC80069E47C /* SelfMentionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfMentionViewController.h; sourceTree = "<group>"; };
 		186E42F915994AC90069E47C /* SelfMentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfMentionViewController.m; sourceTree = "<group>"; };
 		187348711523407A00F562E7 /* WBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBRequest.h; path = Client/WBRequest.h; sourceTree = "<group>"; };
@@ -2998,6 +3001,8 @@
 				18BF4A1115A470340001F653 /* SearchViewController.m */,
 				182EC05015A497990056E282 /* TopicViewController.h */,
 				182EC05115A497990056E282 /* TopicViewController.m */,
+				186BCE1E15B299C300B3FC71 /* SearchUserResultViewController.h */,
+				186BCE1F15B299C300B3FC71 /* SearchUserResultViewController.m */,
 			);
 			name = StackPage;
 			sourceTree = "<group>";
@@ -4447,14 +4452,13 @@
 				189F487B15B05BE90006DC84 /* UIImage+animatedImageWithGIF.m in Sources */,
 				184CE7B515B10B6C001358FB /* InnerBrowserViewController.m in Sources */,
 				E119DCB815B13C7000B7A446 /* SettingLegacyViewController.m in Sources */,
-<<<<<<< HEAD
 				E1ABFD7915B18E19006F3237 /* SettingOptionViewController.m in Sources */,
 				E1F7F88A15B2C95B00712019 /* TipsViewController.m in Sources */,
-=======
 				18E6FA8C15B197D6003B5A39 /* SearchTableviewSectionView.m in Sources */,
 				18EE547115B19DBF006EA93A /* SearchTableViewCell.m in Sources */,
 				18EE547415B19DF3006EA93A /* SearchTableViewHighlightsCell.m in Sources */,
->>>>>>> 搜索联想完成
+
+				186BCE2015B299C400B3FC71 /* SearchUserResultViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

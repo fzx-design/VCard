@@ -264,7 +264,7 @@
             if (_hotTopics.count > 0) {
                 [searchCell setTitle:[_hotTopics objectAtIndex:indexPath.row]];
             } else {
-                [searchCell setTitle:@"暂无热门话题"];
+                [searchCell setOperationTitle:@"暂无热门话题"];
             }
         }
     }
@@ -294,10 +294,10 @@
               atIndex:(int)index
 {
     if (array.count == 0) {
-        [cell setTitle:@"无历史"];
+        [cell setOperationTitle:@"无历史"];
     } else {
         if (index == array.count) {
-            [cell setTitle:@"清除历史记录"];
+            [cell setOperationTitle:@"清除历史记录"];
         } else {
             [cell setTitle:[array objectAtIndex:index]];
         }
@@ -310,7 +310,7 @@
 {
     if (index == 0) {
         NSString *type = _searchingType == SearchingTargetTypeStatus ? @"微博" : @"用户";
-        [cell setTitle:[NSString stringWithFormat:@"搜索包含\"%@\"的%@", _searchKey, type]];
+        [cell setOperationTitle:[NSString stringWithFormat:@"搜索包含\"%@\"的%@", _searchKey, type]];
     } else {
         [cell setTitle:[array objectAtIndex:index - 1]];
     }
@@ -364,18 +364,71 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSString *searchKey = 
-//    if (<#condition#>) {
-//        <#statements#>
-//    }
-    
-//    NSString *searchKey = [_hotTopics objectAtIndex:indexPath.row];
-    
+    [_delegate didSelectCell];
+    if (_tableViewState == SearchTableViewStateNormal) {
+        if (indexPath.section == 1 && _hotTopics.count > 0) {
+            [self addTopicPageWithSearchKey:[_hotTopics objectAtIndex:indexPath.row]];
+        }
+    } else {
+        [self handleCellClickedEventAtIndex:indexPath.row];
+    }
+}
+
+- (void)handleCellClickedEventAtIndex:(int)index
+{    
+    if (_searchingType == SearchingTargetTypeStatus) {
+        if ([self isSearchKeyEmpty]) {
+            if (index < _searchStatusHistoryList.count) {
+                [self addTopicPageWithSearchKey:[_searchStatusHistoryList objectAtIndex:index]];
+            } else {
+                //TODO: Delete history
+            }
+        } else {
+            if (index == 0) {
+                [self addTopicPageWithSearchKey:_searchKey];
+            } else {
+                [self addTopicPageWithSearchKey:[_searchStatusSuggestions objectAtIndex:index - 1]];
+            }
+        }
+    } else {
+        if ([self isSearchKeyEmpty]) {
+            if (index < _searchUserHistoryList.count) {
+                [self showUserProfilePageWithKey:[_searchUserHistoryList objectAtIndex:index]];
+            } else {
+                //TODO: Delete history
+            }
+        } else {
+            if (index == 0) {
+                [self addUserSearchPageWithSearchKey:_searchKey];
+            } else {
+                [self showUserProfilePageWithKey:[_searchNameSuggestions objectAtIndex:index - 1]];
+            }
+        }
+    }
+}
+
+- (void)search
+{
+    if (_searchingType == SearchingTargetTypeStatus) {
+        [self addTopicPageWithSearchKey:_searchKey];
+    } else {
+        [self addUserSearchPageWithSearchKey:_searchKey];
+    }
 }
 
 - (void)addTopicPageWithSearchKey:(NSString *)searchKey
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowTopic object:[NSDictionary dictionaryWithObjectsAndKeys:searchKey, kNotificationObjectKeySearchKey, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+}
+
+- (void)addUserSearchPageWithSearchKey:(NSString *)searchKey
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserSearchList object:[NSDictionary dictionaryWithObjectsAndKeys:searchKey, kNotificationObjectKeySearchKey, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+}
+
+- (void)showUserProfilePageWithKey:(NSString *)searchKey
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:[NSDictionary dictionaryWithObjectsAndKeys:searchKey, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
 }
 
 #pragma mark - Properties

@@ -107,6 +107,14 @@
     [self.searchTableViewController setState:SearchTableviewStateTyping];
 }
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    if (![searchBar.text isEqualToString:@""]) {
+        [self.searchTableViewController search];
+    }
+    [searchBar resignFirstResponder];
+}
+
 #pragma mark - IBActions
 - (IBAction)didClickSegmentButton:(UIButton *)sender
 {
@@ -115,14 +123,24 @@
             [self.searchTableViewController setSearchingType:SearchingTargetTypeStatus];
             _searchStatusButton.selected = YES;
             _searchUserButton.selected = NO;
+            _searchStatusButton.userInteractionEnabled = NO;
+            _searchUserButton.userInteractionEnabled = YES;
         }
     } else {
         if (!_searchUserButton.selected) {
             [self.searchTableViewController setSearchingType:SearchingTargetTypeUser];
             _searchStatusButton.selected = NO;
             _searchUserButton.selected = YES;
+            _searchUserButton.userInteractionEnabled = NO;
+            _searchStatusButton.userInteractionEnabled = YES;
         }
     }
+}
+
+#pragma mark - SearchTableViewControllerDelegate
+- (void)didSelectCell
+{
+    [_searchBar resignFirstResponder];
 }
 
 #pragma mark - Properties
@@ -140,6 +158,7 @@
         _searchTableViewController.pageIndex = self.pageIndex;
         _searchTableViewController.view.frame = [self frameForTableView];
         _searchTableViewController.tableView.frame = [self frameForTableView];
+        _searchTableViewController.delegate = self;
     }
     return _searchTableViewController;
 }

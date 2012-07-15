@@ -50,6 +50,7 @@
 + (User *)userWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteFriendsOfUser:(User *)user InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteFollowersOfUser:(User *)user InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
++ (void)deleteUsersInManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context;
 - (BOOL)isEqualToUser:(User *)user;
 - (VerifiedType)verifiedTypeOfUser;

@@ -19,6 +19,12 @@ typedef enum {
     SearchingTargetTypeUser,
 } SearchingTargetType;
 
+@protocol SearchTableViewControllerDelegate <NSObject>
+
+- (void)didSelectCell;
+
+@end
+
 @interface SearchTableViewController : UITableViewController <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, assign) NSInteger                 pageIndex;
@@ -33,8 +39,11 @@ typedef enum {
 @property (nonatomic, readonly) SearchTableViewState    tableViewState;
 @property (nonatomic, readonly) SearchingTargetType     searchingType;
 
+@property (nonatomic, weak) id<SearchTableViewControllerDelegate> delegate;
+
 - (void)setState:(SearchTableViewState)state;
 - (void)setSearchingType:(SearchingTargetType)searchingType;
 - (void)updateSuggestionWithKey:(NSString *)key;
+- (void)search;
 
 @end

@@ -16,6 +16,7 @@
 
 @interface ProfileRelationTableViewController () {
     int _nextCursor;
+    int _page;
 }
 
 @end
@@ -54,6 +55,7 @@
 - (void)refresh
 {
 	_nextCursor = -1;
+    _page = 1;
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
 }
 
@@ -66,9 +68,10 @@
 {
     if (_type == RelationshipViewTypeFriends) {
         [User deleteFriendsOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
-    }
-    else {
+    } else if(_type == RelationshipViewTypeFollowers) {
         [User deleteFollowersOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+    } else if(_type == RelationshipViewTypeSearch) {
+        [User deleteUsersInManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
     }
 }
 
@@ -92,9 +95,10 @@
                 User *usr = [User insertUser:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
                 if (_type == RelationshipViewTypeFollowers) {
                     [self.user addFollowersObject:usr];
-                }
-                else {
+                } else if(_type == RelationshipViewTypeFriends) {
                     [self.user addFriendsObject:usr];
+                } else if(_type == RelationshipViewTypeSearch) {
+                    //TODO:
                 }
             }
             
@@ -103,6 +107,7 @@
             
             _nextCursor = [[client.responseJSONObject objectForKey:@"next_cursor"] intValue];
             _hasMoreViews = _nextCursor != 0;
+            _page++;
         }
         
         [self adjustBackgroundView];
@@ -115,9 +120,10 @@
         
     if (_type == RelationshipViewTypeFriends) {
         [client getFriendsOfUser:self.user.userID cursor:_nextCursor count:20];
-    }
-    else {
+    } else if (_type == RelationshipViewTypeFollowers){
         [client getFollowersOfUser:self.user.userID cursor:_nextCursor count:20];
+    } else if (_type == RelationshipViewTypeSearch) {
+        [client searchUser:_searchKey page:_page count:20];
     }
 }
 
@@ -130,9 +136,10 @@
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updateDate" ascending:YES];
     if (_type == RelationshipViewTypeFriends) {
         request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.user.friends, _coreDataIdentifier];
-    }
-    else {
+    } else if(_type == RelationshipViewTypeFollowers) {
         request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.user.followers, _coreDataIdentifier];
+    }  else if(_type == RelationshipViewTypeSearch) {
+        request.predicate = [NSPredicate predicateWithFormat:@"operatedBy == %@",_coreDataIdentifier];
     }
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
 }

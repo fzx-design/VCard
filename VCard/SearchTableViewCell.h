@@ -14,5 +14,6 @@
 @property (strong, nonatomic) IBOutlet UIImageView *cellSelectionImageView;
 
 - (void)setTitle:(NSString *)title;
+- (void)setOperationTitle:(NSString *)title;
 
 @end

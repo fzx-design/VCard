@@ -9,7 +9,7 @@
 #import "StackViewPageController.h"
 #import "SearchTableViewController.h"
 
-@interface SearchViewController : StackViewPageController <UISearchBarDelegate>
+@interface SearchViewController : StackViewPageController <UISearchBarDelegate, SearchTableViewControllerDelegate>
 
 @property (nonatomic, strong) SearchTableViewController *searchTableViewController;
 @property (nonatomic, strong) IBOutlet UIView           *segmentView;

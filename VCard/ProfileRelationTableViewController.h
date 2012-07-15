@@ -12,6 +12,7 @@
 typedef enum {
     RelationshipViewTypeFriends,
     RelationshipViewTypeFollowers,
+    RelationshipViewTypeSearch,
 } RelationshipViewType;
 
 
@@ -19,7 +20,8 @@ typedef enum {
     RelationshipViewType _type;
 }
 
-@property (nonatomic, assign) RelationshipViewType type;
+@property (nonatomic, assign) RelationshipViewType  type;
+@property (nonatomic, strong) NSString              *searchKey;
 
 - (void)refresh;
 - (void)loadMore;
