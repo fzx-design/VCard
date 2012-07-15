@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ShelfPageControl.h"
 
-@interface SettingViewController : UIViewController
+@interface TipsViewController : UIViewController <UIScrollViewDelegate>
 
-@property (nonatomic, strong) IBOutlet UIImageView *shadowImageView;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) IBOutlet ShelfPageControl *pageControl;
+@property (nonatomic, strong) IBOutlet UIButton *finishButton;
 
 - (void)show;
+
+- (IBAction)didClickFinishButton:(UIButton *)sender;
 
 @end

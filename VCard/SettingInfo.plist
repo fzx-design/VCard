@@ -33,13 +33,17 @@
 					<key>kItemImageFileName</key>
 					<string>icon_settings_legal</string>
 				</dict>
-                <dict>
+				<dict>
 					<key>kItemTitle</key>
 					<string>手势操作指南</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeDisclosure</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_gesture</string>
+					<key>kWayToPresentViewController</key>
+					<string>kModalViewController</string>
+					<key>kNibFileName</key>
+					<string>TipsViewController</string>
 				</dict>
 			</array>
 		</dict>
@@ -57,9 +61,9 @@
 					<string>注销</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_empty</string>
-                    <key>kWayToPresentViewController</key>
+					<key>kWayToPresentViewController</key>
 					<string>kUseSelector</string>
-                    <key>kNibFileName</key>
+					<key>kNibFileName</key>
 					<string>didClickLogoutCell</string>
 				</dict>
 				<dict>
@@ -114,7 +118,7 @@
 					<string>kAccessoryTypeSwitch</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_image</string>
-                    <key>kNibFileName</key>
+					<key>kNibFileName</key>
 					<string>SettingEnablePicture</string>
 				</dict>
 				<dict>
@@ -124,7 +128,7 @@
 					<string>kAccessoryTypeSwitch</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_retina</string>
-                    <key>kNibFileName</key>
+					<key>kNibFileName</key>
 					<string>SettingEnableRetinaDisplay</string>
 				</dict>
 			</array>
@@ -153,7 +157,7 @@
 					<string>kAccessoryTypeSwitch</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_sound</string>
-                    <key>kNibFileName</key>
+					<key>kNibFileName</key>
 					<string>SettingEnableSoundEffect</string>
 				</dict>
 			</array>
@@ -172,7 +176,7 @@
 					<string>kAccessoryTypeSwitch</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_locate</string>
-                    <key>kNibFileName</key>
+					<key>kNibFileName</key>
 					<string>SettingEnableAutoLocate</string>
 				</dict>
 			</array>
@@ -191,7 +195,7 @@
 					<string>kAccessoryTypeSwitch</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_cellcular</string>
-                    <key>kNibFileName</key>
+					<key>kNibFileName</key>
 					<string>SettingEnableAutoTrafficSaving</string>
 				</dict>
 			</array>

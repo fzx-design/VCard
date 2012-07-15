@@ -119,6 +119,17 @@ static NSMutableArray *_backViewStack = nil;
     if([self.modalViewControllerStack containsObject:vc])
         return;
     
+    __block BOOL existModalClass = NO;
+    [self.modalViewControllerStack enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UIViewController *vcInStack = obj;
+        if([vcInStack class] == [vc class]) {
+            existModalClass = YES;
+            *stop = YES;
+        }
+    }];
+    if(existModalClass)
+        return;
+    
     UIView *oldBackView = self.topBackView;
     UIView *newBackView = [UIApplication createBackView];
     [self.backViewStack addObject:newBackView];

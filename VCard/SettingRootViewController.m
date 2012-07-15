@@ -63,7 +63,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [self.tableView reloadData];
-    NSLog(@"aView显示时...老子又出来了");
 }
 
 #pragma mark - Logic method
@@ -115,8 +114,10 @@
 #pragma mark - UI methods
 
 - (void)presentModalViewController:(UIViewController *)modalViewController {
-    UIViewController *vc = [UIApplication sharedApplication].topModalViewController;
-    [self performSelector:@selector(dismissModalViewController:) withObject:vc afterDelay:1.0f];
+    if([modalViewController isKindOfClass:[LoginViewController class]]) {
+        UIViewController *vc = [UIApplication sharedApplication].topModalViewController;
+        [self performSelector:@selector(dismissModalViewController:) withObject:vc afterDelay:1.0f];
+    }
     
     if([modalViewController respondsToSelector:@selector(show)])
         [modalViewController performSelector:@selector(show)];

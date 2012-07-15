@@ -6,27 +6,23 @@
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
-#import "SettingViewController.h"
-#import "SettingRootViewController.h"
+#import "TipsViewController.h"
 #import "UIApplication+Addition.h"
-#import <QuartzCore/QuartzCore.h>
 #import "UIView+Resize.h"
 
-@interface SettingViewController ()
+#define NUMBER_OF_TIP_PAGES         6
+#define TIP_IMAGE_FILE_NAME_PREFIX  @"fingertips_"
+#define TIP_TEXT_FILE_NAME_PREFIX   @"fingertips_text_chn_"
 
-@property (nonatomic, strong) SettingRootViewController *settingRootViewController;
-@property (nonatomic, strong) UINavigationController *navigationController;
-@property (nonatomic, readonly) CGPoint rootViewCenter;
-@property (nonatomic, readonly) CGPoint shadowViewCenter;
+@interface TipsViewController ()
 
 @end
 
-@implementation SettingViewController
+@implementation TipsViewController
 
-@synthesize shadowImageView = _shadowImageView;
-
-@synthesize settingRootViewController = _settingRootViewController;
-@synthesize navigationController = _navigationController;
+@synthesize scrollView = _scrollView;
+@synthesize pageControl = _pageControl;
+@synthesize finishButton = _finishButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,23 +38,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.frame = CGRectMake(0, 0, [UIApplication screenWidth], [UIApplication screenHeight]);
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.settingRootViewController];
-    nav.view.frame = self.settingRootViewController.view.frame;
-    nav.view.center = self.rootViewCenter;
-    self.navigationController = nav;
     
-    UIEdgeInsets insets = UIEdgeInsetsMake(12.0f, 16.0f, 20.0f, 16.0f);
-    self.shadowImageView.image = [[UIImage imageNamed:@"settings_shadow"] resizableImageWithCapInsets:insets];
-    self.shadowImageView.center = self.shadowViewCenter;
-    
-    [self.view addSubview:nav.view];
+    [self configureScrollView];
+    [self configurePageControl];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Dispose of any resources that can be recreated.
-    self.shadowImageView = nil;
+    self.scrollView = nil;
+    self.pageControl = nil;
+    self.finishButton = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -68,35 +59,49 @@
 
 #pragma mark - Logic methods 
 
-- (CGPoint)rootViewCenter {
-    return CGPointMake(self.view.center.x, self.view.center.y - 32);
-}
-
-- (CGPoint)shadowViewCenter {
-    return CGPointMake(self.rootViewCenter.x, self.rootViewCenter.y + 4);
-}
-
-- (void)setSettingRootViewController:(SettingRootViewController *)settingRootViewController {
-    [_settingRootViewController.view removeFromSuperview];
-    _settingRootViewController = settingRootViewController;
-}
-
-- (SettingRootViewController *)settingRootViewController {
-    if(_settingRootViewController == nil) {
-        _settingRootViewController = [[SettingRootViewController alloc] init];
-    }
-    return _settingRootViewController;
-}
-
 #pragma mark - UI methods 
 
 - (void)show {
     [UIApplication presentModalViewController:self animated:YES];
 }
 
-- (void)viewWillLayoutSubviews {
-    self.navigationController.view.center = self.rootViewCenter;
-    self.shadowImageView.center = self.shadowViewCenter;
+- (void)configureScrollView {
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * NUMBER_OF_TIP_PAGES, self.scrollView.frame.size.height);
+    for(int i = 0; i < NUMBER_OF_TIP_PAGES - 1; i++) {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@%d", TIP_IMAGE_FILE_NAME_PREFIX, i + 1]]];
+        UIImageView *textView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@%d", TIP_TEXT_FILE_NAME_PREFIX, i + 1]]];
+        
+        imageView.center = CGPointMake(self.scrollView.frame.size.width * (0.5f + i + 1), imageView.frame.size.height / 2);
+        textView.center = CGPointMake(self.scrollView.frame.size.width * (0.5f + i + 1), imageView.frame.size.height + textView.frame.size.height / 2 + 40);
+        
+        [self.scrollView addSubview:imageView];
+        [self.scrollView addSubview:textView];
+    }
+    
+    self.finishButton.center = CGPointMake(5.5f * self.scrollView.frame.size.width, self.finishButton.center.y);
+}
+
+- (void)configurePageControl {
+    self.pageControl.numberOfPages = NUMBER_OF_TIP_PAGES;
+    [self.pageControl setImageNormal:[UIImage imageNamed:@"shelf_pagecontrol_bg.png"]];
+    [self.pageControl setImageCurrent:[UIImage imageNamed:@"shelf_pagecontrol_hover.png"]];
+    [self.pageControl setImageSetting:[UIImage imageNamed:@"shelf_pagecontrol_bg.png"]];
+    [self.pageControl setImageSettingHighlight:[UIImage imageNamed:@"shelf_pagecontrol_hover.png"]];
+    
+    [self.pageControl setCurrentPage:0];
+}
+
+#pragma mark - IBActions
+
+- (IBAction)didClickFinishButton:(UIButton *)sender {
+    [UIApplication dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark - UIScrollView delegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    NSInteger page = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
+    self.pageControl.currentPage = page;
 }
 
 @end
