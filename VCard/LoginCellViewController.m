@@ -85,7 +85,7 @@
 - (void)swingOnceThenHaltToAngle:(CGFloat)angle
 {
     self.view.layer.anchorPoint = CGPointMake(0.5, 0.074);
-    self.view.layer.position = CGPointMake(self.view.frame.origin.x + 196.0, self.view.frame.origin.y + 213);
+    self.view.layer.position = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width / 2 , 14);
     
     CAAnimationGroup* animationGroup = [CAAnimationGroup animation];
     NSMutableArray* animationArray = [NSMutableArray arrayWithCapacity:5];
@@ -99,9 +99,9 @@
         rotationAnimation.duration = 0.4;
         rotationAnimation.beginTime = i * 0.4;
         
-        if (i == 0) {
-            rotationAnimation.fromValue = [NSNumber numberWithFloat:angle];
-        }
+//        if (i == 0) {
+//            rotationAnimation.fromValue = [NSNumber numberWithFloat:angle];
+//        }
         
         [animationArray addObject:rotationAnimation];
     }

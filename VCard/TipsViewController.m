@@ -6,6 +6,7 @@
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "TipsViewController.h"
 #import "UIApplication+Addition.h"
 #import "UIView+Resize.h"
