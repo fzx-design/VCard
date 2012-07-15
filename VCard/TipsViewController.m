@@ -23,6 +23,8 @@
 @synthesize scrollView = _scrollView;
 @synthesize pageControl = _pageControl;
 @synthesize finishButton = _finishButton;
+@synthesize iconImageView = _iconImageView;
+@synthesize welcomeImageView = _welcomeImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,6 +43,11 @@
     
     [self configureScrollView];
     [self configurePageControl];
+    
+    self.welcomeImageView.hidden = YES;
+    self.iconImageView.hidden = YES;
+    self.view.userInteractionEnabled = NO;
+    [self performSelector:@selector(viewAppearAnimation) withObject:nil afterDelay:0.7f];
 }
 
 - (void)viewDidUnload
@@ -50,6 +57,8 @@
     self.scrollView = nil;
     self.pageControl = nil;
     self.finishButton = nil;
+    self.iconImageView = nil;
+    self.welcomeImageView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -102,6 +111,49 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     NSInteger page = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
     self.pageControl.currentPage = page;
+}
+
+#pragma mark - Animation methods
+
+- (void)viewAppearAnimation {
+    CGRect iconFrame = self.iconImageView.frame;
+    self.iconImageView.center = CGPointMake(self.iconImageView.center.x, self.scrollView.frame.size.height / 2);
+    
+    self.welcomeImageView.hidden = NO;
+    self.iconImageView.hidden = NO;
+    
+    self.welcomeImageView.alpha = 0;
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [UIView animateWithDuration:0.5f delay:0.3f options:UIViewAnimationCurveEaseInOut animations:^{
+            self.iconImageView.frame = iconFrame;
+            self.welcomeImageView.alpha = 1;
+        } completion:^(BOOL finished) {
+            self.view.userInteractionEnabled = YES;
+        }];
+	}];
+    
+    [CATransaction setValue:[NSNumber numberWithFloat:0.3f] forKey: kCATransactionAnimationDuration];
+    [self.iconImageView.layer addAnimation:[TipsViewController popoverAnimation] forKey:nil];
+    [CATransaction commit];
+}
+
++ (CAKeyframeAnimation*)popoverAnimation {
+	CAKeyframeAnimation * animation; 
+	animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"]; 
+	animation.duration = 0.5; 
+	animation.delegate = self;
+	animation.removedOnCompletion = YES;
+	animation.fillMode = kCAFillModeForwards;
+	
+	NSMutableArray *values = [NSMutableArray array];
+	[values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.1, 0.1, 1.0)]];
+	[values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.2, 1.2, 1.0)]]; 
+	[values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.9, 0.9, 0.9)]]; 
+	[values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
+	
+	animation.values = values;
+	return animation;
 }
 
 @end

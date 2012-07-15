@@ -14,6 +14,8 @@
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet ShelfPageControl *pageControl;
 @property (nonatomic, strong) IBOutlet UIButton *finishButton;
+@property (nonatomic, strong) IBOutlet UIImageView *iconImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *welcomeImageView;
 
 - (void)show;
 
