@@ -13,6 +13,7 @@
 #import "SearchTableviewSectionView.h"
 #import "WBClient.h"
 #import "SearchTableViewCell.h"
+#import "SearchTableViewHighlightsCell.h"
 
 @interface SearchTableViewController ()
 
@@ -44,9 +45,6 @@
     
     _searchUserHistoryList = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] valueForKey:kUserDefaultKeySearchUserHistoryList]];
     _searchStatusHistoryList = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] valueForKey:kUserDefaultKeySearchStatusHistoryList]];
-    
-    [self getHotTopics];
-    
 }
 
 - (void)viewDidUnload
@@ -56,6 +54,11 @@
     self.tableView.dataSource = self;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self swingWithAngle:-0.089 * M_PI];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -437,6 +440,17 @@
     [animation setFillMode:kCAFillModeBoth];
     [animation setDuration:.3];
     [[self.tableView layer] addAnimation:animation forKey:@"UITableViewReloadDataAnimationKey"];
+}
+
+- (void)swingWithAngle:(CGFloat)angle
+{
+    if (_tableViewState == SearchTableViewStateNormal) {
+        for (UITableViewCell *cell in self.tableView.visibleCells) {
+            if ([cell isKindOfClass:[SearchTableViewHighlightsCell class]]) {
+                [(SearchTableViewHighlightsCell *)cell swingWithAngle:angle];
+            }
+        }
+    }
 }
 
 #pragma mark - Properties

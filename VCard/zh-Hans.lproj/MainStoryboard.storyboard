@@ -2301,6 +2301,20 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <outlet property="topImageView1" destination="yHI-Bt-8jp" id="5oI-kx-2cQ"/>
+                                    <outlet property="topImageView2" destination="dc4-0o-3GO" id="YUG-zY-81j"/>
+                                    <outlet property="topImageView3" destination="75K-Q7-j5E" id="6qK-qZ-Hba"/>
+                                    <outlet property="topImageView4" destination="0b7-bh-ZMD" id="qh5-0x-yoz"/>
+                                    <outlet property="topImageView5" destination="fId-IU-4k2" id="szC-VG-ZFX"/>
+                                    <outlet property="topImageView6" destination="Ekt-ZK-u6v" id="iY0-li-3HJ"/>
+                                    <outlet property="topicLabel1" destination="eZv-Kc-UNe" id="QW6-tH-Yrt"/>
+                                    <outlet property="topicLabel2" destination="gsz-6W-YJJ" id="6UH-wy-Qmh"/>
+                                    <outlet property="topicLabel3" destination="2wO-Tw-VYV" id="aQ4-RL-6qS"/>
+                                    <outlet property="topicLabel4" destination="T7l-OT-js7" id="O2F-WJ-HRH"/>
+                                    <outlet property="topicLabel5" destination="6Xk-SB-xuT" id="GyQ-tm-EyH"/>
+                                    <outlet property="topicLabel6" destination="hbZ-V2-xYn" id="Twl-4k-vFA"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

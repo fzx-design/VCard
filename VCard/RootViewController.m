@@ -82,6 +82,7 @@
     if(self.currentUser) {
         [self setUpViews];
     }
+    [self.castViewController refresh];
 }
 
 #pragma mark - Setup Notifications

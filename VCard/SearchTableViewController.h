@@ -44,6 +44,8 @@ typedef enum {
 - (void)setState:(SearchTableViewState)state;
 - (void)setSearchingType:(SearchingTargetType)searchingType;
 - (void)updateSuggestionWithKey:(NSString *)key;
+- (void)getHotTopics;
+- (void)swingWithAngle:(CGFloat)angle;
 - (void)search;
 
 @end

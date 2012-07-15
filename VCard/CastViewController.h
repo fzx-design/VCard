@@ -61,6 +61,7 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UnreadIndicatorView *unreadIndicatorView;
 
 - (void)initialLoad;
+- (void)refresh;
 - (IBAction)showProfileButtonClicked:(id)sender;
 - (IBAction)refreshButtonClicked:(id)sender;
 - (IBAction)didClickGroupButton:(id)sender;

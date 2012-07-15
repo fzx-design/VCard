@@ -52,6 +52,23 @@
     // Release any retained subviews of the main view.
 }
 
+- (void)initialLoad
+{
+    [self.searchTableViewController getHotTopics];
+}
+
+- (void)stackScrolling:(CGFloat)speed
+{
+    CGFloat angle = -0.089 * speed / 20;
+    [self.searchTableViewController swingWithAngle:angle];
+}
+
+- (void)stackScrollingStart
+{
+    //TODO: Test
+    [self.searchTableViewController swingWithAngle:-0.089 * M_PI];
+}
+
 #pragma mark - Segment
 - (void)showSegment
 {

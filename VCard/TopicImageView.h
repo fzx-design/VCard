@@ -17,8 +17,6 @@
 - (void)loadImageFromURL:(NSString *)urlString 
               completion:(void (^)(BOOL succeeded))completion;
 
-// Animation
-- (void)swingOnce:(CALayer*)layer toAngle:(CGFloat)toAngle;
-- (void)swingHalt:(CALayer*)layer fromAngle:(CGFloat)fromAngle;
+
 
 @end

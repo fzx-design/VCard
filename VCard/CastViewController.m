@@ -217,10 +217,6 @@
     
     [self.waterflowView addSubview:_pullView];
     [self.waterflowView addSubview:_loadMoreView];
-    
-    _refreshing = YES;
-    _unreadCountButton.hidden = YES;
-    [self loadMoreData];
 }
 
 #pragma mark - Notification
@@ -641,14 +637,9 @@
 - (void)refresh
 {
     _nextPage = 1;
+    _refreshing = YES;
     _unreadCountButton.hidden = YES;
-    int unreadStatusCount = self.currentUser.unreadStatusCount.intValue;
-    if (unreadStatusCount != 0 || _dataSource != CastviewDataSourceNone) {
-        _refreshing = YES;
-        [self loadMoreData];
-    } else {
-        [_pullView performSelector:@selector(finishedLoading) withObject:nil afterDelay:1.0];
-    }
+    [self loadMoreData];
 }
 
 - (void)clearData
