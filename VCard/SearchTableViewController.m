@@ -395,7 +395,7 @@
 {
     if (_searchingType == SearchingTargetTypeStatus) {
         [self addTopicPageWithSearchKey:_searchKey];
-        if ([_searchStatusHistoryList containsObject:_searchKey]) {
+        if (![_searchStatusHistoryList containsObject:_searchKey]) {
             [_searchStatusHistoryList addObject:_searchKey];
         }
     } else {

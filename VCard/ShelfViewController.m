@@ -13,7 +13,7 @@
 #import "UIApplication+Addition.h"
 #import "Group.h"
 
-#define kShelfHeight 149.0
+#define kShelfHeight 150.0
 #define kNumberOfDrawerPerPage 5
 
 @implementation WBGroupInfo
@@ -48,7 +48,6 @@
     [self setUpNotifications];
     
     UIInterfaceOrientation toInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    
     [self updatePageControlAndScrollViewSize:toInterfaceOrientation];
     [self resetContentSize:toInterfaceOrientation];
     [self resetContentLayout:toInterfaceOrientation];
@@ -298,7 +297,7 @@
     _scrollView.delegate = self;
     _scrollView.contentOffset = CGPointMake(_scrollView.frame.size.width, 0.0);
     [_scrollView resetWidth:[UIApplication screenWidth]];
-    [_scrollView resetHeight:149.0];
+    [_scrollView resetHeight:kShelfHeight];
     ShelfBackgroundView *view = (ShelfBackgroundView *)self.view;
     view.scrollViewReference = (ShelfScrollView *)_scrollView; 
     
@@ -311,6 +310,9 @@
     [_scrollView insertSubview:_shelfBGImageView belowSubview:_shelfBorderImageView];
     
     [_shelfBorderImageView resetWidth:1024.0];
+    
+    [self.fetchedResultsController performFetch:nil];
+    [self setUpScrollView];
 }
 
 - (void)setUpScrollView
@@ -407,16 +409,6 @@
     [view resetOriginX:originX];
 }
 
-- (void)loadImages
-{
-    for (ShelfDrawerView *view in _drawerViewArray) {
-        if (!view.imageLoaded) {
-            Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
-            [view loadImageFromURL:group.picURL completion:nil];
-        }
-    }
-}
-
 - (void)resetBGImageView:(CGFloat)currentWidth
 {
     if (_pageControl.currentPage > 0) {
@@ -434,6 +426,23 @@
         [_shelfBGImageView resetOriginX:screenWidth - 62.0];
     }
     [_shelfBorderImageView resetOriginX:_scrollView.contentOffset.x];
+}
+
+#pragma mark - Public Methods
+- (void)loadImages
+{
+    for (ShelfDrawerView *view in _drawerViewArray) {
+        if (!view.imageLoaded) {
+            Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
+            [view loadImageFromURL:group.picURL completion:nil];
+        }
+    }
+}
+
+- (void)didHideShelf
+{
+    _scrollView.contentOffset = CGPointMake(_scrollView.frame.size.width, 0.0);
+    _pageControl.currentPage = 1;
 }
 
 #pragma mark - UIScrollView delegate

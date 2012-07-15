@@ -854,6 +854,28 @@
     [self loadMoreData];
 }
 
+#pragma mark - WaterflowDelegate
+- (void)didDragWaterflowViewWithOffset:(CGFloat)offset
+{    
+    if ([_delegate respondsToSelector:@selector(didDragCastViewWithOffset:)]) {
+        [_delegate didDragCastViewWithOffset:offset];
+    }
+}
+
+- (void)didSwipeWaterflowView
+{
+    if ([_delegate respondsToSelector:@selector(didSwipeCastView)]) {
+        [_delegate didSwipeCastView];
+    }
+}
+
+- (void)didEndDraggingWaterflowView:(CGFloat)offset
+{
+    if ([_delegate respondsToSelector:@selector(didEndDraggingCastViewWithOffset:)]) {
+        [_delegate didEndDraggingCastViewWithOffset:offset];
+    }
+}
+
 #pragma mark - WaterflowDataSource
 
 - (WaterflowCell*)flowView:(WaterflowView *)flowView_ cellForLayoutUnit:(WaterflowLayoutUnit *)layoutUnit

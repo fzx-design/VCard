@@ -20,6 +20,7 @@
 
 @interface WaterflowView () {
     NSInteger _nextBlockLimit;
+    UIPanGestureRecognizer *_shelfPanGestureRecognizer;
 }
 
 @end
@@ -88,6 +89,15 @@
     self.showsHorizontalScrollIndicator = NO;
     self.showsVerticalScrollIndicator = YES;
     self.delegate = self;
+    self.panGestureRecognizer.maximumNumberOfTouches = 1;
+    self.panGestureRecognizer.minimumNumberOfTouches = 1;
+    
+    _shelfPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleShelfPanGesture:)];
+    _shelfPanGestureRecognizer.minimumNumberOfTouches = 2;
+    _shelfPanGestureRecognizer.maximumNumberOfTouches = 2;
+    _shelfPanGestureRecognizer.delaysTouchesBegan = YES;
+
+    [self addGestureRecognizer:_shelfPanGestureRecognizer];
 }
 
 - (void)setUpNotification
@@ -154,6 +164,30 @@
 - (UIInterfaceOrientation)currentOrientation
 {
     return UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? UIInterfaceOrientationPortrait : UIInterfaceOrientationLandscapeLeft;
+}
+
+#pragma mark - Handle Gesture
+- (void)handleShelfPanGesture:(UIPanGestureRecognizer *)sender
+{
+    NSLog(@"%f", [sender velocityInView:self].y);
+    if (sender.state == UIGestureRecognizerStateBegan && [sender velocityInView:self].y > 100.0) {
+        [_flowdelegate didSwipeWaterflowView];
+        sender.enabled = NO;
+    } else {
+        if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled || sender.state == UIGestureRecognizerStateFailed) {
+            if (sender.enabled) {
+                [_flowdelegate didEndDraggingWaterflowView:[sender translationInView:self].y];
+            }
+            sender.enabled = YES;
+        } else {
+            [_flowdelegate didDragWaterflowViewWithOffset:[sender translationInView:self].y];
+        }
+    }    
+}
+
+- (void)handleShelfSwipeGesture:(UISwipeGestureRecognizer *)sender
+{
+    
 }
 
 #pragma mark - Process Notification

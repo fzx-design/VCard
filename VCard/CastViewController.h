@@ -26,6 +26,14 @@ typedef enum {
     CastviewDataSourceTopic,
 } CastviewDataSource;
 
+@protocol CastViewControllerDelegate <NSObject>
+
+- (void)didDragCastViewWithOffset:(CGFloat)offset;
+- (void)didSwipeCastView;
+- (void)didEndDraggingCastViewWithOffset:(CGFloat)offset;
+
+@end
+
 @interface CastViewController : CoreDataViewController <WaterflowViewDelegate, WaterflowViewDatasource, PullToRefreshViewDelegate, LoadMoreViewDelegate, StackViewControllerDelegate, UIScrollViewDelegate, PostViewControllerDelegate> {
     
     BaseNavigationView *_navigationView;
@@ -59,6 +67,7 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UnreadIndicatorButton *unreadFollowerIndicatorButton;
 @property (nonatomic, strong) IBOutlet UnreadIndicatorButton *unreadMentionIndicatorButton;
 @property (nonatomic, strong) IBOutlet UnreadIndicatorView *unreadIndicatorView;
+@property (nonatomic, weak) id<CastViewControllerDelegate> delegate;
 
 - (void)initialLoad;
 - (void)refresh;

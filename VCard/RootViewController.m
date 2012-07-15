@@ -137,10 +137,14 @@
         [_castViewController.view resetOriginY:_shelfViewController.view.frame.size.height];
         [_shelfViewController.view resetOriginY:0.0];
     } completion:^(BOOL finished) {
+<<<<<<< HEAD
         if(![NSUserDefaults hasShownShelfTips]) {
             [[[TipsViewController alloc] initWithType:TipsViewControllerTypeShelf] show];
             [NSUserDefaults setShownShelfTips:YES];
         }
+=======
+        [self addBackButtonWhenShelfIsShown];
+>>>>>>> 双指下拉滑出shelf完成
     }];
 }
 
@@ -150,16 +154,31 @@
         [_castViewController.view resetOriginY:0.0];
         [_shelfViewController.view resetOriginY:-_shelfViewController.view.frame.size.height];
     } completion:^(BOOL finished) {
-        _shelfViewController.view.hidden = YES;
+        [_shelfViewController didHideShelf];
     }];
+}
+
+- (void)addBackButtonWhenShelfIsShown
+{
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 150.0, 1024.0, 1024.0)];
+    backButton.backgroundColor = [UIColor clearColor];
+    backButton.autoresizingMask = UIViewAutoresizingNone;
+    [backButton addTarget:self action:@selector(didClickBackButton:) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:backButton];
+}
+
+- (void)didClickBackButton:(UIButton *)sender
+{
+    [sender removeFromSuperview];
+    sender = nil;
+    [self hideGroup:nil];
+    self.castViewController.groupButton.selected = NO;
 }
 
 - (void)showDetailImageView:(NSNotification *)notification
 {
     NSDictionary *dict = notification.object;
-    //    UIImageView *imageView = [dict objectForKey:kNotificationObjectKeyImageView];
     CardViewController *vc = [dict objectForKey:kNotificationObjectKeyStatus];
-    //    vc.delegate = self.detailImageViewController;
     self.detailImageViewController.view.hidden = NO;
     self.detailImageViewController.view.userInteractionEnabled = YES;
     [self.detailImageViewController setUpWithCardViewController:vc];
@@ -208,6 +227,31 @@
     _shelfViewController = shelfViewController;
 }
 
+#pragma mark - CardViewControllerDelegate
+- (void)didDragCastViewWithOffset:(CGFloat)offset
+{
+    self.shelfViewController.view.hidden = NO;
+    if (offset >= 0.0 && offset <= 150.0) {
+        [self.castViewController.view resetOriginY:ceilf(offset)];
+        [self.shelfViewController.view resetOriginY:ceilf(offset - 150.0)];
+    }
+}
+
+- (void)didSwipeCastView
+{
+    [self showGroup:nil];
+    self.castViewController.groupButton.selected = YES;
+}
+
+- (void)didEndDraggingCastViewWithOffset:(CGFloat)offset
+{
+    if (offset >= 40.0) {
+        [self showGroup:nil];
+    } else {
+        [self hideGroup:nil];
+    }
+}
+
 #pragma mark - Properties
 - (CastViewController*)castViewController
 {
@@ -215,6 +259,7 @@
         _castViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CastViewController"];
         [_castViewController.view resetSize:self.view.frame.size];
         [_castViewController.view resetOrigin:CGPointZero];
+        _castViewController.delegate = self;
     }
     return _castViewController;
 }

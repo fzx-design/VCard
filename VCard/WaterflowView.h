@@ -30,6 +30,10 @@
 @protocol WaterflowViewDelegate <NSObject>
 @optional
 - (void)flowView:(WaterflowView *)flowView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)didDragWaterflowViewWithOffset:(CGFloat)offset;
+- (void)didSwipeWaterflowView;
+- (void)didEndDraggingWaterflowView:(CGFloat)offset;
+
 @end
 
 ////Waterflow View

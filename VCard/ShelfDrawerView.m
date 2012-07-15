@@ -8,11 +8,14 @@
 
 #import "ShelfDrawerView.h"
 #import "UIImageView+URL.h"
+#import "Group.h"
 
 #define kDrawerFrame CGRectMake(-27.0, -32.0, 148.0, 144.0)
-#define kEmptyDrawerFrame CGRectMake(0, 0, 150, 74)
-#define kTopicPaperFrame CGRectMake(0, 0, 160, 104)
-#define kTopicLabelFrame CGRectMake(0, 55.0, 95.0, 35.0)
+#define kEmptyDrawerFrame CGRectMake(-27, 39, 150, 74)
+#define kTopicPaperFrame CGRectMake(-32, 5, 160, 104)
+
+#define kTopicLabelFrame CGRectMake(0, 35.0, 95.0, 35.0)
+#define kDrawerLabelFrame CGRectMake(0, 56.0, 95.0, 35.0)
 
 @implementation ShelfDrawerView
 
@@ -47,6 +50,9 @@
     _backImageView = [[UIImageView alloc] initWithFrame:self.bounds];
     _backImageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
     
+    _imageView.hidden = empty || type == kGroupTypeTopic;
+    _backImageView.hidden = _imageView.hidden;
+    
     
     NSString *imageName = @"shelf_drawer.png";
     CGRect frame;
@@ -60,6 +66,7 @@
         imageName = @"topic_paper.png";
         frame = kTopicPaperFrame;
     }
+    _photoFrameImageView = [[UIImageView alloc] initWithFrame:frame];
     _photoFrameImageView.image = [UIImage imageNamed:imageName];
     _photoFrameImageView.opaque = YES;
     
@@ -70,12 +77,17 @@
 
 - (void)setTopicLabel
 {
-    _topicLabel = [[UILabel alloc] initWithFrame:kTopicLabelFrame];
-    if (_type == 2) {
-        _topicLabel.text = [NSString stringWithFormat:@"#%@#", _topicName];
+    CGRect frame;
+    NSString *title;
+    if (_type == kGroupTypeTopic) {
+        frame = kTopicLabelFrame;
+        title = [NSString stringWithFormat:@"#%@#", _topicName];
     } else {
-        _topicLabel.text = [NSString stringWithFormat:@"%@", _topicName];
+        frame = kDrawerLabelFrame;
+        title = [NSString stringWithFormat:@"%@", _topicName];
     }
+    _topicLabel = [[UILabel alloc] initWithFrame:frame];
+    _topicLabel.text = title;
     _topicLabel.textAlignment = UITextAlignmentCenter;
     _topicLabel.font = [UIFont boldSystemFontOfSize:15.0];
     _topicLabel.shadowColor = [UIColor whiteColor];
@@ -89,7 +101,9 @@
 - (void)loadImageFromURL:(NSString *)urlString
               completion:(void (^)(BOOL succeeded))completion
 {
-    _imageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
+    if (_imageView.hidden) {
+        return;
+    }
 	
     [_imageView kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
