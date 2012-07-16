@@ -135,7 +135,7 @@
     
     NSDictionary *userDict = [dict objectForKey:@"user"];
     
-    if (userDict) {
+    if ([userDict isKindOfClass:[NSDictionary class]] && userDict > 0) {
         result.author = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:object];
     }
     
