@@ -350,6 +350,7 @@
 - (BOOL)handleCellClickedEventAtIndex:(int)index
 {
     BOOL shouldResign = YES;
+    NSString *searchKey = @"";
     if (_searchingType == SearchingTargetTypeStatus) {
         if ([self isSearchKeyEmpty]) {
             if (index < _searchStatusHistoryList.count) {
@@ -360,31 +361,37 @@
             }
         } else {
             if (index == 0) {
+                searchKey = _searchKey;
                 [self addTopicPageWithSearchKey:_searchKey];
-                if ([_searchStatusHistoryList containsObject:_searchKey]) {
-                    [_searchStatusHistoryList addObject:_searchKey];
-                }
-                
             } else {
-                [self addTopicPageWithSearchKey:[_searchStatusSuggestions objectAtIndex:index - 1]];
+                searchKey = [_searchStatusSuggestions objectAtIndex:index - 1];
+                [self addTopicPageWithSearchKey:searchKey];
+            }
+            
+            if (![_searchStatusHistoryList containsObject:searchKey]) {
+                [_searchStatusHistoryList addObject:searchKey];
             }
         }
     } else {
         if ([self isSearchKeyEmpty]) {
             if (index < _searchUserHistoryList.count) {
                 [self showUserProfilePageWithKey:[_searchUserHistoryList objectAtIndex:index]];
+                
             } else {
                 [_searchUserHistoryList removeAllObjects];
                 shouldResign = NO;
             }
         } else {
             if (index == 0) {
+                searchKey = _searchKey;
                 [self addUserSearchPageWithSearchKey:_searchKey];
-                if (![_searchUserHistoryList containsObject:_searchKey]) {
-                    [_searchUserHistoryList addObject:_searchKey];
-                }
             } else {
-                [self showUserProfilePageWithKey:[_searchNameSuggestions objectAtIndex:index - 1]];
+                searchKey = [_searchNameSuggestions objectAtIndex:index - 1];
+                [self showUserProfilePageWithKey:searchKey];
+            }
+            
+            if (![_searchUserHistoryList containsObject:searchKey]) {
+                [_searchUserHistoryList addObject:searchKey];
             }
         }
     }
