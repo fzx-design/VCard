@@ -25,6 +25,8 @@
     UIButton    *_editButton;
     NSInteger   _numberOfPages;
     NSInteger   _numberOfDrawerPerPage;
+    ShelfDrawerView *_currentDrawerView;
+    CGPoint     _initialPoint;
 }
 
 @end
@@ -292,11 +294,9 @@
     [_scrollView insertSubview:_shelfBGImageView belowSubview:_shelfBorderImageView];
     
     [_shelfBorderImageView resetWidth:1024.0];
-    
-    [self.fetchedResultsController performFetch:nil];
-    [self setUpScrollView];
-    
     _coverView.alpha = 1.0;
+    
+    [self setUpScrollView];
 }
 
 - (void)setUpScrollView
@@ -322,6 +322,7 @@
     [self resetContentLayout:[UIApplication sharedApplication].statusBarOrientation];
 }
 
+#pragma mark - Drawer Behavior
 - (void)createDrawerViewWithGroup:(Group *)group index:(int)index
 {
     ShelfDrawerView *drawerView = [[ShelfDrawerView alloc] initWithFrame:CGRectMake(0.0, 40.0, 95.0, 95.0)
@@ -332,40 +333,44 @@
                                                                    empty:group.count.intValue == 0];
     drawerView.adjustsImageWhenHighlighted = YES;
     [drawerView addTarget:self action:@selector(changeCastViewSource:) forControlEvents:UIControlEventTouchUpInside];
-    [drawerView addTarget:self action:@selector(drawerTouchDown:) forControlEvents:UIControlEventTouchUpInside];
     
     [_scrollView addSubview:drawerView];
     [_drawerViewArray addObject:drawerView];
     
     [drawerView appearWithDuration:0.3];
     [self resetDrawerViewLayout:drawerView withIndex:index];
+    
     group.index = [NSNumber numberWithInt:index];
     index++;
 }
 
 - (void)changeCastViewSource:(UIButton *)sender
 {
-    ShelfDrawerView *view = (ShelfDrawerView *)sender;
-    Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
-    
-    NSString *type = [NSString stringWithFormat:@"%d",group.type.intValue];
-    NSString *name = group.name;
-    NSString *groupID = group.groupID;
-    if (type.intValue == 2) {
-        name = [NSString stringWithFormat:@"#%@#", name];
-        groupID = group.name;
+    ShelfDrawerView *view = (ShelfDrawerView *)sender;    
+    if (![view isEqual:_currentDrawerView]) {
+        view.enabled = NO;
+        _currentDrawerView.enabled = YES;
+        [_currentDrawerView setSelected:NO];
+        [view setSelected:YES];
+        _currentDrawerView = view;
+        
+        Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
+        
+        NSString *type = [NSString stringWithFormat:@"%d",group.type.intValue];
+        NSString *name = group.name;
+        NSString *groupID = group.groupID;
+        if (type.intValue == 2) {
+            name = [NSString stringWithFormat:@"#%@#", name];
+            groupID = group.name;
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldChangeCastviewDataSource
+                                                            object:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                    name, kNotificationObjectKeyDataSourceDescription,
+                                                                    type, kNotificationObjectKeyDataSourceType,
+                                                                    groupID, kNotificationObjectKeyDataSourceID, nil]];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldChangeCastviewDataSource
-                                                        object:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                name, kNotificationObjectKeyDataSourceDescription,
-                                                                type, kNotificationObjectKeyDataSourceType,
-                                                                groupID, kNotificationObjectKeyDataSourceID, nil]];
 }
 
-- (void)drawerTouchDown:(UIButton *)sender
-{
-    sender.highlighted = YES;
-}
 
 - (void)updatePageControlAndScrollViewSize:(UIInterfaceOrientation)orientation
 {

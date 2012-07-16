@@ -103,7 +103,7 @@
     [self.view resetOrigin:CGPointZero];
     [self.view resetSize:CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight])];
     [self.view insertSubview:self.castViewController.view belowSubview:self.detailImageViewController.view];
-    [self.view insertSubview:self.shelfViewController.view  belowSubview:self.castViewController.view];
+    [self.view insertSubview:self.shelfViewController.view belowSubview:self.castViewController.view];
     self.shelfViewController.view.hidden = YES;
 }
 

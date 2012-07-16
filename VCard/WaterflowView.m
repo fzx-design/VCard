@@ -666,7 +666,7 @@
     _titleLabel = [[UILabel alloc] initWithFrame:kInfoBarTitleLabelFrame];
     _titleLabel.text = @"";
     _titleLabel.textAlignment = UITextAlignmentCenter;
-    _titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    _titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
     _titleLabel.textColor = kInfoBarTitleLabelTextColor;
     _titleLabel.shadowColor = [UIColor whiteColor];
     _titleLabel.shadowOffset = CGSizeMake(0.0, 1.0);
