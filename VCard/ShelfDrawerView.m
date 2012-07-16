@@ -45,13 +45,13 @@
 
 - (void)setUpDrawerImageViewWithType:(int)type empty:(BOOL)empty
 {
-    _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    _photoImageView = [[UIImageView alloc] initWithFrame:self.bounds];
     
     _backImageView = [[UIImageView alloc] initWithFrame:self.bounds];
     _backImageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
     
-    _imageView.hidden = empty || type == kGroupTypeTopic;
-    _backImageView.hidden = _imageView.hidden;
+    _photoImageView.hidden = empty || type == kGroupTypeTopic;
+    _backImageView.hidden = _photoImageView.hidden;
     
     
     NSString *imageName = @"shelf_drawer.png";
@@ -71,7 +71,7 @@
     _photoFrameImageView.opaque = YES;
     
     [self addSubview:_backImageView];
-    [self addSubview:_imageView];
+    [self addSubview:_photoImageView];
     [self addSubview:_photoFrameImageView];
 }
 
@@ -101,13 +101,13 @@
 - (void)loadImageFromURL:(NSString *)urlString
               completion:(void (^)(BOOL succeeded))completion
 {
-    if (_imageView.hidden) {
+    if (_photoImageView.hidden) {
         return;
     }
 	
-    [_imageView kv_cancelImageDownload];
+    [_photoImageView kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
-    [_imageView kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
+    [_photoImageView kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
 }
 
 @end

@@ -11,12 +11,6 @@
 @interface BaseNavigationView : UIView {
     UIImageView *_topBar;
     UIImageView *_topBarShadow;
-    UIImageView *_infoBarView;
-    UIButton *_returnButton;
-    UILabel *_titleLabel;
 }
-
-- (void)showInfoBarWithTitleName:(NSString *)name;
-- (void)hideInfoBar;
 
 @end

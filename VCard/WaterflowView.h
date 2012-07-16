@@ -13,6 +13,9 @@
 #import "PullToRefreshView.h"
 #import "BaseLayoutView.h"
 
+#define kWaterflowViewInfoBarViewIndex          100
+#define kWaterflowViewPullToRefreshViewIndex    101
+
 @class WaterflowView;
 
 
@@ -33,7 +36,7 @@
 - (void)didDragWaterflowViewWithOffset:(CGFloat)offset;
 - (void)didSwipeWaterflowView;
 - (void)didEndDraggingWaterflowView:(CGFloat)offset;
-
+- (void)didClickReturnToNormalTimelineButton;
 @end
 
 ////Waterflow View
@@ -55,6 +58,10 @@
     NSInteger _curObjIndex;
     NSInteger _leftColumnIndex;
     NSInteger _rightColumnIndex;
+    
+    UIImageView *_infoBarView;
+    UIButton *_returnButton;
+    UILabel *_titleLabel;
     
     BaseLayoutView *_backgroundViewA;
     BaseLayoutView *_backgroundViewB;
@@ -79,5 +86,6 @@
 - (void)adjustViewsForOrientation:(UIInterfaceOrientation)orientation;
 - (void)prepareLayoutNeedRefresh:(BOOL)needRefresh;
 
+- (void)showInfoBarWithTitleName:(NSString *)name;
 
 @end

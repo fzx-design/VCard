@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShelfDrawerView : UIView {
+@interface ShelfDrawerView : UIButton {
     UIImageView *_photoFrameImageView;
-    UIImageView *_imageView;
+    UIImageView *_photoImageView;
     UIImageView *_backImageView;
     UILabel *_topicLabel;
 }
