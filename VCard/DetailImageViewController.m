@@ -12,6 +12,7 @@
 #import "User.h"
 #import "NSDateAddition.h"
 #import "UIScrollView+ZoomToPoint.h"
+#import "ErrorIndicatorViewController.h"
 
 #define kMaxOffsetScaleToReturn 0.2
 
@@ -430,7 +431,7 @@
     } else if(buttonIndex == 1) {
         [self favouriteStatus];
     } else if(buttonIndex == 2) {
-        [self saveImage];
+        [self performSelectorInBackground:@selector(saveImage) withObject:nil];
     }
 }
 
@@ -471,9 +472,13 @@
 }
 
 
--(void)image:(UIImage *)image finishedSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+- (void)image:(UIImage *)image finishedSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
-   //TODO: Show download succeess Info
+    if(error) {
+        [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeConnectFailure contentText:@"保存失败"];
+    } else {
+        [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"保存成功"];
+    }
 }
 
 @end
