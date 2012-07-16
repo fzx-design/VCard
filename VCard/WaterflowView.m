@@ -177,7 +177,6 @@
 #pragma mark - Handle Gesture
 - (void)handleShelfPanGesture:(UIPanGestureRecognizer *)sender
 {
-    NSLog(@"%f", [sender velocityInView:self].y);
     if (sender.state == UIGestureRecognizerStateBegan && [sender velocityInView:self].y > 200.0) {
         [_flowdelegate didSwipeWaterflowView];
         sender.enabled = NO;

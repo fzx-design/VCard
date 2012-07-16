@@ -39,12 +39,6 @@
     return _dividerViewController;
 }
 
-//- (void)resetLayoutAfterRotating
-//{
-//    NSLog(@"current frame: %@", NSStringFromCGRect(self.frame));
-//    [self.dividerViewController resetLayoutAfterRotating];
-//}
-
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
