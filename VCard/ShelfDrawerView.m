@@ -21,8 +21,8 @@
 
 #define kHighlishGlowFrame CGRectMake(-27.0, -20.0, 190.0, 130.0)
 
-#define kDeleteDrawerButtonFrame CGRectMake(-25, -25, 80.0, 80.0)
-#define kDeleteTopicButtonFrame  CGRectMake(-30, -10, 80.0, 80.0)
+#define kDeleteDrawerButtonFrame CGRectMake(-5, -5, 44.0, 44.0)
+#define kDeleteTopicButtonFrame  CGRectMake(-10, 10, 44.0, 44.0)
 
 @implementation ShelfDrawerView
 
@@ -42,6 +42,7 @@
         _type = type;
         _imageLoaded = url && ![url isEqualToString:@""];
         _editing = NO;
+        _empty = empty;
         
         self.opaque = YES;
         self.enabled = !empty;
@@ -179,6 +180,34 @@
 
 - (void)didClickDeleteButton
 {
+    NSString *deleteTitle = _type == kGroupTypeTopic ? @"取消关注" : @"删除";
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self 
+                                                    cancelButtonTitle:nil 
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:deleteTitle, nil];
+    actionSheet.destructiveButtonIndex = 0;
+    actionSheet.delegate = self;
+    CGRect frame = _deleteButton.frame;
+    
+    if (_type == kGroupTypeTopic) {
+        frame.origin.y -= 15;
+        frame.origin.x += 10;
+    } else {
+        frame.origin.x += 5;
+    }
+    [actionSheet showFromRect:frame inView:_deleteButton animated:YES];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self didConfirmDelete];
+    }
+}
+
+- (void)didConfirmDelete
+{
     if ([_delegate respondsToSelector:@selector(didClickDeleteButtonAtIndex:)]) {
         [_delegate didClickDeleteButtonAtIndex:_index];
     }
@@ -188,12 +217,18 @@
 {
     _deleteButton.hidden = NO;
     [_deleteButton fadeIn];
+    if (_empty) {
+        self.enabled = YES;
+    }
 }
 
 - (void)hideDeleteButton
 {
     [_deleteButton fadeOutWithCompletion:^{
         _deleteButton.hidden = YES;
+        if (_empty) {
+            self.enabled = NO;
+        }
     }];
 }
 

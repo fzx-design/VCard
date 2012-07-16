@@ -14,7 +14,7 @@
 
 @end
 
-@interface ShelfDrawerView : UIButton {
+@interface ShelfDrawerView : UIButton <UIActionSheetDelegate> {
     UIImageView *_photoFrameImageView;
     UIImageView *_photoImageView;
     UIImageView *_backImageView;
@@ -29,6 +29,7 @@
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, assign) BOOL imageLoaded;
 @property (nonatomic, assign) BOOL editing;
+@property (nonatomic, assign) BOOL empty;
 
 @property (nonatomic, weak) id<ShelfDrawerViewDelegate> delegate;
 

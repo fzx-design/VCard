@@ -758,6 +758,7 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+    [self.view resetHeight:[UIApplication screenHeight] - 20.0];
     [self.waterflowView scrollViewDidScroll:self.waterflowView];
 }
 

@@ -489,7 +489,7 @@
 #pragma mark - ShelfDrawerViewDelegate
 - (void)didClickDeleteButtonAtIndex:(int)index
 {
-    
+
 }
 
 #pragma mark - IBActions
