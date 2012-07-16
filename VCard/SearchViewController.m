@@ -31,7 +31,8 @@
 {
     [super viewDidLoad];
     [self.backgroundView addSubview:self.searchTableViewController.view];
-    [self.topShadowImageView resetOrigin:[self frameForTableView].origin];
+    [self.topShadowImageView resetOriginY:[self frameForTableView].origin.y];
+    [self.topShadowImageView resetOriginX:0.0];
     [self.view addSubview:self.topShadowImageView];
 
     _searchUserButton.selected = NO;
