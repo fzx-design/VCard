@@ -6,9 +6,10 @@
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
+#import <MobileCoreServices/MobileCoreServices.h>
 #import "UIApplication+Addition.h"
 #import "AppDelegate.h"
-#import <MobileCoreServices/MobileCoreServices.h>
+#import "ErrorIndicatorViewController.h"
 
 #define MODAL_BACK_VIEW_MAX_ALPHA               (0.6f)
 
@@ -25,6 +26,8 @@ static NSMutableArray *_backViewStack = nil;
 @end
 
 @implementation UIApplication (Addition)
+
+#pragma mark - ModalViewController methods
 
 - (NSMutableArray *)modalViewControllerStack {
     if(_modalViewControllerStack == nil) {
@@ -59,38 +62,6 @@ static NSMutableArray *_backViewStack = nil;
 
 - (void)dismissModalViewController:(UIViewController *)vc {
     [self.modalViewControllerStack removeObject:vc];
-}
-
-
-+ (BOOL)isRetinaDisplayiPad
-{
-    return [[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [UIScreen mainScreen].scale > 1;
-}
-
-+ (CGFloat)heightExcludingTopBar
-{
-    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 704.0 : 960.0;
-}
-
-+ (CGFloat)screenWidth
-{
-    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 1024.0 : 768.0;
-}
-
-+ (CGFloat)screenHeight
-{
-    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 768.0 : 1024.0;
-}
-
-+ (BOOL)isCurrentOrientationLandscape
-{
-    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation);
-}
-
-- (UIViewController *)rootViewController
-{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    return (UIViewController *)appDelegate.window.rootViewController;
 }
 
 + (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated {
@@ -193,6 +164,8 @@ static NSMutableArray *_backViewStack = nil;
     }];
 }
 
+#pragma mark - Common methods
+
 - (CGSize)screenSize {
     CGFloat screenWidth = 1024, screenHeight = 748;
     if(UIInterfaceOrientationIsPortrait(self.statusBarOrientation)) {
@@ -201,6 +174,39 @@ static NSMutableArray *_backViewStack = nil;
     }
     return CGSizeMake(screenWidth, screenHeight);
 }
+
++ (BOOL)isRetinaDisplayiPad
+{
+    return [[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [UIScreen mainScreen].scale > 1;
+}
+
++ (CGFloat)heightExcludingTopBar
+{
+    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 704.0 : 960.0;
+}
+
++ (CGFloat)screenWidth
+{
+    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 1024.0 : 768.0;
+}
+
++ (CGFloat)screenHeight
+{
+    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 768.0 : 1024.0;
+}
+
++ (BOOL)isCurrentOrientationLandscape
+{
+    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation);
+}
+
+- (UIViewController *)rootViewController
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    return (UIViewController *)appDelegate.window.rootViewController;
+}
+
+#pragma mark - Album methods
 
 + (UIPopoverController *)getAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate {
     UIImagePickerController *ipc = [[UIImagePickerController alloc] init];

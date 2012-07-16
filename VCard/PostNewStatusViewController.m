@@ -183,6 +183,7 @@
 
 - (IBAction)didClickPostButton:(UIButton *)sender {
     sender.userInteractionEnabled = NO;
+    
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         NSLog(@"post finish:%@", client.responseJSONObject);

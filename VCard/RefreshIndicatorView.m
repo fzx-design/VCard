@@ -32,7 +32,8 @@
     if (self) {
         // Initialization code
         self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        
+        _refreshHoleImageView = [[UIImageView alloc] init];
+        _refreshCircleImageView = [[UIImageView alloc] init];
         [self setUpImageViews];
     }
     return self;
@@ -40,22 +41,23 @@
 
 - (void)setType:(RefreshIndicatorViewType)type {
     _viewType = type;
+    [self setUpImageViews];
 }
 
 - (void)setUpImageViews
 {
     if(_viewType == RefreshIndicatorViewTypeSmallBlue) {
-        _refreshHoleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kRLRefreshButtonHole]];
+        _refreshHoleImageView.image = [UIImage imageNamed:kRLRefreshButtonHole];
         _refreshHoleImageView.frame = CGRectMake(0.0, 0.0, 23.0, 23.0);
         
-        _refreshCircleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kRLRefreshButtonCircle]];
+        _refreshCircleImageView.image = [UIImage imageNamed:kRLRefreshButtonCircle];
         _refreshCircleImageView.frame = CGRectMake(2.0, 1.0, 19.0, 19.0);
         
     } else if(_viewType == RefreshIndicatorViewTypeLargeWhite) {
-        _refreshHoleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_error_edge"]];
+        _refreshHoleImageView.image = [UIImage imageNamed:@"icon_error_edge"];
         _refreshHoleImageView.frame = CGRectMake(0.0, 0.0, 90.0, 90.0);
         
-        _refreshCircleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_circle_large"]];
+        _refreshCircleImageView.image = [UIImage imageNamed:@"icon_circle_large"];
         _refreshCircleImageView.frame = CGRectMake(9.0, 8.0, 72.0, 72.0);
     }
     [self addSubview:_refreshHoleImageView];

@@ -45,6 +45,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{174, 174}</string>
 								<reference key="NSSuperview" ref="896302711"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="878245049"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -59,6 +60,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{42, 25}, {90, 90}}</string>
 								<reference key="NSSuperview" ref="896302711"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="87225430"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -71,8 +73,9 @@
 							<object class="IBUIView" id="878245049">
 								<reference key="NSNextResponder" ref="896302711"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{41, 25}, {90, 90}}</string>
+								<string key="NSFrame">{{42, 25}, {90, 90}}</string>
 								<reference key="NSSuperview" ref="896302711"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="908627191"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="232233218">
@@ -86,6 +89,8 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{17, 120}, {140, 20}}</string>
 								<reference key="NSSuperview" ref="896302711"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -120,6 +125,7 @@
 						</array>
 						<string key="NSFrame">{{425, 287}, {174, 174}}</string>
 						<reference key="NSSuperview" ref="650723859"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="228128314"/>
 						<reference key="IBUIBackgroundColor" ref="232233218"/>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -135,6 +141,7 @@
 				</array>
 				<string key="NSFrame">{{0, 20}, {1024, 748}}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="896302711"/>
 				<reference key="IBUIBackgroundColor" ref="232233218"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -270,7 +277,50 @@
 			<nil key="sourceID"/>
 			<int key="maxID">65</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">ErrorIndicatorViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="errorBgView">UIView</string>
+						<string key="errorImageView">UIImageView</string>
+						<string key="errorLabel">UILabel</string>
+						<string key="refreshIndicator">RefreshIndicatorView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="errorBgView">
+							<string key="name">errorBgView</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="errorImageView">
+							<string key="name">errorImageView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="errorLabel">
+							<string key="name">errorLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="refreshIndicator">
+							<string key="name">refreshIndicator</string>
+							<string key="candidateClassName">RefreshIndicatorView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/ErrorIndicatorViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">RefreshIndicatorView</string>
+					<string key="superclassName">UIView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/RefreshIndicatorView.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

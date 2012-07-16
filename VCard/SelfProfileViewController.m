@@ -11,6 +11,7 @@
 #import "UIApplication+Addition.h"
 #import "WBClient.h"
 #import "NSNotificationCenter+Addition.h"
+#import "ErrorIndicatorViewController.h"
 
 #define MOTIONS_EDIT_ACTION_SHEET_SHOOT_INDEX    0
 #define MOTIONS_EDIT_ACTION_SHEET_ALBUM_INDEX    1
@@ -178,14 +179,25 @@ typedef enum {
 
 - (void)motionViewControllerDidFinish:(UIImage *)image {
     self.view.userInteractionEnabled = NO;
+    
+    ErrorIndicatorViewController *vc = [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeLoading contentText:nil];
+    
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if(!client.hasError) {
             
             [self loadUserAndChangeAvatar];
             
+            [vc dismissViewAnimated:NO completion:^{
+                [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypePostSuccess contentText:@"修改成功" animated:NO];
+            }];
+            
             NSLog(@"upload avatar succeeded");
         } else {
+            [vc dismissViewAnimated:NO completion:^{
+                [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypePostFailure contentText:@"修改失败" animated:NO];
+            }];
+            
             NSLog(@"upload avatar failed");
         }
         self.view.userInteractionEnabled = YES;
@@ -204,6 +216,8 @@ typedef enum {
             User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
             [NSNotificationCenter postChangeUserAvatarNotification];
             [_avatarImageView loadImageWithoutFadeFromURL:user.largeAvatarURL completion:nil];
+        } else {
+        
         }
     }];
     
