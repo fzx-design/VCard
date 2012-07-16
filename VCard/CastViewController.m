@@ -820,6 +820,7 @@
 - (void)enterStackView
 {
     _waterflowView.scrollsToTop = NO;
+    _groupButton.enabled = NO;
     [UIView animateWithDuration:0.3 animations:^{
         _unreadCountButton.alpha = 0.0;
     }];
@@ -828,6 +829,7 @@
 - (void)exitStackView
 {
     _waterflowView.scrollsToTop = YES;
+    _groupButton.enabled = YES;
     [UIView animateWithDuration:0.3 animations:^{
         _unreadCountButton.alpha = 1.0;
     }];
