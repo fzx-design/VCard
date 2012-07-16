@@ -8,11 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    RefreshIndicatorViewTypeSmallBlue,
+    RefreshIndicatorViewTypeLargeWhite,
+} RefreshIndicatorViewType;
+
 @interface RefreshIndicatorView : UIView {
     UIImageView *_refreshCircleImageView;
     UIImageView *_refreshHoleImageView;
 }
 
+- (void)setType:(RefreshIndicatorViewType)type;
 - (void)startLoadingAnimation;
 - (void)stopLoadingAnimation;
 

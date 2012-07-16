@@ -9,6 +9,12 @@
 #import "RefreshIndicatorView.h"
 #import <QuartzCore/QuartzCore.h>
 
+@interface RefreshIndicatorView() {
+    RefreshIndicatorViewType _viewType;
+}
+
+@end
+
 @implementation RefreshIndicatorView
 
 - (id)initWithFrame:(CGRect)frame
@@ -32,14 +38,27 @@
     return self;
 }
 
+- (void)setType:(RefreshIndicatorViewType)type {
+    _viewType = type;
+}
+
 - (void)setUpImageViews
 {
-    _refreshHoleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kRLRefreshButtonHole]];
-    _refreshHoleImageView.frame = CGRectMake(0.0, 0.0, 23.0, 23.0);
+    if(_viewType == RefreshIndicatorViewTypeSmallBlue) {
+        _refreshHoleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kRLRefreshButtonHole]];
+        _refreshHoleImageView.frame = CGRectMake(0.0, 0.0, 23.0, 23.0);
+        
+        _refreshCircleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kRLRefreshButtonCircle]];
+        _refreshCircleImageView.frame = CGRectMake(2.0, 1.0, 19.0, 19.0);
+        
+    } else if(_viewType == RefreshIndicatorViewTypeLargeWhite) {
+        _refreshHoleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_error_edge"]];
+        _refreshHoleImageView.frame = CGRectMake(0.0, 0.0, 90.0, 90.0);
+        
+        _refreshCircleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_circle_large"]];
+        _refreshCircleImageView.frame = CGRectMake(9.0, 8.0, 72.0, 72.0);
+    }
     [self addSubview:_refreshHoleImageView];
-    
-    _refreshCircleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kRLRefreshButtonCircle]];
-    _refreshCircleImageView.frame = CGRectMake(2.0, 1.0, 19.0, 19.0);
     [self addSubview:_refreshCircleImageView];
 }
 
