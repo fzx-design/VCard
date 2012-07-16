@@ -13,6 +13,8 @@
 #import "NSDateAddition.h"
 #import "UIScrollView+ZoomToPoint.h"
 
+#define kMaxOffsetScaleToReturn 0.2
+
 @interface DetailImageViewController () {
     BOOL _statusBarHidden;
     BOOL _firstZoom;
@@ -101,13 +103,17 @@
 - (void)didChangeImageScale:(CGFloat)scale
 {
     CGFloat offset = scale;
+    CGFloat alpha = 0.0;
     if (_imageView.imageViewMode == CastViewImageViewModePinchingOut) {
         offset = [_imageView scaleOffset];
         offset = offset > 0.5 ? 0.5 : offset;
+        alpha = offset / 0.5;
     } else {
-        offset = offset < -0.5 ? 0.0 : 0.5 + offset;
+        CGFloat target = -_originScale * (kMaxOffsetScaleToReturn + 0.2);
+        offset = offset < target ? 0.0 : 1.0 - offset / target;
+        alpha = offset;
     }
-    CGFloat alpha = offset /= 0.5;
+    
     if (alpha < 0.0) {
         alpha = 0.0;
     } else {
@@ -188,6 +194,9 @@
     _originScale = _scrollView.zoomScale;
     _scrollView.minimumZoomScale = _originScale;
     _scrollView.maximumZoomScale = _originScale * 5.0;
+    if (_scrollView.maximumZoomScale < 1.0) {
+        _scrollView.maximumZoomScale = 1.0;
+    }
 }
 
 - (void)setBackgroundAlphaTo:(CGFloat)alpha
@@ -253,6 +262,10 @@
     _originScale = _scrollView.zoomScale;
     _scrollView.minimumZoomScale = _originScale;
     _scrollView.maximumZoomScale = _originScale * 5.0;
+    if (_scrollView.maximumZoomScale < 1.0) {
+        _scrollView.maximumZoomScale = 1.0;
+    }
+    
     
     scale *= _originScale;
     
@@ -340,7 +353,7 @@
 {
     _firstZoom = YES;
     if (_imageView.imageViewMode == CastViewImageViewModePinchingIn) {
-        if (_scrollView.pinchGestureRecognizer.velocity > 2.0 || _scrollView.zoomScale < _originScale - 0.1) {
+        if (_scrollView.pinchGestureRecognizer.velocity > 2.0 || _scrollView.zoomScale < _originScale * (1 - kMaxOffsetScaleToReturn)) {
             [_cardViewController returnToInitialImageView];
         } else {
             [self recoverScrollViewRotation];

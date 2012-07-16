@@ -22,8 +22,9 @@
 
 @interface ShelfViewController () {
     UIImageView *_shelfBGImageView;
-    NSInteger _numberOfPages;
-    NSInteger _numberOfDrawerPerPage;
+    UIButton    *_editButton;
+    NSInteger   _numberOfPages;
+    NSInteger   _numberOfDrawerPerPage;
 }
 
 @end
@@ -329,7 +330,7 @@
                                                                    index:index
                                                                     type:group.type.intValue
                                                                    empty:group.count.intValue == 0];
-        
+    drawerView.adjustsImageWhenHighlighted = YES;
     [drawerView addTarget:self action:@selector(changeCastViewSource:) forControlEvents:UIControlEventTouchUpInside];
     [drawerView addTarget:self action:@selector(drawerTouchDown:) forControlEvents:UIControlEventTouchUpInside];
     

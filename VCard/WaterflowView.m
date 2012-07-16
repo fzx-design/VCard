@@ -711,13 +711,13 @@
 {
     if (self.contentOffset.y > 0.0) {
         [_infoBarView resetOriginY:self.contentOffset.y];
-        [_returnButton resetOriginY:self.contentOffset.y];
         [_titleLabel resetOriginY:self.contentOffset.y];
+        [_returnButton resetOriginY:self.contentOffset.y];
 
     } else {
         [_infoBarView resetOriginY:0.0];
-        [_returnButton resetOriginY:0.0];
         [_titleLabel resetOriginY:0.0];
+        [_returnButton resetOriginY:0.0];
     }
 }
 
