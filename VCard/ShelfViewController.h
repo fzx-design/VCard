@@ -11,6 +11,7 @@
 #import "ShelfScrollView.h"
 #import "ShelfBackgroundView.h"
 #import "ShelfPageControl.h"
+#import "ShelfDrawerView.h"
 
 @interface WBGroupInfo : NSObject
 
@@ -19,7 +20,7 @@
 
 @end
 
-@interface ShelfViewController : CoreDataViewController <UIScrollViewDelegate>
+@interface ShelfViewController : CoreDataViewController <UIScrollViewDelegate, ShelfDrawerViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIScrollView     *scrollView;
 @property (nonatomic, strong) IBOutlet UIImageView      *shelfBorderImageView;
