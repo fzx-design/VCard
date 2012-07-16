@@ -48,7 +48,7 @@
     self.welcomeImageView.hidden = YES;
     self.iconImageView.hidden = YES;
     self.view.userInteractionEnabled = NO;
-    [self performSelector:@selector(viewAppearAnimation) withObject:nil afterDelay:0.7f];
+    [self performSelector:@selector(viewAppearAnimation) withObject:nil afterDelay:1.0f];
 }
 
 - (void)viewDidUnload
