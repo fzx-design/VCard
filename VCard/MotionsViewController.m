@@ -90,7 +90,6 @@
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    //NSLog(@"will rotate to:%d", toInterfaceOrientation);
     [UIView setAnimationsEnabled:NO];
     [self shootViewImage];
     [self loadRootViewControllerWithInterfaceOrientation:toInterfaceOrientation];
@@ -99,7 +98,6 @@
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    //NSLog(@"did rotate to %d, self orientation %d", [UIApplication sharedApplication].statusBarOrientation, self.interfaceOrientation);
     [UIView setAnimationsEnabled:YES];
     [self configureCameraCover];
     [self orientationTransitionAnimation:fromInterfaceOrientation];
@@ -141,7 +139,6 @@
 
 - (MotionsShootViewController *)shootViewController {
     if(!_shootViewController) {
-        //NSLog(@"create shoot vc");
         _shootViewController = [[MotionsShootViewController alloc] init];
         _shootViewController.delegate = self;
         [self.subViewControllers addObject:_shootViewController];
@@ -157,7 +154,6 @@
 
 - (MotionsEditViewController *)editViewController {
     if(!_editViewController) {
-        //NSLog(@"create edit vc");
         _editViewController = [[MotionsEditViewController alloc] initWithImage:self.originalImage useForAvatar:_useForAvatar];
         _editViewController.delegate = self;
         [self.subViewControllers addObject:_editViewController];

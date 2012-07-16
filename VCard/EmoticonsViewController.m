@@ -102,7 +102,6 @@
 
 - (IBAction)didChangePageControlValue:(UIPageControl *)sender {
     NSInteger page = sender.currentPage;
-    //NSLog(@"page:%d", page);
     CGRect frame = self.scrollView.frame;
     frame.origin.x = page * frame.size.width;
     [self.scrollView scrollRectToVisible:frame animated:YES];

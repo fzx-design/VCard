@@ -311,7 +311,6 @@ typedef enum {
     CGPoint center = self.bgImageView.center;
     center.y += distanceY;
     center.x += distanceX;
-    //NSLog(@"old:x:%f, y:%f, w:%f, h:%f",self.bgImageView.frame.origin.x,self.bgImageView.frame.origin.y,self.bgImageView.frame.size.width,self.bgImageView.frame.size.height);
     CGFloat x = - _cropImageInitSize.width / 2 * self.scaleFactor;
     CGFloat y = - _cropImageInitSize.height / 2 * self.scaleFactor;
     CGFloat w = _cropImageInitSize.width * self.scaleFactor;
@@ -323,8 +322,6 @@ typedef enum {
     bound = [CropImageView getRotatedImageBound:bound withRotation:self.rotationFactor];
     bound.origin.x += center.x;
     bound.origin.y += center.y;
-    //NSLog(@"leftTop:%f,%f, rightBottom:%f,%f", leftTop.x, leftTop.y,rightBottom.x, rightBottom.y);
-    //NSLog(@"bound:%f,%f,%f,%f",bound.origin.x,bound.origin.y,bound.origin.x + bound.size.width,bound.origin.y + bound.size.height);
     
     self.dragDistanceX += distanceX;
     if(leftTop.x < bound.origin.x || rightBottom.x > bound.origin.x + bound.size.width || ![self isRotateValid:self.rotationFactor]) {
@@ -440,8 +437,6 @@ typedef enum {
     CGFloat y = center.y - _cropImageInitSize.height / 2 * self.scaleFactor;
     CGFloat w = _cropImageInitSize.width * self.scaleFactor;
     CGFloat h = _cropImageInitSize.height * self.scaleFactor;
-    //NSLog(@"center x:%f, center y:%f, init width:%f, init height:%f", center.x, center.y, _cropImageInitSize.width, _cropImageInitSize.height);
-    //NSLog(@"x:%f, y:%f, w:%f, h:%f, s:%f", x, y, w, h, self.scaleFactor);
     CGPoint leftTop = [self pointImageViewWithIdentifier:PointPositionLeftTop].center;
     CGPoint rightBottom = [self pointImageViewWithIdentifier:PointPositionRightBottom].center;
     
@@ -455,7 +450,6 @@ typedef enum {
         }
         center.x += offset;
         self.dragDistanceX += offset;
-        //NSLog(@"offset x:%f", offset);
     }
     if(leftTop.y < y || rightBottom.y > y + h) {
         CGFloat offset = 0;
@@ -467,24 +461,20 @@ typedef enum {
         }
         center.y += offset;
         self.dragDistanceY += offset;
-        //NSLog(@"offset y:%f", offset);
     }
     self.bgImageView.center = center;
 }
 
 - (void)rotatePiece:(UIRotationGestureRecognizer *)gestureRecognizer {    
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan || [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
-        //NSLog(@"begin");
         self.assistCropSectionNum = DEFAULT_ASSIST_CROP_SECTION_NUM;
         if([self isRotateValid:self.rotationFactor + gestureRecognizer.rotation]) {
             self.bgImageView.transform = CGAffineTransformRotate(self.bgImageView.transform, gestureRecognizer.rotation);
             self.rotationFactor += gestureRecognizer.rotation;
-            //NSLog(@"rotaion:%f, total rotation:%f", gestureRecognizer.rotation, self.rotationFactor);
         }
         [gestureRecognizer setRotation:0];
     }
     else if([gestureRecognizer state] == UIGestureRecognizerStateEnded) {
-        //NSLog(@"end");
         self.assistCropSectionNum = 1;
     }
     [self setNeedsDisplay];
@@ -502,7 +492,6 @@ typedef enum {
         else {
             self.scaleFactor /= gestureRecognizer.scale;
         }
-        //NSLog(@"scale:%f, total scale:%f", gestureRecognizer.scale, self.scaleFactor);
         [gestureRecognizer setScale:1];
     }
 }
@@ -554,15 +543,12 @@ Vector rotateVector(Vector src, float rotate) {
     float rect1MinY = -rect1.size.height / 2;
     float rect1MaxY = rect1.size.height / 2;
     
-    //NSLog(@"rect1 minX:%f, maxnX:%f, minY:%f, maxY:%f", rect1MinX, rect1MaxX, rect1MinY, rect1MaxY);
     
     Vector rect2LT = makeVector(rect2.origin.x, rect2.origin.y);
     Vector rect2LB = makeVector(rect2.origin.x, rect2.origin.y + rect2.size.height);
     Vector rect2RT = makeVector(rect2.origin.x + rect2.size.width, rect2.origin.y);
     Vector rect2RB = makeVector(rect2.origin.x + rect2.size.width, rect2.origin.y + rect2.size.height);
-    
-    //NSLog(@"rect2 x:%f, y:%f, w:%f, h:%f", rect2LT.x, rect2LT.y, rect2RB.x - rect2LT.x, rect2RB.y - rect2LT.y);
-    
+        
     Vector rect2Points[4] = {rect2LT, rect2LB, rect2RT, rect2RB};
     
     for(int i = 0; i < 4; i++) {

@@ -188,14 +188,10 @@ typedef enum {
             [vc dismissViewAnimated:NO completion:^{
                 [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"修改成功" animated:NO];
             }];
-            
-            NSLog(@"upload avatar succeeded");
         } else {
             [vc dismissViewAnimated:NO completion:^{
                 [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureFailure contentText:@"修改失败" animated:NO];
             }];
-            
-            NSLog(@"upload avatar failed");
         }
         self.view.userInteractionEnabled = YES;
     }];

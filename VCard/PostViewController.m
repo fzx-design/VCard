@@ -363,22 +363,18 @@ typedef enum {
         cursorPos = [self.textView caretRectForPosition:self.textView.selectedTextRange.start].origin;
         cursorPos.x += self.textContainerView.frame.origin.x + self.textView.frame.origin.x + HINT_VIEW_OFFSET.width;
         CGFloat textScrollViewOffsetY = self.textView.contentOffset.y;
-        //NSLog(@"text scroll view offset y:%f", textScrollViewOffsetY);
         cursorPos.y += self.textContainerView.frame.origin.y + self.textView.frame.origin.y + HINT_VIEW_OFFSET.height - textScrollViewOffsetY;
     }
-    //NSLog(@"cursor pos(%@)", NSStringFromCGPoint(cursorPos));
     return cursorPos;
 }
 
 - (BOOL)isAtHintStringValid {
-    NSLog(@"is at (%@) valid?", self.currentHintString);
     NSRange range = [self.currentHintString rangeOfString:weiboAtRegEx options:NSRegularExpressionSearch];
     return range.length == self.currentHintString.length;
 }
 
 - (BOOL)isTopicHintStringValid {
     return YES; // no limit
-    NSLog(@"is topic (%@) valid?", self.currentHintString);
     NSRange range = [self.currentHintString rangeOfString:weiboTopicRegEx options:NSRegularExpressionSearch];
     return range.length == self.currentHintString.length;
 }
@@ -554,15 +550,13 @@ typedef enum {
         if([self isAtHintStringValid])
             [self.currentHintView updateHint:self.currentHintString];
         else {
-            NSLog(@"at hint not valid");
             [self dismissHintView]; 
         }
     } else if([self.currentHintView isMemberOfClass:[PostTopicHintView class]]) {
         if([self isTopicHintStringValid])
             [self.currentHintView updateHint:self.currentHintString];
         else {
-            NSLog(@"topic hint not valid");
-            [self dismissHintView]; 
+            [self dismissHintView];
         }    
     }
 }
@@ -575,7 +569,6 @@ typedef enum {
         CGRect frame = self.currentHintView.frame;
         frame.origin = cursorPos;
         self.currentHintView.frame = frame;
-        //NSLog(@"cursor pos:(%f, %f)", cursorPos.x, cursorPos.y);
         [self checkCurrentHintViewFrame];
     }
 }
@@ -594,7 +587,6 @@ typedef enum {
 }
 
 - (void)dismissHintView {
-    //NSLog(@"dismiss hint view");
     self.currentHintStringRange = NSMakeRange(0, 0);
     UIView *currentHintView = self.currentHintView;
     self.currentHintView = nil;
@@ -609,7 +601,6 @@ typedef enum {
 }
 
 - (void)presentEmoticonsView {
-    //NSLog(@"present emoticons view");
     [self dismissHintView];
     _emoticonsViewController = nil;
     self.postRootView.observingViewTag = PostRootViewSubviewTagEmoticons;
@@ -844,7 +835,6 @@ typedef enum {
         NSRange range = NSMakeRange(location - 1, 0);
         self.currentHintStringRange = range;
         self.textView.selectedRange = range;
-        NSLog(@"hint range:(%d, %d)", self.currentHintStringRange.location, self.currentHintStringRange.length);
     } else {
         if(!_needFillPoundSign)
             self.textView.selectedRange = NSMakeRange(self.textView.selectedRange.location + 1, 0);
@@ -886,7 +876,6 @@ typedef enum {
 #pragma mark - UITextView delegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    NSLog(@"change text in range(%d, %d), replace text:%@", range.location, range.length, text);
     if(self.currentHintView) {
         if([self.currentHintView isMemberOfClass:[PostAtHintView class]] && [text isEqualToString:@" "]) {
             [self dismissHintView];
@@ -907,13 +896,11 @@ typedef enum {
 
 - (void)textViewDidChange:(UITextView *)textView {
     if([self.currentHintView isKindOfClass:[PostHintView class]]) {
-        NSLog(@"text view selected range:%@", NSStringFromRange(self.textView.selectedRange));
         NSInteger length = self.textView.selectedRange.location - self.currentHintStringRange.location;
         if(length < 0)
             [self dismissHintView];
         else {
             self.currentHintStringRange = NSMakeRange(self.currentHintStringRange.location, length);
-            NSLog(@"hint range:(%d, %d)", self.currentHintStringRange.location, self.currentHintStringRange.length);
         }
     } else if(self.currentHintView) {
         self.currentHintStringRange = NSMakeRange(self.textView.selectedRange.location, 0);
@@ -923,7 +910,6 @@ typedef enum {
 }
 
 - (void)textViewDidChangeSelection:(UITextView *)textView {
-    NSLog(@"change selection:(%d, %d)", textView.selectedRange.location, textView.selectedRange.length);
     if([self.currentHintView isKindOfClass:[PostHintView class]]) {
         if(textView.selectedRange.location < self.currentHintStringRange.location
            || textView.selectedRange.location > self.currentHintStringRange.location + self.currentHintStringRange.length) {
@@ -949,7 +935,6 @@ typedef enum {
 #pragma mark - PostRootView delegate
 
 - (void)postRootView:(PostRootView *)view didObserveTouchOtherView:(UIView *)otherView {
-    //NSLog(@"touch other view");
     if(otherView == self.emoticonsButton)
         return;
     [self dismissHintView];
@@ -1010,7 +995,6 @@ typedef enum {
 #pragma mark UIPopoverController delegate 
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
-    NSLog(@"dismiss popover");
     self.popoverController = nil;
 }
 

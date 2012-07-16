@@ -918,10 +918,6 @@ typedef enum {
 
 - (void)loadNormalRequest
 {
-    if (_shouldReportError) {
-        NSLog(@"%@", self.path);
-    }
-    
     [_request disconnect];
     
     self.request = [WBRequest requestWithAccessToken:_accessToken

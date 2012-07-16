@@ -87,14 +87,12 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if(!client.hasError) {
-            NSLog(@"post succeeded");
             [self performSelectorInBackground:@selector(saveImageInBackground:) withObject:self.motionsOriginalImage];
             [self.delegate postViewController:self didPostMessage:self.textView.text];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
             NSString *errorMessage = self.type == PostViewControllerTypeCommentReply ? @"回复成功" : @"转发成功";
             [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:errorMessage];
         } else {
-            NSLog(@"post failed");
             [self.delegate postViewController:self didFailPostMessage:self.textView.text];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
         }

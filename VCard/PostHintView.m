@@ -35,7 +35,6 @@
 }
 
 - (id)initWithCursorPos:(CGPoint)cursorPos {
-    //NSLog(@"init cursorPos:%f, %f", cursorPos.x, cursorPos.y);
     self = [self initWithFrame:CGRectMake(cursorPos.x, cursorPos.y, TABLE_VIEW_CELL_SIZE.width, TABLE_VIEW_CELL_SIZE.height + TABLE_VIEW_BOTTOM_PADDING)];
     if(self) {
         
@@ -112,10 +111,7 @@
     tableViewHolderView.backgroundColor = [UIColor clearColor];
     tableViewHolderView.layer.cornerRadius = 10.0f;
     //tableViewHolderView.backgroundColor = [UIColor blueColor];
-    
-    //NSLog(@"table view holder view frame:%@", NSStringFromCGRect(tableViewHolderView.frame));
-    //NSLog(@"table view frame:%@", NSStringFromCGRect(self.tableView.frame));
-    
+        
     [tableViewHolderView addSubview:self.tableView];
     [self addSubview:tableViewHolderView];
 }

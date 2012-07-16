@@ -161,7 +161,6 @@
         [self.scrollView addSubview:vc.view];
     }
     [self layoutScrollView];
-    NSLog(@"scroll view :%@", NSStringFromCGRect(self.scrollView.frame));
     
     if([self numberOfCellsInScrollView] > MAX_USER_COUNT) {
         [self.loginInputCellViewController setTooManyUsers:YES];

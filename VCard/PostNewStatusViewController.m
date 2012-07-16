@@ -137,7 +137,6 @@
             NSArray* array = (NSArray*)client.responseJSONObject;
             if (array.count > 0) {
                 NSDictionary *dict = [array objectAtIndex:0];
-                NSLog(@"location dict:%@", dict);
                 NSString *city = [dict objectForKey:@"city_name"];
                 NSString *district = [dict objectForKey:@"district_name"];
                 NSString *name = [dict objectForKey:@"name"];
@@ -187,15 +186,12 @@
     
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
-        NSLog(@"post finish:%@", client.responseJSONObject);
         if(!client.hasError) {
-            NSLog(@"post succeeded");
             [self performSelectorInBackground:@selector(saveImageInBackground:) withObject:self.motionsOriginalImage];
             [self.delegate postViewController:self didPostMessage:self.textView.text];
             [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"发表成功"];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
         } else {
-            NSLog(@"post failed");
             [self.delegate postViewController:self didFailPostMessage:self.textView.text];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
         }

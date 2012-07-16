@@ -19,7 +19,6 @@
 #pragma mark - methods to overwrite 
 
 - (void)updateHint:(NSString *)hint {
-    NSLog(@"at hint:%@", hint);
     _currentHintString = hint;
     if(hint.length == 0) {
         [self.tableViewDataSourceArray removeAllObjects];

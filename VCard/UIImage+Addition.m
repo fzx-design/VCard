@@ -42,9 +42,6 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     result = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    NSLog(@"compress image original size:%f, %f", self.size.width, self.size.height);
-    NSLog(@"compress image compressed size:%f, %f", result.size.width, result.size.height);
-    
     return result;
 }
 
