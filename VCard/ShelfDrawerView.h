@@ -8,12 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ShelfDrawerViewDelegate <NSObject>
+
+- (void)didClickDeleteButtonAtIndex:(int)index;
+
+@end
+
 @interface ShelfDrawerView : UIButton {
     UIImageView *_photoFrameImageView;
     UIImageView *_photoImageView;
     UIImageView *_backImageView;
     UIImageView *_highlightGlowImageView;
     UILabel *_topicLabel;
+    UIButton *_deleteButton;
 }
 
 @property (nonatomic, strong) NSString *topicName;
@@ -21,6 +28,8 @@
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, assign) BOOL imageLoaded;
+
+@property (nonatomic, weak) id<ShelfDrawerViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame
           topicName:(NSString *)name

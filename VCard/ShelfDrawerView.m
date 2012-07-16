@@ -19,6 +19,9 @@
 
 #define kHighlishGlowFrame CGRectMake(-47.0, -40.0, 190.0, 130.0)
 
+#define kDeleteDrawerButtonFrame CGRectMake(-25, -25, 44.0, 44.0)
+#define kDeleteTopicButtonFrame  CGRectMake(-30, -10, 44.0, 44.0)
+
 @implementation ShelfDrawerView
 
 - (id)initWithFrame:(CGRect)frame
@@ -79,10 +82,17 @@
     _photoFrameImageView.image = [UIImage imageNamed:imageName];
     _photoFrameImageView.opaque = YES;
     
+    frame = type == kGroupTypeTopic ? kDeleteTopicButtonFrame : kDeleteDrawerButtonFrame;
+    
+    _deleteButton = [[UIButton alloc] initWithFrame:frame];
+    [_deleteButton setImage:[UIImage imageNamed:@"button_delete_black.png"] forState:UIControlStateNormal];
+    [_deleteButton addTarget:self action:@selector(didClickDeleteButton) forControlEvents:UIControlEventTouchUpInside];
+    
     [self addSubview:_backImageView];
     [self addSubview:_photoImageView];
     [self addSubview:_photoFrameImageView];
     [self addSubview:_highlightGlowImageView];
+    [self addSubview:_deleteButton];
 }
 
 - (void)setTopicLabelWithType:(int)type
@@ -147,6 +157,13 @@
     [UIView animateWithDuration:0.15 animations:^{
         _highlightGlowImageView.alpha = 0.0;
     }];
+}
+
+- (void)didClickDeleteButton
+{
+    if ([_delegate respondsToSelector:@selector(didClickDeleteButtonAtIndex:)]) {
+        [_delegate didClickDeleteButtonAtIndex:_index];
+    }
 }
 
 @end

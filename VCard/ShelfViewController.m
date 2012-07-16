@@ -13,8 +13,12 @@
 #import "UIApplication+Addition.h"
 #import "Group.h"
 
-#define kShelfHeight 150.0
-#define kNumberOfDrawerPerPage 5
+#define kShelfHeight            150.0
+#define kNumberOfDrawerPerPage  5
+#define kEditScrollViewOffset   5.0
+#define kScrollViewBGOffset     -62.0
+#define kEditButtonTextColor    [UIColor colorWithRed:170.0/255.0 green:170.0/255.0 blue:170.0/255.0 alpha:1.0]
+
 
 @implementation WBGroupInfo
 
@@ -290,8 +294,18 @@
     _shelfBGImageView.contentMode = UIViewContentModeLeft;
     _shelfBGImageView.autoresizingMask = UIViewAutoresizingNone;
     _shelfBGImageView.userInteractionEnabled = NO;
-    [_shelfBGImageView resetOriginX:_scrollView.frame.size.width - 62.0];
+    [_shelfBGImageView resetOriginX:_scrollView.frame.size.width + kScrollViewBGOffset];
     [_scrollView insertSubview:_shelfBGImageView belowSubview:_shelfBorderImageView];
+    
+    _editButton = [[UIButton alloc] initWithFrame:CGRectMake(5.0, 7.0, 50.0, 30.0)];
+    [ThemeResourceProvider configButtonBrown:_editButton];
+    [_editButton addTarget:self action:@selector(didClickEditButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_editButton resetOriginX:_scrollView.frame.size.width + kEditScrollViewOffset];
+    [_editButton setTitle:@"编辑" forState:UIControlStateNormal];
+    [_editButton setTitleColor:kEditButtonTextColor forState:UIControlStateNormal];
+    [_editButton setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _editButton.titleLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    [_scrollView insertSubview:_editButton aboveSubview:_shelfBGImageView];
     
     [_shelfBorderImageView resetWidth:1024.0];
     _coverView.alpha = 1.0;
@@ -333,6 +347,7 @@
                                                                    empty:group.count.intValue == 0];
     drawerView.adjustsImageWhenHighlighted = YES;
     [drawerView addTarget:self action:@selector(changeCastViewSource:) forControlEvents:UIControlEventTouchUpInside];
+    drawerView.delegate = self;
     
     [_scrollView addSubview:drawerView];
     [_drawerViewArray addObject:drawerView];
@@ -427,16 +442,19 @@
     if (_pageControl.currentPage > 0) {
         currentWidth = _pageControl.currentPage * currentWidth;
     }
-    [_shelfBGImageView resetOriginX:currentWidth - 62.0];
+    [_shelfBGImageView resetOriginX:currentWidth + kScrollViewBGOffset];
+    [_editButton resetOriginX:currentWidth + kEditScrollViewOffset];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat screenWidth = [UIApplication screenWidth];
     if (scrollView.contentOffset.x >= screenWidth) {
-        [_shelfBGImageView resetOriginX:_scrollView.contentOffset.x - 62.0];
+        [_shelfBGImageView resetOriginX:_scrollView.contentOffset.x + kScrollViewBGOffset];
+        [_editButton resetOriginX:_scrollView.contentOffset.x + kEditScrollViewOffset];
     } else {
-        [_shelfBGImageView resetOriginX:screenWidth - 62.0];
+        [_shelfBGImageView resetOriginX:screenWidth + kScrollViewBGOffset];
+        [_editButton resetOriginX:screenWidth + kEditScrollViewOffset];
     }
     [_shelfBorderImageView resetOriginX:_scrollView.contentOffset.x];
 }
@@ -457,6 +475,12 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     NSInteger page = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
     _pageControl.currentPage = page;
+}
+
+#pragma mark - ShelfDrawerViewDelegate
+- (void)didClickDeleteButtonAtIndex:(int)index
+{
+    
 }
 
 #pragma mark - IBActions
@@ -490,6 +514,11 @@
     CGRect frame = _scrollView.frame;
     frame.origin.x = page * frame.size.width;
     [_scrollView scrollRectToVisible:frame animated:YES];
+}
+
+- (void)didClickEditButton:(UIButton *)sender
+{
+    
 }
 
 
