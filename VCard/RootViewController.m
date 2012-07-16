@@ -138,14 +138,11 @@
         [_shelfViewController.view resetOriginY:0.0];
         _shelfViewController.coverView.alpha = 0.0;
     } completion:^(BOOL finished) {
-<<<<<<< HEAD
         if(![NSUserDefaults hasShownShelfTips]) {
             [[[TipsViewController alloc] initWithType:TipsViewControllerTypeShelf] show];
             [NSUserDefaults setShownShelfTips:YES];
         }
-=======
         [self addBackButtonWhenShelfIsShown];
->>>>>>> 双指下拉滑出shelf完成
     }];
 }
 
