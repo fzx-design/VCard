@@ -132,6 +132,9 @@ static ErrorIndicatorManager *managerInstance = nil;
                 if(!_handlingTokenFailureSituation)
                     [self handleWrongPasswordSituation];
                 return;
+            case 20034:
+                errorMessage = @"用户被锁定";
+                break;
             default:
                 break;
         }

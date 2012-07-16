@@ -269,7 +269,7 @@
             if (_hotTopics.count > 0) {
                 [searchCell setTitle:[_hotTopics objectAtIndex:indexPath.row]];
             } else {
-                [searchCell setOperationTitle:@"暂无热门话题"];
+                [searchCell setOperationTitle:@"载入中"];
             }
         }
     }
