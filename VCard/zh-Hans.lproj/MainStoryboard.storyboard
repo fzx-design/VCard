@@ -615,7 +615,7 @@
                                     <action selector="didEndDraggingSlider:" destination="bkR-vE-OC4" eventType="touchUpOutside" id="noD-c9-vou"/>
                                 </connections>
                             </slider>
-                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" id="jMK-vR-g1v" customClass="ShelfScrollView">
+                            <scrollView contentMode="scaleToFill" id="jMK-vR-g1v" customClass="ShelfScrollView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="149"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>

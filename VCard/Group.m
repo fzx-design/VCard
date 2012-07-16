@@ -81,6 +81,7 @@
     result.groupID = groupID;
     result.name = [dict objectForKey:@"hotword"];
     result.type = [NSNumber numberWithInt:kGroupTypeTopic];
+    result.count = [NSNumber numberWithInt:1];
     
     return result;
 }

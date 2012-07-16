@@ -38,13 +38,14 @@
         _imageLoaded = url && ![url isEqualToString:@""];
         
         self.opaque = YES;
+        self.enabled = !empty;
         [self setUpDrawerImageViewWithType:type empty:empty];
-        [self setTopicLabel];
+        [self setTopicLabelWithType:type];
         [self loadImageFromURL:url completion:nil];
         [self addTarget:self action:@selector(showHighlightGlow) forControlEvents:UIControlEventTouchDown];
         [self addTarget:self action:@selector(showHighlightGlow) forControlEvents:UIControlEventTouchDragInside];
         [self addTarget:self action:@selector(hideHighlightGlow) forControlEvents:UIControlEventTouchDragOutside];
-        [self addTarget:self action:@selector(hideHighlightGlow) forControlEvents:UIControlEventTouchUpInside];
+        [self addTarget:self action:@selector(hideHighlightGlow) forControlEvents:UIControlEventTouchDragExit];
     }
     return self;
 }
@@ -61,7 +62,6 @@
     _highlightGlowImageView = [[UIImageView alloc] initWithFrame:kHighlishGlowFrame];
     _highlightGlowImageView.image = [UIImage imageNamed:@"shelf_cell_glow"];
     _highlightGlowImageView.alpha = 0.0;
-    
     
     NSString *imageName = @"shelf_drawer.png";
     CGRect frame;
@@ -85,8 +85,11 @@
     [self addSubview:_highlightGlowImageView];
 }
 
-- (void)setTopicLabel
+- (void)setTopicLabelWithType:(int)type
 {
+    CGFloat textColorFactor = type == 2 ? 88.0 / 255.0 : 0.0;
+    CGFloat textShadowAlphaFactor = type == 2 ? 0.6 : 1.0;
+    
     CGRect frame;
     NSString *title;
     if (_type == kGroupTypeTopic) {
@@ -99,8 +102,11 @@
     _topicLabel = [[UILabel alloc] initWithFrame:frame];
     _topicLabel.text = title;
     _topicLabel.textAlignment = UITextAlignmentCenter;
+    _topicLabel.minimumFontSize = 12.0
+    ;
     _topicLabel.font = [UIFont boldSystemFontOfSize:15.0];
-    _topicLabel.shadowColor = [UIColor whiteColor];
+    _topicLabel.shadowColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:textShadowAlphaFactor];
+    _topicLabel.textColor = [UIColor colorWithRed:textColorFactor green:textColorFactor blue:textColorFactor alpha:1.0];
     _topicLabel.shadowOffset = CGSizeMake(0.0, 1.0);
     _topicLabel.backgroundColor = [UIColor clearColor];
     _topicLabel.minimumFontSize = 12.0;
@@ -118,6 +124,15 @@
     [_photoImageView kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
     [_photoImageView kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
+}
+
+- (void)setSelected:(BOOL)selected
+{
+    if (selected) {
+        [self showHighlightGlow];
+    } else {
+        [self hideHighlightGlow];
+    }
 }
 
 - (void)showHighlightGlow
