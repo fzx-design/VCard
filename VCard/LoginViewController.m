@@ -369,7 +369,7 @@
 
 - (void)swingToAngle:(CGFloat)speed
 {
-    CGFloat angle = -0.08 * speed / 20 * M_PI;
+    CGFloat angle = -0.04 * speed / 20 * M_PI;
     for (LoginCellViewController *vc in self.cellControllerArray) {
         
         [vc swingOnceThenHaltToAngle:angle];

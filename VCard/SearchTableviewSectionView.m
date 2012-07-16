@@ -20,8 +20,11 @@
         
         _titleLabel = [[UILabel alloc] initWithFrame:frame];
         [_titleLabel resetOriginX:15.0];
-        _titleLabel.font = [UIFont systemFontOfSize:12.0];
-        _titleLabel.textColor = [UIColor colorWithRed:161.0 / 255.0 green:161.0 / 255.0 blue:161.0 / 255.0 alpha:1.0];
+        [_titleLabel resetOriginY:_titleLabel.frame.origin.y - 1];
+        _titleLabel.font = [UIFont boldSystemFontOfSize:12.0];
+        _titleLabel.shadowColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+        _titleLabel.textColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.75];
+        _titleLabel.shadowOffset = CGSizeMake(0.0, 1.0);
         _titleLabel.backgroundColor = [UIColor clearColor];
         
         [self addSubview:_backgroundView];
