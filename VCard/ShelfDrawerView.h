@@ -12,6 +12,7 @@
     UIImageView *_photoFrameImageView;
     UIImageView *_photoImageView;
     UIImageView *_backImageView;
+    UIImageView *_highlightGlowImageView;
     UILabel *_topicLabel;
 }
 
