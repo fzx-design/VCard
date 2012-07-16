@@ -10,6 +10,7 @@
 #import "UIView+Addition.h"
 #import "UIImageView+Addition.h"
 #import "NSUserDefaults+Addition.h"
+#import "WBClient.h"
 
 @interface LoginUserCellViewController () {
     BOOL _shouldPresentDeleteUserActionSheet;
@@ -114,8 +115,35 @@
         if(!succeeded) {
             [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
             self.loginButton.enabled = YES;
+            [self handleWrongPasswordSituation];
         }
     }];
+}
+
+#pragma mark - UIAlertView delegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 0) {
+        
+    } else {
+        UserAccountInfo *accountInfo = [NSUserDefaults getUserAccountInfoWithUserID:[CoreDataViewController getCurrentUser].userID];
+        NSString *newPassword = [alertView textFieldAtIndex:0].text;
+        [NSUserDefaults insertUserAccountInfoWithUserID:accountInfo.userID account:accountInfo.account password:newPassword];
+        [self didClickLoginButton:self.loginButton];
+    }
+}
+
+#pragma mark - Token methods
+
+- (void)handleWrongPasswordSituation {    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"新浪微博"
+                                                    message:[NSString stringWithFormat:@"%@，您的密码可能已经更改，请重新输入。", [CoreDataViewController getCurrentUser].screenName]
+                                                   delegate:self
+                                          cancelButtonTitle:@"取消" 
+                                          otherButtonTitles:@"继续", nil];
+    
+    alert.alertViewStyle = UIAlertViewStyleSecureTextInput;
+    [alert show];
 }
 
 @end

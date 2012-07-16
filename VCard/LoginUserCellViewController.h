@@ -11,7 +11,7 @@
 
 @protocol LoginUserCellViewControllerDelegate;
 
-@interface LoginUserCellViewController : LoginCellViewController <UIActionSheetDelegate>
+@interface LoginUserCellViewController : LoginCellViewController <UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UILabel *userNameLabel;
 @property (nonatomic, strong) IBOutlet UIButton *deleteButton;
