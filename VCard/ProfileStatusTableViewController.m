@@ -236,7 +236,7 @@
     for (ProfileStatusTableViewCell *cell in self.tableView.visibleCells) {
         [cell loadImageAfterScrollingStop];
     }
-    if (_hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
+    if (_hasMoreViews && self.tableView.contentOffset.y > self.tableView.contentSize.height - self.tableView.frame.size.height) {
         [self loadMoreData];
     }
 }

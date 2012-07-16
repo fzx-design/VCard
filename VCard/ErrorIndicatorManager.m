@@ -46,7 +46,7 @@ static ErrorIndicatorManager *managerInstance = nil;
                 break;
             case 20017:
             case 20019:
-                errorMessage = @"发表重复内容";
+                errorMessage = @"无法发表重复内容";
                 break;
             case 20016:
                 errorMessage = @"发送速度过快";
