@@ -103,7 +103,7 @@
     [self.view resetOrigin:CGPointZero];
     [self.view resetSize:CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight])];
     [self.view insertSubview:self.castViewController.view belowSubview:self.detailImageViewController.view];
-    [self.view insertSubview:self.shelfViewController.view  belowSubview:self.detailImageViewController.view];
+    [self.view insertSubview:self.shelfViewController.view  belowSubview:self.castViewController.view];
     self.shelfViewController.view.hidden = YES;
 }
 
@@ -134,7 +134,7 @@
 {
     self.shelfViewController.view.hidden = NO;
     [UIView animateWithDuration:0.3 animations:^{
-        [_castViewController.view resetOriginY:_shelfViewController.view.frame.size.height];
+        [_castViewController.view resetOriginY:_shelfViewController.view.frame.size.height - 2];
         [_shelfViewController.view resetOriginY:0.0];
         _shelfViewController.coverView.alpha = 0.0;
     } completion:^(BOOL finished) {
@@ -143,6 +143,7 @@
             [NSUserDefaults setShownShelfTips:YES];
         }
         [self addBackButtonWhenShelfIsShown];
+        self.castViewController.groupButton.selected = YES;
     }];
 }
 
@@ -153,7 +154,6 @@
         [_shelfViewController.view resetOriginY:-_shelfViewController.view.frame.size.height];
         _shelfViewController.coverView.alpha = 1.0;
     } completion:^(BOOL finished) {
-        [_shelfViewController didHideShelf];
     }];
 }
 
@@ -240,7 +240,6 @@
 - (void)didSwipeCastView
 {
     [self showGroup:nil];
-    self.castViewController.groupButton.selected = YES;
 }
 
 - (void)didEndDraggingCastViewWithOffset:(CGFloat)offset

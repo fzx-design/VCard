@@ -17,6 +17,8 @@
 #define kTopicLabelFrame CGRectMake(0, 35.0, 95.0, 35.0)
 #define kDrawerLabelFrame CGRectMake(0, 56.0, 95.0, 35.0)
 
+#define kHighlishGlowFrame CGRectMake(-47.0, -40.0, 190.0, 130.0)
+
 @implementation ShelfDrawerView
 
 - (id)initWithFrame:(CGRect)frame
@@ -39,19 +41,26 @@
         [self setUpDrawerImageViewWithType:type empty:empty];
         [self setTopicLabel];
         [self loadImageFromURL:url completion:nil];
+        [self addTarget:self action:@selector(showHighlightGlow) forControlEvents:UIControlEventTouchDown];
+        [self addTarget:self action:@selector(showHighlightGlow) forControlEvents:UIControlEventTouchDragInside];
+        [self addTarget:self action:@selector(hideHighlightGlow) forControlEvents:UIControlEventTouchDragOutside];
+        [self addTarget:self action:@selector(hideHighlightGlow) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
 }
 
 - (void)setUpDrawerImageViewWithType:(int)type empty:(BOOL)empty
 {
-    _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    _photoImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    _photoImageView.hidden = empty || type == kGroupTypeTopic;
     
     _backImageView = [[UIImageView alloc] initWithFrame:self.bounds];
     _backImageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
+    _backImageView.hidden = _photoImageView.hidden;
     
-    _imageView.hidden = empty || type == kGroupTypeTopic;
-    _backImageView.hidden = _imageView.hidden;
+    _highlightGlowImageView = [[UIImageView alloc] initWithFrame:kHighlishGlowFrame];
+    _highlightGlowImageView.image = [UIImage imageNamed:@"shelf_cell_glow"];
+    _highlightGlowImageView.alpha = 0.0;
     
     
     NSString *imageName = @"shelf_drawer.png";
@@ -71,8 +80,9 @@
     _photoFrameImageView.opaque = YES;
     
     [self addSubview:_backImageView];
-    [self addSubview:_imageView];
+    [self addSubview:_photoImageView];
     [self addSubview:_photoFrameImageView];
+    [self addSubview:_highlightGlowImageView];
 }
 
 - (void)setTopicLabel
@@ -101,13 +111,27 @@
 - (void)loadImageFromURL:(NSString *)urlString
               completion:(void (^)(BOOL succeeded))completion
 {
-    if (_imageView.hidden) {
+    if (_photoImageView.hidden) {
         return;
     }
 	
-    [_imageView kv_cancelImageDownload];
+    [_photoImageView kv_cancelImageDownload];
     NSURL *anImageURL = [NSURL URLWithString:urlString];
-    [_imageView kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
+    [_photoImageView kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
+}
+
+- (void)showHighlightGlow
+{
+    [UIView animateWithDuration:0.15 animations:^{
+        _highlightGlowImageView.alpha = 1.0;
+    }];
+}
+
+- (void)hideHighlightGlow
+{
+    [UIView animateWithDuration:0.15 animations:^{
+        _highlightGlowImageView.alpha = 0.0;
+    }];
 }
 
 @end

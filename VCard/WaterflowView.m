@@ -8,6 +8,7 @@
 
 #import "WaterflowView.h"
 #import "UIApplication+Addition.h"
+#import "UIView+Resize.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define LeftColumnLandscapeOriginX 120
@@ -17,6 +18,12 @@
 
 #define SingleBlockHeightLimit 3000
 #define BlockDividerHeight 30
+
+#define kInfoBarImageViewFrame          CGRectMake(0, -40, 768, 33)
+#define kInfoBarReturnButtonFrame       CGRectMake(0, -40, 90, 30)
+#define kInfoBarTitleLabelFrame         CGRectMake(0, -40, 768, 30)
+#define kInfoBarReturnButtonTextColor   [UIColor colorWithHue:70.0 / 255.0 saturation:70.0 / 255.0 brightness:70.0 / 255.0 alpha:1.0]
+#define kInfoBarTitleLabelTextColor     [UIColor colorWithHue:45.0 / 255.0 saturation:45.0 / 255.0 brightness:45.0 / 255.0 alpha:1.0]
 
 @interface WaterflowView () {
     NSInteger _nextBlockLimit;
@@ -55,6 +62,7 @@
     if (self) {
         [self setUpVariables];
         [self setUpNotification];
+        [self setUpInfoBar];
     }
     return self;
 }
@@ -427,6 +435,8 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    [self adjustInfoBar];
+    
     [self pageScroll];
     
     [self loadImageInCells];
@@ -480,7 +490,7 @@
         cell = [_flowdatasource flowView:self cellForLayoutUnit:currentUnit];
         cell.indexPath = [NSIndexPath indexPathForRow: currentUnit.unitIndex inSection:direction];
         cell.frame = CGRectMake(actualOriginX, origin_y, actualWidth, height);
-        [self addSubview:cell];
+        [self insertSubview:cell belowSubview:_infoBarView];
         [column.visibleCells insertObject:cell atIndex:0];
     } else {
         cell = [column.visibleCells objectAtIndex:0];
@@ -511,7 +521,7 @@
         cell.frame = CGRectMake(actualOriginX, origin_y , actualWidth, height);
         [column.visibleCells insertObject:cell atIndex:0];
         
-        [self addSubview:cell];
+        [self insertSubview:cell belowSubview:_infoBarView];
     }
     
     //2. remove cell above this basic cell if there's no margin between basic cell and top
@@ -553,7 +563,7 @@
         cell.frame = CGRectMake(actualOriginX, origin_y, actualWidth, height);
         [column.visibleCells addObject:cell];
         
-        [self addSubview:cell];
+        [self insertSubview:cell belowSubview:_infoBarView];
     }
     
     //4. remove cells below this basic cell if there's no margin between basic cell and bottom
@@ -626,6 +636,108 @@
         }
     }
     return result;
+}
+
+#pragma mark - Adjust Info Bar
+- (void)setUpInfoBar
+{
+    _infoBarView = [[UIImageView alloc] initWithFrame:kInfoBarImageViewFrame];
+    _infoBarView.image = [[UIImage imageNamed:@"banner_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsZero];
+    _infoBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
+    _returnButton = [[UIButton alloc] initWithFrame:kInfoBarReturnButtonFrame];
+    [_returnButton setTitle:@"查看全部" forState:UIControlStateNormal];
+    [_returnButton setTitle:@"查看全部" forState:UIControlStateHighlighted];
+    [_returnButton setTitleColor:kInfoBarReturnButtonTextColor forState:UIControlStateNormal];
+    [_returnButton setTitleColor:kInfoBarReturnButtonTextColor forState:UIControlStateHighlighted];
+    [_returnButton setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_returnButton setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [_returnButton setBackgroundImage:[UIImage imageNamed:@"button_flat.png"] forState:UIControlStateNormal];
+    [_returnButton setBackgroundImage:[UIImage imageNamed:@"button_flat_hover.png"] forState:UIControlStateHighlighted];
+    _returnButton.autoresizingMask = UIViewAutoresizingNone;
+    _returnButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    _returnButton.titleLabel.shadowColor = [UIColor whiteColor];
+    _returnButton.titleLabel.shadowOffset = CGSizeMake(0.0, 1.0);
+    
+    [_returnButton addTarget:self
+                      action:@selector(didClickReturnButton)
+            forControlEvents:UIControlEventTouchUpInside];
+    
+    _titleLabel = [[UILabel alloc] initWithFrame:kInfoBarTitleLabelFrame];
+    _titleLabel.text = @"";
+    _titleLabel.textAlignment = UITextAlignmentCenter;
+    _titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    _titleLabel.textColor = kInfoBarTitleLabelTextColor;
+    _titleLabel.shadowColor = [UIColor whiteColor];
+    _titleLabel.shadowOffset = CGSizeMake(0.0, 1.0);
+    _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _titleLabel.backgroundColor = [UIColor clearColor];
+    
+    _infoBarView.hidden = YES;
+    _returnButton.hidden = YES;
+    _titleLabel.hidden = YES;
+    
+    [self insertSubview:_infoBarView atIndex:kWaterflowViewInfoBarViewIndex];
+    [self insertSubview:_titleLabel atIndex:kWaterflowViewInfoBarViewIndex];
+    [self insertSubview:_returnButton atIndex:kWaterflowViewInfoBarViewIndex];
+}
+
+- (void)showInfoBarWithTitleName:(NSString *)name
+{
+    _infoBarView.hidden = NO;
+    _returnButton.hidden = NO;
+    _titleLabel.hidden = NO;
+    
+    [UIView animateWithDuration:0.15 animations:^{
+        _titleLabel.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        _titleLabel.text = name;
+        [UIView animateWithDuration:0.15 animations:^{
+            _titleLabel.alpha = 1.0;
+        }];
+    }];
+        
+    if (_infoBarView.frame.origin.y == -40) {
+        CGFloat targetOriginY = self.contentOffset.y > 0 ? self.contentOffset.y : 0.0;
+        [UIView animateWithDuration:0.3 animations:^{
+            [_infoBarView resetOriginY:targetOriginY];
+            [_returnButton resetOriginY:targetOriginY];
+            [_titleLabel resetOriginY:targetOriginY];
+        }];
+    }
+}
+
+- (void)adjustInfoBar
+{
+    if (self.contentOffset.y > 0.0) {
+        [_infoBarView resetOriginY:self.contentOffset.y];
+        [_titleLabel resetOriginY:self.contentOffset.y];
+        [_returnButton resetOriginY:self.contentOffset.y];
+
+    } else {
+        [_infoBarView resetOriginY:0.0];
+        [_titleLabel resetOriginY:0.0];
+        [_returnButton resetOriginY:0.0];
+    }
+}
+
+- (void)didClickReturnButton
+{
+    CGFloat targetOriginY = _infoBarView.frame.origin.y - 40.0;
+    [UIView animateWithDuration:0.3 animations:^{
+        [_infoBarView resetOriginY:targetOriginY];
+        [_returnButton resetOriginY:targetOriginY];
+        [_titleLabel resetOriginY:targetOriginY];
+    } completion:^(BOOL finished) {
+        _infoBarView.hidden = YES;
+        _returnButton.hidden = YES;
+        _titleLabel.hidden = YES;
+        
+        [_infoBarView resetOriginY:-40.0];
+        [_returnButton resetOriginY:-40.0];
+        [_titleLabel resetOriginY:-40.0];
+        [_flowdelegate didClickReturnToNormalTimelineButton];
+    }];
 }
 
 #pragma mark - Adjust Background View

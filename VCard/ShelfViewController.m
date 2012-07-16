@@ -22,8 +22,9 @@
 
 @interface ShelfViewController () {
     UIImageView *_shelfBGImageView;
-    NSInteger _numberOfPages;
-    NSInteger _numberOfDrawerPerPage;
+    UIButton    *_editButton;
+    NSInteger   _numberOfPages;
+    NSInteger   _numberOfDrawerPerPage;
 }
 
 @end
@@ -160,25 +161,6 @@
     [client searchTopic:group.name
          startingAtPage:0
                   count:10];
-}
-
-- (void)changeCastViewSource:(UITapGestureRecognizer *)sender
-{
-    ShelfDrawerView *view = (ShelfDrawerView *)sender.view;
-    Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
-
-    NSString *type = [NSString stringWithFormat:@"%d",group.type.intValue];
-    NSString *name = group.name;
-    NSString *groupID = group.groupID;
-    if (type.intValue == 2) {
-        name = [NSString stringWithFormat:@"#%@#", name];
-        groupID = group.name;
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldChangeCastviewDataSource
-                                                        object:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                name, kNotificationObjectKeyDataSourceDescription,
-                                                                type, kNotificationObjectKeyDataSourceType,
-                                                                groupID, kNotificationObjectKeyDataSourceID, nil]];
 }
 
 - (void)configureRequest:(NSFetchRequest *)request
@@ -348,10 +330,10 @@
                                                                    index:index
                                                                     type:group.type.intValue
                                                                    empty:group.count.intValue == 0];
+    drawerView.adjustsImageWhenHighlighted = YES;
+    [drawerView addTarget:self action:@selector(changeCastViewSource:) forControlEvents:UIControlEventTouchUpInside];
+    [drawerView addTarget:self action:@selector(drawerTouchDown:) forControlEvents:UIControlEventTouchUpInside];
     
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeCastViewSource:)];
-    tapGestureRecognizer.numberOfTapsRequired = 1;
-    [drawerView addGestureRecognizer:tapGestureRecognizer];
     [_scrollView addSubview:drawerView];
     [_drawerViewArray addObject:drawerView];
     
@@ -359,6 +341,30 @@
     [self resetDrawerViewLayout:drawerView withIndex:index];
     group.index = [NSNumber numberWithInt:index];
     index++;
+}
+
+- (void)changeCastViewSource:(UIButton *)sender
+{
+    ShelfDrawerView *view = (ShelfDrawerView *)sender;
+    Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
+    
+    NSString *type = [NSString stringWithFormat:@"%d",group.type.intValue];
+    NSString *name = group.name;
+    NSString *groupID = group.groupID;
+    if (type.intValue == 2) {
+        name = [NSString stringWithFormat:@"#%@#", name];
+        groupID = group.name;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldChangeCastviewDataSource
+                                                        object:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                name, kNotificationObjectKeyDataSourceDescription,
+                                                                type, kNotificationObjectKeyDataSourceType,
+                                                                groupID, kNotificationObjectKeyDataSourceID, nil]];
+}
+
+- (void)drawerTouchDown:(UIButton *)sender
+{
+    sender.highlighted = YES;
 }
 
 - (void)updatePageControlAndScrollViewSize:(UIInterfaceOrientation)orientation
@@ -439,12 +445,6 @@
             [view loadImageFromURL:group.picURL completion:nil];
         }
     }
-}
-
-- (void)didHideShelf
-{
-    _scrollView.contentOffset = CGPointMake(_scrollView.frame.size.width, 0.0);
-    _pageControl.currentPage = 1;
 }
 
 #pragma mark - UIScrollView delegate

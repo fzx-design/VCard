@@ -152,6 +152,8 @@
 		18A8CE8815A6CF2A0026F125 /* button_flat_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A8CE8215A6CF2A0026F125 /* button_flat_hover.png */; };
 		18A8CE8915A6CF2A0026F125 /* button_flat_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A8CE8315A6CF2A0026F125 /* button_flat_hover@2x.png */; };
 		18A997E915A1AA8200C2E7A5 /* ShelfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A997E815A1AA8200C2E7A5 /* ShelfViewController.m */; };
+		18AC149915B3C70C00D3E57F /* shelf_cell_glow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18AC149715B3C70C00D3E57F /* shelf_cell_glow.png */; };
+		18AC149A15B3C70C00D3E57F /* shelf_cell_glow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18AC149815B3C70C00D3E57F /* shelf_cell_glow@2x.png */; };
 		18AC570815A5295200ADDBAF /* ShelfPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC570715A5295200ADDBAF /* ShelfPageControl.m */; };
 		18AC828E155B924700AD99C4 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC828B155B924700AD99C4 /* PullToRefreshView.m */; };
 		18BD24B6159A9B6600846C6E /* UserAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BD24B5159A9B6500846C6E /* UserAccountManager.m */; };
@@ -1128,6 +1130,8 @@
 		18A8CE8315A6CF2A0026F125 /* button_flat_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_flat_hover@2x.png"; sourceTree = "<group>"; };
 		18A997E715A1AA8200C2E7A5 /* ShelfViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelfViewController.h; sourceTree = "<group>"; };
 		18A997E815A1AA8200C2E7A5 /* ShelfViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfViewController.m; sourceTree = "<group>"; };
+		18AC149715B3C70C00D3E57F /* shelf_cell_glow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shelf_cell_glow.png; sourceTree = "<group>"; };
+		18AC149815B3C70C00D3E57F /* shelf_cell_glow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shelf_cell_glow@2x.png"; sourceTree = "<group>"; };
 		18AC570615A5295200ADDBAF /* ShelfPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelfPageControl.h; sourceTree = "<group>"; };
 		18AC570715A5295200ADDBAF /* ShelfPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfPageControl.m; sourceTree = "<group>"; };
 		18AC828A155B924700AD99C4 /* PullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshView.h; sourceTree = "<group>"; };
@@ -2892,6 +2896,8 @@
 		18EA4F1615346DFD005ED94F /* shelf */ = {
 			isa = PBXGroup;
 			children = (
+				18AC149715B3C70C00D3E57F /* shelf_cell_glow.png */,
+				18AC149815B3C70C00D3E57F /* shelf_cell_glow@2x.png */,
 				18CCC62015B3061F00DF94F5 /* shelf_bg.png */,
 				18CCC62115B3062000DF94F5 /* shelf_bg@2x.png */,
 				18CCC62215B3062300DF94F5 /* shelf_drawer_empty.png */,
@@ -4399,6 +4405,8 @@
 				E1F7F8EE15B3ADE100712019 /* ErrorIndicatorViewController.xib in Resources */,
 				E1F7F8F115B3B07E00712019 /* icon_complete.png in Resources */,
 				E1F7F8F215B3B07E00712019 /* icon_complete@2x.png in Resources */,
+				18AC149915B3C70C00D3E57F /* shelf_cell_glow.png in Resources */,
+				18AC149A15B3C70C00D3E57F /* shelf_cell_glow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

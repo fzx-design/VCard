@@ -171,10 +171,10 @@
                selector:@selector(changeCastviewDataSource:)
                    name:kNotificationNameShouldChangeCastviewDataSource
                  object:nil];
-    [center addObserver:self
-               selector:@selector(returnToNormalTimeline)
-                   name:kNotificationNameShouldReturnToNormalTimeline
-                 object:nil];
+//    [center addObserver:self
+//               selector:@selector(returnToNormalTimeline)
+//                   name:kNotificationNameShouldReturnToNormalTimeline
+//                 object:nil];
     
     [center addObserver:self
                selector:@selector(showPostIndicator)
@@ -215,7 +215,7 @@
     _loadMoreView.delegate = self;
     _loadMoreView.shouldAutoRotate = YES;
     
-    [self.waterflowView addSubview:_pullView];
+    [self.waterflowView insertSubview:_pullView atIndex:kWaterflowViewPullToRefreshViewIndex];
     [self.waterflowView addSubview:_loadMoreView];
 }
 
@@ -478,7 +478,7 @@
     } else {
         _dataSource = CastviewDataSourceNone;
     }
-    [_navigationView showInfoBarWithTitleName:description];
+    [_waterflowView showInfoBarWithTitleName:description];
     
     [self refresh];
 }
@@ -488,7 +488,6 @@
     _dataSource = CastviewDataSourceNone;
     _refreshing = YES;
     [self loadMoreData];
-    [_navigationView hideInfoBar];
 }
 
 #pragma mark Change User Avatar
@@ -687,7 +686,6 @@
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
             if (_refreshing) {
-                [self refreshEnded];
                 [self.waterflowView refresh];
             } else {
                 [self.waterflowView reloadData];
@@ -695,6 +693,7 @@
             _hasMoreViews = dictArray.count == 20;
         }
         
+        [self refreshEnded];
         [_pullView finishedLoading];
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_loadMoreView resetPosition];
@@ -876,6 +875,11 @@
     if ([_delegate respondsToSelector:@selector(didEndDraggingCastViewWithOffset:)]) {
         [_delegate didEndDraggingCastViewWithOffset:offset];
     }
+}
+
+- (void)didClickReturnToNormalTimelineButton
+{
+    [self returnToNormalTimeline];
 }
 
 #pragma mark - WaterflowDataSource
