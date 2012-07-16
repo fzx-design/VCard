@@ -36,7 +36,6 @@
     }
 }
 
-
 - (void)loadUser
 {
     WBClient *client = [WBClient client];

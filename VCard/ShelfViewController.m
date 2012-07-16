@@ -85,6 +85,11 @@
                  object:nil];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)createNewGroup:(NSNotification *)notification
 {
     Group *group = notification.object;

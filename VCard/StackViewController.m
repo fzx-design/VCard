@@ -47,7 +47,11 @@
         [[[TipsViewController alloc] initWithType:TipsViewControllerTypeStack] show];
         [NSUserDefaults setShownStackTips:YES];
     }
+}
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidUnload
@@ -164,6 +168,7 @@
         [vc clearPage];
         [vc.view removeFromSuperview];
         [self.controllerStack removeLastObject];
+        vc = nil;
     }
 }
 

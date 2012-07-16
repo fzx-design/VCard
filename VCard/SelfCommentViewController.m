@@ -74,7 +74,6 @@
     self.toMeButton.selected = YES;
 }
 
-
 #pragma mark - IBActions
 - (IBAction)didClickSwitchToMeButton:(UIButton *)sender
 {

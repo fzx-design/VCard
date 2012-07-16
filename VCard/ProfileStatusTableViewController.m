@@ -62,7 +62,6 @@
     // e.g. self.myOutlet = nil;
 }
 
-
 #pragma mark - Data Methods
 - (void)clearData
 {

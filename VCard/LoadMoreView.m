@@ -50,6 +50,11 @@
     return self;
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)finishedLoading:(BOOL)hasMoreViews
 {
     if (hasMoreViews) {

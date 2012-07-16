@@ -248,6 +248,11 @@ typedef enum {
     return YES;
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Notification handlers
 
 - (void)deviceRotationDidChange:(NSNotification *)notification {

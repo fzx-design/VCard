@@ -161,10 +161,6 @@
                selector:@selector(changeCastviewDataSource:)
                    name:kNotificationNameShouldChangeCastviewDataSource
                  object:nil];
-//    [center addObserver:self
-//               selector:@selector(returnToNormalTimeline)
-//                   name:kNotificationNameShouldReturnToNormalTimeline
-//                 object:nil];
     
     [center addObserver:self
                selector:@selector(showPostIndicator)
@@ -184,6 +180,11 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Initializing Methods
@@ -798,6 +799,7 @@
     } completion:^(BOOL finished) {
         [_stackViewController deleteAllPages];
         [_stackViewController.view removeFromSuperview];
+        [_stackViewController.stackView removeFromSuperview];
         _stackViewController = nil;
         [User deleteAllTempUsersInManagedObjectContext:self.managedObjectContext];
         [Comment deleteAllTempCommentsInManagedObjectContext:self.managedObjectContext];

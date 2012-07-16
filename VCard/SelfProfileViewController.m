@@ -59,7 +59,8 @@ typedef enum {
     
     [ThemeResourceProvider configButtonPaperLight:_accountSettingButton];
     
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];    
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(deviceRotationDidChange:) name:kNotificationNameOrientationChanged object:nil];
     [center addObserver:self selector:@selector(deviceRotationWillChange:) name:kNotificationNameOrientationWillChange object:nil];
 }

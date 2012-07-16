@@ -41,6 +41,11 @@
     // Release any retained subviews of the main view.
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)updateTimeInformation:(NSDate *)date
 {
     self.timeLabel.text = [date customString];
