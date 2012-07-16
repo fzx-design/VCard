@@ -27,11 +27,9 @@ typedef enum {
     HTTPMethodGet,
 } HTTPMethod;
 
-@interface WBClient() {
-    BOOL _needErrorIndicator;
-}
+@interface WBClient()
 
-@property (nonatomic, readonly) BOOL shouldReportError;
+@property (nonatomic, assign) BOOL shouldReportError;
 @property (nonatomic, copy) NSString *path;
 @property (nonatomic, retain) NSMutableDictionary *params;
 @property (nonatomic, assign) HTTPMethod httpMethod;
@@ -57,6 +55,7 @@ typedef enum {
 @synthesize request = _request;
 @synthesize delegate = _delegate;
 @synthesize hasError = _hasError;
+@synthesize shouldReportError = _shouldReportError;
 
 @synthesize preCompletionBlock = _preCompletionBlock;
 
@@ -89,7 +88,7 @@ typedef enum {
         _httpMethod = HTTPMethodGet;
         _postDataType = kWBRequestPostDataTypeNone;
         
-        _needErrorIndicator = YES;
+        self.shouldReportError = YES;
         
         [self readAuthorizeDataFromKeychain];
     }
@@ -97,9 +96,7 @@ typedef enum {
     return self;
 }
 
-- (void)dealloc
-{
-    NSLog(@"WBClient dealloc");
+- (void)dealloc {
     [_appKey release], _appKey = nil;
     [_appSecret release], _appSecret = nil;
     
@@ -730,6 +727,7 @@ typedef enum {
 
 - (void)getUnreadCount:(NSString *)userID
 {
+    self.shouldReportError = NO;
     self.path = @"remind/unread_count.json";
     
     if (userID) {
@@ -743,6 +741,7 @@ typedef enum {
 
 - (void)resetUnreadCount:(NSString *)type
 {
+    self.shouldReportError = NO;
     self.path = @"remind/set_count.json";
     if (type) {
         [self.params setObject:type forKey:@"type"];
@@ -798,6 +797,7 @@ typedef enum {
 
 - (void)getGroups
 {
+    self.shouldReportError = NO;
     self.path = @"friendships/groups.json";
     [self loadAdvancedRequest];
 }
@@ -960,8 +960,8 @@ typedef enum {
 
 - (void)request:(WBRequest *)request didFailWithError:(NSError *)error
 {
-    NSLog(@"%@, %@, %i", error.localizedDescription, error.localizedFailureReason, error.code);
-    [NSNotificationCenter postWBClientErrorNotification:error];
+    if(self.shouldReportError)
+        [NSNotificationCenter postWBClientErrorNotification:error];
     self.hasError = YES;
     [self reportCompletion];
     [self autorelease];

@@ -110,10 +110,10 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
         [self.refreshIndicator setType:RefreshIndicatorViewTypeLargeWhite];
         [self.refreshIndicator startLoadingAnimation];
     } else if(_controllerType == ErrorIndicatorViewControllerTypeProcedureFailure) {
-        defaultContentText = @"发表失败";
+        defaultContentText = @"操作失败";
         errorImageName = @"icon_regular_error";
     } else if(_controllerType == ErrorIndicatorViewControllerTypeProcedureSuccess) {
-        defaultContentText = @"发表成功";
+        defaultContentText = @"操作成功";
         errorImageName = @"icon_complete";
     }
     self.errorImageView.image = [UIImage imageNamed:errorImageName];

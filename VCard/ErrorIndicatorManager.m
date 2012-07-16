@@ -10,7 +10,7 @@
 #import "ErrorIndicatorViewController.h"
 #import "NSNotificationCenter+Addition.h"
 
-static ErrorIndicatorManager *managerInstance;
+static ErrorIndicatorManager *managerInstance = nil;
 
 @implementation ErrorIndicatorManager
 
@@ -24,7 +24,7 @@ static ErrorIndicatorManager *managerInstance;
 - (id)init {
     self = [super init];
     if(self) {
-        [NSNotificationCenter registerChangeCurrentUserNotificationWithSelector:@selector(handleWBClientNotification:) target:self];
+        [NSNotificationCenter registerWBClientErrorNotificationWithSelector:@selector(handleWBClientNotification:) target:self];
     }
     return self;
 }
@@ -35,9 +35,12 @@ static ErrorIndicatorManager *managerInstance;
     NSError *error = notification.object;
     NSString *errorMessage = nil;
     if(error.code < 0) {
-        [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureFailure contentText:@"网络错误"];
+        [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeConnectFailure contentText:nil];
     } else {
-        switch (error.code) {
+        NSNumber *weiboErrorCode = [error.userInfo objectForKey:@"error_code"];
+        NSString *requsetAPI = [error.userInfo objectForKey:@"request"];
+        NSLog(@"weibo error code %d, request %@", weiboErrorCode.intValue, requsetAPI);
+        switch (weiboErrorCode.intValue) {
             case 21302:
                 errorMessage = @"用户名或密码错误";
                 break;

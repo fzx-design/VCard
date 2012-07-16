@@ -135,7 +135,6 @@
 - (void)configureDataSource {
     NSArray *sectionArray = [[SettingInfoReader sharedReader] getSettingInfoSectionArray];
     for(SettingInfoSection *section in sectionArray) {
-        NSLog(@"section %@", section.sectionIdentifier);
         [self.dataSourceIndexArray addObject:section.sectionIdentifier];
         [self.settingSectionInfoArray addObject:section];
         NSMutableArray *itemTitleArray = [NSMutableArray array];

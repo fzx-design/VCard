@@ -10,8 +10,6 @@
 #import "ResourceProvider.h"
 #import "ErrorIndicatorManager.h"
 
-#define k
-
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -30,6 +28,8 @@
     [dict setObject:[NSMutableArray array] forKey:kUserDefaultKeySearchStatusHistoryList];
     [dict setObject:[NSMutableArray array] forKey:kUserDefaultKeySearchUserHistoryList];
 	[userDefault registerDefaults:dict];
+    
+    [ErrorIndicatorManager sharedManager];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

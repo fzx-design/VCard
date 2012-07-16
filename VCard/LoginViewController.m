@@ -218,9 +218,6 @@
     left.gloomImageView.alpha = fabs(middle.view.center.x - left.view.center.x + relativeOffsetX) / halfScreenWidth;
     middle.gloomImageView.alpha = fabs(relativeOffsetX) / halfScreenWidth;
     right.gloomImageView.alpha = fabs(right.view.center.x - middle.view.center.x - relativeOffsetX) / halfScreenWidth;
-    
-    NSLog(@"relative offset x %f", relativeOffsetX);
-    NSLog(@"left %f, middle %f, right %f", fabs(middle.view.center.x - left.view.center.x + relativeOffsetX), fabs(relativeOffsetX) / halfScreenWidth, fabs(right.view.center.x - middle.view.center.x + relativeOffsetX));
 }
 
 #pragma mark - Logic methods
