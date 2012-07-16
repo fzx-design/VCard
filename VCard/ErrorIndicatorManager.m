@@ -8,9 +8,19 @@
 
 #import "ErrorIndicatorManager.h"
 #import "ErrorIndicatorViewController.h"
+#import "LoginViewController.h"
 #import "NSNotificationCenter+Addition.h"
+#import "NSUserDefaults+Addition.h"
+#import "CoreDataTableViewController.h"
+#import "WBClient.h"
 
 static ErrorIndicatorManager *managerInstance = nil;
+
+@interface ErrorIndicatorManager() {
+    BOOL _handlingTokenFailureSituation;
+}
+
+@end
 
 @implementation ErrorIndicatorManager
 
@@ -27,6 +37,64 @@ static ErrorIndicatorManager *managerInstance = nil;
         [NSNotificationCenter registerWBClientErrorNotificationWithSelector:@selector(handleWBClientNotification:) target:self];
     }
     return self;
+}
+
+#pragma mark - UIAlertView delegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 0) {
+        [[[LoginViewController alloc] initWithType:LoginViewControllerTypeDeleteCurrentUser] show];
+    } else {
+        UserAccountInfo *accountInfo = [NSUserDefaults getUserAccountInfoWithUserID:[CoreDataViewController getCurrentUser].userID];
+        NSString *newPassword = [alertView textFieldAtIndex:0].text;
+        
+        WBClient *client = [WBClient client];
+        [client setCompletionBlock:^(WBClient *client) {
+            if (!client.hasError) {
+                NSLog(@"login step 3 succeeded(wrong password expired)");
+                _handlingTokenFailureSituation = NO;
+                [NSUserDefaults insertUserAccountInfoWithUserID:accountInfo.userID account:accountInfo.account password:newPassword];
+            } else {
+                NSLog(@"login step 3 failed(wrong password expired)");
+                [self handleWrongPasswordSituation];
+            }
+        }];
+        [client authorizeUsingUserID:accountInfo.account password:newPassword];
+    }
+}
+
+#pragma mark - Token methods
+
+- (void)handleWrongPasswordSituation {
+    _handlingTokenFailureSituation = YES;
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"新浪微博"
+                                                    message:[NSString stringWithFormat:@"%@，您的密码可能已经更改，请重新输入。", [CoreDataViewController getCurrentUser].screenName]
+                                                   delegate:self
+                                          cancelButtonTitle:@"取消" 
+                                          otherButtonTitles:@"继续", nil];
+
+    alert.alertViewStyle = UIAlertViewStyleSecureTextInput;
+    [alert show];
+}
+
+- (void)handleTokenExpireSituation {
+    _handlingTokenFailureSituation = YES;
+    
+    UserAccountInfo *accountInfo = [NSUserDefaults getUserAccountInfoWithUserID:[CoreDataViewController getCurrentUser].userID];
+    
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSLog(@"login step 3 succeeded(token expired)");
+            _handlingTokenFailureSituation = NO;
+        } else {
+            NSLog(@"login step 3 failed(token expired)");
+            [self handleWrongPasswordSituation];
+        }
+    }];
+    
+    [client authorizeUsingUserID:accountInfo.account password:accountInfo.password];
 }
 
 #pragma mark - Handle notification
@@ -54,11 +122,16 @@ static ErrorIndicatorManager *managerInstance = nil;
             case 20003:
                 errorMessage = @"用户不存在";
                 break;
+            case 21315:
+                if(!_handlingTokenFailureSituation)
+                    [self handleTokenExpireSituation];
+                return;
             case 21314:
             case 21316:
             case 21317:
-                errorMessage = @"token失效";
-                break;
+                if(!_handlingTokenFailureSituation)
+                    [self handleWrongPasswordSituation];
+                return;
             default:
                 break;
         }
@@ -68,8 +141,8 @@ static ErrorIndicatorManager *managerInstance = nil;
                 errorMessage = @"用户名或密码错误";
             }
         }
-        
-        [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureFailure contentText:errorMessage];
+        if(!_handlingTokenFailureSituation)
+            [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureFailure contentText:errorMessage];
     }
 }
 

@@ -111,7 +111,7 @@
 
 - (void)returnToInitialPosition
 {
-    [_errorIndicateViewController dismissViewAnimated:YES completion:NO];
+    [_errorIndicateViewController dismissViewAnimated:YES completion:nil];
     _errorIndicateViewController = nil;
     
     [self resetSize:_initialSize];

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ErrorIndicatorManager : NSObject
+@interface ErrorIndicatorManager : NSObject <UIAlertViewDelegate>
 
 + (ErrorIndicatorManager *)sharedManager;
 
