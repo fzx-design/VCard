@@ -142,7 +142,7 @@
 
 - (void)configureUI {
     [ThemeResourceProvider configButtonPaperLight:self.registerButton];
-    self.view.frame = CGRectMake(0, 0, [UIApplication screenWidth], [UIApplication screenHeight]);
+    [self.view resetSize:[UIApplication sharedApplication].screenSize];
     
     [self configureScrollView];
     [self configureCellGloom];

@@ -41,7 +41,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.view.frame = CGRectMake(0, 0, [UIApplication screenWidth], [UIApplication screenHeight]);
+    [self.view resetSize:[UIApplication sharedApplication].screenSize];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.settingRootViewController];
     nav.view.frame = self.settingRootViewController.view.frame;
     nav.view.center = self.rootViewCenter;

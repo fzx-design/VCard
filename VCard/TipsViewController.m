@@ -53,7 +53,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.view.frame = CGRectMake(0, 0, [UIApplication screenWidth], [UIApplication screenHeight]);
+    [self.view resetSize:[UIApplication sharedApplication].screenSize];
     
     if(_controllerType == TipsViewControllerTypeShelf) {
         self.tipsLabel.text = SHELF_TIPS_TEXT;

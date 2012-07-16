@@ -44,6 +44,7 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
                                                     animated:(BOOL)animated {
     if(!errorIndicatorInstance) {
         errorIndicatorInstance = [[ErrorIndicatorViewController alloc] initWithType:type contentText:contentText showViewAnimated:animated];
+        [errorIndicatorInstance.view resetOriginY:20];
         
         [[UIApplication sharedApplication].rootViewController.view addSubview:errorIndicatorInstance.view];
         return errorIndicatorInstance;
@@ -68,7 +69,7 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.view.frame = CGRectMake(0, 0, [UIApplication screenWidth], [UIApplication screenHeight]);
+    [self.view resetSize:[UIApplication sharedApplication].screenSize];
     [self configureUI];
     [self show];
 }

@@ -111,7 +111,9 @@
 
 - (void)returnToInitialPosition
 {
-    [_errorIndicateViewController dismissViewAnimated:YES completion:nil];
+    [_errorIndicateViewController dismissViewAnimated:YES completion:^{
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    }];
     _errorIndicateViewController = nil;
     
     [self resetSize:_initialSize];
@@ -199,7 +201,13 @@
         urlString = [urlString stringByReplacingOccurrencesOfString:@"large" withString:@"bmiddle"];
         NSURL *url = [NSURL URLWithString:urlString];
         
-        _errorIndicateViewController = [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeLoading contentText:nil];
+        if(_errorIndicateViewController) {
+            [_errorIndicateViewController dismissViewAnimated:NO completion:nil];
+            _errorIndicateViewController = [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeLoading contentText:nil animated:NO];
+        }
+        else {
+            _errorIndicateViewController = [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeLoading contentText:nil animated:YES];
+        }
         
         dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
         
@@ -216,7 +224,9 @@
                     }
                 }
                 
-                [_errorIndicateViewController dismissViewAnimated:YES completion:nil];
+                [_errorIndicateViewController dismissViewAnimated:YES completion:^{
+                    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+                }];
                 _errorIndicateViewController = nil;
             });
             
