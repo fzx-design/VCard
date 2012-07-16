@@ -11,6 +11,6 @@
 
 @interface PostAtHintCell : PostTopicHintCell
 
-@property (nonatomic, strong) IBOutlet UIImageView *avatarImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *avatarImageView;
 
 @end

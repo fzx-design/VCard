@@ -20,7 +20,6 @@
 
 @implementation StackViewController
 
-@synthesize stackView = _stackView;
 @synthesize controllerStack = _controllerStack;
 @synthesize delegate = _delegate;
 
@@ -48,6 +47,7 @@
         [[[TipsViewController alloc] initWithType:TipsViewControllerTypeStack] show];
         [NSUserDefaults setShownStackTips:YES];
     }
+
 }
 
 - (void)viewDidUnload
@@ -154,6 +154,16 @@
 {
     if ([_delegate respondsToSelector:@selector(clearStack)]) {
         [_delegate clearStack];
+    }
+}
+
+- (void)deleteAllPages
+{
+    while (self.controllerStack.count > 0) {
+        StackViewPageController *vc = [self.controllerStack lastObject];
+        [vc clearPage];
+        [vc.view removeFromSuperview];
+        [self.controllerStack removeLastObject];
     }
 }
 

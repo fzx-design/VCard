@@ -848,6 +848,17 @@ typedef enum {
     [self loadNormalRequest];
 }
 
+- (void)deleteGroup:(NSString *)groupID
+{
+    self.path = @"friendships/groups/destroy.json";
+    if (groupID) {
+        [self.params setObject:groupID forKey:@"list_id"];
+    }
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadAdvancedRequest];
+}
+
 - (void)getFavouritesWithPage:(int)page
                         count:(int)count
 {
@@ -907,6 +918,10 @@ typedef enum {
 
 - (void)loadNormalRequest
 {
+    if (_shouldReportError) {
+        NSLog(@"%@", self.path);
+    }
+    
     [_request disconnect];
     
     self.request = [WBRequest requestWithAccessToken:_accessToken

@@ -22,16 +22,16 @@
 
 @interface ShelfViewController : CoreDataViewController <UIScrollViewDelegate, ShelfDrawerViewDelegate>
 
-@property (nonatomic, strong) IBOutlet UIScrollView     *scrollView;
-@property (nonatomic, strong) IBOutlet UIImageView      *shelfBorderImageView;
-@property (nonatomic, strong) IBOutlet UIButton         *switchToPicButton;
-@property (nonatomic, strong) IBOutlet UIButton         *switchToTextButton;
-@property (nonatomic, strong) IBOutlet UIButton         *detailSettingButton;
-@property (nonatomic, strong) IBOutlet UISlider         *brightnessSlider;
-@property (nonatomic, strong) IBOutlet UISlider         *fontSizeSlider;
-@property (nonatomic, strong) IBOutlet ShelfPageControl *pageControl;
+@property (nonatomic, weak) IBOutlet UIScrollView     *scrollView;
+@property (nonatomic, weak) IBOutlet UIImageView      *shelfBorderImageView;
+@property (nonatomic, weak) IBOutlet UIButton         *switchToPicButton;
+@property (nonatomic, weak) IBOutlet UIButton         *switchToTextButton;
+@property (nonatomic, weak) IBOutlet UIButton         *detailSettingButton;
+@property (nonatomic, weak) IBOutlet UISlider         *brightnessSlider;
+@property (nonatomic, weak) IBOutlet UISlider         *fontSizeSlider;
+@property (nonatomic, weak) IBOutlet ShelfPageControl *pageControl;
 @property (nonatomic, strong) NSMutableArray            *drawerViewArray;
-@property (nonatomic, strong) IBOutlet UIView           *coverView;
+@property (nonatomic, weak) IBOutlet UIView           *coverView;
 
 - (IBAction)didChangeValueOfSlider:(UISlider *)sender;
 - (IBAction)didEndDraggingSlider:(UISlider *)sender;

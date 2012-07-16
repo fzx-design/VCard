@@ -58,6 +58,12 @@
     [self.commentTableViewController refresh];
 }
 
+- (void)clearPage
+{
+    [_commentTableViewController.view removeFromSuperview];
+    _commentTableViewController = nil;
+}
+
 #pragma mark - Setup
 
 - (void)viewDidLoad

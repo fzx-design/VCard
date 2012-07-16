@@ -9,13 +9,12 @@
 #import "UserProfileViewController.h"
 
 @interface FriendProfileViewController : UserProfileViewController <UIActionSheetDelegate> {
-    UIButton *_relationshipButton;
     BOOL _loading;
 }
 
-@property (nonatomic, strong) IBOutlet UIButton *relationshipButton;
-@property (nonatomic, strong) IBOutlet UIButton *moreInfoButton;
-@property (nonatomic, strong) IBOutlet UIButton *mentionButton;
+@property (nonatomic, weak) IBOutlet UIButton *relationshipButton;
+@property (nonatomic, weak) IBOutlet UIButton *moreInfoButton;
+@property (nonatomic, weak) IBOutlet UIButton *mentionButton;
 
 - (IBAction)didClickRelationButton:(UIButton *)sender;
 - (IBAction)didClickMentionButton:(UIButton *)sender;

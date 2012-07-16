@@ -213,8 +213,6 @@
 		18E4AE3E15748C7A009A701F /* side_bg_user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E4AE3A15748C7A009A701F /* side_bg_user@2x.png */; };
 		18E558E4153EA4AE00ECCA3B /* error_msg_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D4153EA4AE00ECCA3B /* error_msg_bg.png */; };
 		18E558E5153EA4AE00ECCA3B /* error_msg_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D5153EA4AE00ECCA3B /* error_msg_bg@2x.png */; };
-		18E558E6153EA4AE00ECCA3B /* icon_connection_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D6153EA4AE00ECCA3B /* icon_connection_error.png */; };
-		18E558E7153EA4AE00ECCA3B /* icon_connection_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D7153EA4AE00ECCA3B /* icon_connection_error@2x.png */; };
 		18E558E8153EA4AE00ECCA3B /* icon_regular_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D8153EA4AE00ECCA3B /* icon_regular_error.png */; };
 		18E558E9153EA4AE00ECCA3B /* icon_regular_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558D9153EA4AE00ECCA3B /* icon_regular_error@2x.png */; };
 		18E558EA153EA4AE00ECCA3B /* reload_arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E558DA153EA4AE00ECCA3B /* reload_arrow_down.png */; };
@@ -1225,8 +1223,6 @@
 		18E4AE3A15748C7A009A701F /* side_bg_user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "side_bg_user@2x.png"; sourceTree = "<group>"; };
 		18E558D4153EA4AE00ECCA3B /* error_msg_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error_msg_bg.png; sourceTree = "<group>"; };
 		18E558D5153EA4AE00ECCA3B /* error_msg_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_msg_bg@2x.png"; sourceTree = "<group>"; };
-		18E558D6153EA4AE00ECCA3B /* icon_connection_error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_connection_error.png; sourceTree = "<group>"; };
-		18E558D7153EA4AE00ECCA3B /* icon_connection_error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_connection_error@2x.png"; sourceTree = "<group>"; };
 		18E558D8153EA4AE00ECCA3B /* icon_regular_error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_regular_error.png; sourceTree = "<group>"; };
 		18E558D9153EA4AE00ECCA3B /* icon_regular_error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_regular_error@2x.png"; sourceTree = "<group>"; };
 		18E558DA153EA4AE00ECCA3B /* reload_arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reload_arrow_down.png; sourceTree = "<group>"; };
@@ -2255,6 +2251,17 @@
 			name = CastView;
 			sourceTree = "<group>";
 		};
+		188CA0BE15B437D900D95B5A /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				184CE7B315B10B6C001358FB /* InnerBrowserViewController.h */,
+				184CE7B415B10B6C001358FB /* InnerBrowserViewController.m */,
+				1846F04615A72FAA00E5CF47 /* DetailImageViewController.h */,
+				1846F04715A72FAA00E5CF47 /* DetailImageViewController.m */,
+			);
+			name = Media;
+			sourceTree = "<group>";
+		};
 		188E53021596EAFF00A30AB8 /* SelfCommentTableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2422,8 +2429,6 @@
 				18114544156F564C00B3BF21 /* menu_reload_bg@2x.png */,
 				18E558D4153EA4AE00ECCA3B /* error_msg_bg.png */,
 				18E558D5153EA4AE00ECCA3B /* error_msg_bg@2x.png */,
-				18E558D6153EA4AE00ECCA3B /* icon_connection_error.png */,
-				18E558D7153EA4AE00ECCA3B /* icon_connection_error@2x.png */,
 				18E558D8153EA4AE00ECCA3B /* icon_regular_error.png */,
 				18E558D9153EA4AE00ECCA3B /* icon_regular_error@2x.png */,
 				18E558DA153EA4AE00ECCA3B /* reload_arrow_down.png */,
@@ -2491,27 +2496,24 @@
 		18E707F1153D3EDB0012092E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				184CE7B315B10B6C001358FB /* InnerBrowserViewController.h */,
-				184CE7B415B10B6C001358FB /* InnerBrowserViewController.m */,
 				18E5592A153FA01200ECCA3B /* CoreDataTableViewController.h */,
 				18E5592B153FA01300ECCA3B /* CoreDataTableViewController.m */,
 				18E55927153F9F5C00ECCA3B /* CoreDataViewController.h */,
 				18E55928153F9F5C00ECCA3B /* CoreDataViewController.m */,
 				18E558FF153EF55600ECCA3B /* RootViewController.h */,
 				18E55900153EF55600ECCA3B /* RootViewController.m */,
-				1846F04615A72FAA00E5CF47 /* DetailImageViewController.h */,
-				1846F04715A72FAA00E5CF47 /* DetailImageViewController.m */,
-				E1F7F8E915B3AD9600712019 /* Error */,
-				E1F7F88115B2BEBC00712019 /* Tips */,
-				E10D04BA15AF02CB00492A87 /* Setting */,
 				188BA4F01539AA9200344288 /* CastView */,
 				18E707F2153D3EEF0012092E /* CustomViews */,
 				E1097CF7157F998900BD0640 /* Emoticons */,
+				E1F7F8E915B3AD9600712019 /* Error */,
 				18A6850715370EB900D58B7D /* Login */,
+				188CA0BE15B437D900D95B5A /* Media */,
 				E1097CF4157F997B00BD0640 /* Motions */,
 				E1097CF6157F998300BD0640 /* Post */,
+				E10D04BA15AF02CB00492A87 /* Setting */,
 				18A997EB15A1AA8800C2E7A5 /* Shelf */,
 				18E34C9315706786006DCFF6 /* StackView */,
+				E1F7F88115B2BEBC00712019 /* Tips */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -3838,8 +3840,6 @@
 				1850A463153BE56D0001A905 /* image_shadow_top@2x.png in Resources */,
 				18E558E4153EA4AE00ECCA3B /* error_msg_bg.png in Resources */,
 				18E558E5153EA4AE00ECCA3B /* error_msg_bg@2x.png in Resources */,
-				18E558E6153EA4AE00ECCA3B /* icon_connection_error.png in Resources */,
-				18E558E7153EA4AE00ECCA3B /* icon_connection_error@2x.png in Resources */,
 				18E558E8153EA4AE00ECCA3B /* icon_regular_error.png in Resources */,
 				18E558E9153EA4AE00ECCA3B /* icon_regular_error@2x.png in Resources */,
 				18E558EA153EA4AE00ECCA3B /* reload_arrow_down.png in Resources */,

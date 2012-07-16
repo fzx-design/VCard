@@ -14,8 +14,8 @@
 
 @property (nonatomic, strong) ProfileStatusTableViewController *statusTableViewController;
 @property (nonatomic, strong) SelfCommentTableViewController *commentTableViewController;
-@property (nonatomic, strong) IBOutlet UIButton *checkCommentButton;
-@property (nonatomic, strong) IBOutlet UIButton *checkStatusButton;
+@property (nonatomic, weak) IBOutlet UIButton *checkCommentButton;
+@property (nonatomic, weak) IBOutlet UIButton *checkStatusButton;
 
 - (IBAction)didClickCheckCommentButton:(id)sender;
 - (IBAction)didClickCheckStatusButton:(id)sender;

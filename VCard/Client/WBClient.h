@@ -202,6 +202,7 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 - (void)checkIsTrendFollowed:(NSString *)trendName;
 - (void)followTrend:(NSString *)trendName;
 - (void)unfollowTrend:(NSString *)trendName;
+- (void)deleteGroup:(NSString *)groupID;
 
 - (void)getFavouritesWithPage:(int)page
                         count:(int)count;

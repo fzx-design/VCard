@@ -70,6 +70,12 @@
     [self.searchTableViewController swingWithAngle:-0.089 * M_PI];
 }
 
+- (void)clearPage
+{
+    [_searchTableViewController.view removeFromSuperview];
+    _searchTableViewController = nil;
+}
+
 #pragma mark - Segment
 - (void)showSegment
 {

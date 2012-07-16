@@ -51,6 +51,14 @@
     [self.statusTableViewController refresh];
 }
 
+- (void)clearPage
+{
+    [_statusTableViewController.view removeFromSuperview];
+    [_commentTableViewController.view removeFromSuperview];
+    _statusTableViewController = nil;
+    _commentTableViewController = nil;
+}
+
 - (IBAction)didClickCheckCommentButton:(id)sender
 {
     self.checkCommentButton.selected = YES;

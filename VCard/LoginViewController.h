@@ -19,10 +19,10 @@ typedef enum {
 
 @interface LoginViewController : CoreDataViewController <UIScrollViewDelegate, LoginCellViewControllerDelegate>
 
-@property (nonatomic, strong) IBOutlet UIButton *registerButton;
-@property (nonatomic, strong) IBOutlet UIView *bgView;
-@property (nonatomic, strong) IBOutlet UIImageView *logoImageView;
-@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, weak) IBOutlet UIButton *registerButton;
+@property (nonatomic, weak) IBOutlet UIView *bgView;
+@property (nonatomic, weak) IBOutlet UIImageView *logoImageView;
+@property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
 
 - (void)show;
 

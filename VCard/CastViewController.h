@@ -36,37 +36,26 @@ typedef enum {
 
 @interface CastViewController : CoreDataViewController <WaterflowViewDelegate, WaterflowViewDatasource, PullToRefreshViewDelegate, LoadMoreViewDelegate, StackViewControllerDelegate, UIScrollViewDelegate, PostViewControllerDelegate> {
     
-    BaseNavigationView *_navigationView;
     PullToRefreshView *_pullView;
     LoadMoreView *_loadMoreView;
-    WaterflowView *_waterflowView;
-    RefreshIndicatorView *_refreshIndicatorView;
-    
     StackViewController *_stackViewController;
-    
-    UIImageView *_profileImageView;
-    UIButton *_searchButton;
-    UIButton *_groupButton;
-    UIButton *_createStatusButton;
-    UIButton *_refreshButton;
-    UIButton *_showProfileButton;
 }
 
-@property (nonatomic, strong) IBOutlet BaseNavigationView *navigationView;
-@property (nonatomic, strong) IBOutlet WaterflowView *waterflowView;
-@property (nonatomic, strong) IBOutlet RefreshIndicatorView *refreshIndicatorView;
-@property (nonatomic, strong) IBOutlet RefreshIndicatorView *postIndicatorView;
-@property (nonatomic, strong) IBOutlet UIImageView *profileImageView;
-@property (nonatomic, strong) IBOutlet UIButton *searchButton;
-@property (nonatomic, strong) IBOutlet UIButton *groupButton;
-@property (nonatomic, strong) IBOutlet UIButton *createStatusButton;
-@property (nonatomic, strong) IBOutlet UIButton *refreshButton;
-@property (nonatomic, strong) IBOutlet UIButton *showProfileButton;
-@property (nonatomic, strong) IBOutlet UnreadCountButton *unreadCountButton;
-@property (nonatomic, strong) IBOutlet UnreadIndicatorButton *unreadCommentIndicatorButton;
-@property (nonatomic, strong) IBOutlet UnreadIndicatorButton *unreadFollowerIndicatorButton;
-@property (nonatomic, strong) IBOutlet UnreadIndicatorButton *unreadMentionIndicatorButton;
-@property (nonatomic, strong) IBOutlet UnreadIndicatorView *unreadIndicatorView;
+@property (nonatomic, weak) IBOutlet BaseNavigationView *navigationView;
+@property (nonatomic, weak) IBOutlet WaterflowView *waterflowView;
+@property (nonatomic, weak) IBOutlet RefreshIndicatorView *refreshIndicatorView;
+@property (nonatomic, weak) IBOutlet RefreshIndicatorView *postIndicatorView;
+@property (nonatomic, weak) IBOutlet UIImageView *profileImageView;
+@property (nonatomic, weak) IBOutlet UIButton *searchButton;
+@property (nonatomic, weak) IBOutlet UIButton *groupButton;
+@property (nonatomic, weak) IBOutlet UIButton *createStatusButton;
+@property (nonatomic, weak) IBOutlet UIButton *refreshButton;
+@property (nonatomic, weak) IBOutlet UIButton *showProfileButton;
+@property (nonatomic, weak) IBOutlet UnreadCountButton *unreadCountButton;
+@property (nonatomic, weak) IBOutlet UnreadIndicatorButton *unreadCommentIndicatorButton;
+@property (nonatomic, weak) IBOutlet UnreadIndicatorButton *unreadFollowerIndicatorButton;
+@property (nonatomic, weak) IBOutlet UnreadIndicatorButton *unreadMentionIndicatorButton;
+@property (nonatomic, weak) IBOutlet UnreadIndicatorView *unreadIndicatorView;
 @property (nonatomic, weak) id<CastViewControllerDelegate> delegate;
 
 - (void)initialLoad;

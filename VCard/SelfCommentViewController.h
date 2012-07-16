@@ -12,8 +12,8 @@
 @interface SelfCommentViewController : StackViewPageController
 
 @property (nonatomic, strong) SelfCommentTableViewController *commentTableViewController;
-@property (nonatomic, strong) IBOutlet UIButton *toMeButton;
-@property (nonatomic, strong) IBOutlet UIButton *byMeButton;
+@property (nonatomic, weak) IBOutlet UIButton *toMeButton;
+@property (nonatomic, weak) IBOutlet UIButton *byMeButton;
 
 - (IBAction)didClickSwitchToMeButton:(UIButton *)sender;
 - (IBAction)didClickSwitchByMeButton:(UIButton *)sender;

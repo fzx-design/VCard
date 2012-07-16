@@ -14,10 +14,10 @@
 
 @interface LoginCellViewController : CoreDataViewController
 
-@property (nonatomic, strong) IBOutlet UIImageView *avatarImageView;
-@property (nonatomic, strong) IBOutlet UIImageView *avatarBgImageView;
-@property (nonatomic, strong) IBOutlet UIImageView *gloomImageView;
-@property (nonatomic, strong) IBOutlet UIButton *loginButton;
+@property (nonatomic, weak) IBOutlet UIImageView *avatarImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *avatarBgImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *gloomImageView;
+@property (nonatomic, weak) IBOutlet UIButton *loginButton;
 @property (nonatomic, weak) id<LoginCellViewControllerDelegate> delegate;
 
 - (void)loginUsingAccount:(NSString *)account

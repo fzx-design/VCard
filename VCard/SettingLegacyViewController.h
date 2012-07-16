@@ -10,6 +10,6 @@
 
 @interface SettingLegacyViewController : UIViewController
 
-@property (nonatomic, strong) IBOutlet UITextView *textView;
+@property (nonatomic, weak) IBOutlet UITextView *textView;
 
 @end

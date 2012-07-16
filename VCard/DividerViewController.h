@@ -8,16 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DividerViewController : UIViewController {
-    UIImageView *_leftPattern;
-    UIImageView *_rightPattern;
-    
-    UILabel *_timeLabel;
-}
+@interface DividerViewController : UIViewController 
 
-@property (nonatomic, strong) IBOutlet UIImageView *leftPattern;
-@property (nonatomic, strong) IBOutlet UIImageView *rightPattern;
-@property (nonatomic, strong) IBOutlet UILabel *timeLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *leftPattern;
+@property (nonatomic, weak) IBOutlet UIImageView *rightPattern;
+@property (nonatomic, weak) IBOutlet UILabel *timeLabel;
 
 - (void)updateTimeInformation:(NSDate *)date;
 

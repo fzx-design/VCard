@@ -18,19 +18,6 @@
 @implementation UserProfileViewController
 
 @synthesize screenName;
-@synthesize avatarImageView = _avatarImageView;
-@synthesize screenNameLabel = _screenNameLabel;
-@synthesize locationLabel = _locationLabel;
-@synthesize discriptionLabel = _discriptionLabel;
-@synthesize discriptionShadowLabel = _discriptionShadowLabel;
-@synthesize statusCountLabel = _statusCountLabel;
-@synthesize friendCountLabel = _friendCountLabel;
-@synthesize followerCountLabel = _followerCountLabel;
-@synthesize checkStatusesButton = _checkStatusesButton;
-@synthesize checkFriendsButton = _checkFriendsButton;
-@synthesize checkFollowersButton = _checkFollowersButton;
-
-@synthesize genderImageView = _genderImageView;
 
 @synthesize user = _user;
 @synthesize friendController = _friendController;
@@ -89,6 +76,16 @@
 - (void)pagePopedFromStack
 {
     
+}
+
+- (void)clearPage
+{
+    [_friendController.view removeFromSuperview];
+    [_followerController.view removeFromSuperview];
+    [_statusController.view removeFromSuperview];
+    _friendController = nil;
+    _followerController = nil;
+    _statusController = nil;
 }
 
 - (void)refresh

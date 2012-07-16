@@ -18,10 +18,10 @@ typedef enum {
 
 @interface ErrorIndicatorViewController : UIViewController
 
-@property (nonatomic, strong) IBOutlet UIView *errorBgView;
-@property (nonatomic, strong) IBOutlet UIImageView *errorImageView;
-@property (nonatomic, strong) IBOutlet UILabel *errorLabel;
-@property (nonatomic, strong) IBOutlet RefreshIndicatorView *refreshIndicator;
+@property (nonatomic, weak) IBOutlet UIView *errorBgView;
+@property (nonatomic, weak) IBOutlet UIImageView *errorImageView;
+@property (nonatomic, weak) IBOutlet UILabel *errorLabel;
+@property (nonatomic, weak) IBOutlet RefreshIndicatorView *refreshIndicator;
 
 //只允许一个error indicator存在，超过一个的时候会返回nil。
 

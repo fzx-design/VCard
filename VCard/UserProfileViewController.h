@@ -14,22 +14,6 @@
 #import "UserAvatarImageView.h"
 
 @interface UserProfileViewController : StackViewPageController {
-    UserAvatarImageView *_avatarImageView;
-    
-    UILabel *_screenNameLabel;
-    UILabel *_locationLabel;
-    UITextView *_discriptionLabel;
-    UITextView *_discriptionShadowLabel;
-    UILabel *_statusCountLabel;
-    UILabel *_friendCountLabel;
-    UILabel *_followerCountLabel;
-    
-    UIButton *_checkStatusesButton;
-    UIButton *_checkFriendsButton;
-    UIButton *_checkFollowersButton;
-    
-    UIImageView *_genderImageView;
-    
     
     User *_user;
     ProfileRelationTableViewController *_friendController;
@@ -38,20 +22,20 @@
 }
 
 @property (nonatomic, strong) NSString *screenName;
-@property (nonatomic, strong) IBOutlet UserAvatarImageView *avatarImageView;
+@property (nonatomic, weak) IBOutlet UserAvatarImageView *avatarImageView;
 
-@property (nonatomic, strong) IBOutlet UILabel *screenNameLabel;
-@property (nonatomic, strong) IBOutlet UILabel *locationLabel;
-@property (nonatomic, strong) IBOutlet UITextView *discriptionLabel;
-@property (nonatomic, strong) IBOutlet UITextView *discriptionShadowLabel;
-@property (nonatomic, strong) IBOutlet UILabel *statusCountLabel;
-@property (nonatomic, strong) IBOutlet UILabel *friendCountLabel;
-@property (nonatomic, strong) IBOutlet UILabel *followerCountLabel;
-@property (nonatomic, strong) IBOutlet UIButton *checkStatusesButton;
-@property (nonatomic, strong) IBOutlet UIButton *checkFriendsButton;
-@property (nonatomic, strong) IBOutlet UIButton *checkFollowersButton;
+@property (nonatomic, weak) IBOutlet UILabel *screenNameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *locationLabel;
+@property (nonatomic, weak) IBOutlet UITextView *discriptionLabel;
+@property (nonatomic, weak) IBOutlet UITextView *discriptionShadowLabel;
+@property (nonatomic, weak) IBOutlet UILabel *statusCountLabel;
+@property (nonatomic, weak) IBOutlet UILabel *friendCountLabel;
+@property (nonatomic, weak) IBOutlet UILabel *followerCountLabel;
+@property (nonatomic, weak) IBOutlet UIButton *checkStatusesButton;
+@property (nonatomic, weak) IBOutlet UIButton *checkFriendsButton;
+@property (nonatomic, weak) IBOutlet UIButton *checkFollowersButton;
 
-@property (nonatomic, strong) IBOutlet UIImageView *genderImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *genderImageView;
 
 @property (nonatomic, strong) User *user;
 

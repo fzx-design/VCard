@@ -9,18 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "UserAvatarImageView.h"
 
-@interface ProfileRelationTableViewCell : UITableViewCell {
-    UserAvatarImageView *_avatarImageView;
-    UILabel *_screenNameLabel;
-    UILabel *_infoLabel;
-    
-    UIImageView *_cellSelectionImageView;
-}
+@interface ProfileRelationTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) IBOutlet UserAvatarImageView *avatarImageView;
-@property (nonatomic, strong) IBOutlet UILabel *screenNameLabel;
-@property (nonatomic, strong) IBOutlet UILabel *infoLabel;
+@property (nonatomic, weak) IBOutlet UserAvatarImageView *avatarImageView;
+@property (nonatomic, weak) IBOutlet UILabel *screenNameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *infoLabel;
 
-@property (nonatomic, strong) IBOutlet UIImageView *cellSelectionImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *cellSelectionImageView;
 
 @end

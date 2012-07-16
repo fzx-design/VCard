@@ -16,16 +16,16 @@
 
 @interface SelfCommentTableViewCell : UITableViewCell <PostViewControllerDelegate, TTTAttributedLabelDelegate, UIActionSheetDelegate>
 
-@property (nonatomic, strong) IBOutlet UserAvatarImageView *avatarImageView;
-@property (nonatomic, strong) IBOutlet BaseCardBackgroundView *baseCardBackgroundView;
-@property (nonatomic, strong) IBOutlet UIButton *screenNameButton;
-@property (nonatomic, strong) IBOutlet UILabel *screenNameLabel;
-@property (nonatomic, strong) IBOutlet UIButton *commentButton;
-@property (nonatomic, strong) IBOutlet UIButton *moreActionButton;
-@property (nonatomic, strong) IBOutlet UIButton *viewDetailButton;
-@property (nonatomic, strong) IBOutlet UIView *commentInfoView;
-@property (nonatomic, strong) IBOutlet TTTAttributedLabel *commentContentLabel;
-@property (nonatomic, strong) IBOutlet UILabel *timeStampLabel;
+@property (nonatomic, weak) IBOutlet UserAvatarImageView *avatarImageView;
+@property (nonatomic, weak) IBOutlet BaseCardBackgroundView *baseCardBackgroundView;
+@property (nonatomic, weak) IBOutlet UIButton *screenNameButton;
+@property (nonatomic, weak) IBOutlet UILabel *screenNameLabel;
+@property (nonatomic, weak) IBOutlet UIButton *commentButton;
+@property (nonatomic, weak) IBOutlet UIButton *moreActionButton;
+@property (nonatomic, weak) IBOutlet UIButton *viewDetailButton;
+@property (nonatomic, weak) IBOutlet UIView *commentInfoView;
+@property (nonatomic, weak) IBOutlet TTTAttributedLabel *commentContentLabel;
+@property (nonatomic, weak) IBOutlet UILabel *timeStampLabel;
 @property (nonatomic, weak) Comment *comment;
 @property (nonatomic, assign) NSInteger pageIndex;
 @property (nonatomic, weak) id<CommentTableViewCellDelegate> delegate;

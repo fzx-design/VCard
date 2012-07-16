@@ -16,11 +16,11 @@
 
 @property (nonatomic, weak) id<MotionsShootViewControllerDelegate> delegate;
 
-@property (nonatomic, strong) IBOutlet MotionsCapturePreviewView *cameraPreviewView;
-@property (nonatomic, strong) IBOutlet UIButton *cameraStatusLEDButton;
-@property (nonatomic, strong) IBOutlet UIButton *shootButton;
-@property (nonatomic, strong) IBOutlet UIButton *pickImageButton;
-@property (nonatomic, strong) IBOutlet UIView *shootAccessoryView;
+@property (nonatomic, weak) IBOutlet MotionsCapturePreviewView *cameraPreviewView;
+@property (nonatomic, weak) IBOutlet UIButton *cameraStatusLEDButton;
+@property (nonatomic, weak) IBOutlet UIButton *shootButton;
+@property (nonatomic, weak) IBOutlet UIButton *pickImageButton;
+@property (nonatomic, weak) IBOutlet UIView *shootAccessoryView;
 
 - (IBAction)didClickShootButton:(UIButton *)sender;
 - (IBAction)didClickChangeCameraButton:(UIButton *)sender;

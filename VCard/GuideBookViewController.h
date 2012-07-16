@@ -11,11 +11,11 @@
 
 @interface GuideBookViewController : UIViewController <UIScrollViewDelegate>
 
-@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, strong) IBOutlet ShelfPageControl *pageControl;
-@property (nonatomic, strong) IBOutlet UIButton *finishButton;
-@property (nonatomic, strong) IBOutlet UIImageView *iconImageView;
-@property (nonatomic, strong) IBOutlet UIImageView *welcomeImageView;
+@property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, weak) IBOutlet ShelfPageControl *pageControl;
+@property (nonatomic, weak) IBOutlet UIButton *finishButton;
+@property (nonatomic, weak) IBOutlet UIImageView *iconImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *welcomeImageView;
 
 - (void)show;
 

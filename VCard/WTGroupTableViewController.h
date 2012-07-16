@@ -11,7 +11,7 @@
 
 @interface WTGroupTableViewController : CoreDataViewController<UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) NSMutableArray *dataSourceIndexArray;
 @property (nonatomic, strong) NSMutableDictionary *dataSourceDictionary;

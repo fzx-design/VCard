@@ -12,8 +12,6 @@
 
 @implementation FriendProfileViewController
 
-@synthesize relationshipButton = _relationshipButton;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -27,7 +25,7 @@
 {
     [super viewDidLoad];
     _loading = NO;
-    [_screenNameLabel setText:self.screenName];
+    [self.screenNameLabel setText:self.screenName];
     [ThemeResourceProvider configButtonPaperLight:_moreInfoButton];
     
     if (self.user == nil) {

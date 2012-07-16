@@ -62,6 +62,12 @@
     self.statusTableViewController.tableView.scrollsToTop = NO;
 }
 
+- (void)clearPage
+{
+    [_statusTableViewController.view removeFromSuperview];
+    _statusTableViewController = nil;
+}
+
 - (void)setUpViews
 {
     [self.topShadowImageView resetOrigin:[self frameForTableView].origin];

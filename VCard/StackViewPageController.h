@@ -24,13 +24,12 @@ typedef enum {
 @interface StackViewPageController : CoreDataViewController {
     NSInteger _pageIndex;
     BOOL _active;
-    BaseStackLayoutView *_backgroundView;
 }
 
 @property (nonatomic, assign) NSInteger pageIndex;
 
 @property (nonatomic, strong) UIImageView *topShadowImageView;
-@property (nonatomic, strong) IBOutlet BaseStackLayoutView *backgroundView;
+@property (nonatomic, weak) IBOutlet BaseStackLayoutView *backgroundView;
 
 @property (nonatomic, strong) NSString *pageDescription;
 @property (nonatomic, assign) StackViewPageType pageType;
@@ -45,5 +44,6 @@ typedef enum {
 - (void)pagePopedFromStack;
 - (void)refresh;
 - (void)showWithPurpose;
+- (void)clearPage;
 
 @end

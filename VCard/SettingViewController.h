@@ -10,7 +10,7 @@
 
 @interface SettingViewController : UIViewController
 
-@property (nonatomic, strong) IBOutlet UIImageView *shadowImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *shadowImageView;
 
 - (void)show;
 

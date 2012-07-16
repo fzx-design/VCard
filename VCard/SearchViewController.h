@@ -12,11 +12,11 @@
 @interface SearchViewController : StackViewPageController <UISearchBarDelegate, SearchTableViewControllerDelegate>
 
 @property (nonatomic, strong) SearchTableViewController *searchTableViewController;
-@property (nonatomic, strong) IBOutlet UIView           *segmentView;
-@property (nonatomic, strong) IBOutlet UIImageView      *searchBarCoverView;
-@property (nonatomic, strong) IBOutlet UIButton         *searchUserButton;
-@property (nonatomic, strong) IBOutlet UIButton         *searchStatusButton;
-@property (nonatomic, strong) IBOutlet UISearchBar      *searchBar;
+@property (nonatomic, weak) IBOutlet UIView           *segmentView;
+@property (nonatomic, weak) IBOutlet UIImageView      *searchBarCoverView;
+@property (nonatomic, weak) IBOutlet UIButton         *searchUserButton;
+@property (nonatomic, weak) IBOutlet UIButton         *searchStatusButton;
+@property (nonatomic, weak) IBOutlet UISearchBar      *searchBar;
 
 - (IBAction)didClickSegmentButton:(UIButton *)sender;
 

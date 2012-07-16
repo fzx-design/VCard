@@ -38,6 +38,12 @@
     // Release any retained subviews of the main view.
 }
 
+- (void)clearPage
+{
+    [_userListViewController.view removeFromSuperview];
+    _userListViewController = nil;
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);

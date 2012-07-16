@@ -16,10 +16,6 @@
 
 @implementation DividerViewController
 
-@synthesize leftPattern = _leftPattern;
-@synthesize rightPattern = _rightPattern;
-@synthesize timeLabel = _timeLabel;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

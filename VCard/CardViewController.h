@@ -37,59 +37,35 @@
 @end
 
 @interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate, PostViewControllerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate> {
-    CardImageView *_statusImageView;
-    UserAvatarImageView *_repostUserAvatar;
-    UserAvatarImageView *_originalUserAvatar;
-    UIImageView *_favoredImageView;
-    UIImageView *_clipImageView;
-    UIImageView *_locationPinImageView;
-    
-    UILabel *_locationLabel;
-    UILabel *_timeStampLabel;
-    
-    
-    UIButton *_commentButton;
-    UIButton *_repostButton;
-    UIButton *_originalUserNameButton;
-    UIButton *_repostUserNameButton;
-    
-    UIView *_statusInfoView;
-    UIView *_repostStatusInfoView;
-    
-    TTTAttributedLabel *_originalStatusLabel;
-    TTTAttributedLabel *_repostStatusLabel;
-    
-    BaseCardBackgroundView *_cardBackground;
-    BaseCardBackgroundView *_repostCardBackground;
     
     Status *_status;
     
     NSInteger _imageHeight;
 }
 
-@property (nonatomic, strong) IBOutlet CardImageView *statusImageView;
-@property (nonatomic, strong) IBOutlet UserAvatarImageView *repostUserAvatar;
-@property (nonatomic, strong) IBOutlet UserAvatarImageView *originalUserAvatar;
-@property (nonatomic, strong) IBOutlet UIImageView *favoredImageView;
-@property (nonatomic, strong) IBOutlet UIImageView *clipImageView;
-@property (nonatomic, strong) IBOutlet UIImageView *locationPinImageView;
+@property (nonatomic, weak) IBOutlet CardImageView *statusImageView;
+@property (nonatomic, weak) IBOutlet UserAvatarImageView *repostUserAvatar;
+@property (nonatomic, weak) IBOutlet UserAvatarImageView *originalUserAvatar;
+@property (nonatomic, weak) IBOutlet UIImageView *favoredImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *clipImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *locationPinImageView;
 
-@property (nonatomic, strong) IBOutlet UILabel *locationLabel;
-@property (nonatomic, strong) IBOutlet UILabel *timeStampLabel;
+@property (nonatomic, weak) IBOutlet UILabel *locationLabel;
+@property (nonatomic, weak) IBOutlet UILabel *timeStampLabel;
 
-@property (nonatomic, strong) IBOutlet UIButton *commentButton;
-@property (nonatomic, strong) IBOutlet UIButton *repostButton;
-@property (nonatomic, strong) IBOutlet UIButton *originalUserNameButton;
-@property (nonatomic, strong) IBOutlet UIButton *repostUserNameButton;
-@property (nonatomic, strong) IBOutlet UILabel *originalUserNameLabel;
-@property (nonatomic, strong) IBOutlet UILabel *repostUserNameLabel;
+@property (nonatomic, weak) IBOutlet UIButton *commentButton;
+@property (nonatomic, weak) IBOutlet UIButton *repostButton;
+@property (nonatomic, weak) IBOutlet UIButton *originalUserNameButton;
+@property (nonatomic, weak) IBOutlet UIButton *repostUserNameButton;
+@property (nonatomic, weak) IBOutlet UILabel *originalUserNameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *repostUserNameLabel;
 
-@property (nonatomic, strong) IBOutlet UIView *statusInfoView;
-@property (nonatomic, strong) IBOutlet UIView *repostStatusInfoView;
-@property (nonatomic, strong) IBOutlet TTTAttributedLabel *originalStatusLabel;
-@property (nonatomic, strong) IBOutlet TTTAttributedLabel *repostStatusLabel;
-@property (nonatomic, strong) IBOutlet BaseCardBackgroundView *cardBackground;
-@property (nonatomic, strong) IBOutlet BaseCardBackgroundView *repostCardBackground;
+@property (nonatomic, weak) IBOutlet UIView *statusInfoView;
+@property (nonatomic, weak) IBOutlet UIView *repostStatusInfoView;
+@property (nonatomic, weak) IBOutlet TTTAttributedLabel *originalStatusLabel;
+@property (nonatomic, weak) IBOutlet TTTAttributedLabel *repostStatusLabel;
+@property (nonatomic, weak) IBOutlet BaseCardBackgroundView *cardBackground;
+@property (nonatomic, weak) IBOutlet BaseCardBackgroundView *repostCardBackground;
 @property (nonatomic, strong) Status *status;
 @property (nonatomic, weak) Status *previousStatus;
 @property (nonatomic, assign) NSInteger imageHeight;

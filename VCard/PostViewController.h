@@ -27,35 +27,35 @@ typedef enum {
     BOOL _playingFoldPaperAnimation;
 }
 
-@property (nonatomic, strong) IBOutlet UIImageView  *motionsImageView;
-@property (nonatomic, strong) IBOutlet UITextView   *textView;
-@property (nonatomic, strong) IBOutlet UILabel      *textCountLabel;
-@property (nonatomic, strong) IBOutlet UIView       *postView;
-@property (nonatomic, strong) IBOutlet UIView       *textContainerView;
+@property (nonatomic, weak) IBOutlet UIImageView  *motionsImageView;
+@property (nonatomic, weak) IBOutlet UITextView   *textView;
+@property (nonatomic, weak) IBOutlet UILabel      *textCountLabel;
+@property (nonatomic, weak) IBOutlet UIView       *postView;
+@property (nonatomic, weak) IBOutlet UIView       *textContainerView;
 
-@property (nonatomic, strong) IBOutlet UIButton     *navButton;
-@property (nonatomic, strong) IBOutlet UIButton     *atButton;
-@property (nonatomic, strong) IBOutlet UIButton     *emoticonsButton;
-@property (nonatomic, strong) IBOutlet UIButton     *topicButton;
-@property (nonatomic, strong) IBOutlet UIButton     *motionsButton;
-@property (nonatomic, strong) IBOutlet UIButton     *cancelButton;
-@property (nonatomic, strong) IBOutlet UIButton     *postButton;
-@property (nonatomic, strong) IBOutlet UIButton     *repostCommentCheckmarkButton;
-@property (nonatomic, strong) IBOutlet UIButton     *repostCommentButton;
-@property (nonatomic, strong) IBOutlet UIImageView  *postImageView;
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *navActivityIndicator;
-@property (nonatomic, strong) IBOutlet UILabel      *navLabel;
-@property (nonatomic, strong) IBOutlet UIView       *functionLeftNavView;
-@property (nonatomic, strong) IBOutlet UIView       *functionLeftCheckmarkView;
-@property (nonatomic, strong) IBOutlet UIView       *functionRightView;
-@property (nonatomic, strong) IBOutlet UIView       *motionsView;     
-@property (nonatomic, strong) IBOutlet UILabel      *topBarLabel;
+@property (nonatomic, weak) IBOutlet UIButton     *navButton;
+@property (nonatomic, weak) IBOutlet UIButton     *atButton;
+@property (nonatomic, weak) IBOutlet UIButton     *emoticonsButton;
+@property (nonatomic, weak) IBOutlet UIButton     *topicButton;
+@property (nonatomic, weak) IBOutlet UIButton     *motionsButton;
+@property (nonatomic, weak) IBOutlet UIButton     *cancelButton;
+@property (nonatomic, weak) IBOutlet UIButton     *postButton;
+@property (nonatomic, weak) IBOutlet UIButton     *repostCommentCheckmarkButton;
+@property (nonatomic, weak) IBOutlet UIButton     *repostCommentButton;
+@property (nonatomic, weak) IBOutlet UIImageView  *postImageView;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *navActivityIndicator;
+@property (nonatomic, weak) IBOutlet UILabel      *navLabel;
+@property (nonatomic, weak) IBOutlet UIView       *functionLeftNavView;
+@property (nonatomic, weak) IBOutlet UIView       *functionLeftCheckmarkView;
+@property (nonatomic, weak) IBOutlet UIView       *functionRightView;
+@property (nonatomic, weak) IBOutlet UIView       *motionsView;     
+@property (nonatomic, weak) IBOutlet UILabel      *topBarLabel;
 
-@property (nonatomic, strong) IBOutlet UIImageView  *leftPaperImageView;
-@property (nonatomic, strong) IBOutlet UIImageView  *rightPaperImageView;
-@property (nonatomic, strong) IBOutlet UIImageView  *leftPaperGloomImageView;
-@property (nonatomic, strong) IBOutlet UIImageView  *rightPaperGloomImageView;
-@property (nonatomic, strong) IBOutlet UIView       *paperImageHolderView;
+@property (nonatomic, weak) IBOutlet UIImageView  *leftPaperImageView;
+@property (nonatomic, weak) IBOutlet UIImageView  *rightPaperImageView;
+@property (nonatomic, weak) IBOutlet UIImageView  *leftPaperGloomImageView;
+@property (nonatomic, weak) IBOutlet UIImageView  *rightPaperGloomImageView;
+@property (nonatomic, weak) IBOutlet UIView       *paperImageHolderView;
 
 @property (nonatomic, strong) UIImage *motionsOriginalImage;
 @property (nonatomic, weak)   id<PostViewControllerDelegate> delegate;

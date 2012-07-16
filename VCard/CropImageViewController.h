@@ -15,11 +15,11 @@
 @interface CropImageViewController : MultiInterfaceOrientationViewController
 
 @property (nonatomic, weak) id<CropImageViewControllerDelegate> delegate;
-@property (nonatomic, strong) IBOutlet UIImageView *cropImageBgView;
-@property (nonatomic, strong) IBOutlet CropImageView *cropImageView;
-@property (nonatomic, strong) IBOutlet UIView *editBarView;
-@property (nonatomic, strong) IBOutlet UIButton *cancelButton;
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, weak) IBOutlet UIImageView *cropImageBgView;
+@property (nonatomic, weak) IBOutlet CropImageView *cropImageView;
+@property (nonatomic, weak) IBOutlet UIView *editBarView;
+@property (nonatomic, weak) IBOutlet UIButton *cancelButton;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (id)initWithImage:(UIImage *)image filteredImage:(UIImage *)filteredImage useForAvatar:(BOOL)useForAvatar;
 - (void)zoomInFromCenter:(CGPoint)point withScaleFactor:(CGFloat)factor completion:(void (^)(void))completion;

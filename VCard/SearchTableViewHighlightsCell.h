@@ -11,19 +11,19 @@
 
 @interface SearchTableViewHighlightsCell : UITableViewCell
 
-@property (nonatomic, strong) IBOutlet TopicImageView   *topImageView1;
-@property (nonatomic, strong) IBOutlet TopicImageView   *topImageView2;
-@property (nonatomic, strong) IBOutlet TopicImageView   *topImageView3;
-@property (nonatomic, strong) IBOutlet TopicImageView   *topImageView4;
-@property (nonatomic, strong) IBOutlet TopicImageView   *topImageView5;
-@property (nonatomic, strong) IBOutlet TopicImageView   *topImageView6;
+@property (nonatomic, weak) IBOutlet TopicImageView   *topImageView1;
+@property (nonatomic, weak) IBOutlet TopicImageView   *topImageView2;
+@property (nonatomic, weak) IBOutlet TopicImageView   *topImageView3;
+@property (nonatomic, weak) IBOutlet TopicImageView   *topImageView4;
+@property (nonatomic, weak) IBOutlet TopicImageView   *topImageView5;
+@property (nonatomic, weak) IBOutlet TopicImageView   *topImageView6;
 
-@property (nonatomic, strong) IBOutlet UILabel          *topicLabel1;
-@property (nonatomic, strong) IBOutlet UILabel          *topicLabel2;
-@property (nonatomic, strong) IBOutlet UILabel          *topicLabel3;
-@property (nonatomic, strong) IBOutlet UILabel          *topicLabel4;
-@property (nonatomic, strong) IBOutlet UILabel          *topicLabel5;
-@property (nonatomic, strong) IBOutlet UILabel          *topicLabel6;
+@property (nonatomic, weak) IBOutlet UILabel          *topicLabel1;
+@property (nonatomic, weak) IBOutlet UILabel          *topicLabel2;
+@property (nonatomic, weak) IBOutlet UILabel          *topicLabel3;
+@property (nonatomic, weak) IBOutlet UILabel          *topicLabel4;
+@property (nonatomic, weak) IBOutlet UILabel          *topicLabel5;
+@property (nonatomic, weak) IBOutlet UILabel          *topicLabel6;
 
 
 @property (nonatomic, strong) NSMutableArray *topicImageViewArray;

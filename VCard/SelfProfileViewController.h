@@ -9,18 +9,12 @@
 #import "UserProfileViewController.h"
 #import "MotionsViewController.h"
 
-@interface SelfProfileViewController : UserProfileViewController<MotionsViewControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
-    
-    UIButton *_changeAvatarButton;
-    UIButton *_checkCommentButton;
-    UIButton *_checkMentionButton;
-}
+@interface SelfProfileViewController : UserProfileViewController<MotionsViewControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> 
 
-
-@property (nonatomic, strong) IBOutlet UIButton *changeAvatarButton;
-@property (nonatomic, strong) IBOutlet UIButton *checkCommentButton;
-@property (nonatomic, strong) IBOutlet UIButton *checkMentionButton;
-@property (nonatomic, strong) IBOutlet UIButton *accountSettingButton;
+@property (nonatomic, weak) IBOutlet UIButton *changeAvatarButton;
+@property (nonatomic, weak) IBOutlet UIButton *checkCommentButton;
+@property (nonatomic, weak) IBOutlet UIButton *checkMentionButton;
+@property (nonatomic, weak) IBOutlet UIButton *accountSettingButton;
 @property (nonatomic, assign) BOOL shouldShowFollowerList;
 
 - (IBAction)didClickCheckCommentButton:(UIButton *)sender;

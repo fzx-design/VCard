@@ -19,13 +19,13 @@
 @property (nonatomic, strong) MotionsEditViewController *editViewController;
 @property (nonatomic, weak) id<MotionsViewControllerDelegate> delegate;
 
-@property (nonatomic, strong) IBOutlet UIImageView  *logoImageView;
-@property (nonatomic, strong) IBOutlet UIImageView  *bgImageView;
-@property (nonatomic, strong) IBOutlet UIView       *bgView;
-@property (nonatomic, strong) IBOutlet UIButton     *cancelButton;
-@property (nonatomic, strong) IBOutlet UIImageView  *leftCameraCoverImageView;
-@property (nonatomic, strong) IBOutlet UIImageView  *rightCameraCoverImageView;
-@property (nonatomic, strong) IBOutlet UIView       *captureBgView;
+@property (nonatomic, weak) IBOutlet UIImageView  *logoImageView;
+@property (nonatomic, weak) IBOutlet UIImageView  *bgImageView;
+@property (nonatomic, weak) IBOutlet UIView       *bgView;
+@property (nonatomic, weak) IBOutlet UIButton     *cancelButton;
+@property (nonatomic, weak) IBOutlet UIImageView  *leftCameraCoverImageView;
+@property (nonatomic, weak) IBOutlet UIImageView  *rightCameraCoverImageView;
+@property (nonatomic, weak) IBOutlet UIView       *captureBgView;
 
 - (id)initWithImage:(UIImage *)image useForAvatar:(BOOL)useForAvatar;
 - (void)show;

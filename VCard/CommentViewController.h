@@ -15,9 +15,9 @@
 
 @property (nonatomic, strong) Status *status;
 @property (nonatomic, strong) ProfileCommentTableViewController *commentTableViewController;
-@property (nonatomic, strong) IBOutlet UIButton *changeSourceButton;
-@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
-@property (nonatomic, strong) IBOutlet UIButton *commentButton;
+@property (nonatomic, weak) IBOutlet UIButton *changeSourceButton;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UIButton *commentButton;
 
 @property (nonatomic, assign) CommentTableViewControllerType type;
 

@@ -16,7 +16,6 @@
 @implementation StackViewPageController
 
 @synthesize pageIndex = _pageIndex;
-@synthesize backgroundView = _backgroundView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -98,5 +97,10 @@
     
 }
 
+//To be overloaded
+- (void)clearPage
+{
+    
+}
 
 @end

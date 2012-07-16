@@ -13,8 +13,8 @@
 
 @interface LoginUserCellViewController : LoginCellViewController <UIActionSheetDelegate, UIAlertViewDelegate>
 
-@property (nonatomic, strong) IBOutlet UILabel *userNameLabel;
-@property (nonatomic, strong) IBOutlet UIButton *deleteButton;
+@property (nonatomic, weak) IBOutlet UILabel *userNameLabel;
+@property (nonatomic, weak) IBOutlet UIButton *deleteButton;
 
 - (id)initWithUser:(User *)user;
 

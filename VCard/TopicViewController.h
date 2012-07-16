@@ -12,8 +12,8 @@
 @interface TopicViewController : StackViewPageController
 
 @property (nonatomic, strong) ProfileStatusTableViewController *statusTableViewController;
-@property (nonatomic, strong) IBOutlet UILabel *topicTitleLabel;
-@property (nonatomic, strong) IBOutlet UIButton *followTopicButton;
+@property (nonatomic, weak) IBOutlet UILabel *topicTitleLabel;
+@property (nonatomic, weak) IBOutlet UIButton *followTopicButton;
 @property (nonatomic, strong) NSString *searchKey;
 
 - (IBAction)didClickFollowTopicButton:(UIButton *)sender;

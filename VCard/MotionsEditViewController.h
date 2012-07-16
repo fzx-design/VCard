@@ -16,18 +16,18 @@
 
 @interface MotionsEditViewController : MultiInterfaceOrientationViewController <CropImageViewControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MotionsFilterTableViewControllerDelegate>
 
-@property (nonatomic, strong) IBOutlet UISlider *shadowAmountSlider;
-@property (nonatomic, strong) IBOutlet UIButton *cropButton;
-@property (nonatomic, strong) IBOutlet UIButton *changePictureButton;
-@property (nonatomic, strong) IBOutlet UIButton *revertButton;
-@property (nonatomic, strong) IBOutlet UIButton *finishEditButton;
-@property (nonatomic, strong) IBOutlet FilterImageView *filterImageView;
-@property (nonatomic, strong) IBOutlet UIView *bgView;
-@property (nonatomic, strong) IBOutlet UIView *functionView;
-@property (nonatomic, strong) IBOutlet UIImageView *capturedImageView;
-@property (nonatomic, strong) IBOutlet UIView *capturedImageEditBar;
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, strong) IBOutlet UIView *editAccessoryView;
+@property (nonatomic, weak) IBOutlet UISlider *shadowAmountSlider;
+@property (nonatomic, weak) IBOutlet UIButton *cropButton;
+@property (nonatomic, weak) IBOutlet UIButton *changePictureButton;
+@property (nonatomic, weak) IBOutlet UIButton *revertButton;
+@property (nonatomic, weak) IBOutlet UIButton *finishEditButton;
+@property (nonatomic, weak) IBOutlet FilterImageView *filterImageView;
+@property (nonatomic, weak) IBOutlet UIView *bgView;
+@property (nonatomic, weak) IBOutlet UIView *functionView;
+@property (nonatomic, weak) IBOutlet UIImageView *capturedImageView;
+@property (nonatomic, weak) IBOutlet UIView *capturedImageEditBar;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, weak) IBOutlet UIView *editAccessoryView;
 @property (nonatomic, weak) id<MotionsEditViewControllerDelegate> delegate;
 
 - (IBAction)didChangeSlider:(UISlider *)sender;

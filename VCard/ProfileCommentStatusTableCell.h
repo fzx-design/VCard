@@ -14,10 +14,10 @@
 
 @property (nonatomic, strong) CardViewController *cardViewController;
 
-@property (nonatomic, strong) IBOutlet UIView *dividerView;
-@property (nonatomic, strong) IBOutlet UIImageView *leftpatternImageView;
-@property (nonatomic, strong) IBOutlet UIImageView *rightpatternImageView;
-@property (nonatomic, strong) IBOutlet UILabel *descriptionLabel;
+@property (nonatomic, weak) IBOutlet UIView *dividerView;
+@property (nonatomic, weak) IBOutlet UIImageView *leftpatternImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *rightpatternImageView;
+@property (nonatomic, weak) IBOutlet UILabel *descriptionLabel;
 @property (nonatomic, strong) NSString *typeString;
 @property (nonatomic, assign) NSInteger pageIndex;
 

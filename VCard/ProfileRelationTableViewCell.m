@@ -10,12 +10,6 @@
 
 @implementation ProfileRelationTableViewCell
 
-@synthesize avatarImageView = _avatarImageView;
-@synthesize screenNameLabel = _screenNameLabel;
-@synthesize infoLabel = _infoLabel;
-
-@synthesize cellSelectionImageView = _cellSelectionImageView;
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

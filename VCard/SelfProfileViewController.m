@@ -33,10 +33,6 @@ typedef enum {
 
 @implementation SelfProfileViewController
 
-@synthesize changeAvatarButton = _changeAvatarButton;
-@synthesize checkCommentButton = _checkCommentButton;
-@synthesize checkMentionButton = _checkMentionButton;
-
 @synthesize popoverController = _pc;
 @synthesize actionSheet = _actionSheet;
 
@@ -215,7 +211,7 @@ typedef enum {
             NSDictionary *userDict = client.responseJSONObject;
             User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
             [NSNotificationCenter postChangeUserAvatarNotification];
-            [_avatarImageView loadImageWithoutFadeFromURL:user.largeAvatarURL completion:nil];
+            [self.avatarImageView loadImageWithoutFadeFromURL:user.largeAvatarURL completion:nil];
         } else {
         
         }

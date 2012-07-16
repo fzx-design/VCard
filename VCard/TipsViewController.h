@@ -16,8 +16,8 @@ typedef enum {
 
 @interface TipsViewController : UIViewController
 
-@property (nonatomic, strong) IBOutlet UIView *tipsView;
-@property (nonatomic, strong) IBOutlet UILabel *tipsLabel;
+@property (nonatomic, weak) IBOutlet UIView *tipsView;
+@property (nonatomic, weak) IBOutlet UILabel *tipsLabel;
 
 - (id)initWithType:(TipsViewControllerType)type;
 

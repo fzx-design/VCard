@@ -13,15 +13,15 @@
 
 @interface DetailImageViewController : UIViewController <CardViewControllerDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate, PostViewControllerDelegate>
 
-@property (nonatomic, strong) IBOutlet UIView               *topBarView;
-@property (nonatomic, strong) IBOutlet UIView               *bottomBarView;
-@property (nonatomic, strong) IBOutlet UIButton             *returnButton;
-@property (nonatomic, strong) IBOutlet UIButton             *commentButton;
-@property (nonatomic, strong) IBOutlet UIButton             *moreActionButton;
-@property (nonatomic, strong) IBOutlet UILabel              *authorNameLabel;
-@property (nonatomic, strong) IBOutlet UILabel              *timeStampLabel;
-@property (nonatomic, strong) IBOutlet UIScrollView         *scrollView;
-@property (nonatomic, strong) IBOutlet UserAvatarImageView  *authorAvatarImageView;
+@property (nonatomic, weak) IBOutlet UIView               *topBarView;
+@property (nonatomic, weak) IBOutlet UIView               *bottomBarView;
+@property (nonatomic, weak) IBOutlet UIButton             *returnButton;
+@property (nonatomic, weak) IBOutlet UIButton             *commentButton;
+@property (nonatomic, weak) IBOutlet UIButton             *moreActionButton;
+@property (nonatomic, weak) IBOutlet UILabel              *authorNameLabel;
+@property (nonatomic, weak) IBOutlet UILabel              *timeStampLabel;
+@property (nonatomic, weak) IBOutlet UIScrollView         *scrollView;
+@property (nonatomic, weak) IBOutlet UserAvatarImageView  *authorAvatarImageView;
 
 @property (nonatomic, weak) CardViewController              *cardViewController;
 @property (nonatomic, weak) CardImageView                   *imageView;

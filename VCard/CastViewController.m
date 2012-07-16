@@ -41,16 +41,6 @@
 
 @implementation CastViewController
 
-@synthesize navigationView = _navigationView;
-@synthesize waterflowView = _waterflowView;
-@synthesize refreshIndicatorView = _refreshIndicatorView;
-@synthesize profileImageView = _profileImageView;
-@synthesize searchButton = _searchButton;
-@synthesize groupButton = _groupButton;
-@synthesize createStatusButton = _createStatusButton;
-@synthesize refreshButton = _refreshButton;
-@synthesize showProfileButton = _showProfileButton;
-
 #pragma mark - LifeCycle
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -227,7 +217,6 @@
     NSString *screenName = [dictionary valueForKey:kNotificationObjectKeyUserName];
     NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
     int index = [indexString intValue];
-    
     
     NSString *vcIdentifier = [screenName isEqualToString:self.currentUser.screenName] ? @"SelfProfileViewController" : @"FriendProfileViewController";
     UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:vcIdentifier];
@@ -807,12 +796,12 @@
     [UIView animateWithDuration:0.3 animations:^{
         _stackViewController.view.alpha = 0.0;
     } completion:^(BOOL finished) {
+        [_stackViewController deleteAllPages];
         [_stackViewController.view removeFromSuperview];
         _stackViewController = nil;
         [User deleteAllTempUsersInManagedObjectContext:self.managedObjectContext];
         [Comment deleteAllTempCommentsInManagedObjectContext:self.managedObjectContext];
         [Status deleteAllTempStatusesInManagedObjectContext:self.managedObjectContext];
-        
         [self exitStackView];
     }];
 }

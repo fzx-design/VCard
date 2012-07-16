@@ -11,6 +11,6 @@
 @interface PostTopicHintCell : UITableViewCell
 
 @property (nonatomic, strong) UIColor *defaultHintTextColor;
-@property (nonatomic, strong) IBOutlet UILabel *hintTextLabel;
+@property (nonatomic, weak) IBOutlet UILabel *hintTextLabel;
 
 @end

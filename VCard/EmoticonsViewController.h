@@ -11,8 +11,8 @@
 @protocol EmoticonsViewControllerDelegate;
 @interface EmoticonsViewController : UIViewController <UIScrollViewDelegate>
 
-@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, strong) IBOutlet UIPageControl *pageControl;
+@property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, weak) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, strong) id<EmoticonsViewControllerDelegate> delegate;
 - (IBAction)didChangePageControlValue:(UIPageControl *)sender;
 

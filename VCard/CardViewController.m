@@ -94,24 +94,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 @implementation CardViewController
 
-@synthesize statusImageView = _statusImageView;
-@synthesize repostUserAvatar = _repostUserAvatar;
-@synthesize originalUserAvatar = _originalUserAvatar;
-@synthesize favoredImageView = _favoredImageView;
-@synthesize clipImageView = _clipImageView;
-@synthesize locationPinImageView = _locationPinImageView;
-@synthesize locationLabel = _locationLabel;
-@synthesize timeStampLabel = _timeStampLabel;
-@synthesize commentButton = _commentButton;
-@synthesize repostButton = _repostButton;
-@synthesize originalUserNameButton = _originalUserNameButton;
-@synthesize repostUserNameButton = _repostUserNameButton;
-@synthesize statusInfoView = _statusInfoView;
-@synthesize repostStatusInfoView = _repostStatusInfoView;
-@synthesize originalStatusLabel = _originalStatusLabel;
-@synthesize repostStatusLabel = _repostStatusLabel;
-@synthesize cardBackground = _cardBackground;
-@synthesize repostCardBackground = _repostCardBackground;
 @synthesize status = _status;
 @synthesize imageHeight = _imageHeight;
 

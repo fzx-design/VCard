@@ -12,10 +12,10 @@
 
 @interface MotionsFilterCell : UITableViewCell
 
-@property (nonatomic, strong) IBOutlet UIImageView *thumbnailImageView;
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, strong) IBOutlet UIImageView *iapIndicator;
-@property (nonatomic, strong) IBOutlet FXLabel *filterNameLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *thumbnailImageView;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, weak) IBOutlet UIImageView *iapIndicator;
+@property (nonatomic, weak) IBOutlet FXLabel *filterNameLabel;
 
 - (void)loadThumbnailImage:(UIImage *)image
             withFilterInfo:(MotionsFilterInfo *)info

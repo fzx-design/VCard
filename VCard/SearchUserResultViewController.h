@@ -11,7 +11,7 @@
 
 @interface SearchUserResultViewController : StackViewPageController
 
-@property (nonatomic, strong) IBOutlet UILabel                      *titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel                      *titleLabel;
 @property (nonatomic, strong) ProfileRelationTableViewController    *userListViewController;
 @property (nonatomic, strong) NSString                              *searchKey;
 
