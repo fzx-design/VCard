@@ -30,7 +30,6 @@
 @property (nonatomic, strong) IBOutlet UISlider         *brightnessSlider;
 @property (nonatomic, strong) IBOutlet UISlider         *fontSizeSlider;
 @property (nonatomic, strong) IBOutlet ShelfPageControl *pageControl;
-//@property (nonatomic, strong) NSMutableArray            *groupInfoArray;
 @property (nonatomic, strong) NSMutableArray            *drawerViewArray;
 @property (nonatomic, strong) IBOutlet UIView           *coverView;
 

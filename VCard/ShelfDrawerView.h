@@ -28,6 +28,7 @@
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, assign) BOOL imageLoaded;
+@property (nonatomic, assign) BOOL editing;
 
 @property (nonatomic, weak) id<ShelfDrawerViewDelegate> delegate;
 
@@ -40,5 +41,8 @@
 
 - (void)loadImageFromURL:(NSString *)urlString 
               completion:(void (^)(BOOL succeeded))completion;
+
+- (void)showDeleteButton;
+- (void)hideDeleteButton;
 
 @end

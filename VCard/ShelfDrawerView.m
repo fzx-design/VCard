@@ -9,18 +9,20 @@
 #import "ShelfDrawerView.h"
 #import "UIImageView+URL.h"
 #import "Group.h"
+#import "UIView+Resize.h"
+#import "UIView+Addition.h"
 
-#define kDrawerFrame CGRectMake(-27.0, -32.0, 148.0, 144.0)
-#define kEmptyDrawerFrame CGRectMake(-27, 39, 150, 74)
-#define kTopicPaperFrame CGRectMake(-32, 5, 160, 104)
+#define kDrawerFrame CGRectMake(-7.0, -12.0, 148.0, 144.0)
+#define kEmptyDrawerFrame CGRectMake(-7, 59, 150, 74)
+#define kTopicPaperFrame CGRectMake(-12, 25, 160, 104)
 
-#define kTopicLabelFrame CGRectMake(0, 35.0, 95.0, 35.0)
-#define kDrawerLabelFrame CGRectMake(0, 56.0, 95.0, 35.0)
+#define kTopicLabelFrame CGRectMake(20, 55.0, 95.0, 35.0)
+#define kDrawerLabelFrame CGRectMake(20, 76.0, 95.0, 35.0)
 
-#define kHighlishGlowFrame CGRectMake(-47.0, -40.0, 190.0, 130.0)
+#define kHighlishGlowFrame CGRectMake(-27.0, -20.0, 190.0, 130.0)
 
-#define kDeleteDrawerButtonFrame CGRectMake(-25, -25, 44.0, 44.0)
-#define kDeleteTopicButtonFrame  CGRectMake(-30, -10, 44.0, 44.0)
+#define kDeleteDrawerButtonFrame CGRectMake(-25, -25, 80.0, 80.0)
+#define kDeleteTopicButtonFrame  CGRectMake(-30, -10, 80.0, 80.0)
 
 @implementation ShelfDrawerView
 
@@ -39,6 +41,7 @@
         _picURL = url;
         _type = type;
         _imageLoaded = url && ![url isEqualToString:@""];
+        _editing = NO;
         
         self.opaque = YES;
         self.enabled = !empty;
@@ -55,10 +58,16 @@
 
 - (void)setUpDrawerImageViewWithType:(int)type empty:(BOOL)empty
 {
-    _photoImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    CGRect frame = self.bounds;
+    frame.origin.x += 20;
+    frame.origin.y += 20;
+    frame.size.width -= 10;
+    frame.size.height -= 10;
+    
+    _photoImageView = [[UIImageView alloc] initWithFrame:frame];
     _photoImageView.hidden = empty || type == kGroupTypeTopic;
     
-    _backImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    _backImageView = [[UIImageView alloc] initWithFrame:frame];
     _backImageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
     _backImageView.hidden = _photoImageView.hidden;
     
@@ -67,7 +76,7 @@
     _highlightGlowImageView.alpha = 0.0;
     
     NSString *imageName = @"shelf_drawer.png";
-    CGRect frame;
+
     if (_type == 0) {
         imageName = @"shelf_drawer_favorites.png";
         frame = kDrawerFrame;
@@ -87,6 +96,7 @@
     _deleteButton = [[UIButton alloc] initWithFrame:frame];
     [_deleteButton setImage:[UIImage imageNamed:@"button_delete_black.png"] forState:UIControlStateNormal];
     [_deleteButton addTarget:self action:@selector(didClickDeleteButton) forControlEvents:UIControlEventTouchUpInside];
+    _deleteButton.hidden = YES;
     
     [self addSubview:_backImageView];
     [self addSubview:_photoImageView];
@@ -147,6 +157,10 @@
 
 - (void)showHighlightGlow
 {
+    if (_editing) {
+        return;
+    }
+    
     [UIView animateWithDuration:0.15 animations:^{
         _highlightGlowImageView.alpha = 1.0;
     }];
@@ -154,6 +168,10 @@
 
 - (void)hideHighlightGlow
 {
+    if (_editing) {
+        return;
+    }
+    
     [UIView animateWithDuration:0.15 animations:^{
         _highlightGlowImageView.alpha = 0.0;
     }];
@@ -164,6 +182,19 @@
     if ([_delegate respondsToSelector:@selector(didClickDeleteButtonAtIndex:)]) {
         [_delegate didClickDeleteButtonAtIndex:_index];
     }
+}
+
+- (void)showDeleteButton
+{
+    _deleteButton.hidden = NO;
+    [_deleteButton fadeIn];
+}
+
+- (void)hideDeleteButton
+{
+    [_deleteButton fadeOutWithCompletion:^{
+        _deleteButton.hidden = YES;
+    }];
 }
 
 @end

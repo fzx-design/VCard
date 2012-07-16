@@ -18,6 +18,7 @@
 #define kEditScrollViewOffset   5.0
 #define kScrollViewBGOffset     -62.0
 #define kEditButtonTextColor    [UIColor colorWithRed:170.0/255.0 green:170.0/255.0 blue:170.0/255.0 alpha:1.0]
+#define kDrawerViewFrameOffsetX -20.0
 
 
 @implementation WBGroupInfo
@@ -31,6 +32,7 @@
     NSInteger   _numberOfDrawerPerPage;
     ShelfDrawerView *_currentDrawerView;
     CGPoint     _initialPoint;
+    BOOL        _editing;
 }
 
 @end
@@ -49,6 +51,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _editing = NO;
+    
     [self initScrollView];
     [self setUpSettingView];
     [self setUpGroupsInfo];
@@ -221,7 +226,7 @@
         NSInteger page = index / _numberOfDrawerPerPage + 1;
         NSInteger pageOffset = index % _numberOfDrawerPerPage;
         CGFloat originX = scrollViewWidth * page + drawWith * pageOffset + initialOffset;
-        [view resetOriginX:originX];
+        [view resetOriginX:originX + kDrawerViewFrameOffsetX];
         index++;
     }
 }
@@ -339,7 +344,7 @@
 #pragma mark - Drawer Behavior
 - (void)createDrawerViewWithGroup:(Group *)group index:(int)index
 {
-    ShelfDrawerView *drawerView = [[ShelfDrawerView alloc] initWithFrame:CGRectMake(0.0, 40.0, 95.0, 95.0)
+    ShelfDrawerView *drawerView = [[ShelfDrawerView alloc] initWithFrame:CGRectMake(0.0, 20.0, 105, 105.0)
                                                                topicName:group.name
                                                                   picURL:group.picURL
                                                                    index:index
@@ -361,7 +366,11 @@
 
 - (void)changeCastViewSource:(UIButton *)sender
 {
-    ShelfDrawerView *view = (ShelfDrawerView *)sender;    
+    if (_editing) {
+        return;
+    }
+    
+    ShelfDrawerView *view = (ShelfDrawerView *)sender;
     if (![view isEqual:_currentDrawerView]) {
         view.enabled = NO;
         _currentDrawerView.enabled = YES;
@@ -434,7 +443,7 @@
     NSInteger page = index / _numberOfDrawerPerPage + 1;
     NSInteger pageOffset = index % _numberOfDrawerPerPage;
     CGFloat originX = scrollViewWidth * page + drawWith * pageOffset + initialOffset;
-    [view resetOriginX:originX];
+    [view resetOriginX:originX + kDrawerViewFrameOffsetX];
 }
 
 - (void)resetBGImageView:(CGFloat)currentWidth
@@ -518,7 +527,18 @@
 
 - (void)didClickEditButton:(UIButton *)sender
 {
-    
+    _editing = !_editing;
+    if (_editing) {
+        for (ShelfDrawerView *view in _drawerViewArray) {
+            view.editing = _editing;
+            [view showDeleteButton];
+        }
+    } else {
+        for (ShelfDrawerView *view in _drawerViewArray) {
+            view.editing = _editing;
+            [view hideDeleteButton];
+        }
+    }
 }
 
 
