@@ -30,5 +30,6 @@
 @property (nonatomic, strong) NSMutableArray *topicLabelArray;
 
 - (void)swingWithAngle:(CGFloat)angle;
+- (void)setUpImages;
 
 @end

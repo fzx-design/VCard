@@ -14,8 +14,7 @@
     UIImageView *_backImageView;
 }
 
-- (void)loadImageFromURL:(NSString *)urlString 
-              completion:(void (^)(BOOL succeeded))completion;
+- (void)setImageViewWithName:(NSString *)imageName;
 
 
 

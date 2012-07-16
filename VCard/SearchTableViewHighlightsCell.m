@@ -24,6 +24,22 @@
     return self;
 }
 
+- (void)setUpImages
+{
+    [_topImageView1 setImageViewWithName:@"topic_warm.png"];
+    [_topImageView2 setImageViewWithName:@"topic_news.png"];
+    [_topImageView3 setImageViewWithName:@"topic_funny.png"];
+    [_topImageView4 setImageViewWithName:@"topic_food.png"];
+    [_topImageView5 setImageViewWithName:@"topic_it.png"];
+    [_topImageView6 setImageViewWithName:@"topic_sports.png"];
+    
+    [_topicLabel1 setText:@"温馨一刻"];
+    [_topicLabel2 setText:@"时事新闻"];
+    [_topicLabel3 setText:@"搞笑"];
+    [_topicLabel4 setText:@"美食"];
+    [_topicLabel5 setText:@"科技"];
+    [_topicLabel6 setText:@"体育"];
+}
 
 - (void)swingWithAngle:(CGFloat)angle
 {

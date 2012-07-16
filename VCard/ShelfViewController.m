@@ -80,7 +80,7 @@
                    name:kNotificationNameShouldCreateNewGroup
                  object:nil];
     [center addObserver:self
-               selector:@selector(deleteGroup:)
+               selector:@selector(deleteGroupWithNotification:)
                    name:kNotificationNameShouldDeleteGroup
                  object:nil];
 }
@@ -95,10 +95,10 @@
     [self getPicURLForTopic:group];
 }
 
-- (void)deleteGroup:(NSNotification *)notification
+- (void)deleteGroupWithNotification:(NSNotification *)notification
 {
     Group *group = notification.object;
-    [self removeDrawerViewAtIndex:group.index.intValue];
+    [self deleteGroup:group];
 }
 
 #pragma mark - Group Infomation Behavior
@@ -489,7 +489,25 @@
 #pragma mark - ShelfDrawerViewDelegate
 - (void)didClickDeleteButtonAtIndex:(int)index
 {
+    Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:index];
+    
+    if (group.type.intValue == kGroupTypeTopic) {
+        [self deleteGroup:group];
+    }
+}
 
+- (void)deleteGroup:(Group *)group
+{
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            [self removeDrawerViewAtIndex:group.index.intValue];
+            [Group deleteGroupWithGroupID:group.groupID inManagedObjectContext:self.managedObjectContext];
+        } else {
+           //TODO: Error
+        }
+    }];
+    [client unfollowTrend:group.groupID];
 }
 
 #pragma mark - IBActions

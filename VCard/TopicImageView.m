@@ -68,4 +68,9 @@
     [_imageView kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
 }
 
+- (void)setImageViewWithName:(NSString *)imageName
+{
+    _imageView.image = [UIImage imageNamed:imageName];
+}
+
 @end
