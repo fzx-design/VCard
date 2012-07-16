@@ -8,6 +8,7 @@
 
 #import "PostNewStatusViewController.h"
 #import "WBClient.h"
+#import "ErrorIndicatorViewController.h"
 
 @interface PostNewStatusViewController ()
 
@@ -191,10 +192,12 @@
             NSLog(@"post succeeded");
             [self performSelectorInBackground:@selector(saveImageInBackground:) withObject:self.motionsOriginalImage];
             [self.delegate postViewController:self didPostMessage:self.textView.text];
+            [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"发表成功"];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
         } else {
             NSLog(@"post failed");
-            [self.delegate postViewController:self didFailPostMessage:self.textView.text];[[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
+            [self.delegate postViewController:self didFailPostMessage:self.textView.text];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
         }
     }];
     if(!_located)

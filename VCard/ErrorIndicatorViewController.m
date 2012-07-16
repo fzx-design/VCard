@@ -137,9 +137,6 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
 }
 
 - (void)dismissViewAnimated:(BOOL)animted completion:(void (^)(void))completion {
-    if(_controllerType == ErrorIndicatorViewControllerTypeLoading)
-        [self.refreshIndicator stopLoadingAnimation];
-    
     void (^completionBlock)(void) = ^{
         NSLog(@"dismiss error vc with type:%d", _controllerType);
         [self.view removeFromSuperview];

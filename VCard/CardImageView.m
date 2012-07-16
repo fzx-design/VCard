@@ -12,6 +12,7 @@
 #import "UIView+Resize.h"
 #import "UIApplication+Addition.h"
 #import "UIImage+animatedImageWithGIF.h"
+#import "ErrorIndicatorViewController.h"
 
 @implementation CardImageView
 
@@ -193,6 +194,8 @@
         urlString = [urlString stringByReplacingOccurrencesOfString:@"large" withString:@"bmiddle"];
         NSURL *url = [NSURL URLWithString:urlString];
         
+        ErrorIndicatorViewController *vc = [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeLoading contentText:nil];
+        
         dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
         
         dispatch_async(downloadQueue, ^{
@@ -202,6 +205,9 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (_imageViewMode != CastViewImageViewModeNormal) {
                     self.imageView.image = image;
+                    
+                    [vc dismissViewAnimated:YES completion:nil];
+                    
                     if (completion) {
                         completion();
                     }

@@ -44,9 +44,23 @@ static ErrorIndicatorManager *managerInstance = nil;
             case 21302:
                 errorMessage = @"用户名或密码错误";
                 break;
+            case 20017:
+            case 20019:
+                errorMessage = @"发表重复内容";
+                break;
+            case 20016:
+                errorMessage = @"发送速度过快";
+                break;
             default:
                 break;
         }
+        
+        if(errorMessage == nil) {
+            if([requsetAPI isEqualToString:@"/oauth2/access_token"]) {
+                errorMessage = @"用户名或密码错误";
+            }
+        }
+        
         [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureFailure contentText:errorMessage];
     }
 }
