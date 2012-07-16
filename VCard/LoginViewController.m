@@ -26,6 +26,8 @@
 #define SCROLL_VIEW_LANDSCAPE_CENTER    CGPointMake(512, 400)
 #define SCROLL_VIEW_PORTRAIT_CENTER     CGPointMake(384, 480)
 
+#define MAX_USER_COUNT  3
+
 @interface LoginViewController () {
     LoginViewControllerType _controllerType;
     CGFloat _previousOffset;
@@ -155,6 +157,10 @@
     }
     [self layoutScrollView];
     NSLog(@"scroll view :%@", NSStringFromCGRect(self.scrollView.frame));
+    
+    if([self numberOfCellsInScrollView] > MAX_USER_COUNT) {
+        [self.loginInputCellViewController setTooManyUsers:YES];
+    }
 }
 
 - (void)layoutScrollView {
@@ -404,6 +410,10 @@
     
     NSUInteger index = [self deleteUser:user];
     [self removeCellAtIndex:index];
+    
+    if([self numberOfCellsInScrollView] <= MAX_USER_COUNT) {
+        [self.loginInputCellViewController setTooManyUsers:NO];
+    }
 }
 
 @end
