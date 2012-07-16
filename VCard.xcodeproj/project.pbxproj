@@ -751,6 +751,7 @@
 		E1575FBF159AF4390018D9BA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1575FBD159AF4390018D9BA /* InfoPlist.strings */; };
 		E1575FC2159AF4470018D9BA /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1575FC0159AF4470018D9BA /* MainStoryboard.storyboard */; };
 		E1599CC91580CD7400B9AE72 /* PostRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1599CC81580CD7400B9AE72 /* PostRootView.m */; };
+		E15A5C5E15B3DE59004BC29A /* ErrorIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E15A5C5D15B3DE59004BC29A /* ErrorIndicatorManager.m */; };
 		E167C3F915A7FA9A006BA6E2 /* motions_capture_focus.png in Resources */ = {isa = PBXBuildFile; fileRef = E167C3F715A7FA9A006BA6E2 /* motions_capture_focus.png */; };
 		E167C3FA15A7FA9A006BA6E2 /* motions_capture_focus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E167C3F815A7FA9A006BA6E2 /* motions_capture_focus@2x.png */; };
 		E17A2B9715AFBC1200E70A5D /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A2B9515AFBC1100E70A5D /* SettingTableViewCell.m */; };
@@ -1801,6 +1802,8 @@
 		E1575FC1159AF4470018D9BA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/MainStoryboard.storyboard"; sourceTree = "<group>"; };
 		E1599CC71580CD7300B9AE72 /* PostRootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostRootView.h; sourceTree = "<group>"; };
 		E1599CC81580CD7400B9AE72 /* PostRootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostRootView.m; sourceTree = "<group>"; };
+		E15A5C5C15B3DE59004BC29A /* ErrorIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorIndicatorManager.h; sourceTree = "<group>"; };
+		E15A5C5D15B3DE59004BC29A /* ErrorIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorIndicatorManager.m; sourceTree = "<group>"; };
 		E167C3F715A7FA9A006BA6E2 /* motions_capture_focus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_capture_focus.png; sourceTree = "<group>"; };
 		E167C3F815A7FA9A006BA6E2 /* motions_capture_focus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_capture_focus@2x.png"; sourceTree = "<group>"; };
 		E17A2B9415AFBC1100E70A5D /* SettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewCell.h; sourceTree = "<group>"; };
@@ -3581,6 +3584,8 @@
 				E1F7F8EA15B3ADE100712019 /* ErrorIndicatorViewController.h */,
 				E1F7F8EB15B3ADE100712019 /* ErrorIndicatorViewController.m */,
 				E1F7F8EC15B3ADE100712019 /* ErrorIndicatorViewController.xib */,
+				E15A5C5C15B3DE59004BC29A /* ErrorIndicatorManager.h */,
+				E15A5C5D15B3DE59004BC29A /* ErrorIndicatorManager.m */,
 			);
 			name = Error;
 			sourceTree = "<group>";
@@ -4580,6 +4585,7 @@
 				18CCC61F15B300FC00DF94F5 /* Group.m in Sources */,
 				1B19556315B30D3300371DF0 /* GuideBookViewController.m in Sources */,
 				E1F7F8ED15B3ADE100712019 /* ErrorIndicatorViewController.m in Sources */,
+				E15A5C5E15B3DE59004BC29A /* ErrorIndicatorManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

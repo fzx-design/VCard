@@ -10,7 +10,7 @@
 #import "SFHFKeychainUtils.h"
 #import "WBSDKGlobal.h"
 #import "WBUtil.h"
-
+#import "NSNotificationCenter+Addition.h"
 #import "AppDelegate.h"
 
 #define kWBURLSchemePrefix              @"WB_"
@@ -27,8 +27,11 @@ typedef enum {
     HTTPMethodGet,
 } HTTPMethod;
 
-@interface WBClient()
+@interface WBClient() {
+    BOOL _needErrorIndicator;
+}
 
+@property (nonatomic, readonly) BOOL shouldReportError;
 @property (nonatomic, copy) NSString *path;
 @property (nonatomic, retain) NSMutableDictionary *params;
 @property (nonatomic, assign) HTTPMethod httpMethod;
@@ -85,6 +88,8 @@ typedef enum {
         _hasError = NO;
         _httpMethod = HTTPMethodGet;
         _postDataType = kWBRequestPostDataTypeNone;
+        
+        _needErrorIndicator = YES;
         
         [self readAuthorizeDataFromKeychain];
     }
@@ -955,6 +960,8 @@ typedef enum {
 
 - (void)request:(WBRequest *)request didFailWithError:(NSError *)error
 {
+    NSLog(@"%@, %@, %i", error.localizedDescription, error.localizedFailureReason, error.code);
+    [NSNotificationCenter postWBClientErrorNotification:error];
     self.hasError = YES;
     [self reportCompletion];
     [self autorelease];

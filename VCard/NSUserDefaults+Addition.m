@@ -53,7 +53,6 @@
         [defaults setBool:NO forKey:kHasShownShelfTips];
         [defaults setBool:NO forKey:kHasShownStackTips];
         [defaults setBool:NO forKey:kHasShownGuideBook];
-        
     }
     [defaults setBool:YES forKey:kVCard4_0_Initialized];
     [defaults synchronize];

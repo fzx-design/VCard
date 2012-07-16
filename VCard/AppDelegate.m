@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ResourceProvider.h"
+#import "ErrorIndicatorManager.h"
 
 #define k
 

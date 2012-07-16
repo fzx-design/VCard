@@ -16,7 +16,8 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
 #define SHELF_TIPS_TEXT @"向右滑动可以打开快速阅读设置"
 #define STACK_TIPS_TEXT @"将分页划出屏幕以关闭" 
 
-#define AUTOMATIC_DISMISS_VIEW_DURATION 1.0f
+#define AUTOMATIC_DISMISS_VIEW_DELAY    2.0f
+#define DISMISS_VIEW_ANIMATION_DURATION 2.0f
 
 @interface ErrorIndicatorViewController () {
     ErrorIndicatorViewControllerType _controllerType;
@@ -108,10 +109,10 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
         self.errorImageView.hidden = YES;
         [self.refreshIndicator setType:RefreshIndicatorViewTypeLargeWhite];
         [self.refreshIndicator startLoadingAnimation];
-    } else if(_controllerType == ErrorIndicatorViewControllerTypePostFailure) {
+    } else if(_controllerType == ErrorIndicatorViewControllerTypeProcedureFailure) {
         defaultContentText = @"发表失败";
         errorImageName = @"icon_regular_error";
-    } else if(_controllerType == ErrorIndicatorViewControllerTypePostSuccess) {
+    } else if(_controllerType == ErrorIndicatorViewControllerTypeProcedureSuccess) {
         defaultContentText = @"发表成功";
         errorImageName = @"icon_complete";
     }
@@ -123,7 +124,7 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
 - (void)show {
     void (^completionBlock)(void) = ^{
         if(_controllerType != ErrorIndicatorViewControllerTypeLoading) {
-            [self performSelector:@selector(automaticDismissView) withObject:nil afterDelay:AUTOMATIC_DISMISS_VIEW_DURATION];
+            [self performSelector:@selector(automaticDismissView) withObject:nil afterDelay:AUTOMATIC_DISMISS_VIEW_DELAY];
         }
     };
     if(_showViewAnimated)
@@ -146,10 +147,14 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
         if(completion)
             completion();
     };
-    if(animted)
-        [self.view fadeOutWithCompletion:^{
+    if(animted) {
+        self.view.alpha = 1;
+        [UIView animateWithDuration:DISMISS_VIEW_ANIMATION_DURATION animations:^{
+            self.view.alpha = 0;
+        } completion:^(BOOL finished) {
             completionBlock();
         }];
+    }
     else {
         [self.view removeFromSuperview];
         completionBlock();

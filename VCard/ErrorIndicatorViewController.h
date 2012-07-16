@@ -12,8 +12,8 @@
 typedef enum {
     ErrorIndicatorViewControllerTypeConnectFailure,
     ErrorIndicatorViewControllerTypeLoading,
-    ErrorIndicatorViewControllerTypePostFailure,
-    ErrorIndicatorViewControllerTypePostSuccess,
+    ErrorIndicatorViewControllerTypeProcedureFailure,
+    ErrorIndicatorViewControllerTypeProcedureSuccess,
 } ErrorIndicatorViewControllerType;
 
 @interface ErrorIndicatorViewController : UIViewController

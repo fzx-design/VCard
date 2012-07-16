@@ -189,13 +189,13 @@ typedef enum {
             [self loadUserAndChangeAvatar];
             
             [vc dismissViewAnimated:NO completion:^{
-                [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypePostSuccess contentText:@"修改成功" animated:NO];
+                [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"修改成功" animated:NO];
             }];
             
             NSLog(@"upload avatar succeeded");
         } else {
             [vc dismissViewAnimated:NO completion:^{
-                [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypePostFailure contentText:@"修改失败" animated:NO];
+                [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureFailure contentText:@"修改失败" animated:NO];
             }];
             
             NSLog(@"upload avatar failed");
