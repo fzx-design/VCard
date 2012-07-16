@@ -51,6 +51,14 @@ static ErrorIndicatorManager *managerInstance = nil;
             case 20016:
                 errorMessage = @"发送速度过快";
                 break;
+            case 20003:
+                errorMessage = @"用户不存在";
+                break;
+            case 21314:
+            case 21316:
+            case 21317:
+                errorMessage = @"token失效";
+                break;
             default:
                 break;
         }

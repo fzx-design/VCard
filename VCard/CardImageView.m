@@ -14,7 +14,9 @@
 #import "UIImage+animatedImageWithGIF.h"
 #import "ErrorIndicatorViewController.h"
 
-@implementation CardImageView
+@implementation CardImageView {
+    ErrorIndicatorViewController *_errorIndicateViewController;
+}
 
 @synthesize imageView = _imageView;
 @synthesize gifIcon = _gifIcon;
@@ -109,6 +111,9 @@
 
 - (void)returnToInitialPosition
 {
+    [_errorIndicateViewController dismissViewAnimated:YES completion:NO];
+    _errorIndicateViewController = nil;
+    
     [self resetSize:_initialSize];
     [self resetOrigin:_initialPosition];
     [UIView animateWithDuration:0.3 animations:^{
@@ -194,7 +199,7 @@
         urlString = [urlString stringByReplacingOccurrencesOfString:@"large" withString:@"bmiddle"];
         NSURL *url = [NSURL URLWithString:urlString];
         
-        ErrorIndicatorViewController *vc = [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeLoading contentText:nil];
+        _errorIndicateViewController = [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeLoading contentText:nil];
         
         dispatch_queue_t downloadQueue = dispatch_queue_create("downloadQueue", NULL);
         
@@ -206,12 +211,13 @@
                 if (_imageViewMode != CastViewImageViewModeNormal) {
                     self.imageView.image = image;
                     
-                    [vc dismissViewAnimated:YES completion:nil];
-                    
                     if (completion) {
                         completion();
                     }
                 }
+                
+                [_errorIndicateViewController dismissViewAnimated:YES completion:nil];
+                _errorIndicateViewController = nil;
             });
             
         });
