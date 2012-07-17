@@ -95,7 +95,7 @@
         <attribute name="updateDate" attributeType="Date">
             <userInfo/>
         </attribute>
-        <relationship name="author" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="statuses" inverseEntity="User">
+        <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="statuses" inverseEntity="User">
             <userInfo/>
         </relationship>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="targetStatus" inverseEntity="Comment">
@@ -199,7 +199,7 @@
     <elements>
         <element name="Comment" positionX="0" positionY="0" width="0" height="285"/>
         <element name="Group" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="Status" positionX="0" positionY="0" width="0" height="540"/>
+        <element name="Status" positionX="0" positionY="0" width="0" height="570"/>
         <element name="User" positionX="0" positionY="0" width="0" height="555"/>
     </elements>
 </model>

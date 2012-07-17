@@ -200,6 +200,7 @@
 
 - (void)show {
     [UIApplication presentModalViewController:self animated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
+    [self viewWillAppear:NO];
 }
 
 - (void)removeCellAtIndex:(NSUInteger)index {

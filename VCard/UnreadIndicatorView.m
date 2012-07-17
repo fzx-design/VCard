@@ -10,10 +10,10 @@
 #import "UIView+Resize.h"
 
 #define kUnreadIndicatorViewHeight              40.0
-#define kUnreadIndicatorViewOriginInitial       181.0
+#define kUnreadIndicatorViewOriginInitial       230.0
 #define kUnreadIndicatorViewTerminalOriginX     -250.0
 
-#define kUnreadIndicatorViewOriginInitialPoint  CGPointMake(5.0,181.0)
+#define kUnreadIndicatorViewOriginInitialPoint  CGPointMake(5.0, 230.0)
 
 @implementation UnreadIndicatorView
 
