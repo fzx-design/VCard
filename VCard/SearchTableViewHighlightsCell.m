@@ -33,6 +33,31 @@
     [_topImageView5 setImageViewWithName:@"topic_it.png"];
     [_topImageView6 setImageViewWithName:@"topic_sports.png"];
     
+    UITapGestureRecognizer *gesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTopicImage:)];
+    gesture1.numberOfTapsRequired = 1;
+    gesture1.numberOfTouchesRequired = 1;
+    UITapGestureRecognizer *gesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTopicImage:)];
+    gesture2.numberOfTapsRequired = 1;
+    gesture2.numberOfTouchesRequired = 1;
+    UITapGestureRecognizer *gesture3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTopicImage:)];
+    gesture3.numberOfTapsRequired = 1;
+    gesture3.numberOfTouchesRequired = 1;
+    UITapGestureRecognizer *gesture4 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTopicImage:)];
+    gesture4.numberOfTapsRequired = 1;
+    gesture4.numberOfTouchesRequired = 1;
+    UITapGestureRecognizer *gesture5 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTopicImage:)];
+    gesture5.numberOfTapsRequired = 1;
+    gesture5.numberOfTouchesRequired = 1;
+    UITapGestureRecognizer *gesture6 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTopicImage:)];
+    gesture6.numberOfTapsRequired = 1;
+    gesture6.numberOfTouchesRequired = 1;
+    [_topImageView1 addGestureRecognizer:gesture1];
+    [_topImageView2 addGestureRecognizer:gesture2];
+    [_topImageView3 addGestureRecognizer:gesture3];
+    [_topImageView4 addGestureRecognizer:gesture4];
+    [_topImageView5 addGestureRecognizer:gesture5];
+    [_topImageView6 addGestureRecognizer:gesture6];
+    
     [_topicLabel1 setText:@"温馨一刻"];
     [_topicLabel2 setText:@"时事新闻"];
     [_topicLabel3 setText:@"搞笑"];
@@ -92,6 +117,26 @@
         _topicLabelArray = [NSMutableArray arrayWithObjects:_topicLabel1,_topicLabel2, _topicLabel3, _topicLabel4, _topicLabel5, _topicLabel6, nil];
     }
     return _topicLabelArray;
+}
+
+- (void)didTapTopicImage:(UITapGestureRecognizer *)sender
+{
+    NSString *topicName = @"";
+    if ([sender.view isEqual:_topImageView1]) {
+        topicName = @"温馨一刻";
+    } else if ([sender.view isEqual:_topImageView2]) {
+        topicName = @"时事新闻";
+    } else if ([sender.view isEqual:_topImageView3]) {
+        topicName = @"搞笑";
+    } else if ([sender.view isEqual:_topImageView4]) {
+        topicName = @"美食";
+    } else if ([sender.view isEqual:_topImageView5]) {
+        topicName = @"科技";
+    } else if ([sender.view isEqual:_topImageView6]) {
+        topicName = @"体育";
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowTopic object:[NSDictionary dictionaryWithObjectsAndKeys:topicName, kNotificationObjectKeySearchKey, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    
 }
 
 @end
