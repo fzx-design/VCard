@@ -76,7 +76,7 @@
     _nextPage = 1;
     _refreshIndicatorView.hidden = YES;
     _postIndicatorView.hidden = YES;
-    _refreshing = YES;
+    _refreshing = NO;
     _dataSource = CastviewDataSourceNone;
     _coverView = [[UIView alloc] initWithFrame:CGRectMake(1024.0, 0.0, 0.0, 0.0)];
     _coverView.backgroundColor = [UIColor blackColor];
@@ -174,12 +174,21 @@
                selector:@selector(clearStack)
                    name:kNotificationNameShouldClearStack
                  object:nil];
+    [center addObserver:self
+               selector:@selector(resetRefreshingAnimation)
+                   name:UIApplicationDidBecomeActiveNotification
+                 object:nil];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -364,6 +373,13 @@
 {
     NSString *commentID = notification.object;
     [Comment deleteCommentWithID:commentID inManagedObjectContext:self.managedObjectContext withObject:kCoreDataIdentifierDefault];
+}
+
+- (void)resetRefreshingAnimation
+{
+    [_pullView finishedLoading];
+    [self hidePostIndicator];
+    [self refreshEnded];
 }
 
 #pragma mark Handle Unread Count Update

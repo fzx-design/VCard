@@ -484,9 +484,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
             }
         }];
         
-        client.statusID = self.status.statusID;
-        
-//        [client performSelectorInBackground:@selector(getLongURLWithShort:) withObject:url];
+        client.statusID = self.status.statusID;        
         [client getLongURLWithShort:url];
     }
 }
