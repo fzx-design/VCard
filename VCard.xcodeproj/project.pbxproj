@@ -151,7 +151,6 @@
 		1890C6B51535BE5200023A13 /* LoginInputCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890C6B41535BE5200023A13 /* LoginInputCellViewController.m */; };
 		189D9DE215496FA300E922D9 /* UIImageView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D9DE115496FA300E922D9 /* UIImageView+Addition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		189F394B159D40CC00FD2E0F /* UnreadReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F394A159D40CC00FD2E0F /* UnreadReminder.m */; };
-		189F3956159D4B1C00FD2E0F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F3955159D4B1C00FD2E0F /* User.m */; };
 		189F3959159D80C500FD2E0F /* indicator_body@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189F3957159D80C500FD2E0F /* indicator_body@2x.png */; };
 		189F395A159D80C500FD2E0F /* indicator_body.png in Resources */ = {isa = PBXBuildFile; fileRef = 189F3958159D80C500FD2E0F /* indicator_body.png */; };
 		189F486D15B050630006DC84 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189F486C15B050620006DC84 /* ImageIO.framework */; };
@@ -168,6 +167,7 @@
 		18AC149A15B3C70C00D3E57F /* shelf_cell_glow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18AC149815B3C70C00D3E57F /* shelf_cell_glow@2x.png */; };
 		18AC570815A5295200ADDBAF /* ShelfPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC570715A5295200ADDBAF /* ShelfPageControl.m */; };
 		18AC828E155B924700AD99C4 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC828B155B924700AD99C4 /* PullToRefreshView.m */; };
+		18AEA32F15B5504500B53B6A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEA32E15B5504500B53B6A /* User.m */; };
 		18BD24B6159A9B6600846C6E /* UserAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BD24B5159A9B6500846C6E /* UserAccountManager.m */; };
 		18BDD5A4159D9A8A005246F2 /* UnreadIndicatorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDD5A3159D9A8A005246F2 /* UnreadIndicatorButton.m */; };
 		18BDD5A8159D9B14005246F2 /* UnreadIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDD5A7159D9B14005246F2 /* UnreadIndicatorView.m */; };
@@ -1147,8 +1147,6 @@
 		189D9DE115496FA300E922D9 /* UIImageView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Addition.m"; sourceTree = "<group>"; };
 		189F3949159D40CC00FD2E0F /* UnreadReminder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnreadReminder.h; sourceTree = "<group>"; };
 		189F394A159D40CC00FD2E0F /* UnreadReminder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnreadReminder.m; sourceTree = "<group>"; };
-		189F3954159D4B1C00FD2E0F /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		189F3955159D4B1C00FD2E0F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		189F3957159D80C500FD2E0F /* indicator_body@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator_body@2x.png"; sourceTree = "<group>"; };
 		189F3958159D80C500FD2E0F /* indicator_body.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator_body.png; sourceTree = "<group>"; };
 		189F486C15B050620006DC84 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -1169,6 +1167,8 @@
 		18AC570715A5295200ADDBAF /* ShelfPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfPageControl.m; sourceTree = "<group>"; };
 		18AC828A155B924700AD99C4 /* PullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshView.h; sourceTree = "<group>"; };
 		18AC828B155B924700AD99C4 /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
+		18AEA32D15B5504500B53B6A /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		18AEA32E15B5504500B53B6A /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		18BD24B4159A9B6500846C6E /* UserAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAccountManager.h; sourceTree = "<group>"; };
 		18BD24B5159A9B6500846C6E /* UserAccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAccountManager.m; sourceTree = "<group>"; };
 		18BDD5A2159D9A8A005246F2 /* UnreadIndicatorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnreadIndicatorButton.h; sourceTree = "<group>"; };
@@ -2480,8 +2480,8 @@
 				18CCC61E15B300FC00DF94F5 /* Group.m */,
 				18EE8E26159DE6160032D69B /* Comment.h */,
 				18EE8E27159DE6160032D69B /* Comment.m */,
-				189F3954159D4B1C00FD2E0F /* User.h */,
-				189F3955159D4B1C00FD2E0F /* User.m */,
+				18AEA32D15B5504500B53B6A /* User.h */,
+				18AEA32E15B5504500B53B6A /* User.m */,
 				184720DD15B5188F0028262C /* Status.h */,
 				184720DE15B5188F0028262C /* Status.m */,
 			);
@@ -4526,7 +4526,6 @@
 				188CA0CA15B474AF00D95B5A /* button_segments@2x.png in Resources */,
 				188CA0CB15B474AF00D95B5A /* button_mention_hover.png in Resources */,
 				188CA0CC15B474AF00D95B5A /* button_mention_hover@2x.png in Resources */,
-
 				184720E215B5282F0028262C /* button_vote.png in Resources */,
 				184720E315B5282F0028262C /* button_vote@2x.png in Resources */,
 			);
@@ -4657,7 +4656,6 @@
 				E1BCBFBB159D53A40086FA7E /* MotionsSlider.m in Sources */,
 				E122D533159DAA6800E17D3B /* MotionsFilterReader.m in Sources */,
 				189F394B159D40CC00FD2E0F /* UnreadReminder.m in Sources */,
-				189F3956159D4B1C00FD2E0F /* User.m in Sources */,
 				18D3E430159D875B00626D75 /* UnreadCountButton.m in Sources */,
 				18BDD5A4159D9A8A005246F2 /* UnreadIndicatorButton.m in Sources */,
 				18BDD5A8159D9B14005246F2 /* UnreadIndicatorView.m in Sources */,
@@ -4705,6 +4703,7 @@
 				E10CBEB015B541B800CFA21F /* FoldViewController.m in Sources */,
 				E10CBEB315B5420800CFA21F /* MPAnimation.m in Sources */,
 				184720DF15B5188F0028262C /* Status.m in Sources */,
+				18AEA32F15B5504500B53B6A /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

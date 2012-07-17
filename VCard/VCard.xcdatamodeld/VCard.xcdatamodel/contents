@@ -160,7 +160,9 @@
         </attribute>
         <attribute name="unreadCommentCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="unreadFollowingCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="unreadMentionComment" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="unreadMentionCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="unreadMessageCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="unreadStatusCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updateDate" attributeType="Date">
             <userInfo/>
@@ -198,6 +200,6 @@
         <element name="Comment" positionX="0" positionY="0" width="0" height="285"/>
         <element name="Group" positionX="160" positionY="192" width="128" height="120"/>
         <element name="Status" positionX="0" positionY="0" width="0" height="540"/>
-        <element name="User" positionX="0" positionY="0" width="0" height="525"/>
+        <element name="User" positionX="0" positionY="0" width="0" height="555"/>
     </elements>
 </model>

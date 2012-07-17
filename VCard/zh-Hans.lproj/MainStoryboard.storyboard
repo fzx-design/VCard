@@ -834,11 +834,11 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="FZv-Q2-Mai" customClass="UnreadIndicatorView">
-                                <rect key="frame" x="0.0" y="824" width="172" height="180"/>
+                                <rect key="frame" x="0.0" y="764" width="172" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ueV-SK-luU" customClass="UnreadIndicatorButton">
-                                        <rect key="frame" x="5" y="181" width="150" height="36"/>
+                                        <rect key="frame" x="5" y="0.0" width="150" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <size key="titleShadowOffset" width="0.0" height="1"/>
@@ -854,8 +854,42 @@
                                             <action selector="didClickUnreadMentionButton:" destination="qGg-RJ-Vfa" eventType="touchUpInside" id="yVb-L3-gs7"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1mq-Cq-kdk" customClass="UnreadIndicatorButton">
+                                        <rect key="frame" x="5" y="130" width="150" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <size key="titleShadowOffset" width="0.0" height="1"/>
+                                        <state key="normal" backgroundImage="activity_bg.png">
+                                            <color key="titleColor" red="0.2274509804" green="0.2274509804" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" backgroundImage="activity_bg.png">
+                                            <color key="titleColor" red="0.2274509804" green="0.2274509804" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didClickUnreadMentionCommentButton:" destination="qGg-RJ-Vfa" eventType="touchUpInside" id="IQW-Ge-iyb"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6ye-IT-ebK" customClass="UnreadIndicatorButton">
+                                        <rect key="frame" x="5" y="174" width="150" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <size key="titleShadowOffset" width="0.0" height="1"/>
+                                        <state key="normal" backgroundImage="activity_bg.png">
+                                            <color key="titleColor" red="0.2274509804" green="0.2274509804" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" backgroundImage="activity_bg.png">
+                                            <color key="titleColor" red="0.2274509804" green="0.2274509804" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didClickUnreadMessageButton:" destination="qGg-RJ-Vfa" eventType="touchUpInside" id="lzB-lm-Y5F"/>
+                                        </connections>
+                                    </button>
                                     <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TUg-C6-6ZO" customClass="UnreadIndicatorButton">
-                                        <rect key="frame" x="5" y="181" width="150" height="36"/>
+                                        <rect key="frame" x="5" y="44" width="150" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -873,7 +907,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RwW-4u-Rfu" customClass="UnreadIndicatorButton">
-                                        <rect key="frame" x="5" y="181" width="150" height="34"/>
+                                        <rect key="frame" x="5" y="88" width="150" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <size key="titleShadowOffset" width="0.0" height="1"/>
@@ -913,7 +947,9 @@
                         <outlet property="unreadCountButton" destination="kTE-7F-yEI" id="KTI-5O-LwX"/>
                         <outlet property="unreadFollowerIndicatorButton" destination="RwW-4u-Rfu" id="1YM-Lk-tcP"/>
                         <outlet property="unreadIndicatorView" destination="FZv-Q2-Mai" id="pjj-0i-gOA"/>
+                        <outlet property="unreadMentionCommentIndicatorButton" destination="1mq-Cq-kdk" id="CFc-LU-7zO"/>
                         <outlet property="unreadMentionIndicatorButton" destination="ueV-SK-luU" id="w5K-w4-Dg9"/>
+                        <outlet property="unreadMessageIndicatorButton" destination="6ye-IT-ebK" id="EIv-Ud-7Sg"/>
                         <outlet property="waterflowView" destination="EbD-7g-wPC" id="1q0-J0-NB6"/>
                     </connections>
                 </viewController>

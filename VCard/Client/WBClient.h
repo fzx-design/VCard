@@ -13,6 +13,8 @@
 #define kWBClientResetCountTypeFollower @"follower"
 #define kWBClientResetCountTypeComment  @"cmt"
 #define kWBClientResetCountTypeMention  @"mention_status"
+#define kWBClientResetCountTypeMetionComment @"mention_cmt"
+#define kWBClientResetCountTypeMessage  @"dm"
 
 typedef enum {
     RepostWeiboTypeCommentNone      = 0,

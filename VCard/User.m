@@ -2,7 +2,7 @@
 //  User.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-6-29.
+//  Created by 海山 叶 on 12-7-17.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -11,6 +11,7 @@
 #import "Status.h"
 #import "User.h"
 #import "NSDateAddition.h"
+
 
 @implementation User
 
@@ -31,14 +32,16 @@
 @dynamic screenName;
 @dynamic selfDescription;
 @dynamic statusesCount;
+@dynamic unreadCommentCount;
+@dynamic unreadFollowingCount;
+@dynamic unreadMentionCount;
+@dynamic unreadStatusCount;
 @dynamic updateDate;
 @dynamic userID;
 @dynamic verified;
 @dynamic verifiedType;
-@dynamic unreadStatusCount;
-@dynamic unreadCommentCount;
-@dynamic unreadFollowingCount;
-@dynamic unreadMentionCount;
+@dynamic unreadMessageCount;
+@dynamic unreadMentionComment;
 @dynamic comments;
 @dynamic commentsToMe;
 @dynamic favorites;
