@@ -31,16 +31,26 @@
 
 + (void)loadLinkWithURL:(NSURL *)url
 {
+    [[InnerBrowserViewController createBrowser] loadLink:url];
+}
+
++ (void)loadLongLinkWithURL:(NSURL *)url
+{
+    [[InnerBrowserViewController createBrowser] loadLongLink:url];
+}
+
++ (InnerBrowserViewController *)createBrowser
+{
     InnerBrowserViewController *vc = [[UIApplication sharedApplication].rootViewController.storyboard instantiateViewControllerWithIdentifier:@"InnerBrowserViewController"];
- 
+    
     vc.view.frame = [UIApplication sharedApplication].rootViewController.view.bounds;
     [vc.view resetWidth:[UIApplication screenWidth]];
     [vc.view resetHeight:[UIApplication screenHeight] - 20.0];
     
     [UIApplication presentModalViewController:vc animated:YES];
-    [vc loadLink:url];
+    
+    return vc;
 }
-
 
 - (void)viewDidLoad
 {
@@ -84,6 +94,14 @@
     }];
     
     [client getLongURLWithShort:link.absoluteString];
+}
+
+- (void)loadLongLink:(NSURL *)link
+{
+    _firstLoad = YES;
+    _targetURL = link;
+    _titleLabel.text = link.absoluteString;
+    [_webView loadRequest:[[NSURLRequest alloc] initWithURL:_targetURL]];
 }
 
 #pragma mark - IBActions

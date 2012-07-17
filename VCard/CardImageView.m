@@ -13,6 +13,8 @@
 #import "UIApplication+Addition.h"
 #import "UIImage+animatedImageWithGIF.h"
 #import "ErrorIndicatorViewController.h"
+#import "UIView+Addition.h"
+#import "InnerBrowserViewController.h"
 
 @implementation CardImageView {
     ErrorIndicatorViewController *_errorIndicateViewController;
@@ -66,6 +68,8 @@
     self.transform = CGAffineTransformMakeRotation(_initialRotation);
     
     _initialPosition = self.frame.origin;
+    
+    self.actionButton.center = self.center;
 }
 
 - (void)pinchResizeToScale:(CGFloat)scale
@@ -239,6 +243,24 @@
     }
 }
 
+- (void)setUpPlayButtonWithURL:(NSString *)url type:(int)type
+{
+    if (url == nil) {
+        return;
+    }
+    NSString *imageName = type == kActionButtonTypeMedia ? @"button_play.png" : @"button_vote.png";
+    self.url = url;
+    [self.actionButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    self.actionButton.hidden = NO;
+    [self.actionButton fadeIn];
+}
+
+- (void)didClickActionButton
+{
+    [InnerBrowserViewController loadLongLinkWithURL:[NSURL URLWithString:self.url]];
+}
+
+
 - (void)clearCurrentImage
 {
     self.imageView.image = nil;
@@ -269,6 +291,9 @@
     self.gifIcon.hidden = YES;
     _isGIF = NO;
     _staticGIFImage = nil;
+    
+    self.url = @"";
+    self.actionButton.hidden = YES;
 }
 
 - (UIImage *)image
@@ -300,9 +325,22 @@
         self.coverView.image = [[UIImage imageNamed:@"card_image_edge.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(7.0, 8.0, 9.0, 8.0)];
         _coverView.contentMode = UIViewContentModeScaleToFill;
         _coverView.clipsToBounds = YES;
-        [self insertSubview:_coverView aboveSubview:_imageView];
+        [self insertSubview:_coverView aboveSubview:self.imageView];
     }
     return _coverView;
+}
+
+- (UIButton *)actionButton
+{
+    if (!_actionButton) {
+        _actionButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 67.0, 67.0)];
+        [_actionButton setImage:[UIImage imageNamed:@"button_play.png"] forState:UIControlStateNormal];
+        [_actionButton addTarget:self action:@selector(didClickActionButton) forControlEvents:UIControlEventTouchUpInside];
+        _actionButton.hidden = YES;
+        [self insertSubview:_actionButton aboveSubview:self.coverView];
+    }
+    
+    return _actionButton;
 }
 
 - (UIImageView *)gifIcon
@@ -311,7 +349,6 @@
         _gifIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kRLIconGif]];
         _gifIcon.contentMode = UIViewContentModeTop;
         _gifIcon.hidden = YES;
-        
         [_gifIcon resetSize:CGSizeMake(32.0, 20.0)];
         [self addSubview:_gifIcon];
     }

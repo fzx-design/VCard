@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSURL                             *targetURL;
 
 + (void)loadLinkWithURL:(NSURL *)url;
++ (void)loadLongLinkWithURL:(NSURL *)url;
 - (IBAction)didClickReturnButton:(UIButton *)sender;
 - (IBAction)didClickMoreActionButton:(UIButton *)sender;
 - (IBAction)didClickReloadButton:(UIButton *)sender;

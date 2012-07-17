@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "CardImageViewShadowView.h"
 
-#define StatusImageWidth 370
+#define StatusImageWidth        370
+#define kActionButtonTypeMedia  0
+#define kActionButtonTypeVote   1
 
 typedef enum {
     CastViewImageViewModeNormal,
@@ -37,7 +39,6 @@ typedef enum {
 
 @property (nonatomic, strong) UIImageView           *coverView;
 @property (nonatomic, strong) UIImageView           *imageView;
-@property (nonatomic, strong) UIImageView           *detailedImageView;
 @property (nonatomic, strong) UIImageView           *gifIcon;
 @property (nonatomic, readonly) UIImage             *image;
 @property (nonatomic, assign) CGFloat               targetVerticalScale;
@@ -45,6 +46,9 @@ typedef enum {
 @property (nonatomic, assign) CGFloat               currentScale;
 @property (nonatomic, assign) BOOL                  loadingCompleted;
 @property (nonatomic, assign) CastViewImageViewMode imageViewMode;
+
+@property (nonatomic, strong) NSString              *url;
+@property (nonatomic, strong) UIButton              *actionButton;
 
 - (void)resetHeight:(CGFloat)height;
 
@@ -62,5 +66,7 @@ typedef enum {
 - (void)resetCurrentScale;
 - (CGFloat)scaleOffset;
 - (CGSize)targetSize;
+- (void)setUpPlayButtonWithURL:(NSString *)url type:(int)type;
+- (void)didClickActionButton;
 
 @end

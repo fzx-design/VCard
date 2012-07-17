@@ -68,6 +68,7 @@
         <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lon" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="mediaLink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="operatable" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="operatedBy" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="originalPicURL" optional="YES" attributeType="String">
@@ -90,6 +91,7 @@
         <attribute name="thumbnailPicURL" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
+        <attribute name="type" optional="YES" attributeType="String" defaultValueString="kStatusTypeNone" syncable="YES"/>
         <attribute name="updateDate" attributeType="Date">
             <userInfo/>
         </attribute>

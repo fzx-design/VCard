@@ -95,6 +95,8 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 @property (nonatomic, retain) WBRequest *request;
 @property (nonatomic, assign) id<WBClientDelegate> delegate;
 
+@property (nonatomic, strong) NSString *statusID;
+
 @property (nonatomic, copy) WCCompletionBlock preCompletionBlock;
 
 @property (nonatomic, assign) BOOL hasError;

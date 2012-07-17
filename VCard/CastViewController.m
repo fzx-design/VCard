@@ -907,7 +907,8 @@
         [((WaterflowCardCell *)cell).cardViewController configureCardWithStatus:targetStatus
                                                                     imageHeight:layoutUnit.imageHeight
                                                                       pageIndex:0
-                                                                    currentUser:self.currentUser];
+                                                                    currentUser:self.currentUser
+                                                             coreDataIdentifier:kCoreDataIdentifierDefault];
         
     } else if(layoutUnit.unitType == UnitTypeDivider) {
         Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];

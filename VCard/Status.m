@@ -2,7 +2,7 @@
 //  Status.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-7-4.
+//  Created by 海山 叶 on 12-7-17.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -11,6 +11,7 @@
 #import "Status.h"
 #import "User.h"
 #import "NSDateAddition.h"
+
 
 @implementation Status
 
@@ -34,13 +35,15 @@
 @dynamic operatedBy;
 @dynamic originalPicURL;
 @dynamic repostsCount;
+@dynamic searchKey;
 @dynamic searchString;
 @dynamic source;
 @dynamic statusID;
 @dynamic text;
 @dynamic thumbnailPicURL;
 @dynamic updateDate;
-@dynamic searchKey;
+@dynamic type;
+@dynamic mediaLink;
 @dynamic author;
 @dynamic comments;
 @dynamic favoritedBy;
