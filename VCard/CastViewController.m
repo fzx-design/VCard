@@ -55,7 +55,6 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // Custom initialization
-        [self setUpNotification];
     }
     return self;
 }
@@ -188,7 +187,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    
+    [self setUpNotification];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -760,6 +759,8 @@
                                 duration:(NSTimeInterval)duration 
 {
     [self.waterflowView adjustViewsForOrientation:toInterfaceOrientation];
+    [_loadMoreView resetLayoutTo:toInterfaceOrientation];
+    [_pullView resetLayoutTo:toInterfaceOrientation];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation

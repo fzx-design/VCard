@@ -144,18 +144,21 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     _tapGestureRecognizer.numberOfTouchesRequired = 1;
     _tapGestureRecognizer.delegate = self;
     [self.statusImageView addGestureRecognizer:_tapGestureRecognizer];
-    
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self
-               selector:@selector(recoverFromPause)
-                   name:UIApplicationDidBecomeActiveNotification
-                 object:nil];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(recoverFromPause)
+                   name:UIApplicationDidBecomeActiveNotification
+                 object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

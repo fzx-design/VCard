@@ -57,7 +57,6 @@
     [self initScrollView];
     [self setUpSettingView];
     [self setUpGroupsInfo];
-    [self setUpNotifications];
     
     UIInterfaceOrientation toInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
     [self updatePageControlAndScrollViewSize:toInterfaceOrientation];
@@ -83,6 +82,11 @@
                selector:@selector(deleteGroupWithNotification:)
                    name:kNotificationNameShouldDeleteGroup
                  object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self setUpNotifications];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

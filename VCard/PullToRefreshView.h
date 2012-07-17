@@ -54,7 +54,7 @@ typedef enum {
 
 - (void)finishedLoading;
 - (void)setState:(PullToRefreshViewState)state_;
-
+- (void)resetLayoutTo:(UIInterfaceOrientation)orientation;
 - (id)initWithScrollView:(UIScrollView *)scrollView;
 
 @end
