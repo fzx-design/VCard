@@ -70,7 +70,7 @@ static inline NSRegularExpression * EmotionRegularExpression() {
 static NSRegularExpression *__emotionIDRegularExpression;
 static inline NSRegularExpression * EmotionIDRegularExpression() {
     if (!__emotionIDRegularExpression) {
-        __emotionIDRegularExpression = [[NSRegularExpression alloc] initWithPattern:@" \\[[[a-e][0-9] ]*\\] " options:NSRegularExpressionCaseInsensitive error:nil];
+        __emotionIDRegularExpression = [[NSRegularExpression alloc] initWithPattern:@" \\[[[a-f][0-9] ]*\\] " options:NSRegularExpressionCaseInsensitive error:nil];
     }
     
     return __emotionIDRegularExpression;

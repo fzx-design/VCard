@@ -120,6 +120,16 @@
     [vc showViewFromRect:frame];
 }
 
+- (IBAction)didClickMoreInfoButton:(UIButton *)sender
+{
+    
+}
+
+- (IBAction)didClickMessageButton:(UIButton *)sender
+{
+    
+}
+
 - (void)followUser
 {
     if (_loading || self.user == nil) {
