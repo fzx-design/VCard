@@ -10,10 +10,10 @@
 #import "UIView+Resize.h"
 
 #define kUnreadIndicatorViewHeight              40.0
-#define kUnreadIndicatorViewOriginInitial       230.0
+#define kUnreadIndicatorViewOriginInitial       240.0
 #define kUnreadIndicatorViewTerminalOriginX     -250.0
 
-#define kUnreadIndicatorViewOriginInitialPoint  CGPointMake(5.0, 230.0)
+#define kUnreadIndicatorViewOriginInitialPoint  CGPointMake(5.0, 240.0)
 
 @implementation UnreadIndicatorView
 
@@ -55,7 +55,7 @@
     
     indicator.hidden = NO;
     [indicator resetOrigin:kUnreadIndicatorViewOriginInitialPoint];
-    CGFloat targetHeight = 2 * kUnreadIndicatorViewHeight + 50.0;
+    CGFloat targetHeight = 4 * kUnreadIndicatorViewHeight + 15.0;
     
     for (UIView *view in self.subviews) {
         CGFloat currentOriginY = view.frame.origin.y;

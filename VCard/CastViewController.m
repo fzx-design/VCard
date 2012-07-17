@@ -80,6 +80,12 @@
     _coverView = [[UIView alloc] initWithFrame:CGRectMake(1024.0, 0.0, 0.0, 0.0)];
     _coverView.backgroundColor = [UIColor blackColor];
     _coverView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    
+    [_unreadFollowerIndicatorButton resetOriginY:240];
+    [_unreadCommentIndicatorButton resetOriginY:240];
+    [_unreadMentionIndicatorButton resetOriginY:240];
+    [_unreadMentionCommentIndicatorButton resetOriginY:240];
+    [_unreadMessageIndicatorButton resetOriginY:240];
 }
 
 - (void)setUpNotification
@@ -503,7 +509,7 @@
             }
         }
         
-        NSString *content = [NSString stringWithFormat:@"     %i 条提到我的评论", unreadMentionCommentCount];
+        NSString *content = [NSString stringWithFormat:@"     %i 条评论提到我", unreadMentionCommentCount];
         [_unreadMentionCommentIndicatorButton setTitle:content forState:UIControlStateNormal];
         [_unreadMentionCommentIndicatorButton setTitle:content forState:UIControlStateHighlighted];
         [_unreadMentionCommentIndicatorButton setTitle:content forState:UIControlStateDisabled];
@@ -528,7 +534,7 @@
             }
         }
         
-        NSString *content = [NSString stringWithFormat:@"     %i 条提到我的评论", unreadMessageCount];
+        NSString *content = [NSString stringWithFormat:@"     %i 条新私信", unreadMessageCount];
         [_unreadMessageIndicatorButton setTitle:content forState:UIControlStateNormal];
         [_unreadMessageIndicatorButton setTitle:content forState:UIControlStateHighlighted];
         [_unreadMessageIndicatorButton setTitle:content forState:UIControlStateDisabled];
@@ -840,7 +846,7 @@
             }
         }
     }];
-    [client resetUnreadCount:type];
+//    [client resetUnreadCount:type];
 }
 
 
