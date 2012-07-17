@@ -69,7 +69,9 @@
     
     _initialPosition = self.frame.origin;
     
-    self.actionButton.center = self.center;
+    CGPoint center = self.center;
+    center.y -= 8;
+    self.actionButton.center = center;
 }
 
 - (void)pinchResizeToScale:(CGFloat)scale

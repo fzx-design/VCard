@@ -49,6 +49,9 @@
     
     [UIApplication presentModalViewController:vc animated:YES];
     
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:kUserDefaultKeyShouldScrollToTop];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     return vc;
 }
 
@@ -78,6 +81,7 @@
     _firstLoad = YES;
     _targetURL = link;
     _titleLabel.text = link.absoluteString;
+    _webView.scrollView.scrollsToTop = NO;
     
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
@@ -100,6 +104,7 @@
 {
     _firstLoad = YES;
     _targetURL = link;
+    _webView.scrollView.scrollsToTop = NO;
     _titleLabel.text = link.absoluteString;
     [_webView loadRequest:[[NSURLRequest alloc] initWithURL:_targetURL]];
 }
@@ -107,6 +112,9 @@
 #pragma mark - IBActions
 - (IBAction)didClickReturnButton:(UIButton *)sender
 {
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultKeyShouldScrollToTop];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [UIApplication dismissModalViewControllerAnimated:YES];
     [self performSelector:@selector(resetWebview) withObject:nil afterDelay:0.3];
 }

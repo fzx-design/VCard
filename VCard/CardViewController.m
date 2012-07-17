@@ -460,6 +460,11 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
                     int type = [[dict objectForKey:@"type"] intValue];
                     NSString *urlLong = [dict objectForKey:@"url_long"];
                     Status *status = [Status statusWithID:client.statusID inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                    
+                    if ([status.type isEqualToString:kStatusTypeMedia] || [status.type isEqualToString:kStatusTypeVote]) {
+                        return ;
+                    }
+                    
                     if (type == 5) {
                         status.type = kStatusTypeVote;
                     } else if (type == 1 || type == 2) {
