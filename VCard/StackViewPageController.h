@@ -34,6 +34,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *pageDescription;
 @property (nonatomic, assign) StackViewPageType pageType;
 @property (nonatomic, assign) BOOL loadWithPurpose;
+@property (nonatomic, assign) BOOL shouldShowFirst;
 
 - (void)initialLoad;
 - (void)stackScrolling:(CGFloat)speed;

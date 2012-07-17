@@ -78,6 +78,7 @@
     if (searchResult) {
         [self.stackView scrollToTargetView:searchResult.view];
         if (vc.loadWithPurpose) {
+            searchResult.shouldShowFirst = vc.shouldShowFirst;
             [searchResult showWithPurpose];
         }
     } else {

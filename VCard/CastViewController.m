@@ -25,6 +25,7 @@
 #import "TopicViewController.h"
 #import "SearchUserResultViewController.h"
 #import "NSNotificationCenter+Addition.h"
+#import "SelfMentionViewController.h"
 
 @interface CastViewController () {
     BOOL _loading;
@@ -323,8 +324,9 @@
 
 - (void)showSelfMentionListWithStackIndex:(int)index
 {
-    SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
+    SelfMentionViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
     vc.loadWithPurpose = YES;
+    vc.shouldShowFirst = YES;
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:@""];
 }
 
@@ -339,7 +341,10 @@
 
 - (void)showMentionComment:(int)index
 {
-    
+    SelfMentionViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
+    vc.loadWithPurpose = YES;
+    vc.shouldShowFirst = NO;
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:@""];
 }
 
 - (void)showMessage:(int)index
@@ -846,7 +851,7 @@
             }
         }
     }];
-//    [client resetUnreadCount:type];
+    [client resetUnreadCount:type];
 }
 
 
