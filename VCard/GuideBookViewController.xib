@@ -47,6 +47,7 @@
 								<int key="NSvFlags">301</int>
 								<string key="NSFrame">{{-35, 0}, {700, 700}}</string>
 								<reference key="NSSuperview" ref="984755294"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="290127130"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -69,6 +70,7 @@
 												<int key="NSvFlags">292</int>
 												<string key="NSFrame">{{165, 0}, {300, 340}}</string>
 												<reference key="NSSuperview" ref="25682508"/>
+												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="498696745"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -83,6 +85,7 @@
 												<int key="NSvFlags">292</int>
 												<string key="NSFrame">{{145, 305}, {340, 180}}</string>
 												<reference key="NSSuperview" ref="25682508"/>
+												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="740284320"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -95,6 +98,7 @@
 										</array>
 										<string key="NSFrameSize">{628, 500}</string>
 										<reference key="NSSuperview" ref="290127130"/>
+										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="498073445"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<object class="NSColor" key="IBUIBackgroundColor" id="920720936">
@@ -106,8 +110,9 @@
 									<object class="IBUIButton" id="498696745">
 										<reference key="NSNextResponder" ref="290127130"/>
 										<int key="NSvFlags">269</int>
-										<string key="NSFrame">{{199, 488}, {230, 52}}</string>
+										<string key="NSFrame">{{199, 470}, {230, 52}}</string>
 										<reference key="NSSuperview" ref="290127130"/>
+										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="921846917"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
@@ -154,6 +159,7 @@
 								</array>
 								<string key="NSFrame">{{1, 60}, {628, 540}}</string>
 								<reference key="NSSuperview" ref="984755294"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="25682508"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -169,6 +175,7 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{296, 610}, {38, 36}}</string>
 								<reference key="NSSuperview" ref="984755294"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -180,6 +187,7 @@
 						</array>
 						<string key="NSFrame">{{197, 24}, {630, 700}}</string>
 						<reference key="NSSuperview" ref="650723859"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="63948116"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="920720936"/>
@@ -188,6 +196,7 @@
 				</array>
 				<string key="NSFrame">{{0, 20}, {1024, 748}}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="984755294"/>
 				<reference key="IBUIBackgroundColor" ref="920720936"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -374,7 +383,66 @@
 			<nil key="sourceID"/>
 			<int key="maxID">51</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">GuideBookViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">didClickFinishButton:</string>
+						<string key="NS.object.0">UIButton</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">didClickFinishButton:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">didClickFinishButton:</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+					</object>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="finishButton">UIButton</string>
+						<string key="iconImageView">UIImageView</string>
+						<string key="pageControl">ShelfPageControl</string>
+						<string key="scrollView">UIScrollView</string>
+						<string key="welcomeImageView">UIImageView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="finishButton">
+							<string key="name">finishButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="iconImageView">
+							<string key="name">iconImageView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="pageControl">
+							<string key="name">pageControl</string>
+							<string key="candidateClassName">ShelfPageControl</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="scrollView">
+							<string key="name">scrollView</string>
+							<string key="candidateClassName">UIScrollView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="welcomeImageView">
+							<string key="name">welcomeImageView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GuideBookViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">ShelfPageControl</string>
+					<string key="superclassName">UIPageControl</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/ShelfPageControl.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
