@@ -85,6 +85,7 @@
         [NSUserDefaults setShownGuideBook:YES];
     }
 }
+
 - (void)handleChangeCurrentUserNotification:(NSNotification *)notification {
     NSLog(@"current user name:%@", self.currentUser.screenName);
     self.castViewController = nil;
@@ -95,6 +96,11 @@
         
         [self performSelector:@selector(showGuideBookView) withObject:nil afterDelay:1.0f];
     }
+}
+
+- (void)setUpDefaultGroup
+{
+    
 }
 
 #pragma mark - Setup Notifications
