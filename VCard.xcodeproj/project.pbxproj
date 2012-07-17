@@ -697,7 +697,8 @@
 		E10CBEA215B5356100CFA21F /* button_ap_repost_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E10CBE9415B5356100CFA21F /* button_ap_repost_list@2x.png */; };
 		E10CBEA315B5356100CFA21F /* heavy_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = E10CBE9515B5356100CFA21F /* heavy_shadow.png */; };
 		E10CBEA415B5356100CFA21F /* heavy_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E10CBE9615B5356100CFA21F /* heavy_shadow@2x.png */; };
-		E10CBEAC15B537D000CFA21F /* ActionPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CBEAB15B537CF00CFA21F /* ActionPopover.m */; };
+		E10CBEB015B541B800CFA21F /* FoldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CBEAF15B541B800CFA21F /* FoldViewController.m */; };
+		E10CBEB315B5420800CFA21F /* MPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CBEB215B5420800CFA21F /* MPAnimation.m */; };
 		E10D04BE15AF030C00492A87 /* SettingAppInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10D04BC15AF030C00492A87 /* SettingAppInfoViewController.m */; };
 		E10D04CC15AF07A600492A87 /* SettingInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = E10D04C915AF07A600492A87 /* SettingInfo.plist */; };
 		E10D04CD15AF07A600492A87 /* SettingInfoReader.m in Sources */ = {isa = PBXBuildFile; fileRef = E10D04CB15AF07A600492A87 /* SettingInfoReader.m */; };
@@ -1761,8 +1762,11 @@
 		E10CBE9415B5356100CFA21F /* button_ap_repost_list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_ap_repost_list@2x.png"; sourceTree = "<group>"; };
 		E10CBE9515B5356100CFA21F /* heavy_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heavy_shadow.png; sourceTree = "<group>"; };
 		E10CBE9615B5356100CFA21F /* heavy_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heavy_shadow@2x.png"; sourceTree = "<group>"; };
-		E10CBEAA15B537CF00CFA21F /* ActionPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionPopover.h; sourceTree = "<group>"; };
-		E10CBEAB15B537CF00CFA21F /* ActionPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionPopover.m; sourceTree = "<group>"; };
+		E10CBEAE15B541B800CFA21F /* FoldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldViewController.h; sourceTree = "<group>"; };
+		E10CBEAF15B541B800CFA21F /* FoldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoldViewController.m; sourceTree = "<group>"; };
+		E10CBEB115B5420800CFA21F /* MPAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAnimation.h; sourceTree = "<group>"; };
+		E10CBEB215B5420800CFA21F /* MPAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAnimation.m; sourceTree = "<group>"; };
+		E10CBEB415B542CE00CFA21F /* Enumerations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enumerations.h; sourceTree = "<group>"; };
 		E10D04BB15AF030C00492A87 /* SettingAppInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingAppInfoViewController.h; sourceTree = "<group>"; };
 		E10D04BC15AF030C00492A87 /* SettingAppInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingAppInfoViewController.m; sourceTree = "<group>"; };
 		E10D04C915AF07A600492A87 /* SettingInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SettingInfo.plist; sourceTree = "<group>"; };
@@ -3443,8 +3447,11 @@
 		E10CBEA815B5364B00CFA21F /* ActionPopover */ = {
 			isa = PBXGroup;
 			children = (
-				E10CBEAA15B537CF00CFA21F /* ActionPopover.h */,
-				E10CBEAB15B537CF00CFA21F /* ActionPopover.m */,
+				E10CBEB415B542CE00CFA21F /* Enumerations.h */,
+				E10CBEB115B5420800CFA21F /* MPAnimation.h */,
+				E10CBEB215B5420800CFA21F /* MPAnimation.m */,
+				E10CBEAE15B541B800CFA21F /* FoldViewController.h */,
+				E10CBEAF15B541B800CFA21F /* FoldViewController.m */,
 			);
 			name = ActionPopover;
 			sourceTree = "<group>";
@@ -4703,7 +4710,8 @@
 				1B19556315B30D3300371DF0 /* GuideBookViewController.m in Sources */,
 				E1F7F8ED15B3ADE100712019 /* ErrorIndicatorViewController.m in Sources */,
 				E15A5C5E15B3DE59004BC29A /* ErrorIndicatorManager.m in Sources */,
-				E10CBEAC15B537D000CFA21F /* ActionPopover.m in Sources */,
+				E10CBEB015B541B800CFA21F /* FoldViewController.m in Sources */,
+				E10CBEB315B5420800CFA21F /* MPAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
