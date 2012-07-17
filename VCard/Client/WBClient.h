@@ -215,5 +215,6 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                             feature:(int)feature;
 
 - (void)uploadAvatar:(UIImage *)image;
+- (void)getLongURLWithShort:(NSString *)shortURL;
 
 @end

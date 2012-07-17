@@ -9,6 +9,7 @@
 #import "InnerBrowserViewController.h"
 #import "UIApplication+Addition.h"
 #import "UIView+Resize.h"
+#import "WBClient.h"
 
 @interface InnerBrowserViewController () {
     BOOL _loading;
@@ -65,9 +66,24 @@
 - (void)loadLink:(NSURL *)link
 {
     _firstLoad = YES;
-    _titleLabel.text = [link absoluteString];
-    NSURLRequest* request = [[NSURLRequest alloc] initWithURL:link];
-    [_webView loadRequest:request];
+    _targetURL = link;
+    _titleLabel.text = link.absoluteString;
+    
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSDictionary *dict = client.responseJSONObject;
+            if ([dict isKindOfClass:[NSDictionary class]]) {
+                NSString *url = [dict objectForKey:@"url_long"];
+                _targetURL = [NSURL URLWithString:url];
+                _titleLabel.text = url;
+            }
+        }
+        
+        [_webView loadRequest:[[NSURLRequest alloc] initWithURL:_targetURL]];
+    }];
+    
+    [client getLongURLWithShort:link.absoluteString];
 }
 
 #pragma mark - IBActions
@@ -152,12 +168,14 @@
 - (void)copyLink
 {
     UIPasteboard *pb = [UIPasteboard generalPasteboard];
-    [pb setString:_webView.request.URL.absoluteString];
+    NSURL *url = _webView.canGoBack ? _webView.request.URL : _targetURL;
+    [pb setString:url.absoluteString];
 }
 
 - (void)openInSafari
 {
-    [[UIApplication sharedApplication] openURL:_webView.request.URL];
+    NSURL *url = _webView.canGoBack ? _webView.request.URL : _targetURL;
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 @end
