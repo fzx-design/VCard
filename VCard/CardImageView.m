@@ -70,7 +70,8 @@
     _initialPosition = self.frame.origin;
     
     CGPoint center = self.center;
-    center.y -= 8;
+    center.y -= 12;
+    center.x += 4;
     self.actionButton.center = center;
 }
 

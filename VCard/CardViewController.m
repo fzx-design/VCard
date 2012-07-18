@@ -334,7 +334,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         
     CGFloat statusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
                             CardSizeUserAvatarHeight + CardSizeTextGap + 
-                            self.originalStatusLabel.frame.size.height;
+                            self.originalStatusLabel.frame.size.height - 20.0;
     if (_doesImageExist) {
         statusViewHeight += CardSizeImageGap;
     }
@@ -375,7 +375,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         
         CGFloat repostStatusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
                                         CardSizeUserAvatarHeight + CardSizeTextGap + 
-                                        self.repostStatusLabel.frame.size.height;
+                                        self.repostStatusLabel.frame.size.height - 20.0;
         
         repostStatusViewHeight += CardTailHeight;
         
@@ -488,9 +488,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
                     }
                              
                     status.mediaLink = urlLong;
-                    
-                    NSLog(@"%@, %@", status.type, client.statusID);
-                    
+                                        
                     if ([status.statusID isEqualToString:self.status.statusID]) {
                         [self updateImageButtonWithType:status.type URLString:urlLong];
                     }
@@ -515,7 +513,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 + (void)setCardViewController:(CardViewController *)vc StatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string
 {
     CGRect frame = label.frame;
-    frame.size.height = [CardViewController heightForCellWithText:string];
+    frame.size.height = [CardViewController heightForCellWithText:string] + 20.0;
     label.frame = frame;
     
     label.font = [UIFont systemFontOfSize:17.0f];

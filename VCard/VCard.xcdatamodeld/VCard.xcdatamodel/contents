@@ -23,11 +23,11 @@
         <attribute name="updateDate" attributeType="Date">
             <userInfo/>
         </attribute>
-        <relationship name="author" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="comments" inverseEntity="User">
+        <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="comments" inverseEntity="User">
             <userInfo/>
         </relationship>
         <relationship name="inReplyToUser" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="comments" inverseEntity="User" syncable="YES"/>
-        <relationship name="targetStatus" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="comments" inverseEntity="Status">
+        <relationship name="targetStatus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="comments" inverseEntity="Status">
             <userInfo/>
         </relationship>
         <relationship name="targetUser" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="commentsToMe" inverseEntity="User">

@@ -208,15 +208,19 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    ProfileStatusTableViewCell *statusCell = (ProfileStatusTableViewCell *)cell;
-    Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
-    
-    [statusCell setCellHeight:targetStatus.cardSizeCardHeight.floatValue];
-    [statusCell.cardViewController configureCardWithStatus:targetStatus
-                                               imageHeight:targetStatus.cardSizeImageHeight.floatValue
-                                                 pageIndex:self.pageIndex
-                                               currentUser:self.currentUser
-                                        coreDataIdentifier:_coreDataIdentifier];
+    if (self.fetchedResultsController.fetchedObjects.count > indexPath.row) {
+        ProfileStatusTableViewCell *statusCell = (ProfileStatusTableViewCell *)cell;
+        Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
+        
+        [statusCell setCellHeight:targetStatus.cardSizeCardHeight.floatValue];
+        [statusCell.cardViewController configureCardWithStatus:targetStatus
+                                                   imageHeight:targetStatus.cardSizeImageHeight.floatValue
+                                                     pageIndex:self.pageIndex
+                                                   currentUser:self.currentUser
+                                            coreDataIdentifier:_coreDataIdentifier];
+    } else {
+        NSLog(@"Core Data TableView Controller Error - profile status config");
+    }
 }
 
 - (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
@@ -226,8 +230,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];	
-	return targetStatus.cardSizeCardHeight.floatValue;
+    if (self.fetchedResultsController.fetchedObjects.count > indexPath.row) {
+        Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
+        return targetStatus.cardSizeCardHeight.floatValue;
+    } else {
+        return 0;
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

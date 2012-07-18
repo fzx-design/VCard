@@ -16,6 +16,12 @@
 #define kWaterflowViewInfoBarViewIndex          100
 #define kWaterflowViewPullToRefreshViewIndex    101
 
+typedef enum {
+    WaterflowAddSubviewModeNormal,
+    WaterflowAddSubviewModeRefresh,
+    WaterflowAddSubviewModeLoadmore,
+} WaterflowAddSubviewMode;
+
 @class WaterflowView;
 
 
@@ -78,6 +84,8 @@
 
 @property (nonatomic, retain) BaseLayoutView *backgroundViewA;
 @property (nonatomic, retain) BaseLayoutView *backgroundViewB;
+
+@property (nonatomic, assign) UIView *animationCover;
 
 
 - (void)reloadData;

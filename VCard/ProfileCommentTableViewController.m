@@ -71,8 +71,8 @@
                     withOperatingObject:_coreDataIdentifier];
     } else {
         [Status deleteRepostsOfStatus:self.status
-                   ManagedObjectContext:self.managedObjectContext
-                    withOperatingObject:_coreDataIdentifier];
+                 ManagedObjectContext:self.managedObjectContext
+                  withOperatingObject:_coreDataIdentifier];
     }
 }
 
@@ -139,9 +139,9 @@
         long long maxID = ((Comment *)self.fetchedResultsController.fetchedObjects.lastObject).commentID.longLongValue;
         NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
         [client getCommentOfStatus:self.status.statusID
-                            maxID:maxIDString
-                            count:20
-                     authorFilter:_filterByAuthor];
+                             maxID:maxIDString
+                             count:20
+                      authorFilter:_filterByAuthor];
     } else {
         long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue;
         NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
@@ -186,25 +186,33 @@
 {
     ProfileCommentTableViewCell *commentCell = (ProfileCommentTableViewCell *)cell;
     if (_type == CommentTableViewControllerTypeComment) {
-        Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
-        [commentCell resetOriginX:11.0];
-        [commentCell resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
-        [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
-        BOOL isFirstComment = indexPath.row == 0;
-        BOOL isLastComment = indexPath.row == self.fetchedResultsController.fetchedObjects.count - 1;
-        [commentCell configureCellWithComment:comment
-                                isLastComment:isLastComment
-                               isFirstComment:isFirstComment];
-        commentCell.pageIndex = self.pageIndex;
-        commentCell.delegate = self;
+        if (indexPath.row < self.fetchedResultsController.fetchedObjects.count) {
+            Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
+            [commentCell resetOriginX:11.0];
+            [commentCell resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
+            [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
+            BOOL isFirstComment = indexPath.row == 0;
+            BOOL isLastComment = indexPath.row == self.fetchedResultsController.fetchedObjects.count - 1;
+            [commentCell configureCellWithComment:comment
+                                    isLastComment:isLastComment
+                                   isFirstComment:isFirstComment];
+            commentCell.pageIndex = self.pageIndex;
+            commentCell.delegate = self;
+        } else {
+            NSLog(@"Core Data TableView Controller Error - ProfileComment config");
+        }
     } else {
-        Status *repost = (Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
-        [commentCell resetSize:CGSizeMake(362.0, repost.cardSizeCardHeight.floatValue)];
-        [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, repost.cardSizeCardHeight.floatValue)];
-        [commentCell configureCellWithStatus:repost];
-        commentCell.pageIndex = self.pageIndex;
+        if (indexPath.row < self.fetchedResultsController.fetchedObjects.count) {
+            Status *repost = (Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
+            [commentCell resetSize:CGSizeMake(362.0, repost.cardSizeCardHeight.floatValue)];
+            [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, repost.cardSizeCardHeight.floatValue)];
+            [commentCell configureCellWithStatus:repost];
+            commentCell.pageIndex = self.pageIndex;
+        } else {
+            NSLog(@"Core Data TableView Controller Error - ProfileComment config");
+        }
     }
-
+    
 }
 
 - (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
@@ -227,9 +235,17 @@
 {
     CGFloat height = indexPath.row == self.fetchedResultsController.fetchedObjects.count - 1 ? 10.0 : 0.0;
     if (_type == CommentTableViewControllerTypeComment) {
-        height += ((Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row]).commentHeight.floatValue;
+        if (self.fetchedResultsController.fetchedObjects.count > indexPath.row) {
+            height += ((Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row]).commentHeight.floatValue;
+        } else {
+            NSLog(@"Core Data TableView Controller Error - ProfileComment height");
+        }
     } else  {
-        height += ((Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row]).cardSizeCardHeight.floatValue;
+        if (self.fetchedResultsController.fetchedObjects.count > indexPath.row) {
+            height += ((Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row]).cardSizeCardHeight.floatValue;
+        } else {
+            NSLog(@"Core Data TableView Controller Error - ProfileComment height");
+        }
     }
 	return height;
 }

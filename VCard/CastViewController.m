@@ -221,6 +221,7 @@
 {
     self.waterflowView.flowdatasource = self;
     self.waterflowView.flowdelegate = self;
+    self.waterflowView.animationCover = self.waterflowViewAnimationCover;
     [self.waterflowView refresh];
     
     _pullView = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
@@ -788,6 +789,7 @@
             [self.fetchedResultsController performFetch:nil];
             if (_refreshing) {
                 [self.waterflowView refresh];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
             } else {
                 [self.waterflowView reloadData];
             }
@@ -1017,19 +1019,26 @@
 	}
     
     if (layoutUnit.unitType == UnitTypeCard) {
-        
-        Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
-        [cell setCellHeight:[layoutUnit unitHeight]];
-        
-        [((WaterflowCardCell *)cell).cardViewController configureCardWithStatus:targetStatus
-                                                                    imageHeight:layoutUnit.imageHeight
-                                                                      pageIndex:0
-                                                                    currentUser:self.currentUser
-                                                             coreDataIdentifier:kCoreDataIdentifierDefault];
+        if (self.fetchedResultsController.fetchedObjects.count > layoutUnit.dataIndex) {
+            Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
+            [cell setCellHeight:[layoutUnit unitHeight]];
+            
+            [((WaterflowCardCell *)cell).cardViewController configureCardWithStatus:targetStatus
+                                                                        imageHeight:layoutUnit.imageHeight
+                                                                          pageIndex:0
+                                                                        currentUser:self.currentUser
+                                                                 coreDataIdentifier:kCoreDataIdentifierDefault];
+        } else {
+            NSLog(@"Core Data Error! - CastViewController");
+        }
         
     } else if(layoutUnit.unitType == UnitTypeDivider) {
-        Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
-        [((WaterflowDividerCell *)cell).dividerViewController updateTimeInformation:targetStatus.createdAt];
+        if (self.fetchedResultsController.fetchedObjects.count > layoutUnit.dataIndex) {
+            Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
+            [((WaterflowDividerCell *)cell).dividerViewController updateTimeInformation:targetStatus.createdAt];
+        } else {
+            NSLog(@"Core Data Error! - CastViewController");
+        }
     }
     
 	return cell;
@@ -1047,8 +1056,12 @@
 
 - (CGFloat)heightForObjectAtIndex:(int)index_ withImageHeight:(NSInteger)imageHeight_
 {
-    Status *status = (Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:index_];
-    return [CardViewController heightForStatus:status andImageHeight:imageHeight_];
+    if (self.fetchedResultsController.fetchedObjects.count > index_) {
+        Status *status = (Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:index_];
+        return [CardViewController heightForStatus:status andImageHeight:imageHeight_];
+    } else {
+        return 0;
+    }
 }
 
 #pragma mark - PostViewController Delegate

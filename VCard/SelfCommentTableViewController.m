@@ -241,14 +241,18 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    SelfCommentTableViewCell *commentCell = (SelfCommentTableViewCell *)cell;
-    Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
-    [commentCell resetOriginX:11.0];
-    [commentCell resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
-    [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
-    [commentCell configureCellWithComment:comment];
-    commentCell.pageIndex = self.pageIndex;
-    commentCell.delegate = self;
+    if (self.fetchedResultsController.fetchedObjects.count > indexPath.row) {
+        SelfCommentTableViewCell *commentCell = (SelfCommentTableViewCell *)cell;
+        Comment *comment = (Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
+        [commentCell resetOriginX:11.0];
+        [commentCell resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
+        [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, comment.commentHeight.floatValue)];
+        [commentCell configureCellWithComment:comment];
+        commentCell.pageIndex = self.pageIndex;
+        commentCell.delegate = self;
+    } else {
+        NSLog(@"Core Data TableView Controller Error - Self comment config");
+    }
     
 }
 
@@ -271,7 +275,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height = indexPath.row == self.fetchedResultsController.fetchedObjects.count - 1 ? 0.0 : 10.0;
-    height += ((Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row]).commentHeight.floatValue;
+    if (self.fetchedResultsController.fetchedObjects.count > indexPath.row) {
+        height += ((Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row]).commentHeight.floatValue;
+    } else {
+        NSLog(@"Core Data TableView Controller Error - Self comment height");
+    }
 	return height;
 }
 

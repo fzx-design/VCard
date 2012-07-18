@@ -79,15 +79,19 @@
     result.text = [dict objectForKey:@"text"];
     
     NSDictionary *statusDict = [dict objectForKey:@"status"];
-    if (statusDict) {
-        result.targetStatus = [Status insertStatus:statusDict inManagedObjectContext:context withOperatingObject:nil];
+    if ([statusDict isKindOfClass:[NSDictionary class]] && statusDict.count > 0) {
+        result.targetStatus = [Status insertStatus:statusDict inManagedObjectContext:context withOperatingObject:result.operatedBy];
         result.targetStatus.operatable = [NSNumber numberWithBool:YES];
         result.targetUser = result.targetStatus.author;
+    } else {
+        NSLog(@"%@", dict);
     }
     
     NSDictionary *userDict = [dict objectForKey:@"user"];
-    if (userDict) {
+    if ([userDict isKindOfClass:[NSDictionary class]] && userDict.count > 0) {
         result.author = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:result.operatedBy];
+    } else {
+        NSLog(@"%@", dict);
     }
     
     return result;
@@ -119,15 +123,19 @@
     
     NSDictionary *statusDict = [dict objectForKey:@"status"];
     
-    if (statusDict) {
+    if ([statusDict isKindOfClass:[NSDictionary class]] && statusDict.count > 0) {
         result.targetStatus = [Status insertStatus:statusDict inManagedObjectContext:context withOperatingObject:result.operatedBy];
         result.targetUser = result.targetStatus.author;
+    } else {
+        NSLog(@"%@", dict);
     }
     
     NSDictionary *userDict = [dict objectForKey:@"user"];
     
-    if (userDict) {
+    if ([userDict isKindOfClass:[NSDictionary class]] && userDict.count > 0) {
         result.author = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:object];
+    } else {
+        NSLog(@"%@", dict);
     }
     
     return result;
