@@ -55,7 +55,12 @@
     
     indicator.hidden = NO;
     [indicator resetOrigin:kUnreadIndicatorViewOriginInitialPoint];
-    CGFloat targetHeight = 4 * kUnreadIndicatorViewHeight + 23.0;
+    CGSize size = indicator.frame.size;
+    size.width = ceilf(size.width);
+    size.height = ceilf(size.height);
+    [indicator resetSize:size];
+    
+    CGFloat targetHeight = 4 * kUnreadIndicatorViewHeight + 25.0;
     
     for (UIView *view in self.subviews) {
         CGFloat currentOriginY = view.frame.origin.y;

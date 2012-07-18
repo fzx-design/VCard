@@ -57,7 +57,7 @@
     
     CGFloat commentViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
     CardSizeUserAvatarHeight + CardSizeTextGap + 
-    self.commentContentLabel.frame.size.height;
+    self.commentContentLabel.frame.size.height + 20;
     
     commentViewHeight += CardTailHeight;
     
