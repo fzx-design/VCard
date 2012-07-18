@@ -210,9 +210,6 @@ typedef enum {
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
     self.motionsImageView = nil;
     self.textView = nil;
     self.textCountLabel = nil;
@@ -236,6 +233,9 @@ typedef enum {
     self.repostCommentCheckmarkButton = nil;
     self.repostCommentButton = nil;
     self.motionsView = nil;
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -622,8 +622,8 @@ typedef enum {
 
 - (void)showViewFromRect:(CGRect)rect {
     self.startButtonFrame = rect;
-    [UIApplication presentModalViewController:self animated:NO];
     [self viewWillAppear:NO];
+    [UIApplication presentModalViewController:self animated:NO];
 }
 
 - (void)dismissViewToRect:(CGRect)rect {

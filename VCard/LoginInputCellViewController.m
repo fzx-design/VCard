@@ -45,13 +45,13 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
     self.activityIndicator = nil;
     self.userNameTextField = nil;
     self.userPasswordTextField = nil;
     self.inputBgView = nil;
     self.tooManyUsersLabel = nil;
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
 }
 
 #pragma mark - Logic methods 

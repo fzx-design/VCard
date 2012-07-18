@@ -73,10 +73,10 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
-    // Dispose of any resources that can be recreated.
     self.tipsLabel = nil;
     self.tipsView = nil;
+    [super viewDidUnload];
+    // Dispose of any resources that can be recreated.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

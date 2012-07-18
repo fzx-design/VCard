@@ -115,11 +115,6 @@
             } else {
                 settingCell.itemWatchButton.enabled = YES;
             }
-            
-            if([user.userID isEqualToString:self.currentUser.userID]) {
-                settingCell.itemWatchButton.enabled = NO;
-                [settingCell.itemWatchButton setTitle:@"就是你" forState:UIControlStateDisabled];
-            }
         } else {
             settingCell.textLabel.text = @"加载中";
             
@@ -131,6 +126,11 @@
             }];
             [client getUser:info.nibFileName];
             settingCell.itemWatchButton.enabled = NO;
+        }
+        
+        if([user.userID isEqualToString:self.currentUser.userID]) {
+            settingCell.itemWatchButton.enabled = NO;
+            [settingCell.itemWatchButton setTitle:@"就是你" forState:UIControlStateDisabled];
         }
     }
 }

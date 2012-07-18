@@ -53,13 +53,13 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
-    // Dispose of any resources that can be recreated.
     self.scrollView = nil;
     self.pageControl = nil;
     self.finishButton = nil;
     self.iconImageView = nil;
     self.welcomeImageView = nil;
+    [super viewDidUnload];
+    // Dispose of any resources that can be recreated.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -101,8 +101,6 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
-    // Dispose of any resources that can be recreated.
     self.cropButton = nil;
     self.shadowAmountSlider = nil;
     self.changePictureButton = nil;
@@ -114,6 +112,8 @@
     self.capturedImageEditBar = nil;
     self.activityIndicator = nil;
     self.editAccessoryView = nil;
+    [super viewDidUnload];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void)viewDidAppear:(BOOL)animated {

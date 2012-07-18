@@ -36,9 +36,9 @@
 
 - (void)viewDidUnload
 {
+    self.textView = nil;
     [super viewDidUnload];
     // Dispose of any resources that can be recreated.
-    self.textView = nil;
 }
 
 

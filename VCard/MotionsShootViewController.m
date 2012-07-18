@@ -61,12 +61,12 @@
 }
 
 - (void)viewDidUnload {
-    [super viewDidUnload];
     self.cameraPreviewView = nil;
     self.cameraStatusLEDButton = nil;
     self.pickImageButton = nil;
     self.shootButton = nil;
     self.shootAccessoryView = nil;
+    [super viewDidUnload];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

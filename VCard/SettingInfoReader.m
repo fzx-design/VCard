@@ -79,6 +79,16 @@ static SettingInfoReader *readerInstance;
     return [self getInfoSectionArrayForKey:kSettingInfoSectionArray];
 }
 
+- (NSArray *)getTeamMemberIDArray {
+    NSArray *appInfoArray = [self getSettingAppInfoSectionArray];
+    SettingInfoSection *teamMemberSection = [appInfoArray lastObject];
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:5];
+    for(SettingInfo *info in teamMemberSection.itemArray) {
+        [result addObject:info.nibFileName];
+    }
+    return result;
+}
+
 @end
 
 @implementation SettingInfoSection

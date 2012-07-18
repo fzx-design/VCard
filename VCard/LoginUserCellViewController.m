@@ -65,10 +65,10 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
     self.deleteButton = nil;
     self.userNameLabel = nil;
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
 }
 
 #pragma mark - Notification handlers

@@ -56,9 +56,9 @@
 
 - (void)viewDidUnload
 {
+    self.shadowImageView = nil;
     [super viewDidUnload];
     // Dispose of any resources that can be recreated.
-    self.shadowImageView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

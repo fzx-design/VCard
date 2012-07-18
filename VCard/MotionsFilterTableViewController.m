@@ -63,9 +63,9 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
     self.tableView = nil;
     self.bgView = nil;
+    [super viewDidUnload];
 }
 
 - (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

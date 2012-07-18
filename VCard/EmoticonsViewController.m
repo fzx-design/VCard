@@ -44,11 +44,11 @@
 
 - (void)viewDidUnload
 {
+    self.scrollView = nil;
+    self.pageControl = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-    self.scrollView = nil;
-    self.pageControl = nil;
 }
 
 #pragma mark - UI methods

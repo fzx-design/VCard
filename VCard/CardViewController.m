@@ -19,6 +19,7 @@
 #import "UIView+Resize.h"
 #import "EmoticonsInfoReader.h"
 #import "InnerBrowserViewController.h"
+#import "ActionPopoverViewController.h"
 
 #define MaxCardSize CGSizeMake(326,9999)
 
@@ -90,12 +91,15 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     UITapGestureRecognizer *_tapGestureRecognizer;
 }
 
+@property (nonatomic, strong) ActionPopoverViewController *actionPopoverViewController;
+
 @end
 
 @implementation CardViewController
 
 @synthesize status = _status;
 @synthesize imageHeight = _imageHeight;
+@synthesize actionPopoverViewController = _actionPopoverViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -144,6 +148,13 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     _tapGestureRecognizer.numberOfTouchesRequired = 1;
     _tapGestureRecognizer.delegate = self;
     [self.statusImageView addGestureRecognizer:_tapGestureRecognizer];
+    
+    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionPopoverPinchGesture:)];
+    if([self.repostStatusLabel.text isEqualToString:@""])
+        [self.originalStatusLabel addGestureRecognizer:pinchGesture];
+    else
+        [self.repostStatusLabel addGestureRecognizer:pinchGesture];
+    
 }
 
 - (void)viewDidUnload
@@ -657,16 +668,18 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 - (IBAction)didClickRepostButton:(UIButton *)sender
 {
-    NSString *favourTitle = self.status.favorited.boolValue ? @"取消收藏" : @"收藏";
-    NSString *deleteTitle = [self.status.author isEqualToUser:self.currentUser] ? @"删除" : nil;
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                              delegate:self 
-                                     cancelButtonTitle:nil 
-                                destructiveButtonTitle:nil
-                                     otherButtonTitles:@"转发", favourTitle, @"查看转发", @"复制微博", @"邮件分享", deleteTitle, nil];
-    actionSheet.destructiveButtonIndex = kActionSheetDeleteIndex;
-    actionSheet.delegate = self;
-    [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+//    NSString *favourTitle = self.status.favorited.boolValue ? @"取消收藏" : @"收藏";
+//    NSString *deleteTitle = [self.status.author isEqualToUser:self.currentUser] ? @"删除" : nil;
+//    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+//                                              delegate:self 
+//                                     cancelButtonTitle:nil 
+//                                destructiveButtonTitle:nil
+//                                     otherButtonTitles:@"转发", favourTitle, @"查看转发", @"复制微博", @"邮件分享", deleteTitle, nil];
+//    actionSheet.destructiveButtonIndex = kActionSheetDeleteIndex;
+//    actionSheet.delegate = self;
+//    [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+    
+    [self.actionPopoverViewController handleTap:nil];
 }
 
 #pragma mark - TTTAttributedLabel Delegate
@@ -1111,6 +1124,22 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     
     [self.clipImageView.layer addAnimation:fadeOutAnimation forKey:@"opacity"];
     self.clipImageView.layer.opacity = 1;
+}
+
+#pragma mark - Action popover
+
+- (ActionPopoverViewController *)actionPopoverViewController {
+    if(!_actionPopoverViewController) {
+        _actionPopoverViewController = [[ActionPopoverViewController alloc] init];
+        [_actionPopoverViewController setCropView:self.view.superview cropPosY:self.view.frame.size.height / 2];
+        [_actionPopoverViewController.view resetOrigin:CGPointMake(0, 20)];
+        [[UIApplication sharedApplication].rootViewController.view addSubview:_actionPopoverViewController.view];
+    }
+    return _actionPopoverViewController;
+}
+
+- (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {
+    [self.actionPopoverViewController handlePinch:gesture];
 }
 
 @end

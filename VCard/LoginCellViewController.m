@@ -40,12 +40,12 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
-    // Dispose of any resources that can be recreated.
     self.avatarImageView = nil;
     self.loginButton = nil;
     self.gloomImageView = nil;
     self.avatarBgImageView = nil;
+    [super viewDidUnload];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void)loginUsingAccount:(NSString *)account

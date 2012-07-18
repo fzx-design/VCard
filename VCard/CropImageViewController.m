@@ -59,13 +59,13 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
     self.cropImageBgView = nil;
     self.editBarView = nil;
     self.cropImageView = nil;
     self.cancelButton = nil;
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
 }
 
 - (id)initWithImage:(UIImage *)image filteredImage:(UIImage *)filteredImage useForAvatar:(BOOL)useForAvatar {

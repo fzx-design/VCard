@@ -320,6 +320,7 @@ typedef enum {
 
 - (void)getUser:(NSString *)userID_
 {
+    _shouldReportError = NO;
     self.path = @"users/show.json";
     if (userID_) {
         [self.params setObject:userID_ forKey:@"uid"];

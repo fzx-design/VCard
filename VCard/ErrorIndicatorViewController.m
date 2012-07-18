@@ -76,12 +76,12 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
-    // Dispose of any resources that can be recreated.
     self.errorBgView = nil;
     self.errorImageView = nil;
     self.errorLabel = nil;
     self.refreshIndicator = nil;
+    [super viewDidUnload];
+    // Dispose of any resources that can be recreated.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

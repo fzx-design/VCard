@@ -12,6 +12,7 @@
 #import "NSUserDefaults+Addition.h"
 #import "WBClient.h"
 #import "UnreadReminder.h"
+#import "SettingInfoReader.h"
 
 static CoreDataKernal *kernalInstance = nil;
 
@@ -117,6 +118,20 @@ static CoreDataKernal *kernalInstance = nil;
     }
 }
 
+- (void)refreshTeamMemberFollowStatus {
+    SettingInfoReader *reader = [SettingInfoReader sharedReader];
+    NSArray *teamMemberArray = [reader getTeamMemberIDArray];
+    for(NSString *teamMemberID in teamMemberArray) {
+        WBClient *client = [WBClient client];
+        [client setCompletionBlock:^(WBClient *client) {
+            NSDictionary *userDict = client.responseJSONObject;
+            AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+            [User insertUser:userDict inManagedObjectContext:delegate.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+        }];
+        [client getUser:teamMemberID];
+    }
+}
+
 #pragma mark -
 #pragma mark Handle notifications
 
@@ -125,6 +140,8 @@ static CoreDataKernal *kernalInstance = nil;
     [self configureCurrentUserWithUserID:currentUserID];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
     [NSNotificationCenter postChangeCurrentUserNotification];
+    
+    [self refreshTeamMemberFollowStatus];
 }
 
 @end

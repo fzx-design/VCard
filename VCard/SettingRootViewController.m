@@ -56,9 +56,9 @@
 
 - (void)viewDidUnload
 {
+    self.tableView = nil;
     [super viewDidUnload];
     // Dispose of any resources that can be recreated.
-    self.tableView = nil;
 }
 
 -(void)viewWillAppear:(BOOL)animated{

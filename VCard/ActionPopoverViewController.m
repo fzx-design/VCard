@@ -1,21 +1,25 @@
 //
-//  FoldViewController.m
+//  ActionPopoverViewController.m
 //  EnterTheMatrix
 //
 //  Created by Mark Pospesel on 3/8/12.
 //  Copyright (c) 2012 Mark Pospesel. All rights reserved.
 //
 
-#import "FoldViewController.h"
+#import "ActionPopoverViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "MPAnimation.h"
 #import "Enumerations.h"
+#import "UIView+Resize.h"
+#import "UIApplication+Addition.h"
 
-#define FOLD_HEIGHT	120.
+#define FOLD_HEIGHT	100
 #define DEFAULT_DURATION 0.3
 #define FOLD_SHADOW_OPACITY 0.25
 
-@interface FoldViewController ()
+#define CARD_WIDTH  362.
+
+@interface ActionPopoverViewController ()
 
 @property (assign, nonatomic, getter = isFolded) BOOL folded;
 @property (assign, nonatomic, getter = isFolding) BOOL folding;
@@ -37,7 +41,7 @@
 
 @end
 
-@implementation FoldViewController
+@implementation ActionPopoverViewController
 
 @synthesize folded;
 @synthesize folding;
@@ -101,12 +105,12 @@
 	// Do any additional setup after loading the view.
 	
 	// Set drop shadows and shadow paths on views
-	[self setDropShadow:self.topBar];
-	[self setDropShadow:self.centerBar];
-	[self setDropShadow:self.bottomBar];
-	[[self.topBar layer] setShadowPath:[[UIBezierPath bezierPathWithRect:[self.topBar bounds]] CGPath]];	
-	[[self.centerBar layer] setShadowPath:[[UIBezierPath bezierPathWithRect:[self.centerBar bounds]] CGPath]];	
-	[[self.bottomBar layer] setShadowPath:[[UIBezierPath bezierPathWithRect:[self.bottomBar bounds]] CGPath]];	
+//	[self setDropShadow:self.topBar];
+//	[self setDropShadow:self.centerBar];
+//	[self setDropShadow:self.bottomBar];
+//	[[self.topBar layer] setShadowPath:[[UIBezierPath bezierPathWithRect:[self.topBar bounds]] CGPath]];	
+//	[[self.centerBar layer] setShadowPath:[[UIBezierPath bezierPathWithRect:[self.centerBar bounds]] CGPath]];	
+//	[[self.bottomBar layer] setShadowPath:[[UIBezierPath bezierPathWithRect:[self.bottomBar bounds]] CGPath]];	
 	
 	// Add our tap gesture recognizer
 	UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
@@ -136,11 +140,37 @@
 
 #pragma mark - Properties
 
+- (SkewMode)skewMode
+{
+	return SkewModeNormal;
+}
+
+- (CGFloat)skew
+{
+	switch ([self skewMode])
+	{
+		case SkewModeInverse:
+			return 1 / ((FOLD_HEIGHT / 2) *  4.666666667);
+			
+		case SkewModeNone:
+			return 0;
+			
+		case SkewModeLow:
+			return -1 / ((FOLD_HEIGHT / 2) *  12);
+			
+		case SkewModeNormal:
+			return -1 / ((FOLD_HEIGHT / 2) *  4.666666667);
+			
+		case SkewModeHigh:
+			return -1 / ((FOLD_HEIGHT / 2) *  1.5);
+	}
+}
+
 - (BOOL)isInverse
 {
 	return [self skewMode] == SkewModeInverse;
 }
-			
+
 #pragma mark - methods
 
 - (void)setDropShadow:(UIView *)view
@@ -209,6 +239,35 @@
 	}
 }
 
+- (IBAction)skewValueChanged:(UISegmentedControl *)sender {
+	CATransform3D transform = CATransform3DIdentity;	
+	transform.m34 = [self skew];
+	[[self perspectiveLayer] setSublayerTransform:transform];
+}
+
+- (IBAction)durationValueChanged:(UISegmentedControl *)sender {
+	switch ([sender selectedSegmentIndex]) {
+		case 0:
+			[self setDurationMultiplier:1];
+			break;
+			
+		case 1:
+			[self setDurationMultiplier:2];
+			break;
+			
+		case 2:
+			[self setDurationMultiplier:5];
+			break;
+			
+		case 3:
+			[self setDurationMultiplier:10];
+			break;
+			
+		default:
+			break;
+	}
+}
+
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -222,11 +281,11 @@
 {
 	[CATransaction begin];
 	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-
+    
 	[self setFolding:YES];
 	[self buildLayers];
 	[self doFold:[self isFolded]? 1 : 0];
-
+    
 	[CATransaction commit];
 }
 
@@ -249,21 +308,21 @@
 	double cosine = cos(angle);
 	double foldHeight = cosine * FOLD_HEIGHT;
 	//CGFloat scale = [[UIScreen mainScreen] scale];
-
+    
 	// to prevent flickering on non-retina devices (due to 1 point white border at edge of top and bottom panels),
 	// keep height in pixels (not points) an integer, and back out correct angle from there
 	/*foldHeight = round(foldHeight * scale) / scale;
-	angle = acos(foldHeight / FOLD_HEIGHT);
-	if (((int)(foldHeight * scale)) % 2 == 1)
-	{
-		// If height is an odd-# of pixels, shift position down half a pixel to keep top and bottom sleeves on pixel boundaries
-		[self.animationView setCenter:CGPointMake(self.animationCenter.x, self.animationCenter.y + (0.5/scale))];
-	}
-	else 
-	{
-		[self.animationView setCenter:[self animationCenter]];
-	}*/
-
+     angle = acos(foldHeight / FOLD_HEIGHT);
+     if (((int)(foldHeight * scale)) % 2 == 1)
+     {
+     // If height is an odd-# of pixels, shift position down half a pixel to keep top and bottom sleeves on pixel boundaries
+     [self.animationView setCenter:CGPointMake(self.animationCenter.x, self.animationCenter.y + (0.5/scale))];
+     }
+     else 
+     {
+     [self.animationView setCenter:[self animationCenter]];
+     }*/
+    
 	[CATransaction begin];
 	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 	
@@ -276,7 +335,7 @@
 	self.lowerFoldShadow.opacity = FOLD_SHADOW_OPACITY * (1 - cosine);
 	
 	self.perspectiveLayer.bounds = (CGRect){CGPointZero, CGSizeMake(self.perspectiveLayer.bounds.size.width, foldHeight)};
-
+    
 	[CATransaction commit];
 }
 
@@ -340,7 +399,7 @@
 	// Figure out how many frames we want
 	CGFloat duration = DEFAULT_DURATION * [self durationMultiplier];
 	NSUInteger frameCount = ceilf(duration * 60); // we want 60 FPS
-		
+    
 	// Create a transaction
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:duration] forKey:kCATransactionAnimationDuration];
@@ -350,7 +409,7 @@
 	}];
 	
 	[self.animationView setCenter:[self animationCenter]];
-
+    
 	BOOL vertical = YES;
 	BOOL forwards = finish != [self isFolded];
 	NSString *rotationKey = vertical? @"transform.rotation.x" : @"transform.rotation.y";
@@ -358,7 +417,7 @@
 	CGFloat fromProgress = [self lastProgress];
 	if (finish == [self isFolded])
 		fromProgress = 1 - fromProgress;
-
+    
 	// fold the first (top) joint away from us
 	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:rotationKey];
 	[animation setFromValue:forwards? [NSNumber numberWithDouble:-90*factor*fromProgress] : [NSNumber numberWithDouble:-90*factor*(1-fromProgress)]];
@@ -390,7 +449,7 @@
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[self.topSleeve addAnimation:animation forKey:nil];
-
+    
 	// Build an array of keyframes for perspectiveLayer.bounds.size.height
 	NSMutableArray* arrayHeight = [NSMutableArray arrayWithCapacity:frameCount + 1];
 	NSMutableArray* arrayShadow = [NSMutableArray arrayWithCapacity:frameCount + 1];
@@ -432,7 +491,7 @@
 	[keyAnimation setFillMode:kCAFillModeForwards];
 	[keyAnimation setRemovedOnCompletion:NO];
 	[self.lowerFoldShadow addAnimation:keyAnimation forKey:nil];
-					
+    
 	// commit the transaction
 	[CATransaction commit];
 }
@@ -441,14 +500,15 @@
 {
 	[CATransaction begin];
 	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-
+    
 	BOOL vertical = YES;
 	
 	CGRect bounds = self.centerBar.bounds;
 	CGFloat scale = [[UIScreen mainScreen] scale];
 	
 	// we inset the folding panels 1 point on each side with a transparent margin to antialiase the edges
-	UIEdgeInsets foldInsets = vertical? UIEdgeInsetsMake(0, 1, 0, 1) : UIEdgeInsetsMake(1, 0, 1, 0);
+	//UIEdgeInsets foldInsets = vertical? UIEdgeInsetsMake(0, 1, 0, 1) : UIEdgeInsetsMake(1, 0, 1, 0);
+    UIEdgeInsets foldInsets = UIEdgeInsetsMake(0, 0, 0, 0);
 	
 	CGRect upperRect = bounds;
 	if (vertical)
@@ -460,7 +520,7 @@
 		lowerRect.origin.y += upperRect.size.height;
 	else
 		lowerRect.origin.x += upperRect.size.width;
-		
+    
 	// Create 4 images to represent 2 halves of the 2 views
 	[self.centerBar setHidden:NO];
 	UIImage * foldUpper = [MPAnimation renderImageFromView:self.centerBar withRect:upperRect transparentInsets:foldInsets];
@@ -480,7 +540,7 @@
 	CGFloat height = vertical? bounds.size.height/2 : bounds.size.width/2;
 	CGFloat upperHeight = roundf(height * scale) / scale; // round heights to integer for odd height
 	CGFloat lowerHeight = (height * 2) - upperHeight;
-
+    
 	// view to hold all our sublayers
 	CGRect mainRect = [containerView convertRect:self.centerBar.frame fromView:actingSource];
 	self.animationView = [[UIView alloc] initWithFrame:mainRect];
@@ -561,11 +621,11 @@
 	self.lowerFoldShadow.startPoint = CGPointMake(vertical? 0.5 : 0, vertical? 0 : 0.5);
 	self.lowerFoldShadow.endPoint = CGPointMake(vertical? 0.5 : 1, vertical? 1 : 0.5);
 	self.lowerFoldShadow.opacity = 0;
-		
-	[self setDropShadowForLayer:self.topSleeve];
-	[self setDropShadowForLayer:upperFold];
-	[self setDropShadowForLayer:lowerFold];
-	[self setDropShadowForLayer:self.bottomSleeve];
+    
+	//[self setDropShadowForLayer:self.topSleeve];
+	//[self setDropShadowForLayer:upperFold];
+	//[self setDropShadowForLayer:lowerFold];
+	//[self setDropShadowForLayer:self.bottomSleeve];
 	
 	// reduce shadow on topSleeve slightly so it won't shade the upperFold panel so much
 	CGRect topBounds = self.topSleeve.bounds;
@@ -589,6 +649,36 @@
 	self.perspectiveLayer.sublayerTransform = transform;
 	
 	[CATransaction commit];
+}
+
+#pragma mark - Crop view methods
+
+- (void)configureCropImageView:(UIView *)cropView cropPosY:(CGFloat)y {
+    UIGraphicsBeginImageContext(cropView.bounds.size);
+    [cropView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    NSLog(@"cropView Frame:%@", NSStringFromCGRect(cropView.frame));
+
+    CGRect topRect = CGRectMake(0, 0, cropView.frame.size.width, y);
+    CGRect bottomRect = CGRectMake(0, y, cropView.frame.size.width, cropView.frame.size.height - y);
+    UIImage *topImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, topRect)];
+    UIImage *bottomImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, bottomRect)];
+    
+    self.topBar.image = topImage;
+    self.bottomBar.image = bottomImage;
+    
+    [self.topBar resetSize:topImage.size];
+    [self.bottomBar resetSize:bottomImage.size];
+}
+
+- (void)setCropView:(UIView *)view cropPosY:(CGFloat)y {
+    //[self configureCropImageView:view cropPosY:y];
+    self.contentView.frame = view.frame;
+    [self.topBar resetOrigin:CGPointMake(0, 0)];
+    [self.centerBar resetOrigin:CGPointMake(0, y)];
+    [self.topBar resetOrigin:CGPointMake(0, y + self.centerBar.frame.size.height)];
 }
 
 @end

@@ -25,6 +25,7 @@
 
 - (NSArray *)getSettingInfoSectionArray;
 - (NSArray *)getSettingAppInfoSectionArray;
+- (NSArray *)getTeamMemberIDArray;
 
 @end
 

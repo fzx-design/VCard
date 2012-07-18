@@ -38,11 +38,9 @@
 }
 
 - (void)viewDidUnload {
+    self.tableView = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    self.tableView = nil;
-    self.tableView.delegate = nil;
-    self.tableView.dataSource = nil;
 }
 
 #pragma mark -
