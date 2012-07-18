@@ -68,6 +68,7 @@ typedef enum {
     UIImageView *_infoBarView;
     UIButton *_returnButton;
     UILabel *_titleLabel;
+    UIImageView *_infoBarShadowView;
     
     BaseLayoutView *_backgroundViewA;
     BaseLayoutView *_backgroundViewB;
