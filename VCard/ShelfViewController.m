@@ -297,9 +297,9 @@
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.delegate = self;
-    _scrollView.contentOffset = CGPointMake(_scrollView.frame.size.width, 0.0);
     [_scrollView resetWidth:[UIApplication screenWidth]];
     [_scrollView resetHeight:kShelfHeight];
+    _scrollView.contentOffset = CGPointMake(_scrollView.frame.size.width, 0.0);
     ShelfBackgroundView *view = (ShelfBackgroundView *)self.view;
     view.scrollViewReference = (ShelfScrollView *)_scrollView; 
     
@@ -387,20 +387,24 @@
         [view setSelected:YES];
         _currentDrawerView = view;
         
-        Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
-        
-        NSString *type = [NSString stringWithFormat:@"%d",group.type.intValue];
-        NSString *name = group.name;
-        NSString *groupID = group.groupID;
-        if (type.intValue == 2) {
-            name = [NSString stringWithFormat:@"#%@#", name];
-            groupID = group.name;
+        if (self.fetchedResultsController.fetchedObjects.count > view.index) {
+            Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
+            
+            NSString *type = [NSString stringWithFormat:@"%d",group.type.intValue];
+            NSString *name = group.name;
+            NSString *groupID = group.groupID;
+            if (type.intValue == 2) {
+                name = [NSString stringWithFormat:@"#%@#", name];
+                groupID = group.name;
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldChangeCastviewDataSource
+                                                                object:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                        name, kNotificationObjectKeyDataSourceDescription,
+                                                                        type, kNotificationObjectKeyDataSourceType,
+                                                                        groupID, kNotificationObjectKeyDataSourceID, nil]];
+        } else {
+            NSLog(@"Core Data TableView Controller Error - Shelf change source");
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldChangeCastviewDataSource
-                                                            object:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                    name, kNotificationObjectKeyDataSourceDescription,
-                                                                    type, kNotificationObjectKeyDataSourceType,
-                                                                    groupID, kNotificationObjectKeyDataSourceID, nil]];
     }
 }
 
@@ -423,21 +427,29 @@
     } completion:^(BOOL finished) {
         [view removeFromSuperview];
         [_drawerViewArray removeObject:view];
-        Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:index];
-        [self.managedObjectContext deleteObject:group];
-        [self.fetchedResultsController performFetch:nil];
-        [self updatePageControlAndScrollViewSize:[UIApplication sharedApplication].statusBarOrientation];
+        if (self.fetchedResultsController.fetchedObjects.count > index) {
+            Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:index];
+            [self.managedObjectContext deleteObject:group];
+            [self.fetchedResultsController performFetch:nil];
+            [self updatePageControlAndScrollViewSize:[UIApplication sharedApplication].statusBarOrientation];
+        } else {
+            NSLog(@"Core Data TableView Controller Error - Shelf remove");
+        }
     }];
     
     for (int i = index + 1; i < _drawerViewArray.count; ++i) {
-        ShelfDrawerView *view = [_drawerViewArray objectAtIndex:i];
-        Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:i];
-        [UIView animateWithDuration:0.3 animations:^{
-            [self resetDrawerViewLayout:view withIndex:i - 1];
-        } completion:^(BOOL finished) {
-            view.index--;
-            group.index = [NSNumber numberWithInt:view.index];
-        }];
+        if (self.fetchedResultsController.fetchedObjects.count > i) {
+            ShelfDrawerView *view = [_drawerViewArray objectAtIndex:i];
+            Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:i];
+            [UIView animateWithDuration:0.3 animations:^{
+                [self resetDrawerViewLayout:view withIndex:i - 1];
+            } completion:^(BOOL finished) {
+                view.index--;
+                group.index = [NSNumber numberWithInt:view.index];
+            }];
+        } else {
+            NSLog(@"Core Data TableView Controller Error - Shelf relayout");
+        }
     }
 }
 
@@ -482,8 +494,12 @@
 {
     for (ShelfDrawerView *view in _drawerViewArray) {
         if (!view.imageLoaded) {
-            Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
-            [view loadImageFromURL:group.picURL completion:nil];
+            if (self.fetchedResultsController.fetchedObjects.count > view.index) {
+                Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
+                [view loadImageFromURL:group.picURL completion:nil];
+            } else {
+                NSLog(@"Core Data TableView Controller Error - Shelf load image");
+            }
         }
     }
 }
@@ -498,10 +514,14 @@
 #pragma mark - ShelfDrawerViewDelegate
 - (void)didClickDeleteButtonAtIndex:(int)index
 {
-    Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:index];
-    
-    if (group.type.intValue == kGroupTypeTopic) {
-        [self deleteGroup:group];
+    if (self.fetchedResultsController.fetchedObjects.count > index) {
+        Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:index];
+        
+        if (group.type.intValue == kGroupTypeTopic) {
+            [self deleteGroup:group];
+        }
+    } else {
+        NSLog(@"Core Data TableView Controller Error - Shelf");
     }
 }
 

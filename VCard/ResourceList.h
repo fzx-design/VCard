@@ -121,6 +121,7 @@
 #define kUserDefaultKeyShouldScrollToTop                @"kUserDefaultKeyShouldScrollToTop"
 #define kUserDefaultKeySearchUserHistoryList            @"kUserDefaultKeySearchUserHistoryList"
 #define kUserDefaultKeySearchStatusHistoryList          @"kUserDefaultKeySearchStatusHistoryList"
+#define kUserDefaultKeyDoesStackViewExist               @"kUserDefaultKeyDoesStackViewExist"
 
 #define kUserGroupInfoArray                             @"kUserGroupInfoArray"
 

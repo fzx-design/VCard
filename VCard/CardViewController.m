@@ -477,9 +477,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
                     }
                              
                     status.mediaLink = urlLong;
-                    
-                    NSLog(@"%@, %@", status.type, client.statusID);
-                    
+                                        
                     if ([status.statusID isEqualToString:self.status.statusID]) {
                         [self updateImageButtonWithType:status.type URLString:urlLong];
                     }
