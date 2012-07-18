@@ -793,6 +793,11 @@
 
 - (void)didClickReturnButton
 {
+    [self hideInfoBar:YES];
+}
+
+- (void)hideInfoBar:(BOOL)buttonClicked
+{
     CGFloat targetOriginY = _infoBarView.frame.origin.y - 40.0;
     [UIView animateWithDuration:0.3 animations:^{
         [_infoBarView resetOriginY:targetOriginY];
@@ -806,7 +811,9 @@
         [_infoBarView resetOriginY:-40.0];
         [_returnButton resetOriginY:-40.0];
         [_titleLabel resetOriginY:-40.0];
-        [_flowdelegate didClickReturnToNormalTimelineButton];
+        if (buttonClicked) {
+            [_flowdelegate didClickReturnToNormalTimelineButton];
+        }
     }];
 }
 

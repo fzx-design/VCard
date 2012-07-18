@@ -95,5 +95,6 @@ typedef enum {
 - (void)prepareLayoutNeedRefresh:(BOOL)needRefresh;
 
 - (void)showInfoBarWithTitleName:(NSString *)name;
+- (void)hideInfoBar:(BOOL)buttonClicked;
 
 @end
