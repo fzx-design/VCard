@@ -76,4 +76,12 @@
     }];
 }
 
+- (void)adjustHalfPixel
+{
+    CGSize size = self.frame.size;
+    size.height = ceilf(size.height);
+    size.width = ceilf(size.width);
+    [self resetSize:size];
+}
+
 @end

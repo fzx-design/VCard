@@ -55,10 +55,8 @@
     
     indicator.hidden = NO;
     [indicator resetOrigin:kUnreadIndicatorViewOriginInitialPoint];
-    CGSize size = indicator.frame.size;
-    size.width = ceilf(size.width);
-    size.height = ceilf(size.height);
-    [indicator resetSize:size];
+    [self adjustHalfPixel];
+    [indicator adjustHalfPixel];
     
     CGFloat targetHeight = 4 * kUnreadIndicatorViewHeight + 25.0;
     

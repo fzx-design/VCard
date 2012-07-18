@@ -28,4 +28,6 @@
 
 - (void)disappearWithDuration:(CGFloat)duration;
 
+- (void)adjustHalfPixel;
+
 @end
