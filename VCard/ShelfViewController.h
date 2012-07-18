@@ -30,7 +30,7 @@
 @property (nonatomic, weak) IBOutlet UISlider         *brightnessSlider;
 @property (nonatomic, weak) IBOutlet UISlider         *fontSizeSlider;
 @property (nonatomic, weak) IBOutlet ShelfPageControl *pageControl;
-@property (nonatomic, strong) NSMutableArray            *drawerViewArray;
+@property (nonatomic, strong) NSMutableArray          *drawerViewArray;
 @property (nonatomic, weak) IBOutlet UIView           *coverView;
 
 - (IBAction)didChangeValueOfSlider:(UISlider *)sender;

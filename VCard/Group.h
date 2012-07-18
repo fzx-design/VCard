@@ -32,7 +32,7 @@
 + (Group *)groupWithName:(NSString *)name userID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteGroupWithGroupID:(NSString *)groupID userID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (void)setUpDefaultGroupWithUserID:(NSString *)groupID inManagedObjectContext:(NSManagedObjectContext *)context;
-
++ (void)setUpDefaultGroupWithUserID:(NSString *)userID defaultImageURL:(NSString *)defaultImageURL inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Group *)setUpDefaultGroupImageWithDefaultURL:(NSString *)defaultURL UserID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end
