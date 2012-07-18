@@ -263,13 +263,14 @@
         if (indexPath.section == 0) {
             cell = [tableView dequeueReusableCellWithIdentifier:@"SearchTableViewHighlightsCell"];
             [(SearchTableViewHighlightsCell *)cell setUpImages];
+            ((SearchTableViewHighlightsCell *)cell).pageIndex = self.pageIndex;
         } else if (indexPath.section == 1) {
             cell = [tableView dequeueReusableCellWithIdentifier:@"SearchTableViewCell"];
             SearchTableViewCell *searchCell = (SearchTableViewCell *)cell;
             if (_hotTopics.count > 0) {
                 [searchCell setTitle:[_hotTopics objectAtIndex:indexPath.row]];
             } else {
-                [searchCell setOperationTitle:@"暂无热门话题"];
+                [searchCell setOperationTitle:@"载入中"];
             }
         }
     }
@@ -334,8 +335,8 @@
     if (_tableViewState == SearchTableViewStateNormal) {
         if (indexPath.section == 1 && _hotTopics.count > 0) {
             [self addTopicPageWithSearchKey:[_hotTopics objectAtIndex:indexPath.row]];
-            shouldResign = YES;
         }
+        shouldResign = YES;
     } else {
         shouldResign = [self handleCellClickedEventAtIndex:indexPath.row];
     }
@@ -347,7 +348,8 @@
     }
 }
 
-- (BOOL)handleCellClickedEventAtIndex:(int)index
+-
+ (BOOL)handleCellClickedEventAtIndex:(int)index
 {
     BOOL shouldResign = YES;
     if (_searchingType == SearchingTargetTypeStatus) {

@@ -2,12 +2,17 @@
 //  Status.h
 //  VCard
 //
-//  Created by 海山 叶 on 12-7-4.
+//  Created by 海山 叶 on 12-7-17.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+
+#define kStatusTypeNone     @"kStatusTypeNone"
+#define kStatusTypeNormal   @"kStatusTypeNormal"
+#define kStatusTypeMedia    @"kStatusTypeMedia"
+#define kStatusTypeVote     @"kStatusTypeVote"
 
 @class Comment, Status, User;
 
@@ -33,13 +38,15 @@
 @property (nonatomic, retain) id operatedBy;
 @property (nonatomic, retain) NSString * originalPicURL;
 @property (nonatomic, retain) NSString * repostsCount;
+@property (nonatomic, retain) NSString * searchKey;
 @property (nonatomic, retain) NSString * searchString;
 @property (nonatomic, retain) NSString * source;
 @property (nonatomic, retain) NSString * statusID;
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) NSString * thumbnailPicURL;
 @property (nonatomic, retain) NSDate * updateDate;
-@property (nonatomic, retain) NSString * searchKey;
+@property (nonatomic, retain) NSString * type;
+@property (nonatomic, retain) NSString * mediaLink;
 @property (nonatomic, retain) User *author;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) User *favoritedBy;

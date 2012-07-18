@@ -10,10 +10,10 @@
 #import "UIView+Resize.h"
 
 #define kUnreadIndicatorViewHeight              40.0
-#define kUnreadIndicatorViewOriginInitial       181.0
-#define kUnreadIndicatorViewTerminalOriginX     -200.0
+#define kUnreadIndicatorViewOriginInitial       240.0
+#define kUnreadIndicatorViewTerminalOriginX     -250.0
 
-#define kUnreadIndicatorViewOriginInitialPoint  CGPointMake(5.0,181.0)
+#define kUnreadIndicatorViewOriginInitialPoint  CGPointMake(5.0, 240.0)
 
 @implementation UnreadIndicatorView
 
@@ -22,7 +22,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _currentIndicatorCount = 0;
-        _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 172.0, 180.0)];
+        _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 60.0, 172.0, 180.0)];
         _backgroundImageView.image = [UIImage imageNamed:@"notification_shadow.png"];
         _backgroundImageView.alpha = 0.0;
         _backgroundImageView.userInteractionEnabled = NO;
@@ -36,7 +36,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         _currentIndicatorCount = 0;
-        _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 172.0, 180.0)];
+        _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 60.0, 172.0, 180.0)];
         _backgroundImageView.image = [UIImage imageNamed:@"notification_shadow.png"];
         _backgroundImageView.alpha = 0.0;
         _backgroundImageView.userInteractionEnabled = NO;
@@ -55,7 +55,7 @@
     
     indicator.hidden = NO;
     [indicator resetOrigin:kUnreadIndicatorViewOriginInitialPoint];
-    CGFloat targetHeight = 2 * kUnreadIndicatorViewHeight + 50.0;
+    CGFloat targetHeight = 4 * kUnreadIndicatorViewHeight + 15.0;
     
     for (UIView *view in self.subviews) {
         CGFloat currentOriginY = view.frame.origin.y;

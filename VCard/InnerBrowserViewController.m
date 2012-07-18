@@ -9,6 +9,7 @@
 #import "InnerBrowserViewController.h"
 #import "UIApplication+Addition.h"
 #import "UIView+Resize.h"
+#import "WBClient.h"
 
 @interface InnerBrowserViewController () {
     BOOL _loading;
@@ -30,16 +31,29 @@
 
 + (void)loadLinkWithURL:(NSURL *)url
 {
+    [[InnerBrowserViewController createBrowser] loadLink:url];
+}
+
++ (void)loadLongLinkWithURL:(NSURL *)url
+{
+    [[InnerBrowserViewController createBrowser] loadLongLink:url];
+}
+
++ (InnerBrowserViewController *)createBrowser
+{
     InnerBrowserViewController *vc = [[UIApplication sharedApplication].rootViewController.storyboard instantiateViewControllerWithIdentifier:@"InnerBrowserViewController"];
- 
+    
     vc.view.frame = [UIApplication sharedApplication].rootViewController.view.bounds;
     [vc.view resetWidth:[UIApplication screenWidth]];
     [vc.view resetHeight:[UIApplication screenHeight] - 20.0];
     
     [UIApplication presentModalViewController:vc animated:YES];
-    [vc loadLink:url];
+    
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:kUserDefaultKeyShouldScrollToTop];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    return vc;
 }
-
 
 - (void)viewDidLoad
 {
@@ -65,14 +79,42 @@
 - (void)loadLink:(NSURL *)link
 {
     _firstLoad = YES;
-    _titleLabel.text = [link absoluteString];
-    NSURLRequest* request = [[NSURLRequest alloc] initWithURL:link];
-    [_webView loadRequest:request];
+    _targetURL = link;
+    _titleLabel.text = link.absoluteString;
+    _webView.scrollView.scrollsToTop = NO;
+    
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSDictionary *dict = client.responseJSONObject;
+            if ([dict isKindOfClass:[NSDictionary class]]) {
+                NSString *url = [dict objectForKey:@"url_long"];
+                _targetURL = [NSURL URLWithString:url];
+                _titleLabel.text = url;
+            }
+        }
+        
+        [_webView loadRequest:[[NSURLRequest alloc] initWithURL:_targetURL]];
+    }];
+    
+    [client getLongURLWithShort:link.absoluteString];
+}
+
+- (void)loadLongLink:(NSURL *)link
+{
+    _firstLoad = YES;
+    _targetURL = link;
+    _webView.scrollView.scrollsToTop = NO;
+    _titleLabel.text = link.absoluteString;
+    [_webView loadRequest:[[NSURLRequest alloc] initWithURL:_targetURL]];
 }
 
 #pragma mark - IBActions
 - (IBAction)didClickReturnButton:(UIButton *)sender
 {
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultKeyShouldScrollToTop];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [UIApplication dismissModalViewControllerAnimated:YES];
     [self performSelector:@selector(resetWebview) withObject:nil afterDelay:0.3];
 }
@@ -152,12 +194,14 @@
 - (void)copyLink
 {
     UIPasteboard *pb = [UIPasteboard generalPasteboard];
-    [pb setString:_webView.request.URL.absoluteString];
+    NSURL *url = _webView.canGoBack ? _webView.request.URL : _targetURL;
+    [pb setString:url.absoluteString];
 }
 
 - (void)openInSafari
 {
-    [[UIApplication sharedApplication] openURL:_webView.request.URL];
+    NSURL *url = _webView.canGoBack ? _webView.request.URL : _targetURL;
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 @end

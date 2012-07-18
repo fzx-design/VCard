@@ -68,6 +68,7 @@
         <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lon" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="mediaLink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="operatable" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="operatedBy" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="originalPicURL" optional="YES" attributeType="String">
@@ -90,10 +91,11 @@
         <attribute name="thumbnailPicURL" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
+        <attribute name="type" optional="YES" attributeType="String" defaultValueString="kStatusTypeNone" syncable="YES"/>
         <attribute name="updateDate" attributeType="Date">
             <userInfo/>
         </attribute>
-        <relationship name="author" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="statuses" inverseEntity="User">
+        <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="statuses" inverseEntity="User">
             <userInfo/>
         </relationship>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="targetStatus" inverseEntity="Comment">
@@ -158,7 +160,9 @@
         </attribute>
         <attribute name="unreadCommentCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="unreadFollowingCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="unreadMentionComment" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="unreadMentionCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="unreadMessageCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="unreadStatusCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updateDate" attributeType="Date">
             <userInfo/>
@@ -195,7 +199,7 @@
     <elements>
         <element name="Comment" positionX="0" positionY="0" width="0" height="285"/>
         <element name="Group" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="Status" positionX="0" positionY="0" width="0" height="540"/>
-        <element name="User" positionX="0" positionY="0" width="0" height="525"/>
+        <element name="Status" positionX="0" positionY="0" width="0" height="570"/>
+        <element name="User" positionX="0" positionY="0" width="0" height="555"/>
     </elements>
 </model>

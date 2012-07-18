@@ -37,6 +37,10 @@
     _toMeNextPage = 1;
     _byMeNextPage = 1;
     _hasMoreViews = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
                selector:@selector(refreshAfterDeletingComment:)

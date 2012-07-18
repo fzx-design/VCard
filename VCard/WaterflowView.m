@@ -103,7 +103,7 @@
     _shelfPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleShelfPanGesture:)];
     _shelfPanGestureRecognizer.minimumNumberOfTouches = 2;
     _shelfPanGestureRecognizer.maximumNumberOfTouches = 2;
-    _shelfPanGestureRecognizer.delaysTouchesBegan = YES;
+    _shelfPanGestureRecognizer.delaysTouchesBegan = NO;
 
     [self addGestureRecognizer:_shelfPanGestureRecognizer];
 }

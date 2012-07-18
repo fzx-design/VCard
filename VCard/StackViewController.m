@@ -36,10 +36,6 @@
 {
     [super viewDidLoad];
     self.stackView.delegate = self;
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(stackViewSendShowBGNotification) 
-                                                 name:kNotificationNameOrientationWillChange 
-                                               object:nil];
     
     //FIXME: Debug
     //    self.view.backgroundColor = [UIColor blackColor];
@@ -47,6 +43,14 @@
         [[[TipsViewController alloc] initWithType:TipsViewControllerTypeStack] show];
         [NSUserDefaults setShownStackTips:YES];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(stackViewSendShowBGNotification) 
+                                                 name:kNotificationNameOrientationWillChange 
+                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -74,6 +78,7 @@
     if (searchResult) {
         [self.stackView scrollToTargetView:searchResult.view];
         if (vc.loadWithPurpose) {
+            searchResult.shouldShowFirst = vc.shouldShowFirst;
             [searchResult showWithPurpose];
         }
     } else {

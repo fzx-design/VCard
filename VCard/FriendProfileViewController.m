@@ -9,6 +9,8 @@
 #import "FriendProfileViewController.h"
 #import "WBClient.h"
 #import "User.h"
+#import "PostViewController.h"
+#import "UIApplication+Addition.h"
 
 @implementation FriendProfileViewController
 
@@ -26,7 +28,8 @@
     [super viewDidLoad];
     _loading = NO;
     [self.screenNameLabel setText:self.screenName];
-    [ThemeResourceProvider configButtonPaperLight:_moreInfoButton];
+    [ThemeResourceProvider configButtonPaperLight:_mentionButton];
+    [ThemeResourceProvider configButtonPaperLight:_messageButton];
     
     if (self.user == nil) {
         [self loadUser];
@@ -112,6 +115,18 @@
 
 - (IBAction)didClickMentionButton:(UIButton *)sender
 {
+    CGRect frame = [self.view convertRect:_mentionButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    PostViewController *vc = [PostViewController getNewStatusViewControllerWithAtUserName:self.screenName delegate:self];
+    [vc showViewFromRect:frame];
+}
+
+- (IBAction)didClickMoreInfoButton:(UIButton *)sender
+{
+    
+}
+
+- (IBAction)didClickMessageButton:(UIButton *)sender
+{
     
 }
 
@@ -168,6 +183,24 @@
     if(buttonIndex == 0) {
         [self unfollowUser];
     }
+}
+
+#pragma mark - PostViewController Delegate
+
+- (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message {
+    [vc dismissViewUpwards];
+}
+
+- (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {
+    
+}
+
+- (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
+    [vc dismissViewToRect:[self.view convertRect:_mentionButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
 }
 
 @end

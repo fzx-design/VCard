@@ -13,6 +13,9 @@
 #define kGroupTypeGroup     1
 #define kGroupTypeTopic     2
 
+#define kGroupIDDefault     @"kGroupIDDefault"
+#define kGroupIDFavourite   @"kGroupIDFavourite"
+
 @interface Group : NSManagedObject
 
 @property (nonatomic, retain) NSString * groupID;
@@ -23,11 +26,13 @@
 @property (nonatomic, retain) NSString * groupUserID;
 @property (nonatomic, retain) NSNumber * count;
 
-+ (Group *)insertGroupInfo:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context;
-+ (Group *)insertTopicInfo:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context;
-+ (Group *)insertTopicWithName:(NSString *)name andID:(NSString *)trendID inManangedObjectContext:(NSManagedObjectContext *)context;
-+ (Group *)groupWithName:(NSString *)name inManagedObjectContext:(NSManagedObjectContext *)context;
-+ (void)deleteGroupWithGroupID:(NSString *)groupID inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Group *)insertGroupInfo:(NSDictionary *)dict userID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Group *)insertTopicInfo:(NSDictionary *)dict userID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Group *)insertTopicWithName:(NSString *)name userID:(NSString *)userID andID:(NSString *)trendID inManangedObjectContext:(NSManagedObjectContext *)context;
++ (Group *)groupWithName:(NSString *)name userID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
++ (void)deleteGroupWithGroupID:(NSString *)groupID userID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (void)setUpDefaultGroupWithUserID:(NSString *)groupID inManagedObjectContext:(NSManagedObjectContext *)context;
 
 
 @end

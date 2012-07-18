@@ -28,6 +28,7 @@
 
 @property (nonatomic, strong) NSMutableArray *topicImageViewArray;
 @property (nonatomic, strong) NSMutableArray *topicLabelArray;
+@property (nonatomic, assign) NSInteger pageIndex;
 
 - (void)swingWithAngle:(CGFloat)angle;
 - (void)setUpImages;

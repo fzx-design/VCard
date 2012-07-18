@@ -70,6 +70,8 @@ static UnreadReminder *sharedUnreadReminder;
             sharedUnreadReminder.currentUser.unreadFollowingCount = [dict objectForKey:@"follower"];
             sharedUnreadReminder.currentUser.unreadMentionCount = [dict objectForKey:@"mention_status"];
             sharedUnreadReminder.currentUser.unreadStatusCount = [dict objectForKey:@"status"];
+            sharedUnreadReminder.currentUser.unreadMentionComment = [dict objectForKey:@"mention_cmt"];
+            sharedUnreadReminder.currentUser.unreadMessageCount = [dict objectForKey:@"dm"];
             
             [self sendUnreadNotification];
         }
@@ -99,6 +101,14 @@ static UnreadReminder *sharedUnreadReminder;
     unreadCount = self.currentUser.unreadFollowingCount.intValue;
     if (unreadCount != 0) {
         [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadFollowCount object:nil];
+    }
+    unreadCount = self.currentUser.unreadMentionComment.intValue;
+    if (unreadCount != 0) {
+        [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMentionCommentCount object:nil];
+    }
+    unreadCount = self.currentUser.unreadMessageCount.intValue;
+    if (unreadCount != 0) {
+        [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMessageCount object:nil];
     }
 }
 

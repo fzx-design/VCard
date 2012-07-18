@@ -913,6 +913,22 @@ typedef enum {
     [self loadAdvancedRequest];
 }
 
+- (void)getLongURLWithShort:(NSString *)shortURL
+{
+    self.path = @"short_url/expand.json";
+    
+    if (shortURL) {
+        [self.params setObject:shortURL forKey:@"url_short"];
+    }
+    
+    [self setPreCompletionBlock:^(WBClient *client) {
+        NSDictionary *dict = self.responseJSONObject;
+        self.responseJSONObject = [dict objectForKey:@"urls"];
+    }];
+    
+    [self loadNormalRequest];
+}
+
 
 #pragma mark Request
 

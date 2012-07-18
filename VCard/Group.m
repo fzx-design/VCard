@@ -8,7 +8,6 @@
 
 #import "Group.h"
 
-
 @implementation Group
 
 @dynamic groupID;
@@ -19,7 +18,7 @@
 @dynamic groupUserID;
 @dynamic count;
 
-+ (Group *)groupWithID:(NSString *)groupID inManagedObjectContext:(NSManagedObjectContext *)context
++ (Group *)groupWithID:(NSString *)groupID userID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
@@ -31,7 +30,7 @@
     return res;
 }
 
-+ (Group *)groupWithName:(NSString *)name inManagedObjectContext:(NSManagedObjectContext *)context
++ (Group *)groupWithName:(NSString *)name userID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
@@ -43,7 +42,7 @@
     return res;
 }
 
-+ (Group *)insertGroupInfo:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
++ (Group *)insertGroupInfo:(NSDictionary *)dict userID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSString *groupID = [dict objectForKey:@"idstr"];
     
@@ -51,7 +50,7 @@
         return nil;
     }
     
-    Group *result = [Group groupWithID:groupID inManagedObjectContext:context];
+    Group *result = [Group groupWithID:groupID userID:userID inManagedObjectContext:context];
     if (!result) {
         result = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:context];
     }
@@ -62,11 +61,12 @@
     result.name = [dict objectForKey:@"name"];
     result.type = [NSNumber numberWithInt:kGroupTypeGroup];
     result.count = [NSNumber numberWithInt:[[dict objectForKey:@"member_count"] intValue]];
+    result.index = [NSNumber numberWithInt:10];
     
     return result;
 }
 
-+ (Group *)insertTopicInfo:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
++ (Group *)insertTopicInfo:(NSDictionary *)dict userID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSString *groupID = [dict objectForKey:@"trend_id"];
     
@@ -74,25 +74,26 @@
         return nil;
     }
     
-    Group *result = [Group groupWithID:groupID inManagedObjectContext:context];
+    Group *result = [Group groupWithID:groupID userID:userID inManagedObjectContext:context];
     if (!result) {
         result = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:context];
     }
     result.groupID = groupID;
     result.name = [dict objectForKey:@"hotword"];
     result.type = [NSNumber numberWithInt:kGroupTypeTopic];
-    result.count = [NSNumber numberWithInt:1];
+    result.count = [NSNumber numberWithInt:100];
+    result.index = [NSNumber numberWithInt:100];
     
     return result;
 }
 
-+ (Group *)insertTopicWithName:(NSString *)name andID:(NSString *)trendID inManangedObjectContext:(NSManagedObjectContext *)context
++ (Group *)insertTopicWithName:(NSString *)name userID:(NSString *)userID andID:(NSString *)trendID inManangedObjectContext:(NSManagedObjectContext *)context
 {
     if (!trendID || [trendID isEqualToString:@""]) {
         return nil;
     }
     
-    Group *result = [Group groupWithID:trendID inManagedObjectContext:context];
+    Group *result = [Group groupWithID:trendID userID:userID inManagedObjectContext:context];
     if (!result) {
         result = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:context];
     }
@@ -103,7 +104,7 @@
     return result;
 }
 
-+ (void)deleteGroupWithGroupID:(NSString *)groupID inManagedObjectContext:(NSManagedObjectContext *)context
++ (void)deleteGroupWithGroupID:(NSString *)groupID userID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
@@ -111,6 +112,39 @@
     [request setPredicate:[NSPredicate predicateWithFormat:@"groupID == %@", groupID]];
     
     [context deleteObject:[[context executeFetchRequest:request error:NULL] lastObject]];
+}
+
++ (BOOL)checkUserDefaultGroup:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Group" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"groupUserID == %@ && groupID", userID, kGroupIDDefault]];
+    
+    NSArray *items = [context executeFetchRequest:request error:NULL];
+    
+    return items.count == 0;
+}
+
++ (void)setUpDefaultGroupWithUserID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    if ([Group checkUserDefaultGroup:userID inManagedObjectContext:context]) {
+        Group *defaultGroup = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:context];
+        defaultGroup.groupID = kGroupIDDefault;
+        defaultGroup.groupUserID = userID;
+        defaultGroup.name = @"全部关注";
+        defaultGroup.type = [NSNumber numberWithInt:kGroupTypeGroup];
+        defaultGroup.count = [NSNumber numberWithInt:100];
+        defaultGroup.index = [NSNumber numberWithInt:0];
+        
+        Group *favourite = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:context];
+        favourite.groupID = kGroupIDDefault;
+        favourite.groupUserID = userID;
+        favourite.name = @"收藏";
+        favourite.type = [NSNumber numberWithInt:kGroupTypeGroup];
+        favourite.count = [NSNumber numberWithInt:100];
+        favourite.index = [NSNumber numberWithInt:1];
+    }
 }
 
 @end

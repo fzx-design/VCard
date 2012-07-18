@@ -63,7 +63,7 @@
             [NSUserDefaults insertUserAccountInfoWithUserID:user.userID account:account password:password];
             
             [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:user.userID];
-            
+                        
             if(compeltion)
                 compeltion(YES);
             

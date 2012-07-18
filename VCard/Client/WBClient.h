@@ -13,6 +13,8 @@
 #define kWBClientResetCountTypeFollower @"follower"
 #define kWBClientResetCountTypeComment  @"cmt"
 #define kWBClientResetCountTypeMention  @"mention_status"
+#define kWBClientResetCountTypeMetionComment @"mention_cmt"
+#define kWBClientResetCountTypeMessage  @"dm"
 
 typedef enum {
     RepostWeiboTypeCommentNone      = 0,
@@ -94,6 +96,8 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 @property (nonatomic, assign) BOOL isUserExclusive;
 @property (nonatomic, retain) WBRequest *request;
 @property (nonatomic, assign) id<WBClientDelegate> delegate;
+
+@property (nonatomic, strong) NSString *statusID;
 
 @property (nonatomic, copy) WCCompletionBlock preCompletionBlock;
 
@@ -215,5 +219,6 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                             feature:(int)feature;
 
 - (void)uploadAvatar:(UIImage *)image;
+- (void)getLongURLWithShort:(NSString *)shortURL;
 
 @end

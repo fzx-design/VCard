@@ -79,7 +79,7 @@
 
 - (void)loadTopicStatus
 {
-    _group = [Group groupWithName:_searchKey inManagedObjectContext:self.managedObjectContext];
+    _group = [Group groupWithName:_searchKey userID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
     _isTopicFollowed = _group != nil;
     NSString *buttonText = _isTopicFollowed ? @"取消关注" : @"关注话题";
     _followTopicButton.titleLabel.text = buttonText;
@@ -106,7 +106,7 @@
         if (!client.hasError) {
             NSDictionary *dict = client.responseJSONObject;
             NSString *groupID = [dict objectForKey:@"topicid"];
-            _group = [Group insertTopicWithName:_searchKey andID:groupID inManangedObjectContext:self.managedObjectContext];
+            _group = [Group insertTopicWithName:_searchKey userID:self.currentUser.userID andID:groupID inManangedObjectContext:self.managedObjectContext];
             [self.managedObjectContext processPendingChanges];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldCreateNewGroup object:_group];
             _followTopicButton.titleLabel.text = @"取消关注";

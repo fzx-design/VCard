@@ -25,8 +25,13 @@
 
 - (void)initialLoad
 {
-    [self didClickCheckStatusButton:nil];
-    [self.statusTableViewController refresh];
+    if (self.shouldShowFirst) {
+        [self didClickCheckStatusButton:nil];
+        [self.statusTableViewController refresh];
+    } else {
+        [self didClickCheckCommentButton:nil];
+        [self.commentTableViewController refresh];
+    }
 }
 
 - (void)refresh
@@ -47,8 +52,13 @@
 
 - (void)showWithPurpose
 {
-    [self didClickCheckStatusButton:nil];
-    [self.statusTableViewController refresh];
+    if (self.shouldShowFirst) {
+        [self didClickCheckStatusButton:nil];
+        [self.statusTableViewController refresh];
+    } else {
+        [self didClickCheckCommentButton:nil];
+        [self.commentTableViewController refresh];
+    }
 }
 
 - (void)clearPage

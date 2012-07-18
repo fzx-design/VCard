@@ -33,6 +33,7 @@ typedef enum {
 - (void)resetPosition;
 
 - (id)initWithScrollView:(UIScrollView *)scrollView;
+- (void)resetLayoutTo:(UIInterfaceOrientation)orientation;
 
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, weak) id<LoadMoreViewDelegate> delegate;

@@ -85,6 +85,7 @@
         [[[GuideBookViewController alloc] init] show];
     }
 }
+
 - (void)handleChangeCurrentUserNotification:(NSNotification *)notification {
     NSLog(@"current user name:%@", self.currentUser.screenName);
     self.castViewController = nil;
@@ -97,6 +98,11 @@
     }
 }
 
+- (void)setUpDefaultGroup
+{
+    
+}
+
 #pragma mark - Setup Notifications
 - (void)setUpViews
 {
@@ -104,6 +110,8 @@
     [self.view resetSize:CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight])];
     [self.view insertSubview:self.castViewController.view belowSubview:self.detailImageViewController.view];
     [self.view insertSubview:self.shelfViewController.view belowSubview:self.castViewController.view];
+    [self.castViewController viewWillAppear:NO];
+    [self.shelfViewController viewWillAppear:NO];
     self.shelfViewController.view.hidden = YES;
 }
 
@@ -280,6 +288,7 @@
         _detailImageViewController.view.frame = self.view.bounds;
         _detailImageViewController.view.hidden = YES;
         [self.view addSubview:_detailImageViewController.view];
+        [_detailImageViewController viewWillAppear:NO];
     }
     return _detailImageViewController;
 }

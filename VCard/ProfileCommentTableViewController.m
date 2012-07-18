@@ -249,7 +249,8 @@
     [_headerViewCell.cardViewController configureCardWithStatus:targetStatus
                                                     imageHeight:ImageHeightHigh
                                                       pageIndex:self.pageIndex
-                                                    currentUser:self.currentUser];
+                                                    currentUser:self.currentUser
+                                             coreDataIdentifier:_coreDataIdentifier];
     [_headerViewCell loadImageAfterScrollingStop];
     _headerViewCell.typeString = _type == CommentTableViewControllerTypeComment ? @"评论" : @"转发";
     _headerViewCell.pageIndex = self.pageIndex;

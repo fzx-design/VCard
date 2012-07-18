@@ -25,6 +25,7 @@
 #import "TopicViewController.h"
 #import "SearchUserResultViewController.h"
 #import "NSNotificationCenter+Addition.h"
+#import "SelfMentionViewController.h"
 
 @interface CastViewController () {
     BOOL _loading;
@@ -55,7 +56,6 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // Custom initialization
-        [self setUpNotification];
     }
     return self;
 }
@@ -76,11 +76,17 @@
     _nextPage = 1;
     _refreshIndicatorView.hidden = YES;
     _postIndicatorView.hidden = YES;
-    _refreshing = YES;
+    _refreshing = NO;
     _dataSource = CastviewDataSourceNone;
     _coverView = [[UIView alloc] initWithFrame:CGRectMake(1024.0, 0.0, 0.0, 0.0)];
     _coverView.backgroundColor = [UIColor blackColor];
     _coverView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    
+    [_unreadFollowerIndicatorButton resetOriginY:240];
+    [_unreadCommentIndicatorButton resetOriginY:240];
+    [_unreadMentionIndicatorButton resetOriginY:240];
+    [_unreadMentionCommentIndicatorButton resetOriginY:240];
+    [_unreadMessageIndicatorButton resetOriginY:240];
 }
 
 - (void)setUpNotification
@@ -158,6 +164,15 @@
                    name:kNotificationNameShouldUpdateUnreadFollowCount
                  object:nil];
     [center addObserver:self
+               selector:@selector(updateUnreadMentionCommentCount)
+                   name:kNotificationNameShouldUpdateUnreadMentionCommentCount
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(updateUnreadMessageCount)
+                   name:kNotificationNameShouldUpdateUnreadMessageCount
+                 object:nil];
+    
+    [center addObserver:self
                selector:@selector(changeCastviewDataSource:)
                    name:kNotificationNameShouldChangeCastviewDataSource
                  object:nil];
@@ -174,12 +189,21 @@
                selector:@selector(clearStack)
                    name:kNotificationNameShouldClearStack
                  object:nil];
+    [center addObserver:self
+               selector:@selector(resetRefreshingAnimation)
+                   name:UIApplicationDidBecomeActiveNotification
+                 object:nil];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self setUpNotification];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -300,8 +324,9 @@
 
 - (void)showSelfMentionListWithStackIndex:(int)index
 {
-    SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
+    SelfMentionViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
     vc.loadWithPurpose = YES;
+    vc.shouldShowFirst = YES;
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:@""];
 }
 
@@ -312,6 +337,19 @@
     vc.user = self.currentUser;
     vc.shouldShowFollowerList = YES;
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUser pageDescription:self.currentUser.screenName];
+}
+
+- (void)showMentionComment:(int)index
+{
+    SelfMentionViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
+    vc.loadWithPurpose = YES;
+    vc.shouldShowFirst = NO;
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:@""];
+}
+
+- (void)showMessage:(int)index
+{
+    
 }
 
 - (void)showTopic:(NSNotification *)notification
@@ -364,6 +402,13 @@
 {
     NSString *commentID = notification.object;
     [Comment deleteCommentWithID:commentID inManagedObjectContext:self.managedObjectContext withObject:kCoreDataIdentifierDefault];
+}
+
+- (void)resetRefreshingAnimation
+{
+    [_pullView finishedLoading];
+    [self hidePostIndicator];
+    [self refreshEnded];
 }
 
 #pragma mark Handle Unread Count Update
@@ -448,6 +493,56 @@
         [_unreadFollowerIndicatorButton setTitle:content forState:UIControlStateNormal];
         [_unreadFollowerIndicatorButton setTitle:content forState:UIControlStateHighlighted];
         [_unreadFollowerIndicatorButton setTitle:content forState:UIControlStateDisabled];
+    }
+}
+
+- (void)updateUnreadMentionCommentCount
+{
+    int unreadMentionCommentCount = self.currentUser.unreadMentionComment.intValue;
+    if (unreadMentionCommentCount != _unreadMentionCommentIndicatorButton.previousCount) {
+        _unreadMentionCommentIndicatorButton.previousCount = unreadMentionCommentCount;
+        
+        if (unreadMentionCommentCount == 0) {
+            if (!_unreadMentionCommentIndicatorButton.hidden) {
+                [_unreadIndicatorView removeIndicator:_unreadMentionCommentIndicatorButton];
+            }
+        } else {
+            if (_unreadMentionCommentIndicatorButton.hidden) {
+                [_unreadIndicatorView addNewIndicator:_unreadMentionCommentIndicatorButton];
+            } else {
+                [_unreadMentionCommentIndicatorButton showIndicatorUpdatedAnimation];
+            }
+        }
+        
+        NSString *content = [NSString stringWithFormat:@"     %i 条评论提到我", unreadMentionCommentCount];
+        [_unreadMentionCommentIndicatorButton setTitle:content forState:UIControlStateNormal];
+        [_unreadMentionCommentIndicatorButton setTitle:content forState:UIControlStateHighlighted];
+        [_unreadMentionCommentIndicatorButton setTitle:content forState:UIControlStateDisabled];
+    }
+}
+
+- (void)updateUnreadMessageCount
+{
+    int unreadMessageCount = self.currentUser.unreadMessageCount.intValue;
+    if (unreadMessageCount != _unreadMessageIndicatorButton.previousCount) {
+        _unreadMessageIndicatorButton.previousCount = unreadMessageCount;
+        
+        if (unreadMessageCount == 0) {
+            if (!_unreadMessageIndicatorButton.hidden) {
+                [_unreadIndicatorView removeIndicator:_unreadMessageIndicatorButton];
+            }
+        } else {
+            if (_unreadMessageIndicatorButton.hidden) {
+                [_unreadIndicatorView addNewIndicator:_unreadMessageIndicatorButton];
+            } else {
+                [_unreadMessageIndicatorButton showIndicatorUpdatedAnimation];
+            }
+        }
+        
+        NSString *content = [NSString stringWithFormat:@"     %i 条新私信", unreadMessageCount];
+        [_unreadMessageIndicatorButton setTitle:content forState:UIControlStateNormal];
+        [_unreadMessageIndicatorButton setTitle:content forState:UIControlStateHighlighted];
+        [_unreadMessageIndicatorButton setTitle:content forState:UIControlStateDisabled];
     }
 }
 
@@ -620,6 +715,22 @@
     sender.previousCount = 0;
 }
 
+- (IBAction)didClickUnreadMentionCommentButton:(UnreadIndicatorButton *)sender
+{
+    [self showMentionComment:[_stackViewController stackTopIndex]];
+    [self resetUnreadCountWithType:kWBClientResetCountTypeMetionComment];
+    [_unreadIndicatorView removeIndicator:sender];
+    sender.previousCount = 0;
+}
+
+- (IBAction)didClickUnreadMessageButton:(UnreadIndicatorButton *)sender
+{
+    [self showMessage:[_stackViewController stackTopIndex]];
+    [self resetUnreadCountWithType:kWBClientResetCountTypeMessage];
+    [_unreadIndicatorView removeIndicator:sender];
+    sender.previousCount = 0;
+}
+
 
 
 #pragma mark - Data Methods
@@ -733,6 +844,10 @@
                 self.currentUser.unreadMentionCount = [NSNumber numberWithInt:0];
             } else if ([type isEqualToString:kWBClientResetCountTypeStatus]){
                 self.currentUser.unreadStatusCount = [NSNumber numberWithInt:0];
+            } else if ([type isEqualToString:kWBClientResetCountTypeMetionComment]){
+                self.currentUser.unreadMentionComment = [NSNumber numberWithInt:0];
+            } else if ([type isEqualToString:kWBClientResetCountTypeMessage]){
+                self.currentUser.unreadMessageCount = [NSNumber numberWithInt:0];
             }
         }
     }];
@@ -744,6 +859,8 @@
                                 duration:(NSTimeInterval)duration 
 {
     [self.waterflowView adjustViewsForOrientation:toInterfaceOrientation];
+    [_loadMoreView resetLayoutTo:toInterfaceOrientation];
+    [_pullView resetLayoutTo:toInterfaceOrientation];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -907,7 +1024,8 @@
         [((WaterflowCardCell *)cell).cardViewController configureCardWithStatus:targetStatus
                                                                     imageHeight:layoutUnit.imageHeight
                                                                       pageIndex:0
-                                                                    currentUser:self.currentUser];
+                                                                    currentUser:self.currentUser
+                                                             coreDataIdentifier:kCoreDataIdentifierDefault];
         
     } else if(layoutUnit.unitType == UnitTypeDivider) {
         Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];

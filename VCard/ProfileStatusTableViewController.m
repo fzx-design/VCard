@@ -215,7 +215,8 @@
     [statusCell.cardViewController configureCardWithStatus:targetStatus
                                                imageHeight:targetStatus.cardSizeImageHeight.floatValue
                                                  pageIndex:self.pageIndex
-                                               currentUser:self.currentUser];
+                                               currentUser:self.currentUser
+                                        coreDataIdentifier:_coreDataIdentifier];
 }
 
 - (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath

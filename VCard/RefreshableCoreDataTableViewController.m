@@ -49,7 +49,16 @@
     [self.tableView addSubview:_loadMoreView];
     
     [self adjustBackgroundView];
-    
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self 
                selector:@selector(resetLayoutAfterRotating:) 
@@ -59,12 +68,6 @@
                selector:@selector(resetLayoutBeforeRotating:) 
                    name:kNotificationNameOrientationWillChange
                  object:nil];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (void)viewWillDisappear:(BOOL)animated

@@ -79,6 +79,8 @@
 #define kNotificationNameShouldUpdateUnreadFollowCount  @"kNotificationNameShouldUpdateUnreadFollowCount"
 #define kNotificationNameShouldUpdateUnreadCommentCount @"kNotificationNameShouldUpdateUnreadCommentCount"
 #define kNotificationNameShouldUpdateUnreadMentionCount @"kNotificationNameShouldUpdateUnreadMentionCount"
+#define kNotificationNameShouldUpdateUnreadMessageCount @"kNotificationNameShouldUpdateUnreadMessageCount"
+#define kNotificationNameShouldUpdateUnreadMentionCommentCount @"kNotificationNameShouldUpdateUnreadMentionCommentCount"
 
 #define kNotificationNameShouldDeleteStatus             @"kNotificationNameShouldDeleteStatus"
 #define kNotificationNameShouldDeleteComment            @"kNotificationNameShouldDeleteComment"

@@ -70,7 +70,7 @@ static inline NSRegularExpression * EmotionRegularExpression() {
 static NSRegularExpression *__emotionIDRegularExpression;
 static inline NSRegularExpression * EmotionIDRegularExpression() {
     if (!__emotionIDRegularExpression) {
-        __emotionIDRegularExpression = [[NSRegularExpression alloc] initWithPattern:@" \\[[[a-e][0-9] ]*\\] " options:NSRegularExpressionCaseInsensitive error:nil];
+        __emotionIDRegularExpression = [[NSRegularExpression alloc] initWithPattern:@" \\[[[a-f][0-9] ]*\\] " options:NSRegularExpressionCaseInsensitive error:nil];
     }
     
     return __emotionIDRegularExpression;
@@ -137,7 +137,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     
     _pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     _pinchGestureRecognizer.delegate = self;
-//    _pinchGestureRecognizer.delaysTouchesEnded = YES;
     [self.statusImageView addGestureRecognizer:_pinchGestureRecognizer];
     
     _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
@@ -145,18 +144,21 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     _tapGestureRecognizer.numberOfTouchesRequired = 1;
     _tapGestureRecognizer.delegate = self;
     [self.statusImageView addGestureRecognizer:_tapGestureRecognizer];
-    
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self
-               selector:@selector(recoverFromPause)
-                   name:UIApplicationDidBecomeActiveNotification
-                 object:nil];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(recoverFromPause)
+                   name:UIApplicationDidBecomeActiveNotification
+                 object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -212,13 +214,18 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     return height;
 }
 
-- (void)configureCardWithStatus:(Status*)status_ imageHeight:(CGFloat)imageHeight_ pageIndex:(NSInteger)pageIndex_ currentUser:(User *)user
+- (void)configureCardWithStatus:(Status*)status_
+                    imageHeight:(CGFloat)imageHeight_
+                      pageIndex:(NSInteger)pageIndex_
+                    currentUser:(User *)user
+             coreDataIdentifier:(NSString *)identifier
 {
     if (_alreadyConfigured) {
         return;
     }
     
     _alreadyConfigured = YES;
+    _coreDataIdentifier = identifier;
     self.statusImageView.imageViewMode = CastViewImageViewModeNormal;
     _pageIndex = pageIndex_;
     
@@ -264,6 +271,8 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         [self.statusImageView resetHeight:self.imageHeight];
         
         [self.statusImageView clearCurrentImage];
+        
+        [self updateImageButtonWithType:self.status.type URLString:self.status.mediaLink];
     }
 }
 
@@ -302,7 +311,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     CGFloat originY = _doesImageExist ? self.imageHeight + 30 : 20;
     Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
     
-    [CardViewController setStatusTextLabel:self.originalStatusLabel withText:targetStatus.text];
+    [CardViewController setCardViewController:self StatusTextLabel:self.originalStatusLabel withText:targetStatus.text];
     
     [self.originalUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
     [self.originalUserAvatar setVerifiedType:[targetStatus.author verifiedTypeOfUser]];
@@ -338,7 +347,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         
         Status *targetStatus = self.status;
         
-        [CardViewController setStatusTextLabel:self.repostStatusLabel withText:targetStatus.text];
+        [CardViewController setCardViewController:self StatusTextLabel:self.repostStatusLabel withText:targetStatus.text];
         [self.repostUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
         [self.repostUserAvatar setVerifiedType:[targetStatus.author verifiedTypeOfUser]];
         
@@ -440,7 +449,59 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     self.locationLabel.text = self.status.location;
 }
 
-+ (void)setStatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string
+- (void)recognizerLinkType:(NSString *)url
+{
+    if ([self.status.type isEqualToString:kStatusTypeNone]) {
+        WBClient *client = [WBClient client];
+        
+        [client setCompletionBlock:^(WBClient *client) {
+            if (!client.hasError) {
+                NSArray *array = client.responseJSONObject;
+                NSDictionary *dict = [array lastObject];
+                if ([dict isKindOfClass:[NSDictionary class]] && [[dict objectForKey:@"result"] boolValue]) {
+                    
+                    int type = [[dict objectForKey:@"type"] intValue];
+                    NSString *urlLong = [dict objectForKey:@"url_long"];
+                    Status *status = [Status statusWithID:client.statusID inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                    
+                    if ([status.type isEqualToString:kStatusTypeMedia] || [status.type isEqualToString:kStatusTypeVote]) {
+                        return ;
+                    }
+                    
+                    if (type == 5) {
+                        status.type = kStatusTypeVote;
+                    } else if (type == 1 || type == 2) {
+                        status.type = kStatusTypeMedia;
+                    } else {
+                        status.type = kStatusTypeNormal;
+                    }
+                             
+                    status.mediaLink = urlLong;
+                    
+                    NSLog(@"%@, %@", status.type, client.statusID);
+                    
+                    if ([status.statusID isEqualToString:self.status.statusID]) {
+                        [self updateImageButtonWithType:status.type URLString:urlLong];
+                    }
+                }
+            }
+        }];
+        
+        client.statusID = self.status.statusID;        
+        [client getLongURLWithShort:url];
+    }
+}
+
+- (void)updateImageButtonWithType:(NSString *)type URLString:(NSString *)url
+{
+    if ([type isEqualToString:kStatusTypeMedia]) {
+        [self.statusImageView setUpPlayButtonWithURL:url type:kActionButtonTypeMedia];
+    } else if ([type isEqualToString:kStatusTypeVote]) {
+        [self.statusImageView setUpPlayButtonWithURL:url type:kActionButtonTypeVote];
+    }
+}
+
++ (void)setCardViewController:(CardViewController *)vc StatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string
 {
     CGRect frame = label.frame;
     frame.size.height = [CardViewController heightForCellWithText:string];
@@ -455,10 +516,10 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     label.highlightedTextColor = [UIColor whiteColor];
     label.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
     
-    [self setSummaryText:string toLabel:label];
+    [self setCardViewController:vc SummaryText:string toLabel:label];
 }
 
-+ (void)setSummaryText:(NSString *)originalText toLabel:(TTTAttributedLabel*)label
++ (void)setCardViewController:(CardViewController *)vc SummaryText:(NSString *)originalText toLabel:(TTTAttributedLabel*)label
 {
     NSString *text = originalText;
     NSMutableArray *array = [[NSMutableArray alloc] init];
@@ -539,6 +600,10 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
             NSString *string = [text substringWithRange:range];
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];
             [label addLinkToURL:url withRange:result.range];
+            
+            if (vc) {
+                [vc recognizerLinkType:string];
+            }
         }
     }];
     
@@ -918,13 +983,19 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)sender
 {
-    if (self.statusImageView.imageViewMode == CastViewImageViewModeNormal) {
-        [self willOpenDetailImageViewDirectly];
-    } else if (self.statusImageView.imageViewMode != CastViewImageViewModePinchingOut){
-        if ([_delegate respondsToSelector:@selector(imageViewTapped)]) {
-            [_delegate imageViewTapped];
+    if (self.statusImageView.actionButton.hidden) {
+        if (self.statusImageView.imageViewMode == CastViewImageViewModeNormal) {
+            [self willOpenDetailImageViewDirectly];
+        } else if (self.statusImageView.imageViewMode != CastViewImageViewModePinchingOut){
+            if ([_delegate respondsToSelector:@selector(imageViewTapped)]) {
+                [_delegate imageViewTapped];
+            }
         }
+    } else {
+        [self.statusImageView didClickActionButton];
     }
+    
+    
 }
 
 - (void)returnToInitialImageView
@@ -932,6 +1003,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     [UIView animateWithDuration:0.3 animations:^{
         [self.statusImageView playReturnAnimation];
         self.statusImageView.gifIcon.alpha = 1.0;
+        self.statusImageView.actionButton.alpha = 1.0;
         [_delegate willReturnImageView];
     } completion:^(BOOL finished) {
         if ([_delegate respondsToSelector:@selector(didReturnImageView)]) {
@@ -954,6 +1026,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         [self.statusImageView playReturnAnimation];
         [self.statusImageView returnToInitialPosition];
         self.statusImageView.gifIcon.alpha = 1.0;
+        self.statusImageView.actionButton.alpha = 1.0;
     }];
     [self playClipTightenAnimation];
     self.statusImageView.imageViewMode = CastViewImageViewModeNormal;
@@ -987,6 +1060,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 - (void)sendShowDetailImageViewNotification
 {
     self.statusImageView.gifIcon.alpha = 0.0;
+    self.statusImageView.actionButton.alpha = 0.0;
     [self playClipLooseAnimation];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowDetailImageView object:[NSDictionary dictionaryWithObjectsAndKeys:self, kNotificationObjectKeyStatus,self.statusImageView, kNotificationObjectKeyImageView, nil]];
 }

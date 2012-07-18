@@ -98,10 +98,10 @@
         
 		[self setState:PullToRefreshViewStateNormal];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(resetLayoutToOrientation:)
-                                                     name:kNotificationNameOrientationWillChange
-                                                   object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(resetLayoutToOrientation:)
+//                                                     name:kNotificationNameOrientationWillChange
+//                                                   object:nil];
     }
     
     return self;
@@ -216,6 +216,18 @@
 {
     if (_shouldAutoRotate) {
         CGFloat width = [(NSString *)notification.object isEqualToString:kOrientationPortrait] ? 768.0 : 1024;
+        
+        [reloadHoleView resetWidth:width];
+        [reloadArrowView resetWidth:width];
+        [reloadCircleView resetWidth:width];
+        [iconView resetWidth:width];
+    }
+}
+
+- (void)resetLayoutTo:(UIInterfaceOrientation)orientation
+{
+    if (_shouldAutoRotate) {
+        CGFloat width = UIInterfaceOrientationIsPortrait(orientation) ? 768.0 : 1024;
         
         [reloadHoleView resetWidth:width];
         [reloadArrowView resetWidth:width];

@@ -54,7 +54,7 @@
 {
     self.status = status;
     self.commentContentLabel.delegate = self;
-    [CardViewController setStatusTextLabel:self.commentContentLabel withText:self.status.text];
+    [CardViewController setCardViewController:nil StatusTextLabel:self.commentContentLabel withText:self.status.text];
     [self.avatarImageView loadImageFromURL:self.status.author.profileImageURL completion:nil];
     [self.avatarImageView setVerifiedType:[self.status.author verifiedTypeOfUser]];
     
@@ -89,7 +89,7 @@
 {
     self.comment = comment_;
     self.commentContentLabel.delegate = self;
-    [CardViewController setStatusTextLabel:self.commentContentLabel withText:self.comment.text];
+    [CardViewController setCardViewController:nil StatusTextLabel:self.commentContentLabel withText:self.comment.text];
     [self.avatarImageView loadImageFromURL:self.comment.author.profileImageURL completion:nil];
     [self.avatarImageView setVerifiedType:[self.comment.author verifiedTypeOfUser]];
     

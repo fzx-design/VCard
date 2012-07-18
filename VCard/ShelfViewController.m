@@ -57,7 +57,6 @@
     [self initScrollView];
     [self setUpSettingView];
     [self setUpGroupsInfo];
-    [self setUpNotifications];
     
     UIInterfaceOrientation toInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
     [self updatePageControlAndScrollViewSize:toInterfaceOrientation];
@@ -83,6 +82,11 @@
                selector:@selector(deleteGroupWithNotification:)
                    name:kNotificationNameShouldDeleteGroup
                  object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self setUpNotifications];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -120,7 +124,7 @@
         if (!client.hasError) {
             NSArray *resultArray = [client.responseJSONObject objectForKey:@"lists"];
             for (NSDictionary *dict in resultArray) {
-                [Group insertGroupInfo:dict inManagedObjectContext:self.managedObjectContext];
+                [Group insertGroupInfo:dict userID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
             }
         }
         
@@ -140,7 +144,7 @@
         if (!client.hasError) {
             NSArray *resultArray = client.responseJSONObject;
             for (NSDictionary *dict in resultArray) {
-                Group *group = [Group insertTopicInfo:dict inManagedObjectContext:self.managedObjectContext];
+                Group *group = [Group insertTopicInfo:dict userID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
                 [self getPicURLForTopic:group];
             }
         }
@@ -507,7 +511,7 @@
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             [self removeDrawerViewAtIndex:group.index.intValue];
-            [Group deleteGroupWithGroupID:group.groupID inManagedObjectContext:self.managedObjectContext];
+            [Group deleteGroupWithGroupID:group.groupID userID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
         } else {
            //TODO: Error
         }

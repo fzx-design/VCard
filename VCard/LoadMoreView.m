@@ -40,14 +40,17 @@
         [self addSubview:_activityView];
         
 		[self setState:LoadMoreViewStateLoading];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(resetLayoutToOrientation:)
-                                                     name:kNotificationNameOrientationWillChange
-                                                   object:nil];
     }
     
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(resetLayoutToOrientation:)
+//                                                 name:kNotificationNameOrientationWillChange
+//                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -110,6 +113,14 @@
 {
     if (_shouldAutoRotate) {
         CGFloat width = [(NSString *)notification.object isEqualToString:kOrientationPortrait] ? 768.0 : 1024;
+        [_activityView resetWidth:width];
+    }
+}
+
+- (void)resetLayoutTo:(UIInterfaceOrientation)orientation
+{
+    if (_shouldAutoRotate) {
+        CGFloat width = UIInterfaceOrientationIsPortrait(orientation) ? 768.0 : 1024.0;
         [_activityView resetWidth:width];
     }
 }
