@@ -21,6 +21,7 @@
 #define BlockDividerHeight 30
 
 #define kInfoBarImageViewFrame          CGRectMake(0, -40, 768, 33)
+#define kInfoBarShadowViewFrame         CGRectMake(0, -10, 768, 15)
 #define kInfoBarReturnButtonFrame       CGRectMake(0, -40, 90, 30)
 #define kInfoBarTitleLabelFrame         CGRectMake(0, -40, 768, 30)
 #define kInfoBarReturnButtonTextColor   [UIColor colorWithHue:70.0 / 255.0 saturation:70.0 / 255.0 brightness:70.0 / 255.0 alpha:1.0]
@@ -715,6 +716,10 @@
     _infoBarView.image = [[UIImage imageNamed:@"banner_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsZero];
     _infoBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
+    _infoBarShadowView = [[UIImageView alloc] initWithFrame:kInfoBarShadowViewFrame];
+    _infoBarShadowView.image = [UIImage imageNamed:kRLTopBarShadow];
+    _infoBarShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
     _returnButton = [[UIButton alloc] initWithFrame:kInfoBarReturnButtonFrame];
     [_returnButton setTitle:@"查看全部" forState:UIControlStateNormal];
     [_returnButton setTitle:@"查看全部" forState:UIControlStateHighlighted];
@@ -746,10 +751,12 @@
     _infoBarView.hidden = YES;
     _returnButton.hidden = YES;
     _titleLabel.hidden = YES;
+    _infoBarShadowView.hidden = YES;
     
     [self insertSubview:_infoBarView atIndex:kWaterflowViewInfoBarViewIndex];
     [self insertSubview:_titleLabel atIndex:kWaterflowViewInfoBarViewIndex];
     [self insertSubview:_returnButton atIndex:kWaterflowViewInfoBarViewIndex];
+    [self insertSubview:_infoBarShadowView atIndex:kWaterflowViewInfoBarViewIndex];
 }
 
 - (void)showInfoBarWithTitleName:(NSString *)name
@@ -757,6 +764,7 @@
     _infoBarView.hidden = NO;
     _returnButton.hidden = NO;
     _titleLabel.hidden = NO;
+    _infoBarShadowView.hidden = NO;
     
     [UIView animateWithDuration:0.15 animations:^{
         _titleLabel.alpha = 0.0;
@@ -773,6 +781,7 @@
             [_infoBarView resetOriginY:targetOriginY];
             [_returnButton resetOriginY:targetOriginY];
             [_titleLabel resetOriginY:targetOriginY];
+            [_infoBarShadowView resetOriginY:targetOriginY + 30.0];
         }];
     }
 }
@@ -783,30 +792,42 @@
         [_infoBarView resetOriginY:self.contentOffset.y];
         [_titleLabel resetOriginY:self.contentOffset.y];
         [_returnButton resetOriginY:self.contentOffset.y];
+        [_infoBarShadowView resetOriginY:self.contentOffset.y + 30.0];
 
     } else {
         [_infoBarView resetOriginY:0.0];
         [_titleLabel resetOriginY:0.0];
         [_returnButton resetOriginY:0.0];
+        [_infoBarShadowView resetOriginY:30.0];
     }
 }
 
 - (void)didClickReturnButton
+{
+    [self hideInfoBar:YES];
+}
+
+- (void)hideInfoBar:(BOOL)buttonClicked
 {
     CGFloat targetOriginY = _infoBarView.frame.origin.y - 40.0;
     [UIView animateWithDuration:0.3 animations:^{
         [_infoBarView resetOriginY:targetOriginY];
         [_returnButton resetOriginY:targetOriginY];
         [_titleLabel resetOriginY:targetOriginY];
+        [_infoBarShadowView resetOriginY:targetOriginY + 30.0];
     } completion:^(BOOL finished) {
         _infoBarView.hidden = YES;
         _returnButton.hidden = YES;
         _titleLabel.hidden = YES;
+        _infoBarShadowView.hidden = YES;
         
         [_infoBarView resetOriginY:-40.0];
         [_returnButton resetOriginY:-40.0];
         [_titleLabel resetOriginY:-40.0];
-        [_flowdelegate didClickReturnToNormalTimelineButton];
+        [_infoBarShadowView resetOriginY:-10.0];
+        if (buttonClicked) {
+            [_flowdelegate didClickReturnToNormalTimelineButton];
+        }
     }];
 }
 

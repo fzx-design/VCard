@@ -91,16 +91,11 @@
     self.castViewController = nil;
     self.shelfViewController = nil;
     if(self.currentUser) {
+        [Group setUpDefaultGroupWithUserID:self.currentUser.userID defaultImageURL:self.currentUser.largeAvatarURL inManagedObjectContext:self.managedObjectContext];
         [self setUpViews];
-        [self.castViewController refresh];
-        
+        [self.castViewController refresh];        
         [self performSelector:@selector(showGuideBookView) withObject:nil afterDelay:1.0f];
     }
-}
-
-- (void)setUpDefaultGroup
-{
-    
 }
 
 #pragma mark - Setup Notifications

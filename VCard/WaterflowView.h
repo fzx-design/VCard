@@ -68,6 +68,7 @@ typedef enum {
     UIImageView *_infoBarView;
     UIButton *_returnButton;
     UILabel *_titleLabel;
+    UIImageView *_infoBarShadowView;
     
     BaseLayoutView *_backgroundViewA;
     BaseLayoutView *_backgroundViewB;
@@ -95,5 +96,6 @@ typedef enum {
 - (void)prepareLayoutNeedRefresh:(BOOL)needRefresh;
 
 - (void)showInfoBarWithTitleName:(NSString *)name;
+- (void)hideInfoBar:(BOOL)buttonClicked;
 
 @end

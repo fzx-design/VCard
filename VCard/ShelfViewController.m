@@ -12,6 +12,7 @@
 #import "ShelfDrawerView.h"
 #import "UIApplication+Addition.h"
 #import "Group.h"
+#import "SettingViewController.h"
 
 #define kShelfHeight            150.0
 #define kNumberOfDrawerPerPage  5
@@ -109,6 +110,7 @@
 {
     [self getGroups];
     [self getTrends];
+    [self getDefaultGroupImage];
 }
 
 - (void)getGroups
@@ -152,6 +154,28 @@
     [client getTrends];
 }
 
+- (void)getDefaultGroupImage
+{
+    WBClient *client = [WBClient client];
+    
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSArray *array = client.responseJSONObject;
+            for (NSDictionary *dict in array) {
+                if ([dict isKindOfClass:[NSDictionary class]]) {
+                    NSString *imageURL = [dict objectForKey:@"avatar_large"];
+                    Group *group = [Group setUpDefaultGroupImageWithDefaultURL:imageURL UserID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
+                    ShelfDrawerView *drawerView = [self.drawerViewArray objectAtIndex:group.index.intValue];
+                    [drawerView loadImageFromURL:imageURL completion:nil];
+                    break;
+                }
+            }
+        }
+    }];
+    
+    [client getUserBilateral];
+}
+
 - (void)getPicURLForTopic:(Group *)group
 {
     WBClient *client = [WBClient client];
@@ -183,6 +207,7 @@
 	
     sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    request.predicate = [NSPredicate predicateWithFormat:@"groupUserID == %@", self.currentUser.userID];
     request.entity = [NSEntityDescription entityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
 }
 
@@ -551,7 +576,7 @@
 
 - (IBAction)didClickDetialSettingButton:(UIButton *)sender
 {
-    
+    [[[SettingViewController alloc] init] show];
 }
 
 - (IBAction)didClickSwitchModeButton:(UIButton *)sender

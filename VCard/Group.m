@@ -62,6 +62,7 @@
     result.type = [NSNumber numberWithInt:kGroupTypeGroup];
     result.count = [NSNumber numberWithInt:[[dict objectForKey:@"member_count"] intValue]];
     result.index = [NSNumber numberWithInt:10];
+    result.groupUserID = userID;
     
     return result;
 }
@@ -83,6 +84,7 @@
     result.type = [NSNumber numberWithInt:kGroupTypeTopic];
     result.count = [NSNumber numberWithInt:100];
     result.index = [NSNumber numberWithInt:100];
+    result.groupUserID = userID;
     
     return result;
 }
@@ -100,6 +102,7 @@
     result.groupID = trendID;
     result.name = name;
     result.type = [NSNumber numberWithInt:kGroupTypeTopic];
+    result.groupUserID = userID;
     
     return result;
 }
@@ -109,7 +112,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"Group" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"groupID == %@", groupID]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"groupID == %@ && groupUserID == %@", groupID, userID]];
     
     [context deleteObject:[[context executeFetchRequest:request error:NULL] lastObject]];
 }
@@ -119,14 +122,14 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"Group" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"groupUserID == %@ && groupID", userID, kGroupIDDefault]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"groupUserID == %@ && groupID == %@", userID, kGroupIDDefault]];
     
     NSArray *items = [context executeFetchRequest:request error:NULL];
     
     return items.count == 0;
 }
 
-+ (void)setUpDefaultGroupWithUserID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
++ (void)setUpDefaultGroupWithUserID:(NSString *)userID defaultImageURL:(NSString *)defaultImageURL inManagedObjectContext:(NSManagedObjectContext *)context
 {
     if ([Group checkUserDefaultGroup:userID inManagedObjectContext:context]) {
         Group *defaultGroup = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:context];
@@ -136,15 +139,24 @@
         defaultGroup.type = [NSNumber numberWithInt:kGroupTypeGroup];
         defaultGroup.count = [NSNumber numberWithInt:100];
         defaultGroup.index = [NSNumber numberWithInt:0];
+        defaultGroup.picURL = defaultImageURL;
         
         Group *favourite = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:context];
-        favourite.groupID = kGroupIDDefault;
+        favourite.groupID = kGroupIDFavourite;
         favourite.groupUserID = userID;
         favourite.name = @"收藏";
-        favourite.type = [NSNumber numberWithInt:kGroupTypeGroup];
+        favourite.type = [NSNumber numberWithInt:kGroupTypeFavourite];
         favourite.count = [NSNumber numberWithInt:100];
         favourite.index = [NSNumber numberWithInt:1];
+        favourite.picURL = defaultImageURL;
     }
+}
+
++ (Group *)setUpDefaultGroupImageWithDefaultURL:(NSString *)defaultURL UserID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    Group *group = [Group groupWithID:kGroupIDDefault userID:userID inManagedObjectContext:context];
+    group.picURL = defaultURL;
+    return group;
 }
 
 @end

@@ -343,6 +343,20 @@ typedef enum {
     [self loadNormalRequest];
 }
 
+- (void)getUserBilateral
+{
+    self.path = @"friendships/friends/bilateral.json";
+    [self.params setObject:[NSNumber numberWithInt:5] forKey:@"count"];
+    [self.params setObject:self.userID forKey:@"uid"];
+    
+    [self setPreCompletionBlock:^(WBClient *client) {
+        if (!client.hasError && [self.responseJSONObject isKindOfClass:[NSDictionary class]]) {
+            client.responseJSONObject = [self.responseJSONObject objectForKey:@"users"];
+        }
+    }];
+    [self loadNormalRequest];
+}
+
 - (void)authorizeUsingUserID:(NSString *)userID password:(NSString *)password
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_appKey, @"client_id",

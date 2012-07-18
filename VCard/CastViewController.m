@@ -15,6 +15,7 @@
 #import "Status.h"
 #import "Comment.h"
 #import "User.h"
+#import "Group.h"
 #import "WaterflowCardCell.h"
 #import "WaterflowDividerCell.h"
 #import "PostViewController.h"
@@ -555,18 +556,25 @@
     NSString *description = [dict objectForKey:kNotificationObjectKeyDataSourceDescription];
     _dataSourceID = [dict objectForKey:kNotificationObjectKeyDataSourceID];
     int type = typeString.intValue;
-    if (type == 0) {
-        _dataSource = CastviewDataSourceFavourite;
-    } else if (type == 1) {
-        _dataSource = CastviewDataSourceGroup;
-    } else if (type == 2) {
-        _dataSource = CastviewDataSourceTopic;
-    } else {
-        _dataSource = CastviewDataSourceNone;
-    }
-    [_waterflowView showInfoBarWithTitleName:description];
     
-    [self refresh];
+    if ([_dataSourceID isEqualToString:kGroupIDDefault]) {
+        [self returnToNormalTimeline];
+        
+        [_waterflowView hideInfoBar:NO];
+    } else {
+        if (type == 0) {
+            _dataSource = CastviewDataSourceFavourite;
+        } else if (type == 1) {
+            _dataSource = CastviewDataSourceGroup;
+        } else if (type == 2) {
+            _dataSource = CastviewDataSourceTopic;
+        } else {
+            _dataSource = CastviewDataSourceNone;
+        }
+        [_waterflowView showInfoBarWithTitleName:description];
+        
+        [self refresh];
+    }
 }
 
 - (void)returnToNormalTimeline
