@@ -57,12 +57,6 @@
     [self initScrollView];
     [self setUpSettingView];
     [self setUpGroupsInfo];
-    
-    UIInterfaceOrientation toInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    [self updatePageControlAndScrollViewSize:toInterfaceOrientation];
-    [self resetContentSize:toInterfaceOrientation];
-    [self resetContentLayout:toInterfaceOrientation];
-    [self resetSettingViewLayout:toInterfaceOrientation];
 }
 
 - (void)viewDidUnload
@@ -348,6 +342,9 @@
     }
     
     [self resetContentLayout:[UIApplication sharedApplication].statusBarOrientation];
+    
+    [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0.3];
+    [self didRotateFromInterfaceOrientation:[UIApplication currentOppositeInterface]];
 }
 
 #pragma mark - Drawer Behavior
