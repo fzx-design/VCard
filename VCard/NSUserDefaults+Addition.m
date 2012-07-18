@@ -41,6 +41,7 @@
 + (void)initializeVCard_4_0 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if(![defaults boolForKey:kVCard4_0_Initialized]) {
+        NSLog(@"init vcard 4.0");
         [defaults setBool:NO forKey:kSettingEnableAutoTrafficSaving];
         [defaults setBool:NO forKey:kSettingEnableAutoLocate];
         [defaults setBool:YES forKey:kSettingEnableSoundEffect];

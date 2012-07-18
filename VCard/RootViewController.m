@@ -80,9 +80,9 @@
 #pragma mark - Handle notifications
 
 - (void)showGuideBookView {
-    if(![NSUserDefaults hasShownGuideBook]) {
-        [[[GuideBookViewController alloc] init] show];
+    if([NSUserDefaults hasShownGuideBook] == NO) {
         [NSUserDefaults setShownGuideBook:YES];
+        [[[GuideBookViewController alloc] init] show];
     }
 }
 - (void)handleChangeCurrentUserNotification:(NSNotification *)notification {

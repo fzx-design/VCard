@@ -620,6 +620,7 @@ typedef enum {
 - (void)showViewFromRect:(CGRect)rect {
     self.startButtonFrame = rect;
     [UIApplication presentModalViewController:self animated:NO];
+    [self viewWillAppear:NO];
 }
 
 - (void)dismissViewToRect:(CGRect)rect {
