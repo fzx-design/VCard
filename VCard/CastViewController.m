@@ -221,6 +221,7 @@
 {
     self.waterflowView.flowdatasource = self;
     self.waterflowView.flowdelegate = self;
+    self.waterflowView.animationCover = self.waterflowViewAnimationCover;
     [self.waterflowView refresh];
     
     _pullView = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];

@@ -10,6 +10,7 @@
 #import "UIApplication+Addition.h"
 #import "UIView+Resize.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIView+Addition.h"
 
 #define LeftColumnLandscapeOriginX 120
 #define LeftColumnPortraitOriginX 14
@@ -28,6 +29,8 @@
 @interface WaterflowView () {
     NSInteger _nextBlockLimit;
     UIPanGestureRecognizer *_shelfPanGestureRecognizer;
+    
+    WaterflowAddSubviewMode _mode;
 }
 
 @end
@@ -99,6 +102,7 @@
     self.delegate = self;
     self.panGestureRecognizer.maximumNumberOfTouches = 1;
     self.panGestureRecognizer.minimumNumberOfTouches = 1;
+    _mode = WaterflowAddSubviewModeNormal;
     
     _shelfPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleShelfPanGesture:)];
     _shelfPanGestureRecognizer.minimumNumberOfTouches = 2;
@@ -258,10 +262,10 @@
 
 - (void)refresh
 {
-    [self relayout];
-    [UIView animateWithDuration:0.3 animations:^{
+    if (self.contentOffset.y > 0) {
         self.contentOffset = CGPointZero;
-    }];
+    }
+    [self relayout];
 }
 
 - (void)relayout
@@ -280,6 +284,7 @@
 
 - (void)reLayoutNeedRefresh:(BOOL)needRefresh
 {
+    _mode = needRefresh ? WaterflowAddSubviewModeRefresh : WaterflowAddSubviewModeLoadmore;
     
     [self prepareLayoutNeedRefresh:needRefresh];
     
@@ -288,6 +293,8 @@
     [self pageScroll];
     
     [self loadImageInCells];
+    
+    _mode = WaterflowAddSubviewModeNormal;
 }
 
 - (void)prepareLayoutNeedRefresh:(BOOL)needRefresh
@@ -296,15 +303,42 @@
         _curObjIndex = 0;
         _nextBlockLimit = 0;
         
-        for (WaterflowCell *cell in self.leftColumn.visibleCells) {
+        while (self.leftColumn.visibleCells.count > 0) {
+            WaterflowCell *cell = self.leftColumn.visibleCells.lastObject;
             [cell removeFromSuperview];
-            [cell prepareForReuse];
-            [self recycleCellIntoReusableQueue:cell];
+            [_animationCover addSubview:cell];
+            [self.leftColumn.visibleCells removeObject:cell];
+            [cell resetOriginY:cell.frame.origin.y - self.contentOffset.y];
+            
+            [UIView animateWithDuration:0.7 animations:^{
+                cell.alpha = 0.0;
+                [cell resetOriginY:cell.frame.origin.y + [UIApplication screenHeight]];
+            } completion:^(BOOL finished) {
+                
+                [cell removeFromSuperview];
+                [cell prepareForReuse];
+                [self recycleCellIntoReusableQueue:cell];
+                cell.alpha = 1.0;
+            }];
         }
-        for (WaterflowCell *cell in self.rightColumn.visibleCells) {
+        
+        while (self.rightColumn.visibleCells.count > 0) {
+            WaterflowCell *cell = self.rightColumn.visibleCells.lastObject;
             [cell removeFromSuperview];
-            [cell prepareForReuse];
-            [self recycleCellIntoReusableQueue:cell];
+            [_animationCover addSubview:cell];
+            [self.rightColumn.visibleCells removeObject:cell];
+            [cell resetOriginY:cell.frame.origin.y - self.contentOffset.y];
+            
+            [UIView animateWithDuration:0.7 animations:^{
+                cell.alpha = 0.0;
+                [cell resetOriginY:cell.frame.origin.y + [UIApplication screenHeight]];
+            } completion:^(BOOL finished) {
+                
+                [cell removeFromSuperview];
+                [cell prepareForReuse];
+                [self recycleCellIntoReusableQueue:cell];
+                cell.alpha = 1.0;
+            }];
         }
         
         [self.leftColumn clear];
@@ -434,6 +468,10 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (_mode != WaterflowAddSubviewModeNormal) {
+        return;
+    }
+    
     [self adjustInfoBar];
     
     [self pageScroll];
@@ -489,7 +527,8 @@
         cell = [_flowdatasource flowView:self cellForLayoutUnit:currentUnit];
         cell.indexPath = [NSIndexPath indexPathForRow: currentUnit.unitIndex inSection:direction];
         cell.frame = CGRectMake(actualOriginX, origin_y, actualWidth, height);
-        [self insertSubview:cell belowSubview:_infoBarView];
+//        [self insertSubview:cell belowSubview:_infoBarView];
+        [self addCellToWaterflowView:cell];
         [column.visibleCells insertObject:cell atIndex:0];
     } else {
         cell = [column.visibleCells objectAtIndex:0];
@@ -520,7 +559,8 @@
         cell.frame = CGRectMake(actualOriginX, origin_y , actualWidth, height);
         [column.visibleCells insertObject:cell atIndex:0];
         
-        [self insertSubview:cell belowSubview:_infoBarView];
+//        [self insertSubview:cell belowSubview:_infoBarView];
+        [self addCellToWaterflowView:cell];
     }
     
     //2. remove cell above this basic cell if there's no margin between basic cell and top
@@ -562,7 +602,8 @@
         cell.frame = CGRectMake(actualOriginX, origin_y, actualWidth, height);
         [column.visibleCells addObject:cell];
         
-        [self insertSubview:cell belowSubview:_infoBarView];
+//        [self insertSubview:cell belowSubview:_infoBarView];
+        [self addCellToWaterflowView:cell];
     }
     
     //4. remove cells below this basic cell if there's no margin between basic cell and bottom
@@ -578,6 +619,36 @@
         } else {
             cell = nil;
         }
+    }
+    
+}
+
+- (void)addCellToWaterflowView:(UIView *)cell
+{
+    CGFloat screenHeight = [UIApplication screenHeight];
+    CGFloat offsetY = self.contentOffset.y;
+    CGFloat originY = 0.0;
+    CGPoint origin = cell.frame.origin;
+    
+    [self insertSubview:cell belowSubview:_infoBarView];
+    
+    if (_mode == WaterflowAddSubviewModeLoadmore) {
+        originY = screenHeight + offsetY;
+        [cell resetOriginY:originY];
+        [UIView animateWithDuration:0.7 animations:^{
+            [cell resetOrigin:origin];
+        }];
+    } else if (_mode == WaterflowAddSubviewModeRefresh) {
+        originY = -screenHeight;
+        [cell resetOriginY:originY];
+        
+        NSLog(@"before %@", NSStringFromCGRect(cell.frame));
+        
+        [UIView animateWithDuration:0.7 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [cell resetOrigin:origin];
+        } completion:^(BOOL finished) {
+            NSLog(@"after %@", NSStringFromCGRect(cell.frame));
+        }];
     }
     
 }
