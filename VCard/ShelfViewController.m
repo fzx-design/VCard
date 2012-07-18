@@ -12,6 +12,7 @@
 #import "ShelfDrawerView.h"
 #import "UIApplication+Addition.h"
 #import "Group.h"
+#import "SettingViewController.h"
 
 #define kShelfHeight            150.0
 #define kNumberOfDrawerPerPage  5
@@ -575,7 +576,7 @@
 
 - (IBAction)didClickDetialSettingButton:(UIButton *)sender
 {
-    
+    [[[SettingViewController alloc] init] show];
 }
 
 - (IBAction)didClickSwitchModeButton:(UIButton *)sender
