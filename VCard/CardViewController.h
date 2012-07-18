@@ -15,6 +15,7 @@
 #import "Status.h"
 #import "PostViewController.h"
 #import <MessageUI/MessageUI.h>
+#import "ActionPopoverViewController.h"
 
 #define CardSizeUserAvatarHeight 25
 #define CardSizeImageGap 22
@@ -36,7 +37,7 @@
 
 @end
 
-@interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate, PostViewControllerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate> {
+@interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate, PostViewControllerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, ActionPopoverViewControllerDelegate> {
     
     Status *_status;
     

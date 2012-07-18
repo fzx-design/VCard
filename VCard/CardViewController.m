@@ -19,7 +19,6 @@
 #import "UIView+Resize.h"
 #import "EmoticonsInfoReader.h"
 #import "InnerBrowserViewController.h"
-#import "ActionPopoverViewController.h"
 
 #define MaxCardSize CGSizeMake(326,9999)
 
@@ -677,7 +676,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 //    actionSheet.delegate = self;
 //    [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
     
-    [self.actionPopoverViewController handleTap:nil];
+    [self showActionPopover];
 }
 
 #pragma mark - TTTAttributedLabel Delegate
@@ -1129,15 +1128,28 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 - (ActionPopoverViewController *)actionPopoverViewController {
     if(!_actionPopoverViewController) {
         _actionPopoverViewController = [[ActionPopoverViewController alloc] init];
-        [_actionPopoverViewController setCropView:self.view.superview cropPosY:self.view.frame.size.height / 2];
         [_actionPopoverViewController.view resetOrigin:CGPointMake(0, 20)];
-        [[UIApplication sharedApplication].rootViewController.view addSubview:_actionPopoverViewController.view];
+        [_actionPopoverViewController.contentView resetOrigin:[self.view convertPoint:self.view.frame.origin toView:self.view.superview]];
+        _actionPopoverViewController.delegate = self;
     }
     return _actionPopoverViewController;
 }
 
+- (void)showActionPopover {
+    [self.actionPopoverViewController setCropView:self.view cropPosY:self.view.frame.size.height / 2];
+    [self.actionPopoverViewController.view removeFromSuperview];
+    [[UIApplication sharedApplication].rootViewController.view addSubview:self.actionPopoverViewController.view];
+}
+
 - (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {
-    [self.actionPopoverViewController handlePinch:gesture];
+    [self showActionPopover];
+}
+
+#pragma mark - ActionPopoverViewController delegate
+
+- (void)actionPopoverViewDidDismiss {
+    [self.actionPopoverViewController.view removeFromSuperview];
+    self.actionPopoverViewController = nil;
 }
 
 @end
