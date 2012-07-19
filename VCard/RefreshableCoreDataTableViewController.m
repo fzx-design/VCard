@@ -68,6 +68,22 @@
                selector:@selector(resetLayoutBeforeRotating:) 
                    name:kNotificationNameOrientationWillChange
                  object:nil];
+    [center addObserver:self
+               selector:@selector(adjustFont)
+                   name:kNotificationNameDidChangeFontSize
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(refreshAfterDeletingComment:)
+                   name:kNotificationNameShouldDeleteComment
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(refreshAfterPostingComment)
+                   name:kNotificationNameShouldRefreshAfterPost
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(refreshAfterDeletingStatuses:)
+                   name:kNotificationNameShouldDeleteStatus
+                 object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -83,6 +99,27 @@
 - (void)loadMore
 {
     //To override
+}
+
+- (void)refreshAfterPostingComment
+{
+    //To override
+}
+
+- (void)refreshAfterDeletingComment:(NSNotification *)notification
+{
+    //To override
+}
+
+- (void)refreshAfterDeletingStatuses:(NSNotification *)notification
+{
+    //To override
+}
+
+- (void)adjustFont
+{
+    [self.tableView reloadData];
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.1];
 }
 
 - (void)refreshEnded

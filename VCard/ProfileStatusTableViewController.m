@@ -39,20 +39,6 @@
     _coreDataIdentifier =  self.description;
     _loading = NO;
     _hasMoreViews = YES;
-    
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self 
-               selector:@selector(resetLayoutAfterRotating:) 
-                   name:kNotificationNameOrientationChanged
-                 object:nil];
-    [center addObserver:self 
-               selector:@selector(resetLayoutBeforeRotating:) 
-                   name:kNotificationNameOrientationWillChange
-                 object:nil];
-    [center addObserver:self
-               selector:@selector(refreshAfterDeletingStatuses:)
-                   name:kNotificationNameShouldDeleteStatus
-                 object:nil];
 }
 
 - (void)viewDidUnload
@@ -72,6 +58,17 @@
     } else if(_type == StatusTableViewControllerTypeTopicStatus){
         [Status deleteStatusesWithSearchKey:_searchKey InManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
     }
+}
+
+- (void)adjustFont
+{
+    for (Status *status in self.fetchedResultsController.fetchedObjects) {
+        CGFloat imageHeight = [self randomImageHeight];
+        CGFloat cardHeight = [CardViewController heightForStatus:status andImageHeight:imageHeight isWaterflowCard:YES];
+        status.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
+        status.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
+    }
+    [super adjustFont];
 }
 
 - (void)loadMoreData
@@ -97,7 +94,7 @@
                                 
                 if (newStatus.cardSizeCardHeight.floatValue == 0.0) {
                     CGFloat imageHeight = [self randomImageHeight];
-                    CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight isWaterflowCard:NO];
+                    CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight isWaterflowCard:YES];
                     newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
                     newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
                 }

@@ -37,5 +37,9 @@
 - (void)refreshEnded;
 - (void)loadMore;
 - (void)adjustBackgroundView;
+- (void)adjustFont;
+- (void)refreshAfterPostingComment;
+- (void)refreshAfterDeletingComment:(NSNotification *)notification;
+- (void)refreshAfterDeletingStatuses:(NSNotification *)notification;
 
 @end

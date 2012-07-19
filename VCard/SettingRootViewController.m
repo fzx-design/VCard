@@ -24,6 +24,9 @@
 @property (nonatomic, strong) NSMutableArray *settingSectionInfoArray;
 @property (nonatomic, strong) UIImage *currentUserAvatarImage;
 
+@property (nonatomic, assign) CGFloat currentFontSize;
+@property (nonatomic, assign) BOOL isPictureEnabled;
+
 @end
 
 @implementation SettingRootViewController
@@ -52,6 +55,9 @@
     self.navigationController.view.layer.masksToBounds = YES;
     self.navigationController.view.layer.cornerRadius = 5.0f;
     self.navigationController.view.autoresizingMask = UIViewAutoresizingNone;
+    
+    _currentFontSize = [NSUserDefaults currentFontSize];
+    _isPictureEnabled = [NSUserDefaults isPictureEnabled];
 }
 
 - (void)viewDidUnload
@@ -80,6 +86,13 @@
 #pragma mark - IBActions
 
 - (void)didClickFinishButton {
+    [NSUserDefaults updateCurrentFontSize];
+    if ([NSUserDefaults currentFontSize] != _currentFontSize) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameDidChangeFontSize object:nil];
+    } else if ([NSUserDefaults isPictureEnabled] != _isPictureEnabled) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldRefreshWaterflowView object:nil];
+    }
+    
     [UIApplication dismissModalViewControllerAnimated:YES];
 }
 
@@ -246,10 +259,6 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:sender.on forKey:info.nibFileName];
     [defaults synchronize];
-    
-    if (info.notificaitonName) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:info.notificaitonName object:nil];
-    }
 }
 
 @end

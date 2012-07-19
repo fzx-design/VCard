@@ -14,6 +14,7 @@
 @interface SelfCommentTableViewController () {
     int _toMeNextPage;
     int _byMeNextPage;
+    BOOL _resetFonts;
 }
 
 @end
@@ -37,24 +38,7 @@
     _toMeNextPage = 1;
     _byMeNextPage = 1;
     _hasMoreViews = YES;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self
-               selector:@selector(refreshAfterDeletingComment:)
-                   name:kNotificationNameShouldDeleteComment
-                 object:nil];
-    [center addObserver:self
-               selector:@selector(refreshAfterPostingComment)
-                   name:kNotificationNameShouldRefreshAfterPost
-                 object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _resetFonts = NO;
 }
 
 - (void)refreshAfterDeletingComment:(NSNotification *)notification
@@ -86,6 +70,20 @@
 - (void)loadMore
 {
     [self loadMoreData];
+}
+
+- (void)adjustFont
+{
+    for (Comment *comment in self.fetchedResultsController.fetchedObjects) {
+        comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+    }
+//    if (self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
+//        [Comment deleteCommentsToMeInManagedObjectContext:self.managedObjectContext];
+//    } else if(self.dataSource == CommentsTableViewDataSourceCommentsToMe) {
+//        [Comment deleteCommentsByMeInManagedObjectContext:self.managedObjectContext];
+//    }
+    _resetFonts = YES;
+    [super adjustFont];
 }
 
 - (void)clearData
@@ -201,13 +199,15 @@
 		self.fetchedResultsController = nil;
 		[self refresh];
 	}
+    
+    [self resetFontsWhenSourceChanged];
 	
 	[self.tableView reloadData];
     [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.001];
 }
 
 - (void)switchToByMe
-{
+{    
 	self.dataSource = CommentsTableViewDataSourceCommentsByMe;
 	
 	if (_commentsByMeFetchedResultsController) {
@@ -216,9 +216,21 @@
 		self.fetchedResultsController = nil;
 		[self refresh];
 	}
+    
+    [self resetFontsWhenSourceChanged];
 	
 	[self.tableView reloadData];
-    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.001];
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.01];
+}
+
+- (void)resetFontsWhenSourceChanged
+{
+    if (_resetFonts) {
+        _resetFonts = NO;
+        for (Comment *comment in self.fetchedResultsController.fetchedObjects) {
+            comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+        }
+    }
 }
 
 

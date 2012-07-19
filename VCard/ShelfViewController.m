@@ -86,6 +86,10 @@
                selector:@selector(loadUserDefaults)
                    name:kNotificationNameShouldRefreshWaterflowView
                  object:nil];
+    [center addObserver:self
+               selector:@selector(loadUserDefaults)
+                   name:kNotificationNameDidChangeFontSize
+                 object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -316,6 +320,14 @@
     _fontSizeSlider.minimumValue = 0.0;
     _fontSizeSlider.value = 0.0;
     
+    if ([NSUserDefaults currentFontSize] == (CGFloat)SettingOptionFontSizeSmall) {
+        _fontSizeSlider.value = 0.0;
+    } else if ([NSUserDefaults currentFontSize] == (CGFloat)SettingOptionFontSizeNormal) {
+        _fontSizeSlider.value = 0.5;
+    } else {
+        _fontSizeSlider.value = 1.0;
+    }
+    
     [ThemeResourceProvider configButtonBrown:_detailSettingButton];
     [self loadUserDefaults];
 }
@@ -326,6 +338,13 @@
     _switchToTextButton.selected = ![NSUserDefaults isPictureEnabled];
     _switchToPicButton.userInteractionEnabled = ![NSUserDefaults isPictureEnabled];
     _switchToTextButton.userInteractionEnabled = [NSUserDefaults isPictureEnabled];
+    if ([NSUserDefaults currentFontSize] == (CGFloat)SettingOptionFontSizeSmall) {
+        _fontSizeSlider.value = 0.0;
+    } else if ([NSUserDefaults currentFontSize] == (CGFloat)SettingOptionFontSizeNormal) {
+        _fontSizeSlider.value = 0.5;
+    } else {
+        _fontSizeSlider.value = 1.0;
+    }
 }
 
 #pragma mark - Scroll View Behavior
@@ -569,10 +588,7 @@
 {
     if (self.fetchedResultsController.fetchedObjects.count > index) {
         Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:index];
-        
-        if (group.type.intValue == kGroupTypeTopic) {
-            [self deleteGroup:group];
-        }
+        [self deleteGroup:group];
     } else {
         NSLog(@"Core Data TableView Controller Error - Shelf");
     }
@@ -582,14 +598,15 @@
 {
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
-        if (!client.hasError) {
-            [self removeDrawerViewAtIndex:group.index.intValue];
-            [Group deleteGroupWithGroupID:group.groupID userID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
-        } else {
-           //TODO: Error
-        }
+        [self removeDrawerViewAtIndex:group.index.intValue];
+        [Group deleteGroupWithGroupID:group.groupID userID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
     }];
-    [client unfollowTrend:group.groupID];
+    
+    if (group.type.intValue == kGroupTypeTopic) {
+        [client unfollowTrend:group.groupID];
+    } else if (group.type.intValue == kGroupTypeGroup) {
+        [client deleteGroup:group.groupID];
+    }
 }
 
 #pragma mark - IBActions
@@ -602,17 +619,25 @@
 
 - (IBAction)didEndDraggingSlider:(UISlider *)sender
 {
+    CGFloat prevFontSize = [NSUserDefaults currentFontSize];
+    __block CGFloat currentFontSize = prevFontSize;
     if ([sender isEqual:_fontSizeSlider]) {
         [UIView animateWithDuration:0.3 animations:^{
             if (sender.value < 0.3) {
                 sender.value = 0.0;
+                currentFontSize = SettingOptionFontSizeSmall;
             } else if (sender.value < 0.7) {
                 sender.value = 0.5;
+                currentFontSize = SettingOptionFontSizeNormal;
             } else {
                 sender.value = 1.0;
+                currentFontSize = SettingOptionFontSizeBig;
             }
         } completion:^(BOOL finished) {
-            //TODO: Adjust font size
+            if (currentFontSize != prevFontSize) {
+                [NSUserDefaults setCurrentFontSize:currentFontSize];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameDidChangeFontSize object:nil];
+            }
         }];
     }
 }

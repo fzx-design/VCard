@@ -110,6 +110,8 @@
 					<string>kPushOptionViewController</string>
 					<key>kItemImageFileName</key>
 					<string>icon_settings_font</string>
+					<key>kNotificationName</key>
+					<string>kNotificationNameShouldRefreshWaterflowView</string>
 				</dict>
 				<dict>
 					<key>kItemTitle</key>

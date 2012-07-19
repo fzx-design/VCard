@@ -94,6 +94,8 @@
 #define kNotificationNameShouldCreateNewGroup           @"kNotificationNameShouldCreateNewGroup"
 #define kNotificationNameShouldDeleteGroup              @"kNotificationNameShouldDeleteGroup"
 #define kNotificationNameShouldRefreshWaterflowView     @"kNotificationNameShouldRefreshWaterflowView"
+#define kNotificationNameShouldUpdateUserDefaultSettings @"kNotificationNameShouldUpdateUserDefaultSettings"
+#define kNotificationNameDidChangeFontSize              @"kNotificationNameDidChangeFontSize"
 
 #define kNotificationNameStackViewCoveredWholeScreen    @"kNotificationNameStackViewCoveredWholeScreen"
 #define kNotificationNameStackViewDoNotCoverWholeScreen @"kNotificationNameStackViewDoNotCoverWholeScreen"
