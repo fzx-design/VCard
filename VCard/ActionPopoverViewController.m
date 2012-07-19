@@ -15,8 +15,6 @@
 
 @interface ActionPopoverViewController ()
 
-@property (readonly) CGFloat centerBarHeight;
-
 @end
 
 @implementation ActionPopoverViewController
@@ -38,6 +36,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.centerBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"card_bg_body"]];
 	
 	UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 	tapGesture.delegate = self;
@@ -65,7 +65,7 @@
 
 #pragma mark - Properties
 
-- (CGFloat)centerBarHeight {
+- (CGFloat)foldViewHeight {
     return self.centerBar.frame.size.height;
 }
 
@@ -87,7 +87,7 @@
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    NSLog(@"cropView Frame:%@", NSStringFromCGRect(cropView.frame));
+    NSLog(@"cropView Frame:%@, y:%f", NSStringFromCGRect(cropView.frame), y);
 
     CGRect topRect = CGRectMake(0, 0, cropView.frame.size.width, y);
     CGRect bottomRect = CGRectMake(0, y, cropView.frame.size.width, cropView.frame.size.height - y);
@@ -106,7 +106,7 @@
     [self.contentView resetSize:view.frame.size];
     [self.topBar resetOrigin:CGPointMake(0, 0)];
     [self.centerBar resetOrigin:CGPointMake(0, y)];
-    [self.topBar resetOrigin:CGPointMake(0, y + self.centerBar.frame.size.height)];
+    [self.bottomBar resetOrigin:CGPointMake(0, y + self.centerBar.frame.size.height)];
 }
 
 @end

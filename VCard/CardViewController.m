@@ -1129,16 +1129,19 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     if(!_actionPopoverViewController) {
         _actionPopoverViewController = [[ActionPopoverViewController alloc] init];
         [_actionPopoverViewController.view resetOrigin:CGPointMake(0, 20)];
-        [_actionPopoverViewController.contentView resetOrigin:[self.view convertPoint:self.view.frame.origin toView:self.view.superview]];
+        CGPoint originInMainView = CGPointMake(self.view.superview.frame.origin.x, self.view.superview.frame.origin.y + self.view.superview.superview.frame.origin.y);
+        NSLog(@"super view frame:%@, super super view frame:%@, convert origin:%@", NSStringFromCGRect(self.view.superview.frame), NSStringFromCGRect(self.view.superview.superview.frame), NSStringFromCGPoint(originInMainView));
+        [_actionPopoverViewController.contentView resetOrigin:originInMainView];
         _actionPopoverViewController.delegate = self;
     }
     return _actionPopoverViewController;
 }
 
 - (void)showActionPopover {
-    [self.actionPopoverViewController setCropView:self.view cropPosY:self.view.frame.size.height / 2];
     [self.actionPopoverViewController.view removeFromSuperview];
     [[UIApplication sharedApplication].rootViewController.view addSubview:self.actionPopoverViewController.view];
+    CGFloat cropPosY = self.repostButton.frame.origin.y + self.repostButton.frame.size.height;
+    [self.actionPopoverViewController setCropView:self.view cropPosY:floorf(cropPosY)];
 }
 
 - (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {

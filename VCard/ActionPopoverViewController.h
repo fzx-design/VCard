@@ -17,6 +17,7 @@
 @property (nonatomic, weak) IBOutlet UIView *centerBar;
 @property (nonatomic, weak) IBOutlet UIImageView *bottomBar;
 @property (nonatomic, weak) id<ActionPopoverViewControllerDelegate> delegate;
+@property (readonly) CGFloat foldViewHeight;
 
 - (void)setCropView:(UIView *)view cropPosY:(CGFloat)y;
 - (void)handlePinch:(UIPinchGestureRecognizer *)gestureRecognizer;

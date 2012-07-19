@@ -12,11 +12,8 @@
 #import "NSUserDefaults+Addition.h"
 #import "WBClient.h"
 #import "UnreadReminder.h"
-<<<<<<< HEAD
 #import "SettingInfoReader.h"
-=======
 #import "Group.h"
->>>>>>> 加入全部关注与收藏分组以及读取头像完成
 
 static CoreDataKernal *kernalInstance = nil;
 
