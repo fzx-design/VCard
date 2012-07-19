@@ -81,16 +81,14 @@
 
 #pragma mark - Crop view methods
 
-- (void)configureCropImageView:(UIView *)cropView cropPosY:(CGFloat)y {
+- (void)configureCropImageView:(UIView *)cropView cropPosTopY:(CGFloat)topY cropPosBottomY:(CGFloat)bottomY {
     UIGraphicsBeginImageContext(cropView.bounds.size);
     [cropView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    NSLog(@"cropView Frame:%@, y:%f", NSStringFromCGRect(cropView.frame), y);
-
-    CGRect topRect = CGRectMake(0, 0, cropView.frame.size.width, y);
-    CGRect bottomRect = CGRectMake(0, y, cropView.frame.size.width, cropView.frame.size.height - y);
+    CGRect topRect = CGRectMake(0, topY, cropView.frame.size.width, bottomY - topY);
+    CGRect bottomRect = CGRectMake(0, bottomY, cropView.frame.size.width, cropView.frame.size.height - bottomY);
     UIImage *topImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, topRect)];
     UIImage *bottomImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, bottomRect)];
     
@@ -101,12 +99,12 @@
     [self.bottomBar resetSize:bottomImage.size];
 }
 
-- (void)setCropView:(UIView *)view cropPosY:(CGFloat)y {
-    [self configureCropImageView:view cropPosY:y];
-    [self.contentView resetSize:view.frame.size];
+- (void)setCropView:(UIView *)view cropPosTopY:(CGFloat)topY cropPosBottomY:(CGFloat)bottomY {
+    [self configureCropImageView:view cropPosTopY:topY cropPosBottomY:bottomY];
+    [self.contentView resetSize:CGSizeMake(view.frame.size.width, view.frame.size.height - topY)];
     [self.topBar resetOrigin:CGPointMake(0, 0)];
-    [self.centerBar resetOrigin:CGPointMake(0, y)];
-    [self.bottomBar resetOrigin:CGPointMake(0, y + self.centerBar.frame.size.height)];
+    [self.centerBar resetOrigin:CGPointMake(0, bottomY - topY)];
+    [self.bottomBar resetOrigin:CGPointMake(0, bottomY - topY + self.centerBar.frame.size.height)];
 }
 
 @end

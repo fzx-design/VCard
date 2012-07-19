@@ -21,6 +21,7 @@
 #import "InnerBrowserViewController.h"
 #import "ActionPopoverViewController.h"
 #import "NSUserDefaults+Addition.h"
+#import "RootViewController.h"
 
 #define MaxCardSize CGSizeMake(326,9999)
 
@@ -1135,9 +1136,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     if(!_actionPopoverViewController) {
         _actionPopoverViewController = [[ActionPopoverViewController alloc] init];
         [_actionPopoverViewController.view resetOrigin:CGPointMake(0, 20)];
-        CGPoint originInMainView = CGPointMake(self.view.superview.frame.origin.x, self.view.superview.frame.origin.y + self.view.superview.superview.frame.origin.y);
-        NSLog(@"super view frame:%@, super super view frame:%@, convert origin:%@", NSStringFromCGRect(self.view.superview.frame), NSStringFromCGRect(self.view.superview.superview.frame), NSStringFromCGPoint(originInMainView));
-        [_actionPopoverViewController.contentView resetOrigin:originInMainView];
         _actionPopoverViewController.delegate = self;
     }
     return _actionPopoverViewController;
@@ -1146,8 +1144,16 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 - (void)showActionPopover {
     [self.actionPopoverViewController.view removeFromSuperview];
     [[UIApplication sharedApplication].rootViewController.view addSubview:self.actionPopoverViewController.view];
-    CGFloat cropPosY = self.repostButton.frame.origin.y + self.repostButton.frame.size.height;
-    [self.actionPopoverViewController setCropView:self.view cropPosY:floorf(cropPosY)];
+    CGFloat cropPosTopY = self.repostButton.frame.origin.y;
+    CGFloat cropPosBottomY = self.repostButton.frame.origin.y + self.repostButton.frame.size.height;
+    [self.actionPopoverViewController setCropView:self.view cropPosTopY:cropPosTopY cropPosBottomY:cropPosBottomY];
+    
+    RootViewController *rootViewController =  (RootViewController *)((UINavigationController *)[UIApplication sharedApplication].rootViewController).topViewController;
+    CGFloat waterFlowContentOffsetY = rootViewController.castViewController.waterflowView.contentOffset.y;
+    CGPoint originInMainView = CGPointMake(self.view.superview.frame.origin.x, self.view.superview.frame.origin.y + self.view.superview.superview.frame.origin.y + cropPosTopY - waterFlowContentOffsetY);
+    
+    NSLog(@"cropPosTopY %f, water %f, result %f", cropPosTopY, waterFlowContentOffsetY, originInMainView.y);
+    [self.actionPopoverViewController.contentView resetOrigin:originInMainView];
 }
 
 - (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {

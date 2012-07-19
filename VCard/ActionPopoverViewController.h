@@ -19,7 +19,7 @@
 @property (nonatomic, weak) id<ActionPopoverViewControllerDelegate> delegate;
 @property (readonly) CGFloat foldViewHeight;
 
-- (void)setCropView:(UIView *)view cropPosY:(CGFloat)y;
+- (void)setCropView:(UIView *)view cropPosTopY:(CGFloat)topY cropPosBottomY:(CGFloat)bottomY;
 - (void)handlePinch:(UIPinchGestureRecognizer *)gestureRecognizer;
 
 @end
