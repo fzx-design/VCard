@@ -19,11 +19,8 @@
 #import "UIView+Resize.h"
 #import "EmoticonsInfoReader.h"
 #import "InnerBrowserViewController.h"
-<<<<<<< HEAD
-=======
 #import "ActionPopoverViewController.h"
 #import "NSUserDefaults+Addition.h"
->>>>>>> 无图模式切换完成
 
 #define MaxCardSize CGSizeMake(326,9999)
 
