@@ -182,6 +182,8 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 + (CGFloat)heightForStatus:(Status *)status_ andImageHeight:(NSInteger)imageHeight_ isWaterflowCard:(BOOL)isWaterflowCard
 {
+    [CardViewController replaceStatusEmotionStrings:status_];
+    
     BOOL isReposted = status_.repostStatus != nil;
     BOOL hasCardTail = [status_ hasLocationInfo] || YES;
     Status *targetStatus = isReposted ? status_.repostStatus : status_;
@@ -527,7 +529,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     label.lineBreakMode = UILineBreakModeWordWrap;
     label.numberOfLines = 0;
     label.leading = [NSUserDefaults currentLeading];
-//    label.textInsets = UIEdgeInsetsMake(0.0, 3.0, 0.0, 0.0);
     
     label.highlightedTextColor = [UIColor whiteColor];
     label.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
@@ -535,9 +536,9 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     [self setCardViewController:vc SummaryText:string toLabel:label];
 }
 
-+ (void)setCardViewController:(CardViewController *)vc SummaryText:(NSString *)originalText toLabel:(TTTAttributedLabel*)label
++ (void)replaceStatusEmotionStrings:(Status *)status
 {
-    NSString *text = originalText;
+    NSString *text = status.text;
     NSMutableArray *array = [[NSMutableArray alloc] init];
     
     NSRange stringRange = NSMakeRange(0, [text length]);
@@ -559,7 +560,14 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         }
     }
     
-    stringRange = NSMakeRange(0, [text length]);
+    status.text = text;
+}
+
++ (void)setCardViewController:(CardViewController *)vc SummaryText:(NSString *)text toLabel:(TTTAttributedLabel*)label
+{
+    NSRegularExpression *regexp = EmotionRegularExpression();
+    NSRange stringRange = NSMakeRange(0, [text length]);
+
     [label setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         NSRange stringRange = NSMakeRange(0, [mutableAttributedString length]);
 
