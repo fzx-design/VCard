@@ -418,8 +418,12 @@
 {
     int unreadStatusCount = self.currentUser.unreadStatusCount.intValue;
     if (unreadStatusCount != 0) {
-        _unreadCountButton.hidden = NO;
-        [_unreadCountButton setCount:unreadStatusCount];
+        if (_dataSource != CastviewDataSourceNone) {
+            _unreadCountButton.hidden = YES;
+        } else {
+            _unreadCountButton.hidden = NO;
+            [_unreadCountButton setCount:unreadStatusCount];
+        }
     }
 }
 
@@ -572,7 +576,7 @@
             _dataSource = CastviewDataSourceNone;
         }
         [_waterflowView showInfoBarWithTitleName:description];
-        
+        [self updateUnreadStatusCount];
         [self refresh];
     }
 }

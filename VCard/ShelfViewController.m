@@ -619,12 +619,24 @@
             view.editing = _editing;
             [view showDeleteButton];
         }
+        [_editButton setTitle:@"完成" forState:UIControlStateNormal];
     } else {
         for (ShelfDrawerView *view in _drawerViewArray) {
             view.editing = _editing;
             [view hideDeleteButton];
         }
+        [_editButton setTitle:@"编辑" forState:UIControlStateNormal];
     }
+}
+
+- (void)exitEditMode
+{
+    _editing = NO;
+    for (ShelfDrawerView *view in _drawerViewArray) {
+        view.editing = _editing;
+        [view hideDeleteButton];
+    }
+    [_editButton setTitle:@"编辑" forState:UIControlStateNormal];
 }
 
 

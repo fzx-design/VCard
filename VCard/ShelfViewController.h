@@ -39,5 +39,6 @@
 - (IBAction)didClickSwitchModeButton:(UIButton *)sender;
 - (IBAction)didChangePageControlValue:(UIPageControl *)sender;
 - (void)loadImages;
+- (void)exitEditMode;
 
 @end
