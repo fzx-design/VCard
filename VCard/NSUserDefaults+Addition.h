@@ -15,6 +15,12 @@ typedef enum {
 } SettingOptionFontSizeType;
 
 typedef enum {
+    SettingOptionFontSizeSmall = 14,
+    SettingOptionFontSizeNormal = 17,
+    SettingOptionFontSizeBig = 20,
+} SettingOptionFontSize;
+
+typedef enum {
     SettingOptionFontNotificationTypeComment,
     SettingOptionFontNotificationTypeFollower,
     SettingOptionFontNotificationTypeMention,
@@ -43,6 +49,9 @@ typedef enum {
 + (BOOL)isPictureEnabled;
 + (void)setPictureEnabled:(BOOL)enabled;
 + (BOOL)isRetinaDisplayEnabled;
++ (void)updateCurrentFontSize;
++ (void)setCurrentFontSize:(CGFloat)fontSize;
++ (CGFloat)currentFontSize;
 
 + (SettingOptionFontSizeType)currentFontSizeType;
 //返回一个数组，数组中的元素按 SettingOptionFontNotificationType 排列，类型均为包含一个BOOL类型数据的NSNumber。

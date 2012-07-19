@@ -21,10 +21,12 @@
 #define kSettingEnableRetinaDisplay         @"SettingEnableRetinaDisplay"
 #define kSettingEnablePicture               @"SettingEnablePicture"
 
+
 #define kVCard4_0_Initialized               @"VCard4_0_Initialized"
 
 #define kSettingOptionFontSize              @"SettingOptionFontSize"
 #define kSettingOptionNotification          @"SettingOptionNotification"
+#define kSettingFontSize                    @"kSettingFontSize"
 
 #define kHasShownGuideBook                  @"HasShownGuideBook"
 #define kHasShownShelfTips                  @"kHasShownShelfTips"
@@ -47,6 +49,7 @@
         [defaults setBool:YES forKey:kSettingEnableSoundEffect];
         [defaults setBool:YES forKey:kSettingEnableRetinaDisplay];
         [defaults setBool:YES forKey:kSettingEnablePicture];
+        [defaults setFloat:17.0 forKey:kSettingFontSize];
         
         [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:NO], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:NO], nil] forKey:kSettingOptionFontSize];
         [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], nil] forKey:kSettingOptionNotification];
@@ -70,6 +73,41 @@
         }
     }];
     return result;
+}
+
++ (void)updateCurrentFontSize
+{
+    CGFloat fontSize = 0;
+    SettingOptionFontSizeType type = [NSUserDefaults currentFontSizeType];
+    if (type == SettingOptionFontSizeTypeSmall) {
+        fontSize = (CGFloat)SettingOptionFontSizeSmall;
+    } else if (type == SettingOptionFontSizeTypeNormal) {
+        fontSize = (CGFloat)SettingOptionFontSizeNormal;
+    } else if (type == SettingOptionFontSizeTypeBig){
+        fontSize = (CGFloat)SettingOptionFontSizeBig;
+    }
+    [NSUserDefaults setCurrentFontSize:fontSize];
+}
+
++ (void)setCurrentFontSize:(CGFloat)fontSize
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    SettingOptionInfo *info = [NSUserDefaults getInfoForOptionKey:kSettingOptionFontSize];
+    NSNumber *chosenStatus1 = [NSNumber numberWithBool:fontSize == (CGFloat)SettingOptionFontSizeSmall];
+    NSNumber *chosenStatus2 = [NSNumber numberWithBool:fontSize == (CGFloat)SettingOptionFontSizeNormal];
+    NSNumber *chosenStatus3 = [NSNumber numberWithBool:fontSize == (CGFloat)SettingOptionFontSizeBig];
+    info.optionChosenStatusArray = [NSArray arrayWithObjects:chosenStatus1, chosenStatus2, chosenStatus3, nil];
+    [NSUserDefaults setSettingOptionInfo:info];
+    
+    [defaults setFloat:fontSize forKey:kSettingFontSize];
+    [defaults synchronize];
+}
+
++ (CGFloat)currentFontSize
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults floatForKey:kSettingFontSize];
 }
 
 + (BOOL)hasShownShelfTips {
@@ -146,7 +184,7 @@
 + (void)setPictureEnabled:(BOOL)enabled
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:[NSNumber numberWithBool:enabled] forKey:kSettingEnablePicture];
+    [defaults setBool:enabled forKey:kSettingEnablePicture];
 }
 
 + (BOOL)isRetinaDisplayEnabled {

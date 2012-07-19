@@ -33,12 +33,7 @@
     _loading = NO;
     _hasMoreViews = YES;
     _sourceChanged = NO;
-    _filterByAuthor = NO;
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self
-               selector:@selector(refreshAfterDeletingComment:)
-                   name:kNotificationNameShouldDeleteComment
-                 object:nil];
+    _filterByAuthor = NO;    
 }
 
 - (void)viewDidUnload
@@ -61,6 +56,21 @@
 - (void)loadMore
 {
     [self loadMoreData];
+}
+
+- (void)adjustFont
+{
+    if (_type == CommentTableViewControllerTypeComment) {
+        for (Comment *comment in self.fetchedResultsController.fetchedObjects) {
+            comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+        }
+    } else {
+        for (Status *status in self.fetchedResultsController.fetchedObjects) {
+            status.cardSizeCardHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:status.text]];
+        }
+    }
+    [self setUpHeaderView];
+    [super adjustFont];
 }
 
 - (void)clearData

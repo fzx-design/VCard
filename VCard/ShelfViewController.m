@@ -316,6 +316,14 @@
     _fontSizeSlider.minimumValue = 0.0;
     _fontSizeSlider.value = 0.0;
     
+    if ([NSUserDefaults currentFontSize] == (CGFloat)SettingOptionFontSizeSmall) {
+        _fontSizeSlider.value = 0.0;
+    } else if ([NSUserDefaults currentFontSize] == (CGFloat)SettingOptionFontSizeNormal) {
+        _fontSizeSlider.value = 0.5;
+    } else {
+        _fontSizeSlider.value = 1.0;
+    }
+    
     [ThemeResourceProvider configButtonBrown:_detailSettingButton];
     [self loadUserDefaults];
 }
@@ -602,17 +610,25 @@
 
 - (IBAction)didEndDraggingSlider:(UISlider *)sender
 {
+    CGFloat prevFontSize = [NSUserDefaults currentFontSize];
+    __block CGFloat currentFontSize = prevFontSize;
     if ([sender isEqual:_fontSizeSlider]) {
         [UIView animateWithDuration:0.3 animations:^{
             if (sender.value < 0.3) {
                 sender.value = 0.0;
+                currentFontSize = SettingOptionFontSizeSmall;
             } else if (sender.value < 0.7) {
                 sender.value = 0.5;
+                currentFontSize = SettingOptionFontSizeNormal;
             } else {
                 sender.value = 1.0;
+                currentFontSize = SettingOptionFontSizeBig;
             }
         } completion:^(BOOL finished) {
-            //TODO: Adjust font size
+            if (currentFontSize != prevFontSize) {
+                [NSUserDefaults setCurrentFontSize:currentFontSize];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameDidChangeFontSize object:nil];
+            }
         }];
     }
 }

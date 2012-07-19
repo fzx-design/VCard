@@ -219,8 +219,9 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 + (CGFloat)heightForCellWithText:(NSString *)text {
     CGFloat height = 10.0f;
-    height += ceilf([text sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:MaxCardSize lineBreakMode:UILineBreakModeWordWrap].height);
-    CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:MaxCardSize lineBreakMode:UILineBreakModeWordWrap].height);
+    CGFloat fontSize = [NSUserDefaults currentFontSize];
+    height += ceilf([text sizeWithFont:[UIFont systemFontOfSize:fontSize] constrainedToSize:MaxCardSize lineBreakMode:UILineBreakModeWordWrap].height);
+    CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:fontSize] constrainedToSize:MaxCardSize lineBreakMode:UILineBreakModeWordWrap].height);
     
     height += ceilf(height / singleLineHeight * CardTextLineSpace);
         
@@ -521,7 +522,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     frame.size.height = [CardViewController heightForCellWithText:string] + 20.0;
     label.frame = frame;
     
-    label.font = [UIFont systemFontOfSize:17.0f];
+    label.font = [UIFont systemFontOfSize:[NSUserDefaults currentFontSize]];
     label.textColor = [UIColor colorWithRed:49.0/255 green:42.0/255 blue:37.0/255 alpha:1.0];
     label.lineBreakMode = UILineBreakModeWordWrap;
     label.numberOfLines = 0;
@@ -637,7 +638,8 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 + (void)configureFontForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange
 {
-    CTFontRef systemFont = [ResourceProvider regexFont];
+    UIFont *font = [UIFont boldSystemFontOfSize:[NSUserDefaults currentFontSize]];
+    CTFontRef systemFont = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
     if (systemFont) {
         [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:stringRange];
         [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)systemFont range:stringRange];

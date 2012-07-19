@@ -195,6 +195,10 @@
                    name:kNotificationNameShouldRefreshWaterflowView
                  object:nil];
     [center addObserver:self
+               selector:@selector(refreshWaterflowView)
+                   name:kNotificationNameDidChangeFontSize
+                 object:nil];
+    [center addObserver:self
                selector:@selector(resetRefreshingAnimation)
                    name:UIApplicationDidBecomeActiveNotification
                  object:nil];
