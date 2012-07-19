@@ -934,6 +934,8 @@ typedef enum {
     
     if (shortURL) {
         [self.params setObject:shortURL forKey:@"url_short"];
+    } else {
+        return;
     }
     
     [self setPreCompletionBlock:^(WBClient *client) {
