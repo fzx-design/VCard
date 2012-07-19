@@ -308,6 +308,9 @@
     _brightnessSlider.maximumValue = 1.0;
     _brightnessSlider.minimumValue = 0.1;
     _brightnessSlider.value = [[UIScreen mainScreen] brightness];
+    _fontSizeSlider.maximumValue = 1.0;
+    _fontSizeSlider.minimumValue = 0.0;
+    _fontSizeSlider.value = 0.0;
     
     [ThemeResourceProvider configButtonBrown:_detailSettingButton];
     _switchToPicButton.selected = YES;
@@ -588,7 +591,19 @@
 
 - (IBAction)didEndDraggingSlider:(UISlider *)sender
 {
-    
+    if ([sender isEqual:_fontSizeSlider]) {
+        [UIView animateWithDuration:0.3 animations:^{
+            if (sender.value < 0.3) {
+                sender.value = 0.0;
+            } else if (sender.value < 0.7) {
+                sender.value = 0.5;
+            } else {
+                sender.value = 1.0;
+            }
+        } completion:^(BOOL finished) {
+            //TODO: Adjust font size
+        }];
+    }
 }
 
 - (IBAction)didClickDetialSettingButton:(UIButton *)sender

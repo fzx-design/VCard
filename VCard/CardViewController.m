@@ -392,6 +392,8 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     [self.repostButton resetOriginY:origin.y + offset];
     [self.commentButton resetOriginY:origin.y + offset];
     
+    self.commentButton.hidden = _isNotWaterflowCard;
+    
 }
 
 - (void)setUpCardTail

@@ -73,6 +73,7 @@
 @property (nonatomic, assign) NSInteger imageHeight;
 @property (nonatomic, assign) NSInteger pageIndex;
 @property (nonatomic, assign) BOOL isReposted;
+@property (nonatomic, assign) BOOL isNotWaterflowCard;
 
 @property (nonatomic, weak) id<CardViewControllerDelegate> delegate;
 
