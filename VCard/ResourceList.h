@@ -90,6 +90,7 @@
 
 #define kNotificationNameShouldChangeCastviewDataSource @"kNotificationNameShouldChangeCastviewDataSource"
 #define kNotificationNameShouldReturnToNormalTimeline   @"kNotificationNameShouldReturnToNormalTimeline"
+#define kNotificationNameDidReturnToNormalTimeline      @"kNotificationNameDidReturnToNormalTimeline"
 #define kNotificationNameShouldCreateNewGroup           @"kNotificationNameShouldCreateNewGroup"
 #define kNotificationNameShouldDeleteGroup              @"kNotificationNameShouldDeleteGroup"
 

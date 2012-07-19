@@ -46,4 +46,7 @@
 - (void)showDeleteButton;
 - (void)hideDeleteButton;
 
+- (void)showHighlightGlow;
+- (void)hideHighlightGlow;
+
 @end

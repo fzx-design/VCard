@@ -77,6 +77,11 @@
                selector:@selector(deleteGroupWithNotification:)
                    name:kNotificationNameShouldDeleteGroup
                  object:nil];
+    [center addObserver:self
+               selector:@selector(didReturnToNormalTimeline)
+                   name:kNotificationNameDidReturnToNormalTimeline
+                 object:nil];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -103,6 +108,16 @@
 {
     Group *group = notification.object;
     [self deleteGroup:group];
+}
+
+- (void)didReturnToNormalTimeline
+{
+    [_currentDrawerView hideHighlightGlow];
+    _currentDrawerView.enabled = YES;
+    ShelfDrawerView *drawerView = [_drawerViewArray objectAtIndex:0];
+    [drawerView showHighlightGlow];
+    drawerView.enabled = NO;
+    _currentDrawerView = drawerView;
 }
 
 #pragma mark - Group Infomation Behavior
@@ -381,13 +396,15 @@
                                                                    index:index
                                                                     type:group.type.intValue
                                                                    empty:group.count.intValue == 0];
+    if (index == 0) {
+        _currentDrawerView = drawerView;
+    }
+    
     drawerView.adjustsImageWhenHighlighted = YES;
     [drawerView addTarget:self action:@selector(changeCastViewSource:) forControlEvents:UIControlEventTouchUpInside];
     drawerView.delegate = self;
-    
     [_scrollView addSubview:drawerView];
     [_drawerViewArray addObject:drawerView];
-    
     [drawerView appearWithDuration:0.3];
     [self resetDrawerViewLayout:drawerView withIndex:index];
     

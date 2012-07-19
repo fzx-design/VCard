@@ -998,6 +998,8 @@
 
 - (void)didClickReturnToNormalTimelineButton
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameDidReturnToNormalTimeline object:nil];
+    
     [self returnToNormalTimeline];
 }
 
