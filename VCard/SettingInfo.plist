@@ -120,6 +120,8 @@
 					<string>icon_settings_image</string>
 					<key>kNibFileName</key>
 					<string>SettingEnablePicture</string>
+					<key>kNotificationName</key>
+					<string>kNotificationNameShouldRefreshWaterflowView</string>
 				</dict>
 				<dict>
 					<key>kItemTitle</key>

@@ -13,6 +13,7 @@
 #import "UIApplication+Addition.h"
 #import "Group.h"
 #import "SettingViewController.h"
+#import "NSUserDefaults+Addition.h"
 
 #define kShelfHeight            150.0
 #define kNumberOfDrawerPerPage  5
@@ -81,7 +82,10 @@
                selector:@selector(didReturnToNormalTimeline)
                    name:kNotificationNameDidReturnToNormalTimeline
                  object:nil];
-    
+    [center addObserver:self
+               selector:@selector(loadUserDefaults)
+                   name:kNotificationNameShouldRefreshWaterflowView
+                 object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -313,8 +317,15 @@
     _fontSizeSlider.value = 0.0;
     
     [ThemeResourceProvider configButtonBrown:_detailSettingButton];
-    _switchToPicButton.selected = YES;
-    _switchToTextButton.selected = NO;
+    [self loadUserDefaults];
+}
+
+- (void)loadUserDefaults
+{
+    _switchToPicButton.selected = [NSUserDefaults isPictureEnabled];
+    _switchToTextButton.selected = ![NSUserDefaults isPictureEnabled];
+    _switchToPicButton.userInteractionEnabled = ![NSUserDefaults isPictureEnabled];
+    _switchToTextButton.userInteractionEnabled = [NSUserDefaults isPictureEnabled];
 }
 
 #pragma mark - Scroll View Behavior
@@ -614,8 +625,14 @@
 - (IBAction)didClickSwitchModeButton:(UIButton *)sender
 {
     BOOL switchToPicButtonClicked = [sender isEqual:_switchToPicButton];
+    
     _switchToPicButton.selected = switchToPicButtonClicked;
+    _switchToPicButton.userInteractionEnabled = !switchToPicButtonClicked;
     _switchToTextButton.selected = !switchToPicButtonClicked;
+    _switchToTextButton.userInteractionEnabled = switchToPicButtonClicked;
+    
+    [NSUserDefaults setPictureEnabled:switchToPicButtonClicked];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldRefreshWaterflowView object:nil];
 }
 
 - (IBAction)didChangePageControlValue:(UIPageControl *)sender

@@ -48,6 +48,7 @@
 @property (nonatomic, strong) NSString *imageFileName;
 @property (nonatomic, strong) NSString *accessoryType;
 @property (nonatomic, strong) NSString *wayToPresentViewController;
+@property (nonatomic, strong) NSString *notificaitonName;
 
 - (id)initWithInfoDict:(NSDictionary *)infoDict;
 

@@ -570,7 +570,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="didClickSwitchModeButton:" destination="bkR-vE-OC4" eventType="touchUpInside" id="Ttu-3T-BqX"/>
+                                    <action selector="didClickSwitchModeButton:" destination="bkR-vE-OC4" eventType="touchDown" id="jSC-od-BtX"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cwh-ob-hUQ">
@@ -586,7 +586,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="didClickSwitchModeButton:" destination="bkR-vE-OC4" eventType="touchUpInside" id="iR1-nj-guU"/>
+                                    <action selector="didClickSwitchModeButton:" destination="bkR-vE-OC4" eventType="touchDown" id="40u-Zb-O2a"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="slider_horizon_bg.png" id="Jlq-Ue-4e4">

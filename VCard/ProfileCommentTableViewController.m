@@ -259,7 +259,7 @@
     
     Status *targetStatus = self.status;
     
-    CGFloat height = [CardViewController heightForStatus:self.status andImageHeight:ImageHeightHigh];
+    CGFloat height = [CardViewController heightForStatus:self.status andImageHeight:ImageHeightHigh isWaterflowCard:NO];
     
     [_headerViewCell setCellHeight:height];
     [_headerViewCell.cardViewController configureCardWithStatus:targetStatus

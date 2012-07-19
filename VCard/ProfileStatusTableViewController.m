@@ -97,7 +97,7 @@
                                 
                 if (newStatus.cardSizeCardHeight.floatValue == 0.0) {
                     CGFloat imageHeight = [self randomImageHeight];
-                    CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight];
+                    CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight isWaterflowCard:NO];
                     newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
                     newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
                 }
