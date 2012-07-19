@@ -103,16 +103,18 @@
     
     frame = type == kGroupTypeTopic ? kDeleteTopicButtonFrame : kDeleteDrawerButtonFrame;
     
-    _deleteButton = [[UIButton alloc] initWithFrame:frame];
-    [_deleteButton setImage:[UIImage imageNamed:@"button_delete_black.png"] forState:UIControlStateNormal];
-    [_deleteButton addTarget:self action:@selector(didClickDeleteButton) forControlEvents:UIControlEventTouchUpInside];
-    _deleteButton.hidden = YES;
-    
     [self addSubview:_backImageView];
     [self addSubview:_photoImageView];
     [self addSubview:_photoFrameImageView];
     [self addSubview:_highlightGlowImageView];
-    [self addSubview:_deleteButton];
+    
+    if (type != kGroupTypeFavourite && _index != 0) {
+        _deleteButton = [[UIButton alloc] initWithFrame:frame];
+        [_deleteButton setImage:[UIImage imageNamed:@"button_delete_black.png"] forState:UIControlStateNormal];
+        [_deleteButton addTarget:self action:@selector(didClickDeleteButton) forControlEvents:UIControlEventTouchUpInside];
+        _deleteButton.hidden = YES;
+        [self addSubview:_deleteButton];
+    }
 }
 
 - (void)setTopicLabelWithType:(int)type

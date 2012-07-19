@@ -588,10 +588,7 @@
 {
     if (self.fetchedResultsController.fetchedObjects.count > index) {
         Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:index];
-        
-        if (group.type.intValue == kGroupTypeTopic) {
-            [self deleteGroup:group];
-        }
+        [self deleteGroup:group];
     } else {
         NSLog(@"Core Data TableView Controller Error - Shelf");
     }
@@ -601,14 +598,15 @@
 {
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
-        if (!client.hasError) {
-            [self removeDrawerViewAtIndex:group.index.intValue];
-            [Group deleteGroupWithGroupID:group.groupID userID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
-        } else {
-           //TODO: Error
-        }
+        [self removeDrawerViewAtIndex:group.index.intValue];
+        [Group deleteGroupWithGroupID:group.groupID userID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
     }];
-    [client unfollowTrend:group.groupID];
+    
+    if (group.type.intValue == kGroupTypeTopic) {
+        [client unfollowTrend:group.groupID];
+    } else if (group.type.intValue == kGroupTypeGroup) {
+        [client deleteGroup:group.groupID];
+    }
 }
 
 #pragma mark - IBActions
