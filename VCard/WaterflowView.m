@@ -757,10 +757,6 @@
 
 - (void)showInfoBarWithTitleName:(NSString *)name
 {
-    _infoBarView.hidden = NO;
-    _returnButton.hidden = NO;
-    _titleLabel.hidden = NO;
-    _infoBarShadowView.hidden = NO;
     
     [UIView animateWithDuration:0.15 animations:^{
         _titleLabel.alpha = 0.0;
@@ -771,8 +767,14 @@
         }];
     }];
         
-    if (_infoBarView.frame.origin.y == -40) {
+    if (_infoBarView.hidden) {
         CGFloat targetOriginY = self.contentOffset.y > 0 ? self.contentOffset.y : 0.0;
+        
+        [_infoBarView resetOriginY:targetOriginY - 40.0];
+        [_returnButton resetOriginY:targetOriginY - 40.0];
+        [_titleLabel resetOriginY:targetOriginY - 40.0];
+        [_infoBarShadowView resetOriginY:targetOriginY - 10.0];
+    
         [UIView animateWithDuration:0.3 animations:^{
             [_infoBarView resetOriginY:targetOriginY];
             [_returnButton resetOriginY:targetOriginY];
@@ -780,6 +782,11 @@
             [_infoBarShadowView resetOriginY:targetOriginY + 30.0];
         }];
     }
+    
+    _infoBarView.hidden = NO;
+    _returnButton.hidden = NO;
+    _titleLabel.hidden = NO;
+    _infoBarShadowView.hidden = NO;
 }
 
 - (void)adjustInfoBar
