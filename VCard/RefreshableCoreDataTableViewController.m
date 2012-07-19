@@ -73,6 +73,10 @@
                    name:kNotificationNameDidChangeFontSize
                  object:nil];
     [center addObserver:self
+               selector:@selector(adjustPictureMode)
+                   name:kNotificationNameShouldRefreshWaterflowView
+                 object:nil];
+    [center addObserver:self
                selector:@selector(refreshAfterDeletingComment:)
                    name:kNotificationNameShouldDeleteComment
                  object:nil];
@@ -120,6 +124,11 @@
 {
     [self.tableView reloadData];
     [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.1];
+}
+
+- (void)adjustPictureMode
+{
+    //To override
 }
 
 - (void)refreshEnded

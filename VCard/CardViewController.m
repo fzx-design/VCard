@@ -527,6 +527,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     label.lineBreakMode = UILineBreakModeWordWrap;
     label.numberOfLines = 0;
     label.leading = [NSUserDefaults currentLeading];
+//    label.textInsets = UIEdgeInsetsMake(0.0, 3.0, 0.0, 0.0);
     
     label.highlightedTextColor = [UIColor whiteColor];
     label.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;

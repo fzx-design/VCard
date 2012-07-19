@@ -22,6 +22,7 @@
 
 #import "TTTAttributedLabel.h"
 #import "EmoticonsInfoReader.h"
+#import "NSUserDefaults+Addition.h"
 
 #define kTTTLineBreakWordWrapTextWidthScalingFactor (M_PI / M_E)
 #define RegexClearColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:0.0] CGColor]
@@ -87,7 +88,7 @@ static inline NSDictionary * NSAttributedStringAttributesFromLabel(TTTAttributed
     CGFloat lineHeightMultiple = label.lineHeightMultiple;
     CGFloat topMargin = label.textInsets.top;
     CGFloat bottomMargin = label.textInsets.bottom;
-    CGFloat leftMargin = label.textInsets.left + 3;
+    CGFloat leftMargin = label.textInsets.left;
     CGFloat rightMargin = label.textInsets.right;
     CGFloat firstLineIndent = label.firstLineIndent + leftMargin;
 
@@ -625,12 +626,17 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 - (void)drawEmoticonWithRect:(CGRect)rect andFileName:(NSString *)imageFileName
 {
     UIImage *emoticon = [UIImage imageNamed:imageFileName];
-    CGRect emoticonFrame = CGRectMake(rect.origin.x - 2, rect.size.height - rect.origin.y - 7.0, 25.0, 25.0);
+    CGFloat width = [NSUserDefaults currentFontSize] == (CGFloat)SettingOptionFontSizeSmall ? 23.0 : 25.0;
+    CGFloat leftMargin = [NSUserDefaults currentFontSize] == (CGFloat)SettingOptionFontSizeSmall ? 1 : -2;
+    CGFloat originY = rect.size.height - rect.origin.y - 7.0;
+    CGFloat originX = rect.origin.x + leftMargin;
+    
+    CGRect emoticonFrame = CGRectMake(originX, originY, width, width);
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     UIGraphicsPushContext(context);
     CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 0.0, 25.0);
+    CGContextTranslateCTM(context, 0.0, width);
     CGContextScaleCTM(context, 1.0, -1.0);
     [emoticon drawInRect:emoticonFrame];
     CGContextRestoreGState(context);

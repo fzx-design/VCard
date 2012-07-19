@@ -62,13 +62,25 @@
 
 - (void)adjustFont
 {
+    [self resetHeightOfStatuses];
+    [super adjustFont];
+}
+
+- (void)adjustPictureMode
+{
+    [self resetHeightOfStatuses];
+    [self.tableView reloadData];
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.1];
+}
+
+- (void)resetHeightOfStatuses
+{
     for (Status *status in self.fetchedResultsController.fetchedObjects) {
         CGFloat imageHeight = [self randomImageHeight];
         CGFloat cardHeight = [CardViewController heightForStatus:status andImageHeight:imageHeight isWaterflowCard:YES];
         status.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
         status.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
     }
-    [super adjustFont];
 }
 
 - (void)loadMoreData
