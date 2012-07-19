@@ -19,6 +19,8 @@
 #import "UIView+Resize.h"
 #import "EmoticonsInfoReader.h"
 #import "InnerBrowserViewController.h"
+#import "ActionPopoverViewController.h"
+#import "NSUserDefaults+Addition.h"
 
 #define MaxCardSize CGSizeMake(326,9999)
 
@@ -178,13 +180,14 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 #pragma mark - Functional Method
 
-+ (CGFloat)heightForStatus:(Status *)status_ andImageHeight:(NSInteger)imageHeight_
++ (CGFloat)heightForStatus:(Status *)status_ andImageHeight:(NSInteger)imageHeight_ isWaterflowCard:(BOOL)isWaterflowCard
 {
     BOOL isReposted = status_.repostStatus != nil;
     BOOL hasCardTail = [status_ hasLocationInfo] || YES;
     Status *targetStatus = isReposted ? status_.repostStatus : status_;
     
-    BOOL doesImageExist = targetStatus.bmiddlePicURL && ![targetStatus.bmiddlePicURL isEqualToString:@""];
+    BOOL isPictureEnabled = !isWaterflowCard || [NSUserDefaults isPictureEnabled];
+    BOOL doesImageExist = targetStatus.bmiddlePicURL && ![targetStatus.bmiddlePicURL isEqualToString:@""] && isPictureEnabled;
 
     CGFloat height = CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight;
     height += [CardViewController heightForCellWithText:status_.text] + CardSizeTextGap;
@@ -260,8 +263,9 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     self.status = status_;
     _isReposted = self.status.repostStatus != nil;
     
+    BOOL isPictureEnabled = _isNotWaterflowCard || [NSUserDefaults isPictureEnabled];
     Status *imageStatus = _isReposted ? self.status.repostStatus : self.status;
-    _doesImageExist = imageStatus.bmiddlePicURL && ![imageStatus.bmiddlePicURL isEqualToString:@""];
+    _doesImageExist = imageStatus.bmiddlePicURL && ![imageStatus.bmiddlePicURL isEqualToString:@""] && isPictureEnabled;
     
 }
 
@@ -391,6 +395,8 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     
     [self.repostButton resetOriginY:origin.y + offset];
     [self.commentButton resetOriginY:origin.y + offset];
+    
+    self.commentButton.hidden = _isNotWaterflowCard;
     
 }
 

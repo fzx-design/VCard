@@ -157,6 +157,7 @@
         [_shelfViewController.view resetOriginY:-_shelfViewController.view.frame.size.height];
         _shelfViewController.coverView.alpha = 1.0;
     } completion:^(BOOL finished) {
+        [_shelfViewController exitEditMode];
     }];
 }
 

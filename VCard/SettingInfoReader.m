@@ -23,6 +23,7 @@ static SettingInfoReader *readerInstance;
 #define kItemTitle                      @"kItemTitle"
 #define kItemContent                    @"kItemContent"
 #define kItemImageFileName              @"kItemImageFileName"
+#define kNotificationName               @"kNotificationName"
 
 @interface SettingInfoReader()
 
@@ -128,6 +129,7 @@ static SettingInfoReader *readerInstance;
         self.imageFileName = [infoDict objectForKey:kItemImageFileName];
         self.accessoryType = [infoDict objectForKey:kAccessoryType];
         self.wayToPresentViewController = [infoDict objectForKey:kWayToPresentViewController];
+        self.notificaitonName = [infoDict objectForKey:kNotificationName];
     }
     return self;
 }

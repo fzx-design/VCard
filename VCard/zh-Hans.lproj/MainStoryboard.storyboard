@@ -558,7 +558,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WUx-ZP-e1r">
-                                <rect key="frame" x="336" y="49" width="50" height="50"/>
+                                <rect key="frame" x="336" y="48" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="icon_text_mode.png">
@@ -570,11 +570,11 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="didClickSwitchModeButton:" destination="bkR-vE-OC4" eventType="touchUpInside" id="Ttu-3T-BqX"/>
+                                    <action selector="didClickSwitchModeButton:" destination="bkR-vE-OC4" eventType="touchDown" id="jSC-od-BtX"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cwh-ob-hUQ">
-                                <rect key="frame" x="383" y="49" width="50" height="50"/>
+                                <rect key="frame" x="383" y="48" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="icon_image.png">
@@ -586,7 +586,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="didClickSwitchModeButton:" destination="bkR-vE-OC4" eventType="touchUpInside" id="iR1-nj-guU"/>
+                                    <action selector="didClickSwitchModeButton:" destination="bkR-vE-OC4" eventType="touchDown" id="40u-Zb-O2a"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="slider_horizon_bg.png" id="Jlq-Ue-4e4">

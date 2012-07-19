@@ -13,6 +13,7 @@
 #import "UIApplication+Addition.h"
 #import "Group.h"
 #import "SettingViewController.h"
+#import "NSUserDefaults+Addition.h"
 
 #define kShelfHeight            150.0
 #define kNumberOfDrawerPerPage  5
@@ -77,6 +78,14 @@
                selector:@selector(deleteGroupWithNotification:)
                    name:kNotificationNameShouldDeleteGroup
                  object:nil];
+    [center addObserver:self
+               selector:@selector(didReturnToNormalTimeline)
+                   name:kNotificationNameDidReturnToNormalTimeline
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(loadUserDefaults)
+                   name:kNotificationNameShouldRefreshWaterflowView
+                 object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -103,6 +112,16 @@
 {
     Group *group = notification.object;
     [self deleteGroup:group];
+}
+
+- (void)didReturnToNormalTimeline
+{
+    [_currentDrawerView hideHighlightGlow];
+    _currentDrawerView.enabled = YES;
+    ShelfDrawerView *drawerView = [_drawerViewArray objectAtIndex:0];
+    [drawerView showHighlightGlow];
+    drawerView.enabled = NO;
+    _currentDrawerView = drawerView;
 }
 
 #pragma mark - Group Infomation Behavior
@@ -293,10 +312,20 @@
     _brightnessSlider.maximumValue = 1.0;
     _brightnessSlider.minimumValue = 0.1;
     _brightnessSlider.value = [[UIScreen mainScreen] brightness];
+    _fontSizeSlider.maximumValue = 1.0;
+    _fontSizeSlider.minimumValue = 0.0;
+    _fontSizeSlider.value = 0.0;
     
     [ThemeResourceProvider configButtonBrown:_detailSettingButton];
-    _switchToPicButton.selected = YES;
-    _switchToTextButton.selected = NO;
+    [self loadUserDefaults];
+}
+
+- (void)loadUserDefaults
+{
+    _switchToPicButton.selected = [NSUserDefaults isPictureEnabled];
+    _switchToTextButton.selected = ![NSUserDefaults isPictureEnabled];
+    _switchToPicButton.userInteractionEnabled = ![NSUserDefaults isPictureEnabled];
+    _switchToTextButton.userInteractionEnabled = [NSUserDefaults isPictureEnabled];
 }
 
 #pragma mark - Scroll View Behavior
@@ -381,13 +410,15 @@
                                                                    index:index
                                                                     type:group.type.intValue
                                                                    empty:group.count.intValue == 0];
+    if (index == 0) {
+        _currentDrawerView = drawerView;
+    }
+    
     drawerView.adjustsImageWhenHighlighted = YES;
     [drawerView addTarget:self action:@selector(changeCastViewSource:) forControlEvents:UIControlEventTouchUpInside];
     drawerView.delegate = self;
-    
     [_scrollView addSubview:drawerView];
     [_drawerViewArray addObject:drawerView];
-    
     [drawerView appearWithDuration:0.3];
     [self resetDrawerViewLayout:drawerView withIndex:index];
     
@@ -571,7 +602,19 @@
 
 - (IBAction)didEndDraggingSlider:(UISlider *)sender
 {
-    
+    if ([sender isEqual:_fontSizeSlider]) {
+        [UIView animateWithDuration:0.3 animations:^{
+            if (sender.value < 0.3) {
+                sender.value = 0.0;
+            } else if (sender.value < 0.7) {
+                sender.value = 0.5;
+            } else {
+                sender.value = 1.0;
+            }
+        } completion:^(BOOL finished) {
+            //TODO: Adjust font size
+        }];
+    }
 }
 
 - (IBAction)didClickDetialSettingButton:(UIButton *)sender
@@ -582,8 +625,14 @@
 - (IBAction)didClickSwitchModeButton:(UIButton *)sender
 {
     BOOL switchToPicButtonClicked = [sender isEqual:_switchToPicButton];
+    
     _switchToPicButton.selected = switchToPicButtonClicked;
+    _switchToPicButton.userInteractionEnabled = !switchToPicButtonClicked;
     _switchToTextButton.selected = !switchToPicButtonClicked;
+    _switchToTextButton.userInteractionEnabled = switchToPicButtonClicked;
+    
+    [NSUserDefaults setPictureEnabled:switchToPicButtonClicked];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldRefreshWaterflowView object:nil];
 }
 
 - (IBAction)didChangePageControlValue:(UIPageControl *)sender
@@ -602,12 +651,24 @@
             view.editing = _editing;
             [view showDeleteButton];
         }
+        [_editButton setTitle:@"完成" forState:UIControlStateNormal];
     } else {
         for (ShelfDrawerView *view in _drawerViewArray) {
             view.editing = _editing;
             [view hideDeleteButton];
         }
+        [_editButton setTitle:@"编辑" forState:UIControlStateNormal];
     }
+}
+
+- (void)exitEditMode
+{
+    _editing = NO;
+    for (ShelfDrawerView *view in _drawerViewArray) {
+        view.editing = _editing;
+        [view hideDeleteButton];
+    }
+    [_editButton setTitle:@"编辑" forState:UIControlStateNormal];
 }
 
 

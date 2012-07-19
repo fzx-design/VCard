@@ -191,6 +191,10 @@
                    name:kNotificationNameShouldClearStack
                  object:nil];
     [center addObserver:self
+               selector:@selector(refreshWaterflowView)
+                   name:kNotificationNameShouldRefreshWaterflowView
+                 object:nil];
+    [center addObserver:self
                selector:@selector(resetRefreshingAnimation)
                    name:UIApplicationDidBecomeActiveNotification
                  object:nil];
@@ -392,6 +396,11 @@
     _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
 }
 
+- (void)refreshWaterflowView
+{
+    [_waterflowView refresh];
+}
+
 - (void)refreshAfterDeletingStatuses:(NSNotification *)notification
 {
     NSString *statusID = notification.object;
@@ -418,8 +427,12 @@
 {
     int unreadStatusCount = self.currentUser.unreadStatusCount.intValue;
     if (unreadStatusCount != 0) {
-        _unreadCountButton.hidden = NO;
-        [_unreadCountButton setCount:unreadStatusCount];
+        if (_dataSource != CastviewDataSourceNone) {
+            _unreadCountButton.hidden = YES;
+        } else {
+            _unreadCountButton.hidden = NO;
+            [_unreadCountButton setCount:unreadStatusCount];
+        }
     }
 }
 
@@ -572,7 +585,7 @@
             _dataSource = CastviewDataSourceNone;
         }
         [_waterflowView showInfoBarWithTitleName:description];
-        
+        [self updateUnreadStatusCount];
         [self refresh];
     }
 }
@@ -786,7 +799,7 @@
                 newStatus.forCastView = [NSNumber numberWithBool:YES];
                 
                 CGFloat imageHeight = [self randomImageHeight];
-                CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight];
+                CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight isWaterflowCard:YES];
                 newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
                 newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
                 
@@ -998,6 +1011,8 @@
 
 - (void)didClickReturnToNormalTimelineButton
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameDidReturnToNormalTimeline object:nil];
+    
     [self returnToNormalTimeline];
 }
 
@@ -1066,7 +1081,7 @@
 {
     if (self.fetchedResultsController.fetchedObjects.count > index_) {
         Status *status = (Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:index_];
-        return [CardViewController heightForStatus:status andImageHeight:imageHeight_];
+        return [CardViewController heightForStatus:status andImageHeight:imageHeight_ isWaterflowCard:YES];
     } else {
         return 0;
     }

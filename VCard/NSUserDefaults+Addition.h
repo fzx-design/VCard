@@ -41,6 +41,7 @@ typedef enum {
 + (BOOL)isAutoLocateEnabled;
 + (BOOL)isSoundEffectEnabled;
 + (BOOL)isPictureEnabled;
++ (void)setPictureEnabled:(BOOL)enabled;
 + (BOOL)isRetinaDisplayEnabled;
 
 + (SettingOptionFontSizeType)currentFontSizeType;

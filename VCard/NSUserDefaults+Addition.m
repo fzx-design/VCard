@@ -143,6 +143,12 @@
     return [defaults boolForKey:kSettingEnablePicture];
 }
 
++ (void)setPictureEnabled:(BOOL)enabled
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:[NSNumber numberWithBool:enabled] forKey:kSettingEnablePicture];
+}
+
 + (BOOL)isRetinaDisplayEnabled {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults boolForKey:kSettingEnableRetinaDisplay];

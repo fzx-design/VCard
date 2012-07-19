@@ -49,10 +49,19 @@
         [self setUpDrawerImageViewWithType:type empty:empty];
         [self setTopicLabelWithType:type];
         [self loadImageFromURL:url completion:nil];
+        
+        if (index == 0) {
+            [self showHighlightGlow];
+            self.enabled = NO;
+        }
+        
         [self addTarget:self action:@selector(showHighlightGlow) forControlEvents:UIControlEventTouchDown];
         [self addTarget:self action:@selector(showHighlightGlow) forControlEvents:UIControlEventTouchDragInside];
         [self addTarget:self action:@selector(hideHighlightGlow) forControlEvents:UIControlEventTouchDragOutside];
         [self addTarget:self action:@selector(hideHighlightGlow) forControlEvents:UIControlEventTouchDragExit];
+        [self addTarget:self action:@selector(hideHighlightGlow) forControlEvents:UIControlEventTouchCancel];
+        [self addTarget:self action:@selector(hideHighlightGlow) forControlEvents:UIControlEventTouchDragExit];
+        [self addTarget:self action:@selector(hideHighlightGlow) forControlEvents:UIControlEventTouchUpOutside];
     }
     return self;
 }

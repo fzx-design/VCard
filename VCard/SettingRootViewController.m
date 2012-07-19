@@ -163,8 +163,7 @@
     settingCell.detailTextLabel.text = info.itemContent;
     
     if([info.accessoryType isEqualToString:kAccessoryTypeSwitch]) {
-        [settingCell setSwitch];
-        
+        [settingCell setSwitch];        
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         settingCell.itemSwitch.on = [defaults boolForKey:info.nibFileName];
         
@@ -247,6 +246,10 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:sender.on forKey:info.nibFileName];
     [defaults synchronize];
+    
+    if (info.notificaitonName) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:info.notificaitonName object:nil];
+    }
 }
 
 @end

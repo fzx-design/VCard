@@ -643,13 +643,9 @@
         originY = -screenHeight;
         [cell resetOriginY:originY];
         
-        NSLog(@"before %@", NSStringFromCGRect(cell.frame));
-        
         [UIView animateWithDuration:0.7 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [cell resetOrigin:origin];
-        } completion:^(BOOL finished) {
-            NSLog(@"after %@", NSStringFromCGRect(cell.frame));
-        }];
+        } completion:nil];
     }
     
 }
