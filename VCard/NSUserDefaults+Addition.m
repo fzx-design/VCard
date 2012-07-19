@@ -27,6 +27,7 @@
 #define kSettingOptionFontSize              @"SettingOptionFontSize"
 #define kSettingOptionNotification          @"SettingOptionNotification"
 #define kSettingFontSize                    @"kSettingFontSize"
+#define kSettingLeading                     @"SettingLeading"
 
 #define kHasShownGuideBook                  @"HasShownGuideBook"
 #define kHasShownShelfTips                  @"kHasShownShelfTips"
@@ -50,6 +51,7 @@
         [defaults setBool:YES forKey:kSettingEnableRetinaDisplay];
         [defaults setBool:YES forKey:kSettingEnablePicture];
         [defaults setFloat:17.0 forKey:kSettingFontSize];
+        [defaults setFloat:8.0 forKey:kSettingLeading];
         
         [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:NO], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:NO], nil] forKey:kSettingOptionFontSize];
         [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], nil] forKey:kSettingOptionNotification];
@@ -100,6 +102,14 @@
     info.optionChosenStatusArray = [NSArray arrayWithObjects:chosenStatus1, chosenStatus2, chosenStatus3, nil];
     [NSUserDefaults setSettingOptionInfo:info];
     
+    if (fontSize == (CGFloat)SettingOptionFontSizeSmall) {
+        [[NSUserDefaults standardUserDefaults] setFloat:6.0 forKey:kSettingLeading];
+    } else if (fontSize == (CGFloat)SettingOptionFontSizeNormal) {
+        [[NSUserDefaults standardUserDefaults] setFloat:8.0 forKey:kSettingLeading];
+    } else {
+        [[NSUserDefaults standardUserDefaults] setFloat:10.0 forKey:kSettingLeading];
+    }
+    
     [defaults setFloat:fontSize forKey:kSettingFontSize];
     [defaults synchronize];
 }
@@ -108,6 +118,12 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults floatForKey:kSettingFontSize];
+}
+
++ (CGFloat)currentLeading
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults floatForKey:kSettingLeading];
 }
 
 + (BOOL)hasShownShelfTips {

@@ -86,6 +86,10 @@
                selector:@selector(loadUserDefaults)
                    name:kNotificationNameShouldRefreshWaterflowView
                  object:nil];
+    [center addObserver:self
+               selector:@selector(loadUserDefaults)
+                   name:kNotificationNameDidChangeFontSize
+                 object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -334,6 +338,13 @@
     _switchToTextButton.selected = ![NSUserDefaults isPictureEnabled];
     _switchToPicButton.userInteractionEnabled = ![NSUserDefaults isPictureEnabled];
     _switchToTextButton.userInteractionEnabled = [NSUserDefaults isPictureEnabled];
+    if ([NSUserDefaults currentFontSize] == (CGFloat)SettingOptionFontSizeSmall) {
+        _fontSizeSlider.value = 0.0;
+    } else if ([NSUserDefaults currentFontSize] == (CGFloat)SettingOptionFontSizeNormal) {
+        _fontSizeSlider.value = 0.5;
+    } else {
+        _fontSizeSlider.value = 1.0;
+    }
 }
 
 #pragma mark - Scroll View Behavior

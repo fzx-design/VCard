@@ -78,7 +78,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     return __emotionIDRegularExpression;
 }
 
-
 @interface CardViewController () {
     BOOL _doesImageExist;
     BOOL _alreadyConfigured;
@@ -223,7 +222,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     height += ceilf([text sizeWithFont:[UIFont systemFontOfSize:fontSize] constrainedToSize:MaxCardSize lineBreakMode:UILineBreakModeWordWrap].height);
     CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:fontSize] constrainedToSize:MaxCardSize lineBreakMode:UILineBreakModeWordWrap].height);
     
-    height += ceilf(height / singleLineHeight * CardTextLineSpace);
+    height += ceilf(height / singleLineHeight * [NSUserDefaults currentLeading]);
         
     return height;
 }
@@ -526,7 +525,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     label.textColor = [UIColor colorWithRed:49.0/255 green:42.0/255 blue:37.0/255 alpha:1.0];
     label.lineBreakMode = UILineBreakModeWordWrap;
     label.numberOfLines = 0;
-    label.leading = CardTextLineSpace;
+    label.leading = [NSUserDefaults currentLeading];
     
     label.highlightedTextColor = [UIColor whiteColor];
     label.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;

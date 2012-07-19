@@ -52,7 +52,7 @@ typedef enum {
 + (void)updateCurrentFontSize;
 + (void)setCurrentFontSize:(CGFloat)fontSize;
 + (CGFloat)currentFontSize;
-
++ (CGFloat)currentLeading;
 + (SettingOptionFontSizeType)currentFontSizeType;
 //返回一个数组，数组中的元素按 SettingOptionFontNotificationType 排列，类型均为包含一个BOOL类型数据的NSNumber。
 + (NSArray *)currentNotificationStatus;
