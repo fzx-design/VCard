@@ -2,7 +2,7 @@
 //  Status.h
 //  VCard
 //
-//  Created by 海山 叶 on 12-7-17.
+//  Created by 海山 叶 on 12-7-20.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -34,6 +34,7 @@
 @property (nonatomic, retain) NSNumber * lat;
 @property (nonatomic, retain) NSString * location;
 @property (nonatomic, retain) NSNumber * lon;
+@property (nonatomic, retain) NSString * mediaLink;
 @property (nonatomic, retain) NSNumber * operatable;
 @property (nonatomic, retain) id operatedBy;
 @property (nonatomic, retain) NSString * originalPicURL;
@@ -44,9 +45,12 @@
 @property (nonatomic, retain) NSString * statusID;
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) NSString * thumbnailPicURL;
-@property (nonatomic, retain) NSDate * updateDate;
 @property (nonatomic, retain) NSString * type;
-@property (nonatomic, retain) NSString * mediaLink;
+@property (nonatomic, retain) NSDate * updateDate;
+@property (nonatomic, retain) id cacheTextLabel;
+@property (nonatomic, retain) id cacheDateString;
+@property (nonatomic, retain) id cacheLinks;
+@property (nonatomic, retain) NSNumber * cached;
 @property (nonatomic, retain) User *author;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) User *favoritedBy;

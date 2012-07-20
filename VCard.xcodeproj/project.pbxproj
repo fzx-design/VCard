@@ -101,11 +101,11 @@
 		181FE5BE1557F9AE006C98ED /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181FE5BD1557F9AE006C98ED /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		182887E415B2D35E004B3675 /* UIView+Swing.m in Sources */ = {isa = PBXBuildFile; fileRef = 182887E315B2D35E004B3675 /* UIView+Swing.m */; };
 		182EC05215A497990056E282 /* TopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182EC05115A497990056E282 /* TopicViewController.m */; };
+		182EF5BB15B8F66F005E4BA2 /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 182EF5BA15B8F66F005E4BA2 /* Status.m */; };
 		1833803415A9C102001DC651 /* card_image_edge.png in Resources */ = {isa = PBXBuildFile; fileRef = 1833803215A9C102001DC651 /* card_image_edge.png */; };
 		1833803515A9C102001DC651 /* card_image_edge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1833803315A9C102001DC651 /* card_image_edge@2x.png */; };
 		183AC82F15A56EAE006937C3 /* ShelfDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183AC82E15A56EAE006937C3 /* ShelfDrawerView.m */; };
 		1846F04815A72FAA00E5CF47 /* DetailImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1846F04715A72FAA00E5CF47 /* DetailImageViewController.m */; };
-		184720DF15B5188F0028262C /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 184720DE15B5188F0028262C /* Status.m */; };
 		184720E215B5282F0028262C /* button_vote.png in Resources */ = {isa = PBXBuildFile; fileRef = 184720E015B5282F0028262C /* button_vote.png */; };
 		184720E315B5282F0028262C /* button_vote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184720E115B5282F0028262C /* button_vote@2x.png */; };
 		184CE7B515B10B6C001358FB /* InnerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184CE7B415B10B6C001358FB /* InnerBrowserViewController.m */; };
@@ -1074,14 +1074,14 @@
 		182887E315B2D35E004B3675 /* UIView+Swing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Swing.m"; sourceTree = "<group>"; };
 		182EC05015A497990056E282 /* TopicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicViewController.h; sourceTree = "<group>"; };
 		182EC05115A497990056E282 /* TopicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicViewController.m; sourceTree = "<group>"; };
+		182EF5B915B8F66F005E4BA2 /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
+		182EF5BA15B8F66F005E4BA2 /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
 		1833803215A9C102001DC651 /* card_image_edge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_image_edge.png; sourceTree = "<group>"; };
 		1833803315A9C102001DC651 /* card_image_edge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card_image_edge@2x.png"; sourceTree = "<group>"; };
 		183AC82D15A56EAE006937C3 /* ShelfDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelfDrawerView.h; sourceTree = "<group>"; };
 		183AC82E15A56EAE006937C3 /* ShelfDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfDrawerView.m; sourceTree = "<group>"; };
 		1846F04615A72FAA00E5CF47 /* DetailImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailImageViewController.h; sourceTree = "<group>"; };
 		1846F04715A72FAA00E5CF47 /* DetailImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailImageViewController.m; sourceTree = "<group>"; };
-		184720DD15B5188F0028262C /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
-		184720DE15B5188F0028262C /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
 		184720E015B5282F0028262C /* button_vote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_vote.png; sourceTree = "<group>"; };
 		184720E115B5282F0028262C /* button_vote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_vote@2x.png"; sourceTree = "<group>"; };
 		184CE7B315B10B6C001358FB /* InnerBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InnerBrowserViewController.h; sourceTree = "<group>"; };
@@ -2484,8 +2484,8 @@
 				18EE8E27159DE6160032D69B /* Comment.m */,
 				18AEA32D15B5504500B53B6A /* User.h */,
 				18AEA32E15B5504500B53B6A /* User.m */,
-				184720DD15B5188F0028262C /* Status.h */,
-				184720DE15B5188F0028262C /* Status.m */,
+				182EF5B915B8F66F005E4BA2 /* Status.h */,
+				182EF5BA15B8F66F005E4BA2 /* Status.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -4706,8 +4706,8 @@
 				E15A5C5E15B3DE59004BC29A /* ErrorIndicatorManager.m in Sources */,
 				E10CBEB015B541B800CFA21F /* ActionPopoverViewController.m in Sources */,
 				E10CBEB315B5420800CFA21F /* MPAnimation.m in Sources */,
-				184720DF15B5188F0028262C /* Status.m in Sources */,
 				18AEA32F15B5504500B53B6A /* User.m in Sources */,
+				182EF5BB15B8F66F005E4BA2 /* Status.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

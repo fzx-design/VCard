@@ -47,6 +47,10 @@
         <attribute name="bmiddlePicURL" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
+        <attribute name="cached" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="cacheDateString" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="cacheLinks" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="cacheTextLabel" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="cardSizeCardHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="cardSizeImageHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="commentsCount" optional="YES" attributeType="String" defaultValueString="0">
@@ -199,7 +203,7 @@
     <elements>
         <element name="Comment" positionX="0" positionY="0" width="0" height="285"/>
         <element name="Group" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="Status" positionX="0" positionY="0" width="0" height="570"/>
+        <element name="Status" positionX="0" positionY="0" width="0" height="630"/>
         <element name="User" positionX="0" positionY="0" width="0" height="555"/>
     </elements>
 </model>

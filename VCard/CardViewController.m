@@ -411,7 +411,11 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     [self.locationLabel resetOriginY:cardTailOriginY];
     [self.timeStampLabel resetOriginY:cardTailOriginY];
 
-    [self.timeStampLabel setText:[self.status.createdAt stringRepresentation]];
+    if (self.status.cacheDateString == nil) {
+        self.status.cacheDateString = [self.status.createdAt stringRepresentation];
+    }
+    
+    [self.timeStampLabel setText:self.status.cacheDateString];
     
     [self setUpLocationInfo];
 }
