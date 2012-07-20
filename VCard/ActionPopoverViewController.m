@@ -107,4 +107,10 @@
     [self.bottomBar resetOrigin:CGPointMake(0, bottomY - topY + self.centerBar.frame.size.height)];
 }
 
+#pragma mark - ActionPopoverGestureRecognizeView delegate
+
+- (void)actionPopoverGestureRecognizeViewDidDetectDismissTouch {
+    
+}
+
 @end

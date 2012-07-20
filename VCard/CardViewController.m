@@ -19,7 +19,6 @@
 #import "UIView+Resize.h"
 #import "EmoticonsInfoReader.h"
 #import "InnerBrowserViewController.h"
-#import "ActionPopoverViewController.h"
 #import "NSUserDefaults+Addition.h"
 #import "RootViewController.h"
 
@@ -91,8 +90,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     UIRotationGestureRecognizer *_rotationGestureRecognizer;
     UITapGestureRecognizer *_tapGestureRecognizer;
 }
-
-@property (nonatomic, strong) ActionPopoverViewController *actionPopoverViewController;
 
 @end
 
@@ -1143,18 +1140,22 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 }
 
 - (void)showActionPopover {
+    UIView *superView = self.view.superview;
+    UIView *superSuperView = self.view.superview.superview;
+    [superView removeFromSuperview];
+    [superSuperView addSubview:superView];
+    
     [self.actionPopoverViewController.view removeFromSuperview];
     [[UIApplication sharedApplication].rootViewController.view addSubview:self.actionPopoverViewController.view];
+    
     CGFloat cropPosTopY = self.repostButton.frame.origin.y;
     CGFloat cropPosBottomY = self.repostButton.frame.origin.y + self.repostButton.frame.size.height;
     [self.actionPopoverViewController setCropView:self.view cropPosTopY:cropPosTopY cropPosBottomY:cropPosBottomY];
     
-    RootViewController *rootViewController =  (RootViewController *)((UINavigationController *)[UIApplication sharedApplication].rootViewController).topViewController;
-    CGFloat waterFlowContentOffsetY = rootViewController.castViewController.waterflowView.contentOffset.y;
-    CGPoint originInMainView = CGPointMake(self.view.superview.frame.origin.x, self.view.superview.frame.origin.y + self.view.superview.superview.frame.origin.y + cropPosTopY - waterFlowContentOffsetY);
+    [self.view addSubview:self.actionPopoverViewController.contentView];
+    [self.actionPopoverViewController.contentView resetOrigin:CGPointMake(0, cropPosTopY)];
     
-    NSLog(@"cropPosTopY %f, water %f, result %f", cropPosTopY, waterFlowContentOffsetY, originInMainView.y);
-    [self.actionPopoverViewController.contentView resetOrigin:originInMainView];
+    self.view.tag = ACTION_POPOVER_CONTAINER_VIEW;
 }
 
 - (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {
@@ -1164,8 +1165,11 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 #pragma mark - ActionPopoverViewController delegate
 
 - (void)actionPopoverViewDidDismiss {
+    [self.actionPopoverViewController.contentView removeFromSuperview];
     [self.actionPopoverViewController.view removeFromSuperview];
     self.actionPopoverViewController = nil;
+    
+    self.view.tag = 0;
 }
 
 @end

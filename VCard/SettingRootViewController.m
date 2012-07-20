@@ -246,7 +246,12 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
 	SettingInfoSection *sectionInfo = [self.settingSectionInfoArray objectAtIndex:section];
-    return sectionInfo.sectionFooter;
+    NSString *result = sectionInfo.sectionFooter;
+    if([sectionInfo.sectionIdentifier isEqualToString:@"Group2"]) {
+        if(![UIApplication isRetinaDisplayiPad])
+            result = nil;
+    }
+    return result;
 }
 
 #pragma mark - SettingTableViewCell delegate

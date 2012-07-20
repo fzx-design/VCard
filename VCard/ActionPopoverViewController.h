@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ActionPopoverGestureRecognizeView.h"
 
 @protocol ActionPopoverViewControllerDelegate;
 
-@interface ActionPopoverViewController : UIViewController<UIGestureRecognizerDelegate>
+@interface ActionPopoverViewController : UIViewController<UIGestureRecognizerDelegate, ActionPopoverGestureRecognizeViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView *contentView;
 @property (nonatomic, weak) IBOutlet UIImageView *topBar;

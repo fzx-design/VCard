@@ -77,6 +77,8 @@
 
 @property (nonatomic, weak) id<CardViewControllerDelegate> delegate;
 
+@property (nonatomic, strong) ActionPopoverViewController *actionPopoverViewController;
+
 - (IBAction)nameButtonClicked:(id)sender;
 - (IBAction)didClickCommentButton:(UIButton *)sender;
 - (IBAction)didClickRepostButton:(UIButton *)sender;
