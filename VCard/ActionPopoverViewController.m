@@ -16,6 +16,8 @@
 #define FUNCTION_BUTTON_CENTER_Y    48.
 #define FUNCTION_LABEL_CENTER_Y     78.
 
+#define CONTENT_SHADOW_VIEW_BOTTOM_OFFSET_Y 69.
+
 @interface ActionPopoverViewController () {
     NSMutableArray *_buttonTitleArray;
     NSMutableArray *_buttonIconFileNameArray;
@@ -30,6 +32,7 @@
 @synthesize topBar = _topBar;
 @synthesize centerBar = _centerBar;
 @synthesize bottomBar = _bottomBar;
+@synthesize shadowView = _shadowView;
 
 + (ActionPopoverViewController *)getActionPopoverViewControllerWithFavoriteButtonOn:(BOOL)favoriteOn
                                                                    showDeleteButton:(BOOL)showDelete {
@@ -70,6 +73,8 @@
     [super viewDidLoad];
     
     [self configureUI];
+    
+    [self.view resetSize:[UIApplication sharedApplication].screenSize];
 	
 	UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 	tapGesture.delegate = self;
@@ -86,6 +91,7 @@
     self.topBar = nil;
     self.centerBar = nil;
     self.bottomBar = nil;
+    self.shadowView = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -189,10 +195,11 @@
 
 - (void)setCropView:(UIView *)view cropPosTopY:(CGFloat)topY cropPosBottomY:(CGFloat)bottomY {
     [self configureCropImageView:view cropPosTopY:topY cropPosBottomY:bottomY];
-    [self.contentView resetSize:CGSizeMake(view.frame.size.width, view.frame.size.height - topY)];
+    [self.contentView resetSize:CGSizeMake(view.frame.size.width, view.frame.size.height - topY + self.centerBar.frame.size.height)];
     [self.topBar resetOrigin:CGPointMake(0, 0)];
     [self.centerBar resetOrigin:CGPointMake(0, bottomY - topY)];
     [self.bottomBar resetOrigin:CGPointMake(0, bottomY - topY + self.centerBar.frame.size.height)];
+    [self.shadowView resetOriginY:self.contentView.frame.size.height + CONTENT_SHADOW_VIEW_BOTTOM_OFFSET_Y - self.shadowView.frame.size.height];
 }
 
 #pragma mark - ActionPopoverGestureRecognizeView delegate

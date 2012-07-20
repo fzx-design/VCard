@@ -26,6 +26,8 @@
 
 #define RegexColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]
 
+#define ACTION_POPOVER_CONTAINER_CONTAINER_VIEW 3002
+
 static NSRegularExpression *__nameRegularExpression;
 static inline NSRegularExpression * NameRegularExpression() {
     if (!__nameRegularExpression) {
@@ -1156,7 +1158,18 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     [self.view addSubview:self.actionPopoverViewController.contentView];
     [self.actionPopoverViewController.contentView resetOrigin:CGPointMake(0, cropPosTopY)];
     
+    // 设置tag以被ActionPopoverGestureRecognizeView识别。
     self.view.tag = ACTION_POPOVER_CONTAINER_VIEW;
+    self.view.superview.tag = ACTION_POPOVER_CONTAINER_CONTAINER_VIEW;
+    
+    UIScrollView *scrollView = (UIScrollView *)self.view.superview.superview;
+    scrollView.scrollEnabled = NO;
+    
+//    for(UIView *subview in scrollView.subviews) {
+//        if(subview.tag != ACTION_POPOVER_CONTAINER_CONTAINER_VIEW) {
+//            subview.userInteractionEnabled = NO;
+//        }
+//    }
 }
 
 - (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {
@@ -1171,6 +1184,14 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     self.actionPopoverViewController = nil;
     
     self.view.tag = 0;
+    self.view.superview.tag = 0;
+    
+    UIScrollView *scrollView = (UIScrollView *)self.view.superview.superview;
+    scrollView.scrollEnabled = YES;
+    
+//    for(UIView *subview in scrollView.subviews) {
+//        subview.userInteractionEnabled = YES;
+//    }
 }
 
 - (void)actionPopoverDidClickButtonWithIdentifier:(ActionPopoverButtonIdentifier)identifier {
