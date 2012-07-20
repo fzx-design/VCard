@@ -62,11 +62,11 @@
 {
     if (_type == CommentTableViewControllerTypeComment) {
         for (Comment *comment in self.fetchedResultsController.fetchedObjects) {
-            comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+            comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment]];
         }
     } else {
         for (Status *status in self.fetchedResultsController.fetchedObjects) {
-            status.cardSizeCardHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:status.text]];
+            status.cardSizeCardHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:status]];
         }
     }
     [self setUpHeaderView];
@@ -113,14 +113,14 @@
                 NSArray *dictArray = [client.responseJSONObject objectForKey:@"comments"];
                 for (NSDictionary *dict in dictArray) {
                     Comment *comment = [Comment insertComment:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
-                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment]];
                     [self.status addCommentsObject:comment];
                 }
             } else {
                 NSArray *dictArray = [client.responseJSONObject objectForKey:@"reposts"];
                 for (NSDictionary *dict in dictArray) {
                     Status *status = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
-                    status.cardSizeCardHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:status.text]];
+                    status.cardSizeCardHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:status]];
                     [_status addRepostedByObject:status];
                 }
             }

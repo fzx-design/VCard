@@ -2,7 +2,7 @@
 //  Status.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-7-17.
+//  Created by 海山 叶 on 12-7-20.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -31,6 +31,7 @@
 @dynamic lat;
 @dynamic location;
 @dynamic lon;
+@dynamic mediaLink;
 @dynamic operatable;
 @dynamic operatedBy;
 @dynamic originalPicURL;
@@ -41,9 +42,12 @@
 @dynamic statusID;
 @dynamic text;
 @dynamic thumbnailPicURL;
-@dynamic updateDate;
 @dynamic type;
-@dynamic mediaLink;
+@dynamic updateDate;
+@dynamic cacheTextLabel;
+@dynamic cacheDateString;
+@dynamic cacheLinks;
+@dynamic cached;
 @dynamic author;
 @dynamic comments;
 @dynamic favoritedBy;

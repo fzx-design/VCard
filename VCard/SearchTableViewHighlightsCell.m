@@ -125,15 +125,15 @@
     if ([sender.view isEqual:_topImageView1]) {
         topicName = @"温馨一刻";
     } else if ([sender.view isEqual:_topImageView2]) {
-        topicName = @"时事新闻";
+        topicName = @"图片新闻";
     } else if ([sender.view isEqual:_topImageView3]) {
-        topicName = @"搞笑";
+        topicName = @"搞笑图片";
     } else if ([sender.view isEqual:_topImageView4]) {
         topicName = @"美食";
     } else if ([sender.view isEqual:_topImageView5]) {
-        topicName = @"科技";
+        topicName = @"IT新闻";
     } else if ([sender.view isEqual:_topImageView6]) {
-        topicName = @"体育";
+        topicName = @"体育新闻";
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowTopic object:[NSDictionary dictionaryWithObjectsAndKeys:topicName, kNotificationObjectKeySearchKey, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
     
