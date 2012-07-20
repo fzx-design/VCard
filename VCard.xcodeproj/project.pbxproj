@@ -102,6 +102,7 @@
 		182887E415B2D35E004B3675 /* UIView+Swing.m in Sources */ = {isa = PBXBuildFile; fileRef = 182887E315B2D35E004B3675 /* UIView+Swing.m */; };
 		182EC05215A497990056E282 /* TopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182EC05115A497990056E282 /* TopicViewController.m */; };
 		182EF5BB15B8F66F005E4BA2 /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 182EF5BA15B8F66F005E4BA2 /* Status.m */; };
+		182EF5C215B92AC0005E4BA2 /* GroupInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182EF5C115B92AC0005E4BA2 /* GroupInfoTableViewController.m */; };
 		1833803415A9C102001DC651 /* card_image_edge.png in Resources */ = {isa = PBXBuildFile; fileRef = 1833803215A9C102001DC651 /* card_image_edge.png */; };
 		1833803515A9C102001DC651 /* card_image_edge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1833803315A9C102001DC651 /* card_image_edge@2x.png */; };
 		183AC82F15A56EAE006937C3 /* ShelfDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183AC82E15A56EAE006937C3 /* ShelfDrawerView.m */; };
@@ -1077,6 +1078,8 @@
 		182EC05115A497990056E282 /* TopicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicViewController.m; sourceTree = "<group>"; };
 		182EF5B915B8F66F005E4BA2 /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
 		182EF5BA15B8F66F005E4BA2 /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
+		182EF5C015B92AC0005E4BA2 /* GroupInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupInfoTableViewController.h; sourceTree = "<group>"; };
+		182EF5C115B92AC0005E4BA2 /* GroupInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInfoTableViewController.m; sourceTree = "<group>"; };
 		1833803215A9C102001DC651 /* card_image_edge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_image_edge.png; sourceTree = "<group>"; };
 		1833803315A9C102001DC651 /* card_image_edge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card_image_edge@2x.png"; sourceTree = "<group>"; };
 		183AC82D15A56EAE006937C3 /* ShelfDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelfDrawerView.h; sourceTree = "<group>"; };
@@ -2262,6 +2265,15 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
+		182EF5C315B92AC4005E4BA2 /* GroupInfoTableView */ = {
+			isa = PBXGroup;
+			children = (
+				182EF5C015B92AC0005E4BA2 /* GroupInfoTableViewController.h */,
+				182EF5C115B92AC0005E4BA2 /* GroupInfoTableViewController.m */,
+			);
+			name = GroupInfoTableView;
+			sourceTree = "<group>";
+		};
 		1850A46F153C08E10001A905 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -2429,6 +2441,7 @@
 		18DBAE531573348400918ED4 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
+				182EF5C315B92AC4005E4BA2 /* GroupInfoTableView */,
 				18BF4A1415A471E80001F653 /* SearchTableView */,
 				188E53021596EAFF00A30AB8 /* SelfCommentTableView */,
 				18F1E5141577AABC00EB71DD /* CommentTableView */,
@@ -4714,6 +4727,7 @@
 				18AEA32F15B5504500B53B6A /* User.m in Sources */,
 				E11D800B15B86025003E078C /* ActionPopoverGestureRecognizeView.m in Sources */,
 				182EF5BB15B8F66F005E4BA2 /* Status.m in Sources */,
+				182EF5C215B92AC0005E4BA2 /* GroupInfoTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

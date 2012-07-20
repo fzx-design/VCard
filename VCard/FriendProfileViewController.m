@@ -11,6 +11,7 @@
 #import "User.h"
 #import "PostViewController.h"
 #import "UIApplication+Addition.h"
+#import "GroupInfoTableViewController.h"
 
 @implementation FriendProfileViewController
 
@@ -122,7 +123,7 @@
 
 - (IBAction)didClickMoreInfoButton:(UIButton *)sender
 {
-    
+//    [GroupInfoTableViewController showFromPoint:_moreInfoButton.frame.origin inView:self.view];
 }
 
 - (IBAction)didClickMessageButton:(UIButton *)sender

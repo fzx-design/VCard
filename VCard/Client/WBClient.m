@@ -874,6 +874,19 @@ typedef enum {
     [self loadAdvancedRequest];
 }
 
+- (void)getGroupInfoOfUser:(NSString *)userID
+{
+    self.path = @"friendships/groups/listed.json";
+    
+    if (userID) {
+        [self.params setObject:userID forKey:@"uids"];
+    } else {
+        return;
+    }
+    
+    [self loadAdvancedRequest];
+}
+
 - (void)getFavouritesWithPage:(int)page
                         count:(int)count
 {

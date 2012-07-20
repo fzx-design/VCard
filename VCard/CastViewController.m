@@ -67,6 +67,7 @@
 	// Do any additional setup after loading the view.
     [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
     _coreDataIdentifier = kCoreDataIdentifierDefault;
+    _doesStackViewExist = NO;
     [self setUpVariables];
     [self initialLoad];
 }
@@ -1108,6 +1109,12 @@
 
 - (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
     [vc dismissViewToRect:self.createStatusButton.frame];
+}
+
+#pragma mark - Property
+- (BOOL)doesStackViewExist
+{
+    return _stackViewController != nil;
 }
 
 @end
