@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "ActionPopoverGestureRecognizeView.h"
 
+#define kActionPopoverOptionShowDeleteButton    @"ActionPopoverOptionShowDeleteButton"
+#define kActionPopoverOptionFavoriteButtonOn    @"ActionPopoverOptionFavoriteButtonOn"
+
 @protocol ActionPopoverViewControllerDelegate;
 
 @interface ActionPopoverViewController : UIViewController<UIGestureRecognizerDelegate, ActionPopoverGestureRecognizeViewDelegate>
@@ -22,6 +25,11 @@
 
 - (void)setCropView:(UIView *)view cropPosTopY:(CGFloat)topY cropPosBottomY:(CGFloat)bottomY;
 - (void)handlePinch:(UIPinchGestureRecognizer *)gestureRecognizer;
+
++ (ActionPopoverViewController *)getActionPopoverViewControllerWithFavoriteButtonOn:(BOOL)favoriteOn
+                                                                   showDeleteButton:(BOOL)showDelete;
+
+- (id)initWithOptions:(NSDictionary *)options;
 
 @end
 

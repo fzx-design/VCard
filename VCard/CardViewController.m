@@ -91,6 +91,9 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     UITapGestureRecognizer *_tapGestureRecognizer;
 }
 
+@property (readonly) BOOL isCardDeletable;
+@property (readonly) BOOL isCardFavorited;
+
 @end
 
 @implementation CardViewController
@@ -1157,9 +1160,17 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 #pragma mark - Action popover
 
+- (BOOL)isCardDeletable {
+    return [self.status.author isEqualToUser:self.currentUser];
+}
+
+- (BOOL)isCardFavorited {
+    return self.status.favorited.boolValue;
+}
+
 - (ActionPopoverViewController *)actionPopoverViewController {
     if(!_actionPopoverViewController) {
-        _actionPopoverViewController = [[ActionPopoverViewController alloc] init];
+        _actionPopoverViewController = [ActionPopoverViewController getActionPopoverViewControllerWithFavoriteButtonOn:self.isCardFavorited showDeleteButton:self.isCardDeletable];
         [_actionPopoverViewController.view resetOrigin:CGPointMake(0, 20)];
         _actionPopoverViewController.delegate = self;
     }

@@ -12,8 +12,23 @@
 #import "UIApplication+Addition.h"
 
 #define CARD_WIDTH  362.
+#define CARD_CENTER_BAR_WIDTH  360.
+#define FUNCTION_BUTTON_CENTER_Y    48.
+#define FUNCTION_LABEL_CENTER_Y     78.
 
-@interface ActionPopoverViewController ()
+typedef enum {
+    ActionPopoverButtonIdentifierForward,
+    ActionPopoverButtonIdentifierFavorite,
+    ActionPopoverButtonIdentifierShowForward,
+    ActionPopoverButtonIdentifierCopy,
+    ActionPopoverButtonIdentifierDelete,
+} ActionPopoverButtonIdentifier;
+
+@interface ActionPopoverViewController () {
+    NSMutableArray *_buttonTitleArray;
+    NSMutableArray *_buttonIconFileNameArray;
+    NSMutableArray *_buttonIndexArray;
+}
 
 @end
 
@@ -24,20 +39,45 @@
 @synthesize centerBar = _centerBar;
 @synthesize bottomBar = _bottomBar;
 
-- (id)init
-{
++ (ActionPopoverViewController *)getActionPopoverViewControllerWithFavoriteButtonOn:(BOOL)favoriteOn
+                                                                   showDeleteButton:(BOOL)showDelete {
+    NSNumber *favorite = [NSNumber numberWithBool:favoriteOn];
+    NSNumber *delete = [NSNumber numberWithBool:showDelete];
+    
+    return [[ActionPopoverViewController alloc] initWithOptions:[NSDictionary dictionaryWithObjectsAndKeys:favorite, kActionPopoverOptionFavoriteButtonOn,
+                                                                 delete, kActionPopoverOptionShowDeleteButton, nil]];
+}
+
+- (id)initWithOptions:(NSDictionary *)options {
     self = [super init];
     if (self) {
         // Custom initialization
+        _buttonTitleArray = [NSMutableArray arrayWithObjects:@"转发", @"收藏", @"查看转发", @"复制", @"删除", nil];
+        _buttonIconFileNameArray = [NSMutableArray arrayWithObjects:@"button_ap_repost", @"button_ap_fav", @"button_ap_repost_list", @"button_ap_copy", @"button_ap_delete", nil];
+        
+        NSNumber *favoriteButtonOn = [options objectForKey:kActionPopoverOptionFavoriteButtonOn];
+        NSNumber *showDeleteButton = [options objectForKey:kActionPopoverOptionShowDeleteButton];
+        
+        if(favoriteButtonOn && favoriteButtonOn.boolValue == YES) {
+            [_buttonTitleArray replaceObjectAtIndex:ActionPopoverButtonIdentifierFavorite withObject:@"取消收藏"];
+        }
+        
+        _buttonIndexArray = [NSMutableArray array];
+        for(NSUInteger i = 0; i < _buttonTitleArray.count; i++) {
+            if(i == ActionPopoverButtonIdentifierDelete) {
+                if(showDeleteButton && showDeleteButton.boolValue == NO)
+                    continue;
+            }
+            [_buttonIndexArray addObject:[NSNumber numberWithUnsignedInteger:i]];
+        }
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.centerBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"card_bg_body"]];
+    [self configureUI];
 	
 	UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 	tapGesture.delegate = self;
@@ -61,6 +101,53 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
+}
+
+#pragma mark - UI methods
+
+- (void)configureUI {
+    
+    CGFloat offset = (CARD_WIDTH - CARD_CENTER_BAR_WIDTH) / 2;
+    CGFloat segmentWidth = CARD_CENTER_BAR_WIDTH / _buttonIndexArray.count;
+    NSUInteger counter = 0;
+    
+    for(NSNumber *buttonIndexNumber in _buttonIndexArray) {
+        NSUInteger buttonIndex = buttonIndexNumber.unsignedIntegerValue;
+        
+        NSString *iconFileName = [_buttonIconFileNameArray objectAtIndex:buttonIndex];
+        NSString *title = [_buttonTitleArray objectAtIndex:buttonIndex];
+        
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, segmentWidth, 20)];
+        
+        titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.font = [UIFont boldSystemFontOfSize:12];
+        titleLabel.textAlignment = UITextAlignmentCenter;
+        titleLabel.textColor = [UIColor whiteColor];
+        titleLabel.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.75f];
+        titleLabel.shadowOffset = CGSizeMake(0, 1);
+        
+        [button setImage:[UIImage imageNamed:iconFileName] forState:UIControlStateNormal];
+        titleLabel.text = title;
+        
+        CGFloat centerX = offset + segmentWidth * (0.5f + counter);
+        
+        button.center = CGPointMake(centerX, FUNCTION_BUTTON_CENTER_Y);
+        titleLabel.center = CGPointMake(centerX, FUNCTION_LABEL_CENTER_Y);
+        
+        [button resetOrigin:CGPointMake(floorf(button.frame.origin.x), floorf(button.frame.origin.y))];
+        [titleLabel resetOrigin:CGPointMake(floorf(titleLabel.frame.origin.x), floorf(titleLabel.frame.origin.y))];
+        
+        NSLog(@"center x:%f", centerX);
+        
+        counter++;
+        
+        [self.centerBar addSubview:button];
+        [self.centerBar addSubview:titleLabel];
+    }
+    
+    self.centerBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"card_bg_body"]];
+    self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.011];
 }
 
 #pragma mark - Properties

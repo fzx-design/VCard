@@ -32,7 +32,9 @@
                     CGPoint actionPopoverPoint = [cardCell convertPoint:cardCellPoint toView:actionPopoverCenterBar];
                     if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
                         //NSLog(@"action popover");
-                        return [actionPopoverCenterBar hitTest:actionPopoverPoint withEvent:event];
+                        UIView *testView = [actionPopoverCenterBar hitTest:actionPopoverPoint withEvent:event];
+                        if([testView isKindOfClass:[UIButton class]])
+                            return testView;
                     }
                 }
             }
@@ -54,7 +56,9 @@
                             CGPoint actionPopoverPoint = [tableView convertPoint:tableViewPoint toView:actionPopoverCenterBar];
                             if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
                                 //NSLog(@"action popover in stack view");
-                                return [actionPopoverCenterBar hitTest:actionPopoverPoint withEvent:event];
+                                UIView *testView = [actionPopoverCenterBar hitTest:actionPopoverPoint withEvent:event];
+                                if([testView isKindOfClass:[UIButton class]])
+                                    return testView;
                             }
                         }
                     }
