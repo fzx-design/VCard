@@ -293,6 +293,7 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
 - (void)editViewControllerDidFinishEditImage:(UIImage *)image {
     [self.delegate motionViewControllerDidFinish:image];
     [[UIApplication sharedApplication].rootViewController dismissModalViewControllerAnimated:YES];
+    [UIApplication relayoutRootViewController];
 }
 
 - (void)editViewControllerDidChooseToShoot {
