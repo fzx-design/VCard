@@ -103,6 +103,7 @@
     result.name = name;
     result.type = [NSNumber numberWithInt:kGroupTypeTopic];
     result.groupUserID = userID;
+    result.count = [NSNumber numberWithInt:100];
     
     return result;
 }

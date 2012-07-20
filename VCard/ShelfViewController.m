@@ -509,6 +509,14 @@
 
 - (void)removeDrawerViewAtIndex:(int)index
 {
+    if (_currentDrawerView.index == index) {
+        [_currentDrawerView hideHighlightGlow];
+        ShelfDrawerView *drawerView = [_drawerViewArray objectAtIndex:0];
+        [drawerView showHighlightGlow];
+        drawerView.enabled  = NO;
+        _currentDrawerView = drawerView;
+    }
+    
     UIView *view = [_drawerViewArray objectAtIndex:index];
     [UIView animateWithDuration:0.3 animations:^{
         view.alpha = 0.0;
