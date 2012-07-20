@@ -817,7 +817,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     UITouch *touch = [touches anyObject];
     NSTextCheckingResult *result = [self linkAtPoint:[touch locationInView:self]];
     
-    _shouldReceiveTouch = result != nil && !result.resultType == NSTextCheckingTypeCorrection;
+    _shouldReceiveTouch = result != nil && result.resultType != NSTextCheckingTypeCorrection;
     
     if (_shouldReceiveTouch) {
         _previousResult = result;
