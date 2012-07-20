@@ -27,14 +27,16 @@
 #import "SearchUserResultViewController.h"
 #import "NSNotificationCenter+Addition.h"
 #import "SelfMentionViewController.h"
+#import "ErrorIndicatorViewController.h"
 
 @interface CastViewController () {
     BOOL _loading;
-    NSInteger _nextPage;
     BOOL _hasMoreViews;
     BOOL _refreshing;
-    CastviewDataSource _dataSource;
     NSString *_dataSourceID;
+    NSInteger _nextPage;
+    CastviewDataSource _dataSource;
+    ErrorIndicatorViewController *_errorIndicateViewController;
 }
 
 @property (nonatomic, strong) UIView *coverView;
@@ -574,6 +576,10 @@
     _dataSourceID = [dict objectForKey:kNotificationObjectKeyDataSourceID];
     int type = typeString.intValue;
     
+    if (_errorIndicateViewController == nil) {
+        _errorIndicateViewController = [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeLoading contentText:nil animated:YES];
+    }
+    
     if ([_dataSourceID isEqualToString:kGroupIDDefault]) {
         [self returnToNormalTimeline];
         
@@ -654,8 +660,11 @@
         _refreshIndicatorView.alpha = 1.0;
         self.refreshButton.userInteractionEnabled = YES;
     }];
-    
     [self resetUnreadCountWithType:kWBClientResetCountTypeStatus];
+    if (_errorIndicateViewController) {
+        [_errorIndicateViewController dismissViewAnimated:YES completion:nil];
+        _errorIndicateViewController = nil;
+    }
 }
 
 #pragma mark Post
