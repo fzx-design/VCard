@@ -113,6 +113,18 @@
 					<key>kNotificationName</key>
 					<string>kNotificationNameShouldRefreshWaterflowView</string>
 				</dict>
+                <dict>
+					<key>kItemTitle</key>
+					<string>总是显示发表时间</string>
+					<key>kAccessoryType</key>
+					<string>kAccessoryTypeSwitch</string>
+					<key>kItemImageFileName</key>
+					<string>icon_settings_time</string>
+					<key>kNibFileName</key>
+					<string>SettingEnableDateDisplay</string>
+					<key>kNotificationName</key>
+					<string>kNotificationNameShouldRefreshWaterflowView</string>
+				</dict>
 				<dict>
 					<key>kItemTitle</key>
 					<string>显示图片</string>

@@ -20,7 +20,7 @@
 #define kSettingEnableSoundEffect           @"SettingEnableSoundEffect"
 #define kSettingEnableRetinaDisplay         @"SettingEnableRetinaDisplay"
 #define kSettingEnablePicture               @"SettingEnablePicture"
-
+#define kSettingEnableDateDisplay           @"SettingEnableDateDisplay"
 
 #define kVCard4_0_Initialized               @"VCard4_0_Initialized"
 
@@ -50,6 +50,7 @@
         [defaults setBool:YES forKey:kSettingEnableSoundEffect];
         [defaults setBool:YES forKey:kSettingEnableRetinaDisplay];
         [defaults setBool:YES forKey:kSettingEnablePicture];
+        [defaults setBool:NO forKey:kSettingEnableDateDisplay];
         [defaults setFloat:17.0 forKey:kSettingFontSize];
         [defaults setFloat:8.0 forKey:kSettingLeading];
         
@@ -201,11 +202,17 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:enabled forKey:kSettingEnablePicture];
+    [defaults synchronize];
 }
 
 + (BOOL)isRetinaDisplayEnabled {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults boolForKey:kSettingEnableRetinaDisplay];
+}
+
++ (BOOL)isDateDisplayEnabled {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kSettingEnableDateDisplay];
 }
 
 + (void)insertUserAccountInfoWithUserID:(NSString *)userID
