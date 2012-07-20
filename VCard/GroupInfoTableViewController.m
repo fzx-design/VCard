@@ -31,6 +31,9 @@ static GroupInfoTableViewController *groupInfoTableViewController = nil;
         [_chosenDictionary setObject:[NSNumber numberWithBool:NO] forKey:group.name];
     }
     
+//    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+//    [center add];
+    
     [self loadFriendGroupInfo];
 }
 
@@ -109,7 +112,10 @@ static GroupInfoTableViewController *groupInfoTableViewController = nil;
     groupInfoTableViewController.userID = userID;
     [groupInfoTableViewController.view resetSize:CGSizeMake(400.0, 300.0)];
     
-    popoverController = [[UIPopoverController alloc] initWithContentViewController:groupInfoTableViewController];
+    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:groupInfoTableViewController];
+    groupInfoTableViewController.title = @"所在分组";
+    
+    popoverController = [[UIPopoverController alloc] initWithContentViewController:navCon];
     popoverController.delegate = groupInfoTableViewController;
     [popoverController presentPopoverFromRect:rect
                                        inView:view
