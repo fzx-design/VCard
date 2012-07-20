@@ -67,7 +67,6 @@
 	// Do any additional setup after loading the view.
     [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
     _coreDataIdentifier = kCoreDataIdentifierDefault;
-    _doesStackViewExist = NO;
     [self setUpVariables];
     [self initialLoad];
 }
