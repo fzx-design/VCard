@@ -88,7 +88,7 @@ static inline NSDictionary * NSAttributedStringAttributesFromLabel(TTTAttributed
     CGFloat lineHeightMultiple = label.lineHeightMultiple;
     CGFloat topMargin = label.textInsets.top;
     CGFloat bottomMargin = label.textInsets.bottom;
-    CGFloat leftMargin = label.textInsets.left;
+    CGFloat leftMargin = label.textInsets.left + 3;
     CGFloat rightMargin = label.textInsets.right;
     CGFloat firstLineIndent = label.firstLineIndent + leftMargin;
 
@@ -631,7 +631,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     CGFloat originY = rect.size.height - rect.origin.y - 7.0;
     CGFloat originX = rect.origin.x + leftMargin;
     if (originX < 30) {
-        originX += 5;
+        originX += 3;
     } else if (originY > 300) {
         originX -= 5;
     }
@@ -817,7 +817,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     UITouch *touch = [touches anyObject];
     NSTextCheckingResult *result = [self linkAtPoint:[touch locationInView:self]];
     
-    _shouldReceiveTouch = result != nil;
+    _shouldReceiveTouch = result != nil && !result.resultType == NSTextCheckingTypeCorrection;
     
     if (_shouldReceiveTouch) {
         _previousResult = result;
