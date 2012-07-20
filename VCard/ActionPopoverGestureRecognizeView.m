@@ -10,6 +10,8 @@
 #import "UIApplication+Addition.h"
 #import "RootViewController.h"
 #import "WaterflowCardCell.h"
+#import "StackViewController.h"
+#import "ProfileStatusTableViewCell.h"
 
 @implementation ActionPopoverGestureRecognizeView
 
@@ -19,16 +21,43 @@
     UIView *result = [super hitTest:point withEvent:event];
     UINavigationController *nav = (UINavigationController *)[UIApplication sharedApplication].rootViewController;
     RootViewController *rootVC = (RootViewController *)[nav topViewController];
+    CastViewController *castVC = rootVC.castViewController;
     
-    for(WaterflowCardCell *cardCell in rootVC.castViewController.waterflowView.subviews) {
-        if([cardCell isKindOfClass:[WaterflowCardCell class]]) {
-            CGPoint cardCellPoint = [self convertPoint:point toView:cardCell];
-            if([cardCell pointInside:cardCellPoint withEvent:event] && cardCell.cardViewController.view.tag == ACTION_POPOVER_CONTAINER_VIEW) {
-                UIView *actionPopoverCenterBar = cardCell.cardViewController.actionPopoverViewController.centerBar;
-                CGPoint actionPopoverPoint = [cardCell convertPoint:cardCellPoint toView:actionPopoverCenterBar];
-                if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
-                    NSLog(@"action popover");
-                    return [actionPopoverCenterBar hitTest:actionPopoverPoint withEvent:event];
+    if(!castVC.stackViewController) {
+        for(WaterflowCardCell *cardCell in castVC.waterflowView.subviews) {
+            if([cardCell isKindOfClass:[WaterflowCardCell class]]) {
+                CGPoint cardCellPoint = [self convertPoint:point toView:cardCell];
+                if([cardCell pointInside:cardCellPoint withEvent:event] && cardCell.cardViewController.view.tag == ACTION_POPOVER_CONTAINER_VIEW) {
+                    UIView *actionPopoverCenterBar = cardCell.cardViewController.actionPopoverViewController.centerBar;
+                    CGPoint actionPopoverPoint = [cardCell convertPoint:cardCellPoint toView:actionPopoverCenterBar];
+                    if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
+                        //NSLog(@"action popover");
+                        return [actionPopoverCenterBar hitTest:actionPopoverPoint withEvent:event];
+                    }
+                }
+            }
+        }
+    } else {
+        for(StackViewPageController *vc in castVC.stackViewController.controllerStack) {
+            for(UITableView *tableView in vc.backgroundView.subviews) {
+                CGPoint tableViewPoint = [self convertPoint:point toView:tableView];
+                if(![tableView pointInside:tableViewPoint withEvent:event])
+                    continue;
+                
+                if([tableView isKindOfClass:[UITableView class]]) {
+                    for(ProfileStatusTableViewCell *tableViewCell in tableView.visibleCells) {
+                        if(![tableViewCell isKindOfClass:[ProfileStatusTableViewCell class]])
+                            break;
+                        
+                        if(tableViewCell.cardViewController.view.tag == ACTION_POPOVER_CONTAINER_VIEW) {
+                            UIView *actionPopoverCenterBar = tableViewCell.cardViewController.actionPopoverViewController.centerBar;
+                            CGPoint actionPopoverPoint = [tableView convertPoint:tableViewPoint toView:actionPopoverCenterBar];
+                            if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
+                                //NSLog(@"action popover in stack view");
+                                return [actionPopoverCenterBar hitTest:actionPopoverPoint withEvent:event];
+                            }
+                        }
+                    }
                 }
             }
         }
