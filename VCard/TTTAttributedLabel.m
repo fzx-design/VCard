@@ -630,6 +630,11 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     CGFloat leftMargin = [NSUserDefaults currentFontSize] == (CGFloat)SettingOptionFontSizeSmall ? 1 : -2;
     CGFloat originY = rect.size.height - rect.origin.y - 7.0;
     CGFloat originX = rect.origin.x + leftMargin;
+    if (originX < 30) {
+        originX += 5;
+    } else if (originY > 300) {
+        originX -= 5;
+    }
     
     CGRect emoticonFrame = CGRectMake(originX, originY, width, width);
     

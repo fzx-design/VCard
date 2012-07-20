@@ -205,6 +205,17 @@ static NSMutableArray *_backViewStack = nil;
     return [UIApplication isCurrentOrientationLandscape] ? UIInterfaceOrientationPortrait : UIInterfaceOrientationLandscapeLeft;
 }
 
++ (UIInterfaceOrientation)currentInterface
+{
+    return [UIApplication sharedApplication].statusBarOrientation;
+}
+
++ (void)relayoutRootViewController
+{
+    [[UIApplication sharedApplication].rootViewController willRotateToInterfaceOrientation:[UIApplication currentInterface] duration:0.0];
+    [[UIApplication sharedApplication].rootViewController didRotateFromInterfaceOrientation:[UIApplication currentOppositeInterface]];
+}
+
 - (UIViewController *)rootViewController
 {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];

@@ -114,8 +114,7 @@
 {
     [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultKeyShouldScrollToTop];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [[UIApplication sharedApplication].rootViewController willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0.0];
-    [[UIApplication sharedApplication].rootViewController didRotateFromInterfaceOrientation:[UIApplication currentOppositeInterface]];
+    [UIApplication relayoutRootViewController];
     [UIApplication dismissModalViewControllerAnimated:YES];
     [self performSelector:@selector(resetWebview) withObject:nil afterDelay:0.3];
 }

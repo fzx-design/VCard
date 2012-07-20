@@ -93,18 +93,24 @@
     [UIView setAnimationsEnabled:NO];
     [self shootViewImage];
     [self loadRootViewControllerWithInterfaceOrientation:toInterfaceOrientation];
+<<<<<<< HEAD
     
     UINavigationController *nav = (UINavigationController *)[UIApplication sharedApplication].rootViewController;
     [nav.topViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+=======
+>>>>>>> 修复motions竖进横出的问题
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [UIView setAnimationsEnabled:YES];
     [self configureCameraCover];
     [self orientationTransitionAnimation:fromInterfaceOrientation];
+<<<<<<< HEAD
     
     UINavigationController *nav = (UINavigationController *)[UIApplication sharedApplication].rootViewController;
     [nav.topViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+=======
+>>>>>>> 修复motions竖进横出的问题
 }
 
 #pragma mark - Logic methods
@@ -193,6 +199,7 @@
 - (IBAction)didClickCancelButton:(UIButton *)sender {
     [self.delegate motionViewControllerDidCancel];
     [[UIApplication sharedApplication].rootViewController dismissModalViewControllerAnimated:YES];
+    [UIApplication relayoutRootViewController];
 }
 
 #pragma mark - Animations
