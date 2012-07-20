@@ -9,6 +9,7 @@
 #import "TopicViewController.h"
 #import "WBClient.h"
 #import "Group.h"
+#import "UIApplication+Addition.h"
 
 @interface TopicViewController () {
     BOOL _isTopicFollowed;
@@ -74,6 +75,7 @@
     [self.backgroundView addSubview:self.topShadowImageView];
     
     [ThemeResourceProvider configButtonPaperLight:_followTopicButton];
+    [ThemeResourceProvider configButtonPaperLight:_postTopicButton];
     _topicTitleLabel.text = [NSString stringWithFormat:@"#%@#", _searchKey];
 }
 
@@ -96,7 +98,14 @@
         _followTopicButton.titleLabel.text = @"关注中";
     }
     _followTopicButton.userInteractionEnabled = NO;
-    
+}
+
+- (IBAction)didClickPostTopicButton:(UIButton *)sender
+{
+    CGRect frame = [self.view convertRect:_postTopicButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
+    PostViewController *vc = [PostViewController getNewStatusViewControllerWithPrefixContent:_topicTitleLabel.text
+                                                                                    delegate:self];
+    [vc showViewFromRect:frame];
 }
 
 - (void)followTopic
@@ -158,6 +167,28 @@
         [self.backgroundView insertSubview:_statusTableViewController.view belowSubview:self.topShadowImageView];
     }
     return _statusTableViewController;
+}
+
+#pragma mark - Post View Controller Delegate
+- (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message
+{
+    [vc dismissViewUpwards];
+    
+}
+
+- (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message
+{
+    
+}
+
+- (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message
+{
+    
+}
+
+- (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message
+{
+    [vc dismissViewToRect:[self.view convertRect:_postTopicButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
 }
 
 @end

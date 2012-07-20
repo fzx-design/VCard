@@ -8,14 +8,17 @@
 
 #import "StackViewPageController.h"
 #import "ProfileStatusTableViewController.h"
+#import "PostViewController.h"
 
-@interface TopicViewController : StackViewPageController
+@interface TopicViewController : StackViewPageController <PostViewControllerDelegate>
 
 @property (nonatomic, strong) ProfileStatusTableViewController *statusTableViewController;
 @property (nonatomic, weak) IBOutlet UILabel *topicTitleLabel;
 @property (nonatomic, weak) IBOutlet UIButton *followTopicButton;
+@property (nonatomic, weak) IBOutlet UIButton *postTopicButton;
 @property (nonatomic, strong) NSString *searchKey;
 
 - (IBAction)didClickFollowTopicButton:(UIButton *)sender;
+- (IBAction)didClickPostTopicButton:(UIButton *)sender;
 
 @end
