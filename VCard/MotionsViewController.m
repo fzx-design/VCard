@@ -94,7 +94,8 @@
     [self shootViewImage];
     [self loadRootViewControllerWithInterfaceOrientation:toInterfaceOrientation];
     
-    [[UIApplication sharedApplication].rootViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    UINavigationController *nav = (UINavigationController *)[UIApplication sharedApplication].rootViewController;
+    [nav.topViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -102,7 +103,8 @@
     [self configureCameraCover];
     [self orientationTransitionAnimation:fromInterfaceOrientation];
     
-    [[UIApplication sharedApplication].rootViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    UINavigationController *nav = (UINavigationController *)[UIApplication sharedApplication].rootViewController;
+    [nav.topViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 #pragma mark - Logic methods

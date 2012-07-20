@@ -289,6 +289,8 @@ typedef enum {
             break;
     }
     
+    NSLog(@"keyboardWillShow:%f", keyboardHeight);
+    
     CGSize screenSize = [UIApplication sharedApplication].screenSize;
     if(_keyboardHidden) {
         float animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
@@ -305,6 +307,8 @@ typedef enum {
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
+    NSLog(@"keyboardWillHide");
+    
     NSDictionary *info = [notification userInfo];
     float animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     CGSize screenSize = [UIApplication sharedApplication].screenSize;
@@ -314,8 +318,6 @@ typedef enum {
             self.paperImageHolderView.center = self.postView.center;
         } completion:^(BOOL finished) {
             _keyboardHidden = finished;
-            [self.popoverController presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton
-                                  permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }];
     }
 }
@@ -639,13 +641,16 @@ typedef enum {
 }
 
 - (void)showAlbumImagePicker {
-    UIPopoverController *pc =  [UIApplication getAlbumImagePickerFromButton:self.motionsButton delegate:self];
-    self.popoverController = pc;
-    if(!self.textView.isFirstResponder)
+    
+    if(!self.textView.isFirstResponder) {
+        UIPopoverController *pc =  [UIApplication getAlbumImagePickerFromButton:self.motionsButton delegate:self];
+        self.popoverController = pc;
         [pc presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton
           permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    else
+    } else {
         [self.textView resignFirstResponder];
+        [self performSelector:@selector(showAlbumImagePicker) withObject:nil afterDelay:0.3f];
+    }
 }
 
 #pragma mark - Animation methods
