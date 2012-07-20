@@ -202,7 +202,7 @@
     </entity>
     <elements>
         <element name="Comment" positionX="0" positionY="0" width="0" height="285"/>
-        <element name="Group" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="Group" positionX="160" positionY="192" width="128" height="165"/>
         <element name="Status" positionX="0" positionY="0" width="0" height="630"/>
         <element name="User" positionX="0" positionY="0" width="0" height="555"/>
     </elements>

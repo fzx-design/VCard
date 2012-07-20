@@ -8,136 +8,134 @@
 
 #import "GroupInfoTableViewController.h"
 #import "UIView+Resize.h"
+#import "Group.h"
+#import "WBClient.h"
 
-@interface GroupInfoTableViewController ()
+@interface GroupInfoTableViewController () {
+    NSFetchedResultsController *_fetchedResultsController;
+}
 
 @end
 
 @implementation GroupInfoTableViewController
 
 static UIPopoverController *popoverController = nil;
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+static GroupInfoTableViewController *groupInfoTableViewController = nil;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.fetchedResultsController performFetch:nil];
+    _chosenDictionary = [[NSMutableDictionary alloc] initWithCapacity:20];
+    for (Group *group in self.fetchedResultsController.fetchedObjects) {
+        [_chosenDictionary setObject:[NSNumber numberWithBool:NO] forKey:group.name];
+    }
+    
+    [self loadFriendGroupInfo];
+}
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+- (void)loadFriendGroupInfo
+{
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSDictionary *result = client.responseJSONObject;
+            for (NSDictionary *objectDict in result.objectEnumerator) {
+                NSArray *dictArray = [objectDict objectForKey:@"lists"];
+                for (NSDictionary *dict in dictArray) {
+                    [_chosenDictionary setObject:[NSNumber numberWithBool:YES] forKey:[dict objectForKey:@"name"]];
+                }
+            }
+            _originChosenDictionary = [NSDictionary dictionaryWithDictionary:_chosenDictionary];
+            [self.tableView reloadData];
+        }
+    }];
+    [client getGroupInfoOfUser:self.userID];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    self.chosenDictionary = nil;
+    self.userID = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)configureRequest:(NSFetchRequest *)request
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    NSSortDescriptor *sortDescriptor;
     
-    // Configure the cell...
+    sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
+    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    request.predicate = [NSPredicate predicateWithFormat:@"groupUserID == %@ && type = %@", self.currentUser.userID, [NSNumber numberWithInt:kGroupTypeGroup]];
+    request.entity = [NSEntityDescription entityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.fetchedResultsController.fetchedObjects.count > indexPath.row) {
+        Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
+        cell.textLabel.text = group.name;
+        if ([[_chosenDictionary objectForKey:group.name] boolValue]) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+    }
+}
+
+- (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
+{
+    return @"GroupInfoTableViewCell";
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    BOOL followed = [[_chosenDictionary objectForKey:cell.textLabel.text] boolValue];
+    [_chosenDictionary setObject:[NSNumber numberWithBool:!followed] forKey:cell.textLabel.text];
     
-    return cell;
-}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [self.tableView reloadData];
 }
 
 #pragma mark - Popover method
-+ (void)showFromPoint:(CGPoint)point inView:(UIView *)view
+
++ (void)showGroupInfoOfUser:(NSString *)userID fromRect:(CGRect)rect inView:(UIView *)view
 {
-    GroupInfoTableViewController *groupInfoTableViewController = [[GroupInfoTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    groupInfoTableViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:NULL] instantiateViewControllerWithIdentifier:@"GroupInfoTableViewController"];
+    groupInfoTableViewController.userID = userID;
     [groupInfoTableViewController.view resetSize:CGSizeMake(400.0, 300.0)];
     
     popoverController = [[UIPopoverController alloc] initWithContentViewController:groupInfoTableViewController];
-    [popoverController presentPopoverFromRect:CGRectMake(point.x, point.y, 400.0, 300.0)
+    popoverController.delegate = groupInfoTableViewController;
+    [popoverController presentPopoverFromRect:rect
                                        inView:view
-                     permittedArrowDirections:UIPopoverArrowDirectionAny
+                     permittedArrowDirections:UIPopoverArrowDirectionUp
                                      animated:YES];
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    __block int pendingCount = 0;
+    
+    for (Group *group in self.fetchedResultsController.fetchedObjects) {
+        BOOL originalValue = [[_originChosenDictionary objectForKey:group.name] boolValue];
+        BOOL currentValue = [[_chosenDictionary objectForKey:group.name] boolValue];
+        if (originalValue != currentValue) {
+            pendingCount++;
+            
+            WBClient *client = [WBClient client];
+            [client setCompletionBlock:^(WBClient *client) {
+                pendingCount--;
+                if (pendingCount <= 0) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldRefreshShelf object:nil];
+                }
+            }];
+            if (currentValue) {
+                [client addUser:self.userID toGroup:group.groupID];
+            } else {
+                [client removeUser:self.userID fromGroup:group.groupID];
+            }
+        }
+    }
 }
 
 @end

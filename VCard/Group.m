@@ -136,7 +136,7 @@
         defaultGroup.groupID = kGroupIDDefault;
         defaultGroup.groupUserID = userID;
         defaultGroup.name = @"全部关注";
-        defaultGroup.type = [NSNumber numberWithInt:kGroupTypeGroup];
+        defaultGroup.type = [NSNumber numberWithInt:kGroupTypeDefault];
         defaultGroup.count = [NSNumber numberWithInt:100];
         defaultGroup.index = [NSNumber numberWithInt:0];
         defaultGroup.picURL = defaultImageURL;
@@ -149,6 +149,19 @@
         favourite.count = [NSNumber numberWithInt:100];
         favourite.index = [NSNumber numberWithInt:1];
         favourite.picURL = defaultImageURL;
+    }
+}
+
++ (void)deleteAllGroupsOfType:(int)type OfUser:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Group" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"type == %@ && groupUserID == %@", [NSNumber numberWithInt:type], userID]];
+    
+    NSArray *items = [context executeFetchRequest:request error:NULL];
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
     }
 }
 

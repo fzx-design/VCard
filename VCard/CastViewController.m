@@ -579,11 +579,11 @@
         
         [_waterflowView hideInfoBar:NO];
     } else {
-        if (type == 0) {
+        if (type == kGroupTypeFavourite) {
             _dataSource = CastviewDataSourceFavourite;
-        } else if (type == 1) {
+        } else if (type == kGroupTypeGroup) {
             _dataSource = CastviewDataSourceGroup;
-        } else if (type == 2) {
+        } else if (type == kGroupTypeTopic) {
             _dataSource = CastviewDataSourceTopic;
         } else {
             _dataSource = CastviewDataSourceNone;

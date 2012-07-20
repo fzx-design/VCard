@@ -90,6 +90,10 @@
                selector:@selector(loadUserDefaults)
                    name:kNotificationNameDidChangeFontSize
                  object:nil];
+    [center addObserver:self
+               selector:@selector(getGroups)
+                   name:kNotificationNameShouldRefreshShelf
+                 object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -141,6 +145,7 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
+            [Group deleteAllGroupsOfType:kGroupTypeGroup OfUser:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
             NSArray *resultArray = [client.responseJSONObject objectForKey:@"lists"];
             for (NSDictionary *dict in resultArray) {
                 [Group insertGroupInfo:dict userID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
@@ -161,6 +166,7 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
+            [Group deleteAllGroupsOfType:kGroupTypeTopic OfUser:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
             NSArray *resultArray = client.responseJSONObject;
             for (NSDictionary *dict in resultArray) {
                 Group *group = [Group insertTopicInfo:dict userID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
@@ -226,10 +232,11 @@
 
 - (void)configureRequest:(NSFetchRequest *)request
 {
-    NSSortDescriptor *sortDescriptor;
-	
-    sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
-    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    NSSortDescriptor *col1SD = [[NSSortDescriptor alloc] initWithKey:@"type" ascending:YES];
+    NSSortDescriptor *col2SD = [[NSSortDescriptor alloc] initWithKey:@"groupID" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObjects:col1SD, col2SD, nil];
+    
+    request.sortDescriptors = sortDescriptors;
     request.predicate = [NSPredicate predicateWithFormat:@"groupUserID == %@", self.currentUser.userID];
     request.entity = [NSEntityDescription entityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
 }
@@ -414,8 +421,20 @@
         index++;
     }
     
-    [self resetContentLayout:[UIApplication sharedApplication].statusBarOrientation];
+    if (_currentDrawerView == nil) {
+        _currentDrawerView = [_drawerViewArray objectAtIndex:0];
+        [_currentDrawerView showHighlightGlow];
+        _currentDrawerView.enabled = NO;
+    } else {
+        ShelfDrawerView *drawerView = [_drawerViewArray objectAtIndex:_currentDrawerView.index];
+        [drawerView showHighlightGlow];
+        drawerView.enabled = NO;
+        _currentDrawerView = nil;
+        _currentDrawerView = drawerView;
+    }
     
+    
+    [self resetContentLayout:[UIApplication sharedApplication].statusBarOrientation];
     [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0.3];
     [self didRotateFromInterfaceOrientation:[UIApplication currentOppositeInterface]];
 }
@@ -429,9 +448,6 @@
                                                                    index:index
                                                                     type:group.type.intValue
                                                                    empty:group.count.intValue == 0];
-    if (index == 0) {
-        _currentDrawerView = drawerView;
-    }
     
     drawerView.adjustsImageWhenHighlighted = YES;
     [drawerView addTarget:self action:@selector(changeCastViewSource:) forControlEvents:UIControlEventTouchUpInside];
@@ -465,7 +481,7 @@
             NSString *type = [NSString stringWithFormat:@"%d",group.type.intValue];
             NSString *name = group.name;
             NSString *groupID = group.groupID;
-            if (type.intValue == 2) {
+            if (type.intValue == kGroupTypeTopic) {
                 name = [NSString stringWithFormat:@"#%@#", name];
                 groupID = group.name;
             }

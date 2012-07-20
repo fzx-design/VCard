@@ -210,6 +210,9 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 - (void)deleteGroup:(NSString *)groupID;
 - (void)getGroupInfoOfUser:(NSString *)userID;
 
+- (void)addUser:(NSString *)userID toGroup:(NSString *)group;
+- (void)removeUser:(NSString *)userID fromGroup:(NSString *)group;
+
 - (void)getFavouritesWithPage:(int)page
                         count:(int)count;
 

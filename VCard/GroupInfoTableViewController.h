@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataTableViewController.h"
 
-@interface GroupInfoTableViewController : UITableViewController
+@interface GroupInfoTableViewController : CoreDataTableViewController <UIPopoverControllerDelegate>
 
-+ (void)showFromPoint:(CGPoint)point inView:(UIView *)view;
+@property (nonatomic, strong) NSMutableDictionary   *chosenDictionary;
+@property (nonatomic, strong) NSDictionary          *originChosenDictionary;
+@property (nonatomic, strong) NSString              *userID;
+
++ (void)showGroupInfoOfUser:(NSString *)userID fromRect:(CGRect)rect inView:(UIView *)view;
 
 @end

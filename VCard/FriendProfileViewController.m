@@ -73,10 +73,11 @@
         relationShip = @"已关注";
     } else {
         relationShip = @" 互相关注";
-    }
-    
+    };
     [_relationshipButton setTitle:relationShip forState:UIControlStateNormal];
     [_relationshipButton setTitle:relationShip forState:UIControlStateHighlighted];
+    
+    _moreInfoButton.enabled = following;
 }
 
 - (void)updatingRelationship
@@ -123,7 +124,7 @@
 
 - (IBAction)didClickMoreInfoButton:(UIButton *)sender
 {
-    [GroupInfoTableViewController showFromPoint:_moreInfoButton.frame.origin inView:self.view];
+    [GroupInfoTableViewController showGroupInfoOfUser:self.user.userID fromRect:_moreInfoButton.frame inView:self.backgroundView];
 }
 
 - (IBAction)didClickMessageButton:(UIButton *)sender
@@ -142,6 +143,7 @@
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             self.user.following = [NSNumber numberWithBool:YES];
+            _moreInfoButton.enabled = YES;
         } else {
             //TODO: Report error
         }
@@ -165,6 +167,7 @@
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             self.user.following = [NSNumber numberWithBool:NO];
+            _moreInfoButton.enabled = NO;
         } else {
             //TODO: Report error
         }
