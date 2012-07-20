@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-#define kGroupTypeFavourite 0
-#define kGroupTypeGroup     1
-#define kGroupTypeTopic     2
+#define kGroupTypeDefault   0
+#define kGroupTypeFavourite 1
+#define kGroupTypeGroup     2
+#define kGroupTypeTopic     3
 
 #define kGroupIDDefault     @"kGroupIDDefault"
 #define kGroupIDFavourite   @"kGroupIDFavourite"
@@ -34,5 +35,6 @@
 
 + (void)setUpDefaultGroupWithUserID:(NSString *)userID defaultImageURL:(NSString *)defaultImageURL inManagedObjectContext:(NSManagedObjectContext *)context;
 + (Group *)setUpDefaultGroupImageWithDefaultURL:(NSString *)defaultURL UserID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
++ (void)deleteAllGroupsOfType:(int)type OfUser:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

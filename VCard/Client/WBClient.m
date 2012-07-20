@@ -876,6 +876,7 @@ typedef enum {
 
 - (void)getGroupInfoOfUser:(NSString *)userID
 {
+    self.shouldReportError = NO;
     self.path = @"friendships/groups/listed.json";
     
     if (userID) {
@@ -884,6 +885,38 @@ typedef enum {
         return;
     }
     
+    [self loadAdvancedRequest];
+}
+
+- (void)addUser:(NSString *)userID toGroup:(NSString *)group
+{
+    self.shouldReportError = NO;
+    self.path = @"friendships/groups/members/add.json";
+    if (userID) {
+        [self.params setObject:userID forKey:@"uid"];
+    }
+    if (group) {
+        [self.params setObject:group forKey:@"list_id"];
+    }
+    
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    [self loadAdvancedRequest];
+}
+
+- (void)removeUser:(NSString *)userID fromGroup:(NSString *)group
+{
+    self.shouldReportError = NO;
+    self.path = @"friendships/groups/members/destroy.json";
+    if (userID) {
+        [self.params setObject:userID forKey:@"uid"];
+    }
+    if (group) {
+        [self.params setObject:group forKey:@"list_id"];
+    }
+    
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
     [self loadAdvancedRequest];
 }
 
@@ -944,6 +977,7 @@ typedef enum {
 - (void)getLongURLWithShort:(NSString *)shortURL
 {
     self.path = @"short_url/expand.json";
+    self.shouldReportError = NO;
     
     if (shortURL) {
         [self.params setObject:shortURL forKey:@"url_short"];

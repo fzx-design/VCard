@@ -50,11 +50,6 @@
         [self setTopicLabelWithType:type];
         [self loadImageFromURL:url completion:nil];
         
-        if (index == 0) {
-            [self showHighlightGlow];
-            self.enabled = NO;
-        }
-        
         [self addTarget:self action:@selector(showHighlightGlow) forControlEvents:UIControlEventTouchDown];
         [self addTarget:self action:@selector(showHighlightGlow) forControlEvents:UIControlEventTouchDragInside];
         [self addTarget:self action:@selector(hideHighlightGlow) forControlEvents:UIControlEventTouchDragOutside];
@@ -87,10 +82,10 @@
     
     NSString *imageName = @"shelf_drawer.png";
 
-    if (_type == 0) {
+    if (_type == kGroupTypeFavourite) {
         imageName = @"shelf_drawer_favorites.png";
         frame = kDrawerFrame;
-    } else if (_type == 1) {
+    } else if (_type == kGroupTypeDefault || _type == kGroupTypeGroup) {
         imageName = empty ? @"shelf_drawer_empty.png" : @"shelf_drawer.png";
         frame = empty ? kEmptyDrawerFrame : kDrawerFrame;
     } else {
@@ -119,8 +114,8 @@
 
 - (void)setTopicLabelWithType:(int)type
 {
-    CGFloat textColorFactor = type == 2 ? 88.0 / 255.0 : 0.0;
-    CGFloat textShadowAlphaFactor = type == 2 ? 0.6 : 1.0;
+    CGFloat textColorFactor = type == kGroupTypeTopic ? 88.0 / 255.0 : 0.0;
+    CGFloat textShadowAlphaFactor = type == kGroupTypeTopic ? 0.6 : 1.0;
     
     CGRect frame;
     NSString *title;
