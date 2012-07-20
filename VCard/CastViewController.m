@@ -1110,10 +1110,4 @@
     [vc dismissViewToRect:self.createStatusButton.frame];
 }
 
-#pragma mark - Property
-- (BOOL)doesStackViewExist
-{
-    return _stackViewController != nil;
-}
-
 @end

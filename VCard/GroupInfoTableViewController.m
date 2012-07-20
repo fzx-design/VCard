@@ -7,12 +7,15 @@
 //
 
 #import "GroupInfoTableViewController.h"
+#import "UIView+Resize.h"
 
 @interface GroupInfoTableViewController ()
 
 @end
 
 @implementation GroupInfoTableViewController
+
+static UIPopoverController *popoverController = nil;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -128,8 +131,9 @@
 + (void)showFromPoint:(CGPoint)point inView:(UIView *)view
 {
     GroupInfoTableViewController *groupInfoTableViewController = [[GroupInfoTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    [groupInfoTableViewController.view resetSize:CGSizeMake(400.0, 300.0)];
     
-    UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:groupInfoTableViewController];
+    popoverController = [[UIPopoverController alloc] initWithContentViewController:groupInfoTableViewController];
     [popoverController presentPopoverFromRect:CGRectMake(point.x, point.y, 400.0, 300.0)
                                        inView:view
                      permittedArrowDirections:UIPopoverArrowDirectionAny

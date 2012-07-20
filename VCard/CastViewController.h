@@ -38,7 +38,6 @@ typedef enum {
     
     PullToRefreshView *_pullView;
     LoadMoreView *_loadMoreView;
-    StackViewController *_stackViewController;
 }
 
 @property (nonatomic, weak) IBOutlet BaseNavigationView *navigationView;
@@ -60,7 +59,7 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UnreadIndicatorView *unreadIndicatorView;
 @property (nonatomic, weak) IBOutlet UIView *waterflowViewAnimationCover;
 @property (nonatomic, weak) id<CastViewControllerDelegate> delegate;
-@property (nonatomic, readonly) BOOL doesStackViewExist;
+@property (nonatomic, strong) StackViewController *stackViewController;
 
 - (void)initialLoad;
 - (void)refresh;

@@ -123,7 +123,7 @@
 
 - (IBAction)didClickMoreInfoButton:(UIButton *)sender
 {
-//    [GroupInfoTableViewController showFromPoint:_moreInfoButton.frame.origin inView:self.view];
+    [GroupInfoTableViewController showFromPoint:_moreInfoButton.frame.origin inView:self.view];
 }
 
 - (IBAction)didClickMessageButton:(UIButton *)sender
