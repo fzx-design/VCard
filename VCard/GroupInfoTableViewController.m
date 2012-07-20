@@ -96,6 +96,11 @@ static GroupInfoTableViewController *groupInfoTableViewController = nil;
     [self.tableView reloadData];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44.0;
+}
+
 #pragma mark - Popover method
 
 + (void)showGroupInfoOfUser:(NSString *)userID fromRect:(CGRect)rect inView:(UIView *)view
