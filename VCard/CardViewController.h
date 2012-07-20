@@ -82,7 +82,7 @@
 - (IBAction)didClickRepostButton:(UIButton *)sender;
 
 + (CGFloat)heightForStatus:(Status *)status_ andImageHeight:(NSInteger)imageHeight_ isWaterflowCard:(BOOL)isWaterflowCard;
-+ (CGFloat)heightForTextContent:(NSString *)text;
++ (CGFloat)heightForTextContent:(id)content;
 + (void)setCardViewController:(CardViewController *)vc StatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string;
 
 - (void)configureCardWithStatus:(Status*)status_

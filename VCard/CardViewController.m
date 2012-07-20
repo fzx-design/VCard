@@ -182,7 +182,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 + (CGFloat)heightForStatus:(Status *)status_ andImageHeight:(NSInteger)imageHeight_ isWaterflowCard:(BOOL)isWaterflowCard
 {
-    [CardViewController replaceStatusEmotionStrings:status_];
+    [CardViewController replaceEmotionStrings:status_];
     
     BOOL isReposted = status_.repostStatus != nil;
     BOOL hasCardTail = [status_ hasLocationInfo] || YES;
@@ -210,8 +210,10 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     return height;
 }
 
-+ (CGFloat)heightForTextContent:(NSString *)text
++ (CGFloat)heightForTextContent:(id)content
 {
+    NSString *text = [CardViewController replaceEmotionStrings:content];
+    
     CGFloat height = 0.0;
     height +=  CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight + CardSizeRepostHeightOffset;
     height += [CardViewController heightForCellWithText:text] + CardSizeTextGap + 24.0;
@@ -540,9 +542,15 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     [self setCardViewController:vc SummaryText:string toLabel:label];
 }
 
-+ (void)replaceStatusEmotionStrings:(Status *)status
++ (NSString *)replaceEmotionStrings:(id)content
 {
-    NSString *text = status.text;
+    NSString *text;
+    if ([content isKindOfClass:[Status class]]) {
+        text = ((Status *)content).text;
+    } else {
+        text = ((Comment *)content).text;
+    }
+    
     NSMutableArray *array = [[NSMutableArray alloc] init];
     
     NSRange stringRange = NSMakeRange(0, [text length]);
@@ -564,7 +572,13 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         }
     }
     
-    status.text = text;
+    if ([content isKindOfClass:[Status class]]) {
+        ((Status *)content).text = text;
+    } else {
+        ((Comment *)content).text = text;
+    }
+    
+    return text;
 }
 
 + (void)setCardViewController:(CardViewController *)vc SummaryText:(NSString *)text toLabel:(TTTAttributedLabel*)label
