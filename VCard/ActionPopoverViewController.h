@@ -12,6 +12,14 @@
 #define kActionPopoverOptionShowDeleteButton    @"ActionPopoverOptionShowDeleteButton"
 #define kActionPopoverOptionFavoriteButtonOn    @"ActionPopoverOptionFavoriteButtonOn"
 
+typedef enum {
+    ActionPopoverButtonIdentifierForward,
+    ActionPopoverButtonIdentifierFavorite,
+    ActionPopoverButtonIdentifierShowForward,
+    ActionPopoverButtonIdentifierCopy,
+    ActionPopoverButtonIdentifierDelete,
+} ActionPopoverButtonIdentifier;
+
 @protocol ActionPopoverViewControllerDelegate;
 
 @interface ActionPopoverViewController : UIViewController<UIGestureRecognizerDelegate, ActionPopoverGestureRecognizeViewDelegate>
@@ -36,5 +44,6 @@
 @protocol ActionPopoverViewControllerDelegate <NSObject>
 
 - (void)actionPopoverViewDidDismiss;
+- (void)actionPopoverDidClickButtonWithIdentifier:(ActionPopoverButtonIdentifier)identifier;
 
 @end

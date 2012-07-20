@@ -16,14 +16,6 @@
 #define FUNCTION_BUTTON_CENTER_Y    48.
 #define FUNCTION_LABEL_CENTER_Y     78.
 
-typedef enum {
-    ActionPopoverButtonIdentifierForward,
-    ActionPopoverButtonIdentifierFavorite,
-    ActionPopoverButtonIdentifierShowForward,
-    ActionPopoverButtonIdentifierCopy,
-    ActionPopoverButtonIdentifierDelete,
-} ActionPopoverButtonIdentifier;
-
 @interface ActionPopoverViewController () {
     NSMutableArray *_buttonTitleArray;
     NSMutableArray *_buttonIconFileNameArray;
@@ -135,6 +127,9 @@ typedef enum {
         button.center = CGPointMake(centerX, FUNCTION_BUTTON_CENTER_Y);
         titleLabel.center = CGPointMake(centerX, FUNCTION_LABEL_CENTER_Y);
         
+        button.tag = buttonIndex;
+        [button addTarget:self action:@selector(didClickFunctionButton:) forControlEvents:UIControlEventTouchUpInside];
+        
         [button resetOrigin:CGPointMake(floorf(button.frame.origin.x), floorf(button.frame.origin.y))];
         [titleLabel resetOrigin:CGPointMake(floorf(titleLabel.frame.origin.x), floorf(titleLabel.frame.origin.y))];
         
@@ -148,6 +143,12 @@ typedef enum {
     
     self.centerBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"card_bg_body"]];
     self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.011];
+}
+
+#pragma mark - Actions 
+
+- (void)didClickFunctionButton:(UIButton *)sender {
+    [self.delegate actionPopoverDidClickButtonWithIdentifier:sender.tag];
 }
 
 #pragma mark - Properties

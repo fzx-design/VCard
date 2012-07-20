@@ -288,9 +288,7 @@ typedef enum {
             keyboardHeight = keyboardBounds.size.width;
             break;
     }
-    
-    NSLog(@"keyboardWillShow:%f", keyboardHeight);
-    
+        
     CGSize screenSize = [UIApplication sharedApplication].screenSize;
     if(_keyboardHidden) {
         float animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
@@ -306,9 +304,7 @@ typedef enum {
     }
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification {
-    NSLog(@"keyboardWillHide");
-    
+- (void)keyboardWillHide:(NSNotification *)notification {    
     NSDictionary *info = [notification userInfo];
     float animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     CGSize screenSize = [UIApplication sharedApplication].screenSize;

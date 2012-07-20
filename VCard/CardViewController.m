@@ -24,13 +24,6 @@
 
 #define MaxCardSize CGSizeMake(326,9999)
 
-#define kActionSheetRepostIndex     0
-#define kActionSheetFavorIndex      1
-#define kActionSheetViewRepostIndex 2
-#define kActionSheetViewCopyIndex   3
-#define kActionSheetShareIndex      4
-#define kActionSheetDeleteIndex     5
-
 #define RegexColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]
 
 static NSRegularExpression *__nameRegularExpression;
@@ -700,17 +693,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 - (IBAction)didClickRepostButton:(UIButton *)sender
 {
-//    NSString *favourTitle = self.status.favorited.boolValue ? @"取消收藏" : @"收藏";
-//    NSString *deleteTitle = [self.status.author isEqualToUser:self.currentUser] ? @"删除" : nil;
-//    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-//                                              delegate:self 
-//                                     cancelButtonTitle:nil 
-//                                destructiveButtonTitle:nil
-//                                     otherButtonTitles:@"转发", favourTitle, @"查看转发", @"复制微博", @"邮件分享", deleteTitle, nil];
-//    actionSheet.destructiveButtonIndex = kActionSheetDeleteIndex;
-//    actionSheet.delegate = self;
-//    [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
-    
     [self showActionPopover];
 }
 
@@ -774,26 +756,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         [vc dismissViewToRect:[self.view convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
 }
 
-#pragma mark - UIActionSheet delegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-
-    if(buttonIndex == kActionSheetRepostIndex) {
-        [self repostStatus];
-    } else if(buttonIndex == kActionSheetViewRepostIndex) {
-        [self sendShowRepostListNotification];
-    } else if(buttonIndex == kActionSheetFavorIndex) {
-        //TODO:
-    } else if(buttonIndex == kActionSheetShareIndex) {
-        [self shareStatusByMail];
-    } else if(buttonIndex == kActionSheetViewCopyIndex){
-        [self copyStatus];
-    } else if(buttonIndex == kActionSheetDeleteIndex){
-        [self deleteStatus];
-    }
-}
-
-#pragma mark - ActionSheet Operations
+#pragma mark - ActionPopover Operations
 
 - (void)repostStatus
 {
@@ -1208,6 +1171,26 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     self.actionPopoverViewController = nil;
     
     self.view.tag = 0;
+}
+
+- (void)actionPopoverDidClickButtonWithIdentifier:(ActionPopoverButtonIdentifier)identifier {
+    BOOL dismissPopover = YES;
+    if(identifier == ActionPopoverButtonIdentifierForward) {
+        [self repostStatus];
+    } else if(identifier == ActionPopoverButtonIdentifierShowForward) {
+        [self sendShowRepostListNotification];
+    } else if(identifier == ActionPopoverButtonIdentifierCopy) {
+        [self copyStatus];
+        dismissPopover = NO;
+    } else if(identifier == ActionPopoverButtonIdentifierDelete) {
+        [self deleteStatus];
+    } else if(identifier == ActionPopoverButtonIdentifierFavorite) {
+        //TODO:
+    }
+    
+    if(dismissPopover) {
+        [self actionPopoverViewDidDismiss];
+    }
 }
 
 @end
