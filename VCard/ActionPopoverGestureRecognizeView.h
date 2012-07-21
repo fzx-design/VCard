@@ -10,16 +10,6 @@
 
 #define ACTION_POPOVER_CONTAINER_VIEW   3001
 
-@protocol ActionPopoverGestureRecognizeViewDelegate;
-
 @interface ActionPopoverGestureRecognizeView : UIView
-
-@property (nonatomic, weak) IBOutlet id<ActionPopoverGestureRecognizeViewDelegate> delegate;
-
-@end
-
-@protocol ActionPopoverGestureRecognizeViewDelegate <NSObject>
-
-- (void)actionPopoverGestureRecognizeViewDidDetectDismissTouch;
 
 @end

@@ -190,6 +190,8 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
     
     self.centerBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"card_bg_body"]];
     self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.011];
+    
+    [self.view resetOrigin:CGPointMake(0, 20)];
 }
 
 #pragma mark - Actions 
@@ -431,7 +433,9 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 		self.bottomBar.transform = CGAffineTransformIdentity;
 		[self.centerBar setHidden:NO];
 	}
-	[self.contentView setHidden:NO];	
+	[self.contentView setHidden:NO];
+	
+    [self.delegate actionPopoverViewDidDismiss];
 }
 
 - (void)animateFold:(BOOL)finish {
@@ -460,6 +464,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
     
 	// fold the first (top) joint away from us
 	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:rotationKey];
+        
 	[animation setFromValue:forwards? [NSNumber numberWithDouble:-90 * factor * fromProgress] : [NSNumber numberWithDouble:-90 * factor * (1 - fromProgress)]];
 	[animation setToValue:forwards? [NSNumber numberWithDouble:-90 * factor] : [NSNumber numberWithDouble:0]];
 	[animation setFillMode:kCAFillModeForwards];
@@ -627,12 +632,6 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
     [self.centerBar resetOrigin:CGPointMake(0, bottomY - topY)];
     [self.bottomBar resetOrigin:CGPointMake(0, bottomY - topY + self.centerBar.frame.size.height)];
     [self.shadowView resetOriginY:self.contentView.frame.size.height + CONTENT_SHADOW_VIEW_BOTTOM_OFFSET_Y - self.shadowView.frame.size.height];
-}
-
-#pragma mark - ActionPopoverGestureRecognizeView delegate
-
-- (void)actionPopoverGestureRecognizeViewDidDetectDismissTouch {
-    
 }
 
 @end

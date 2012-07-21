@@ -19,8 +19,6 @@
 
 @implementation ActionPopoverGestureRecognizeView
 
-@synthesize delegate = _delegate;
-
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *result = [super hitTest:point withEvent:event];
     UINavigationController *nav = (UINavigationController *)[UIApplication sharedApplication].rootViewController;

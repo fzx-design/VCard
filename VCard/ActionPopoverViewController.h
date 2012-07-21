@@ -22,7 +22,7 @@ typedef enum {
 
 @protocol ActionPopoverViewControllerDelegate;
 
-@interface ActionPopoverViewController : UIViewController<UIGestureRecognizerDelegate, ActionPopoverGestureRecognizeViewDelegate>
+@interface ActionPopoverViewController : UIViewController<UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView *contentView;
 @property (nonatomic, weak) IBOutlet UIImageView *topBar;

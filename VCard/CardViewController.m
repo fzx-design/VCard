@@ -1139,7 +1139,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 - (ActionPopoverViewController *)actionPopoverViewController {
     if(!_actionPopoverViewController) {
         _actionPopoverViewController = [ActionPopoverViewController getActionPopoverViewControllerWithFavoriteButtonOn:self.isCardFavorited showDeleteButton:self.isCardDeletable];
-        [_actionPopoverViewController.view resetOrigin:CGPointMake(0, 20)];
         _actionPopoverViewController.delegate = self;
     }
     return _actionPopoverViewController;
