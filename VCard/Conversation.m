@@ -7,22 +7,22 @@
 //
 
 #import "Conversation.h"
+#import "DirectMessage.h"
 #import "User.h"
-#import "Message.h"
-
 
 @implementation Conversation
 
-@dynamic targetUserID;
 @dynamic currentUserID;
 @dynamic targetUserAvatarURL;
-@dynamic targetUser;
+@dynamic targetUserID;
+@dynamic updateDate;
 @dynamic latestMessage;
 @dynamic messages;
+@dynamic targetUser;
 
 + (Conversation *)conversationWithCurrentUserID:(NSString *)currentUserID
-                               targetUserID:(NSString *)targetUserID
-                     inManagedObjectContext:(NSManagedObjectContext *)context
+                                   targetUserID:(NSString *)targetUserID
+                         inManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
@@ -56,11 +56,10 @@
     result.targetUserID = targetUser.userID;
     result.currentUserID = currentUserID;
     
-    
-    
     NSDictionary *messageDict = [dict objectForKey:@"direct_message"];
     if ([messageDict isKindOfClass:[NSDictionary class]] && messageDict.count > 0) {
-        result.latestMessage = [Message insertMessage:messageDict withConversation:result inManagedObjectContext:context];
+        result.latestMessage = [DirectMessage insertMessage:messageDict withConversation:result inManagedObjectContext:context];
+        result.updateDate = result.latestMessage.createdAt;
     } else {
         NSLog(@"Conversation has no message %@", dict);
     }

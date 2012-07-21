@@ -49,6 +49,7 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIButton *groupButton;
 @property (nonatomic, weak) IBOutlet UIButton *createStatusButton;
 @property (nonatomic, weak) IBOutlet UIButton *refreshButton;
+@property (nonatomic, weak) IBOutlet UIButton *showDirectMessageButton;
 @property (nonatomic, weak) IBOutlet UIButton *showProfileButton;
 @property (nonatomic, weak) IBOutlet UnreadCountButton *unreadCountButton;
 @property (nonatomic, weak) IBOutlet UnreadIndicatorButton *unreadCommentIndicatorButton;
@@ -68,6 +69,7 @@ typedef enum {
 - (IBAction)didClickGroupButton:(id)sender;
 - (IBAction)didClickCreateStatusButton:(UIButton *)sender;
 - (IBAction)didClickSearchButton:(id)sender;
+- (IBAction)didClickShowDirectMessageButton:(UIButton *)sender;
 - (IBAction)didClickUnreadCommentButton:(UnreadIndicatorButton *)sender;
 - (IBAction)didClickUnreadFollowerButton:(UnreadIndicatorButton *)sender;
 - (IBAction)didClickUnreadMentionButton:(UnreadIndicatorButton *)sender;

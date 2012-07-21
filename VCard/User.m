@@ -2,12 +2,13 @@
 //  User.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-7-17.
+//  Created by 海山 叶 on 12-7-21.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
 #import "User.h"
 #import "Comment.h"
+#import "Conversation.h"
 #import "Status.h"
 #import "User.h"
 #import "NSDateAddition.h"
@@ -34,16 +35,17 @@
 @dynamic statusesCount;
 @dynamic unreadCommentCount;
 @dynamic unreadFollowingCount;
+@dynamic unreadMentionComment;
 @dynamic unreadMentionCount;
+@dynamic unreadMessageCount;
 @dynamic unreadStatusCount;
 @dynamic updateDate;
 @dynamic userID;
 @dynamic verified;
 @dynamic verifiedType;
-@dynamic unreadMessageCount;
-@dynamic unreadMentionComment;
 @dynamic comments;
 @dynamic commentsToMe;
+@dynamic conversation;
 @dynamic favorites;
 @dynamic followers;
 @dynamic friends;

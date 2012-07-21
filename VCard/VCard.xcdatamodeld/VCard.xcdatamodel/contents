@@ -34,24 +34,16 @@
             <userInfo/>
         </relationship>
     </entity>
-    <entity name="Conversation" representedClassName="Conversion" syncable="YES">
+    <entity name="Conversation" representedClassName="Conversation" syncable="YES">
         <attribute name="currentUserID" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="targetUserAvatarURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="targetUserID" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
-        <relationship name="latestMessage" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="isLatestMessageOf" inverseEntity="Message" syncable="YES"/>
-        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="conversation" inverseEntity="Message" syncable="YES"/>
+        <attribute name="updateDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="latestMessage" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="DirectMessage" inverseName="isLatestMessageOf" inverseEntity="DirectMessage" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DirectMessage" inverseName="conversation" inverseEntity="DirectMessage" syncable="YES"/>
         <relationship name="targetUser" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="conversation" inverseEntity="User" syncable="YES"/>
     </entity>
-    <entity name="Group" representedClassName="Group" syncable="YES">
-        <attribute name="count" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="groupID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="groupUserID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="1000" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="picURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-    </entity>
-    <entity name="Message" representedClassName="Message" syncable="YES">
+    <entity name="DirectMessage" representedClassName="DirectMessage" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="messageID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recipientID" optional="YES" attributeType="String" syncable="YES"/>
@@ -61,6 +53,15 @@
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="conversation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Conversation" inverseName="messages" inverseEntity="Conversation" syncable="YES"/>
         <relationship name="isLatestMessageOf" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="latestMessage" inverseEntity="Conversation" syncable="YES"/>
+    </entity>
+    <entity name="Group" representedClassName="Group" syncable="YES">
+        <attribute name="count" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="groupID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupUserID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="1000" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="Status" representedClassName="Status" syncable="YES">
         <attribute name="bmiddlePicURL" optional="YES" attributeType="String">
@@ -221,11 +222,11 @@
         </relationship>
     </entity>
     <elements>
-        <element name="Comment" positionX="0" positionY="0" width="0" height="285"/>
-        <element name="Conversation" positionX="160" positionY="192" width="128" height="135"/>
-        <element name="Group" positionX="160" positionY="192" width="128" height="165"/>
-        <element name="Status" positionX="0" positionY="0" width="0" height="630"/>
-        <element name="User" positionX="0" positionY="0" width="0" height="555"/>
-        <element name="Message" positionX="160" positionY="192" width="128" height="180"/>
+        <element name="Comment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Conversation" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Group" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="DirectMessage" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Status" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

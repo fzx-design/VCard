@@ -26,18 +26,44 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [self.backgroundView addSubview:self.listTableViewController.view];
+    [self.topShadowImageView resetOriginY:[self frameForTableView].origin.y];
+    [self.topShadowImageView resetOriginX:0.0];
+    [self.view addSubview:self.topShadowImageView];
 }
 
 - (void)viewDidUnload
 {
+    _listTableViewController = nil;
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
+}
+
+- (void)initialLoad
+{
+    [self.listTableViewController refresh];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Properties
+- (CGRect)frameForTableView
+{
+    CGFloat originY = 50;
+    CGFloat height = self.view.frame.size.height - originY;
+    return CGRectMake(24.0, originY, 382.0, height);
+}
+
+- (DMListTableViewController *)listTableViewController
+{
+    if (!_listTableViewController) {
+        _listTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DMListTableViewController"];
+        _listTableViewController.view.frame = [self frameForTableView];
+        _listTableViewController.tableView.frame = [self frameForTableView];
+    }
+    return _listTableViewController;
 }
 
 @end

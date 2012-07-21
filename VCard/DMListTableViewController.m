@@ -7,8 +7,14 @@
 //
 
 #import "DMListTableViewController.h"
+#import "DMListTableViewCell.h"
+#import "Conversation.h"
+#import "DirectMessage.h"
+#import "WBClient.h"
 
-@interface DMListTableViewController ()
+@interface DMListTableViewController () {
+    int _nextCursor;
+}
 
 @end
 
@@ -26,18 +32,113 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)refresh
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+	_nextCursor = 0;
+	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
+}
+
+- (void)loadMore
+{
+    [self loadMoreData];
+}
+
+- (void)clearData
+{
+    //TODO: 
+}
+
+- (void)loadMoreData
+{
+    if (_loading == YES) {
+        return;
+    }
+    _loading = YES;
+    
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+			if (_nextCursor == 0) {
+				[self clearData];
+			}
+            
+            NSDictionary *result = client.responseJSONObject;
+			
+            NSArray *dictArray = [result objectForKey:@"user_list"];
+            for (NSDictionary *dict in dictArray) {
+                [Conversation insertConversation:dict toCurrentUser:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
+            }
+            
+            [self.managedObjectContext processPendingChanges];
+            [self.fetchedResultsController performFetch:nil];
+            
+            _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
+            _hasMoreViews = _nextCursor != 0;
+        }
+        
+        [self adjustBackgroundView];
+        [self refreshEnded];
+        [_loadMoreView finishedLoading:_hasMoreViews];
+        [_pullView finishedLoading];
+        _loading = NO;
+        
+    }];
+    
+    [client getDirectMessageConversationListWithCursor:_nextCursor count:20];
+}
+
+#pragma mark - Core Data Table View Method
+
+- (void)configureRequest:(NSFetchRequest *)request
+{
+    request.entity = [NSEntityDescription entityForName:@"Conversation"
+                                 inManagedObjectContext:self.managedObjectContext];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updateDate" ascending:NO];
+    request.predicate = [NSPredicate predicateWithFormat:@"currentUserID == %@", self.currentUser.userID];
+    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.fetchedResultsController.fetchedObjects.count > indexPath.row) {
+        DMListTableViewCell *listCell = (DMListTableViewCell *)cell;
+        Conversation *conversation = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        listCell.screenNameLabel.text = conversation.targetUser.screenName;
+        listCell.infoLabel.text = conversation.latestMessage.text;
+        
+        [listCell.avatarImageView loadImageFromURL:conversation.targetUser.profileImageURL
+                                        completion:NULL];
+        [listCell.avatarImageView setVerifiedType:[conversation.targetUser verifiedTypeOfUser]];
+        
+        if (indexPath.row % 2 == 0) {
+            listCell.contentView.backgroundColor = [UIColor clearColor];
+        } else {
+            listCell.contentView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.05];
+        }
+    } else {
+        NSLog(@"Conversation List Core Data Error!");
+    }
+}
+
+- (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
+{
+    return @"DMListTableViewCell";
+}
+
+#pragma mark - UIScrollView delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [super scrollViewDidScroll:scrollView];
+    if (_hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
+        [self loadMoreData];
+    }
 }
 
 @end

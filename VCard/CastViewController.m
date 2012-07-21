@@ -29,6 +29,8 @@
 #import "SelfMentionViewController.h"
 #import "ErrorIndicatorViewController.h"
 
+#define kStackViewDefaultDescription @"kStackViewDefaultDescription"
+
 @interface CastViewController () {
     BOOL _loading;
     BOOL _hasMoreViews;
@@ -331,7 +333,7 @@
 {
     SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfCommentViewController"];
     vc.loadWithPurpose = YES;
-    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:@""];
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:kStackViewDefaultDescription];
 }
 
 - (void)showSelfMentionListWithStackIndex:(int)index
@@ -339,7 +341,7 @@
     SelfMentionViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
     vc.loadWithPurpose = YES;
     vc.shouldShowFirst = YES;
-    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:@""];
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:kStackViewDefaultDescription];
 }
 
 - (void)showSelfProfileWithStackIndex:(int)index
@@ -356,7 +358,7 @@
     SelfMentionViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
     vc.loadWithPurpose = YES;
     vc.shouldShowFirst = NO;
-    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:@""];
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:kStackViewDefaultDescription];
 }
 
 - (void)showMessage:(int)index
@@ -684,9 +686,16 @@
 
 - (IBAction)didClickSearchButton:(id)sender
 {
-    UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchViewController"];
+    StackViewPageController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchViewController"];
     
     [self stackViewAtIndex:INT64_MAX push:vc withPageType:StackViewPageTypeSearch pageDescription:self.currentUser.screenName];
+}
+
+- (IBAction)didClickShowDirectMessageButton:(UIButton *)sender
+{
+    StackViewPageController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MessageListViewController"];
+    
+    [self stackViewAtIndex:INT64_MAX push:vc withPageType:StackViewPageTypeDMList pageDescription:kStackViewDefaultDescription];
 }
 
 - (IBAction)showProfileButtonClicked:(id)sender

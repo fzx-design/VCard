@@ -920,6 +920,16 @@ typedef enum {
     [self loadAdvancedRequest];
 }
 
+- (void)getDirectMessageConversationListWithCursor:(int)cursor count:(int)count
+{
+    self.path = @"direct_messages/user_list.json";
+	
+    [self.params setObject:[NSString stringWithFormat:@"%d", cursor] forKey:@"cursor"];
+    [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    
+    [self loadAdvancedRequest];
+}
+
 - (void)getFavouritesWithPage:(int)page
                         count:(int)count
 {

@@ -7,7 +7,10 @@
 //
 
 #import "StackViewPageController.h"
+#import "DMListTableViewController.h"
 
 @interface MessageListViewController : StackViewPageController
+
+@property (nonatomic, strong) DMListTableViewController *listTableViewController;
 
 @end
