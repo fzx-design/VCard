@@ -9,22 +9,29 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class User;
+@class DirectMessage, User;
 
 @interface Conversation : NSManagedObject
 
-@property (nonatomic, retain) NSString * targetUserID;
 @property (nonatomic, retain) NSString * currentUserID;
 @property (nonatomic, retain) NSString * targetUserAvatarURL;
-@property (nonatomic, retain) User *targetUser;
-@property (nonatomic, retain) NSManagedObject *latestMessage;
+@property (nonatomic, retain) NSString * targetUserID;
+@property (nonatomic, retain) NSDate * updateDate;
+@property (nonatomic, retain) DirectMessage *latestMessage;
 @property (nonatomic, retain) NSSet *messages;
+@property (nonatomic, retain) User *targetUser;
+
++ (Conversation *)conversationWithCurrentUserID:(NSString *)currentUserID
+                                   targetUserID:(NSString *)targetUserID
+                         inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Conversation *)insertConversation:(NSDictionary *)dict toCurrentUser:(NSString *)currentUserID inManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end
 
 @interface Conversation (CoreDataGeneratedAccessors)
 
-- (void)addMessagesObject:(NSManagedObject *)value;
-- (void)removeMessagesObject:(NSManagedObject *)value;
+- (void)addMessagesObject:(DirectMessage *)value;
+- (void)removeMessagesObject:(DirectMessage *)value;
 - (void)addMessages:(NSSet *)values;
 - (void)removeMessages:(NSSet *)values;
 

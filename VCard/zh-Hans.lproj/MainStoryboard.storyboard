@@ -764,6 +764,22 @@
                                             <action selector="didClickSearchButton:" destination="qGg-RJ-Vfa" eventType="touchUpInside" id="QV6-kU-DRv"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="f4d-jV-NFP">
+                                        <rect key="frame" x="527" y="3" width="40" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="topbar_msg.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="topbar_msg_hl.png"/>
+                                        <state key="highlighted" image="topbar_msg_hl.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didClickShowDirectMessageButton:" destination="qGg-RJ-Vfa" eventType="touchUpInside" id="7kz-1j-f7N"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="ZYu-WK-RxK">
                                         <rect key="frame" x="625" y="3" width="40" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
@@ -947,6 +963,7 @@
                         <outlet property="refreshButton" destination="4vP-8Y-zTK" id="pNX-Dc-pgo"/>
                         <outlet property="refreshIndicatorView" destination="2Fo-JO-19d" id="Jkf-fr-uDg"/>
                         <outlet property="searchButton" destination="t4y-pG-ENw" id="Nyv-At-HDz"/>
+                        <outlet property="showDirectMessageButton" destination="f4d-jV-NFP" id="zbM-95-IcU"/>
                         <outlet property="showProfileButton" destination="Mup-uC-eIZ" id="PhG-NK-uL6"/>
                         <outlet property="unreadCommentIndicatorButton" destination="TUg-C6-6ZO" id="gEh-JK-oZx"/>
                         <outlet property="unreadCountButton" destination="kTE-7F-yEI" id="KTI-5O-LwX"/>
@@ -2551,7 +2568,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="发表话题">
+                                <state key="normal" title="参与话题">
                                     <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -2779,17 +2796,17 @@
             </objects>
             <point key="canvasLocation" x="3606" y="-375"/>
         </scene>
-        <!--Conversation Table View Controller-->
+        <!--List Table View Controller-->
         <scene sceneID="D0m-N5-bwv">
             <objects>
-                <viewController storyboardIdentifier="DMConversationTableViewController" id="m5c-cN-8ec" customClass="DMConversationTableViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DMListTableViewController" id="m5c-cN-8ec" customClass="DMListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="66" sectionHeaderHeight="22" sectionFooterHeight="22" id="Tf0-4s-F7M">
                         <rect key="frame" x="0.0" y="0.0" width="384" height="961"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="0.63529411759999999" green="0.63529411759999999" blue="0.60784313729999995" alpha="0.51000000000000001" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProfileRelationTableViewCell" rowHeight="66" id="nVv-Sz-lhE" customClass="ProfileRelationTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DMListTableViewCell" rowHeight="66" id="nVv-Sz-lhE" customClass="DMListTableViewCell">
                                 <rect key="frame" x="0.0" y="22" width="384" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -2848,10 +2865,10 @@
             </objects>
             <point key="canvasLocation" x="4031" y="-375"/>
         </scene>
-        <!--List Table View Controller-->
+        <!--Conversation Table View Controller-->
         <scene sceneID="9ga-Hy-zue">
             <objects>
-                <viewController storyboardIdentifier="DMListTableViewController" id="PfB-jC-uhG" customClass="DMListTableViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DMConversationTableViewController" id="PfB-jC-uhG" customClass="DMConversationTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="66" sectionHeaderHeight="22" sectionFooterHeight="22" id="hOS-ZQ-s0N">
                         <rect key="frame" x="0.0" y="0.0" width="384" height="961"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -2970,6 +2987,8 @@
         <image name="stack_segements_hover.png" width="98" height="70"/>
         <image name="title_small.png" width="88" height="29"/>
         <image name="topbar_avatar_cover.png" width="28" height="28"/>
+        <image name="topbar_msg.png" width="30" height="25"/>
+        <image name="topbar_msg_hl.png" width="30" height="25"/>
         <image name="topic_pic_pin.png" width="32" height="32"/>
     </resources>
     <classes>
@@ -3025,6 +3044,7 @@
                 <relationship kind="action" name="didClickCreateStatusButton:" candidateClass="UIButton"/>
                 <relationship kind="action" name="didClickGroupButton:"/>
                 <relationship kind="action" name="didClickSearchButton:"/>
+                <relationship kind="action" name="didClickShowDirectMessageButton:" candidateClass="UIButton"/>
                 <relationship kind="action" name="didClickUnreadCommentButton:" candidateClass="UnreadIndicatorButton"/>
                 <relationship kind="action" name="didClickUnreadFollowerButton:" candidateClass="UnreadIndicatorButton"/>
                 <relationship kind="action" name="didClickUnreadMentionButton:" candidateClass="UnreadIndicatorButton"/>
@@ -3038,6 +3058,7 @@
                 <relationship kind="outlet" name="refreshButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="refreshIndicatorView" candidateClass="RefreshIndicatorView"/>
                 <relationship kind="outlet" name="searchButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="showDirectMessageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="showProfileButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="unreadCommentIndicatorButton" candidateClass="UnreadIndicatorButton"/>
                 <relationship kind="outlet" name="unreadCountButton" candidateClass="UnreadCountButton"/>
@@ -3071,6 +3092,15 @@
         </class>
         <class className="DMConversationTableViewController" superclassName="RefreshableCoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DMConversationTableViewController.h"/>
+        </class>
+        <class className="DMListTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DMListTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="avatarImageView" candidateClass="UserAvatarImageView"/>
+                <relationship kind="outlet" name="cellSelectionImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="infoLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="screenNameLabel" candidateClass="UILabel"/>
+            </relationships>
         </class>
         <class className="DMListTableViewController" superclassName="RefreshableCoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DMListTableViewController.h"/>

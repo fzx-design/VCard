@@ -75,7 +75,7 @@
     [self.backgroundView addSubview:self.topShadowImageView];
     
     [ThemeResourceProvider configButtonPaperLight:_followTopicButton];
-    [ThemeResourceProvider configButtonPaperLight:_postTopicButton];
+    [ThemeResourceProvider configButtonPaperDark:_postTopicButton];
     _topicTitleLabel.text = [NSString stringWithFormat:@"#%@#", _searchKey];
 }
 

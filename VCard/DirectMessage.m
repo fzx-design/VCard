@@ -6,36 +6,37 @@
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
-#import "Message.h"
-#import "User.h"
+#import "DirectMessage.h"
 #import "Conversation.h"
+#import "User.h"
 #import "NSDateAddition.h"
 
 
-@implementation Message
+@implementation DirectMessage
 
-@dynamic messageID;
-@dynamic text;
 @dynamic createdAt;
+@dynamic messageID;
 @dynamic recipientID;
 @dynamic recipientScreenName;
 @dynamic senderID;
 @dynamic senderScreenName;
+@dynamic text;
 @dynamic conversation;
+@dynamic isLatestMessageOf;
 
-+ (Message *)messageWithID:(NSString *)messageID inManagedObjectContext:(NSManagedObjectContext *)context
++ (DirectMessage *)messageWithID:(NSString *)messageID inManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
-    [request setEntity:[NSEntityDescription entityForName:@"Message" inManagedObjectContext:context]];
+    [request setEntity:[NSEntityDescription entityForName:@"DirectMessage" inManagedObjectContext:context]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"messageID == %@", messageID]];
     
-    Message *res = [[context executeFetchRequest:request error:NULL] lastObject];
+    DirectMessage *res = [[context executeFetchRequest:request error:NULL] lastObject];
     
     return res;
 }
 
-+ (Message *)insertMessage:(NSDictionary *)dict withConversation:(Conversation *)targetConversation inManagedObjectContext:(NSManagedObjectContext *)context
++ (DirectMessage *)insertMessage:(NSDictionary *)dict withConversation:(Conversation *)targetConversation inManagedObjectContext:(NSManagedObjectContext *)context
 {    
     NSString *messageID = [[dict objectForKey:@"id"] stringValue];
     
@@ -43,14 +44,14 @@
         return nil;
     }
     
-    Message *result = [Message messageWithID:messageID inManagedObjectContext:context];
+    DirectMessage *result = [DirectMessage messageWithID:messageID inManagedObjectContext:context];
     if (!result) {
-        result = [NSEntityDescription insertNewObjectForEntityForName:@"Message" inManagedObjectContext:context];
+        result = [NSEntityDescription insertNewObjectForEntityForName:@"DirectMessage" inManagedObjectContext:context];
     }
     
     result.messageID = messageID;
     result.text = [dict objectForKey:@"text"];
-    result.conversation = targetConversation;
+    [result addConversationObject:targetConversation];
     
     NSString *dateString = [dict objectForKey:@"created_at"];
     result.createdAt = [NSDate dateFromStringRepresentation:dateString];
@@ -71,6 +72,5 @@
     
     return result;
 }
-
 
 @end

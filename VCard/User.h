@@ -2,14 +2,14 @@
 //  User.h
 //  VCard
 //
-//  Created by 海山 叶 on 12-7-17.
+//  Created by 海山 叶 on 12-7-21.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Comment, Status, User;
+@class Comment, Conversation, Status, User;
 
 @interface User : NSManagedObject
 
@@ -32,16 +32,17 @@
 @property (nonatomic, retain) NSString * statusesCount;
 @property (nonatomic, retain) NSNumber * unreadCommentCount;
 @property (nonatomic, retain) NSNumber * unreadFollowingCount;
+@property (nonatomic, retain) NSNumber * unreadMentionComment;
 @property (nonatomic, retain) NSNumber * unreadMentionCount;
+@property (nonatomic, retain) NSNumber * unreadMessageCount;
 @property (nonatomic, retain) NSNumber * unreadStatusCount;
 @property (nonatomic, retain) NSDate * updateDate;
 @property (nonatomic, retain) NSString * userID;
 @property (nonatomic, retain) NSNumber * verified;
 @property (nonatomic, retain) NSNumber * verifiedType;
-@property (nonatomic, retain) NSNumber * unreadMessageCount;
-@property (nonatomic, retain) NSNumber * unreadMentionComment;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *commentsToMe;
+@property (nonatomic, retain) Conversation *conversation;
 @property (nonatomic, retain) NSSet *favorites;
 @property (nonatomic, retain) NSSet *followers;
 @property (nonatomic, retain) NSSet *friends;

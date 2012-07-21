@@ -213,6 +213,8 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 - (void)addUser:(NSString *)userID toGroup:(NSString *)group;
 - (void)removeUser:(NSString *)userID fromGroup:(NSString *)group;
 
+- (void)getDirectMessageConversationListWithCursor:(int)cursor count:(int)count;
+
 - (void)getFavouritesWithPage:(int)page
                         count:(int)count;
 
