@@ -22,6 +22,9 @@
 #define FOLD_SHADOW_OPACITY 0.25
 #define DEFAULT_ANIMATION_DURATION 0.3
 
+#define SKEW_DEPTH 8
+#define FOLD_SHADOW_ALPHA 0.75
+
 static inline double radians (double degrees) {return degrees * M_PI / 180;}
 static inline double degrees (double radians) {return radians * 180 / M_PI;}
 
@@ -281,7 +284,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	UIView *actingSource = self.contentView;
 	UIView *containerView = [actingSource superview];
 	[actingSource setHidden:YES];
-	
+    
 	CATransform3D transform = CATransform3DIdentity;	
 	CALayer *upperFold;
 	CALayer *lowerFold;
@@ -297,16 +300,19 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	self.animationView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"castview_bg_unit"]];
 	[containerView addSubview:self.animationView];
     self.animationCenter = self.animationView.center;
+    self.animationView.layer.contentsScale = scale;
 	
 	// layer that covers the 2 folding panels in the middle
 	self.perspectiveLayer = [CALayer layer];
 	self.perspectiveLayer.frame = CGRectMake(0, 0, width, height * 2);
 	[self.animationView.layer addSublayer:self.perspectiveLayer];
+    self.perspectiveLayer.contentsScale = scale;
 	
 	// layer that encapsulates the join between the top sleeve (remains flat) and upper folding panel
 	self.firstJointLayer = [CATransformLayer layer];
 	self.firstJointLayer.frame = self.animationView.bounds;
 	[self.perspectiveLayer addSublayer:self.firstJointLayer];
+    self.firstJointLayer.contentsScale = scale;
 	
 	// This remains flat, and is the upper half of the destination view when moving forwards
 	// It slides down to meet the bottom sleeve in the center
@@ -316,6 +322,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	self.topSleeve.position = CGPointMake(width / 2, 0);
 	[self.topSleeve setContents:(id)[slideUpper CGImage]];
 	[self.firstJointLayer addSublayer:self.topSleeve];
+    self.topSleeve.contentsScale = scale;
 	
 	// This piece folds away from user along top edge, and is the upper half of the source view when moving forwards
 	upperFold = [CALayer layer];
@@ -324,6 +331,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	upperFold.position = CGPointMake(width / 2, 0);
 	upperFold.contents = (id)[foldUpper CGImage];
 	[self.firstJointLayer addSublayer:upperFold];
+    upperFold.contentsScale = scale;
 	
 	// layer that encapsultates the join between the upper and lower folding panels (the V in the fold)
 	self.secondJointLayer = [CATransformLayer layer];
@@ -332,6 +340,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	self.secondJointLayer.anchorPoint = CGPointMake(0.5, 0);
 	self.secondJointLayer.position = CGPointMake(width / 2, upperHeight);
 	[self.firstJointLayer addSublayer:self.secondJointLayer];
+    self.secondJointLayer.contentsScale = scale;
 	
 	// This piece folds away from user along bottom edge, and is the lower half of the source view when moving forwards
 	lowerFold = [CALayer layer];
@@ -340,6 +349,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	lowerFold.position = CGPointMake(width / 2, 0);
 	lowerFold.contents = (id)[foldLower CGImage];
 	[self.secondJointLayer addSublayer:lowerFold];
+    lowerFold.contentsScale = scale;
 	
 	// This remains flat, and is the lower half of the destination view when moving forwards
 	// It slides up to meet the top sleeve in the center
@@ -349,6 +359,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	self.bottomSleeve.position = CGPointMake(width / 2, lowerHeight);
 	[self.bottomSleeve setContents:(id)[slideLower CGImage]];
 	[self.secondJointLayer addSublayer:self.bottomSleeve];
+    self.bottomSleeve.contentsScale = scale;
 	
 	self.firstJointLayer.anchorPoint = CGPointMake(0.5, 0);
 	self.firstJointLayer.position = CGPointMake(width / 2, 0);
@@ -358,24 +369,26 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	[upperFold addSublayer:self.upperFoldShadow];
 	self.upperFoldShadow.frame = CGRectInset(upperFold.bounds, foldInsets.left, foldInsets.top);
 	//self.upperFoldShadow.backgroundColor = [UIColor blackColor].CGColor;
-	self.upperFoldShadow.colors = [NSArray arrayWithObjects:(id)[UIColor blackColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];	
+	self.upperFoldShadow.colors = [NSArray arrayWithObjects:(id)[UIColor blackColor].CGColor, (id)[[UIColor blackColor] colorWithAlphaComponent:0.4].CGColor, nil];
 	self.upperFoldShadow.startPoint = CGPointMake(0.5, 0);
 	self.upperFoldShadow.endPoint = CGPointMake(0.5, 1);
 	self.upperFoldShadow.opacity = 0;
+    self.upperFoldShadow.contentsScale = scale;
 	
 	self.lowerFoldShadow = [CAGradientLayer layer];
 	[lowerFold addSublayer:self.lowerFoldShadow];
 	self.lowerFoldShadow.frame = CGRectInset(lowerFold.bounds, foldInsets.left, foldInsets.top);
-	self.lowerFoldShadow.colors = [NSArray arrayWithObjects:(id)[UIColor blackColor].CGColor, (id)[[UIColor blackColor] colorWithAlphaComponent:0.2].CGColor, nil];
+	self.lowerFoldShadow.colors = [NSArray arrayWithObjects:(id)[UIColor blackColor].CGColor, (id)[[UIColor blackColor] colorWithAlphaComponent:0.6].CGColor, nil];
 	self.lowerFoldShadow.startPoint = CGPointMake(0.5, 0);
 	self.lowerFoldShadow.endPoint = CGPointMake(0.5, 1);
 	self.lowerFoldShadow.opacity = 0;
+    self.lowerFoldShadow.contentsScale = scale;
 	
 	CGRect topBounds = CGRectInset(self.topSleeve.bounds, slideInsets.left, slideInsets.top);
-	[self.topSleeve setShadowPath:[[UIBezierPath bezierPathWithRect:topBounds] CGPath]];	
+	[self.topSleeve setShadowPath:[[UIBezierPath bezierPathWithRect:topBounds] CGPath]];
 	
 	CGRect upperFoldBounds = CGRectInset([upperFold bounds], foldInsets.left, foldInsets.top);
-	[upperFold setShadowPath:[[UIBezierPath bezierPathWithRect:upperFoldBounds] CGPath]];	
+	[upperFold setShadowPath:[[UIBezierPath bezierPathWithRect:upperFoldBounds] CGPath]];
 	
 	CGRect lowerFoldBounds = CGRectInset([lowerFold bounds], foldInsets.left, foldInsets.top);
 	[lowerFold setShadowPath:[[UIBezierPath bezierPathWithRect:lowerFoldBounds] CGPath]];
@@ -386,7 +399,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	// Perspective is best proportional to the height of the pieces being folded away, rather than a fixed value
 	// the larger the piece being folded, the more perspective distance (zDistance) is needed.
 	// m34 = -1/zDistance
-	transform.m34 = -1 / ((self.foldViewHeight / 2) *  4.666666667);
+	transform.m34 = -1 / ((self.foldViewHeight / 2) *  SKEW_DEPTH);
 	self.perspectiveLayer.sublayerTransform = transform;
 	
 	[CATransaction commit];
@@ -557,15 +570,17 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 #pragma mark - Gesture recognizer
 
 - (void)handleTap:(UITapGestureRecognizer *)gestureRecognizer {
-    [self foldAnimation];
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+        [self foldAnimation];
 }
 
 - (void)handlePan:(UITapGestureRecognizer *)gestureRecognizer {
-    [self foldAnimation];
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+        [self foldAnimation];
 }
 
 - (void)handlePinch:(UIPinchGestureRecognizer *)gestureRecognizer {
-    UIGestureRecognizerState state = [gestureRecognizer state];
+    UIGestureRecognizerState state = gestureRecognizer.state;
 	
 	CGFloat currentGap = self.pinchStartGap;
 	if (state != UIGestureRecognizerStateEnded && gestureRecognizer.numberOfTouches == 2) {
@@ -612,24 +627,27 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 
 - (void)configureCropImageView:(UIView *)cropView cropPosTopY:(CGFloat)topY cropPosBottomY:(CGFloat)bottomY {
     if (NULL != UIGraphicsBeginImageContextWithOptions)
-        UIGraphicsBeginImageContextWithOptions(cropView.bounds.size, NO, 0);
+        UIGraphicsBeginImageContextWithOptions(cropView.frame.size, NO, 0);
     else
-        UIGraphicsBeginImageContext(cropView.bounds.size);
-    
+        UIGraphicsBeginImageContext(cropView.frame.size);
     [cropView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
+    CGFloat scale = [UIScreen mainScreen].scale;
     CGRect topRect = CGRectMake(0, topY, cropView.frame.size.width, bottomY - topY);
     CGRect bottomRect = CGRectMake(0, bottomY, cropView.frame.size.width, cropView.frame.size.height - bottomY);
-    UIImage *topImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, topRect)];
-    UIImage *bottomImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, bottomRect)];
+    
+    CGRect topCropRect = CGRectMake(0, topY * scale, cropView.frame.size.width * scale, (bottomY - topY) * scale);
+    CGRect bottomCropRect = CGRectMake(0, bottomY * scale, cropView.frame.size.width * scale, (cropView.frame.size.height - bottomY) * scale);
+    UIImage *topImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, topCropRect)];
+    UIImage *bottomImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, bottomCropRect)];
     
     self.topBar.image = topImage;
     self.bottomBar.image = bottomImage;
     
-    [self.topBar resetSize:topImage.size];
-    [self.bottomBar resetSize:bottomImage.size];
+    [self.topBar resetSize:topRect.size];
+    [self.bottomBar resetSize:bottomRect.size];
 }
 
 - (void)setCropView:(UIView *)view cropPosTopY:(CGFloat)topY cropPosBottomY:(CGFloat)bottomY {
