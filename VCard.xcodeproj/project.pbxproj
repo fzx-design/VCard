@@ -184,6 +184,8 @@
 		18C1903715945D1700DA1A6A /* comments_thread_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903315945D1700DA1A6A /* comments_thread_up.png */; };
 		18C1903815945D1700DA1A6A /* comments_thread_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903415945D1700DA1A6A /* comments_thread_up@2x.png */; };
 		18C1903B15946C5F00DA1A6A /* ProfileCommentStatusTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1903A15946C5E00DA1A6A /* ProfileCommentStatusTableCell.m */; };
+		18C89BF915BA91F5006A5B21 /* DMListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C89BF815BA91F5006A5B21 /* DMListTableViewController.m */; };
+		18C89BFC15BA9208006A5B21 /* DMConversationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C89BFB15BA9208006A5B21 /* DMConversationTableViewController.m */; };
 		18CCC61F15B300FC00DF94F5 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CCC61E15B300FC00DF94F5 /* Group.m */; };
 		18CCC62815B3063200DF94F5 /* shelf_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CCC62015B3061F00DF94F5 /* shelf_bg.png */; };
 		18CCC62915B3063200DF94F5 /* shelf_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CCC62115B3062000DF94F5 /* shelf_bg@2x.png */; };
@@ -1206,6 +1208,10 @@
 		18C1903415945D1700DA1A6A /* comments_thread_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comments_thread_up@2x.png"; sourceTree = "<group>"; };
 		18C1903915946C5E00DA1A6A /* ProfileCommentStatusTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCommentStatusTableCell.h; sourceTree = "<group>"; };
 		18C1903A15946C5E00DA1A6A /* ProfileCommentStatusTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCommentStatusTableCell.m; sourceTree = "<group>"; };
+		18C89BF715BA91F5006A5B21 /* DMListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMListTableViewController.h; sourceTree = "<group>"; };
+		18C89BF815BA91F5006A5B21 /* DMListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMListTableViewController.m; sourceTree = "<group>"; };
+		18C89BFA15BA9208006A5B21 /* DMConversationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMConversationTableViewController.h; sourceTree = "<group>"; };
+		18C89BFB15BA9208006A5B21 /* DMConversationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMConversationTableViewController.m; sourceTree = "<group>"; };
 		18CCC61D15B300FC00DF94F5 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
 		18CCC61E15B300FC00DF94F5 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
 		18CCC62015B3061F00DF94F5 /* shelf_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shelf_bg.png; sourceTree = "<group>"; };
@@ -2421,6 +2427,10 @@
 		18C89BD415BA841E006A5B21 /* MessageTableView */ = {
 			isa = PBXGroup;
 			children = (
+				18C89BF715BA91F5006A5B21 /* DMListTableViewController.h */,
+				18C89BF815BA91F5006A5B21 /* DMListTableViewController.m */,
+				18C89BFA15BA9208006A5B21 /* DMConversationTableViewController.h */,
+				18C89BFB15BA9208006A5B21 /* DMConversationTableViewController.m */,
 			);
 			name = MessageTableView;
 			sourceTree = "<group>";
@@ -4766,6 +4776,8 @@
 				186E2A2A15B9B8CB000CE7E7 /* MessageConversationViewController.m in Sources */,
 				187219E215BA4EA900571A6D /* Conversation.m in Sources */,
 				187219E915BA4ECF00571A6D /* Message.m in Sources */,
+				18C89BF915BA91F5006A5B21 /* DMListTableViewController.m in Sources */,
+				18C89BFC15BA9208006A5B21 /* DMConversationTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
