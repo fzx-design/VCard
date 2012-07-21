@@ -123,7 +123,11 @@
 		186224FD159EB3860099FF60 /* button_follow_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186224F9159EB3860099FF60 /* button_follow_hover@2x.png */; };
 		186224FE159EB3860099FF60 /* button_follow_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 186224FA159EB3860099FF60 /* button_follow_hover.png */; };
 		186BCE2015B299C400B3FC71 /* SearchUserResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186BCE1F15B299C300B3FC71 /* SearchUserResultViewController.m */; };
+		186E2A2615B9B8B8000CE7E7 /* MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E2A2515B9B8B8000CE7E7 /* MessageListViewController.m */; };
+		186E2A2A15B9B8CB000CE7E7 /* MessageConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E2A2915B9B8CA000CE7E7 /* MessageConversationViewController.m */; };
 		186E42FA15994ACB0069E47C /* SelfMentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E42F915994AC90069E47C /* SelfMentionViewController.m */; };
+		187219E215BA4EA900571A6D /* Conversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 187219E115BA4EA900571A6D /* Conversation.m */; };
+		187219E915BA4ECF00571A6D /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 187219E815BA4ECF00571A6D /* Message.m */; };
 		187348731523407A00F562E7 /* WBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348721523407A00F562E7 /* WBRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		187348791523424500F562E7 /* WBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 187348781523424500F562E7 /* WBUtil.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1873487C1523433000F562E7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1873487B1523432F00F562E7 /* Security.framework */; };
@@ -1107,8 +1111,16 @@
 		186224FA159EB3860099FF60 /* button_follow_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_follow_hover.png; sourceTree = "<group>"; };
 		186BCE1E15B299C300B3FC71 /* SearchUserResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchUserResultViewController.h; sourceTree = "<group>"; };
 		186BCE1F15B299C300B3FC71 /* SearchUserResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchUserResultViewController.m; sourceTree = "<group>"; };
+		186E2A2415B9B8B8000CE7E7 /* MessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListViewController.h; sourceTree = "<group>"; };
+		186E2A2515B9B8B8000CE7E7 /* MessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListViewController.m; sourceTree = "<group>"; };
+		186E2A2815B9B8CA000CE7E7 /* MessageConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageConversationViewController.h; sourceTree = "<group>"; };
+		186E2A2915B9B8CA000CE7E7 /* MessageConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageConversationViewController.m; sourceTree = "<group>"; };
 		186E42F815994AC80069E47C /* SelfMentionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfMentionViewController.h; sourceTree = "<group>"; };
 		186E42F915994AC90069E47C /* SelfMentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfMentionViewController.m; sourceTree = "<group>"; };
+		187219E015BA4EA900571A6D /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conversation.h; sourceTree = "<group>"; };
+		187219E115BA4EA900571A6D /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conversation.m; sourceTree = "<group>"; };
+		187219E715BA4ECF00571A6D /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		187219E815BA4ECF00571A6D /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		187348711523407A00F562E7 /* WBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBRequest.h; path = Client/WBRequest.h; sourceTree = "<group>"; };
 		187348721523407A00F562E7 /* WBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBRequest.m; path = Client/WBRequest.m; sourceTree = "<group>"; };
 		187348771523424500F562E7 /* WBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBUtil.h; path = Client/WBUtil.h; sourceTree = "<group>"; };
@@ -2406,6 +2418,13 @@
 			name = SearchTableView;
 			sourceTree = "<group>";
 		};
+		18C89BD415BA841E006A5B21 /* MessageTableView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = MessageTableView;
+			sourceTree = "<group>";
+		};
 		18DBAE471572EEFF00918ED4 /* WaterflowComponent */ = {
 			isa = PBXGroup;
 			children = (
@@ -2444,6 +2463,7 @@
 		18DBAE531573348400918ED4 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
+				18C89BD415BA841E006A5B21 /* MessageTableView */,
 				182EF5C315B92AC4005E4BA2 /* GroupInfoTableView */,
 				18BF4A1415A471E80001F653 /* SearchTableView */,
 				188E53021596EAFF00A30AB8 /* SelfCommentTableView */,
@@ -2497,14 +2517,18 @@
 		18E707D3153D2C6B0012092E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				18CCC61D15B300FC00DF94F5 /* Group.h */,
-				18CCC61E15B300FC00DF94F5 /* Group.m */,
 				18EE8E26159DE6160032D69B /* Comment.h */,
 				18EE8E27159DE6160032D69B /* Comment.m */,
-				18AEA32D15B5504500B53B6A /* User.h */,
-				18AEA32E15B5504500B53B6A /* User.m */,
+				187219E015BA4EA900571A6D /* Conversation.h */,
+				187219E115BA4EA900571A6D /* Conversation.m */,
+				18CCC61D15B300FC00DF94F5 /* Group.h */,
+				18CCC61E15B300FC00DF94F5 /* Group.m */,
+				187219E715BA4ECF00571A6D /* Message.h */,
+				187219E815BA4ECF00571A6D /* Message.m */,
 				182EF5B915B8F66F005E4BA2 /* Status.h */,
 				182EF5BA15B8F66F005E4BA2 /* Status.m */,
+				18AEA32D15B5504500B53B6A /* User.h */,
+				18AEA32E15B5504500B53B6A /* User.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -3155,6 +3179,10 @@
 				182EC05115A497990056E282 /* TopicViewController.m */,
 				186BCE1E15B299C300B3FC71 /* SearchUserResultViewController.h */,
 				186BCE1F15B299C300B3FC71 /* SearchUserResultViewController.m */,
+				186E2A2415B9B8B8000CE7E7 /* MessageListViewController.h */,
+				186E2A2515B9B8B8000CE7E7 /* MessageListViewController.m */,
+				186E2A2815B9B8CA000CE7E7 /* MessageConversationViewController.h */,
+				186E2A2915B9B8CA000CE7E7 /* MessageConversationViewController.m */,
 			);
 			name = StackPage;
 			sourceTree = "<group>";
@@ -4734,6 +4762,10 @@
 				E11D800B15B86025003E078C /* ActionPopoverGestureRecognizeView.m in Sources */,
 				182EF5BB15B8F66F005E4BA2 /* Status.m in Sources */,
 				182EF5C215B92AC0005E4BA2 /* GroupInfoTableViewController.m in Sources */,
+				186E2A2615B9B8B8000CE7E7 /* MessageListViewController.m in Sources */,
+				186E2A2A15B9B8CB000CE7E7 /* MessageConversationViewController.m in Sources */,
+				187219E215BA4EA900571A6D /* Conversation.m in Sources */,
+				187219E915BA4ECF00571A6D /* Message.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

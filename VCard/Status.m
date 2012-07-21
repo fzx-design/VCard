@@ -93,7 +93,7 @@
 {    
     NSString *statusID = [[dict objectForKey:@"id"] stringValue];
     
-    if (!statusID || [statusID isEqualToString:kCoreDataIdentifierDefault]) {
+    if (!statusID || [statusID isEqualToString:@""]) {
         return nil;
     }
     

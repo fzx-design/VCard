@@ -77,11 +77,7 @@
     for (Comment *comment in self.fetchedResultsController.fetchedObjects) {
         comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment]];
     }
-//    if (self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
-//        [Comment deleteCommentsToMeInManagedObjectContext:self.managedObjectContext];
-//    } else if(self.dataSource == CommentsTableViewDataSourceCommentsToMe) {
-//        [Comment deleteCommentsByMeInManagedObjectContext:self.managedObjectContext];
-//    }
+
     _resetFonts = YES;
     [super adjustFont];
 }
