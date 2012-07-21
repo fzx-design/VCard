@@ -98,4 +98,6 @@ typedef enum {
 - (void)showInfoBarWithTitleName:(NSString *)name;
 - (void)hideInfoBar:(BOOL)buttonClicked;
 
+- (void)addCellToWaterflowView:(UIView *)cell;
+
 @end

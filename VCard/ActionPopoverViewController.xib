@@ -35,6 +35,21 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">301</int>
 				<array class="NSMutableArray" key="NSSubviews">
+					<object class="IBUIImageView" id="510031767">
+						<reference key="NSNextResponder" ref="984755294"/>
+						<int key="NSvFlags">269</int>
+						<string key="NSFrame">{{-94, 378}, {550, 232}}</string>
+						<reference key="NSSuperview" ref="984755294"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="753830746"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">heavy_shadow.png</string>
+						</object>
+					</object>
 					<object class="IBUIImageView" id="864054718">
 						<reference key="NSNextResponder" ref="984755294"/>
 						<int key="NSvFlags">293</int>
@@ -95,21 +110,6 @@
 						<int key="IBUIContentMode">2</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-					</object>
-					<object class="IBUIImageView" id="510031767">
-						<reference key="NSNextResponder" ref="984755294"/>
-						<int key="NSvFlags">-2147483379</int>
-						<string key="NSFrame">{{-94, 357}, {550, 232}}</string>
-						<reference key="NSSuperview" ref="984755294"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="753830746"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">heavy_shadow.png</string>
-						</object>
 					</object>
 				</array>
 				<string key="NSFrameSize">{362, 500}</string>

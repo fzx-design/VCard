@@ -1161,10 +1161,10 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     CGFloat cropPosBottomY = self.repostButton.frame.origin.y + self.repostButton.frame.size.height;
     
     UIView *superView = self.view.superview;
-    UIView *superSuperView = self.view.superview.superview;
+    WaterflowView *superSuperView = (WaterflowView *)self.view.superview.superview;
     
     [superView removeFromSuperview];
-    [superSuperView addSubview:superView];
+    [superSuperView addCellToWaterflowView:superView];
     
     CGRect cardFrame = self.view.frame;
     
@@ -1183,8 +1183,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     
     [[UIApplication sharedApplication].rootViewController.view addSubview:self.actionPopoverViewController.view];
     
-    [self.actionPopoverViewController setCropView:self.view cropPosTopY:cropPosTopY cropPosBottomY:cropPosBottomY];
-    
     cardFrame.origin.y += cropPosTopY;
     UIView *nonCropCardView = [[UIView alloc] initWithFrame:cardFrame];
     nonCropCardView.backgroundColor = [UIColor clearColor];
@@ -1192,12 +1190,14 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     [self.actionPopoverViewController.contentView resetOrigin:CGPointMake(0, 0)];
     [superView addSubview:nonCropCardView];
     
+    [self.actionPopoverViewController setCropView:self.view cropPosTopY:cropPosTopY cropPosBottomY:cropPosBottomY];
+    
     if(animated)
         [self.actionPopoverViewController foldAnimation];
     
     // 设置tag以被ActionPopoverGestureRecognizeView识别。
     self.view.tag = ACTION_POPOVER_CONTAINER_VIEW;
-    self.view.superview.tag = ACTION_POPOVER_CONTAINER_CONTAINER_VIEW;
+    superView.tag = ACTION_POPOVER_CONTAINER_CONTAINER_VIEW;
     
     UIScrollView *scrollView = (UIScrollView *)superSuperView;
     scrollView.scrollEnabled = NO;
@@ -1207,7 +1207,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 - (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {
     if(gesture.state == UIGestureRecognizerStateBegan)
-        [self showActionPopoverAnimated:NO];
+        [self showActionPopoverAnimated:YES];
 }
 
 #pragma mark - ActionPopoverViewController delegate
@@ -1229,7 +1229,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     self.actionPopoverViewController = nil;
     
     self.view.tag = 0;
-    self.view.superview.tag = 0;
+    superView.tag = 0;
     
     UIScrollView *scrollView = (UIScrollView *)self.view.superview.superview;
     scrollView.scrollEnabled = YES;

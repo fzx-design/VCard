@@ -14,7 +14,7 @@
 
 #define CARD_WIDTH  362.
 #define CARD_CENTER_BAR_WIDTH  360.
-#define FUNCTION_BUTTON_CENTER_Y    48.
+#define FUNCTION_BUTTON_CENTER_Y    49.
 #define FUNCTION_LABEL_CENTER_Y     78.
 
 #define CONTENT_SHADOW_VIEW_BOTTOM_OFFSET_Y 69.
@@ -47,6 +47,9 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 @property (strong, nonatomic) CALayer *firstJointLayer;
 @property (strong, nonatomic) CALayer *secondJointLayer;
 @property (assign, nonatomic) CGPoint animationCenter;
+@property (assign, nonatomic) CGFloat shadowViewInitPosY;
+@property (assign, nonatomic) CGFloat foldShadowViewInitPosY;
+@property (strong, nonatomic) UIImageView *foldShadowView;
 
 @end
 
@@ -72,6 +75,9 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 @synthesize firstJointLayer = _firstJointLayer;
 @synthesize secondJointLayer = _secondJointLayer;
 @synthesize animationCenter = _animationCenter;
+@synthesize foldShadowView = _foldShadowView;
+@synthesize shadowViewInitPosY = _shadowViewInitPosY;
+@synthesize foldShadowViewInitPosY = _foldShadowViewInitPosY;
 
 + (ActionPopoverViewController *)getActionPopoverViewControllerWithFavoriteButtonOn:(BOOL)favoriteOn
                                                                    showDeleteButton:(BOOL)showDelete {
@@ -104,6 +110,8 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
             }
             [_buttonIndexArray addObject:[NSNumber numberWithUnsignedInteger:i]];
         }
+        
+        self.folded = YES;
     }
     return self;
 }
@@ -126,8 +134,6 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     panGesture.delegate = self;
     [self.view addGestureRecognizer:panGesture];
-    
-    self.folded = YES;
 }
 
 - (void)viewDidUnload
@@ -257,6 +263,9 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	self.perspectiveLayer.bounds = (CGRect){CGPointMake(0, (self.foldViewHeight - foldHeight) / 2), CGSizeMake(self.perspectiveLayer.bounds.size.width, foldHeight)};
     
 	[CATransaction commit];
+    
+    [self.foldShadowView resetOriginY:self.foldShadowViewInitPosY - (self.foldViewHeight - foldHeight)];
+    self.foldShadowView.alpha = 1 - progress;
 }
 
 - (void)buildLayers {
@@ -294,11 +303,17 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	CGFloat height = bounds.size.height / 2;
 	CGFloat upperHeight = roundf(height * scale) / scale; // round heights to integer for odd height
 	CGFloat lowerHeight = (height * 2) - upperHeight;
+
+    CGRect shadowFrame = [containerView convertRect:self.shadowView.frame fromView:actingSource];
+    self.foldShadowViewInitPosY = shadowFrame.origin.y;
+    self.foldShadowView = [[UIImageView alloc] initWithImage:self.shadowView.image];
+    self.foldShadowView.backgroundColor = [UIColor clearColor];
+    self.foldShadowView.frame = shadowFrame;
+    [containerView addSubview:self.foldShadowView];
     
 	// view to hold all our sublayers
 	CGRect mainRect = [containerView convertRect:self.centerBar.frame fromView:actingSource];
 	self.animationView = [[UIView alloc] initWithFrame:mainRect];
-	self.animationView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"castview_bg_unit"]];
 	[containerView addSubview:self.animationView];
     self.animationCenter = self.animationView.center;
     self.animationView.layer.contentsScale = scale;
@@ -431,6 +446,8 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	
 	// remove the animation view and restore the center bar
 	[self.animationView removeFromSuperview];
+    [self.foldShadowView removeFromSuperview];
+    self.foldShadowView = nil;
 	self.animationView = nil;
 	self.perspectiveLayer = nil;
 	self.topSleeve = nil;
@@ -443,11 +460,14 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	if (self.isFolded) {
 		self.topBar.transform = CGAffineTransformMakeTranslation(0, 0);
 		self.bottomBar.transform = CGAffineTransformMakeTranslation(0, -self.foldViewHeight);
+        self.shadowView.transform = CGAffineTransformMakeTranslation(0, -self.foldViewHeight);
 		[self.centerBar setHidden:YES];
 	}
 	else {
 		self.topBar.transform = CGAffineTransformIdentity;
 		self.bottomBar.transform = CGAffineTransformIdentity;
+        self.shadowView.transform = CGAffineTransformIdentity;
+
 		[self.centerBar setHidden:NO];
 	}
 	[self.contentView setHidden:NO];
@@ -522,13 +542,14 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	CGFloat cosHeight;
 	CGFloat cosShadow;
     CGFloat cosOriginY;
+    
 	for (int frame = 0; frame <= frameCount; frame++) {
 		progress = fromProgress + (((1 - fromProgress) * frame) / frameCount);
 		//progress = (((float)frame) / frameCount);
-		cosine = forwards ? cos(radians(90 * progress)) : sin(radians(90 * progress));
+		cosine = forwards ? 1 - progress : progress;
 		if ((forwards && frame == frameCount) || (!forwards && frame == 0 && fromProgress == 0))
 			cosine = 0;
-		cosHeight = ((cosine)* self.foldViewHeight); // range from 2*height to 0 along a cosine curve
+		cosHeight = ((cosine) * self.foldViewHeight); // range from 2*height to 0 along a cosine curve
 		[arrayHeight addObject:[NSNumber numberWithFloat:cosHeight]];
 		
 		cosShadow = FOLD_SHADOW_OPACITY * (1 - cosine);
@@ -540,6 +561,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	
 	// resize height of the 2 folding panels along a cosine curve.  This is necessary to maintain the 2nd joint in the center
 	// Since there's no built-in sine timing curve, we'll use CAKeyframeAnimation to achieve it
+    
 	CAKeyframeAnimation *keyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"bounds.size.height"];
 	[keyAnimation setValues:[NSArray arrayWithArray:arrayHeight]];
 	[keyAnimation setFillMode:kCAFillModeForwards];
@@ -567,6 +589,11 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
     
 	// commit the transaction
 	[CATransaction commit];
+    
+    [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION delay:0 options:UIViewAnimationCurveLinear animations:^{
+        self.foldShadowView.alpha = forwards ? 0 : 1;
+        [self.foldShadowView resetOriginY:forwards ? self.foldShadowViewInitPosY - self.foldViewHeight : self.foldShadowViewInitPosY];
+    } completion:nil];
 }
 
 #pragma mark - Gesture recognizer
@@ -660,7 +687,8 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
     [self.topBar resetOrigin:CGPointMake(0, 0)];
     [self.centerBar resetOrigin:CGPointMake(0, bottomY - topY)];
     [self.bottomBar resetOrigin:CGPointMake(0, bottomY - topY + self.centerBar.frame.size.height)];
-    [self.shadowView resetOriginY:self.contentView.frame.size.height + CONTENT_SHADOW_VIEW_BOTTOM_OFFSET_Y - self.shadowView.frame.size.height];
+    self.shadowViewInitPosY = self.contentView.frame.size.height + CONTENT_SHADOW_VIEW_BOTTOM_OFFSET_Y - self.shadowView.frame.size.height;
+    [self.shadowView resetOriginY:self.shadowViewInitPosY];
 }
 
 #pragma mark - UIGestureRecognizer delegate
