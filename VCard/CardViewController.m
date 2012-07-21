@@ -1144,6 +1144,19 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     return _actionPopoverViewController;
 }
 
+- (void)adjustScrollView:(UIScrollView *)scrollView cropBottomY:(CGFloat)cropPosBottomY {
+    CGFloat scrollViewHeight = scrollView.frame.size.height;
+    CGFloat scrollViewContentHeight = scrollView.contentSize.height;
+    CGFloat scrollViewContentOffsetY = scrollView.contentOffset.y;
+    
+    CGFloat cellPosY = self.view.superview.frame.origin.y;
+    CGFloat scrollUp = 100 + cellPosY + cropPosBottomY + self.actionPopoverViewController.foldViewHeight - scrollViewContentOffsetY - scrollViewHeight;
+    
+    if(scrollUp > 0 && scrollViewContentOffsetY + scrollUp + scrollViewContentOffsetY + scrollViewHeight < scrollViewContentHeight) {
+        [scrollView setContentOffset:CGPointMake(0, scrollViewContentOffsetY + scrollUp) animated:YES];
+    }
+}
+
 - (void)showActionPopover {
     UIView *superView = self.view.superview;
     UIView *superSuperView = self.view.superview.superview;
@@ -1166,6 +1179,8 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     
     UIScrollView *scrollView = (UIScrollView *)self.view.superview.superview;
     scrollView.scrollEnabled = NO;
+    
+    [self adjustScrollView:scrollView cropBottomY:cropPosBottomY];
 }
 
 - (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {
