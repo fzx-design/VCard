@@ -73,7 +73,8 @@
 #define kNotificationNameShouldShowRepostList           @"kNotificationNameShouldShowRepostList"
 #define kNotificationNameShouldShowTopic                @"kNotificationNameShouldShowTopic"
 #define kNotificationNameShouldShowUserSearchList       @"kNotificationNameShouldShowUserSearchList"
-#define kNotificationNameShouldRefreshShelf @"kNotificationNameShouldRefreshShelf"
+#define kNotificationNameShouldShowConversation         @"kNotificationNameShouldShowConversation"
+#define kNotificationNameShouldRefreshShelf             @"kNotificationNameShouldRefreshShelf"
 
 #define kNotificationNameShouldUpdateUnreadStatusCount  @"kNotificationNameShouldUpdateUnreadStatusCount"
 #define kNotificationNameShouldUpdateUnreadFollowCount  @"kNotificationNameShouldUpdateUnreadFollowCount"
@@ -114,6 +115,7 @@
 #define kNotificationObjectKeyStatus                    @"kNotificationObjectKeyStatus"
 #define kNotificationObjectKeySearchKey                 @"kNotificationObjectKeySearchKey"
 #define kNotificationObjectKeyGroup                     @"kNotificationObjectKeyGroup"
+#define kNotificationObjectKeyConversation              @"kNotificationObjectKeyConversation"
 
 #define kNotificationObjectKeyImageView                 @"kNotificationObjectKeyImageView"
 

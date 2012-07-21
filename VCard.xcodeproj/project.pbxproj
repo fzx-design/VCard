@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18025BD115BAD61B00B0520B /* DMConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18025BD015BAD61A00B0520B /* DMConversationTableViewCell.m */; };
 		1802E7731557913900728B60 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1802E7721557913800728B60 /* CoreText.framework */; };
 		18047E3015452CB900651305 /* WaterflowColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 18047E2F15452CB900651305 /* WaterflowColumn.m */; };
 		18047E3315452D7200651305 /* WaterflowLayoutUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18047E3215452D7200651305 /* WaterflowLayoutUnit.m */; };
@@ -965,6 +966,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18025BCF15BAD61A00B0520B /* DMConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMConversationTableViewCell.h; sourceTree = "<group>"; };
+		18025BD015BAD61A00B0520B /* DMConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMConversationTableViewCell.m; sourceTree = "<group>"; };
 		1802E7721557913800728B60 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		18047E2E15452CB900651305 /* WaterflowColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterflowColumn.h; sourceTree = "<group>"; };
 		18047E2F15452CB900651305 /* WaterflowColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterflowColumn.m; sourceTree = "<group>"; };
@@ -2437,6 +2440,8 @@
 				189E5D3715BAA54800C1C6A7 /* DMListTableViewCell.m */,
 				18C89BF715BA91F5006A5B21 /* DMListTableViewController.h */,
 				18C89BF815BA91F5006A5B21 /* DMListTableViewController.m */,
+				18025BCF15BAD61A00B0520B /* DMConversationTableViewCell.h */,
+				18025BD015BAD61A00B0520B /* DMConversationTableViewCell.m */,
 				18C89BFA15BA9208006A5B21 /* DMConversationTableViewController.h */,
 				18C89BFB15BA9208006A5B21 /* DMConversationTableViewController.m */,
 			);
@@ -4789,7 +4794,11 @@
 				189E5D3215BAA30E00C1C6A7 /* DirectMessage.m in Sources */,
 				189E5D3515BAA32200C1C6A7 /* User.m in Sources */,
 				189E5D3815BAA54800C1C6A7 /* DMListTableViewCell.m in Sources */,
+<<<<<<< HEAD
 				E119126915BBC0FE00247151 /* NSString+Addition.m in Sources */,
+=======
+				18025BD115BAD61B00B0520B /* DMConversationTableViewCell.m in Sources */,
+>>>>>>> 取到私信对话
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

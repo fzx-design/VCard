@@ -7,6 +7,7 @@
 //
 
 #import "MessageConversationViewController.h"
+#import "Conversation.h"
 
 @interface MessageConversationViewController ()
 
@@ -26,7 +27,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setUpButton];
+    [self.backgroundView addSubview:self.conversationTableViewController.view];
+    [self.topShadowImageView resetOriginY:[self frameForTableView].origin.y];
+    [self.topShadowImageView resetOriginX:0.0];
+    [self.view addSubview:self.topShadowImageView];
+    self.titleLabel.text = _conversation.targetUser.screenName;
+    [ThemeResourceProvider configButtonPaperLight:_clearHistoryButton];
+    [ThemeResourceProvider configButtonPaperDark:_viewProfileButton];
 }
 
 - (void)viewDidUnload
@@ -34,10 +41,31 @@
     [super viewDidUnload];
 }
 
-- (void)setUpButton
+- (IBAction)didClickViewProfileButton:(UIButton *)sender
 {
-    [ThemeResourceProvider configButtonPaperLight:_clearHistoryButton];
-    [ThemeResourceProvider configButtonPaperDark:_viewProfileButton];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:[NSDictionary dictionaryWithObjectsAndKeys:_conversation.targetUser.screenName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+}
+
+- (IBAction)didClickClearHistoryButton:(UIButton *)sender {
+}
+
+#pragma mark - Properties
+- (CGRect)frameForTableView
+{
+    CGFloat originY = 50;
+    CGFloat height = self.view.frame.size.height - originY;
+    return CGRectMake(24.0, originY, 382.0, height);
+}
+
+- (DMConversationTableViewController *)conversationTableViewController
+{
+    if (!_conversationTableViewController) {
+        _conversationTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DMConversationTableViewController"];
+        _conversationTableViewController.view.frame = [self frameForTableView];
+        _conversationTableViewController.tableView.frame = [self frameForTableView];
+        _conversationTableViewController.conversation = _conversation;
+    }
+    return _conversationTableViewController;
 }
 
 @end

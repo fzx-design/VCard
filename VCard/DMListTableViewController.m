@@ -13,7 +13,7 @@
 #import "WBClient.h"
 
 @interface DMListTableViewController () {
-    int _nextCursor;
+    long long _nextCursor;
 }
 
 @end
@@ -130,6 +130,13 @@
 - (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
 {
     return @"DMListTableViewCell";
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Conversation *conversation = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowConversation object:[NSDictionary dictionaryWithObjectsAndKeys:conversation, kNotificationObjectKeyConversation, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
 }
 
 #pragma mark - UIScrollView delegate

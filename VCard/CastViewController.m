@@ -28,6 +28,8 @@
 #import "NSNotificationCenter+Addition.h"
 #import "SelfMentionViewController.h"
 #import "ErrorIndicatorViewController.h"
+#import "MessageConversationViewController.h"
+#import "Conversation.h"
 
 #define kStackViewDefaultDescription @"kStackViewDefaultDescription"
 
@@ -142,6 +144,10 @@
     [center addObserver:self
                selector:@selector(showWaterflowView)
                    name:kNotificationNameStackViewDoNotCoverWholeScreen
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(showConversation:)
+                   name:kNotificationNameShouldShowConversation
                  object:nil];
     [center addObserver:self
                selector:@selector(refreshAfterDeletingStatuses:)
@@ -392,6 +398,20 @@
     vc.searchKey = searchKey;
     
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeTopic pageDescription:[searchKey stringByAppendingString:@"_userSearch"]];
+}
+
+- (void)showConversation:(NSNotification *)notification
+{
+    NSDictionary *dictionary = notification.object;
+    
+    Conversation *conversation = [dictionary objectForKey:kNotificationObjectKeyConversation];
+    NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
+    int index = [indexString intValue];
+    
+    MessageConversationViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MessageConversationViewController"];
+    vc.conversation = conversation;
+    
+    [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeDMConversation pageDescription:conversation.targetUserID];
 }
 
 - (void)hideWaterflowView

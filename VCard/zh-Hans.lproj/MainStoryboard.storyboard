@@ -2717,6 +2717,9 @@
                                     <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="didClickViewProfileButton:" destination="GX3-Za-4F7" eventType="touchUpInside" id="Tsj-58-aIC"/>
+                                </connections>
                             </button>
                             <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="用户名" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="E22-BR-Zyz">
                                 <rect key="frame" x="97" y="0.0" width="190" height="50"/>
@@ -2741,6 +2744,9 @@
                                     <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="didClickClearHistoryButton:" destination="GX3-Za-4F7" eventType="touchUpInside" id="A1d-Re-AiA"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2751,6 +2757,9 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="backgroundView" destination="Ygb-QK-KSQ" id="dBe-Bw-MPX"/>
+                        <outlet property="clearHistoryButton" destination="MCQ-n9-0aE" id="jph-vR-oiO"/>
+                        <outlet property="titleLabel" destination="E22-BR-Zyz" id="97V-cr-24E"/>
+                        <outlet property="viewProfileButton" destination="695-Zg-MnI" id="Xvd-hT-RLX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0FK-tI-y4g" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2875,36 +2884,18 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="0.63529411759999999" green="0.63529411759999999" blue="0.60784313729999995" alpha="0.51000000000000001" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProfileRelationTableViewCell" rowHeight="66" id="vbF-7X-Q4H" customClass="ProfileRelationTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DMConversationTableViewCell" rowHeight="66" id="vbF-7X-Q4H" customClass="DMConversationTableViewCell">
                                 <rect key="frame" x="0.0" y="22" width="384" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="384" height="65"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="cell_hover.png" id="eTe-go-Lvu">
-                                            <rect key="frame" x="0.0" y="0.0" width="385" height="66"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="imageview_placeholder.png" id="yDk-Rw-pPs" customClass="UserAvatarImageView">
-                                            <rect key="frame" x="9" y="11" width="25" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="李开复" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Vjl-W0-7Vy">
-                                            <rect key="frame" x="47" y="11" width="227" height="18"/>
+                                            <rect key="frame" x="6" y="11" width="335" height="45"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="shadowOffset" width="0.0" height="1"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="nm6-8O-gnR">
-                                            <rect key="frame" x="47" y="36" width="227" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                            <color key="textColor" red="0.63529411759999999" green="0.63529411759999999" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <size key="shadowOffset" width="0.0" height="1"/>
@@ -2914,10 +2905,7 @@
                                 </view>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="avatarImageView" destination="yDk-Rw-pPs" id="U7D-7S-V1D"/>
-                                    <outlet property="cellSelectionImageView" destination="eTe-go-Lvu" id="0bX-no-uJR"/>
-                                    <outlet property="infoLabel" destination="nm6-8O-gnR" id="WBI-yC-djB"/>
-                                    <outlet property="screenNameLabel" destination="Vjl-W0-7Vy" id="VSe-iV-b7B"/>
+                                    <outlet property="textLabel" destination="Vjl-W0-7Vy" id="Hcn-TQ-8jp"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -3090,6 +3078,12 @@
         <class className="CoreDataViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataViewController.h"/>
         </class>
+        <class className="DMConversationTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DMConversationTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="textLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
         <class className="DMConversationTableViewController" superclassName="RefreshableCoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DMConversationTableViewController.h"/>
         </class>
@@ -3165,6 +3159,8 @@
         <class className="MessageConversationViewController" superclassName="StackViewPageController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MessageConversationViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didClickClearHistoryButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickViewProfileButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="clearHistoryButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="viewProfileButton" candidateClass="UIButton"/>

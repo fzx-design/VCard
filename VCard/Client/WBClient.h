@@ -214,6 +214,11 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 - (void)removeUser:(NSString *)userID fromGroup:(NSString *)group;
 
 - (void)getDirectMessageConversationListWithCursor:(int)cursor count:(int)count;
+- (void)getDirectMessageConversionMessagesOfUser:(NSString *)userID
+                                         sinceID:(NSString *)sinceID
+                                           maxID:(NSString *)maxID
+                                  startingAtPage:(int)page
+                                           count:(int)count;
 
 - (void)getFavouritesWithPage:(int)page
                         count:(int)count;

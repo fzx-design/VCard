@@ -10,4 +10,6 @@
 
 @interface DMConversationTableViewController : RefreshableCoreDataTableViewController
 
+@property (nonatomic, weak) Conversation *conversation;
+
 @end
