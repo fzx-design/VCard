@@ -12,6 +12,7 @@
 #import "WaterflowCardCell.h"
 #import "StackViewController.h"
 #import "ProfileStatusTableViewCell.h"
+#import "ProfileCommentStatusTableCell.h"
 
 @interface ActionPopoverGestureRecognizeView()
 
@@ -49,9 +50,25 @@
                     continue;
                 
                 if([tableView isKindOfClass:[UITableView class]]) {
+                    
+                    if([tableView.tableHeaderView isKindOfClass:[ProfileCommentStatusTableCell class]]) {
+                        ProfileCommentStatusTableCell *commentStatusCell = (ProfileCommentStatusTableCell *)tableView.tableHeaderView;
+                        if(commentStatusCell.cardViewController.view.tag == ACTION_POPOVER_CONTAINER_VIEW) {
+                            UIView *actionPopoverCenterBar = commentStatusCell.cardViewController.actionPopoverViewController.centerBar;
+                            CGPoint actionPopoverPoint = [tableView convertPoint:tableViewPoint toView:actionPopoverCenterBar];
+                            if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
+                                //NSLog(@"action popover in stack view");
+                                UIView *testView = [actionPopoverCenterBar hitTest:actionPopoverPoint withEvent:event];
+                                if([testView isKindOfClass:[UIButton class]])
+                                    return testView;
+                            }
+                        }
+                    }
+                    
                     for(ProfileStatusTableViewCell *tableViewCell in tableView.visibleCells) {
-                        if(![tableViewCell isKindOfClass:[ProfileStatusTableViewCell class]])
+                        if(![tableViewCell isKindOfClass:[ProfileStatusTableViewCell class]]) {
                             break;
+                        }
                         
                         if(tableViewCell.cardViewController.view.tag == ACTION_POPOVER_CONTAINER_VIEW) {
                             UIView *actionPopoverCenterBar = tableViewCell.cardViewController.actionPopoverViewController.centerBar;

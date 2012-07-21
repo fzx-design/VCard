@@ -1164,7 +1164,10 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     WaterflowView *superSuperView = (WaterflowView *)self.view.superview.superview;
     
     [superView removeFromSuperview];
-    [superSuperView addCellToWaterflowView:superView];
+    if([superSuperView respondsToSelector:@selector(addCellToWaterflowView:)])
+        [superSuperView addCellToWaterflowView:superView];
+    else
+        [superSuperView addSubview:superView];
     
     CGRect cardFrame = self.view.frame;
     
@@ -1251,7 +1254,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     }
     
     if(dismissPopover) {
-        [self actionPopoverViewDidDismiss];
+        [self.actionPopoverViewController foldAnimation];
     }
 }
 
