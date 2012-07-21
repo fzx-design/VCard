@@ -19,11 +19,10 @@
 
 #define CONTENT_SHADOW_VIEW_BOTTOM_OFFSET_Y 69.
 
-#define FOLD_SHADOW_OPACITY 0.25
+#define FOLD_SHADOW_OPACITY 1.4
 #define DEFAULT_ANIMATION_DURATION 0.3
 
-#define SKEW_DEPTH 8
-#define FOLD_SHADOW_ALPHA 0.75
+#define SKEW_DEPTH 10
 
 static inline double radians (double degrees) {return degrees * M_PI / 180;}
 static inline double degrees (double radians) {return radians * 180 / M_PI;}
@@ -178,6 +177,8 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
         
         button.center = CGPointMake(centerX, FUNCTION_BUTTON_CENTER_Y);
         titleLabel.center = CGPointMake(centerX, FUNCTION_LABEL_CENTER_Y);
+        
+        button.showsTouchWhenHighlighted = YES;
         
         button.tag = buttonIndex;
         [button addTarget:self action:@selector(didClickFunctionButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -364,12 +365,13 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	self.firstJointLayer.anchorPoint = CGPointMake(0.5, 0);
 	self.firstJointLayer.position = CGPointMake(width / 2, 0);
 	
+    
 	// Shadow layers to add shadowing to the 2 folding panels
 	self.upperFoldShadow = [CAGradientLayer layer];
 	[upperFold addSublayer:self.upperFoldShadow];
-	self.upperFoldShadow.frame = CGRectInset(upperFold.bounds, foldInsets.left, foldInsets.top);
+	self.upperFoldShadow.frame = CGRectInset(upperFold.bounds, 5, 0);
 	//self.upperFoldShadow.backgroundColor = [UIColor blackColor].CGColor;
-	self.upperFoldShadow.colors = [NSArray arrayWithObjects:(id)[UIColor blackColor].CGColor, (id)[[UIColor blackColor] colorWithAlphaComponent:0.4].CGColor, nil];
+	self.upperFoldShadow.colors = [NSArray arrayWithObjects:(id)[UIColor darkGrayColor].CGColor, (id)[[UIColor darkGrayColor] colorWithAlphaComponent:0.5].CGColor, nil];
 	self.upperFoldShadow.startPoint = CGPointMake(0.5, 0);
 	self.upperFoldShadow.endPoint = CGPointMake(0.5, 1);
 	self.upperFoldShadow.opacity = 0;
@@ -377,8 +379,8 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	
 	self.lowerFoldShadow = [CAGradientLayer layer];
 	[lowerFold addSublayer:self.lowerFoldShadow];
-	self.lowerFoldShadow.frame = CGRectInset(lowerFold.bounds, foldInsets.left, foldInsets.top);
-	self.lowerFoldShadow.colors = [NSArray arrayWithObjects:(id)[UIColor blackColor].CGColor, (id)[[UIColor blackColor] colorWithAlphaComponent:0.6].CGColor, nil];
+	self.lowerFoldShadow.frame = CGRectInset(lowerFold.bounds, 5, 0);
+	self.lowerFoldShadow.colors = [NSArray arrayWithObjects:(id)[UIColor darkGrayColor].CGColor, (id)[[UIColor darkGrayColor] colorWithAlphaComponent:0.7].CGColor, nil];
 	self.lowerFoldShadow.startPoint = CGPointMake(0.5, 0);
 	self.lowerFoldShadow.endPoint = CGPointMake(0.5, 1);
 	self.lowerFoldShadow.opacity = 0;
