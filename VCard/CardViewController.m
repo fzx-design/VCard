@@ -29,6 +29,8 @@
 
 #define ACTION_POPOVER_CONTAINER_CONTAINER_VIEW 3002
 
+#define CARD_CROP_INSETS UIEdgeInsetsMake(-10, -10, 0, -10);
+
 static NSRegularExpression *__nameRegularExpression;
 static inline NSRegularExpression * NameRegularExpression() {
     if (!__nameRegularExpression) {
@@ -147,11 +149,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     [self.statusImageView addGestureRecognizer:_tapGestureRecognizer];
     
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionPopoverPinchGesture:)];
-    if([self.repostStatusLabel.text isEqualToString:@""])
-        [self.originalStatusLabel addGestureRecognizer:pinchGesture];
-    else
-        [self.repostStatusLabel addGestureRecognizer:pinchGesture];
-    
+    [self.view addGestureRecognizer:pinchGesture];
 }
 
 - (void)viewDidUnload
@@ -696,7 +694,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 - (IBAction)didClickRepostButton:(UIButton *)sender {
     sender.highlighted = NO;
-    [self showActionPopover];
+    [self showActionPopoverAnimated:YES];
 }
 
 #pragma mark - TTTAttributedLabel Delegate
@@ -1157,40 +1155,76 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     }
 }
 
-- (void)showActionPopover {
-    UIView *superView = self.view.superview;
-    UIView *superSuperView = self.view.superview.superview;
-    [superView removeFromSuperview];
-    [superSuperView addSubview:superView];
-    
-    [[UIApplication sharedApplication].rootViewController.view addSubview:self.actionPopoverViewController.view];
+- (void)showActionPopoverAnimated:(BOOL)animated {
     
     CGFloat cropPosTopY = self.repostButton.frame.origin.y;
     CGFloat cropPosBottomY = self.repostButton.frame.origin.y + self.repostButton.frame.size.height;
+    
+    UIView *superView = self.view.superview;
+    UIView *superSuperView = self.view.superview.superview;
+    
+    [superView removeFromSuperview];
+    [superSuperView addSubview:superView];
+    
+    CGRect cardFrame = self.view.frame;
+    
+    UIEdgeInsets cardInsets = CARD_CROP_INSETS;
+    CGRect insetFrame = CGRectMake(cardFrame.origin.x + cardInsets.left, cardFrame.origin.y + cardInsets.top, cardFrame.size.width - cardInsets.left - cardInsets.right, cropPosTopY - cardInsets.top - cardInsets.bottom);
+    
+    UIView *cropCardView = [[UIView alloc] initWithFrame:insetFrame];
+    cropCardView.backgroundColor = [UIColor clearColor];
+    cropCardView.clipsToBounds = YES;
+    
+    [self.view resetOrigin:CGPointMake(-cardInsets.left, -cardInsets.top)];
+    
+    [self.view removeFromSuperview];
+    [cropCardView addSubview:self.view];
+    [superView addSubview:cropCardView];
+    
+    [[UIApplication sharedApplication].rootViewController.view addSubview:self.actionPopoverViewController.view];
+    
     [self.actionPopoverViewController setCropView:self.view cropPosTopY:cropPosTopY cropPosBottomY:cropPosBottomY];
     
-    [self.view addSubview:self.actionPopoverViewController.contentView];
-    [self.actionPopoverViewController.contentView resetOrigin:CGPointMake(0, cropPosTopY)];
-    [self.actionPopoverViewController foldAnimation];
+    cardFrame.origin.y += cropPosTopY;
+    UIView *nonCropCardView = [[UIView alloc] initWithFrame:cardFrame];
+    nonCropCardView.backgroundColor = [UIColor clearColor];
+    [nonCropCardView addSubview:self.actionPopoverViewController.contentView];
+    [self.actionPopoverViewController.contentView resetOrigin:CGPointMake(0, 0)];
+    [superView addSubview:nonCropCardView];
+    
+    if(animated)
+        [self.actionPopoverViewController foldAnimation];
     
     // 设置tag以被ActionPopoverGestureRecognizeView识别。
     self.view.tag = ACTION_POPOVER_CONTAINER_VIEW;
     self.view.superview.tag = ACTION_POPOVER_CONTAINER_CONTAINER_VIEW;
     
-    UIScrollView *scrollView = (UIScrollView *)self.view.superview.superview;
+    UIScrollView *scrollView = (UIScrollView *)superSuperView;
     scrollView.scrollEnabled = NO;
     
     [self adjustScrollView:scrollView cropBottomY:cropPosBottomY];
 }
 
 - (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {
-    [self showActionPopover];
+    if(gesture.state == UIGestureRecognizerStateBegan)
+        [self showActionPopoverAnimated:NO];
 }
 
 #pragma mark - ActionPopoverViewController delegate
 
 - (void)actionPopoverViewDidDismiss {
-    [self.actionPopoverViewController.contentView removeFromSuperview];
+    UIView *cropCardView = self.view.superview;
+    UIView *superView = self.view.superview.superview;
+    [cropCardView removeFromSuperview];
+    
+    UIEdgeInsets cardInsets = CARD_CROP_INSETS;
+    
+    [self.view removeFromSuperview];
+    [self.view resetOrigin:CGPointMake(cropCardView.frame.origin.x - cardInsets.left, cropCardView.frame.origin.y - cardInsets.top)];
+    [superView addSubview:self.view];
+    
+    UIView *nonCropCardView = self.actionPopoverViewController.contentView.superview;
+    [nonCropCardView removeFromSuperview];
     [self.actionPopoverViewController.view removeFromSuperview];
     self.actionPopoverViewController = nil;
     
