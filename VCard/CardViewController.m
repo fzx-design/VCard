@@ -694,8 +694,8 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     [self sendCommentButtonClickedNotification];
 }
 
-- (IBAction)didClickRepostButton:(UIButton *)sender
-{
+- (IBAction)didClickRepostButton:(UIButton *)sender {
+    sender.highlighted = NO;
     [self showActionPopover];
 }
 
@@ -1150,7 +1150,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     [superView removeFromSuperview];
     [superSuperView addSubview:superView];
     
-    [self.actionPopoverViewController.view removeFromSuperview];
     [[UIApplication sharedApplication].rootViewController.view addSubview:self.actionPopoverViewController.view];
     
     CGFloat cropPosTopY = self.repostButton.frame.origin.y;
@@ -1159,6 +1158,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     
     [self.view addSubview:self.actionPopoverViewController.contentView];
     [self.actionPopoverViewController.contentView resetOrigin:CGPointMake(0, cropPosTopY)];
+    [self.actionPopoverViewController foldAnimation];
     
     // 设置tag以被ActionPopoverGestureRecognizeView识别。
     self.view.tag = ACTION_POPOVER_CONTAINER_VIEW;
@@ -1166,12 +1166,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     
     UIScrollView *scrollView = (UIScrollView *)self.view.superview.superview;
     scrollView.scrollEnabled = NO;
-    
-//    for(UIView *subview in scrollView.subviews) {
-//        if(subview.tag != ACTION_POPOVER_CONTAINER_CONTAINER_VIEW) {
-//            subview.userInteractionEnabled = NO;
-//        }
-//    }
 }
 
 - (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {
@@ -1190,10 +1184,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     
     UIScrollView *scrollView = (UIScrollView *)self.view.superview.superview;
     scrollView.scrollEnabled = YES;
-    
-//    for(UIView *subview in scrollView.subviews) {
-//        subview.userInteractionEnabled = YES;
-//    }
 }
 
 - (void)actionPopoverDidClickButtonWithIdentifier:(ActionPopoverButtonIdentifier)identifier {

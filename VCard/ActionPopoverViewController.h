@@ -22,7 +22,7 @@ typedef enum {
 
 @protocol ActionPopoverViewControllerDelegate;
 
-@interface ActionPopoverViewController : UIViewController<UIGestureRecognizerDelegate>
+@interface ActionPopoverViewController : UIViewController <UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView *contentView;
 @property (nonatomic, weak) IBOutlet UIImageView *topBar;
@@ -39,6 +39,8 @@ typedef enum {
                                                                    showDeleteButton:(BOOL)showDelete;
 
 - (id)initWithOptions:(NSDictionary *)options;
+
+- (void)foldAnimation;
 
 @end
 

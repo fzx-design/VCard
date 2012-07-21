@@ -124,6 +124,8 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     panGesture.delegate = self;
     [self.view addGestureRecognizer:panGesture];
+    
+    self.folded = YES;
 }
 
 - (void)viewDidUnload
@@ -214,7 +216,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
     
 	self.folding = YES;
 	[self buildLayers];
-	[self doFold:self.isFolded ? self.foldViewHeight : 0];
+	[self doFold:self.isFolded ? 1 : 0];
     
 	[CATransaction commit];
 }
@@ -393,10 +395,10 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 - (void)endFold {	
 	BOOL finish = NO;
 	if (self.isFolded) {
-		finish = 1 - cosf(radians(90 * [self lastProgress])) <= 0.5;
+		finish = 1 - cosf(radians(90 * self.lastProgress)) <= 0.5;
 	}
 	else {
-		finish = 1 - cosf(radians(90 * [self lastProgress])) >= 0.5;
+		finish = 1 - cosf(radians(90 * self.lastProgress)) >= 0.5;
 	}
 	
 	if (self.lastProgress > 0 && self.lastProgress < 1)
@@ -435,7 +437,8 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	}
 	[self.contentView setHidden:NO];
 	
-    [self.delegate actionPopoverViewDidDismiss];
+    if(self.isFolded)
+        [self.delegate actionPopoverViewDidDismiss];
 }
 
 - (void)animateFold:(BOOL)finish {
@@ -458,39 +461,39 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	BOOL forwards = finish != self.isFolded;
 	NSString *rotationKey = @"transform.rotation.x";
 	double factor = M_PI / 180;
-	CGFloat fromProgress = [self lastProgress];
+	CGFloat fromProgress = self.lastProgress;
 	if (finish == self.isFolded)
 		fromProgress = 1 - fromProgress;
     
 	// fold the first (top) joint away from us
 	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:rotationKey];
         
-	[animation setFromValue:forwards? [NSNumber numberWithDouble:-90 * factor * fromProgress] : [NSNumber numberWithDouble:-90 * factor * (1 - fromProgress)]];
-	[animation setToValue:forwards? [NSNumber numberWithDouble:-90 * factor] : [NSNumber numberWithDouble:0]];
+	[animation setFromValue:forwards ? [NSNumber numberWithDouble:-90 * factor * fromProgress] : [NSNumber numberWithDouble:-90 * factor * (1 - fromProgress)]];
+	[animation setToValue:forwards ? [NSNumber numberWithDouble:-90 * factor] : [NSNumber numberWithDouble:0]];
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[self.firstJointLayer addAnimation:animation forKey:nil];
 	
 	// fold the second joint back towards us at twice the angle (since it's connected to the first fold we're folding away)
 	animation = [CABasicAnimation animationWithKeyPath:rotationKey];
-	[animation setFromValue:forwards? [NSNumber numberWithDouble:180 * factor * fromProgress] : [NSNumber numberWithDouble:180 * factor * (1 - fromProgress)]];
-	[animation setToValue:forwards? [NSNumber numberWithDouble:180 * factor] : [NSNumber numberWithDouble:0]];
+	[animation setFromValue:forwards ? [NSNumber numberWithDouble:180 * factor * fromProgress] : [NSNumber numberWithDouble:180 * factor * (1 - fromProgress)]];
+	[animation setToValue:forwards ? [NSNumber numberWithDouble:180 * factor] : [NSNumber numberWithDouble:0]];
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[self.secondJointLayer addAnimation:animation forKey:nil];
 	
 	// fold the bottom sleeve (3rd joint) away from us, so that net result is it lays flat from user's perspective
 	animation = [CABasicAnimation animationWithKeyPath:rotationKey];
-	[animation setFromValue:forwards? [NSNumber numberWithDouble:-90 * factor * fromProgress] : [NSNumber numberWithDouble:-90 * factor * (1 - fromProgress)]];
-	[animation setToValue:forwards? [NSNumber numberWithDouble:-90 * factor] : [NSNumber numberWithDouble:0]];
+	[animation setFromValue:forwards ? [NSNumber numberWithDouble:-90 * factor * fromProgress] : [NSNumber numberWithDouble:-90 * factor * (1 - fromProgress)]];
+	[animation setToValue:forwards ? [NSNumber numberWithDouble:-90 * factor] : [NSNumber numberWithDouble:0]];
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[self.bottomSleeve addAnimation:animation forKey:nil];
 	
 	// fold top sleeve towards us, so that net result is it lays flat from user's perspective
 	animation = [CABasicAnimation animationWithKeyPath:rotationKey];
-	[animation setFromValue:forwards? [NSNumber numberWithDouble:90 * factor * fromProgress] : [NSNumber numberWithDouble:90 * factor * (1 - fromProgress)]];
-	[animation setToValue:forwards? [NSNumber numberWithDouble:90 * factor] : [NSNumber numberWithDouble:0]];
+	[animation setFromValue:forwards ? [NSNumber numberWithDouble:90 * factor * fromProgress] : [NSNumber numberWithDouble:90 * factor * (1 - fromProgress)]];
+	[animation setToValue:forwards ? [NSNumber numberWithDouble:90 * factor] : [NSNumber numberWithDouble:0]];
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[self.topSleeve addAnimation:animation forKey:nil];
@@ -507,7 +510,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	for (int frame = 0; frame <= frameCount; frame++) {
 		progress = fromProgress + (((1 - fromProgress) * frame) / frameCount);
 		//progress = (((float)frame) / frameCount);
-		cosine = forwards? cos(radians(90 * progress)) : sin(radians(90 * progress));
+		cosine = forwards ? cos(radians(90 * progress)) : sin(radians(90 * progress));
 		if ((forwards && frame == frameCount) || (!forwards && frame == 0 && fromProgress == 0))
 			cosine = 0;
 		cosHeight = ((cosine)* self.foldViewHeight); // range from 2*height to 0 along a cosine curve
@@ -554,11 +557,11 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 #pragma mark - Gesture recognizer
 
 - (void)handleTap:(UITapGestureRecognizer *)gestureRecognizer {
-    [self.delegate actionPopoverViewDidDismiss];
+    [self foldAnimation];
 }
 
 - (void)handlePan:(UITapGestureRecognizer *)gestureRecognizer {
-    [self.delegate actionPopoverViewDidDismiss];
+    [self foldAnimation];
 }
 
 - (void)handlePinch:(UIPinchGestureRecognizer *)gestureRecognizer {
@@ -599,6 +602,12 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	}
 }
 
+- (void)foldAnimation {
+    self.lastProgress = 0;
+	[self startFold];
+	[self animateFold:YES];
+}
+
 #pragma mark - Crop view methods
 
 - (void)configureCropImageView:(UIView *)cropView cropPosTopY:(CGFloat)topY cropPosBottomY:(CGFloat)bottomY {
@@ -632,6 +641,13 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
     [self.centerBar resetOrigin:CGPointMake(0, bottomY - topY)];
     [self.bottomBar resetOrigin:CGPointMake(0, bottomY - topY + self.centerBar.frame.size.height)];
     [self.shadowView resetOriginY:self.contentView.frame.size.height + CONTENT_SHADOW_VIEW_BOTTOM_OFFSET_Y - self.shadowView.frame.size.height];
+}
+
+#pragma mark - UIGestureRecognizer delegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+	return ![self isFolding];
 }
 
 @end
