@@ -13,6 +13,10 @@
 #import "StackViewController.h"
 #import "ProfileStatusTableViewCell.h"
 
+@interface ActionPopoverGestureRecognizeView()
+
+@end
+
 @implementation ActionPopoverGestureRecognizeView
 
 @synthesize delegate = _delegate;

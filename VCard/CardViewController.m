@@ -21,6 +21,7 @@
 #import "InnerBrowserViewController.h"
 #import "NSUserDefaults+Addition.h"
 #import "RootViewController.h"
+#import "ErrorIndicatorViewController.h"
 
 #define MaxCardSize CGSizeMake(326,9999)
 
@@ -783,6 +784,8 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     }
     UIPasteboard *pb = [UIPasteboard generalPasteboard];
     [pb setString:statusText];
+    
+    [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"已复制"];
 }
 
 - (void)shareStatusByMail

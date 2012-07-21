@@ -1769,7 +1769,6 @@
 		E10CBEAF15B541B800CFA21F /* ActionPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionPopoverViewController.m; sourceTree = "<group>"; };
 		E10CBEB115B5420800CFA21F /* MPAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAnimation.h; sourceTree = "<group>"; };
 		E10CBEB215B5420800CFA21F /* MPAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAnimation.m; sourceTree = "<group>"; };
-		E10CBEB415B542CE00CFA21F /* Enumerations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enumerations.h; sourceTree = "<group>"; };
 		E10D04BB15AF030C00492A87 /* SettingAppInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingAppInfoViewController.h; sourceTree = "<group>"; };
 		E10D04BC15AF030C00492A87 /* SettingAppInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingAppInfoViewController.m; sourceTree = "<group>"; };
 		E10D04C915AF07A600492A87 /* SettingInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SettingInfo.plist; sourceTree = "<group>"; };
@@ -3463,7 +3462,6 @@
 		E10CBEA815B5364B00CFA21F /* ActionPopover */ = {
 			isa = PBXGroup;
 			children = (
-				E10CBEB415B542CE00CFA21F /* Enumerations.h */,
 				E10CBEB115B5420800CFA21F /* MPAnimation.h */,
 				E10CBEB215B5420800CFA21F /* MPAnimation.m */,
 				E10CBEAE15B541B800CFA21F /* ActionPopoverViewController.h */,

@@ -22,7 +22,11 @@
 + (UIImage *)renderImageFromView:(UIView *)view withRect:(CGRect)frame
 {
     // Create a new context of the desired size to render the image
-	UIGraphicsBeginImageContextWithOptions(frame.size, YES, 0);
+    if (NULL != UIGraphicsBeginImageContextWithOptions)
+        UIGraphicsBeginImageContextWithOptions(frame.size, NO, 0);
+    else
+        UIGraphicsBeginImageContext(frame.size);
+    
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	
 	// Translate it, to the desired position
@@ -47,7 +51,10 @@
 {
 	CGSize imageSizeWithBorder = CGSizeMake(frame.size.width + insets.left + insets.right, frame.size.height + insets.top + insets.bottom);
     // Create a new context of the desired size to render the image
-	UIGraphicsBeginImageContextWithOptions(imageSizeWithBorder, UIEdgeInsetsEqualToEdgeInsets(insets, UIEdgeInsetsZero), 0);
+    if (NULL != UIGraphicsBeginImageContextWithOptions)
+        UIGraphicsBeginImageContextWithOptions(imageSizeWithBorder, NO, 0);
+    else
+        UIGraphicsBeginImageContext(imageSizeWithBorder);
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	
 	// Clip the context to the portion of the view we will draw
@@ -79,7 +86,10 @@
 	CGSize imageSizeWithBorder = CGSizeMake([image size].width + insets.left + insets.right, [image size].height + insets.top + insets.bottom);
 	
 	// Create a new context of the desired size to render the image
-	UIGraphicsBeginImageContextWithOptions(imageSizeWithBorder, UIEdgeInsetsEqualToEdgeInsets(insets, UIEdgeInsetsZero), 0);
+    if (NULL != UIGraphicsBeginImageContextWithOptions)
+        UIGraphicsBeginImageContextWithOptions(imageSizeWithBorder, NO, 0);
+    else
+        UIGraphicsBeginImageContext(imageSizeWithBorder);
 	
 	// The image starts off filled with clear pixels, so we don't need to explicitly fill them here	
 	[image drawInRect:(CGRect){{insets.left, insets.top}, [image size]}];
@@ -97,7 +107,11 @@
 	CGSize imageSizeWithBorder = CGSizeMake([image size].width + 2 * (width + 1), [image size].height + 2 * (width + 1));
 	
 	// Create a new context of the desired size to render the image
-	UIGraphicsBeginImageContextWithOptions(imageSizeWithBorder, NO, 0);
+	if (NULL != UIGraphicsBeginImageContextWithOptions)
+        UIGraphicsBeginImageContextWithOptions(imageSizeWithBorder, NO, 0);
+    else
+        UIGraphicsBeginImageContext(imageSizeWithBorder);
+
 	
 	// The image starts off filled with clear pixels, so we don't need to explicitly fill them here.
 	CGRect rect = CGRectMake(1, 1, [image size].width + 2 * width, [image size].height + 2 * width);
