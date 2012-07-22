@@ -15,6 +15,7 @@
 #import "UserAccountManager.h"
 #import "WBClient.h"
 #import "InnerBrowserViewController.h"
+#import "TTTAttributedLabelConfiguer.h"
 
 #define kActionSheetViewCopyIndex   0
 #define kActionSheetViewDelete      1
@@ -41,7 +42,7 @@
 {
     self.comment = comment_;
     self.commentContentLabel.delegate = self;
-    [CardViewController setCardViewController:nil StatusTextLabel:self.commentContentLabel withText:self.comment.text];
+    [TTTAttributedLabelConfiguer setCardViewController:nil StatusTextLabel:self.commentContentLabel withText:self.comment.text];
     [self.avatarImageView loadImageFromURL:self.comment.author.profileImageURL completion:nil];
     [self.avatarImageView setVerifiedType:[self.comment.author verifiedTypeOfUser]];
     
@@ -57,7 +58,7 @@
     
     CGFloat commentViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
     CardSizeUserAvatarHeight + CardSizeTextGap + 
-    self.commentContentLabel.frame.size.height - 20.0;
+    self.commentContentLabel.frame.size.height;
     
     commentViewHeight += CardTailHeight;
     

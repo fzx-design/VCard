@@ -45,7 +45,9 @@
     </entity>
     <entity name="DirectMessage" representedClassName="DirectMessage" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="messageHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="messageID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="messageWidth" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="recipientID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recipientScreenName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="senderID" optional="YES" attributeType="String" syncable="YES"/>
@@ -224,8 +226,8 @@
     <elements>
         <element name="Comment" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Conversation" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="DirectMessage" positionX="0" positionY="0" width="0" height="210"/>
         <element name="Group" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="DirectMessage" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Status" positionX="0" positionY="0" width="0" height="0"/>
         <element name="User" positionX="0" positionY="0" width="0" height="0"/>
     </elements>

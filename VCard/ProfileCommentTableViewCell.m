@@ -7,9 +7,10 @@
 //
 
 #import "ProfileCommentTableViewCell.h"
-#import "CardViewController.h"
+#import "TTTAttributedLabelConfiguer.h"
 #import "NSDateAddition.h"
 #import "UIView+Resize.h"
+#import "CardViewController.h"
 #import "User.h"
 #import "UIApplication+Addition.h"
 #import "UserAccountManager.h"
@@ -54,7 +55,7 @@
 {
     self.status = status;
     self.commentContentLabel.delegate = self;
-    [CardViewController setCardViewController:nil StatusTextLabel:self.commentContentLabel withText:self.status.text];
+    [TTTAttributedLabelConfiguer setCardViewController:nil StatusTextLabel:self.commentContentLabel withText:self.status.text];
     [self.avatarImageView loadImageFromURL:self.status.author.profileImageURL completion:nil];
     [self.avatarImageView setVerifiedType:[self.status.author verifiedTypeOfUser]];
     
@@ -70,7 +71,7 @@
     
     CGFloat commentViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
     CardSizeUserAvatarHeight + CardSizeTextGap + 
-    self.commentContentLabel.frame.size.height - 20.0;
+    self.commentContentLabel.frame.size.height;
     commentViewHeight += CardTailHeight;
     
     [self.baseCardBackgroundView resetHeight:commentViewHeight];
@@ -89,7 +90,7 @@
 {
     self.comment = comment_;
     self.commentContentLabel.delegate = self;
-    [CardViewController setCardViewController:nil StatusTextLabel:self.commentContentLabel withText:self.comment.text];
+    [TTTAttributedLabelConfiguer setCardViewController:nil StatusTextLabel:self.commentContentLabel withText:self.comment.text];
     [self.avatarImageView loadImageFromURL:self.comment.author.profileImageURL completion:nil];
     [self.avatarImageView setVerifiedType:[self.comment.author verifiedTypeOfUser]];
     
@@ -105,7 +106,7 @@
     
     CGFloat commentViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
     CardSizeUserAvatarHeight + CardSizeTextGap + 
-    self.commentContentLabel.frame.size.height - 20.0;
+    self.commentContentLabel.frame.size.height;
     
     commentViewHeight += CardTailHeight;
     

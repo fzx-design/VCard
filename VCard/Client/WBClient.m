@@ -928,6 +928,34 @@ typedef enum {
     [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
     
     [self loadAdvancedRequest];
+    
+}
+
+- (void)getDirectMessageConversionMessagesOfUser:(NSString *)userID
+                                         sinceID:(NSString *)sinceID
+                                           maxID:(NSString *)maxID
+                                  startingAtPage:(int)page
+                                           count:(int)count
+{
+    self.path = @"direct_messages/conversation.json";
+	
+    if (userID) {
+        [self.params setObject:userID forKey:@"uid"];
+    }
+    if (sinceID) {
+        [self.params setObject:sinceID forKey:@"since_id"];
+    }
+    if (maxID) {
+        [self.params setObject:maxID forKey:@"max_id"];
+    }
+    if (page > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+    }
+    if (count > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    }
+    
+    [self loadAdvancedRequest];
 }
 
 - (void)getFavouritesWithPage:(int)page

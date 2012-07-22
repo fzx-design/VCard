@@ -26,6 +26,8 @@
 #define CardTextLineSpace 8
 #define CardTailHeight 24
 #define CardTailOffset -55
+#define MaxCardSize CGSizeMake(326,9999)
+#define RegexColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]
 
 @protocol CardViewControllerDelegate <NSObject>
 
@@ -84,8 +86,7 @@
 - (IBAction)didClickRepostButton:(UIButton *)sender;
 
 + (CGFloat)heightForStatus:(Status *)status_ andImageHeight:(NSInteger)imageHeight_ isWaterflowCard:(BOOL)isWaterflowCard;
-+ (CGFloat)heightForTextContent:(id)content;
-+ (void)setCardViewController:(CardViewController *)vc StatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string;
++ (CGFloat)heightForTextContent:(NSString *)text;
 
 - (void)configureCardWithStatus:(Status*)status_
                     imageHeight:(CGFloat)imageHeight_
@@ -98,5 +99,6 @@
 - (void)returnToInitialImageView;
 - (void)handleRotationGesture:(UIRotationGestureRecognizer *)sender;
 - (void)resetFailedImageView;
+- (void)recognizerLinkType:(NSString *)url;
 
 @end

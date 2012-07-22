@@ -22,6 +22,8 @@
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) NSSet *conversation;
 @property (nonatomic, retain) Conversation *isLatestMessageOf;
+@property (nonatomic, retain) NSNumber * messageHeight;
+@property (nonatomic, retain) NSNumber * messageWidth;
 
 + (DirectMessage *)messageWithID:(NSString *)messageID inManagedObjectContext:(NSManagedObjectContext *)context;
 + (DirectMessage *)insertMessage:(NSDictionary *)dict withConversation:(Conversation *)targetConversation inManagedObjectContext:(NSManagedObjectContext *)context;
