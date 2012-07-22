@@ -13,18 +13,30 @@
 #define kNotificationNameShouldChangeUserAvatar @"NotificationNameShouldChangeUserAvatar"
 #define kWBClientErrorNotification              @"WBClientErrorNotification"
 
-#define kRootViewControllerViewDidLoad          @"RootViewControllerViewDidLoad"
+#define kRootViewControllerViewDidLoadNotification  @"RootViewControllerViewDidLoadNotification"
+#define kShouldPostRecommendVCardWeiboNotification  @"ShouldPostRecommendVCardWeiboNotification"
 
 @implementation NSNotificationCenter (Addition)
 
++ (void)postShouldPostRecommendVCardWeiboNotification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kShouldPostRecommendVCardWeiboNotification object:nil userInfo:nil];
+}
+
++ (void)registerShouldPostRecommendVCardWeiboNotificationWithSelector:(SEL)aSelector target:(id)aTarget {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:aTarget selector:aSelector
+                   name:kShouldPostRecommendVCardWeiboNotification 
+                 object:nil];
+}
+
 + (void)postRootViewControllerViewDidLoadNotification {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kRootViewControllerViewDidLoad object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRootViewControllerViewDidLoadNotification object:nil userInfo:nil];
 }
 
 + (void)registerRootViewControllerViewDidLoadNotificationWithSelector:(SEL)aSelector target:(id)aTarget {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:aTarget selector:aSelector
-                   name:kRootViewControllerViewDidLoad 
+                   name:kRootViewControllerViewDidLoadNotification 
                  object:nil];
 }
 

@@ -122,6 +122,9 @@ static ErrorIndicatorManager *managerInstance = nil;
             case 20003:
                 errorMessage = @"用户不存在";
                 break;
+            case 20506:
+                errorMessage = @"已经关注";
+                break;
             case 21315:
                 if(!_handlingTokenFailureSituation)
                     [self handleTokenExpireSituation];

@@ -218,6 +218,8 @@
                selector:@selector(resetRefreshingAnimation)
                    name:UIApplicationDidBecomeActiveNotification
                  object:nil];
+    
+    [NSNotificationCenter registerShouldPostRecommendVCardWeiboNotificationWithSelector:@selector(postRecommandVCardWeibo) target:self];
 }
 
 - (void)viewDidUnload

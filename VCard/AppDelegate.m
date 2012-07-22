@@ -96,19 +96,19 @@
     [userDefault synchronize];
     
 	if (loginCount == RECOMMEND_VCARD_TO_FRIENDS_USE_COUNT) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"关注 VCard 微博"
-														message:@"关注我们以了解最新动态和更新。"
-													   delegate:self
-											  cancelButtonTitle:@"取消"
-											  otherButtonTitles:@"关注", nil];
-        [alert show];
-		
-	} else if(loginCount == FOLLOW_VCARD_USE_COUNT) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"向粉丝推荐 VCard"
 														message:@"喜欢 VCard？向粉丝们推荐 VCard 吧。"
 													   delegate:self
 											  cancelButtonTitle:@"不，谢谢"
 											  otherButtonTitles:@"推荐", nil];
+        [alert show];
+		
+	} else if(loginCount == FOLLOW_VCARD_USE_COUNT) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"关注 VCard 微博"
+														message:@"关注我们以了解最新动态和更新。"
+													   delegate:self
+											  cancelButtonTitle:@"取消"
+											  otherButtonTitles:@"关注", nil];
         [alert show];
     }
 }
@@ -120,6 +120,7 @@
 
 - (void)recommendVCard {
     [NSUserDefaults setShouldPostRecommendVCardWeibo:YES];
+    [NSNotificationCenter postShouldPostRecommendVCardWeiboNotification];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
