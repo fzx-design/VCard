@@ -57,10 +57,10 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIImageView  *rightPaperGloomImageView;
 @property (nonatomic, weak) IBOutlet UIView       *paperImageHolderView;
 
-@property (nonatomic, strong) UIImage *motionsOriginalImage;
 @property (nonatomic, weak)   id<PostViewControllerDelegate> delegate;
 @property (nonatomic, assign) PostViewControllerType type;
 @property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) UIImage *motionsOriginalImage;
 
 + (id)getNewStatusViewControllerWithAtUserName:(NSString *)name
                                       delegate:(id<PostViewControllerDelegate>)delegate;

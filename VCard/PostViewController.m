@@ -71,6 +71,9 @@ typedef enum {
 @property (nonatomic, readonly) CGPoint startButtonCenter;
 @property (nonatomic, strong) NSString *prefixText;
 
+@property (nonatomic, strong) UIImage *motionsCompressImage;
+@property (nonatomic, strong) NSString *textViewPreserveText;
+
 @end
 
 @implementation PostViewController
@@ -118,6 +121,8 @@ typedef enum {
 @synthesize startButtonFrame = _startButtonFrame;
 @synthesize prefixText = _prefixText;
 @synthesize postImageView = _postImageView;
+@synthesize textViewPreserveText = _textViewPreserveText;
+@synthesize motionsCompressImage = _motionsCompressImage;
 
 + (id)getNewStatusViewControllerWithDelegate:(id<PostViewControllerDelegate>)delegate {
     return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeNewStatus delegate:delegate weiboID:nil replyID:nil weiboOwnerName:nil weiboContent:nil];
@@ -207,6 +212,13 @@ typedef enum {
     self.postRootView.delegate = self;
     [ThemeResourceProvider configButtonPaperLight:self.cancelButton];
     
+    //恢复view did unload造成的影响
+    if(self.textViewPreserveText) {
+        self.textView.text = self.textViewPreserveText;
+        self.textViewPreserveText = nil;
+    }
+    self.motionsImageView.image = self.motionsCompressImage;
+    
     [self configureViewFrame];
     [self configureMotionsImageView];
     [self configureTextView];
@@ -215,10 +227,11 @@ typedef enum {
     [self moveFromStartButtonAnimation];
 }
 
-- (void)viewDidUnload
-{
-    self.motionsImageView = nil;
+- (void)viewDidUnload {
+    self.textViewPreserveText = self.textView.text;
     self.textView = nil;
+    
+    self.motionsImageView = nil;
     self.textCountLabel = nil;
     self.postView = nil;
     self.textContainerView = nil;
@@ -430,8 +443,10 @@ typedef enum {
         optimizedImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         self.motionsImageView.image = optimizedImage;
+        self.motionsCompressImage = optimizedImage;
     } else {
         self.motionsImageView.image = nil;
+        self.motionsCompressImage = nil;
     }
     self.motionsOriginalImage = image;
     [self updateTextCountAndPostButton];
