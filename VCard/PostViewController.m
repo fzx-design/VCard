@@ -503,7 +503,7 @@ typedef enum {
 - (void)updateTextCountAndPostButton {
     int weiboTextBackwardsCount = [self weiboTextBackwardsCount];
     self.textCountLabel.text = [NSString stringWithFormat:@"%d", weiboTextBackwardsCount];
-    if([self.textView.text isEqualToString:@""] && !self.motionsOriginalImage) {
+    if([self.textView.text isEqualToString:@""] && !self.motionsOriginalImage && self.type != PostViewControllerTypeRepost) {
         self.postButton.userInteractionEnabled = NO;
         self.postButton.alpha = 0.3f;
     } else if(weiboTextBackwardsCount < 0) {
