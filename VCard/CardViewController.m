@@ -1100,7 +1100,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 #pragma mark - UIAlertView delegate 
 
-- (void)alertView:(UIAlertView *)alertView willDtismissWithButtonIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
     if(alertView == self.deleteStatusAlertView) {
         self.deleteStatusAlertView = nil;
         if(buttonIndex == 0) {
