@@ -89,6 +89,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 @property (readonly) BOOL isCardDeletable;
 @property (readonly) BOOL isCardFavorited;
+@property (nonatomic, weak) UIAlertView *deleteStatusAlertView;
 
 @end
 
@@ -97,6 +98,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 @synthesize status = _status;
 @synthesize imageHeight = _imageHeight;
 @synthesize actionPopoverViewController = _actionPopoverViewController;
+@synthesize deleteStatusAlertView = _deleteStatusAlertView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -977,7 +979,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     
     CGFloat scrollUp = 50 + cellPosY + cropPosBottomY + self.actionPopoverViewController.foldViewHeight - scrollViewContentOffsetY - scrollViewHeight;
     
-    if(scrollUp > 0 && scrollViewContentOffsetY + scrollUp + scrollViewContentOffsetY + scrollViewHeight < scrollViewContentHeight) {
+    if(scrollUp > 0 && scrollViewContentOffsetY + scrollUp + scrollViewHeight < scrollViewContentHeight) {
         [scrollView setContentOffset:CGPointMake(0, scrollViewContentOffsetY + scrollUp) animated:YES];
     }
 }
@@ -1080,13 +1082,30 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         [self copyStatus];
         dismissPopover = NO;
     } else if(identifier == ActionPopoverButtonIdentifierDelete) {
-        [self deleteStatus];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除微博"
+                                                        message:@"删除后将无法还原该微博。"
+                                                       delegate:self
+                                              cancelButtonTitle:@"删除"
+                                              otherButtonTitles:@"取消", nil];
+        self.deleteStatusAlertView = alert;
+        [alert show];
     } else if(identifier == ActionPopoverButtonIdentifierFavorite) {
         //TODO:
     }
     
     if(dismissPopover) {
         [self.actionPopoverViewController foldAnimation];
+    }
+}
+
+#pragma mark - UIAlertView delegate 
+
+- (void)alertView:(UIAlertView *)alertView willDtismissWithButtonIndex:(NSInteger)buttonIndex {
+    if(alertView == self.deleteStatusAlertView) {
+        self.deleteStatusAlertView = nil;
+        if(buttonIndex == 0) {
+            [self deleteStatus];
+        }
     }
 }
 
