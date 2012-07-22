@@ -12,4 +12,6 @@
 
 @property (nonatomic, weak) Conversation *conversation;
 
+- (void)initialLoadMessageData;
+
 @end

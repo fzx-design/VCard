@@ -98,9 +98,7 @@
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-//    if (_loading) {
         [self.tableView beginUpdates];
-//    }
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
@@ -135,10 +133,7 @@
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-//    [self.tableView endUpdates];
-//    if (_loading) {
-        [self.tableView endUpdates];
-//    }
+    [self.tableView endUpdates];
 }
 
 

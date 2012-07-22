@@ -47,7 +47,7 @@
     int lineCount = size.height / singleLineHeight - 1;
     int leading = leadingSize - 2;
     
-    height += ceilf(size.height + lineCount * leading) + kTimeStampLabelHeight + kTimeStampLabelGap;
+    height += ceilf(size.height + lineCount * leading) + kTimeStampLabelHeight + kTimeStampLabelGap ;
     width += ceilf(size.width);
     
     return CGSizeMake(width, height);
@@ -88,7 +88,7 @@
     int leading = [NSUserDefaults currentLeading];
     
     height += ceilf(size.height + lineCount * leading);
-    width += ceilf(size.width);
+    width += ceilf(size.width) + 5.0;
     if (width < 120.0) {
         width = 120.0;
     }
@@ -100,9 +100,9 @@
 {
     [self setTextSize:text];
     _timeStampLabel.text = dateString;
-    [_textLabel resetWidth:_textSize.width + 10.0];
-    [TTTAttributedLabelConfiguer setMessageTextLabel:_textLabel withText:text];
+    [_textLabel resetWidth:_textSize.width];
     [_textLabel resetHeight:_textSize.height];
+    [TTTAttributedLabelConfiguer setMessageTextLabel:_textLabel withText:text];
     
     [self resetWithType:type];
 }

@@ -26,6 +26,7 @@
 #import "TTTAttributedLabelConfiguer.h"
 
 #define ACTION_POPOVER_CONTAINER_CONTAINER_VIEW 3002
+<<<<<<< HEAD
 
 #define CARD_CROP_INSETS UIEdgeInsetsMake(-10, -10, 0, -10);
 
@@ -74,6 +75,10 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     return __emotionIDRegularExpression;
 }
 
+=======
+#define CARD_CROP_INSETS UIEdgeInsetsMake(-10, -10, 0, -10);
+
+>>>>>>> 私信界面下拉加载更多完成
 @interface CardViewController () {
     BOOL _doesImageExist;
     BOOL _alreadyConfigured;
