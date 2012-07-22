@@ -1142,13 +1142,12 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     return _actionPopoverViewController;
 }
 
-- (void)adjustScrollView:(UIScrollView *)scrollView cropBottomY:(CGFloat)cropPosBottomY {
+- (void)adjustScrollView:(UIScrollView *)scrollView cropBottomY:(CGFloat)cropPosBottomY cellPosY:(CGFloat)cellPosY {
     CGFloat scrollViewHeight = scrollView.frame.size.height;
     CGFloat scrollViewContentHeight = scrollView.contentSize.height;
     CGFloat scrollViewContentOffsetY = scrollView.contentOffset.y;
     
-    CGFloat cellPosY = self.view.superview.frame.origin.y;
-    CGFloat scrollUp = 100 + cellPosY + cropPosBottomY + self.actionPopoverViewController.foldViewHeight - scrollViewContentOffsetY - scrollViewHeight;
+    CGFloat scrollUp = 50 + cellPosY + cropPosBottomY + self.actionPopoverViewController.foldViewHeight - scrollViewContentOffsetY - scrollViewHeight;
     
     if(scrollUp > 0 && scrollViewContentOffsetY + scrollUp + scrollViewContentOffsetY + scrollViewHeight < scrollViewContentHeight) {
         [scrollView setContentOffset:CGPointMake(0, scrollViewContentOffsetY + scrollUp) animated:YES];
@@ -1203,9 +1202,12 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     superView.tag = ACTION_POPOVER_CONTAINER_CONTAINER_VIEW;
     
     UIScrollView *scrollView = (UIScrollView *)superSuperView;
-    scrollView.scrollEnabled = NO;
-    
-    [self adjustScrollView:scrollView cropBottomY:cropPosBottomY];
+    if([scrollView isKindOfClass:[UIScrollView class]]) {
+        scrollView.scrollEnabled = NO;
+        [self adjustScrollView:scrollView cropBottomY:cropPosBottomY cellPosY:superView.frame.origin.y];
+    } else {
+        NSLog(@"not scrollview");
+    }
 }
 
 - (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {
@@ -1235,7 +1237,9 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     superView.tag = 0;
     
     UIScrollView *scrollView = (UIScrollView *)self.view.superview.superview;
-    scrollView.scrollEnabled = YES;
+    if([scrollView isKindOfClass:[UIScrollView class]]) {
+        scrollView.scrollEnabled = YES;
+    }
 }
 
 - (void)actionPopoverDidClickButtonWithIdentifier:(ActionPopoverButtonIdentifier)identifier {
