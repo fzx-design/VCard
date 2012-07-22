@@ -2558,6 +2558,8 @@
 				18E707E0153D2E2C0012092E /* NSDateAddition.m */,
 				E1A59EA815AC242F001F0A94 /* NSNotificationCenter+Addition.h */,
 				E1A59EA915AC2430001F0A94 /* NSNotificationCenter+Addition.m */,
+				E119126715BBC0FE00247151 /* NSString+Addition.h */,
+				E119126815BBC0FE00247151 /* NSString+Addition.m */,
 				E1919A9715AD678B0034079B /* NSUserDefaults+Addition.h */,
 				E1919A9815AD678B0034079B /* NSUserDefaults+Addition.m */,
 				E1097D40157F9AD700BD0640 /* UIApplication+Addition.h */,
@@ -2580,8 +2582,6 @@
 				18114507156CDB9E00B3BF21 /* UIView+Resize.m */,
 				182887E215B2D35E004B3675 /* UIView+Swing.h */,
 				182887E315B2D35E004B3675 /* UIView+Swing.m */,
-				E119126715BBC0FE00247151 /* NSString+Addition.h */,
-				E119126815BBC0FE00247151 /* NSString+Addition.m */,
 			);
 			name = Catagaories;
 			sourceTree = "<group>";
