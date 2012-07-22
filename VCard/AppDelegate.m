@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ResourceProvider.h"
 #import "ErrorIndicatorManager.h"
+#import "NSNotificationCenter+Addition.h"
 
 @implementation AppDelegate
 
@@ -41,6 +42,8 @@
                                                object:nil];
     [ResourceProvider initialize];
     [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultKeyShouldScrollToTop];
+    
+    [NSNotificationCenter registerRootViewControllerViewDidLoadNotificationWithSelector:@selector(rootViewControllerViewDidLoad:) target:[UIApplication sharedApplication]];
     
     return YES;
 }

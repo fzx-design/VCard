@@ -8,11 +8,11 @@
 
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "UIApplication+Addition.h"
+#import "NSNotificationCenter+Addition.h"
 #import "AppDelegate.h"
 #import "ErrorIndicatorViewController.h"
 
 #define MODAL_BACK_VIEW_MAX_ALPHA               (0.6f)
-
 
 static NSMutableArray *_modalViewControllerStack = nil;
 static NSMutableArray *_backViewStack = nil;
@@ -26,6 +26,23 @@ static NSMutableArray *_backViewStack = nil;
 @end
 
 @implementation UIApplication (Addition)
+
+#pragma mark - Notification handlers
+
+- (void)rootViewControllerViewDidLoad:(NSNotification *)notification {
+    NSLog(@"UIApplication+Addition : Reiceive RootViewControllerViewDidLoad Notification");
+    UIView *rootView = self.rootViewController.view;
+    for(int i = 0; i < self.modalViewControllerStack.count; i++) {
+        UIViewController *vc = [self.modalViewControllerStack objectAtIndex:i];
+        UIView *backView = [self.backViewStack objectAtIndex:i];
+        
+        [vc.view removeFromSuperview];
+        [backView removeFromSuperview];
+        
+        [rootView addSubview:backView];
+        [rootView addSubview:vc.view];
+    }
+}
 
 #pragma mark - ModalViewController methods
 
@@ -58,10 +75,6 @@ static NSMutableArray *_backViewStack = nil;
 
 - (UIViewController *)topModalViewController {
     return self.modalViewControllerStack.lastObject;
-}
-
-- (void)dismissModalViewController:(UIViewController *)vc {
-    [self.modalViewControllerStack removeObject:vc];
 }
 
 + (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated {
@@ -161,6 +174,9 @@ static NSMutableArray *_backViewStack = nil;
         [vc.view removeFromSuperview];
         [backViewToRemove removeFromSuperview];
         [self.modalViewControllerStack removeObject:vc];
+        
+        NSLog(@"UIApplication+Addition : back view stack count:%d", self.backViewStack.count);
+        NSLog(@"UIApplication+Addition : modal view controller stack count:%d", self.modalViewControllerStack.count);
     }];
 }
 

@@ -48,6 +48,7 @@
     }
     
     [NSNotificationCenter registerChangeCurrentUserNotificationWithSelector:@selector(handleChangeCurrentUserNotification:) target:self];
+    [NSNotificationCenter postRootViewControllerViewDidLoadNotification];
 }
 
 - (void)loadUserAndChangeAvatar

@@ -8,12 +8,25 @@
 
 #import "NSNotificationCenter+Addition.h"
 
-#define kChangeCurrentUserNotification          @"kChangeCurrentUserNotification"
-#define kCoreChangeCurrentUserNotification      @"kCoreChangeCurrentUserNotification"
-#define kNotificationNameShouldChangeUserAvatar @"kNotificationNameShouldChangeUserAvatar"
-#define kWBClientErrorNotification              @"kWBClientErrorNotification"
+#define kChangeCurrentUserNotification          @"ChangeCurrentUserNotification"
+#define kCoreChangeCurrentUserNotification      @"CoreChangeCurrentUserNotification"
+#define kNotificationNameShouldChangeUserAvatar @"NotificationNameShouldChangeUserAvatar"
+#define kWBClientErrorNotification              @"WBClientErrorNotification"
+
+#define kRootViewControllerViewDidLoad          @"RootViewControllerViewDidLoad"
 
 @implementation NSNotificationCenter (Addition)
+
++ (void)postRootViewControllerViewDidLoadNotification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRootViewControllerViewDidLoad object:nil userInfo:nil];
+}
+
++ (void)registerRootViewControllerViewDidLoadNotificationWithSelector:(SEL)aSelector target:(id)aTarget {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:aTarget selector:aSelector
+                   name:kRootViewControllerViewDidLoad 
+                 object:nil];
+}
 
 + (void)postWBClientErrorNotification:(NSError *)error {
     [[NSNotificationCenter defaultCenter] postNotificationName:kWBClientErrorNotification object:error userInfo:nil];
