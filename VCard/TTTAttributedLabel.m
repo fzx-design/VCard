@@ -814,12 +814,17 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if ([_delegate attributedLabelShouldReceiveTouchEvent:self]) {
+        return;
+    }
+    
     UITouch *touch = [touches anyObject];
     NSTextCheckingResult *result = [self linkAtPoint:[touch locationInView:self]];
     
     _shouldReceiveTouch = result != nil && result.resultType != NSTextCheckingTypeCorrection;
     
     if (_shouldReceiveTouch) {
+        _linkCaptured = YES;
         _previousResult = result;
         _linkSelected = YES;
         [self temporarilyHighlightSubstringWithResult:_previousResult];
@@ -850,11 +855,13 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    _linkCaptured = NO;
     [self touchEventEnded];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    _linkCaptured = NO;
     [self touchEventEnded];
 }
 

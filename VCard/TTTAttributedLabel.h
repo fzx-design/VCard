@@ -162,6 +162,8 @@ extern NSString * const kTTTButtonAttributeName;
  */
 @property (nonatomic, assign) TTTAttributedLabelVerticalAlignment verticalAlignment;
 
+@property (nonatomic, readonly) BOOL linkCaptured;
+
 ///----------------------------------
 /// @name Setting the Text Attributes
 ///----------------------------------
@@ -245,6 +247,8 @@ extern NSString * const kTTTButtonAttributeName;
 
 - (void)addEmotionToString:(NSString *)string withRange:(NSRange)range;
 
+- (void)touchEventEnded;
+
 @end
 
 /**
@@ -300,4 +304,7 @@ extern NSString * const kTTTButtonAttributeName;
  @param duration The duration, in seconds from the date for the selected link.
  */
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithDate:(NSDate *)date timeZone:(NSTimeZone *)timeZone duration:(NSTimeInterval)duration;
+
+- (BOOL)attributedLabelShouldReceiveTouchEvent:(TTTAttributedLabel *)label;
+
 @end

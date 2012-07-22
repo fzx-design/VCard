@@ -33,6 +33,7 @@
     BOOL _doesImageExist;
     BOOL _alreadyConfigured;
     BOOL _imageAlreadyLoaded;
+    BOOL _isActionPopoverShown;
     CGFloat _scale;
     CGFloat _lastScale;
     CGFloat _currentScale;
@@ -104,6 +105,7 @@
     [self.statusImageView addGestureRecognizer:_tapGestureRecognizer];
     
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionPopoverPinchGesture:)];
+    pinchGesture.delegate = self;
     [self.view addGestureRecognizer:pinchGesture];
 }
 
@@ -182,6 +184,7 @@
     }
     
     _alreadyConfigured = YES;
+    _isActionPopoverShown = NO;
     _coreDataIdentifier = identifier;
     self.statusImageView.imageViewMode = CastViewImageViewModeNormal;
     _pageIndex = pageIndex_;
@@ -498,6 +501,10 @@
     [InnerBrowserViewController loadLinkWithURL:url];
 }
 
+- (BOOL)attributedLabelShouldReceiveTouchEvent:(TTTAttributedLabel *)label
+{
+    return _isActionPopoverShown;
+}
 
 #pragma mark - Send Notification
 - (void)sendUserNameClickedNotificationWithName:(NSString *)userName
@@ -996,13 +1003,18 @@
 }
 
 - (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {
-    if(gesture.state == UIGestureRecognizerStateBegan)
-        [self showActionPopoverAnimated:YES];
+    if(gesture.state == UIGestureRecognizerStateBegan) {
+        if (!self.originalStatusLabel.linkCaptured && !self.repostStatusLabel.linkCaptured) {
+            _isActionPopoverShown = YES;
+            [self showActionPopoverAnimated:YES];
+        }
+    }
 }
 
 #pragma mark - ActionPopoverViewController delegate
 
 - (void)actionPopoverViewDidDismiss {
+    _isActionPopoverShown = NO;
     UIView *cropCardView = self.view.superview;
     UIView *superView = self.view.superview.superview;
     [cropCardView removeFromSuperview];
@@ -1053,7 +1065,7 @@
     }
 }
 
-#pragma mark - UIAlertView delegate 
+#pragma mark - UIAlertView delegate
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
     if(alertView == self.deleteStatusAlertView) {
