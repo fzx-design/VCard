@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DMBubbleView.h"
+#import "UserAvatarImageView.h"
 
 @interface DMConversationTableViewCell : UITableViewCell
 
-@property (nonatomic, weak) IBOutlet UILabel *textLabel;
+@property (nonatomic, weak) IBOutlet DMBubbleView           *bubbleView;
+@property (nonatomic, weak) IBOutlet UserAvatarImageView    *userAvatarImageView;
+
+- (void)resetWithText:(NSString *)text dateString:(NSString *)dateString type:(DMBubbleViewType)type imageURL:(NSString *)imageURL;
 
 @end

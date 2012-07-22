@@ -41,6 +41,11 @@
     [super viewDidUnload];
 }
 
+- (void)initialLoad
+{
+    [self.conversationTableViewController refresh];
+}
+
 - (IBAction)didClickViewProfileButton:(UIButton *)sender
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:[NSDictionary dictionaryWithObjectsAndKeys:_conversation.targetUser.screenName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];

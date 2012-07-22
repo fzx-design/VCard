@@ -13,6 +13,7 @@
 #import "Comment.h"
 #import "User.h"
 #import "WaterflowLayoutUnit.h"
+#import "TTTAttributedLabelConfiguer.h"
 
 @implementation ProfileCommentTableViewController
 
@@ -62,11 +63,13 @@
 {
     if (_type == CommentTableViewControllerTypeComment) {
         for (Comment *comment in self.fetchedResultsController.fetchedObjects) {
-            comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment]];
+            comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
+            comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
         }
     } else {
         for (Status *status in self.fetchedResultsController.fetchedObjects) {
-            status.cardSizeCardHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:status]];
+            status.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:status.text];
+            status.cardSizeCardHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:status.text]];
         }
     }
     [self setUpHeaderView];
@@ -113,14 +116,16 @@
                 NSArray *dictArray = [client.responseJSONObject objectForKey:@"comments"];
                 for (NSDictionary *dict in dictArray) {
                     Comment *comment = [Comment insertComment:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
-                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment]];
+                    comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
+                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
                     [self.status addCommentsObject:comment];
                 }
             } else {
                 NSArray *dictArray = [client.responseJSONObject objectForKey:@"reposts"];
                 for (NSDictionary *dict in dictArray) {
                     Status *status = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
-                    status.cardSizeCardHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:status]];
+                    status.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:status.text];
+                    status.cardSizeCardHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:status.text]];
                     [_status addRepostedByObject:status];
                 }
             }

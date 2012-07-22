@@ -2638,20 +2638,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hDN-3Y-aAo">
-                                <rect key="frame" x="305" y="10" width="71" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="发表话题">
-                                    <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="私信列表" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="L22-aM-DsI">
                                 <rect key="frame" x="97" y="0.0" width="190" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2662,20 +2648,6 @@
                                 <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BJN-Em-Sdq">
-                                <rect key="frame" x="14" y="10" width="71" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="关注话题">
-                                    <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
@@ -2878,34 +2850,35 @@
         <scene sceneID="9ga-Hy-zue">
             <objects>
                 <viewController storyboardIdentifier="DMConversationTableViewController" id="PfB-jC-uhG" customClass="DMConversationTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="66" sectionHeaderHeight="22" sectionFooterHeight="22" id="hOS-ZQ-s0N">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="133" sectionHeaderHeight="22" sectionFooterHeight="22" id="hOS-ZQ-s0N">
                         <rect key="frame" x="0.0" y="0.0" width="384" height="961"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="0.63529411759999999" green="0.63529411759999999" blue="0.60784313729999995" alpha="0.51000000000000001" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DMConversationTableViewCell" rowHeight="66" id="vbF-7X-Q4H" customClass="DMConversationTableViewCell">
-                                <rect key="frame" x="0.0" y="22" width="384" height="66"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DMConversationTableViewCell" rowHeight="133" id="vbF-7X-Q4H" customClass="DMConversationTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="384" height="133"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="384" height="65"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384" height="132"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="李开复" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Vjl-W0-7Vy">
-                                            <rect key="frame" x="6" y="11" width="335" height="45"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="imageview_placeholder.png" id="a4a-cJ-qUs" customClass="UserAvatarImageView">
+                                            <rect key="frame" x="10" y="7" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                            <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="shadowOffset" width="0.0" height="1"/>
-                                        </label>
+                                        </imageView>
+                                        <view contentMode="scaleToFill" id="gcV-aN-uWG" customClass="DMBubbleView">
+                                            <rect key="frame" x="50" y="11" width="256" height="65"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="textLabel" destination="Vjl-W0-7Vy" id="Hcn-TQ-8jp"/>
+                                    <outlet property="bubbleView" destination="gcV-aN-uWG" id="OmG-h1-24q"/>
+                                    <outlet property="userAvatarImageView" destination="a4a-cJ-qUs" id="TXt-Qp-BhU"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -3078,10 +3051,14 @@
         <class className="CoreDataViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataViewController.h"/>
         </class>
+        <class className="DMBubbleView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DMBubbleView.h"/>
+        </class>
         <class className="DMConversationTableViewCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DMConversationTableViewCell.h"/>
             <relationships>
-                <relationship kind="outlet" name="textLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="bubbleView" candidateClass="DMBubbleView"/>
+                <relationship kind="outlet" name="userAvatarImageView" candidateClass="UserAvatarImageView"/>
             </relationships>
         </class>
         <class className="DMConversationTableViewController" superclassName="RefreshableCoreDataTableViewController">

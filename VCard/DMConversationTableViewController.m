@@ -11,6 +11,11 @@
 #import "DMConversationTableViewCell.h"
 #import "DirectMessage.h"
 #import "Conversation.h"
+#import "CardViewController.h"
+#import "NSUserDefaults+Addition.h"
+#import "DMBubbleView.h"
+#import "TTTAttributedLabelConfiguer.h"
+#import "NSDateAddition.h"
 
 @interface DMConversationTableViewController () {
     long long _nextCursor;
@@ -32,7 +37,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
 - (void)viewDidUnload
@@ -80,6 +84,7 @@
             
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
+            [self adjustMessageSize];
             
             _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
             _hasMoreViews = _nextCursor != 0;
@@ -103,6 +108,20 @@
                                                count:20];
 }
 
+- (void)adjustMessageSize
+{
+    for (DirectMessage *message in self.fetchedResultsController.fetchedObjects) {
+        message.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:message.text];
+        
+        CGSize size = [DMBubbleView sizeForText:message.text fontSize:[NSUserDefaults currentFontSize] leading:[NSUserDefaults currentLeading]];
+        
+        message.messageHeight = [NSNumber numberWithFloat:size.height];
+        message.messageWidth = [NSNumber numberWithFloat:size.width];
+    }
+    
+    [self.managedObjectContext processPendingChanges];
+}
+
 #pragma mark - Core Data Table View Method
 
 - (void)configureRequest:(NSFetchRequest *)request
@@ -117,15 +136,14 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     if (self.fetchedResultsController.fetchedObjects.count > indexPath.row) {
-        DMConversationTableViewCell *listCell = (DMConversationTableViewCell *)cell;
-        DirectMessage *conversation = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        listCell.textLabel.text = conversation.text;
+        DMConversationTableViewCell *messageCell = (DMConversationTableViewCell *)cell;
         
-        if (indexPath.row % 2 == 0) {
-            listCell.contentView.backgroundColor = [UIColor clearColor];
-        } else {
-            listCell.contentView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.05];
-        }
+        DirectMessage *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        DMBubbleViewType type = [message.senderID isEqualToString:self.currentUser.userID] ? DMBubbleViewTypeSent : DMBubbleViewTypeReceived;
+        NSString *dateString = [[message createdAt] stringRepresentation];
+        
+        [messageCell resetWithText:message.text dateString:dateString type:type imageURL:_conversation.targetUserAvatarURL];
+        
     } else {
         NSLog(@"Conversation List Core Data Error!");
     }
@@ -134,6 +152,16 @@
 - (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
 {
     return @"DMConversationTableViewCell";
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat height = 0.0;
+    if (self.fetchedResultsController.fetchedObjects.count > indexPath.row) {
+        DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
+        height = message.messageHeight.floatValue;
+    }
+    return height;
 }
 
 #pragma mark - UIScrollView delegate

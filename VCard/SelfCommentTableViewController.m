@@ -10,6 +10,7 @@
 #import "SelfCommentTableViewCell.h"
 #import "WBClient.h"
 #import "CardViewController.h"
+#import "TTTAttributedLabelConfiguer.h"
 
 @interface SelfCommentTableViewController () {
     int _toMeNextPage;
@@ -75,7 +76,7 @@
 - (void)adjustFont
 {
     for (Comment *comment in self.fetchedResultsController.fetchedObjects) {
-        comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment]];
+        comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
     }
 
     _resetFonts = YES;
@@ -113,7 +114,8 @@
             if (_dataSource == CommentsTableViewDataSourceCommentsToMe) {
 				for (NSDictionary *dict in dictArray) {
 					Comment *comment = [Comment insertCommentToMe:dict inManagedObjectContext:self.managedObjectContext];
-                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment]];
+                    comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
+                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
 				}
 				[self.managedObjectContext processPendingChanges];
 				
@@ -127,7 +129,8 @@
 			} else if(_dataSource == CommentsTableViewDataSourceCommentsByMe) {
 				for (NSDictionary *dict in dictArray) {
 					Comment *comment = [Comment insertCommentByMe:dict inManagedObjectContext:self.managedObjectContext];
-                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment]];
+                    comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
+                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
 				}
 				[self.managedObjectContext processPendingChanges];
 				
@@ -140,7 +143,8 @@
 			} else if (_dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
                 for (NSDictionary *dict in dictArray) {
 					Comment *comment = [Comment insertCommentMentioningMe:dict inManagedObjectContext:self.managedObjectContext];
-                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment]];
+                    comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
+                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
 				}
 				[self.managedObjectContext processPendingChanges];
             }
@@ -224,7 +228,7 @@
     if (_resetFonts) {
         _resetFonts = NO;
         for (Comment *comment in self.fetchedResultsController.fetchedObjects) {
-            comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment]];
+            comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
         }
     }
 }

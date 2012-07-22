@@ -22,13 +22,12 @@
 #import "NSUserDefaults+Addition.h"
 #import "RootViewController.h"
 #import "ErrorIndicatorViewController.h"
-
-#define MaxCardSize CGSizeMake(326,9999)
-
-#define RegexColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]
+#import "DirectMessage.h"
+#import "TTTAttributedLabelConfiguer.h"
 
 #define ACTION_POPOVER_CONTAINER_CONTAINER_VIEW 3002
 
+<<<<<<< HEAD
 #define CARD_CROP_INSETS UIEdgeInsetsMake(-10, -10, 0, -10);
 
 static NSRegularExpression *__nameRegularExpression;
@@ -76,6 +75,8 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     return __emotionIDRegularExpression;
 }
 
+=======
+>>>>>>> 私信气泡显示，调整设置TTTAttributedLabel方法
 @interface CardViewController () {
     BOOL _doesImageExist;
     BOOL _alreadyConfigured;
@@ -176,7 +177,10 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 + (CGFloat)heightForStatus:(Status *)status_ andImageHeight:(NSInteger)imageHeight_ isWaterflowCard:(BOOL)isWaterflowCard
 {
-    [CardViewController replaceEmotionStrings:status_];
+    status_.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:status_.text];
+    if (status_.repostStatus) {
+        status_.repostStatus.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:status_.repostStatus.text];
+    }
     
     BOOL isReposted = status_.repostStatus != nil;
     BOOL hasCardTail = [status_ hasLocationInfo] || YES;
@@ -186,11 +190,11 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     BOOL doesImageExist = targetStatus.bmiddlePicURL && ![targetStatus.bmiddlePicURL isEqualToString:@""] && isPictureEnabled;
 
     CGFloat height = CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight;
-    height += [CardViewController heightForCellWithText:status_.text] + CardSizeTextGap;
+    height += [TTTAttributedLabelConfiguer heightForCellWithText:status_.text] + CardSizeTextGap;
         
     if (isReposted) {
         height +=  CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight + CardSizeRepostHeightOffset;
-        height += [CardViewController heightForCellWithText:status_.repostStatus.text] + CardSizeTextGap;
+        height += [TTTAttributedLabelConfiguer heightForCellWithText:status_.repostStatus.text] + CardSizeTextGap;
     }
     
     if (doesImageExist) {
@@ -204,25 +208,12 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     return height;
 }
 
-+ (CGFloat)heightForTextContent:(id)content
-{
-    NSString *text = [CardViewController replaceEmotionStrings:content];
-    
++ (CGFloat)heightForTextContent:(NSString *)text
+{    
     CGFloat height = 0.0;
     height +=  CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight + CardSizeRepostHeightOffset;
-    height += [CardViewController heightForCellWithText:text] + CardSizeTextGap + 24.0;
+    height += [TTTAttributedLabelConfiguer heightForCellWithText:text] + CardSizeTextGap + 24.0;
     
-    return height;
-}
-
-+ (CGFloat)heightForCellWithText:(NSString *)text {
-    CGFloat height = 10.0f;
-    CGFloat fontSize = [NSUserDefaults currentFontSize];
-    height += ceilf([text sizeWithFont:[UIFont systemFontOfSize:fontSize] constrainedToSize:MaxCardSize lineBreakMode:UILineBreakModeWordWrap].height);
-    CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:fontSize] constrainedToSize:MaxCardSize lineBreakMode:UILineBreakModeWordWrap].height);
-    
-    height += ceilf(height / singleLineHeight * [NSUserDefaults currentLeading]);
-        
     return height;
 }
 
@@ -324,7 +315,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     CGFloat originY = _doesImageExist ? self.imageHeight + 30 : 20;
     Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
     
-    [CardViewController setCardViewController:self StatusTextLabel:self.originalStatusLabel withText:targetStatus.text];
+    [TTTAttributedLabelConfiguer setCardViewController:self StatusTextLabel:self.originalStatusLabel withText:targetStatus.text];
     
     [self.originalUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
     [self.originalUserAvatar setVerifiedType:[targetStatus.author verifiedTypeOfUser]];
@@ -336,7 +327,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         
     CGFloat statusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
                             CardSizeUserAvatarHeight + CardSizeTextGap + 
-                            self.originalStatusLabel.frame.size.height - 20.0;
+                            self.originalStatusLabel.frame.size.height;
     if (_doesImageExist) {
         statusViewHeight += CardSizeImageGap;
     }
@@ -360,7 +351,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         
         Status *targetStatus = self.status;
         
-        [CardViewController setCardViewController:self StatusTextLabel:self.repostStatusLabel withText:targetStatus.text];
+        [TTTAttributedLabelConfiguer setCardViewController:self StatusTextLabel:self.repostStatusLabel withText:targetStatus.text];
         [self.repostUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
         [self.repostUserAvatar setVerifiedType:[targetStatus.author verifiedTypeOfUser]];
         
@@ -377,7 +368,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         
         CGFloat repostStatusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
                                         CardSizeUserAvatarHeight + CardSizeTextGap + 
-                                        self.repostStatusLabel.frame.size.height - 20.0;
+                                        self.repostStatusLabel.frame.size.height;
         
         repostStatusViewHeight += CardTailHeight;
         
@@ -518,166 +509,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     }
 }
 
-+ (void)setCardViewController:(CardViewController *)vc StatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string
-{
-    CGRect frame = label.frame;
-    frame.size.height = [CardViewController heightForCellWithText:string] + 20.0;
-    label.frame = frame;
-    
-    label.font = [UIFont systemFontOfSize:[NSUserDefaults currentFontSize]];
-    label.textColor = [UIColor colorWithRed:49.0/255 green:42.0/255 blue:37.0/255 alpha:1.0];
-    label.lineBreakMode = UILineBreakModeWordWrap;
-    label.numberOfLines = 0;
-    label.leading = [NSUserDefaults currentLeading];
-    
-    label.highlightedTextColor = [UIColor whiteColor];
-    label.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
-    
-    [self setCardViewController:vc SummaryText:string toLabel:label];
-}
-
-+ (NSString *)replaceEmotionStrings:(id)content
-{
-    NSString *text;
-    if ([content isKindOfClass:[Status class]]) {
-        text = ((Status *)content).text;
-    } else {
-        text = ((Comment *)content).text;
-    }
-    
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    
-    NSRange stringRange = NSMakeRange(0, [text length]);
-    NSRegularExpression *regexp = EmotionRegularExpression();
-    [regexp enumerateMatchesInString:text options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-        NSRange range = result.range;
-        if (range.length != 1) {
-            NSString *string = [text substringWithRange:range];
-            [array addObject:string];
-        }
-    }];
-    
-    for (NSString *ketString in array) {
-        NSString *key = [ketString substringWithRange:NSMakeRange(1, ketString.length - 2)];
-        EmoticonsInfo *info = [[EmoticonsInfoReader sharedReader] emoticonsInfoForKey:key];
-        if (info) {
-            NSString *string = [NSString stringWithFormat:@" %@ ", info.emoticonIdentifier];
-            text = [text stringByReplacingOccurrencesOfString:ketString withString:string];
-        }
-    }
-    
-    if ([content isKindOfClass:[Status class]]) {
-        ((Status *)content).text = text;
-    } else {
-        ((Comment *)content).text = text;
-    }
-    
-    return text;
-}
-
-+ (void)setCardViewController:(CardViewController *)vc SummaryText:(NSString *)text toLabel:(TTTAttributedLabel*)label
-{
-    NSRegularExpression *regexp = EmotionRegularExpression();
-    NSRange stringRange = NSMakeRange(0, [text length]);
-
-    [label setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-        NSRange stringRange = NSMakeRange(0, [mutableAttributedString length]);
-
-        NSRegularExpression *regexp = NameRegularExpression();
-        
-        [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-            [self configureFontForAttributedString:mutableAttributedString withRange:result.range];
-        }];
-        
-        regexp = TagRegularExpression();
-        [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-            [self configureFontForAttributedString:mutableAttributedString withRange:result.range];
-        }];
-        
-        regexp = UrlRegularExpression();
-        [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-            [self configureFontForAttributedString:mutableAttributedString withRange:result.range];
-        }];
-        
-        regexp = EmotionIDRegularExpression();
-        [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-            [self configureEmotionsForAttributedString:mutableAttributedString withRange:result.range];
-        }];
-        
-        return mutableAttributedString;
-    }];
-    
-    regexp = NameRegularExpression();
-    [regexp enumerateMatchesInString:text options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-        NSRange range = result.range;
-        if (range.length != 1) {
-            range.location++;
-            range.length--;
-            NSString *string = [text substringWithRange:range];
-            [label addLinkToPhoneNumber:string withRange:result.range];
-        }
-    }];
-    
-    regexp = TagRegularExpression();
-    [regexp enumerateMatchesInString:text options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-        NSRange range = result.range;
-        if (range.length != 1) {
-            range.location++;
-            range.length -= 2;
-            NSString *string = [text substringWithRange:range];
-            [label addQuoteToString:string withRange:result.range];
-        }
-    }];
-    
-    regexp = UrlRegularExpression();
-    [regexp enumerateMatchesInString:text options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-        NSRange range = result.range;
-        if (range.length != 1) {
-            NSString *string = [text substringWithRange:range];
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];
-            [label addLinkToURL:url withRange:result.range];
-            
-            if (vc) {
-                [vc recognizerLinkType:string];
-            }
-        }
-    }];
-    
-    regexp = EmotionIDRegularExpression();
-    [regexp enumerateMatchesInString:text options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-        NSRange range = result.range;
-        if (range.length != 1) {
-            NSString *string = [text substringWithRange:range];
-            EmoticonsInfo *info = [[EmoticonsInfoReader sharedReader] emoticonsInfoForIdentifier:string];
-            if (info) {
-                [label addEmotionToString:info.imageFileName withRange:range];
-            }
-        }
-    }];
-    
-}
-
-+ (void)configureFontForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange
-{
-    UIFont *font = [UIFont boldSystemFontOfSize:[NSUserDefaults currentFontSize]];
-    CTFontRef systemFont = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
-    if (systemFont) {
-        [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:stringRange];
-        [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)systemFont range:stringRange];
-        
-        [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:stringRange];
-        [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)RegexColor range:stringRange];
-        
-    }
-}
-
-+ (void)configureEmotionsForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange
-{
-    UIFont *font = [UIFont boldSystemFontOfSize:8.0f];
-    CTFontRef systemFont = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
-    [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:stringRange];
-    [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)systemFont range:stringRange];
-}
 
 #pragma mark - IBActions
 

@@ -23,6 +23,8 @@
 @dynamic text;
 @dynamic conversation;
 @dynamic isLatestMessageOf;
+@dynamic messageHeight;
+@dynamic messageWidth;
 
 + (DirectMessage *)messageWithID:(NSString *)messageID inManagedObjectContext:(NSManagedObjectContext *)context
 {
