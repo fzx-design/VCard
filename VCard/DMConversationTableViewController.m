@@ -19,6 +19,8 @@
 
 @interface DMConversationTableViewController () {
     long long _nextCursor;
+    BOOL _loadingMore;
+    NSIndexPath *_targetIndexPath;
 }
 
 @end
@@ -47,7 +49,13 @@
 
 - (void)refresh
 {
-	_nextCursor = 0;
+    _loadingMore = YES;
+	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
+}
+
+- (void)initialLoadMessageData
+{
+    _refreshing = YES;
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
 }
 
@@ -75,8 +83,9 @@
 				[self clearData];
 			}
             
+            int prevFetchedCount = self.fetchedResultsController.fetchedObjects.count;
             NSDictionary *result = client.responseJSONObject;
-			
+            
             NSArray *dictArray = [result objectForKey:@"direct_messages"];
             for (NSDictionary *dict in dictArray) {
                 [DirectMessage insertMessage:dict withConversation:_conversation inManagedObjectContext:self.managedObjectContext];
@@ -86,20 +95,33 @@
             [self.fetchedResultsController performFetch:nil];
             [self adjustMessageSize];
             
+            if (_loadingMore) {
+                _targetIndexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - prevFetchedCount inSection:0];
+                [self.tableView scrollToRowAtIndexPath:_targetIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            } else {
+                _targetIndexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - 1 inSection:0];
+                [self.tableView scrollToRowAtIndexPath:_targetIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            }
+            [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
+            
             _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
-            _hasMoreViews = _nextCursor != 0;
+            _hasMoreViews = NO;
         }
         
-        [self adjustBackgroundView];
         [self refreshEnded];
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_pullView finishedLoading];
         _loading = NO;
+        _refreshing = NO;
+        _loadingMore = NO;
         
     }];
     
-    long long maxID = ((DirectMessage *)self.fetchedResultsController.fetchedObjects.lastObject).messageID.longLongValue;
-    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
+    NSString *maxIDString = nil;
+    if (_loadingMore && self.fetchedResultsController.fetchedObjects.count > 0) {
+        long long maxID = ((DirectMessage *)[self.fetchedResultsController.fetchedObjects objectAtIndex:0]).messageID.longLongValue;
+        maxIDString = [NSString stringWithFormat:@"%lld", maxID - 1];
+    }
     
     [client getDirectMessageConversionMessagesOfUser:_conversation.targetUserID
                                              sinceID:nil
@@ -123,6 +145,85 @@
 }
 
 #pragma mark - Core Data Table View Method
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [[self.fetchedResultsController sections] count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *name = [self customCellClassNameForIndex:indexPath];
+    
+    NSString *CellIdentifier = name ? name : @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        if (name) {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:[self customCellClassNameForIndex:(NSIndexPath *)indexPath] owner:self options:nil];
+            cell = [nib lastObject];
+        }
+        else {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+    }
+    
+    [self configureCell:cell atIndexPath:indexPath];
+    
+    [self adjustBackgroundView];
+    
+    return cell;
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+//    [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    return;
+    
+    UITableView *tableView = self.tableView;
+    
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationTop];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath]
+                    atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+//    [self.tableView endUpdates];
+    [self.tableView reloadData];
+}
+
+
 
 - (void)configureRequest:(NSFetchRequest *)request
 {

@@ -43,7 +43,7 @@
 
 - (void)initialLoad
 {
-    [self.conversationTableViewController refresh];
+    [self.conversationTableViewController initialLoadMessageData];
 }
 
 - (IBAction)didClickViewProfileButton:(UIButton *)sender

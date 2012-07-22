@@ -29,51 +29,6 @@
 
 #define CARD_CROP_INSETS UIEdgeInsetsMake(-10, -10, 0, -10);
 
-static NSRegularExpression *__nameRegularExpression;
-static inline NSRegularExpression * NameRegularExpression() {
-    if (!__nameRegularExpression) {
-        __nameRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"@[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*" options:NSRegularExpressionCaseInsensitive error:nil];
-    }
-    
-    return __nameRegularExpression;
-}
-
-static NSRegularExpression *__tagRegularExpression;
-static inline NSRegularExpression * TagRegularExpression() {
-    if (!__tagRegularExpression) {
-        __tagRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"#.+?#" options:NSRegularExpressionCaseInsensitive error:nil];
-    }
-    
-    return __tagRegularExpression;
-}
-
-static NSRegularExpression *__urlRegularExpression;
-static inline NSRegularExpression * UrlRegularExpression() {
-    if (!__urlRegularExpression) {
-        __urlRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"https?://[[a-z][A-Z][0-9]\?/%&=.]+" options:NSRegularExpressionCaseInsensitive error:nil];
-    }
-    
-    return __urlRegularExpression;
-}
-
-static NSRegularExpression *__emotionRegularExpression;
-static inline NSRegularExpression * EmotionRegularExpression() {
-    if (!__emotionRegularExpression) {
-        __emotionRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"\\[[[\\u4E00-\\u9FA5][a-z]]*\\]" options:NSRegularExpressionCaseInsensitive error:nil];
-    }
-    
-    return __emotionRegularExpression;
-}
-
-static NSRegularExpression *__emotionIDRegularExpression;
-static inline NSRegularExpression * EmotionIDRegularExpression() {
-    if (!__emotionIDRegularExpression) {
-        __emotionIDRegularExpression = [[NSRegularExpression alloc] initWithPattern:@" \\[[[a-f][0-9] ]*\\] " options:NSRegularExpressionCaseInsensitive error:nil];
-    }
-    
-    return __emotionIDRegularExpression;
-}
-
 @interface CardViewController () {
     BOOL _doesImageExist;
     BOOL _alreadyConfigured;

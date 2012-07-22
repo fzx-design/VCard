@@ -2638,7 +2638,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="私信列表" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="L22-aM-DsI">
+                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="全部对话" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="L22-aM-DsI">
                                 <rect key="frame" x="97" y="0.0" width="190" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2864,11 +2864,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="imageview_placeholder.png" id="a4a-cJ-qUs" customClass="UserAvatarImageView">
-                                            <rect key="frame" x="10" y="7" width="25" height="25"/>
+                                            <rect key="frame" x="10" y="11" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" id="gcV-aN-uWG" customClass="DMBubbleView">
-                                            <rect key="frame" x="50" y="11" width="256" height="65"/>
+                                            <rect key="frame" x="50" y="16" width="256" height="65"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
