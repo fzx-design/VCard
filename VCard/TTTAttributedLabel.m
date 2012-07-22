@@ -814,8 +814,10 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if ([_delegate attributedLabelShouldReceiveTouchEvent:self]) {
-        return;
+    if ([_delegate respondsToSelector:@selector(attributedLabelShouldReceiveTouchEvent:)]) {
+        if ([_delegate attributedLabelShouldReceiveTouchEvent:self]) {
+            return;
+        }
     }
     
     UITouch *touch = [touches anyObject];

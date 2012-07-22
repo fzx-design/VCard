@@ -2673,53 +2673,108 @@
                         <subviews>
                             <view contentMode="scaleToFill" id="Ygb-QK-KSQ" customClass="BaseStackLayoutView">
                                 <rect key="frame" x="-20" y="0.0" width="431" height="961"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="JsK-bE-dce">
+                                        <rect key="frame" x="24" y="901" width="384" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="vgg-FF-2Dk">
+                                                <rect key="frame" x="0.0" y="-4" width="382" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="msg_sendfield_glow.png" id="tOn-Aq-HIE">
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="li7-YQ-Zfd">
+                                                <rect key="frame" x="314" y="15" width="60" height="32"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <size key="titleShadowOffset" width="0.0" height="1"/>
+                                                <state key="normal" title="发送" backgroundImage="button_send_bg.png">
+                                                    <color key="titleColor" red="0.1764705882352941" green="0.23529411764705882" blue="0.25490196078431371" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted" title="发送" backgroundImage="button_send_hl.png">
+                                                    <color key="titleColor" red="0.1764705882" green="0.23529411759999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="o6H-Rr-iYD">
+                                                <rect key="frame" x="47" y="15" width="262" height="34"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <textView contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="H65-lL-doa">
+                                                <rect key="frame" x="47" y="15" width="262" height="34"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes"/>
+                                            </textView>
+                                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8X5-VS-DSa">
+                                                <rect key="frame" x="0.0" y="9" width="44" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <state key="normal" image="button_new_emoji.png">
+                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="用户名" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="E22-BR-Zyz">
+                                        <rect key="frame" x="120" y="0.0" width="190" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                    </label>
+                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="695-Zg-MnI">
+                                        <rect key="frame" x="313" y="11" width="71" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <size key="titleShadowOffset" width="0.0" height="1"/>
+                                        <state key="normal" title="查看资料">
+                                            <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didClickViewProfileButton:" destination="GX3-Za-4F7" eventType="touchUpInside" id="Tsj-58-aIC"/>
+                                        </connections>
+                                    </button>
+                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MCQ-n9-0aE">
+                                        <rect key="frame" x="36" y="11" width="71" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <size key="titleShadowOffset" width="0.0" height="1"/>
+                                        <state key="normal" title="清空对话">
+                                            <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didClickClearHistoryButton:" destination="GX3-Za-4F7" eventType="touchUpInside" id="A1d-Re-AiA"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="695-Zg-MnI">
-                                <rect key="frame" x="305" y="10" width="71" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="查看资料">
-                                    <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="didClickViewProfileButton:" destination="GX3-Za-4F7" eventType="touchUpInside" id="Tsj-58-aIC"/>
-                                </connections>
-                            </button>
-                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="用户名" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="E22-BR-Zyz">
-                                <rect key="frame" x="97" y="0.0" width="190" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="shadowOffset" width="0.0" height="1"/>
-                            </label>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MCQ-n9-0aE">
-                                <rect key="frame" x="14" y="10" width="71" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="清空对话">
-                                    <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="0.37647059560000001" green="0.37647059560000001" blue="0.34117648010000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="didClickClearHistoryButton:" destination="GX3-Za-4F7" eventType="touchUpInside" id="A1d-Re-AiA"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
@@ -2730,6 +2785,12 @@
                     <connections>
                         <outlet property="backgroundView" destination="Ygb-QK-KSQ" id="dBe-Bw-MPX"/>
                         <outlet property="clearHistoryButton" destination="MCQ-n9-0aE" id="jph-vR-oiO"/>
+                        <outlet property="emoticonButton" destination="8X5-VS-DSa" id="4po-fb-SQN"/>
+                        <outlet property="footerBackgroundImageView" destination="vgg-FF-2Dk" id="4An-Y5-dhl"/>
+                        <outlet property="footerView" destination="JsK-bE-dce" id="ltZ-dC-J2D"/>
+                        <outlet property="sendButton" destination="li7-YQ-Zfd" id="I04-Sh-4NU"/>
+                        <outlet property="textView" destination="H65-lL-doa" id="aC2-85-2sz"/>
+                        <outlet property="textViewBackgroundImageView" destination="o6H-Rr-iYD" id="j44-1z-04u"/>
                         <outlet property="titleLabel" destination="E22-BR-Zyz" id="97V-cr-24E"/>
                         <outlet property="viewProfileButton" destination="695-Zg-MnI" id="Xvd-hT-RLX"/>
                     </connections>
@@ -2864,7 +2925,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="imageview_placeholder.png" id="a4a-cJ-qUs" customClass="UserAvatarImageView">
-                                            <rect key="frame" x="10" y="11" width="25" height="25"/>
+                                            <rect key="frame" x="10" y="11" width="22" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" id="gcV-aN-uWG" customClass="DMBubbleView">
@@ -2872,12 +2933,17 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="msg_avatar_cover.png" id="Gfx-cg-jSz">
+                                            <rect key="frame" x="7" y="9" width="28" height="28"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="bubbleView" destination="gcV-aN-uWG" id="OmG-h1-24q"/>
+                                    <outlet property="userAvatarCoverImageView" destination="Gfx-cg-jSz" id="N6p-9x-KMr"/>
                                     <outlet property="userAvatarImageView" destination="a4a-cJ-qUs" id="TXt-Qp-BhU"/>
                                 </connections>
                             </tableViewCell>
@@ -2917,10 +2983,13 @@
         <image name="button_menu_search.png" width="25" height="25"/>
         <image name="button_menu_search_hover.png" width="25" height="25"/>
         <image name="button_modify_avatar.png" width="107" height="32"/>
+        <image name="button_new_emoji.png" width="25" height="25"/>
         <image name="button_next_pale.png" width="22" height="22"/>
         <image name="button_previous_pale.png" width="22" height="22"/>
         <image name="button_reload_pale.png" width="22" height="22"/>
         <image name="button_segments.png" width="110" height="34"/>
+        <image name="button_send_bg.png" width="60" height="32"/>
+        <image name="button_send_hl.png" width="60" height="32"/>
         <image name="button_share.png" width="34" height="34"/>
         <image name="button_share_hover.png" width="34" height="34"/>
         <image name="button_share_pale.png" width="26" height="22"/>
@@ -2939,6 +3008,8 @@
         <image name="mode_segement_bg.png" width="100" height="52"/>
         <image name="mode_segement_selected_l_bg.png" width="50" height="50"/>
         <image name="mode_segement_selected_r_bg.png" width="50" height="50"/>
+        <image name="msg_avatar_cover.png" width="28" height="28"/>
+        <image name="msg_sendfield_glow.png" width="384" height="30"/>
         <image name="pattern_left.png" width="16" height="12"/>
         <image name="pattern_right.png" width="16" height="12"/>
         <image name="profile_info_bg.png" width="384" height="120"/>
@@ -3058,6 +3129,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DMConversationTableViewCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="bubbleView" candidateClass="DMBubbleView"/>
+                <relationship kind="outlet" name="userAvatarCoverImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="userAvatarImageView" candidateClass="UserAvatarImageView"/>
             </relationships>
         </class>
@@ -3137,8 +3209,16 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MessageConversationViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didClickClearHistoryButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickEmoticonButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="didClickSendButton:" candidateClass="UIButton"/>
                 <relationship kind="action" name="didClickViewProfileButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="clearHistoryButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="emoticonButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="footerBackgroundImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="footerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="sendButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="textViewBackgroundImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="viewProfileButton" candidateClass="UIButton"/>
             </relationships>

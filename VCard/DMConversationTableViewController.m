@@ -144,6 +144,15 @@
     [self.managedObjectContext processPendingChanges];
 }
 
+- (void)scrollToBottom
+{
+    int count = self.fetchedResultsController.fetchedObjects.count;
+    if (count > 0) {
+        NSIndexPath *bottomIndexPath = [NSIndexPath indexPathForRow:count - 1 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:bottomIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }
+}
+
 #pragma mark - Core Data Table View Method
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -272,6 +281,16 @@
     if (_hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
         [self loadMoreData];
     }
+}
+
+- (void)resetLayoutBeforeRotating:(NSNotification *)notification
+{
+    
+}
+
+- (void)resetLayoutAfterRotating:(NSNotification *)notification
+{
+    
 }
 
 @end

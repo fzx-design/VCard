@@ -30,4 +30,10 @@
 
 - (void)adjustHalfPixel;
 
+- (void)resetHeightByOffset:(CGFloat)offset;
+
+- (void)resetOriginYByOffset:(CGFloat)offset;
+
+- (void)resetCenterY:(CGFloat)centerY;
+
 @end

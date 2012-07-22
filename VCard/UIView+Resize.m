@@ -84,4 +84,25 @@
     [self resetSize:size];
 }
 
+- (void)resetHeightByOffset:(CGFloat)offset
+{
+    CGRect frame = self.frame;
+    frame.size.height += offset;
+    self.frame = frame;
+}
+
+- (void)resetOriginYByOffset:(CGFloat)offset
+{
+    CGRect frame = self.frame;
+    frame.origin.y += offset;
+    self.frame = frame;
+}
+
+- (void)resetCenterY:(CGFloat)centerY
+{
+    CGPoint center = self.center;
+    center.y = centerY;
+    self.center = center;
+}
+
 @end

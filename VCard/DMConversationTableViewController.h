@@ -13,5 +13,6 @@
 @property (nonatomic, weak) Conversation *conversation;
 
 - (void)initialLoadMessageData;
+- (void)scrollToBottom;
 
 @end

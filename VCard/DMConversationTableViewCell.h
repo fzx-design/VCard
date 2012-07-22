@@ -14,6 +14,7 @@
 
 @property (nonatomic, weak) IBOutlet DMBubbleView           *bubbleView;
 @property (nonatomic, weak) IBOutlet UserAvatarImageView    *userAvatarImageView;
+@property (nonatomic, weak) IBOutlet UIImageView            *userAvatarCoverImageView;
 
 - (void)resetWithText:(NSString *)text dateString:(NSString *)dateString type:(DMBubbleViewType)type imageURL:(NSString *)imageURL;
 

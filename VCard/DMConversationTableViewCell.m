@@ -9,7 +9,7 @@
 #import "DMConversationTableViewCell.h"
 #import "UIView+Resize.h"
 
-#define kReceivedOriginX    45.0
+#define kReceivedOriginX    40.0
 #define kSentOriginX        90.0
 
 @implementation DMConversationTableViewCell
@@ -35,9 +35,11 @@
     CGFloat originX = 0.0;
     if (type == DMBubbleViewTypeSent) {
         _userAvatarImageView.hidden = YES;
+        _userAvatarCoverImageView.hidden = YES;
         originX = kSentOriginX;
     } else {
         _userAvatarImageView.hidden = NO;
+        _userAvatarCoverImageView.hidden = NO;
         [_userAvatarImageView loadImageFromURL:imageURL completion:nil];
         originX = kReceivedOriginX;
     }
