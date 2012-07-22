@@ -70,6 +70,9 @@ typedef enum {
 + (BOOL)hasShownStackTips;
 + (void)setShownStackTips:(BOOL)hasShown;
 
++ (BOOL)shouldPostRecommendVCardWeibo;
++ (void)setShouldPostRecommendVCardWeibo:(BOOL)shouldPost;
+
 @end
 
 @interface UserAccountInfo : NSObject

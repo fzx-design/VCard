@@ -26,12 +26,14 @@
 
 #define kSettingOptionFontSize              @"SettingOptionFontSize"
 #define kSettingOptionNotification          @"SettingOptionNotification"
-#define kSettingFontSize                    @"kSettingFontSize"
+#define kSettingFontSize                    @"SettingFontSize"
 #define kSettingLeading                     @"SettingLeading"
 
 #define kHasShownGuideBook                  @"HasShownGuideBook"
-#define kHasShownShelfTips                  @"kHasShownShelfTips"
-#define kHasShownStackTips                  @"kHasShownStackTips"
+#define kHasShownShelfTips                  @"HasShownShelfTips"
+#define kHasShownStackTips                  @"HasShownStackTips"
+
+#define kShouldPostRecommendVCardWeibo      @"ShouldPostRecommendVCardWeibo"
 
 #define KeyForStoredUserAccountInfo(userID) ([NSString stringWithFormat:@"%@_%@", kStoredUserAccountInfo, (userID)])
 
@@ -76,6 +78,17 @@
         }
     }];
     return result;
+}
+
++ (BOOL)shouldPostRecommendVCardWeibo {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kShouldPostRecommendVCardWeibo];
+}
+
++ (void)setShouldPostRecommendVCardWeibo:(BOOL)shouldPost {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:shouldPost forKey:kShouldPostRecommendVCardWeibo];
+    [defaults synchronize];
 }
 
 + (void)updateCurrentFontSize

@@ -10,6 +10,15 @@
 #import "ResourceProvider.h"
 #import "ErrorIndicatorManager.h"
 #import "NSNotificationCenter+Addition.h"
+#import "WBClient.h"
+#import "NSUserDefaults+Addition.h"
+
+#define RECOMMEND_VCARD_TO_FRIENDS_USE_COUNT    5
+#define FOLLOW_VCARD_USE_COUNT    2
+
+#define kAppDelegateUserDefaultKeyUseCount  @"AppDelegateUserDefaultKeyUseCount"
+
+#define VCARD_SINA_WEIBO_ID @"2478499604"
 
 @implementation AppDelegate
 
@@ -79,9 +88,54 @@
     }
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+	NSInteger loginCount = [userDefault integerForKey:kAppDelegateUserDefaultKeyUseCount];
+	loginCount++;
+	[userDefault setInteger:loginCount forKey:kAppDelegateUserDefaultKeyUseCount];
+    [userDefault synchronize];
+    
+	if (loginCount == RECOMMEND_VCARD_TO_FRIENDS_USE_COUNT) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"关注 VCard 微博"
+														message:@"关注我们以了解最新动态和更新。"
+													   delegate:self
+											  cancelButtonTitle:@"取消"
+											  otherButtonTitles:@"关注", nil];
+        [alert show];
+		
+	} else if(loginCount == FOLLOW_VCARD_USE_COUNT) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"向粉丝推荐 VCard"
+														message:@"喜欢 VCard？向粉丝们推荐 VCard 吧。"
+													   delegate:self
+											  cancelButtonTitle:@"不，谢谢"
+											  otherButtonTitles:@"推荐", nil];
+        [alert show];
+    }
+}
+
+- (void)followVCard {
+    WBClient *client = [WBClient client];
+    [client follow:VCARD_SINA_WEIBO_ID];
+}
+
+- (void)recommendVCard {
+    [NSUserDefaults setShouldPostRecommendVCardWeibo:YES];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == alertView.cancelButtonIndex) {
+		return;
+	}
+	else {
+        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+        NSInteger loginCount = [userDefault integerForKey:kAppDelegateUserDefaultKeyUseCount];
+        if(loginCount == RECOMMEND_VCARD_TO_FRIENDS_USE_COUNT) {
+            [self recommendVCard];
+        } else if(loginCount == FOLLOW_VCARD_USE_COUNT) {
+            [self followVCard];
+        }
+	}
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

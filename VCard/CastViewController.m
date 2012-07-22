@@ -30,8 +30,10 @@
 #import "ErrorIndicatorViewController.h"
 #import "MessageConversationViewController.h"
 #import "Conversation.h"
+#import "NSUserDefaults+Addition.h"
 
 #define kStackViewDefaultDescription @"kStackViewDefaultDescription"
+#define kVCardAppStoreURL       @"http://itunes.apple.com/cn/app/id420598288?mt=8"
 
 @interface CastViewController () {
     BOOL _loading;
@@ -75,6 +77,10 @@
     _coreDataIdentifier = kCoreDataIdentifierDefault;
     [self setUpVariables];
     [self initialLoad];
+    
+    if([NSUserDefaults shouldPostRecommendVCardWeibo]) {
+        [self postRecommandVCardWeibo];
+    }
 }
 
 - (void)setUpVariables
@@ -1146,6 +1152,16 @@
 
 - (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
     [vc dismissViewToRect:self.createStatusButton.frame];
+}
+
+#pragma mark - Post recommand VCard weibo
+
+- (void)postRecommandVCardWeibo {
+    PostViewController *vc = [PostViewController getNewStatusViewControllerWithPrefixContent:[NSString stringWithFormat:@"@VCard微博 客户端很酷！推荐有 iPad 的童鞋们试试看。%@", kVCardAppStoreURL] delegate:self];
+    
+    [vc showViewFromRect:self.createStatusButton.frame];
+    
+    [NSUserDefaults setShouldPostRecommendVCardWeibo:NO];
 }
 
 @end
