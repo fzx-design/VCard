@@ -748,6 +748,7 @@
 		E111D757159B34E000C68A5C /* motions_slider_thumb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E111D755159B34E000C68A5C /* motions_slider_thumb@2x.png */; };
 		E119123615B94C6E00247151 /* icon_settings_time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E119123415B94C6E00247151 /* icon_settings_time@2x.png */; };
 		E119123715B94C6E00247151 /* icon_settings_time.png in Resources */ = {isa = PBXBuildFile; fileRef = E119123515B94C6E00247151 /* icon_settings_time.png */; };
+		E119126915BBC0FE00247151 /* NSString+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = E119126815BBC0FE00247151 /* NSString+Addition.m */; };
 		E119DCB815B13C7000B7A446 /* SettingLegacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E119DCAA15B098F200B7A446 /* SettingLegacyViewController.m */; };
 		E119DCB915B13C7A00B7A446 /* SettingLegacyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E119DCAB15B098F300B7A446 /* SettingLegacyViewController.xib */; };
 		E11D800415B67964003E078C /* ActionPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E11D800315B67964003E078C /* ActionPopoverViewController.xib */; };
@@ -1165,7 +1166,7 @@
 		189D9DE115496FA300E922D9 /* UIImageView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Addition.m"; sourceTree = "<group>"; };
 		189E5D2D15BAA2A700C1C6A7 /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conversation.h; sourceTree = "<group>"; };
 		189E5D2E15BAA2A700C1C6A7 /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conversation.m; sourceTree = "<group>"; };
-		189E5D3015BAA30E00C1C6A7 /* DirectMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DirectMessage.h; sourceTree = "<group>"; };
+		189E5D3015BAA30E00C1C6A7 /* DirectMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectMessage.h; sourceTree = "<group>"; };
 		189E5D3115BAA30E00C1C6A7 /* DirectMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectMessage.m; sourceTree = "<group>"; };
 		189E5D3315BAA32200C1C6A7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		189E5D3415BAA32200C1C6A7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
@@ -1838,6 +1839,8 @@
 		E111D755159B34E000C68A5C /* motions_slider_thumb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_slider_thumb@2x.png"; sourceTree = "<group>"; };
 		E119123415B94C6E00247151 /* icon_settings_time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings_time@2x.png"; sourceTree = "<group>"; };
 		E119123515B94C6E00247151 /* icon_settings_time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_settings_time.png; sourceTree = "<group>"; };
+		E119126715BBC0FE00247151 /* NSString+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Addition.h"; sourceTree = "<group>"; };
+		E119126815BBC0FE00247151 /* NSString+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Addition.m"; sourceTree = "<group>"; };
 		E119DCA915B098F200B7A446 /* SettingLegacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingLegacyViewController.h; sourceTree = "<group>"; };
 		E119DCAA15B098F200B7A446 /* SettingLegacyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingLegacyViewController.m; sourceTree = "<group>"; };
 		E119DCAB15B098F300B7A446 /* SettingLegacyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingLegacyViewController.xib; sourceTree = "<group>"; };
@@ -2577,6 +2580,8 @@
 				18114507156CDB9E00B3BF21 /* UIView+Resize.m */,
 				182887E215B2D35E004B3675 /* UIView+Swing.h */,
 				182887E315B2D35E004B3675 /* UIView+Swing.m */,
+				E119126715BBC0FE00247151 /* NSString+Addition.h */,
+				E119126815BBC0FE00247151 /* NSString+Addition.m */,
 			);
 			name = Catagaories;
 			sourceTree = "<group>";
@@ -4784,6 +4789,7 @@
 				189E5D3215BAA30E00C1C6A7 /* DirectMessage.m in Sources */,
 				189E5D3515BAA32200C1C6A7 /* User.m in Sources */,
 				189E5D3815BAA54800C1C6A7 /* DMListTableViewCell.m in Sources */,
+				E119126915BBC0FE00247151 /* NSString+Addition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

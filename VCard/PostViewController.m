@@ -17,6 +17,7 @@
 #import "PostNewStatusViewController.h"
 #import "PostRepostCommentViewController.h"
 #import "UIImage+Addition.h"
+#import "NSString+Addition.h"
 
 #define WEIBO_TEXT_MAX_LENGTH   140
 #define HINT_VIEW_OFFSET        CGSizeMake(-16, 27)
@@ -175,9 +176,15 @@ typedef enum {
         vc.prefixText = @"";
     }
     
+    [vc adjustContentWithEmoticons];
+    
     vc.type = type;
     vc.delegate = delegate;
     return vc;
+}
+
+- (void)adjustContentWithEmoticons {
+    self.content = [self.content replaceRegExWithEmoticons];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
