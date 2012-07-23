@@ -61,48 +61,31 @@ typedef enum {
 
 typedef void (^WCCompletionBlock)(WBClient *client);
 
-@interface WBClient : NSObject<WBRequestDelegate>
-{
-    NSString        *_appKey;
-    NSString        *_appSecret;
-    
-    NSString        *_userID;
-    NSString        *_accessToken;
-    NSTimeInterval  _expireTime;
-    
-    NSString        *_redirectURI;
-    
+@interface WBClient : NSObject<WBRequestDelegate> {        
     // Determine whether user must log out before another logging in.
     BOOL            _isUserExclusive;
     
-    WBRequest       *_request;
-    
-    id<WBClientDelegate> _delegate;
-    
-    id _responseJSONObject;
     WCCompletionBlock _completionBlock;
-    
-    BOOL _hasError;
-    
 }
 
 @property (nonatomic, copy) NSString *appKey;
 @property (nonatomic, copy) NSString *appSecret;
-@property (nonatomic, retain) NSString *userID;
-@property (nonatomic, retain) NSString *accessToken;
-@property (nonatomic, retain) NSString *advancedToken;
+@property (nonatomic, copy) NSString *userID;
+@property (nonatomic, copy) NSString *accessToken;
+@property (nonatomic, copy) NSString *advancedToken;
 @property (nonatomic, assign) NSTimeInterval expireTime;
-@property (nonatomic, retain) NSString *redirectURI;
+@property (nonatomic, copy) NSString *redirectURI;
 @property (nonatomic, assign) BOOL isUserExclusive;
 @property (nonatomic, retain) WBRequest *request;
 @property (nonatomic, assign) id<WBClientDelegate> delegate;
 
-@property (nonatomic, strong) NSString *statusID;
+@property (nonatomic, copy) NSString *statusID;
 
 @property (nonatomic, copy) WCCompletionBlock preCompletionBlock;
 
 @property (nonatomic, assign) BOOL hasError;
 @property (nonatomic, retain) id responseJSONObject;
+@property (nonatomic, retain) NSError *responseError;
 
 - (void)setCompletionBlock:(void (^)(WBClient* client))completionBlock;
 - (WCCompletionBlock)completionBlock;

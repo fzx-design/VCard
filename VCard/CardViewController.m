@@ -150,10 +150,10 @@
     Status *targetStatus = isReposted ? status_.repostStatus : status_;
     
     BOOL doesImageExist = targetStatus.bmiddlePicURL && ![targetStatus.bmiddlePicURL isEqualToString:@""] && picEnabled;
-
+    
     CGFloat height = CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight;
     height += [TTTAttributedLabelConfiguer heightForCellWithText:status_.text] + CardSizeTextGap;
-        
+    
     if (isReposted) {
         height +=  CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight + CardSizeRepostHeightOffset;
         height += [TTTAttributedLabelConfiguer heightForCellWithText:status_.repostStatus.text] + CardSizeTextGap;
@@ -208,7 +208,7 @@
     [self setUpButtonPosition];
     
     [self setUpCardTail];
-        
+    
 }
 
 - (void)setUpStatus:(Status*)status_
@@ -303,10 +303,10 @@
     
     //Save the screen name
     [self.originalUserNameButton setTitle:targetStatus.author.screenName forState:UIControlStateDisabled];
-        
+    
     CGFloat statusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
-                            CardSizeUserAvatarHeight + CardSizeTextGap + 
-                            self.originalStatusLabel.frame.size.height;
+    CardSizeUserAvatarHeight + CardSizeTextGap + 
+    self.originalStatusLabel.frame.size.height;
     if (_doesImageExist) {
         statusViewHeight += CardSizeImageGap;
     }
@@ -346,16 +346,16 @@
         [self.repostCardBackground resetOrigin:newOrigin];
         
         CGFloat repostStatusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
-                                        CardSizeUserAvatarHeight + CardSizeTextGap + 
-                                        self.repostStatusLabel.frame.size.height;
+        CardSizeUserAvatarHeight + CardSizeTextGap + 
+        self.repostStatusLabel.frame.size.height;
         
-//        if (_isTimeStampEnabled) {
-            repostStatusViewHeight += CardTailHeight;
-//        }
+        //        if (_isTimeStampEnabled) {
+        repostStatusViewHeight += CardTailHeight;
+        //        }
         
         [self.repostCardBackground resetHeight:repostStatusViewHeight];
         [self.repostStatusInfoView resetHeight:repostStatusViewHeight];
-
+        
     }
 }
 
@@ -408,7 +408,7 @@
                 NSArray* array = (NSArray*)client.responseJSONObject;
                 if (array.count > 0) {
                     NSDictionary *dic = (NSDictionary *)[array objectAtIndex:0];
-
+                    
                     NSString *city = [dic objectForKey:@"city_name"];
                     NSString *disctrict = [dic objectForKey:@"district_name"];
                     NSString *name = [dic objectForKey:@"name"];
@@ -470,9 +470,9 @@
                     } else {
                         status.type = kStatusTypeNormal;
                     }
-                             
+                    
                     status.mediaLink = urlLong;
-                                        
+                    
                     if ([status.statusID isEqualToString:self.status.statusID]) {
                         [self updateImageButtonWithType:status.type URLString:urlLong];
                     }
@@ -650,7 +650,16 @@
     WBClient *client = [WBClient client];
     
     [client setCompletionBlock:^(WBClient *client) {
-        if (!client.hasError) {
+        BOOL shouldFavorite = NO;
+        if(!client.hasError) {
+            shouldFavorite = YES;
+        } else {
+            NSNumber *weiboErrorCode = [client.responseError.userInfo objectForKey:@"error_code"];
+            if(weiboErrorCode.integerValue == 20704) {
+                shouldFavorite = YES;
+            }
+        }
+        if(shouldFavorite) {
             [self performSelector:@selector(showFavouriteFlag) withObject:nil afterDelay:0.2];
             self.status.favorited = [NSNumber numberWithBool:YES];
             [NSUserDefaults addFavouriteID:self.status.statusID];
@@ -667,7 +676,17 @@
     WBClient *client = [WBClient client];
     
     [client setCompletionBlock:^(WBClient *client) {
-        if (!client.hasError) {
+        BOOL shouldUnfavorite = NO;
+        if(!client.hasError) {
+            shouldUnfavorite = YES;
+        } else {
+            NSNumber *weiboErrorCode = [client.responseError.userInfo objectForKey:@"error_code"];
+            if(weiboErrorCode.integerValue == 20705) {
+                shouldUnfavorite = YES;
+            }
+        }
+        
+        if(shouldUnfavorite) {
             [self performSelector:@selector(hideFavouriteFlag) withObject:nil afterDelay:0.2];
             self.status.favorited = [NSNumber numberWithBool:NO];
             [self.managedObjectContext processPendingChanges];
@@ -776,7 +795,7 @@
         
         [self.statusImageView resetCurrentScale];
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-                
+        
         if (self.statusImageView.imageViewMode == CastViewImageViewModeNormal) {
             if (sender.velocity > 2.0) {
                 [self willOpenDetailImageViewDirectly];
@@ -849,7 +868,7 @@
     
     CGFloat deltaX = point.x - _lastPoint.x;
     CGFloat deltaY = point.y - _lastPoint.y;
-        
+    
     CGPoint _lastCenter = self.statusImageView.center;
     _lastCenter.x += deltaX;
     _lastCenter.y += deltaY;

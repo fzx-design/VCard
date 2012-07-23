@@ -60,6 +60,7 @@ typedef enum {
 @synthesize preCompletionBlock = _preCompletionBlock;
 
 @synthesize responseJSONObject = _responseJSONObject;
+@synthesize responseError = _responseError;
 
 @synthesize path = _path;
 @synthesize params = _params;
@@ -108,7 +109,14 @@ typedef enum {
     [_request setDelegate:nil];
     [_request disconnect];
     [_request release], _request = nil;
-        
+    
+    [_statusID release], _statusID = nil;
+    [_responseError release], _responseError = nil;
+    [_responseJSONObject release], _responseJSONObject = nil;
+    
+    [_path release], _path = nil;
+    [_params release], _params = nil;
+    
     _delegate = nil;
     
     [super dealloc];
@@ -1121,6 +1129,7 @@ typedef enum {
     if(self.shouldReportError)
         [NSNotificationCenter postWBClientErrorNotification:error];
     self.hasError = YES;
+    self.responseError = error;
     [self reportCompletion];
     [self autorelease];
 }

@@ -138,6 +138,15 @@ static ErrorIndicatorManager *managerInstance = nil;
             case 20034:
                 errorMessage = @"用户被锁定";
                 break;
+            case 20704:
+                errorMessage = @"已经收藏";
+                break;
+            case 20705:
+                errorMessage = @"还未收藏";
+                break;
+            case 20101:
+                errorMessage = @"不存在的微博";
+                break;
             default:
                 break;
         }
