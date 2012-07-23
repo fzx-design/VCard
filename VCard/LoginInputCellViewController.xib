@@ -180,7 +180,7 @@
 								<float key="IBUIMinimumFontSize">17</float>
 								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 									<int key="IBUIAutocorrectionType">1</int>
-									<int key="IBUIReturnKeyType">3</int>
+									<int key="IBUIReturnKeyType">9</int>
 									<bool key="IBUIEnablesReturnKeyAutomatically">YES</bool>
 									<bool key="IBUISecureTextEntry">YES</bool>
 									<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -267,6 +267,7 @@
 						<int key="NSvFlags">1316</int>
 						<string key="NSFrame">{{46, 358}, {200, 44}}</string>
 						<reference key="NSSuperview" ref="66350285"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="935835596"/>
 						<bool key="IBUIClipsSubviews">YES</bool>

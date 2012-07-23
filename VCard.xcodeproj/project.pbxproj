@@ -833,6 +833,8 @@
 		E1A59E9415ABE3DA001F0A94 /* LoginBgView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A59E9315ABE3D9001F0A94 /* LoginBgView.m */; };
 		E1A59EAB15AC24AD001F0A94 /* NSNotificationCenter+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A59EA915AC2430001F0A94 /* NSNotificationCenter+Addition.m */; };
 		E1A7EFDC15936D4B00E2B900 /* PostRepostCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */; };
+		E1AA44F915BD32F800F3DCA6 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AA44F815BD32F800F3DCA6 /* SoundManager.m */; };
+		E1AA44FB15BD346900F3DCA6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1AA44FA15BD346900F3DCA6 /* AudioToolbox.framework */; };
 		E1ABFD7015B17AE9006F3237 /* icon_settings_gesture.png in Resources */ = {isa = PBXBuildFile; fileRef = E1ABFD6E15B17AE9006F3237 /* icon_settings_gesture.png */; };
 		E1ABFD7115B17AE9006F3237 /* icon_settings_gesture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1ABFD6F15B17AE9006F3237 /* icon_settings_gesture@2x.png */; };
 		E1ABFD7915B18E19006F3237 /* SettingOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ABFD7815B18E19006F3237 /* SettingOptionViewController.m */; };
@@ -1946,6 +1948,9 @@
 		E1A59EA815AC242F001F0A94 /* NSNotificationCenter+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+Addition.h"; sourceTree = "<group>"; };
 		E1A59EA915AC2430001F0A94 /* NSNotificationCenter+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+Addition.m"; sourceTree = "<group>"; };
 		E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostRepostCommentViewController.m; sourceTree = "<group>"; };
+		E1AA44F715BD32F800F3DCA6 /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
+		E1AA44F815BD32F800F3DCA6 /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
+		E1AA44FA15BD346900F3DCA6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		E1ABFD6E15B17AE9006F3237 /* icon_settings_gesture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_settings_gesture.png; sourceTree = "<group>"; };
 		E1ABFD6F15B17AE9006F3237 /* icon_settings_gesture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings_gesture@2x.png"; sourceTree = "<group>"; };
 		E1ABFD7715B18E18006F3237 /* SettingOptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingOptionViewController.h; sourceTree = "<group>"; };
@@ -2087,6 +2092,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1AA44FB15BD346900F3DCA6 /* AudioToolbox.framework in Frameworks */,
 				189F486D15B050630006DC84 /* ImageIO.framework in Frameworks */,
 				1809ED5D159ADA1200A841BC /* MessageUI.framework in Frameworks */,
 				1850A478153C0ADC0001A905 /* libicucore.A.dylib in Frameworks */,
@@ -2132,12 +2138,13 @@
 			path = "topic images";
 			sourceTree = "<group>";
 		};
-		1811F4B715BD2F49005D6C61 /* sound */ = {
+		1811F4B715BD2F49005D6C61 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
 				1811F4B815BD2F49005D6C61 /* sound_new_message.wav */,
 				1811F4B915BD2F49005D6C61 /* sound_reload.wav */,
 			);
+			name = Sound;
 			path = sound;
 			sourceTree = "<group>";
 		};
@@ -2176,6 +2183,7 @@
 		181AB90915230AC1007A2A51 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E1AA44FA15BD346900F3DCA6 /* AudioToolbox.framework */,
 				1850A477153C0ADC0001A905 /* libicucore.A.dylib */,
 				189F486C15B050620006DC84 /* ImageIO.framework */,
 				1809ED5C159ADA1200A841BC /* MessageUI.framework */,
@@ -2326,6 +2334,7 @@
 		1850A46F153C08E10001A905 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				E1AA44F615BD32E000F3DCA6 /* Sound */,
 				181453161567509200491BED /* KVImageCache */,
 				18ED04AD1558B76200EF6641 /* ResourceProvider.h */,
 				18ED04AE1558B76200EF6641 /* ResourceProvider.m */,
@@ -3150,7 +3159,7 @@
 			isa = PBXGroup;
 			children = (
 				18EA4E5815346DFD005ED94F /* Image Resource */,
-				1811F4B715BD2F49005D6C61 /* sound */,
+				1811F4B715BD2F49005D6C61 /* Sound */,
 				181AB95D15230B41007A2A51 /* User Interface */,
 			);
 			name = Resource;
@@ -3709,6 +3718,15 @@
 				E1919AAE15AD87010034079B /* topbar_msg_hl@2x.png */,
 			);
 			path = msg;
+			sourceTree = "<group>";
+		};
+		E1AA44F615BD32E000F3DCA6 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				E1AA44F715BD32F800F3DCA6 /* SoundManager.h */,
+				E1AA44F815BD32F800F3DCA6 /* SoundManager.m */,
+			);
+			name = Sound;
 			sourceTree = "<group>";
 		};
 		E1F7F88115B2BEBC00712019 /* Tips */ = {
@@ -4824,6 +4842,7 @@
 				18025BD115BAD61B00B0520B /* DMConversationTableViewCell.m in Sources */,
 				18F3940815BAE65D00EA1F3E /* DMBubbleView.m in Sources */,
 				18EB3FB815BB96500017B047 /* TTTAttributedLabelConfiguer.m in Sources */,
+				E1AA44F915BD32F800F3DCA6 /* SoundManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

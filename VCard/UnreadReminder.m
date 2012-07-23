@@ -10,6 +10,7 @@
 #import "WBClient.h"
 #import "User.h"
 #import "WBClient.h"
+#import "NSUserDefaults+Addition.h"
 
 @interface UnreadReminder () {
     NSTimer *_timer;
@@ -82,6 +83,13 @@ static UnreadReminder *sharedUnreadReminder;
 
 - (void)sendUnreadNotification
 {
+    NSArray *notificationStatusArray = [NSUserDefaults getCurrentNotificationStatus];
+    
+    BOOL commentEnabled = [notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeComment];
+    BOOL followerEnabled = [notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeFollower];
+    BOOL mentionEnabled = [notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeMention];
+    BOOL messageEnabled = [notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeMessage];
+    
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     int unreadCount = self.currentUser.unreadStatusCount.intValue;
     if (unreadCount != 0) {
@@ -89,25 +97,25 @@ static UnreadReminder *sharedUnreadReminder;
     }
     
     unreadCount = self.currentUser.unreadCommentCount.intValue;
-    if (unreadCount != 0) {
+    if (unreadCount != 0 && commentEnabled) {
         [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadCommentCount object:nil];
     }
     
     unreadCount = self.currentUser.unreadMentionCount.intValue;
-    if (unreadCount != 0) {
+    if (unreadCount != 0 && mentionEnabled) {
         [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMentionCount object:nil];
     }
     
     unreadCount = self.currentUser.unreadFollowingCount.intValue;
-    if (unreadCount != 0) {
+    if (unreadCount != 0 && followerEnabled) {
         [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadFollowCount object:nil];
     }
     unreadCount = self.currentUser.unreadMentionComment.intValue;
-    if (unreadCount != 0) {
+    if (unreadCount != 0 && mentionEnabled) {
         [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMentionCommentCount object:nil];
     }
     unreadCount = self.currentUser.unreadMessageCount.intValue;
-    if (unreadCount != 0) {
+    if (unreadCount != 0 && messageEnabled) {
         [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMessageCount object:nil];
     }
 }

@@ -832,6 +832,9 @@
     
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
+            
+            [[SoundManager sharedManager] playReloadSound];
+            
             NSArray *dictArray = client.responseJSONObject;
             
             if (_refreshing) {

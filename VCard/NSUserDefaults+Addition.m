@@ -173,7 +173,7 @@
     [defaults synchronize];
 }
 
-+ (NSArray *)currentNotificationStatus {
++ (NSArray *)getCurrentNotificationStatus {
     SettingOptionInfo *info = [NSUserDefaults getInfoForOptionKey:kSettingOptionNotification];
     return info.optionChosenStatusArray;
 }
