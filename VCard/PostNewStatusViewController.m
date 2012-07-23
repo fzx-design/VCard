@@ -9,6 +9,7 @@
 #import "PostNewStatusViewController.h"
 #import "WBClient.h"
 #import "ErrorIndicatorViewController.h"
+#import "NSUserDefaults+Addition.h"
 
 @interface PostNewStatusViewController ()
 
@@ -49,6 +50,9 @@
     self.navLabelInitFrame = self.navLabel.frame;
     
     self.textView.selectedRange = NSMakeRange(self.textView.text.length, 0);
+    
+    if([NSUserDefaults isAutoLocateEnabled])
+        [self didClickNavButton:self.navButton];
 
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
