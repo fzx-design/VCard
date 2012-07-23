@@ -68,8 +68,7 @@
     [userClient getUser:self.currentUser.userID];
 }
 
-- (void)loadUserFavouritesID
-{
+- (void)loadUserFavouritesID {
     __block int count = 0;
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
