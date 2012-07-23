@@ -45,6 +45,7 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet RefreshIndicatorView *refreshIndicatorView;
 @property (nonatomic, weak) IBOutlet RefreshIndicatorView *postIndicatorView;
 @property (nonatomic, weak) IBOutlet UIImageView *profileImageView;
+@property (nonatomic, weak) IBOutlet UIButton *changeAccountButton;
 @property (nonatomic, weak) IBOutlet UIButton *searchButton;
 @property (nonatomic, weak) IBOutlet UIButton *groupButton;
 @property (nonatomic, weak) IBOutlet UIButton *createStatusButton;
@@ -64,7 +65,9 @@ typedef enum {
 
 - (void)initialLoad;
 - (void)refresh;
+- (void)clearData;
 - (IBAction)showProfileButtonClicked:(id)sender;
+- (IBAction)didClickChangeAccountButton:(id)sender;
 - (IBAction)refreshButtonClicked:(id)sender;
 - (IBAction)didClickGroupButton:(id)sender;
 - (IBAction)didClickCreateStatusButton:(UIButton *)sender;

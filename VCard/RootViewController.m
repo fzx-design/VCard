@@ -94,7 +94,11 @@
     if(self.currentUser) {
         [Group setUpDefaultGroupWithUserID:self.currentUser.userID defaultImageURL:self.currentUser.largeAvatarURL inManagedObjectContext:self.managedObjectContext];
         [self setUpViews];
-        [self.castViewController refresh];        
+        if (![[NSUserDefaults getLoginUserArray] containsObject:self.currentUser.userID]) {
+            [self.castViewController clearData];
+            [self.managedObjectContext processPendingChanges];
+            [self.castViewController refresh];
+        }
         [self performSelector:@selector(showGuideBookView) withObject:nil afterDelay:1.0f];
     }
 }
