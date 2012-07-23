@@ -50,14 +50,18 @@
     [_textViewBackgroundImageView addSubview:_textView];
     
     _topCoverImageView.image = [[UIImage imageNamed:kRLCastViewBGUnit] resizableImageWithCapInsets:UIEdgeInsetsZero];
-    
+
     _sendButton.enabled = NO;
-    
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self layoutFooterView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -94,18 +98,20 @@
 #pragma mark - Notification
 - (void)resetLayoutBeforeRotating:(NSNotification *)notification
 {
-    if ([(NSString *)notification.object isEqualToString:kOrientationPortrait]) {
-        CGFloat height = 961.0 - 50.0 - _footerView.frame.size.height;
-        [self.conversationTableViewController.view resetHeight:height];
-    }
+//    if ([(NSString *)notification.object isEqualToString:kOrientationPortrait]) {
+//        CGFloat height = 961.0 - _topCoverImageView.frame.size.height - _footerView.frame.size.height;
+//        [self.conversationTableViewController.view resetHeight:height];
+//    }
+    [self layoutFooterView];
 }
 
 - (void)resetLayoutAfterRotating:(NSNotification *)notification
 {
-    if ([UIApplication isCurrentOrientationLandscape]) {
-        CGFloat height = 705.0 - 50.0 - _footerView.frame.size.height;
-        [self.conversationTableViewController.view resetHeight:height];
-    }
+//    if ([UIApplication isCurrentOrientationLandscape]) {
+//        CGFloat height = 705.0 - _topCoverImageView.frame.size.height - _footerView.frame.size.height;
+//        [self.conversationTableViewController.view resetHeight:height];
+//    }
+    [self layoutFooterView];
 }
 
 #pragma mark Text View
@@ -131,7 +137,7 @@
 - (void)layoutFooterView
 {
     CGFloat footerViewOriginY = self.view.frame.size.height - _keyboardHeight - _footerView.frame.size.height;
-    CGFloat tableViewHeight = footerViewOriginY - self.conversationTableViewController.view.frame.origin.y;
+    CGFloat tableViewHeight = footerViewOriginY - self.conversationTableViewController.view.frame.origin.y + 1;
     [_footerView resetOriginY:footerViewOriginY];
     [self.conversationTableViewController.view resetHeight:tableViewHeight];
 }
@@ -159,12 +165,13 @@
 
 - (void)resizeTextView:(CGFloat)targetHeight
 {
-    CGFloat offset = targetHeight - _textViewBackgroundImageView.frame.size.height;
+    CGFloat offset = targetHeight - _textViewBackgroundImageView.frame.size.height - 2;
     [_footerView resetHeightByOffset:offset];
+    [_footerBackgroundImageView resetHeightByOffset:offset];
     [_footerView resetOriginYByOffset:-offset];
 
-    [_textViewBackgroundImageView resetHeight:targetHeight];
-    [_textView resetHeight:targetHeight - 4];
+    [_textViewBackgroundImageView resetHeight:targetHeight - 2];
+    [_textView resetHeight:targetHeight - 6];
     
     [_sendButton resetOriginY:_sendButton.frame.origin.y + offset];
     [_emoticonButton resetOriginY:_emoticonButton.frame.origin.y + offset];

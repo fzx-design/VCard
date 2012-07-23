@@ -363,7 +363,7 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" id="IQX-2v-fUV" customClass="TTTAttributedLabel">
-                                                <rect key="frame" x="18" y="42" width="326" height="51"/>
+                                                <rect key="frame" x="18" y="40" width="326" height="51"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
@@ -431,7 +431,7 @@
                                                 <size key="shadowOffset" width="0.0" height="1"/>
                                             </label>
                                             <view contentMode="scaleToFill" id="Mux-IR-mpT" customClass="TTTAttributedLabel">
-                                                <rect key="frame" x="18" y="48" width="326" height="32"/>
+                                                <rect key="frame" x="18" y="45" width="326" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
@@ -2676,19 +2676,19 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="JsK-bE-dce">
-                                        <rect key="frame" x="24" y="901" width="384" height="60"/>
+                                        <rect key="frame" x="24" y="907" width="382" height="54"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="vgg-FF-2Dk">
-                                                <rect key="frame" x="0.0" y="-4" width="382" height="64"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <rect key="frame" x="0.0" y="-6" width="383" height="60"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="msg_sendfield_glow.png" id="tOn-Aq-HIE">
-                                                <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="383" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="li7-YQ-Zfd">
-                                                <rect key="frame" x="314" y="15" width="60" height="32"/>
+                                                <rect key="frame" x="311" y="10" width="60" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -2710,18 +2710,18 @@
                                                 </connections>
                                             </button>
                                             <imageView contentMode="scaleToFill" id="o6H-Rr-iYD">
-                                                <rect key="frame" x="47" y="15" width="262" height="34"/>
+                                                <rect key="frame" x="38" y="10" width="262" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <textView contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" id="H65-lL-doa">
-                                                <rect key="frame" x="47" y="15" width="259" height="34"/>
+                                                <rect key="frame" x="40" y="10" width="259" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes"/>
                                             </textView>
                                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8X5-VS-DSa">
-                                                <rect key="frame" x="0.0" y="9" width="44" height="44"/>
+                                                <rect key="frame" x="-4" y="5" width="44" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal" image="button_new_emoji.png">
