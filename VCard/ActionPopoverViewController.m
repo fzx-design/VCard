@@ -257,8 +257,8 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	self.topSleeve.transform = CATransform3DMakeRotation(1 * angle, 1, 0, 0);
 	self.bottomSleeve.transform = CATransform3DMakeRotation(-1 * angle, 1, 0, 0);
 	
-	self.upperFoldShadow.opacity = FOLD_SHADOW_OPACITY * (1 - cosine);
-	self.lowerFoldShadow.opacity = FOLD_SHADOW_OPACITY * (1 - cosine);
+	self.upperFoldShadow.opacity = FOLD_SHADOW_OPACITY * progress;
+	self.lowerFoldShadow.opacity = FOLD_SHADOW_OPACITY * progress;
 	
 	self.perspectiveLayer.bounds = (CGRect){CGPointMake(0, (self.foldViewHeight - foldHeight) / 2), CGSizeMake(self.perspectiveLayer.bounds.size.width, foldHeight)};
     

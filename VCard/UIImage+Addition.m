@@ -515,7 +515,6 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
             avatarImageView.layer.borderWidth = 1;
         }
         
-        
         CGSize targetSize = CGSizeMake(30, 30);
         if (UIGraphicsBeginImageContextWithOptions != NULL) {
             UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.0);
