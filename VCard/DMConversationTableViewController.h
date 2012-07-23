@@ -14,5 +14,6 @@
 
 - (void)initialLoadMessageData;
 - (void)scrollToBottom;
+- (void)receivedNewMessage:(NSDictionary *)dict;
 
 @end

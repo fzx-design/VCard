@@ -130,18 +130,32 @@
                                                count:20];
 }
 
+- (void)receivedNewMessage:(NSDictionary *)dict
+{
+    DirectMessage *message = [DirectMessage insertMessage:dict withConversation:_conversation inManagedObjectContext:self.managedObjectContext];
+    [self adjustSingleMessageSize:message];
+    [self.managedObjectContext processPendingChanges];
+    [self.fetchedResultsController performFetch:nil];
+    [self scrollToBottom];
+}
+
 - (void)adjustMessageSize
 {
     for (DirectMessage *message in self.fetchedResultsController.fetchedObjects) {
-        message.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:message.text];
-        
-        CGSize size = [DMBubbleView sizeForText:message.text fontSize:[NSUserDefaults currentFontSize] leading:[NSUserDefaults currentLeading]];
-        
-        message.messageHeight = [NSNumber numberWithFloat:size.height];
-        message.messageWidth = [NSNumber numberWithFloat:size.width];
+        [self adjustSingleMessageSize:message];
     }
     
     [self.managedObjectContext processPendingChanges];
+}
+
+- (void)adjustSingleMessageSize:(DirectMessage *)message
+{
+    message.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:message.text];
+    
+    CGSize size = [DMBubbleView sizeForText:message.text fontSize:[NSUserDefaults currentFontSize] leading:[NSUserDefaults currentLeading]];
+    
+    message.messageHeight = [NSNumber numberWithFloat:size.height];
+    message.messageWidth = [NSNumber numberWithFloat:size.width];
 }
 
 - (void)scrollToBottom
@@ -150,7 +164,7 @@
     if (count > 0) {
         NSIndexPath *bottomIndexPath = [NSIndexPath indexPathForRow:count - 1 inSection:0];
         [self.tableView scrollToRowAtIndexPath:bottomIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-        [self adjustBackgroundView];
+        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
     }
 }
 
@@ -231,6 +245,7 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 //    [self.tableView endUpdates];
     [self.tableView reloadData];
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
 }
 
 

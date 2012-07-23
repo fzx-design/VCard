@@ -219,6 +219,8 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                                            maxID:(NSString *)maxID
                                   startingAtPage:(int)page
                                            count:(int)count;
+- (void)sendDirectMessage:(NSString *)text toUser:(NSString *)screenName;
+
 
 - (void)getFavouritesWithPage:(int)page
                         count:(int)count;

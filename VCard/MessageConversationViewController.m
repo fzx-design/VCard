@@ -9,6 +9,7 @@
 #import "MessageConversationViewController.h"
 #import "Conversation.h"
 #import "UIApplication+Addition.h"
+#import "WBClient.h"
 
 #define kTextViewMaxHeight 160.0
 
@@ -49,6 +50,8 @@
     [_textViewBackgroundImageView addSubview:_textView];
     
     _topCoverImageView.image = [[UIImage imageNamed:kRLCastViewBGUnit] resizableImageWithCapInsets:UIEdgeInsetsZero];
+    
+    _sendButton.enabled = NO;
     
 }
 
@@ -151,6 +154,7 @@
         
         [self resizeTextView:targetHeight];
     }
+    _sendButton.enabled = ![textView.text isEqualToString:@""];
 }
 
 - (void)resizeTextView:(CGFloat)targetHeight
@@ -177,7 +181,7 @@
 
 - (IBAction)didClickSendButton:(UIButton *)sender
 {
-    
+    [self sendMessage:_textView.text];
 }
 
 - (IBAction)didClickViewProfileButton:(UIButton *)sender
@@ -186,6 +190,21 @@
 }
 
 - (IBAction)didClickClearHistoryButton:(UIButton *)sender {
+}
+
+#pragma mark - Message Methods
+- (void)sendMessage:(NSString *)message
+{
+    WBClient *client = [WBClient client];
+    
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            [self.conversationTableViewController receivedNewMessage:client.responseJSONObject];
+            self.textView.text = @"";
+        }
+    }];
+    
+    [client sendDirectMessage:message toUser:_conversation.targetUser.screenName];
 }
 
 #pragma mark - Properties

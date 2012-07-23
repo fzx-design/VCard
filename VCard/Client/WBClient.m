@@ -958,6 +958,28 @@ typedef enum {
     [self loadAdvancedRequest];
 }
 
+- (void)sendDirectMessage:(NSString *)text toUser:(NSString *)screenName
+{
+    self.path = @"direct_messages/new.json";
+	
+    if (screenName) {
+        [self.params setObject:screenName forKey:@"screen_name"];
+    } else {
+        return;
+    }
+    
+    if (text) {
+        [self.params setObject:text forKey:@"text"];
+    } else {
+        return;
+    }
+    
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    
+    [self loadAdvancedRequest];
+}
+
 - (void)getFavouritesWithPage:(int)page
                         count:(int)count
 {
