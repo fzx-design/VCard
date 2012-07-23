@@ -48,7 +48,7 @@
 		<key>FilterName</key>
 		<string>烟熏</string>
 		<key>RequirePurchase</key>
-		<true/>
+		<false/>
 		<key>FilterParameter</key>
 		<dict>
 			<key>CIColorControls</key>
@@ -66,7 +66,7 @@
 		<key>FilterName</key>
 		<string>赤道</string>
 		<key>RequirePurchase</key>
-		<true/>
+		<false/>
 		<key>FilterParameter</key>
 		<dict>
 			<key>CIColorControls</key>

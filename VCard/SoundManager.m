@@ -68,4 +68,12 @@ static SoundManager *soundManagerInstance;
     AudioServicesPlaySystemSound(_reloadSoundID);
 }
 
+- (void)playNewMessageSoundAfterDelay:(NSTimeInterval)delay {
+    [self performSelector:@selector(playNewMessageSound) withObject:nil afterDelay:delay];
+}
+
+- (void)playReloadSoundAfterDelay:(NSTimeInterval)delay {
+    [self performSelector:@selector(playReloadSound) withObject:nil afterDelay:delay];
+}
+
 @end

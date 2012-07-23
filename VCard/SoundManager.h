@@ -14,5 +14,7 @@
 
 - (void)playNewMessageSound;
 - (void)playReloadSound;
+- (void)playNewMessageSoundAfterDelay:(NSTimeInterval)delay;
+- (void)playReloadSoundAfterDelay:(NSTimeInterval)delay;
 
 @end

@@ -97,6 +97,20 @@
     return frame;
 }
 
+- (NSUInteger)calculateCurrentCellIndex {
+    CGFloat contentOffset = self.tableView.contentOffset.y;
+    if(contentOffset < 0)
+        contentOffset = 0;
+    NSInteger index = contentOffset / TABLE_VIEW_CELL_HEIGHT;
+    CGFloat cellOffset = contentOffset - index * TABLE_VIEW_CELL_HEIGHT;
+    
+    if(cellOffset > TABLE_VIEW_CELL_HEIGHT / 2) {
+        index += 1;
+    }
+    
+    return index;
+}
+
 #pragma mark - UI methods
 
 - (void)configureTableView {
@@ -145,23 +159,14 @@
 #pragma mark - Animations
 
 - (void)tableViewSimulatePickerAnimationWithCompletion:(void (^)(NSInteger scrollToIndex))completion {
-    CGFloat contentOffset = self.tableView.contentOffset.y;
-    if(contentOffset < 0)
-        contentOffset = 0;
-    NSInteger index = contentOffset / TABLE_VIEW_CELL_HEIGHT;
-    CGFloat cellOffset = contentOffset - index * TABLE_VIEW_CELL_HEIGHT;
-        
-    if(cellOffset > TABLE_VIEW_CELL_HEIGHT / 2) {
-        index += 1;
-    }
-    
-    self.currentFilterIndex = index;
+
+    self.currentFilterIndex = [self calculateCurrentCellIndex];
     [UIView animateWithDuration:0.3f animations:^{
-        self.tableView.contentOffset = CGPointMake(0, index * TABLE_VIEW_CELL_HEIGHT);
+        self.tableView.contentOffset = CGPointMake(0, self.currentFilterIndex * TABLE_VIEW_CELL_HEIGHT);
     } completion:^(BOOL finished) {
         if(finished)
             if(completion)
-                completion(index);
+                completion(self.currentFilterIndex);
     }];
 }
 
@@ -195,7 +200,14 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     NSLog(@"scroll view content offset:%f", scrollView.contentOffset.y);
     
-    [[UIDevice currentDevice] playInputClick];
+    static NSUInteger immediateCellIndex = 0;
+    
+    NSUInteger calculatedCellIndex = [self calculateCurrentCellIndex];
+    
+    if(immediateCellIndex != calculatedCellIndex) {
+        immediateCellIndex = calculatedCellIndex;
+        //[[UIDevice currentDevice] playInputClick];
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
