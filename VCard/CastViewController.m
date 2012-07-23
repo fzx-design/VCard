@@ -685,12 +685,14 @@
 #pragma mark Account
 - (IBAction)didClickChangeAccountButton:(UIButton *)sender
 {
-    NSString *changeTitle = [NSUserDefaults getLoginUserArray].count > 1 ? @"切换用户" : nil;
+
+    NSString *firstTitle = [NSUserDefaults getLoginUserArray].count > 1 ? @"切换用户" : @"添加新帐户";
+    NSString *secondTitle = [NSUserDefaults getLoginUserArray].count > 1 ? @"添加新帐户" : nil;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:self 
                                                     cancelButtonTitle:nil 
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"添加新帐户", changeTitle, nil];
+                                                    otherButtonTitles:firstTitle, secondTitle, nil];
     actionSheet.delegate = self;
     [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
 }
@@ -698,9 +700,14 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        [[[LoginViewController alloc] initWithType:LoginViewControllerTypeCreateNewUser] show];
+        if ([NSUserDefaults getLoginUserArray].count > 1) {
+            [[[LoginViewController alloc] initWithType:LoginViewControllerTypeDefault] show];
+        } else {
+            [[[LoginViewController alloc] initWithType:LoginViewControllerTypeCreateNewUser] show];
+        }
+        
     } else if (buttonIndex == 1){
-        [[[LoginViewController alloc] initWithType:LoginViewControllerTypeDefault] show];
+        [[[LoginViewController alloc] initWithType:LoginViewControllerTypeCreateNewUser] show];
     }
 }
 
