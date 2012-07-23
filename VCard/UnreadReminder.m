@@ -66,14 +66,55 @@ static UnreadReminder *sharedUnreadReminder;
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            NSDictionary *dict = client.responseJSONObject;
-            sharedUnreadReminder.currentUser.unreadCommentCount = [dict objectForKey:@"cmt"];
-            sharedUnreadReminder.currentUser.unreadFollowingCount = [dict objectForKey:@"follower"];
-            sharedUnreadReminder.currentUser.unreadMentionCount = [dict objectForKey:@"mention_status"];
-            sharedUnreadReminder.currentUser.unreadStatusCount = [dict objectForKey:@"status"];
-            sharedUnreadReminder.currentUser.unreadMentionComment = [dict objectForKey:@"mention_cmt"];
-            sharedUnreadReminder.currentUser.unreadMessageCount = [dict objectForKey:@"dm"];
             
+            NSArray *notificationStatusArray = [NSUserDefaults getCurrentNotificationStatus];
+            
+            BOOL commentEnabled = ((NSNumber *)[notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeComment]).boolValue;
+            BOOL followerEnabled = ((NSNumber *)[notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeFollower]).boolValue;
+            BOOL mentionEnabled = ((NSNumber *)[notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeMention]).boolValue;
+            BOOL messageEnabled = ((NSNumber *)[notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeMessage]).boolValue;
+            
+            NSDictionary *dict = client.responseJSONObject;
+            
+            NSNumber *unreadStatusCount = [dict objectForKey:@"status"];
+            NSNumber *unreadCommentCount = [dict objectForKey:@"cmt"];
+            NSNumber *unreadFollowingCount = [dict objectForKey:@"follower"];
+            NSNumber *unreadMentionCount = [dict objectForKey:@"mention_status"];
+            NSNumber *unreadMentionComment = [dict objectForKey:@"mention_cmt"];
+            NSNumber *unreadMessageCount = [dict objectForKey:@"dm"];
+            
+            sharedUnreadReminder.currentUser.unreadStatusCount = unreadStatusCount;
+            
+            if(sharedUnreadReminder.currentUser.unreadCommentCount.integerValue != unreadCommentCount.integerValue) {
+                sharedUnreadReminder.currentUser.unreadCommentCount = unreadCommentCount;
+                if(commentEnabled)
+                    [[SoundManager sharedManager] playNewMessageSound];
+            }
+            
+            if(sharedUnreadReminder.currentUser.unreadFollowingCount.integerValue != unreadFollowingCount.integerValue) {
+                sharedUnreadReminder.currentUser.unreadFollowingCount = unreadFollowingCount;
+                if(followerEnabled)
+                    [[SoundManager sharedManager] playNewMessageSound];
+            }
+            
+            if(sharedUnreadReminder.currentUser.unreadMentionCount.integerValue != unreadMentionCount.integerValue) {
+                sharedUnreadReminder.currentUser.unreadMentionCount = unreadMentionCount;
+                if(mentionEnabled)
+                    [[SoundManager sharedManager] playNewMessageSound];
+            }
+            
+            if(sharedUnreadReminder.currentUser.unreadMentionComment.integerValue != unreadMentionComment.integerValue) {
+                sharedUnreadReminder.currentUser.unreadMentionComment = unreadMentionComment;
+                if(mentionEnabled)
+                    [[SoundManager sharedManager] playNewMessageSound];
+            }
+            
+            if(sharedUnreadReminder.currentUser.unreadMessageCount.integerValue != unreadMessageCount.integerValue) {
+                sharedUnreadReminder.currentUser.unreadMessageCount = unreadMessageCount;
+                if(messageEnabled)
+                    [[SoundManager sharedManager] playNewMessageSound];
+            }
+                        
             [self sendUnreadNotification];
         }
     }];
@@ -85,10 +126,10 @@ static UnreadReminder *sharedUnreadReminder;
 {
     NSArray *notificationStatusArray = [NSUserDefaults getCurrentNotificationStatus];
     
-    BOOL commentEnabled = [notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeComment];
-    BOOL followerEnabled = [notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeFollower];
-    BOOL mentionEnabled = [notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeMention];
-    BOOL messageEnabled = [notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeMessage];
+    BOOL commentEnabled = ((NSNumber *)[notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeComment]).boolValue;
+    BOOL followerEnabled = ((NSNumber *)[notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeFollower]).boolValue;
+    BOOL mentionEnabled = ((NSNumber *)[notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeMention]).boolValue;
+    BOOL messageEnabled = ((NSNumber *)[notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeMessage]).boolValue;
     
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     int unreadCount = self.currentUser.unreadStatusCount.intValue;
