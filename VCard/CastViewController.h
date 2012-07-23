@@ -34,7 +34,7 @@ typedef enum {
 
 @end
 
-@interface CastViewController : CoreDataViewController <WaterflowViewDelegate, WaterflowViewDatasource, PullToRefreshViewDelegate, LoadMoreViewDelegate, StackViewControllerDelegate, UIScrollViewDelegate, PostViewControllerDelegate> {
+@interface CastViewController : CoreDataViewController <WaterflowViewDelegate, WaterflowViewDatasource, PullToRefreshViewDelegate, LoadMoreViewDelegate, StackViewControllerDelegate, UIScrollViewDelegate, PostViewControllerDelegate, UIActionSheetDelegate> {
     
     PullToRefreshView *_pullView;
     LoadMoreView *_loadMoreView;
@@ -67,7 +67,7 @@ typedef enum {
 - (void)refresh;
 - (void)clearData;
 - (IBAction)showProfileButtonClicked:(id)sender;
-- (IBAction)didClickChangeAccountButton:(id)sender;
+- (IBAction)didClickChangeAccountButton:(UIButton *)sender;
 - (IBAction)refreshButtonClicked:(id)sender;
 - (IBAction)didClickGroupButton:(id)sender;
 - (IBAction)didClickCreateStatusButton:(UIButton *)sender;

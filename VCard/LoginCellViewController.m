@@ -62,10 +62,10 @@
             
             [NSUserDefaults insertUserAccountInfoWithUserID:user.userID account:account password:password];
             
-            [self.delegate loginCellDidLoginUser:user];
-            
             [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:user.userID];
                         
+            [self.delegate loginCellDidLoginUser:user];
+            
             if(compeltion)
                 compeltion(YES);
             

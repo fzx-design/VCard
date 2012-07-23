@@ -239,9 +239,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self setUpNotification];
-    NSArray *array = [NSUserDefaults getLoginUserArray];
-    NSString *imageName = array.count == 1 ? @"topbar_add.png" : @"topbar_change.png";
-    [self.changeAccountButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [self performSelector:@selector(resetChangeAccountButtonImage) withObject:nil afterDelay:0.5];
+}
+
+- (void)resetChangeAccountButtonImage
+{
+    if ([NSUserDefaults getLoginUserArray].count > 1) {
+        [self.changeAccountButton setImage:[UIImage imageNamed:@"topbar_change.png"] forState:UIControlStateNormal];
+    }
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -677,11 +683,23 @@
 
 #pragma mark - IBActions
 #pragma mark Account
-- (IBAction)didClickChangeAccountButton:(id)sender
+- (IBAction)didClickChangeAccountButton:(UIButton *)sender
 {
-    if ([NSUserDefaults getLoginUserArray].count == 1) {
+    NSString *changeTitle = [NSUserDefaults getLoginUserArray].count > 1 ? @"切换用户" : nil;
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self 
+                                                    cancelButtonTitle:nil 
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"添加新帐户", changeTitle, nil];
+    actionSheet.delegate = self;
+    [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
         [[[LoginViewController alloc] initWithType:LoginViewControllerTypeCreateNewUser] show];
-    } else {
+    } else if (buttonIndex == 1){
         [[[LoginViewController alloc] initWithType:LoginViewControllerTypeDefault] show];
     }
 }
