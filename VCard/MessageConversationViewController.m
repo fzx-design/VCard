@@ -138,7 +138,7 @@
     if (_prevTextViewContentHeight != textView.contentSize.height) {
         _prevTextViewContentHeight = textView.contentSize.height;
         
-        CGFloat targetHeight = _prevTextViewContentHeight - 4.0;
+        CGFloat targetHeight = _prevTextViewContentHeight;
         
         if (targetHeight > kTextViewMaxHeight) {
             _textView.scrollEnabled = YES;
@@ -155,12 +155,12 @@
 
 - (void)resizeTextView:(CGFloat)targetHeight
 {
-    CGFloat offset = targetHeight - _textView.frame.size.height;
+    CGFloat offset = targetHeight - _textViewBackgroundImageView.frame.size.height;
     [_footerView resetHeightByOffset:offset];
     [_footerView resetOriginYByOffset:-offset];
 
-    [_textViewBackgroundImageView resetHeight:targetHeight + 4];
-    [_textView resetHeight:targetHeight];
+    [_textViewBackgroundImageView resetHeight:targetHeight];
+    [_textView resetHeight:targetHeight - 4];
     
     [_sendButton resetOriginY:_sendButton.frame.origin.y + offset];
     [_emoticonButton resetOriginY:_emoticonButton.frame.origin.y + offset];
