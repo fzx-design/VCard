@@ -31,12 +31,14 @@
 #import "MessageConversationViewController.h"
 #import "Conversation.h"
 #import "NSUserDefaults+Addition.h"
+#import "LoginViewController.h"
 
 #define kStackViewDefaultDescription @"kStackViewDefaultDescription"
 #define kVCardAppStoreURL       @"http://itunes.apple.com/cn/app/id420598288?mt=8"
 
 @interface CastViewController () {
     BOOL _loading;
+    BOOL _notificationAlreadySet;
     BOOL _hasMoreViews;
     BOOL _refreshing;
     NSString *_dataSourceID;
@@ -87,6 +89,7 @@
 {
     _loading = NO;
     _nextPage = 1;
+    _notificationAlreadySet = NO;
     _refreshIndicatorView.hidden = YES;
     _postIndicatorView.hidden = YES;
     _refreshing = NO;
@@ -104,6 +107,11 @@
 
 - (void)setUpNotification
 {
+    if (_notificationAlreadySet) {
+        return;
+    }
+    _notificationAlreadySet = YES;
+    
     [NSNotificationCenter registerChangeUserAvatarNotificationWith:@selector(changeUserAvatar) target:self];
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -231,10 +239,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self setUpNotification];
+    NSArray *array = [NSUserDefaults getLoginUserArray];
+    NSString *imageName = array.count == 1 ? @"topbar_add.png" : @"topbar_change.png";
+    [self.changeAccountButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    _notificationAlreadySet = NO;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -664,8 +676,17 @@
 }
 
 #pragma mark - IBActions
-#pragma mark Refresh
+#pragma mark Account
+- (IBAction)didClickChangeAccountButton:(id)sender
+{
+    if ([NSUserDefaults getLoginUserArray].count == 1) {
+        [[[LoginViewController alloc] initWithType:LoginViewControllerTypeCreateNewUser] show];
+    } else {
+        [[[LoginViewController alloc] initWithType:LoginViewControllerTypeDefault] show];
+    }
+}
 
+#pragma mark Refresh
 - (IBAction)refreshButtonClicked:(id)sender
 {
     _refreshIndicatorView.hidden = NO;
@@ -816,6 +837,7 @@
 
 - (void)clearData
 {
+    [self.fetchedResultsController performFetch:nil];
     for (Status *status in self.fetchedResultsController.fetchedObjects) {
         [self.managedObjectContext deleteObject:status];
     }
