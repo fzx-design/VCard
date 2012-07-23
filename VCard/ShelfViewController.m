@@ -123,6 +123,8 @@
     [self updatePageControlAndScrollViewSize:[UIApplication sharedApplication].statusBarOrientation];
     [self createDrawerViewWithGroup:group index:index];
     [self getPicURLForTopic:group];
+    
+    [self performSelector:@selector(setUpScrollView) withObject:nil afterDelay:0.001];
 }
 
 - (void)deleteGroupWithNotification:(NSNotification *)notification
@@ -441,7 +443,6 @@
         _currentDrawerView = nil;
         _currentDrawerView = drawerView;
     }
-    
     
     [self resetContentLayout:[UIApplication sharedApplication].statusBarOrientation];
     [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0.3];
