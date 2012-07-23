@@ -154,6 +154,7 @@
     if(cellOffset > TABLE_VIEW_CELL_HEIGHT / 2) {
         index += 1;
     }
+    
     self.currentFilterIndex = index;
     [UIView animateWithDuration:0.3f animations:^{
         self.tableView.contentOffset = CGPointMake(0, index * TABLE_VIEW_CELL_HEIGHT);
@@ -190,6 +191,12 @@
 }
 
 #pragma mark - UIScrollView delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSLog(@"scroll view content offset:%f", scrollView.contentOffset.y);
+    
+    [[UIDevice currentDevice] playInputClick];
+}
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if(!decelerate) {

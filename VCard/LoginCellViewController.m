@@ -62,13 +62,14 @@
             
             [NSUserDefaults insertUserAccountInfoWithUserID:user.userID account:account password:password];
             
+            [self.delegate loginCellDidLoginUser:user];
+            
             [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:user.userID];
                         
             if(compeltion)
                 compeltion(YES);
             
             NSLog(@"login step 3 succeeded");
-            [self.delegate loginCellDidLoginUser:user];
         } else {
             if(compeltion)
                 compeltion(NO);
