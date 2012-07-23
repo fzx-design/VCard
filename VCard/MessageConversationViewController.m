@@ -10,9 +10,11 @@
 #import "Conversation.h"
 #import "UIApplication+Addition.h"
 
+#define kTextViewMaxHeight 160.0
+
 @interface MessageConversationViewController () {
     CGFloat _keyboardHeight;
-    CGFloat _textViewHeight;
+    CGFloat _prevTextViewContentHeight;
 }
 
 @end
@@ -31,10 +33,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.backgroundView addSubview:self.conversationTableViewController.view];
-    [self.topShadowImageView resetOriginY:[self frameForTableView].origin.y];
-    [self.topShadowImageView resetOriginX:0.0];
-    [self.view insertSubview:self.topShadowImageView belowSubview:_footerView];
+    [self.topShadowImageView resetOrigin:[self frameForTableView].origin];
+    [self.backgroundView insertSubview:self.topShadowImageView belowSubview:_footerView];
+    [self.backgroundView insertSubview:self.conversationTableViewController.view belowSubview:self.topShadowImageView];
     _titleLabel.text = _conversation.targetUser.screenName;
     [ThemeResourceProvider configButtonPaperLight:_clearHistoryButton];
     [ThemeResourceProvider configButtonPaperDark:_viewProfileButton];
@@ -43,7 +44,12 @@
     _footerBackgroundImageView.image = [[UIImage imageNamed:@"msg_sendfield_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 0, 25, 0)];
     
     _textView.delegate = self;
-    _textViewHeight = _textView.contentSize.height;
+    _prevTextViewContentHeight = _textView.contentSize.height;
+    [_textView resetOrigin:CGPointMake(1.0, 0.0)];
+    [_textViewBackgroundImageView addSubview:_textView];
+    
+    _topCoverImageView.image = [[UIImage imageNamed:kRLCastViewBGUnit] resizableImageWithCapInsets:UIEdgeInsetsZero];
+    
 }
 
 - (void)viewDidUnload
@@ -125,27 +131,42 @@
     CGFloat tableViewHeight = footerViewOriginY - self.conversationTableViewController.view.frame.origin.y;
     [_footerView resetOriginY:footerViewOriginY];
     [self.conversationTableViewController.view resetHeight:tableViewHeight];
-    [self.conversationTableViewController scrollToBottom];
 }
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    
-//    NSLog(@"%@", NSStringFromCGPoint(textView.contentOffset));
-    _textView.contentOffset = CGPointZero;
-    if (_textViewHeight != textView.contentSize.height) {
-        _textViewHeight = textView.contentSize.height;
-        CGFloat offset = _textView.contentSize.height - _textView.frame.size.height;
-        [_textView resetHeight:_textView.contentSize.height];
-        [_footerView resetHeightByOffset:offset];
-        [_footerView resetOriginYByOffset:-offset];
+    if (_prevTextViewContentHeight != textView.contentSize.height) {
+        _prevTextViewContentHeight = textView.contentSize.height;
         
-        _textViewBackgroundImageView.frame = _textView.frame;
-        [_sendButton resetOriginY:_sendButton.frame.origin.y + offset / 2];
-        [_emoticonButton resetOriginY:_emoticonButton.frame.origin.y + offset / 2];
-        [self.conversationTableViewController.view resetHeightByOffset:-offset];
-        [self.conversationTableViewController scrollToBottom];
+        CGFloat targetHeight = _prevTextViewContentHeight - 4.0;
+        
+        if (targetHeight > kTextViewMaxHeight) {
+            _textView.scrollEnabled = YES;
+            _textView.clipsToBounds = YES;
+            targetHeight = kTextViewMaxHeight;
+        } else {
+            _textView.scrollEnabled = NO;
+            _textView.clipsToBounds = NO;
+        }
+        
+        [self resizeTextView:targetHeight];
     }
+}
+
+- (void)resizeTextView:(CGFloat)targetHeight
+{
+    CGFloat offset = targetHeight - _textView.frame.size.height;
+    [_footerView resetHeightByOffset:offset];
+    [_footerView resetOriginYByOffset:-offset];
+
+    [_textViewBackgroundImageView resetHeight:targetHeight + 4];
+    [_textView resetHeight:targetHeight];
+    
+    [_sendButton resetOriginY:_sendButton.frame.origin.y + offset];
+    [_emoticonButton resetOriginY:_emoticonButton.frame.origin.y + offset];
+    [self.conversationTableViewController.view resetHeightByOffset:-offset];
+    [self.conversationTableViewController scrollToBottom];
+    
 }
 
 #pragma mark - IBActions

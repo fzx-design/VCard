@@ -2702,12 +2702,12 @@
                                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="o6H-Rr-iYD">
+                                            <imageView contentMode="scaleToFill" id="o6H-Rr-iYD">
                                                 <rect key="frame" x="47" y="15" width="262" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
-                                            <textView contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="H65-lL-doa">
-                                                <rect key="frame" x="47" y="15" width="262" height="34"/>
+                                            <textView contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" id="H65-lL-doa">
+                                                <rect key="frame" x="47" y="15" width="259" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2728,6 +2728,10 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="InN-nY-s3Z">
+                                        <rect key="frame" x="24" y="0.0" width="382" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="用户名" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="E22-BR-Zyz">
                                         <rect key="frame" x="120" y="0.0" width="190" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2792,6 +2796,7 @@
                         <outlet property="textView" destination="H65-lL-doa" id="aC2-85-2sz"/>
                         <outlet property="textViewBackgroundImageView" destination="o6H-Rr-iYD" id="j44-1z-04u"/>
                         <outlet property="titleLabel" destination="E22-BR-Zyz" id="97V-cr-24E"/>
+                        <outlet property="topCoverImageView" destination="InN-nY-s3Z" id="ATk-QK-6In"/>
                         <outlet property="viewProfileButton" destination="695-Zg-MnI" id="Xvd-hT-RLX"/>
                     </connections>
                 </viewController>
