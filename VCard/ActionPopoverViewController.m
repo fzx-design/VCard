@@ -384,7 +384,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	// Shadow layers to add shadowing to the 2 folding panels
 	self.upperFoldShadow = [CAGradientLayer layer];
 	[upperFold addSublayer:self.upperFoldShadow];
-	self.upperFoldShadow.frame = CGRectInset(upperFold.bounds, 5, 0);
+	self.upperFoldShadow.frame = CGRectInset(upperFold.bounds, 6, 0);
 	//self.upperFoldShadow.backgroundColor = [UIColor blackColor].CGColor;
 	self.upperFoldShadow.colors = [NSArray arrayWithObjects:(id)[UIColor darkGrayColor].CGColor, (id)[[UIColor darkGrayColor] colorWithAlphaComponent:0.5].CGColor, nil];
 	self.upperFoldShadow.startPoint = CGPointMake(0.5, 0);
@@ -394,7 +394,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	
 	self.lowerFoldShadow = [CAGradientLayer layer];
 	[lowerFold addSublayer:self.lowerFoldShadow];
-	self.lowerFoldShadow.frame = CGRectInset(lowerFold.bounds, 5, 0);
+	self.lowerFoldShadow.frame = CGRectInset(lowerFold.bounds, 6, 0);
 	self.lowerFoldShadow.colors = [NSArray arrayWithObjects:(id)[UIColor darkGrayColor].CGColor, (id)[[UIColor darkGrayColor] colorWithAlphaComponent:0.7].CGColor, nil];
 	self.lowerFoldShadow.startPoint = CGPointMake(0.5, 0);
 	self.lowerFoldShadow.endPoint = CGPointMake(0.5, 1);
