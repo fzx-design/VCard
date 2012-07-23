@@ -39,6 +39,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [_loadMoreView removeFromSuperview];
+    UIEdgeInsets inset = self.tableView.contentInset;
+    inset.bottom = 20.0;
+    self.tableView.contentInset = inset;
 }
 
 - (void)viewDidUnload
@@ -109,7 +113,6 @@
         }
         
         [self refreshEnded];
-        [_loadMoreView finishedLoading:_hasMoreViews];
         [_pullView finishedLoading];
         _loading = NO;
         _refreshing = NO;
