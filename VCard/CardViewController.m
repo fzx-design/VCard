@@ -29,6 +29,11 @@
 
 #define CARD_CROP_INSETS UIEdgeInsetsMake(-10, -10, 0, -10);
 
+#define kFavouriteFlagOffset    60.0
+#define kAvatarOriginX          20.0
+#define kButtonOriginX          10.0
+#define kLabelOriginX           56.0
+
 @interface CardViewController () {
     BOOL _doesImageExist;
     BOOL _isTimeStampEnabled;
@@ -262,6 +267,14 @@
     self.locationLabel.hidden = YES;
     self.locationLabel.text = @"";
     
+    [_originalUserAvatar resetOriginX:kAvatarOriginX];
+    [_originalUserNameButton resetOriginX:kButtonOriginX];
+    [_originalUserNameLabel resetOriginX:kLabelOriginX];
+    
+    [_repostUserAvatar resetOriginX:kAvatarOriginX];
+    [_repostUserNameButton resetOriginX:kButtonOriginX];
+    [_repostUserNameLabel resetOriginX:kLabelOriginX];
+    
     [self.originalUserAvatar reset];
     [self.repostUserAvatar reset];
     [self.statusImageView reset];
@@ -270,6 +283,13 @@
 - (void)setUpStatusView
 {
     self.favoredImageView.hidden = ![self.status.favorited boolValue];
+    
+    if ([self.status.favorited boolValue] && !_doesImageExist) {
+        [_originalUserAvatar resetOriginXByOffset:kFavouriteFlagOffset];
+        [_originalUserNameButton resetOriginXByOffset:kFavouriteFlagOffset];
+        [_originalUserNameLabel resetOriginXByOffset:kFavouriteFlagOffset];
+    }
+    
     
     CGFloat originY = _doesImageExist ? self.imageHeight + 30 : 20;
     Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
@@ -631,8 +651,11 @@
     
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            [self showFavouriteFlag];
+            [self performSelector:@selector(showFavouriteFlag) withObject:nil afterDelay:0.2];
             self.status.favorited = [NSNumber numberWithBool:YES];
+            [NSUserDefaults addFavouriteID:self.status.statusID];
+            [self.managedObjectContext processPendingChanges];
+            self.currentUser.favouritesIDs = [NSUserDefaults getCurrentUserFavouriteIDs];
         }
     }];
     
@@ -645,8 +668,11 @@
     
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            [self hideFavouriteFlag];
+            [self performSelector:@selector(hideFavouriteFlag) withObject:nil afterDelay:0.2];
             self.status.favorited = [NSNumber numberWithBool:NO];
+            [self.managedObjectContext processPendingChanges];
+            [NSUserDefaults removeFavouriteID:self.status.statusID];
+            self.currentUser.favouritesIDs = [NSUserDefaults getCurrentUserFavouriteIDs];
         }
     }];
     [client unFavorite:self.status.statusID];
@@ -654,12 +680,36 @@
 
 - (void)showFavouriteFlag
 {
-    
+    [_favoredImageView resetHeight:10.0];
+    _favoredImageView.hidden = NO;
+    _favoredImageView.alpha = 0.0;
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [_favoredImageView resetHeight:59.0];
+        _favoredImageView.alpha = 1.0;
+        if (!_doesImageExist) {
+            [_originalUserAvatar resetOriginXByOffset:kFavouriteFlagOffset];
+            [_originalUserNameButton resetOriginXByOffset:kFavouriteFlagOffset];
+            [_originalUserNameLabel resetOriginXByOffset:kFavouriteFlagOffset];
+        }
+        
+    } completion:nil];
 }
 
 - (void)hideFavouriteFlag
 {
-    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [_favoredImageView resetHeight:10.0];
+        _favoredImageView.alpha = 0.0;
+        if (!_doesImageExist) {
+            [_originalUserAvatar resetOriginXByOffset:-kFavouriteFlagOffset];
+            [_originalUserNameButton resetOriginXByOffset:-kFavouriteFlagOffset];
+            [_originalUserNameLabel resetOriginXByOffset:-kFavouriteFlagOffset];
+        }
+    } completion:^(BOOL finished) {
+        _favoredImageView.hidden = YES;
+        _favoredImageView.alpha = 1.0;
+        [_favoredImageView resetHeight:59.0];
+    }];
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate
@@ -935,6 +985,10 @@
     
     [self.clipImageView.layer addAnimation:fadeOutAnimation forKey:@"opacity"];
     self.clipImageView.layer.opacity = 0;
+    
+    if ([self isCardFavorited]) {
+        [self hideFavouriteFlag];
+    }
 }
 
 - (void)playClipTightenAnimation
@@ -958,6 +1012,10 @@
     
     [self.clipImageView.layer addAnimation:fadeOutAnimation forKey:@"opacity"];
     self.clipImageView.layer.opacity = 1;
+    
+    if ([self isCardFavorited]) {
+        [self showFavouriteFlag];
+    }
 }
 
 #pragma mark - Action popover

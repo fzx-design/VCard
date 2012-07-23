@@ -370,10 +370,6 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" image="card_tag.png" id="eSu-cV-Lvj">
-                                        <rect key="frame" x="13" y="-5" width="62" height="59"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                     <view contentMode="center" id="JlQ-UP-5aD" customClass="CardImageView">
                                         <rect key="frame" x="-4" y="13" width="370" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -382,6 +378,10 @@
                                     <imageView userInteractionEnabled="NO" contentMode="center" image="card_clip.png" id="90L-iK-tu4">
                                         <rect key="frame" x="300" y="-4" width="42" height="59"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="card_tag.png" id="eSu-cV-Lvj">
+                                        <rect key="frame" x="13" y="-5" width="62" height="59"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -407,7 +407,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Fdf-S8-2Rf">
-                                                <rect key="frame" x="11" y="-4" width="44" height="44"/>
+                                                <rect key="frame" x="10" y="-4" width="44" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                 <state key="normal" title="">
@@ -1573,7 +1573,6 @@
         <!--Group Info Table View Controller-->
         <scene sceneID="RUT-9m-cHl">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nWs-VL-kTP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="GroupInfoTableViewController" id="ITg-Y0-Bvl" customClass="GroupInfoTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsMultipleSelection="YES" rowHeight="61" sectionHeaderHeight="22" sectionFooterHeight="22" id="ye2-8f-1LV">
                         <rect key="frame" x="0.0" y="0.0" width="250" height="400"/>
@@ -1612,6 +1611,7 @@
                         <outlet property="tableView" destination="ye2-8f-1LV" id="iux-9S-28s"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nWs-VL-kTP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1505" y="-1503"/>
         </scene>

@@ -49,6 +49,8 @@
     
     [NSNotificationCenter registerChangeCurrentUserNotificationWithSelector:@selector(handleChangeCurrentUserNotification:) target:self];
     [NSNotificationCenter postRootViewControllerViewDidLoadNotification];
+    
+    
 }
 
 - (void)loadUserAndChangeAvatar
@@ -168,6 +170,10 @@
     [center addObserver:self
                selector:@selector(hideDetailImageView:)
                    name:kNotificationNameShouldHideDetailImageView
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(loadUserFavouritesID)
+                   name:UIApplicationDidBecomeActiveNotification
                  object:nil];
 }
 

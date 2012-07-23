@@ -91,10 +91,24 @@
     self.frame = frame;
 }
 
+- (void)resetWidthByOffset:(CGFloat)offset
+{
+    CGRect frame = self.frame;
+    frame.size.width += offset;
+    self.frame = frame;
+}
+
 - (void)resetOriginYByOffset:(CGFloat)offset
 {
     CGRect frame = self.frame;
     frame.origin.y += offset;
+    self.frame = frame;
+}
+
+- (void)resetOriginXByOffset:(CGFloat)offset
+{
+    CGRect frame = self.frame;
+    frame.origin.x += offset;
     self.frame = frame;
 }
 

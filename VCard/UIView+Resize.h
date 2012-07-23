@@ -32,7 +32,11 @@
 
 - (void)resetHeightByOffset:(CGFloat)offset;
 
+- (void)resetWidthByOffset:(CGFloat)offset;
+
 - (void)resetOriginYByOffset:(CGFloat)offset;
+
+- (void)resetOriginXByOffset:(CGFloat)offset;
 
 - (void)resetCenterY:(CGFloat)centerY;
 

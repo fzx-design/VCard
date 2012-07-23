@@ -184,6 +184,24 @@
     [defaults synchronize];
 }
 
++ (void)addFavouriteID:(NSString *)statusID
+{
+    NSMutableArray *array = [NSMutableArray arrayWithArray:[NSUserDefaults getCurrentUserFavouriteIDs]];
+    [array addObject:statusID];
+    [NSUserDefaults setCurrentUserFavouriteIDs:array];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (void)removeFavouriteID:(NSString *)statusID
+{
+    NSMutableArray *array = [NSMutableArray arrayWithArray:[NSUserDefaults getCurrentUserFavouriteIDs]];
+    if ([array containsObject:statusID]) {
+        [array removeObject:statusID];
+        [NSUserDefaults setCurrentUserFavouriteIDs:array];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
 + (NSArray *)getCurrentUserFavouriteIDs
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

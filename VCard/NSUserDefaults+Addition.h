@@ -65,6 +65,8 @@ typedef enum {
 
 + (void)setCurrentUserFavouriteIDs:(NSArray *)array;
 + (NSArray *)getCurrentUserFavouriteIDs;
++ (void)addFavouriteID:(NSString *)statusID;
++ (void)removeFavouriteID:(NSString *)statusID;
 
 + (BOOL)hasShownGuideBook;
 + (void)setShownGuideBook:(BOOL)hasShown;
