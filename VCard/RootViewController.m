@@ -66,6 +66,37 @@
     [userClient getUser:self.currentUser.userID];
 }
 
+- (void)loadUserFavouritesID
+{
+    __block int count = 0;
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSMutableArray *favouriteIDs = [[NSMutableArray alloc] init];
+            NSDictionary *result = client.responseJSONObject;
+            NSArray *dictArray = [result objectForKey:@"favorites"];
+            for (NSDictionary *dict in dictArray) {
+                NSString *favouriteID = [dict objectForKey:@"status"];
+                [favouriteIDs addObject:favouriteID];
+            }
+            self.currentUser.favouritesIDs = favouriteIDs;
+            [NSUserDefaults setCurrentUserFavouriteIDs:favouriteIDs];
+            
+        } else {
+            if (count < 3) {
+                count++;
+                [client getFavouriteIDs];
+            } else {
+                NSArray *favouriteIDs = self.currentUser.favouritesIDs;
+                [NSUserDefaults setCurrentUserFavouriteIDs:favouriteIDs];
+            }
+        }
+    }];
+    
+    [client getFavouriteIDs];
+    
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -113,6 +144,9 @@
     [self.castViewController viewWillAppear:NO];
     [self.shelfViewController viewWillAppear:NO];
     self.shelfViewController.view.hidden = YES;
+    
+    
+    [self loadUserFavouritesID];
 }
 
 - (void)setUpNotifications

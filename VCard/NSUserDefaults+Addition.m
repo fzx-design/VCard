@@ -22,6 +22,8 @@
 #define kSettingEnablePicture               @"SettingEnablePicture"
 #define kSettingEnableDateDisplay           @"SettingEnableDateDisplay"
 
+#define kCurrentUserFavouriteIDs            @"kCurrentUserFavouriteIDs"
+
 #define kVCard4_0_Initialized               @"VCard4_0_Initialized"
 
 #define kSettingOptionFontSize              @"SettingOptionFontSize"
@@ -58,6 +60,8 @@
         
         [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:NO], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:NO], nil] forKey:kSettingOptionFontSize];
         [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], nil] forKey:kSettingOptionNotification];
+        
+        [defaults setObject:[NSArray array] forKey:kCurrentUserFavouriteIDs];
         
         [defaults setBool:NO forKey:kHasShownShelfTips];
         [defaults setBool:NO forKey:kHasShownStackTips];
@@ -171,6 +175,19 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:hasShown forKey:kHasShownGuideBook];
     [defaults synchronize];
+}
+
++ (void)setCurrentUserFavouriteIDs:(NSArray *)array
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:array forKey:kCurrentUserFavouriteIDs];
+    [defaults synchronize];
+}
+
++ (NSArray *)getCurrentUserFavouriteIDs
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults objectForKey:kCurrentUserFavouriteIDs];
 }
 
 + (NSArray *)getCurrentNotificationStatus {

@@ -24,6 +24,7 @@
 @dynamic following;
 @dynamic followMe;
 @dynamic friendsCount;
+@dynamic favouritesIDs;
 @dynamic gender;
 @dynamic largeAvatarURL;
 @dynamic location;

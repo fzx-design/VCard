@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSString * domainURL;
 @property (nonatomic, retain) NSString * favouritesCount;
+@property (nonatomic, retain) id favouritesIDs;
 @property (nonatomic, retain) NSString * followersCount;
 @property (nonatomic, retain) NSNumber * following;
 @property (nonatomic, retain) NSNumber * followMe;

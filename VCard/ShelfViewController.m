@@ -35,6 +35,7 @@
     ShelfDrawerView *_currentDrawerView;
     CGPoint     _initialPoint;
     BOOL        _editing;
+    BOOL        _notificationAlreadySet;
 }
 
 @end
@@ -55,6 +56,7 @@
     [super viewDidLoad];
     
     _editing = NO;
+    _notificationAlreadySet = NO;
     
     [self initScrollView];
     [self setUpSettingView];
@@ -69,6 +71,12 @@
 #pragma mark - Notifications
 - (void)setUpNotifications
 {
+    if (_notificationAlreadySet) {
+        return;
+    }
+    
+    _notificationAlreadySet = YES;
+    
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
                selector:@selector(createNewGroup:)
@@ -103,6 +111,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    _notificationAlreadySet = NO;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

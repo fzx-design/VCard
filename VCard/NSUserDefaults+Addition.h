@@ -63,6 +63,9 @@ typedef enum {
 + (SettingOptionInfo *)getInfoForOptionKey:(NSString *)optionKey;
 + (void)setSettingOptionInfo:(SettingOptionInfo *)info;
 
++ (void)setCurrentUserFavouriteIDs:(NSArray *)array;
++ (NSArray *)getCurrentUserFavouriteIDs;
+
 + (BOOL)hasShownGuideBook;
 + (void)setShownGuideBook:(BOOL)hasShown;
 + (BOOL)hasShownShelfTips;

@@ -625,6 +625,42 @@
     [client deleteStatus:self.status.statusID];
 }
 
+- (void)favouriteStatus
+{
+    WBClient *client = [WBClient client];
+    
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            [self showFavouriteFlag];
+            self.status.favorited = [NSNumber numberWithBool:YES];
+        }
+    }];
+    
+    [client favorite:self.status.statusID];
+}
+
+- (void)unfavouriteStatus
+{
+    WBClient *client = [WBClient client];
+    
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            [self hideFavouriteFlag];
+            self.status.favorited = [NSNumber numberWithBool:NO];
+        }
+    }];
+    [client unFavorite:self.status.statusID];
+}
+
+- (void)showFavouriteFlag
+{
+    
+}
+
+- (void)hideFavouriteFlag
+{
+    
+}
 
 #pragma mark - MFMailComposeViewControllerDelegate
 - (void)mailComposeController:(MFMailComposeViewController*)controller
@@ -1065,7 +1101,11 @@
         self.deleteStatusAlertView = alert;
         [alert show];
     } else if(identifier == ActionPopoverButtonIdentifierFavorite) {
-        //TODO:
+        if ([self isCardFavorited]) {
+            [self unfavouriteStatus];
+        } else {
+            [self favouriteStatus];
+        }
     }
     
     if(dismissPopover) {

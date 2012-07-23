@@ -11,7 +11,7 @@
 #import "Status.h"
 #import "User.h"
 #import "NSDateAddition.h"
-
+#import "NSUserDefaults+Addition.h"
 
 @implementation Status
 
@@ -115,7 +115,8 @@
     
     result.source = [dict objectForKey:@"source"];
     
-    result.favorited = [NSNumber numberWithBool:[[dict objectForKey:@"favorited"] boolValue]];
+    BOOL favourited = [[NSUserDefaults getCurrentUserFavouriteIDs] containsObject:result.statusID];
+    result.favorited = [NSNumber numberWithBool:favourited];
     
     NSInteger commentsCount = [[dict objectForKey:@"comments_count"] intValue];
     if (result.commentsCount.intValue < commentsCount) {
