@@ -874,7 +874,7 @@
                 newStatus.forCastView = [NSNumber numberWithBool:YES];
                 
                 CGFloat imageHeight = [self randomImageHeight];
-                CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight isWaterflowCard:YES];
+                CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight timeStampEnabled:[NSUserDefaults isDateDisplayEnabled] picEnabled:[NSUserDefaults isPictureEnabled]];
                 newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
                 newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
                 
@@ -1121,11 +1121,14 @@
             Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
             [cell setCellHeight:[layoutUnit unitHeight]];
             
-            [((WaterflowCardCell *)cell).cardViewController configureCardWithStatus:targetStatus
-                                                                        imageHeight:layoutUnit.imageHeight
-                                                                          pageIndex:0
-                                                                        currentUser:self.currentUser
-                                                                 coreDataIdentifier:kCoreDataIdentifierDefault];
+            WaterflowCardCell *waterflowCell = (WaterflowCardCell *)cell;
+            
+            waterflowCell.cardViewController.isWaterflowCard = YES;
+            [waterflowCell.cardViewController configureCardWithStatus:targetStatus
+                                                          imageHeight:layoutUnit.imageHeight
+                                                            pageIndex:0
+                                                          currentUser:self.currentUser
+                                                   coreDataIdentifier:kCoreDataIdentifierDefault];
         } else {
             NSLog(@"Core Data Error! - CastViewController");
         }
@@ -1156,7 +1159,7 @@
 {
     if (self.fetchedResultsController.fetchedObjects.count > index_) {
         Status *status = (Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:index_];
-        return [CardViewController heightForStatus:status andImageHeight:imageHeight_ isWaterflowCard:YES];
+        return [CardViewController heightForStatus:status andImageHeight:imageHeight_ timeStampEnabled:[NSUserDefaults isDateDisplayEnabled] picEnabled:[NSUserDefaults isPictureEnabled]];
     } else {
         return 0;
     }

@@ -83,7 +83,7 @@
         frame.origin = CGPointMake(10, 11);
         frame.size = CGSizeMake(362, 500);
         _cardViewController.view.frame = frame;
-        _cardViewController.isNotWaterflowCard = YES;
+        _cardViewController.mustShowPic = YES;
         
         [self addSubview:_cardViewController.view];
     }

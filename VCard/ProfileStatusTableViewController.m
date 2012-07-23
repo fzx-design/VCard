@@ -13,6 +13,7 @@
 #import "Comment.h"
 #import "User.h"
 #import "WaterflowLayoutUnit.h"
+#import "NSUserDefaults+Addition.h"
 
 @interface ProfileStatusTableViewController () {
     long long _nextCursor;
@@ -77,7 +78,7 @@
 {
     for (Status *status in self.fetchedResultsController.fetchedObjects) {
         CGFloat imageHeight = [self randomImageHeight];
-        CGFloat cardHeight = [CardViewController heightForStatus:status andImageHeight:imageHeight isWaterflowCard:YES];
+        CGFloat cardHeight = [CardViewController heightForStatus:status andImageHeight:imageHeight timeStampEnabled:YES picEnabled:[NSUserDefaults isPictureEnabled]];
         status.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
         status.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
     }
@@ -106,7 +107,7 @@
                                 
                 if (newStatus.cardSizeCardHeight.floatValue == 0.0) {
                     CGFloat imageHeight = [self randomImageHeight];
-                    CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight isWaterflowCard:YES];
+                    CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight timeStampEnabled:YES picEnabled:[NSUserDefaults isPictureEnabled]];
                     newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
                     newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
                 }

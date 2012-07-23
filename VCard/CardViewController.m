@@ -31,6 +31,7 @@
 
 @interface CardViewController () {
     BOOL _doesImageExist;
+    BOOL _isTimeStampEnabled;
     BOOL _alreadyConfigured;
     BOOL _imageAlreadyLoaded;
     BOOL _isActionPopoverShown;
@@ -77,6 +78,7 @@
     self.statusInfoView.clipsToBounds = NO;
     self.repostStatusInfoView.clipsToBounds = NO;
     
+    self.timeStampLabel.hidden = YES;
     self.locationLabel.hidden = YES;
     self.locationPinImageView.hidden = YES;
     self.clipImageView.layer.anchorPoint = CGPointMake(0.9, 0.05);
@@ -131,7 +133,7 @@
 
 #pragma mark - Functional Method
 
-+ (CGFloat)heightForStatus:(Status *)status_ andImageHeight:(NSInteger)imageHeight_ isWaterflowCard:(BOOL)isWaterflowCard
++ (CGFloat)heightForStatus:(Status *)status_ andImageHeight:(NSInteger)imageHeight_ timeStampEnabled:(BOOL)timeStampEnabled picEnabled:(BOOL)picEnabled
 {
     status_.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:status_.text];
     if (status_.repostStatus) {
@@ -139,11 +141,10 @@
     }
     
     BOOL isReposted = status_.repostStatus != nil;
-    BOOL hasCardTail = [status_ hasLocationInfo] || YES;
+    BOOL hasCardTail = [status_ hasLocationInfo] || timeStampEnabled || YES;
     Status *targetStatus = isReposted ? status_.repostStatus : status_;
     
-    BOOL isPictureEnabled = !isWaterflowCard || [NSUserDefaults isPictureEnabled];
-    BOOL doesImageExist = targetStatus.bmiddlePicURL && ![targetStatus.bmiddlePicURL isEqualToString:@""] && isPictureEnabled;
+    BOOL doesImageExist = targetStatus.bmiddlePicURL && ![targetStatus.bmiddlePicURL isEqualToString:@""] && picEnabled;
 
     CGFloat height = CardSizeTopViewHeight + CardSizeBottomViewHeight + CardSizeUserAvatarHeight;
     height += [TTTAttributedLabelConfiguer heightForCellWithText:status_.text] + CardSizeTextGap;
@@ -210,10 +211,11 @@
     self.status = status_;
     _isReposted = self.status.repostStatus != nil;
     
-    BOOL isPictureEnabled = _isNotWaterflowCard || [NSUserDefaults isPictureEnabled];
+    BOOL isPictureEnabled = _mustShowPic || [NSUserDefaults isPictureEnabled];
+    _isTimeStampEnabled = !_isWaterflowCard || [NSUserDefaults isDateDisplayEnabled];
+    
     Status *imageStatus = _isReposted ? self.status.repostStatus : self.status;
     _doesImageExist = imageStatus.bmiddlePicURL && ![imageStatus.bmiddlePicURL isEqualToString:@""] && isPictureEnabled;
-    
 }
 
 - (void)setUpStatusImageView
@@ -327,7 +329,9 @@
                                         CardSizeUserAvatarHeight + CardSizeTextGap + 
                                         self.repostStatusLabel.frame.size.height;
         
-        repostStatusViewHeight += CardTailHeight;
+//        if (_isTimeStampEnabled) {
+            repostStatusViewHeight += CardTailHeight;
+//        }
         
         [self.repostCardBackground resetHeight:repostStatusViewHeight];
         [self.repostStatusInfoView resetHeight:repostStatusViewHeight];
@@ -343,7 +347,7 @@
     [self.repostButton resetOriginY:origin.y + offset];
     [self.commentButton resetOriginY:origin.y + offset];
     
-    self.commentButton.hidden = _isNotWaterflowCard;
+    self.commentButton.hidden = _mustShowPic;
     
 }
 
@@ -354,12 +358,16 @@
     [self.locationPinImageView resetOriginY:cardTailOriginY + 2];
     [self.locationLabel resetOriginY:cardTailOriginY];
     [self.timeStampLabel resetOriginY:cardTailOriginY];
-
-    if (self.status.cacheDateString == nil) {
-        self.status.cacheDateString = [self.status.createdAt stringRepresentation];
-    }
     
-    [self.timeStampLabel setText:self.status.cacheDateString];
+    if (_isTimeStampEnabled) {
+        self.timeStampLabel.hidden = NO;
+        if (self.status.cacheDateString == nil) {
+            self.status.cacheDateString = [self.status.createdAt stringRepresentation];
+        }
+        [self.timeStampLabel setText:self.status.cacheDateString];
+    } else {
+        self.timeStampLabel.hidden = YES;
+    }
     
     [self setUpLocationInfo];
 }

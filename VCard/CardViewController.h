@@ -75,7 +75,8 @@
 @property (nonatomic, assign) NSInteger imageHeight;
 @property (nonatomic, assign) NSInteger pageIndex;
 @property (nonatomic, assign) BOOL isReposted;
-@property (nonatomic, assign) BOOL isNotWaterflowCard;
+@property (nonatomic, assign) BOOL isWaterflowCard;
+@property (nonatomic, assign) BOOL mustShowPic;
 
 @property (nonatomic, weak) id<CardViewControllerDelegate> delegate;
 
@@ -85,7 +86,7 @@
 - (IBAction)didClickCommentButton:(UIButton *)sender;
 - (IBAction)didClickRepostButton:(UIButton *)sender;
 
-+ (CGFloat)heightForStatus:(Status *)status_ andImageHeight:(NSInteger)imageHeight_ isWaterflowCard:(BOOL)isWaterflowCard;
++ (CGFloat)heightForStatus:(Status *)status_ andImageHeight:(NSInteger)imageHeight_ timeStampEnabled:(BOOL)timeStampEnabled picEnabled:(BOOL)picEnabled;
 + (CGFloat)heightForTextContent:(NSString *)text;
 
 - (void)configureCardWithStatus:(Status*)status_
