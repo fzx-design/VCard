@@ -79,13 +79,14 @@
                 NSString *favouriteID = [dict objectForKey:@"status"];
                 [favouriteIDs addObject:favouriteID];
             }
+            
             self.currentUser.favouritesIDs = favouriteIDs;
             [NSUserDefaults setCurrentUserFavouriteIDs:favouriteIDs];
             
         } else {
             if (count < 3) {
                 count++;
-                [client getFavouriteIDs];
+                [client getFavouriteIDs:1000];
             } else {
                 NSArray *favouriteIDs = self.currentUser.favouritesIDs;
                 [NSUserDefaults setCurrentUserFavouriteIDs:favouriteIDs];
@@ -93,7 +94,7 @@
         }
     }];
     
-    [client getFavouriteIDs];
+    [client getFavouriteIDs:1000];
     
 }
 

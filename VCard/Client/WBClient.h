@@ -190,7 +190,7 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 
 - (void)favorite:(NSString *)statusID;
 - (void)unFavorite:(NSString *)statusID;
-- (void)getFavouriteIDs;
+- (void)getFavouriteIDs:(int)count;
 
 - (void)deleteStatus:(NSString *)statusID;
 - (void)deleteComment:(NSString *)commentID;

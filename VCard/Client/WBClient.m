@@ -718,10 +718,10 @@ typedef enum {
     [self loadNormalRequest];
 }
 
-- (void)getFavouriteIDs
+- (void)getFavouriteIDs:(int)count
 {
     self.path = @"favorites/ids.json";
-    [self.params setObject:[NSString stringWithFormat:@"%i", 1000] forKey:@"count"];
+    [self.params setObject:[NSString stringWithFormat:@"%i", count] forKey:@"count"];
     [self loadNormalRequest];
 }
 
