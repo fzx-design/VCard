@@ -111,6 +111,9 @@
     _tapGestureRecognizer.delegate = self;
     [self.statusImageView addGestureRecognizer:_tapGestureRecognizer];
     
+    UITapGestureRecognizer *favouriteTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(unfavouriteStatus)];
+    [self.favoredImageView addGestureRecognizer:favouriteTapGesture];
+    
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionPopoverPinchGesture:)];
     pinchGesture.delegate = self;
     [self.view addGestureRecognizer:pinchGesture];

@@ -22,7 +22,7 @@
 
 #define kInfoBarImageViewFrame          CGRectMake(0, -40, 768, 33)
 #define kInfoBarShadowViewFrame         CGRectMake(0, -10, 768, 15)
-#define kInfoBarReturnButtonFrame       CGRectMake(0, -40, 90, 30)
+#define kInfoBarReturnButtonFrame       CGRectMake(-2, -39, 90, 30)
 #define kInfoBarTitleLabelFrame         CGRectMake(0, -40, 768, 30)
 #define kInfoBarReturnButtonTextColor   [UIColor colorWithHue:70.0 / 255.0 saturation:70.0 / 255.0 brightness:70.0 / 255.0 alpha:1.0]
 #define kInfoBarTitleLabelTextColor     [UIColor colorWithHue:45.0 / 255.0 saturation:45.0 / 255.0 brightness:45.0 / 255.0 alpha:1.0]

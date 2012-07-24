@@ -112,6 +112,7 @@
 		182EF5C215B92AC0005E4BA2 /* GroupInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182EF5C115B92AC0005E4BA2 /* GroupInfoTableViewController.m */; };
 		1833803415A9C102001DC651 /* card_image_edge.png in Resources */ = {isa = PBXBuildFile; fileRef = 1833803215A9C102001DC651 /* card_image_edge.png */; };
 		1833803515A9C102001DC651 /* card_image_edge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1833803315A9C102001DC651 /* card_image_edge@2x.png */; };
+		1839175815BE395300C84F7A /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 1839175715BE395300C84F7A /* UIButton+EnlargeTouchArea.m */; };
 		183AC82F15A56EAE006937C3 /* ShelfDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183AC82E15A56EAE006937C3 /* ShelfDrawerView.m */; };
 		1846F04815A72FAA00E5CF47 /* DetailImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1846F04715A72FAA00E5CF47 /* DetailImageViewController.m */; };
 		184720E215B5282F0028262C /* button_vote.png in Resources */ = {isa = PBXBuildFile; fileRef = 184720E015B5282F0028262C /* button_vote.png */; };
@@ -1111,6 +1112,8 @@
 		182EF5C115B92AC0005E4BA2 /* GroupInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInfoTableViewController.m; sourceTree = "<group>"; };
 		1833803215A9C102001DC651 /* card_image_edge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_image_edge.png; sourceTree = "<group>"; };
 		1833803315A9C102001DC651 /* card_image_edge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card_image_edge@2x.png"; sourceTree = "<group>"; };
+		1839175615BE395300C84F7A /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
+		1839175715BE395300C84F7A /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
 		183AC82D15A56EAE006937C3 /* ShelfDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelfDrawerView.h; sourceTree = "<group>"; };
 		183AC82E15A56EAE006937C3 /* ShelfDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfDrawerView.m; sourceTree = "<group>"; };
 		1846F04615A72FAA00E5CF47 /* DetailImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailImageViewController.h; sourceTree = "<group>"; };
@@ -2627,6 +2630,8 @@
 				18114507156CDB9E00B3BF21 /* UIView+Resize.m */,
 				182887E215B2D35E004B3675 /* UIView+Swing.h */,
 				182887E315B2D35E004B3675 /* UIView+Swing.m */,
+				1839175615BE395300C84F7A /* UIButton+EnlargeTouchArea.h */,
+				1839175715BE395300C84F7A /* UIButton+EnlargeTouchArea.m */,
 			);
 			name = Catagaories;
 			sourceTree = "<group>";
@@ -4859,6 +4864,7 @@
 				18F3940815BAE65D00EA1F3E /* DMBubbleView.m in Sources */,
 				18EB3FB815BB96500017B047 /* TTTAttributedLabelConfiguer.m in Sources */,
 				E1AA44F915BD32F800F3DCA6 /* SoundManager.m in Sources */,
+				1839175815BE395300C84F7A /* UIButton+EnlargeTouchArea.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
