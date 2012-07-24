@@ -157,6 +157,11 @@
     self.checkFollowersButton.selected = YES;
     self.checkStatusesButton.selected = NO;
     self.checkFriendsButton.selected = NO;
+    
+    self.checkFollowersButton.userInteractionEnabled = NO;
+    self.checkStatusesButton.userInteractionEnabled = YES;
+    self.checkFriendsButton.userInteractionEnabled = YES;
+    
     [self.backgroundView insertSubview:self.followerController.view belowSubview:self.topShadowImageView];
     self.followerController.tableView.scrollsToTop = YES;
     [self.followerController adjustBackgroundView];
@@ -175,6 +180,11 @@
     self.checkFollowersButton.selected = NO;
     self.checkStatusesButton.selected = NO;
     self.checkFriendsButton.selected = YES;
+    
+    self.checkFollowersButton.userInteractionEnabled = YES;
+    self.checkStatusesButton.userInteractionEnabled = YES;    
+    self.checkFriendsButton.userInteractionEnabled = NO;
+    
     [self.backgroundView insertSubview:self.friendController.view belowSubview:self.topShadowImageView];
     self.friendController.tableView.scrollsToTop = YES;
     [self.friendController adjustBackgroundView];
@@ -193,6 +203,11 @@
     self.checkFollowersButton.selected = NO;
     self.checkStatusesButton.selected = YES;
     self.checkFriendsButton.selected = NO;
+    
+    self.checkFollowersButton.userInteractionEnabled = YES;
+    self.checkStatusesButton.userInteractionEnabled = NO;
+    self.checkFriendsButton.userInteractionEnabled = YES;
+    
     [self.backgroundView insertSubview:self.statusController.view belowSubview:self.topShadowImageView];
     self.statusController.tableView.scrollsToTop = YES;
     [self.statusController adjustBackgroundView];
