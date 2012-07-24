@@ -12,6 +12,7 @@
 #import "NSNotificationCenter+Addition.h"
 #import "WBClient.h"
 #import "NSUserDefaults+Addition.h"
+#import "CoreDataViewController.h"
 
 #define RECOMMEND_VCARD_TO_FRIENDS_USE_COUNT    5
 #define FOLLOW_VCARD_USE_COUNT    2
@@ -89,6 +90,8 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    if(![CoreDataViewController getCurrentUser])
+        return;
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
 	NSInteger loginCount = [userDefault integerForKey:kAppDelegateUserDefaultKeyUseCount];
 	loginCount++;
