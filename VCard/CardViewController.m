@@ -424,21 +424,19 @@
                     locationString = name == nil ? locationString : [locationString stringByAppendingString:name];
                 }
                 
-                if ([self.status.statusID isEqualToString:_previousStatus.statusID]) {
+                if ([self.status.statusID isEqualToString:client.statusID]) {
                     self.status.location = locationString;
+                    [self showLocationInfo];
                 } else {
-                    if (_previousStatus) {
-                        _previousStatus.location = locationString;
-                    }
+                    Status *status = [Status statusWithID:client.statusID inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                    status.location = locationString;
                 }
-                
-                [self showLocationInfo];
             }
         }];
         float lat = [self.status.lat floatValue];
         float lon = [self.status.lon floatValue];
         
-        _previousStatus = self.status;
+        client.statusID = self.status.statusID;
         [client getAddressFromGeoWithCoordinate:[[NSString alloc] initWithFormat:@"%f,%f", lon, lat]];
     }
 }

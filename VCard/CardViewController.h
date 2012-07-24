@@ -70,8 +70,6 @@
 @property (nonatomic, weak) IBOutlet BaseCardBackgroundView *cardBackground;
 @property (nonatomic, weak) IBOutlet BaseCardBackgroundView *repostCardBackground;
 @property (nonatomic, strong) Status *status;
-@property (nonatomic, weak) Status *previousStatus;
-@property (nonatomic, weak) Status *previousLinkStatus;
 @property (nonatomic, assign) NSInteger imageHeight;
 @property (nonatomic, assign) NSInteger pageIndex;
 @property (nonatomic, assign) BOOL isReposted;
