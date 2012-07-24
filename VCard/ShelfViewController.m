@@ -272,6 +272,7 @@
     CGFloat toWidth = UIInterfaceOrientationIsPortrait(fromInterfaceOrientation) ? 1024 : 768;
     [_scrollView resetWidth:toWidth];
     _scrollView.contentOffset = CGPointMake([UIApplication screenWidth] * _pageControl.currentPage, 0.0);
+    [_pageControl resetCenterX:_scrollView.contentOffset.x + toWidth / 2];
 }
 
 - (void)resetContentSize:(UIInterfaceOrientation)orientation
@@ -298,6 +299,8 @@
         [view resetOriginX:originX + kDrawerViewFrameOffsetX];
         index++;
     }
+    
+    [_pageControl resetCenterX:_scrollView.contentOffset.x + scrollViewWidth / 2];
 }
 
 - (void)resetSettingViewLayout:(UIInterfaceOrientation)orientation
@@ -462,7 +465,7 @@
     drawerView.adjustsImageWhenHighlighted = YES;
     [drawerView addTarget:self action:@selector(changeCastViewSource:) forControlEvents:UIControlEventTouchUpInside];
     drawerView.delegate = self;
-    [_scrollView addSubview:drawerView];
+    [_scrollView insertSubview:drawerView aboveSubview:_pageControl];
     [_drawerViewArray addObject:drawerView];
     [drawerView appearWithDuration:0.3];
     [self resetDrawerViewLayout:drawerView withIndex:index];
@@ -593,6 +596,7 @@
         [_editButton resetOriginX:screenWidth + kEditScrollViewOffset];
     }
     [_shelfBorderImageView resetOriginX:_scrollView.contentOffset.x];
+    [_pageControl resetCenterX:_scrollView.contentOffset.x + [UIApplication screenWidth] / 2];
 }
 
 #pragma mark - Public Methods
