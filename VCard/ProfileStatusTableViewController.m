@@ -174,10 +174,14 @@
 
 - (void)refreshAfterDeletingStatuses:(NSNotification *)notification
 {
-    NSString *statusID = notification.object;
-    [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
-    [self.managedObjectContext processPendingChanges];
-    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
+    NSDictionary *dict = notification.object;
+    NSString *coredataIdentifier = [dict objectForKey:kNotificationObjectKeyCoredataIdentifier];
+    if ([coredataIdentifier isEqualToString:_coreDataIdentifier]) {
+        NSString *statusID = [dict objectForKey:kNotificationObjectKeyStatusID];
+        [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
+        [self.managedObjectContext processPendingChanges];
+        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
+    }
 }
 
 - (CGFloat)randomImageHeight

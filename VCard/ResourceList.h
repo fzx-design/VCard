@@ -116,6 +116,8 @@
 #define kNotificationObjectKeySearchKey                 @"kNotificationObjectKeySearchKey"
 #define kNotificationObjectKeyGroup                     @"kNotificationObjectKeyGroup"
 #define kNotificationObjectKeyConversation              @"kNotificationObjectKeyConversation"
+#define kNotificationObjectKeyCoredataIdentifier        @"kNotificationObjectKeyCoredataIdentifier"
+#define kNotificationObjectKeyStatusID                  @"kNotificationObjectKeyStatusID"
 
 #define kNotificationObjectKeyImageView                 @"kNotificationObjectKeyImageView"
 

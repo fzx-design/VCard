@@ -640,7 +640,9 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldDeleteStatus object:self.status.statusID];
+            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.status.statusID, kNotificationObjectKeyStatusID,
+                                  _coreDataIdentifier, kNotificationObjectKeyCoredataIdentifier, nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldDeleteStatus object:dict];
         } else {
             //TODO: Handle Error
         }

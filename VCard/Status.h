@@ -74,8 +74,8 @@
 - (BOOL)hasLocationInfo;
 - (BOOL)locationInfoAlreadyLoaded;
 
-+ (int)getTempStatusCount:(NSManagedObjectContext *)context;
-+ (int)getUndeletableStatusCount:(NSManagedObjectContext *)context;
++ (NSArray *)getTempStatusCount:(NSManagedObjectContext *)context;
++ (NSArray *)getUndeletableStatusCount:(NSManagedObjectContext *)context;
 
 @end
 

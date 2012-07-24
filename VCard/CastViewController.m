@@ -165,6 +165,10 @@
                    name:kNotificationNameShouldShowConversation
                  object:nil];
     [center addObserver:self
+               selector:@selector(refreshAfterDeletingStatuses:)
+                   name:kNotificationNameShouldDeleteStatus
+                 object:nil];
+    [center addObserver:self
                selector:@selector(refreshAfterDeletingComment:)
                    name:kNotificationNameShouldDeleteComment
                  object:nil];
@@ -450,6 +454,18 @@
 - (void)refreshWaterflowView
 {
     [_waterflowView refresh];
+}
+
+- (void)refreshAfterDeletingStatuses:(NSNotification *)notification
+{
+    NSDictionary *dict = notification.object;
+    NSString *coredataIdentifier = [dict objectForKey:kNotificationObjectKeyCoredataIdentifier];
+    if ([coredataIdentifier isEqualToString:_coreDataIdentifier]) {
+        NSString *statusID = [dict objectForKey:kNotificationObjectKeyStatusID];
+        [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
+        [self.fetchedResultsController performFetch:nil];
+        [self.waterflowView refresh];
+    }
 }
 
 - (void)refreshAfterDeletingComment:(NSNotification *)notification
@@ -916,14 +932,24 @@
         _loading = NO;
         _refreshing = NO;
         
+        NSArray *undeletableUserArray = [User getUndeletableUserCount:self.managedObjectContext];
+        NSArray *undeletableStatusArray = [Status getUndeletableStatusCount:self.managedObjectContext];
+        
         NSLog(@"Refresh Ended");
         NSLog(@"Deletable comment %d", [Comment getTempCommentCount:self.managedObjectContext]);
-        NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext]);
-        NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext]);
+        NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext].count);
+        NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext].count);
         
         NSLog(@"Undeletable comment %d", [Comment getUndeletableCommentCount:self.managedObjectContext]);
-        NSLog(@"Undeletable user %d", [User getUndeletableUserCount:self.managedObjectContext]);
-        NSLog(@"Undeletable status %d", [Status getUndeletableStatusCount:self.managedObjectContext]);
+        NSLog(@"Undeletable user %d", undeletableUserArray.count);
+        NSLog(@"Undeletable status %d", undeletableStatusArray.count);
+        
+        for (Status *status in undeletableStatusArray) {
+            NSLog(@"%@, %@", status.text, status.author.screenName);
+        }
+        for (User *user in undeletableUserArray) {
+            NSLog(@"%@", user.screenName);
+        }
     }];
     
     long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue - 1;
@@ -950,6 +976,24 @@
         [client searchTopic:_dataSourceID
              startingAtPage:_nextPage++
                       count:20];
+    }
+    
+    NSLog(@"Before refresh");
+    NSArray *undeletableUserArray = [User getUndeletableUserCount:self.managedObjectContext];
+    NSArray *undeletableStatusArray = [Status getUndeletableStatusCount:self.managedObjectContext];
+    NSLog(@"Deletable comment %d", [Comment getTempCommentCount:self.managedObjectContext]);
+    NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext].count);
+    NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext].count);
+    
+    NSLog(@"Undeletable comment %d", [Comment getUndeletableCommentCount:self.managedObjectContext]);
+    NSLog(@"Undeletable user %d", undeletableUserArray.count);
+    NSLog(@"Undeletable status %d", undeletableStatusArray.count);
+    
+    for (Status *status in undeletableStatusArray) {
+        NSLog(@"%@, %@", status.text, status.author.screenName);
+    }
+    for (User *user in undeletableUserArray) {
+        NSLog(@"%@", user.screenName);
     }
     
     
@@ -1045,12 +1089,12 @@
         
         NSLog(@"before delete");
         NSLog(@"Deletable comment %d", [Comment getTempCommentCount:self.managedObjectContext]);
-        NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext]);
-        NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext]);
+        NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext].count);
+        NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext].count);
         
         NSLog(@"Undeletable comment %d", [Comment getUndeletableCommentCount:self.managedObjectContext]);
-        NSLog(@"Undeletable user %d", [User getUndeletableUserCount:self.managedObjectContext]);
-        NSLog(@"Undeletable status %d", [Status getUndeletableStatusCount:self.managedObjectContext]);
+        NSLog(@"Undeletable user %d", [User getUndeletableUserCount:self.managedObjectContext].count);
+        NSLog(@"Undeletable status %d", [Status getUndeletableStatusCount:self.managedObjectContext].count);
         
         [User deleteAllTempUsersInManagedObjectContext:self.managedObjectContext];
         [Comment deleteAllTempCommentsInManagedObjectContext:self.managedObjectContext];
@@ -1059,12 +1103,12 @@
         
         NSLog(@"after delete");
         NSLog(@"Deletable comment %d", [Comment getTempCommentCount:self.managedObjectContext]);
-        NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext]);
-        NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext]);
+        NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext].count);
+        NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext].count);
         
         NSLog(@"Undeletable comment %d", [Comment getUndeletableCommentCount:self.managedObjectContext]);
-        NSLog(@"Undeletable user %d", [User getUndeletableUserCount:self.managedObjectContext]);
-        NSLog(@"Undeletable status %d", [Status getUndeletableStatusCount:self.managedObjectContext]);
+        NSLog(@"Undeletable user %d", [User getUndeletableUserCount:self.managedObjectContext].count);
+        NSLog(@"Undeletable status %d", [Status getUndeletableStatusCount:self.managedObjectContext].count);
         
         [self exitStackView];
     }];

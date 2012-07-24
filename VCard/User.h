@@ -61,8 +61,8 @@
 
 + (void)deleteAllTempUsersInManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (int)getTempUserCount:(NSManagedObjectContext *)context;
-+ (int)getUndeletableUserCount:(NSManagedObjectContext *)context;
++ (NSArray *)getTempUserCount:(NSManagedObjectContext *)context;
++ (NSArray *)getUndeletableUserCount:(NSManagedObjectContext *)context;
 
 @end
 

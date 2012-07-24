@@ -282,7 +282,7 @@
     return self.location && ![self.location isEqualToString:@""];
 }
 
-+ (int)getTempStatusCount:(NSManagedObjectContext *)context
++ (NSArray *)getTempStatusCount:(NSManagedObjectContext *)context
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
@@ -290,10 +290,10 @@
     [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:YES]]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
-    return items.count;
+    return items;
 }
 
-+ (int)getUndeletableStatusCount:(NSManagedObjectContext *)context
++ (NSArray *)getUndeletableStatusCount:(NSManagedObjectContext *)context
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
@@ -301,7 +301,7 @@
     [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:NO]]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
-    return items.count;
+    return items;
 }
 
 @end

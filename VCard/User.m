@@ -199,7 +199,7 @@
     return type;
 }
 
-+ (int)getTempUserCount:(NSManagedObjectContext *)context
++ (NSArray *)getTempUserCount:(NSManagedObjectContext *)context
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
@@ -207,10 +207,10 @@
     [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:YES]]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
-    return items.count;
+    return items;
 }
 
-+ (int)getUndeletableUserCount:(NSManagedObjectContext *)context
++ (NSArray *)getUndeletableUserCount:(NSManagedObjectContext *)context
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
@@ -218,7 +218,7 @@
     [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:NO]]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
-    return items.count;
+    return items;
 }
 
 @end
