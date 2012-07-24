@@ -156,10 +156,13 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            [Group deleteAllGroupsOfType:kGroupTypeGroup OfUser:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
-            NSArray *resultArray = [client.responseJSONObject objectForKey:@"lists"];
-            for (NSDictionary *dict in resultArray) {
-                [Group insertGroupInfo:dict userID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
+            NSDictionary *result = client.responseJSONObject;
+            if ([result isKindOfClass:[NSDictionary class]]) {
+                NSArray *resultArray = [result objectForKey:@"lists"];
+                [Group deleteAllGroupsOfType:kGroupTypeGroup OfUser:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
+                for (NSDictionary *dict in resultArray) {
+                    [Group insertGroupInfo:dict userID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
+                }
             }
         }
         

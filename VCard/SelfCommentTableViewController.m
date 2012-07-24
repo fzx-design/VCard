@@ -104,57 +104,58 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            NSArray *dictArray = [client.responseJSONObject objectForKey:@"comments"];
-            
-            if (_refreshing) {
-				[self clearData];
-			}
-
-            
-            if (_dataSource == CommentsTableViewDataSourceCommentsToMe) {
-				for (NSDictionary *dict in dictArray) {
-					Comment *comment = [Comment insertCommentToMe:dict inManagedObjectContext:self.managedObjectContext];
-                    comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
-                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
-				}
-				[self.managedObjectContext processPendingChanges];
-				
-				if (_commentsToMeFetchedResultsController) {
-					_commentsToMeFetchedResultsController = nil;
-				}
-				
-				_commentsToMeFetchedResultsController = self.fetchedResultsController;
-				_toMeNextPage++;
+            NSDictionary *result = client.responseJSONObject;
+            if ([result isKindOfClass:[NSDictionary class]]) {
+                NSArray *dictArray = [result objectForKey:@"comments"];
                 
-			} else if(_dataSource == CommentsTableViewDataSourceCommentsByMe) {
-				for (NSDictionary *dict in dictArray) {
-					Comment *comment = [Comment insertCommentByMe:dict inManagedObjectContext:self.managedObjectContext];
-                    comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
-                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
-				}
-				[self.managedObjectContext processPendingChanges];
-				
-				if (_commentsByMeFetchedResultsController) {
-					_commentsByMeFetchedResultsController = nil;
-				}
-				
-				_commentsByMeFetchedResultsController = self.fetchedResultsController;
-				_byMeNextPage++;
-			} else if (_dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
-                for (NSDictionary *dict in dictArray) {
-					Comment *comment = [Comment insertCommentMentioningMe:dict inManagedObjectContext:self.managedObjectContext];
-                    comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
-                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
-				}
-				[self.managedObjectContext processPendingChanges];
-            }
-            
-            [self.managedObjectContext processPendingChanges];
-            [self.fetchedResultsController performFetch:nil];
-            
-            _nextCursor = [[client.responseJSONObject objectForKey:@"next_cursor"] intValue];
-            _hasMoreViews = _nextCursor != 0;
-            
+                if (_refreshing) {
+                    [self clearData];
+                }
+                
+                if (_dataSource == CommentsTableViewDataSourceCommentsToMe) {
+                    for (NSDictionary *dict in dictArray) {
+                        Comment *comment = [Comment insertCommentToMe:dict inManagedObjectContext:self.managedObjectContext];
+                        comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
+                        comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+                    }
+                    [self.managedObjectContext processPendingChanges];
+                    
+                    if (_commentsToMeFetchedResultsController) {
+                        _commentsToMeFetchedResultsController = nil;
+                    }
+                    
+                    _commentsToMeFetchedResultsController = self.fetchedResultsController;
+                    _toMeNextPage++;
+                    
+                } else if(_dataSource == CommentsTableViewDataSourceCommentsByMe) {
+                    for (NSDictionary *dict in dictArray) {
+                        Comment *comment = [Comment insertCommentByMe:dict inManagedObjectContext:self.managedObjectContext];
+                        comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
+                        comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+                    }
+                    [self.managedObjectContext processPendingChanges];
+                    
+                    if (_commentsByMeFetchedResultsController) {
+                        _commentsByMeFetchedResultsController = nil;
+                    }
+                    
+                    _commentsByMeFetchedResultsController = self.fetchedResultsController;
+                    _byMeNextPage++;
+                } else if (_dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
+                    for (NSDictionary *dict in dictArray) {
+                        Comment *comment = [Comment insertCommentMentioningMe:dict inManagedObjectContext:self.managedObjectContext];
+                        comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
+                        comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+                    }
+                    [self.managedObjectContext processPendingChanges];
+                }
+                
+                [self.managedObjectContext processPendingChanges];
+                [self.fetchedResultsController performFetch:nil];
+                
+                _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
+                _hasMoreViews = _nextCursor != 0;
+            }            
         }
         
         [self refreshEnded];

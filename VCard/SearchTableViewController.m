@@ -73,15 +73,19 @@
     
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            NSDictionary *results = [client.responseJSONObject objectForKey:@"trends"];
-            NSMutableArray *trendDicts = [[NSMutableArray alloc] init];
+            NSDictionary *result = client.responseJSONObject;
             
-            for (NSString *key in results) {
-                trendDicts = [results objectForKey:key];
-            }
-            for (NSDictionary *dict in trendDicts) {
-                NSString *topicName = [dict valueForKey:@"name"];
-                [_hotTopics addObject:topicName];
+            if ([result isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *results = [result objectForKey:@"trends"];
+                NSMutableArray *trendDicts = [[NSMutableArray alloc] init];
+                
+                for (NSString *key in results) {
+                    trendDicts = [results objectForKey:key];
+                }
+                for (NSDictionary *dict in trendDicts) {
+                    NSString *topicName = [dict valueForKey:@"name"];
+                    [_hotTopics addObject:topicName];
+                }
             }
             
             [self reloadTableViewSection:1 withAnimation:UITableViewRowAnimationFade];

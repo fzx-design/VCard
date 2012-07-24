@@ -85,29 +85,34 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            NSArray *dictArray = [client.responseJSONObject objectForKey:@"users"];
-			
-			if (_nextCursor == -1) {
-				[self clearData];
-			}
-			
-            for (NSDictionary *dict in dictArray) {
-                User *usr = [User insertUser:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
-                if (_type == RelationshipViewTypeFollowers) {
-                    [self.user addFollowersObject:usr];
-                } else if(_type == RelationshipViewTypeFriends) {
-                    [self.user addFriendsObject:usr];
-                } else if(_type == RelationshipViewTypeSearch) {
-                    //TODO:
+            
+            NSDictionary *result = client.responseJSONObject;
+            if ([result isKindOfClass:[NSDictionary class]]) {
+                NSArray *dictArray = [result objectForKey:@"users"];
+                
+                if (_nextCursor == -1) {
+                    [self clearData];
                 }
+                
+                for (NSDictionary *dict in dictArray) {
+                    User *usr = [User insertUser:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                    if (_type == RelationshipViewTypeFollowers) {
+                        [self.user addFollowersObject:usr];
+                    } else if(_type == RelationshipViewTypeFriends) {
+                        [self.user addFriendsObject:usr];
+                    } else if(_type == RelationshipViewTypeSearch) {
+                        //TODO:
+                    }
+                }
+                
+                [self.managedObjectContext processPendingChanges];
+                [self.fetchedResultsController performFetch:nil];
+                
+                _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
+                _hasMoreViews = _nextCursor != 0;
+                _page++;
             }
             
-            [self.managedObjectContext processPendingChanges];
-            [self.fetchedResultsController performFetch:nil];
-            
-            _nextCursor = [[client.responseJSONObject objectForKey:@"next_cursor"] intValue];
-            _hasMoreViews = _nextCursor != 0;
-            _page++;
         }
         
         [self adjustBackgroundView];

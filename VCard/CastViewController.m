@@ -164,10 +164,10 @@
                selector:@selector(showConversation:)
                    name:kNotificationNameShouldShowConversation
                  object:nil];
-    [center addObserver:self
-               selector:@selector(refreshAfterDeletingStatuses:)
-                   name:kNotificationNameShouldDeleteStatus
-                 object:nil];
+//    [center addObserver:self
+//               selector:@selector(refreshAfterDeletingStatuses:)
+//                   name:kNotificationNameShouldDeleteStatus
+//                 object:nil];
     [center addObserver:self
                selector:@selector(refreshAfterDeletingComment:)
                    name:kNotificationNameShouldDeleteComment
@@ -456,13 +456,13 @@
     [_waterflowView refresh];
 }
 
-- (void)refreshAfterDeletingStatuses:(NSNotification *)notification
-{
-    NSString *statusID = notification.object;
-    [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
-    [self.fetchedResultsController performFetch:nil];
-    [self.waterflowView refresh];
-}
+//- (void)refreshAfterDeletingStatuses:(NSNotification *)notification
+//{
+//    NSString *statusID = notification.object;
+//    [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
+//    [self.fetchedResultsController performFetch:nil];
+//    [self.waterflowView refresh];
+//}
 
 - (void)refreshAfterDeletingComment:(NSNotification *)notification
 {
