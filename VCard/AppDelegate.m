@@ -12,11 +12,8 @@
 #import "NSNotificationCenter+Addition.h"
 #import "WBClient.h"
 #import "NSUserDefaults+Addition.h"
-<<<<<<< HEAD
 #import "CoreDataViewController.h"
-=======
 #import "Reachability.h"
->>>>>>> 3G流量自动节省完成
 
 #define RECOMMEND_VCARD_TO_FRIENDS_USE_COUNT    5
 #define FOLLOW_VCARD_USE_COUNT    2
