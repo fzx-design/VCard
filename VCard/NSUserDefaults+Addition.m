@@ -60,7 +60,7 @@
         [defaults setFloat:8.0 forKey:kSettingLeading];
         
         [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:NO], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:NO], nil] forKey:kSettingOptionFontSize];
-        [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], nil] forKey:kSettingOptionNotification];
+        [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:NO], nil] forKey:kSettingOptionNotification];
         
         [defaults setObject:[NSArray array] forKey:kCurrentUserFavouriteIDs];
         
@@ -223,7 +223,9 @@
 
 + (NSArray *)getCurrentNotificationStatus {
     SettingOptionInfo *info = [NSUserDefaults getInfoForOptionKey:kSettingOptionNotification];
-    return info.optionChosenStatusArray;
+    NSMutableArray *result = [NSMutableArray arrayWithArray:info.optionChosenStatusArray];
+    [result addObject:[NSNumber numberWithBool:NO]];
+    return result;
 }
 
 + (SettingOptionInfo *)getInfoForOptionKey:(NSString *)optionKey {
@@ -364,7 +366,7 @@
             self.optionName = @"字体大小";
         } else if([optionKey isEqualToString:kSettingOptionNotification]) {
             self.allowMultiOptions = YES;
-            self.optionsArray = [NSArray arrayWithObjects:@"新评论", @"新粉丝", @"提到我的", @"新私信", nil];
+            self.optionsArray = [NSArray arrayWithObjects:@"新评论", @"新粉丝", @"提到我的", nil];
             self.optionName = @"消息提示";
         }
         self.optionKey = optionKey;
