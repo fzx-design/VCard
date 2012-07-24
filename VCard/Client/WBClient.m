@@ -12,6 +12,8 @@
 #import "WBUtil.h"
 #import "NSNotificationCenter+Addition.h"
 #import "AppDelegate.h"
+#import "Reachability.h"
+#import "NSUserDefaults+Addition.h"
 
 #define kWBURLSchemePrefix              @"WB_"
 
@@ -72,6 +74,8 @@ typedef enum {
 + (id)client
 {
     //autorelease intentially ommited here
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] handleNetworkChoice];
+    
     return [[WBClient alloc] init]; 
 }
 

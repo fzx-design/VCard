@@ -51,6 +51,7 @@ typedef enum {
 + (BOOL)isDateDisplayEnabled;
 
 + (void)setPictureEnabled:(BOOL)enabled;
++ (void)setAutoTrafficSavingEnabled:(BOOL)enabled;
 
 + (void)updateCurrentFontSize;
 + (void)setCurrentFontSize:(CGFloat)fontSize;
@@ -74,6 +75,8 @@ typedef enum {
 + (void)setShownShelfTips:(BOOL)hasShown;
 + (BOOL)hasShownStackTips;
 + (void)setShownStackTips:(BOOL)hasShown;
++ (BOOL)hasShown3GWarning;
++ (void)setShown3GWarning:(BOOL)hasShown;
 
 + (BOOL)shouldPostRecommendVCardWeibo;
 + (void)setShouldPostRecommendVCardWeibo:(BOOL)shouldPost;

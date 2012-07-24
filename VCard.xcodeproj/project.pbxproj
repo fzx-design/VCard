@@ -413,6 +413,7 @@
 		18EE547115B19DBF006EA93A /* SearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE547015B19DBF006EA93A /* SearchTableViewCell.m */; };
 		18EE547415B19DF3006EA93A /* SearchTableViewHighlightsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE547315B19DF3006EA93A /* SearchTableViewHighlightsCell.m */; };
 		18EE8E28159DE6160032D69B /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8E27159DE6160032D69B /* Comment.m */; };
+		18F0869215BEA7A7009455F4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0869115BEA7A7009455F4 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18F1E4DE1574F47200EB71DD /* side_tableview_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F1E4DC1574F47200EB71DD /* side_tableview_bg@2x.png */; };
 		18F1E4DF1574F47200EB71DD /* side_tableview_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F1E4DD1574F47200EB71DD /* side_tableview_bg.png */; };
 		18F1E4EB15760D5E00EB71DD /* mondev_logo_gloom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F1E4E915760D5E00EB71DD /* mondev_logo_gloom@2x.png */; };
@@ -1490,6 +1491,8 @@
 		18EE547315B19DF3006EA93A /* SearchTableViewHighlightsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewHighlightsCell.m; sourceTree = "<group>"; };
 		18EE8E26159DE6160032D69B /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		18EE8E27159DE6160032D69B /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
+		18F0869015BEA7A7009455F4 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		18F0869115BEA7A7009455F4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		18F1E4DC1574F47200EB71DD /* side_tableview_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "side_tableview_bg@2x.png"; sourceTree = "<group>"; };
 		18F1E4DD1574F47200EB71DD /* side_tableview_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = side_tableview_bg.png; sourceTree = "<group>"; };
 		18F1E4E915760D5E00EB71DD /* mondev_logo_gloom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mondev_logo_gloom@2x.png"; sourceTree = "<group>"; };
@@ -2418,6 +2421,8 @@
 			isa = PBXGroup;
 			children = (
 				18E707D8153D2E020012092E /* Catagaories */,
+				18F0869015BEA7A7009455F4 /* Reachability.h */,
+				18F0869115BEA7A7009455F4 /* Reachability.m */,
 				181AB91915230AC1007A2A51 /* AppDelegate.h */,
 				181AB91A15230AC1007A2A51 /* AppDelegate.m */,
 				1890C6A21535A87900023A13 /* ResourceList.h */,
@@ -4873,6 +4878,7 @@
 				18EB3FB815BB96500017B047 /* TTTAttributedLabelConfiguer.m in Sources */,
 				E1AA44F915BD32F800F3DCA6 /* SoundManager.m in Sources */,
 				1839175815BE395300C84F7A /* UIButton+EnlargeTouchArea.m in Sources */,
+				18F0869215BEA7A7009455F4 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,6 +34,7 @@
 #define kHasShownGuideBook                  @"HasShownGuideBook"
 #define kHasShownShelfTips                  @"HasShownShelfTips"
 #define kHasShownStackTips                  @"HasShownStackTips"
+#define kHasShown3GWarning                  @"kHasShown3GWarning"
 
 #define kShouldPostRecommendVCardWeibo      @"ShouldPostRecommendVCardWeibo"
 
@@ -66,6 +67,7 @@
         [defaults setBool:NO forKey:kHasShownShelfTips];
         [defaults setBool:NO forKey:kHasShownStackTips];
         [defaults setBool:NO forKey:kHasShownGuideBook];
+        [defaults setBool:NO forKey:kHasShown3GWarning];
     }
     [defaults setBool:YES forKey:kVCard4_0_Initialized];
     [defaults synchronize];
@@ -177,6 +179,17 @@
     [defaults synchronize];
 }
 
++ (BOOL)hasShown3GWarning {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kHasShown3GWarning];
+}
+
++ (void)setShown3GWarning:(BOOL)hasShown {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:hasShown forKey:kHasShown3GWarning];
+    [defaults synchronize];
+}
+
 + (void)setCurrentUserFavouriteIDs:(NSArray *)array
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -250,6 +263,13 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:enabled forKey:kSettingEnablePicture];
+    [defaults synchronize];
+}
+
++ (void)setAutoTrafficSavingEnabled:(BOOL)enabled
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:enabled forKey:kSettingEnableAutoTrafficSaving];
     [defaults synchronize];
 }
 

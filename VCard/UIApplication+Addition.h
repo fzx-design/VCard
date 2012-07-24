@@ -35,6 +35,7 @@
 + (UIInterfaceOrientation)currentOppositeInterface;
 + (UIInterfaceOrientation)currentInterface;
 + (void)relayoutRootViewController;
++ (BOOL)shouldLoadLowQualityImage;
 
 + (UIPopoverController *)getAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate;
 + (UIPopoverController *)showAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate;

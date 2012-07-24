@@ -222,8 +222,12 @@
         targetStatus = targetStatus.repostStatus;
     }
     
-    NSString *pictureURL = [UIApplication isFirstGenerationiPad] ? targetStatus.bmiddlePicURL : targetStatus.originalPicURL;
-
+    NSString *pictureURL = nil;
+    if ([UIApplication shouldLoadLowQualityImage]) {
+        pictureURL = targetStatus.bmiddlePicURL;
+    } else {
+        pictureURL = [UIApplication isFirstGenerationiPad] ? targetStatus.bmiddlePicURL : targetStatus.originalPicURL;
+    }
     [_imageView loadDetailedImageFromURL:pictureURL completion:nil];
 }
 

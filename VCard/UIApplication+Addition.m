@@ -11,6 +11,8 @@
 #import "NSNotificationCenter+Addition.h"
 #import "AppDelegate.h"
 #import "ErrorIndicatorViewController.h"
+#import "Reachability.h"
+#import "NSUserDefaults+Addition.h"
 
 #define MODAL_BACK_VIEW_MAX_ALPHA               (0.6f)
 
@@ -242,6 +244,17 @@ static NSMutableArray *_backViewStack = nil;
 {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     return (UIViewController *)appDelegate.window.rootViewController;
+}
+
++ (BOOL)shouldLoadLowQualityImage
+{
+    if (![NSUserDefaults isAutoTrafficSavingEnabled]) {
+        return NO;
+    } else {
+        Reachability *reachability = [Reachability reachabilityForInternetConnection];
+        [reachability startNotifier];
+        return [reachability currentReachabilityStatus] == ReachableViaWWAN;
+    }
 }
 
 #pragma mark - Album methods

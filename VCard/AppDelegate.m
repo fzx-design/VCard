@@ -12,7 +12,11 @@
 #import "NSNotificationCenter+Addition.h"
 #import "WBClient.h"
 #import "NSUserDefaults+Addition.h"
+<<<<<<< HEAD
 #import "CoreDataViewController.h"
+=======
+#import "Reachability.h"
+>>>>>>> 3G流量自动节省完成
 
 #define RECOMMEND_VCARD_TO_FRIENDS_USE_COUNT    5
 #define FOLLOW_VCARD_USE_COUNT    2
@@ -20,6 +24,12 @@
 #define kAppDelegateUserDefaultKeyUseCount  @"AppDelegateUserDefaultKeyUseCount"
 
 #define VCARD_SINA_WEIBO_ID @"2478499604"
+
+@interface AppDelegate () {
+    BOOL _networkWarning;
+}
+
+@end
 
 @implementation AppDelegate
 
@@ -114,6 +124,28 @@
 											  otherButtonTitles:@"关注", nil];
         [alert show];
     }
+    
+    [self handleNetworkChoice];
+}
+
+- (void)handleNetworkChoice
+{
+    if ([NSUserDefaults hasShown3GWarning] && ![NSUserDefaults isAutoTrafficSavingEnabled]) {
+        return;
+    }
+    
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+    if ([reachability currentReachabilityStatus] == ReachableViaWWAN) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"自动流量节省模式"
+                                                        message:@"您正在使用蜂窝数据浏览。打开自动节省可以为您节约数据费用，但微博图像的质量会降低。"
+                                                       delegate:self
+                                              cancelButtonTitle:@"取消"
+                                              otherButtonTitles:@"打开", nil];
+        [alert show];
+        _networkWarning = YES;
+    }
+    [reachability stopNotifier];
 }
 
 - (void)followVCard {
@@ -127,6 +159,15 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (_networkWarning) {
+        _networkWarning = NO;
+        [NSUserDefaults setShown3GWarning:YES];
+        if (buttonIndex != alertView.cancelButtonIndex) {
+            [NSUserDefaults setAutoTrafficSavingEnabled:YES];
+        }
+        return;
+    }
+    
 	if (buttonIndex == alertView.cancelButtonIndex) {
 		return;
 	}
@@ -139,7 +180,6 @@
             [self followVCard];
         }
 	}
-    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

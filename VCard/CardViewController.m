@@ -258,7 +258,13 @@
         
         BOOL shouldDownloadLarge = [UIApplication isRetinaDisplayiPad] && [NSUserDefaults isRetinaDisplayEnabled];
         
-        NSString *imageURL = shouldDownloadLarge ? targetStatus.originalPicURL : targetStatus.bmiddlePicURL;
+        NSString *imageURL = nil;
+        
+        if ([UIApplication shouldLoadLowQualityImage]) {
+            imageURL = targetStatus.thumbnailPicURL;
+        } else {
+            imageURL = shouldDownloadLarge ? targetStatus.originalPicURL : targetStatus.bmiddlePicURL;
+        }
         
         [self.statusImageView loadImageFromURL:imageURL completion:nil];
     }
