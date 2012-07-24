@@ -256,7 +256,9 @@
         
         Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
         
-        NSString *imageURL = [UIApplication isRetinaDisplayiPad] ? targetStatus.originalPicURL : targetStatus.bmiddlePicURL;
+        BOOL shouldDownloadLarge = [UIApplication isRetinaDisplayiPad] && [NSUserDefaults isRetinaDisplayEnabled];
+        
+        NSString *imageURL = shouldDownloadLarge ? targetStatus.originalPicURL : targetStatus.bmiddlePicURL;
         
         [self.statusImageView loadImageFromURL:imageURL completion:nil];
     }
