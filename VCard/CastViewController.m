@@ -85,6 +85,16 @@
     if([NSUserDefaults shouldPostRecommendVCardWeibo]) {
         [self postRecommandVCardWeibo];
     }
+    
+    self.changeAccountButton.hidden = YES;
+    self.searchButton.hidden = YES;
+    self.groupButton.hidden = YES;
+    self.createStatusButton.hidden = YES;
+    self.refreshButton.hidden = YES;
+    self.showDirectMessageButton.hidden = YES;
+    self.showProfileButton.hidden = YES;
+    self.waterflowView.hidden = YES;
+    self.profileImageView.hidden = YES;
 }
 
 - (void)setUpVariables
