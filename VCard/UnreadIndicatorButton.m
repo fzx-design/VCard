@@ -24,7 +24,7 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        _highlightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(-4.0, -8.0, 160.0, 50.0)];
+        _highlightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(-4.0, -10.0, 160.0, 50.0)];
         _highlightImageView.image = [UIImage imageNamed:@"activity_highlight.png"];
         _highlightImageView.alpha = 0.0;
         [self addSubview:_highlightImageView];
