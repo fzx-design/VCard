@@ -33,13 +33,14 @@
 - (void)setCount:(int)count
 {
     NSString *countString = [NSString stringWithFormat:@"%i", count];
-    CGFloat fontSize = self.titleLabel.font.pointSize;
-    CGFloat width = ceilf([countString sizeWithFont:[UIFont systemFontOfSize:fontSize]
-                            constrainedToSize:CGSizeMake(30.0, 23.0)
-                                      lineBreakMode:UILineBreakModeWordWrap].height);
-    if (width < 24.0) {
-        width = 24.0;
+    int length = countString.length;
+    
+//    CGFloat fontSize = self.titleLabel.font.pointSize;
+    int delta = 0;
+    if (length > 2) {
+        delta = (length - 2) * 4;
     }
+    CGFloat width = 24.0 + delta;
     
     [self setTitle:countString forState:UIControlStateNormal];
     [self setTitle:countString forState:UIControlStateHighlighted];

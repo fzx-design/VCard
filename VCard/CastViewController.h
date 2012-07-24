@@ -52,6 +52,7 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIButton *refreshButton;
 @property (nonatomic, weak) IBOutlet UIButton *showDirectMessageButton;
 @property (nonatomic, weak) IBOutlet UIButton *showProfileButton;
+@property (nonatomic, weak) IBOutlet UIButton *postErrorIndicator;
 @property (nonatomic, weak) IBOutlet UnreadCountButton *unreadCountButton;
 @property (nonatomic, weak) IBOutlet UnreadIndicatorButton *unreadCommentIndicatorButton;
 @property (nonatomic, weak) IBOutlet UnreadIndicatorButton *unreadFollowerIndicatorButton;

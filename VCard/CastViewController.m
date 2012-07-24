@@ -42,6 +42,7 @@
     BOOL _hasMoreViews;
     BOOL _refreshing;
     NSString *_dataSourceID;
+    NSString *_prevPostContent;
     NSInteger _nextPage;
     CastviewDataSource _dataSource;
     ErrorIndicatorViewController *_errorIndicateViewController;
@@ -746,7 +747,13 @@
 #pragma mark Post
 
 - (IBAction)didClickCreateStatusButton:(UIButton *)sender {
-    PostViewController *vc = [PostViewController getNewStatusViewControllerWithDelegate:self];
+    PostViewController *vc = nil;
+    if (_postErrorIndicator.hidden) {
+        vc = [PostViewController getNewStatusViewControllerWithDelegate:self];
+    } else {
+        _postErrorIndicator.hidden = YES;
+        vc = [PostViewController getNewStatusViewControllerWithPrefixContent:_prevPostContent delegate:self];
+    }
     [vc showViewFromRect:sender.frame];
 }
 
@@ -1194,19 +1201,21 @@
 
 - (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message {
     [vc dismissViewUpwards];
+    _prevPostContent = message;
     
 }
 
 - (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
-    
+    _prevPostContent = @"";
 }
 
 - (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {
-    
+    _postErrorIndicator.hidden = NO;
 }
 
 - (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
     [vc dismissViewToRect:self.createStatusButton.frame];
+    _prevPostContent = @"";
 }
 
 #pragma mark - Post recommand VCard weibo
