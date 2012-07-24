@@ -142,9 +142,9 @@
                                               otherButtonTitles:@"打开", nil];
         [alert show];
         _networkWarning = YES;
+        [NSUserDefaults setShown3GWarning:YES];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    [NSUserDefaults setShown3GWarning:YES];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)followVCard {
