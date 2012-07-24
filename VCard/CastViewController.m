@@ -874,13 +874,10 @@
     
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            
-            [[SoundManager sharedManager] playReloadSoundAfterDelay:0.7f];
-            
             NSArray *dictArray = client.responseJSONObject;
-            
             if (_refreshing) {
                 [self clearData];
+                [[SoundManager sharedManager] playReloadSoundAfterDelay:0.7f];
             }
             
             for (NSDictionary *rawDict in dictArray) {
