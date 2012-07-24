@@ -27,6 +27,7 @@
 + (void)dismissModalViewController:(UIViewController *)vc animated:(BOOL)animated duration:(NSTimeInterval)duration;
 
 + (BOOL)isRetinaDisplayiPad;
++ (BOOL)isFirstGenerationiPad;
 + (CGFloat)heightExcludingTopBar;
 + (CGFloat)screenWidth;
 + (CGFloat)screenHeight;

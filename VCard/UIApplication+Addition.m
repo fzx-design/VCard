@@ -196,6 +196,12 @@ static NSMutableArray *_backViewStack = nil;
     return [[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [UIScreen mainScreen].scale > 1;
 }
 
++ (BOOL)isFirstGenerationiPad
+{
+    return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad &&
+            ![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]);
+}
+
 + (CGFloat)heightExcludingTopBar
 {
     return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 704.0 : 960.0;

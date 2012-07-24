@@ -221,9 +221,10 @@
     if (self.cardViewController.isReposted) {
         targetStatus = targetStatus.repostStatus;
     }
-    [_imageView loadDetailedImageFromURL:targetStatus.originalPicURL completion:^{
-        NSLog(@"%@", targetStatus.originalPicURL);
-    }];
+    
+    NSString *pictureURL = [UIApplication isFirstGenerationiPad] ? targetStatus.bmiddlePicURL : targetStatus.originalPicURL;
+
+    [_imageView loadDetailedImageFromURL:pictureURL completion:nil];
 }
 
 - (void)imageViewTapped
