@@ -61,6 +61,9 @@
 
 + (void)deleteAllTempUsersInManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (int)getTempUserCount:(NSManagedObjectContext *)context;
++ (int)getUndeletableUserCount:(NSManagedObjectContext *)context;
+
 @end
 
 @interface User (CoreDataGeneratedAccessors)

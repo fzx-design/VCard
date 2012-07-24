@@ -56,6 +56,7 @@
 {
 	_nextCursor = -1;
     _page = 1;
+    [self.fetchedResultsController performFetch:nil];
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
 }
 
