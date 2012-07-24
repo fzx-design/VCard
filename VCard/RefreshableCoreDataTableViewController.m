@@ -186,7 +186,7 @@
     if (_firstLoad) {
         _firstLoad = NO;
         [self.tableView reloadData];
-        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.005];
+        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
     } else {
         [self.tableView endUpdates];
     }

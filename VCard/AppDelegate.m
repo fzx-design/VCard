@@ -78,6 +78,7 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [_reachability stopNotifier];
     [self saveContext];
 }
 
@@ -97,6 +98,7 @@
             break;
         }
     }
+    [_reachability startNotifier];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -143,7 +145,8 @@
         [alert show];
         _networkWarning = YES;
     }
-    [_reachability stopNotifier];
+    [NSUserDefaults setShown3GWarning:YES];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)followVCard {
@@ -159,9 +162,9 @@
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (_networkWarning) {
         _networkWarning = NO;
-        [NSUserDefaults setShown3GWarning:YES];
         if (buttonIndex != alertView.cancelButtonIndex) {
             [NSUserDefaults setAutoTrafficSavingEnabled:YES];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         }
         return;
     }
