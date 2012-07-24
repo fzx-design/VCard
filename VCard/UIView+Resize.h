@@ -40,4 +40,6 @@
 
 - (void)resetCenterY:(CGFloat)centerY;
 
+- (void)resetCenterX:(CGFloat)centerX;
+
 @end

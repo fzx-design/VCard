@@ -52,7 +52,7 @@
         [defaults setBool:NO forKey:kSettingEnableAutoTrafficSaving];
         [defaults setBool:NO forKey:kSettingEnableAutoLocate];
         [defaults setBool:YES forKey:kSettingEnableSoundEffect];
-        [defaults setBool:YES forKey:kSettingEnableRetinaDisplay];
+        [defaults setBool:NO forKey:kSettingEnableRetinaDisplay];
         [defaults setBool:YES forKey:kSettingEnablePicture];
         [defaults setBool:NO forKey:kSettingEnableDateDisplay];
         [defaults setFloat:17.0 forKey:kSettingFontSize];

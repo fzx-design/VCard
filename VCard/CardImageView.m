@@ -83,7 +83,7 @@
     }
     if (scale > 0.0) {
         scale /= 0.5;
-        if (_deltaWidth != 0.0) {
+        if (_deltaWidth > 0.0) {
             [self.imageView resetWidth:_initialSize.width + scale * _deltaWidth];
             [self.coverView resetWidth:self.imageView.frame.size.width + 10.0];
         } else {

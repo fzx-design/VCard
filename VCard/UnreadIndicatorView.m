@@ -58,7 +58,7 @@
     [self adjustHalfPixel];
     [indicator adjustHalfPixel];
     
-    CGFloat targetHeight = 4 * kUnreadIndicatorViewHeight + 25.0;
+    CGFloat targetHeight = 4 * kUnreadIndicatorViewHeight + 27.0;
     
     for (UIView *view in self.subviews) {
         CGFloat currentOriginY = view.frame.origin.y;

@@ -51,6 +51,7 @@
     _page = 1;
 	_nextCursor = -1;
     _refreshing = YES;
+    [self.fetchedResultsController performFetch:nil];
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
 }
 
@@ -112,32 +113,35 @@
                 [self clearData];
             }
             
-            if (_type == CommentTableViewControllerTypeComment) {
-                NSArray *dictArray = [client.responseJSONObject objectForKey:@"comments"];
-                for (NSDictionary *dict in dictArray) {
-                    Comment *comment = [Comment insertComment:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
-                    comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
-                    comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
-                    [self.status addCommentsObject:comment];
+            NSDictionary *result = client.responseJSONObject;
+            if ([result isKindOfClass:[NSDictionary class]]) {
+                if (_type == CommentTableViewControllerTypeComment) {
+                    NSArray *dictArray = [result objectForKey:@"comments"];
+                    for (NSDictionary *dict in dictArray) {
+                        Comment *comment = [Comment insertComment:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                        comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
+                        comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+                        [self.status addCommentsObject:comment];
+                    }
+                } else {
+                    NSArray *dictArray = [result objectForKey:@"reposts"];
+                    for (NSDictionary *dict in dictArray) {
+                        Status *status = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                        status.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:status.text];
+                        status.cardSizeCardHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:status.text]];
+                        [_status addRepostedByObject:status];
+                    }
                 }
-            } else {
-                NSArray *dictArray = [client.responseJSONObject objectForKey:@"reposts"];
-                for (NSDictionary *dict in dictArray) {
-                    Status *status = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
-                    status.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:status.text];
-                    status.cardSizeCardHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:status.text]];
-                    [_status addRepostedByObject:status];
-                }
+                _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
+                _hasMoreViews = _nextCursor != 0;
             }
-            
+                        
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
             
             [self updateHeaderViewInfo];
             [self updateVisibleCells];
             
-            _nextCursor = [[client.responseJSONObject objectForKey:@"next_cursor"] intValue];
-            _hasMoreViews = _nextCursor != 0;
         }
         
         [self refreshEnded];

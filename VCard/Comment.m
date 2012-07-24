@@ -220,16 +220,6 @@
 
 + (void)deleteCommentWithID:(NSString *)commentID inManagedObjectContext:(NSManagedObjectContext *)context withObject:(id)object
 {
-    //    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    //    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context]];
-    //    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"commentID == %@ && operatedBy == %@", commentID, object]];
-    //    
-    //    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
-    //    
-    //    for (NSManagedObject *managedObject in items) {
-    //        [context deleteObject:managedObject];
-    //    }
-    
     Comment *comment = [Comment commentWithID:commentID inManagedObjectContext:context withOperatingObject:object];
     if (comment) {
         [context deleteObject:comment];
@@ -247,6 +237,28 @@
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
     }
+}
+
++ (int)getTempCommentCount:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:YES]]];
+	NSArray *items = [context executeFetchRequest:request error:NULL];
+    
+    return items.count;
+}
+
++ (int)getUndeletableCommentCount:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:NO]]];
+	NSArray *items = [context executeFetchRequest:request error:NULL];
+    
+    return items.count;
 }
 
 - (BOOL)isEqualToComment:(Comment *)comment

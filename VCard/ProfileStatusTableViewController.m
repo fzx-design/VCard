@@ -163,6 +163,7 @@
 {
     _refreshing = YES;
     _searchPage = 1;
+    [self.fetchedResultsController performFetch:nil];
     [self loadMoreData];
 }
 

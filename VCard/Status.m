@@ -282,4 +282,26 @@
     return self.location && ![self.location isEqualToString:@""];
 }
 
++ (int)getTempStatusCount:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:YES]]];
+	NSArray *items = [context executeFetchRequest:request error:NULL];
+    
+    return items.count;
+}
+
++ (int)getUndeletableStatusCount:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:NO]]];
+	NSArray *items = [context executeFetchRequest:request error:NULL];
+    
+    return items.count;
+}
+
 @end

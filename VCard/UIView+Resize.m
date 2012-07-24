@@ -119,4 +119,11 @@
     self.center = center;
 }
 
+- (void)resetCenterX:(CGFloat)centerX
+{
+    CGPoint center = self.center;
+    center.x = centerX;
+    self.center = center;
+}
+
 @end

@@ -12,6 +12,7 @@
 #import "WaterflowLayoutUnit.h"
 #import "PullToRefreshView.h"
 #import "BaseLayoutView.h"
+#import "UIButton+EnlargeTouchArea.h"
 
 #define kWaterflowViewInfoBarViewIndex          100
 #define kWaterflowViewPullToRefreshViewIndex    101

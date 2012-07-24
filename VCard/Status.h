@@ -74,6 +74,9 @@
 - (BOOL)hasLocationInfo;
 - (BOOL)locationInfoAlreadyLoaded;
 
++ (int)getTempStatusCount:(NSManagedObjectContext *)context;
++ (int)getUndeletableStatusCount:(NSManagedObjectContext *)context;
+
 @end
 
 @interface Status (CoreDataGeneratedAccessors)

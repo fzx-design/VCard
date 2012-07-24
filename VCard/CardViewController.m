@@ -111,6 +111,10 @@
     _tapGestureRecognizer.delegate = self;
     [self.statusImageView addGestureRecognizer:_tapGestureRecognizer];
     
+    UITapGestureRecognizer *favouriteTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(unfavouriteStatus)];
+    favouriteTapGesture.delegate = self;
+    [self.favoredImageView addGestureRecognizer:favouriteTapGesture];
+    
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionPopoverPinchGesture:)];
     pinchGesture.delegate = self;
     [self.view addGestureRecognizer:pinchGesture];
@@ -252,7 +256,9 @@
         
         Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
         
-        NSString *imageURL = [UIApplication isRetinaDisplayiPad] ? targetStatus.originalPicURL : targetStatus.bmiddlePicURL;
+        BOOL shouldDownloadLarge = [UIApplication isRetinaDisplayiPad] && [NSUserDefaults isRetinaDisplayEnabled];
+        
+        NSString *imageURL = shouldDownloadLarge ? targetStatus.originalPicURL : targetStatus.bmiddlePicURL;
         
         [self.statusImageView loadImageFromURL:imageURL completion:nil];
     }
@@ -418,21 +424,19 @@
                     locationString = name == nil ? locationString : [locationString stringByAppendingString:name];
                 }
                 
-                if ([self.status.statusID isEqualToString:_previousStatus.statusID]) {
+                if ([self.status.statusID isEqualToString:client.statusID]) {
                     self.status.location = locationString;
+                    [self showLocationInfo];
                 } else {
-                    if (_previousStatus) {
-                        _previousStatus.location = locationString;
-                    }
+                    Status *status = [Status statusWithID:client.statusID inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                    status.location = locationString;
                 }
-                
-                [self showLocationInfo];
             }
         }];
         float lat = [self.status.lat floatValue];
         float lon = [self.status.lon floatValue];
         
-        _previousStatus = self.status;
+        client.statusID = self.status.statusID;
         [client getAddressFromGeoWithCoordinate:[[NSString alloc] initWithFormat:@"%f,%f", lon, lat]];
     }
 }

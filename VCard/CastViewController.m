@@ -42,6 +42,7 @@
     BOOL _hasMoreViews;
     BOOL _refreshing;
     NSString *_dataSourceID;
+    NSString *_prevPostContent;
     NSInteger _nextPage;
     CastviewDataSource _dataSource;
     ErrorIndicatorViewController *_errorIndicateViewController;
@@ -162,10 +163,6 @@
     [center addObserver:self
                selector:@selector(showConversation:)
                    name:kNotificationNameShouldShowConversation
-                 object:nil];
-    [center addObserver:self
-               selector:@selector(refreshAfterDeletingStatuses:)
-                   name:kNotificationNameShouldDeleteStatus
                  object:nil];
     [center addObserver:self
                selector:@selector(refreshAfterDeletingComment:)
@@ -455,14 +452,6 @@
     [_waterflowView refresh];
 }
 
-- (void)refreshAfterDeletingStatuses:(NSNotification *)notification
-{
-    NSString *statusID = notification.object;
-    [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
-    [self.fetchedResultsController performFetch:nil];
-    [self.waterflowView refresh];
-}
-
 - (void)refreshAfterDeletingComment:(NSNotification *)notification
 {
     NSString *commentID = notification.object;
@@ -746,7 +735,13 @@
 #pragma mark Post
 
 - (IBAction)didClickCreateStatusButton:(UIButton *)sender {
-    PostViewController *vc = [PostViewController getNewStatusViewControllerWithDelegate:self];
+    PostViewController *vc = nil;
+    if (_postErrorIndicator.hidden) {
+        vc = [PostViewController getNewStatusViewControllerWithDelegate:self];
+    } else {
+        _postErrorIndicator.hidden = YES;
+        vc = [PostViewController getNewStatusViewControllerWithPrefixContent:_prevPostContent delegate:self];
+    }
     [vc showViewFromRect:sender.frame];
 }
 
@@ -879,13 +874,10 @@
     
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            
-            [[SoundManager sharedManager] playReloadSoundAfterDelay:0.7f];
-            
             NSArray *dictArray = client.responseJSONObject;
-            
             if (_refreshing) {
                 [self clearData];
+                [[SoundManager sharedManager] playReloadSoundAfterDelay:0.7f];
             }
             
             for (NSDictionary *rawDict in dictArray) {
@@ -923,6 +915,15 @@
         [_loadMoreView resetPosition];
         _loading = NO;
         _refreshing = NO;
+        
+        NSLog(@"Refresh Ended");
+        NSLog(@"Deletable comment %d", [Comment getTempCommentCount:self.managedObjectContext]);
+        NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext]);
+        NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext]);
+        
+        NSLog(@"Undeletable comment %d", [Comment getUndeletableCommentCount:self.managedObjectContext]);
+        NSLog(@"Undeletable user %d", [User getUndeletableUserCount:self.managedObjectContext]);
+        NSLog(@"Undeletable status %d", [Status getUndeletableStatusCount:self.managedObjectContext]);
     }];
     
     long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue - 1;
@@ -1041,9 +1042,30 @@
         [_stackViewController.view removeFromSuperview];
         [_stackViewController.stackView removeFromSuperview];
         _stackViewController = nil;
+        
+        NSLog(@"before delete");
+        NSLog(@"Deletable comment %d", [Comment getTempCommentCount:self.managedObjectContext]);
+        NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext]);
+        NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext]);
+        
+        NSLog(@"Undeletable comment %d", [Comment getUndeletableCommentCount:self.managedObjectContext]);
+        NSLog(@"Undeletable user %d", [User getUndeletableUserCount:self.managedObjectContext]);
+        NSLog(@"Undeletable status %d", [Status getUndeletableStatusCount:self.managedObjectContext]);
+        
         [User deleteAllTempUsersInManagedObjectContext:self.managedObjectContext];
         [Comment deleteAllTempCommentsInManagedObjectContext:self.managedObjectContext];
         [Status deleteAllTempStatusesInManagedObjectContext:self.managedObjectContext];
+        [self.managedObjectContext processPendingChanges];
+        
+        NSLog(@"after delete");
+        NSLog(@"Deletable comment %d", [Comment getTempCommentCount:self.managedObjectContext]);
+        NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext]);
+        NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext]);
+        
+        NSLog(@"Undeletable comment %d", [Comment getUndeletableCommentCount:self.managedObjectContext]);
+        NSLog(@"Undeletable user %d", [User getUndeletableUserCount:self.managedObjectContext]);
+        NSLog(@"Undeletable status %d", [Status getUndeletableStatusCount:self.managedObjectContext]);
+        
         [self exitStackView];
     }];
 }
@@ -1194,19 +1216,21 @@
 
 - (void)postViewController:(PostViewController *)vc willPostMessage:(NSString *)message {
     [vc dismissViewUpwards];
+    _prevPostContent = message;
     
 }
 
 - (void)postViewController:(PostViewController *)vc didPostMessage:(NSString *)message {
-    
+    _prevPostContent = @"";
 }
 
 - (void)postViewController:(PostViewController *)vc didFailPostMessage:(NSString *)message {
-    
+    _postErrorIndicator.hidden = NO;
 }
 
 - (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
     [vc dismissViewToRect:self.createStatusButton.frame];
+    _prevPostContent = @"";
 }
 
 #pragma mark - Post recommand VCard weibo

@@ -44,4 +44,7 @@
 + (void)deleteAllTempCommentsInManagedObjectContext:(NSManagedObjectContext *)context;
 - (BOOL)isEqualToComment:(Comment *)comment;
 
++ (int)getTempCommentCount:(NSManagedObjectContext *)context;
++ (int)getUndeletableCommentCount:(NSManagedObjectContext *)context;
+
 @end

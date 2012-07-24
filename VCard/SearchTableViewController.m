@@ -15,7 +15,9 @@
 #import "SearchTableViewCell.h"
 #import "SearchTableViewHighlightsCell.h"
 
-@interface SearchTableViewController ()
+@interface SearchTableViewController () {
+    BOOL _loading;
+}
 
 @property (nonatomic, retain) BaseLayoutView *backgroundViewA;
 @property (nonatomic, retain) BaseLayoutView *backgroundViewB;
@@ -37,6 +39,7 @@
 {
     [super viewDidLoad];
     
+    _loading = YES;
     _hotTopics = [[NSMutableArray alloc] init];
     _searchNameSuggestions = [[NSMutableArray alloc] initWithCapacity:5];
     _searchStatusSuggestions = [[NSMutableArray alloc] initWithCapacity:5];
@@ -72,20 +75,24 @@
     WBClient *client = [WBClient client];
     
     [client setCompletionBlock:^(WBClient *client) {
+        _loading = NO;
         if (!client.hasError) {
-            NSDictionary *results = [client.responseJSONObject objectForKey:@"trends"];
-            NSMutableArray *trendDicts = [[NSMutableArray alloc] init];
+            NSDictionary *result = client.responseJSONObject;
             
-            for (NSString *key in results) {
-                trendDicts = [results objectForKey:key];
+            if ([result isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *results = [result objectForKey:@"trends"];
+                NSMutableArray *trendDicts = [[NSMutableArray alloc] init];
+                
+                for (NSString *key in results) {
+                    trendDicts = [results objectForKey:key];
+                }
+                for (NSDictionary *dict in trendDicts) {
+                    NSString *topicName = [dict valueForKey:@"name"];
+                    [_hotTopics addObject:topicName];
+                }
             }
-            for (NSDictionary *dict in trendDicts) {
-                NSString *topicName = [dict valueForKey:@"name"];
-                [_hotTopics addObject:topicName];
-            }
-            
-            [self reloadTableViewSection:1 withAnimation:UITableViewRowAnimationFade];
         }
+        [self reloadTableViewSection:1 withAnimation:UITableViewRowAnimationFade];
     }];
     
     [client getHotTopics];
@@ -270,7 +277,11 @@
             if (_hotTopics.count > 0) {
                 [searchCell setTitle:[_hotTopics objectAtIndex:indexPath.row]];
             } else {
-                [searchCell setOperationTitle:@"载入中"];
+                if (_loading) {
+                    [searchCell setOperationTitle:@"载入中..."];
+                } else {
+                    [searchCell setOperationTitle:@"加载失败"];
+                }
             }
         }
     }
@@ -336,7 +347,9 @@
     BOOL shouldResign = NO;
     if (_tableViewState == SearchTableViewStateNormal) {
         if (indexPath.section == 1 && _hotTopics.count > 0) {
-            [self addTopicPageWithSearchKey:[_hotTopics objectAtIndex:indexPath.row]];
+            NSString *searchKey = [_hotTopics objectAtIndex:indexPath.row];
+            [self addTopicPageWithSearchKey:searchKey];
+            [self historyList:_searchStatusHistoryList addSearchKey:searchKey];
         }
         shouldResign = YES;
     } else {
@@ -345,13 +358,10 @@
     
     if (shouldResign) {
         [_delegate didSelectCell];
-    } else {
-        [self restoreHistory];
     }
 }
 
--
- (BOOL)handleCellClickedEventAtIndex:(int)index
+- (BOOL)handleCellClickedEventAtIndex:(int)index
 {
     BOOL shouldResign = YES;
     if (_searchingType == SearchingTargetTypeStatus) {
@@ -359,40 +369,49 @@
             if (index < _searchStatusHistoryList.count) {
                 [self addTopicPageWithSearchKey:[_searchStatusHistoryList objectAtIndex:index]];
             } else {
-                [_searchStatusHistoryList removeAllObjects];
+                [self clearHistoryList:_searchStatusHistoryList];
                 shouldResign = NO;
             }
         } else {
-            if (index == 0) {
-                [self addTopicPageWithSearchKey:_searchKey];
-                if ([_searchStatusHistoryList containsObject:_searchKey]) {
-                    [_searchStatusHistoryList addObject:_searchKey];
-                }
-                
-            } else {
-                [self addTopicPageWithSearchKey:[_searchStatusSuggestions objectAtIndex:index - 1]];
-            }
+            NSString *searchKey = index == 0 ? _searchKey : [_searchStatusSuggestions objectAtIndex:index - 1];
+            [self addTopicPageWithSearchKey:searchKey];
+            [self historyList:_searchStatusHistoryList addSearchKey:searchKey];
         }
     } else {
         if ([self isSearchKeyEmpty]) {
             if (index < _searchUserHistoryList.count) {
                 [self showUserProfilePageWithKey:[_searchUserHistoryList objectAtIndex:index]];
             } else {
-                [_searchUserHistoryList removeAllObjects];
+                [self clearHistoryList:_searchUserHistoryList];
                 shouldResign = NO;
             }
         } else {
+            NSString *searchKey = nil;
             if (index == 0) {
+                searchKey = _searchKey;
                 [self addUserSearchPageWithSearchKey:_searchKey];
-                if (![_searchUserHistoryList containsObject:_searchKey]) {
-                    [_searchUserHistoryList addObject:_searchKey];
-                }
             } else {
-                [self showUserProfilePageWithKey:[_searchNameSuggestions objectAtIndex:index - 1]];
+                searchKey = [_searchNameSuggestions objectAtIndex:index - 1];
+                [self showUserProfilePageWithKey:searchKey];
             }
+            [self historyList:_searchUserHistoryList addSearchKey:searchKey];
         }
     }
     return shouldResign;
+}
+
+- (void)historyList:(NSMutableArray *)array addSearchKey:(NSString *)searchKey
+{
+    if (![array containsObject:searchKey]) {
+        [array addObject:searchKey];
+        [self restoreHistory];
+    }
+}
+
+- (void)clearHistoryList:(NSMutableArray *)array
+{
+    [array removeAllObjects];
+    [self reloadTableViewSection:0 withAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)search
@@ -431,8 +450,6 @@
     [[NSUserDefaults standardUserDefaults] setObject:_searchStatusHistoryList forKey:kUserDefaultKeySearchStatusHistoryList];
     [[NSUserDefaults standardUserDefaults] setObject:_searchUserHistoryList forKey:kUserDefaultKeySearchUserHistoryList];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [self reloadTableViewSection:0 withAnimation:UITableViewRowAnimationTop];
 }
 
 - (void)animateReload
