@@ -73,6 +73,10 @@
 {
     self.checkCommentButton.selected = YES;
     self.checkStatusButton.selected = NO;
+    
+    self.checkStatusButton.userInteractionEnabled = YES;
+    self.checkCommentButton.userInteractionEnabled = NO;
+    
     [self.backgroundView insertSubview:self.commentTableViewController.view belowSubview:self.topShadowImageView];
     self.commentTableViewController.tableView.scrollsToTop = YES;
     if (_statusTableViewController) {
@@ -85,6 +89,10 @@
 {
     self.checkStatusButton.selected = YES;
     self.checkCommentButton.selected = NO;
+    
+    self.checkStatusButton.userInteractionEnabled = NO;
+    self.checkCommentButton.userInteractionEnabled = YES;
+    
     [self.backgroundView insertSubview:self.statusTableViewController.view belowSubview:self.topShadowImageView];
     self.statusTableViewController.tableView.scrollsToTop = YES;
     if (_commentTableViewController) {

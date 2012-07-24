@@ -89,6 +89,9 @@
     self.toMeButton.selected = YES;
     self.byMeButton.selected = NO;
     
+    self.toMeButton.userInteractionEnabled = NO;
+    self.byMeButton.userInteractionEnabled = YES;
+    
     [self.backgroundView insertSubview:self.commentToMeTableViewController.view belowSubview:self.topShadowImageView];
     self.commentToMeTableViewController.tableView.scrollsToTop = YES;
     [self.commentToMeTableViewController adjustBackgroundView];
@@ -102,6 +105,9 @@
 {
     self.toMeButton.selected = NO;
     self.byMeButton.selected = YES;
+    
+    self.toMeButton.userInteractionEnabled = YES;
+    self.byMeButton.userInteractionEnabled = NO;
     
     [self.backgroundView insertSubview:self.commentByMeTableViewController.view belowSubview:self.topShadowImageView];
     self.commentByMeTableViewController.tableView.scrollsToTop = YES;
