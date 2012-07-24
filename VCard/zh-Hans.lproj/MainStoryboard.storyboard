@@ -379,7 +379,7 @@
                                         <rect key="frame" x="300" y="-4" width="42" height="59"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="card_tag.png" id="eSu-cV-Lvj">
+                                    <imageView contentMode="scaleToFill" image="card_tag.png" id="eSu-cV-Lvj">
                                         <rect key="frame" x="13" y="-5" width="62" height="59"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
