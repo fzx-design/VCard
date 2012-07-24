@@ -31,6 +31,7 @@
 }
 
 @property (nonatomic, assign) int pageIndex;
+@property (nonatomic, assign) BOOL firstLoad;
 @property (nonatomic, strong) User *user;
 
 - (void)refresh;

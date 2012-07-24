@@ -27,14 +27,18 @@
 
 - (void)initialLoad
 {
-    [self.commentTableViewController refresh];
-//    self.pageType = StackViewPageTypeStatusComment;
-//    self.pageDescription = @"";
+    [self didClickSwitchToMeButton:nil];
+    [self.commentToMeTableViewController refresh];
+    
 }
 
 - (void)refresh
 {
-    [self.commentTableViewController refresh];
+    if (self.toMeButton.selected) {
+        [self.commentToMeTableViewController refresh];
+    } else if(self.byMeButton.selected) {
+        [self.commentByMeTableViewController refresh];
+    }
 }
 
 - (void)pagePopedFromStack
@@ -44,24 +48,29 @@
 
 - (void)enableScrollToTop
 {
-    self.commentTableViewController.tableView.scrollsToTop = YES;
+    [super enableScrollToTop];
+    self.commentToMeTableViewController.tableView.scrollsToTop = YES;
 }
 
 - (void)disableScrollToTop
 {
-    self.commentTableViewController.tableView.scrollsToTop = NO;
+    [super disableScrollToTop];
+    self.commentToMeTableViewController.tableView.scrollsToTop = NO;
+    self.commentByMeTableViewController.tableView.scrollsToTop = NO;
 }
 
 - (void)showWithPurpose
 {
     [self didClickSwitchToMeButton:nil];
-    [self.commentTableViewController refresh];
+    [self.commentToMeTableViewController refresh];
 }
 
 - (void)clearPage
 {
-    [_commentTableViewController.view removeFromSuperview];
-    _commentTableViewController = nil;
+    [_commentToMeTableViewController.view removeFromSuperview];
+    [_commentByMeTableViewController.view removeFromSuperview];
+    _commentToMeTableViewController = nil;
+    _commentByMeTableViewController = nil;
 }
 
 #pragma mark - Setup
@@ -79,14 +88,28 @@
 {
     self.toMeButton.selected = YES;
     self.byMeButton.selected = NO;
-    [self.commentTableViewController switchToToMe];
+    
+    [self.backgroundView insertSubview:self.commentToMeTableViewController.view belowSubview:self.topShadowImageView];
+    self.commentToMeTableViewController.tableView.scrollsToTop = YES;
+    [self.commentToMeTableViewController adjustBackgroundView];
+    if (_commentByMeTableViewController) {
+        [self.commentByMeTableViewController.view removeFromSuperview];
+        self.commentByMeTableViewController.tableView.scrollsToTop = NO;
+    }
 }
 
 - (IBAction)didClickSwitchByMeButton:(UIButton *)sender
 {
     self.toMeButton.selected = NO;
     self.byMeButton.selected = YES;
-    [self.commentTableViewController switchToByMe];
+    
+    [self.backgroundView insertSubview:self.commentByMeTableViewController.view belowSubview:self.topShadowImageView];
+    self.commentByMeTableViewController.tableView.scrollsToTop = YES;
+    [self.commentByMeTableViewController adjustBackgroundView];
+    if (_commentToMeTableViewController) {
+        [self.commentToMeTableViewController.view removeFromSuperview];
+        self.commentToMeTableViewController.tableView.scrollsToTop = NO;
+    }
 }
 
 - (CGRect)frameForTableView
@@ -96,16 +119,31 @@
     return CGRectMake(24.0, originY, 382.0, height);
 }
 
-- (SelfCommentTableViewController *)commentTableViewController
+- (SelfCommentTableViewController *)commentToMeTableViewController
 {
-    if (!_commentTableViewController) {
-        _commentTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfCommentTableViewController"];
-        _commentTableViewController.pageIndex = self.pageIndex;
-        _commentTableViewController.view.frame = [self frameForTableView];
-        _commentTableViewController.tableView.frame = [self frameForTableView];
-        [self.backgroundView insertSubview:_commentTableViewController.view belowSubview:self.topShadowImageView];        
+    if (!_commentToMeTableViewController) {
+        _commentToMeTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfCommentTableViewController"];
+        _commentToMeTableViewController.pageIndex = self.pageIndex;
+        _commentToMeTableViewController.view.frame = [self frameForTableView];
+        _commentToMeTableViewController.tableView.frame = [self frameForTableView];
+        _commentToMeTableViewController.dataSource = CommentsTableViewDataSourceCommentsToMe;
+        _commentByMeTableViewController.firstLoad = YES;
+//        [self.backgroundView insertSubview:_commentToMeTableViewController.view belowSubview:self.topShadowImageView];        
     }
-    return _commentTableViewController;
+    return _commentToMeTableViewController;
+}
+
+- (SelfCommentTableViewController *)commentByMeTableViewController
+{
+    if (!_commentByMeTableViewController) {
+        _commentByMeTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfCommentTableViewController"];
+        _commentByMeTableViewController.pageIndex = self.pageIndex;
+        _commentByMeTableViewController.view.frame = [self frameForTableView];
+        _commentByMeTableViewController.tableView.frame = [self frameForTableView];
+        _commentByMeTableViewController.dataSource = CommentsTableViewDataSourceCommentsByMe;
+//        [self.backgroundView insertSubview:_commentByMeTableViewController.view belowSubview:self.topShadowImageView];
+    }
+    return _commentByMeTableViewController;
 }
 
 @end

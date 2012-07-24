@@ -13,8 +13,7 @@
 #import "TTTAttributedLabelConfiguer.h"
 
 @interface SelfCommentTableViewController () {
-    int _toMeNextPage;
-    int _byMeNextPage;
+    int _nextPage;
     BOOL _resetFonts;
 }
 
@@ -36,8 +35,7 @@
     [super viewDidLoad];
     _coreDataIdentifier = self.description;
     _loading = NO;
-    _toMeNextPage = 1;
-    _byMeNextPage = 1;
+    _nextPage = 1;
     _hasMoreViews = YES;
     _resetFonts = NO;
 }
@@ -65,6 +63,7 @@
 	_nextCursor = -1;
     _refreshing = YES;
     [self.fetchedResultsController performFetch:nil];
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.05];
 }
 
@@ -120,13 +119,6 @@
                     }
                     [self.managedObjectContext processPendingChanges];
                     
-                    if (_commentsToMeFetchedResultsController) {
-                        _commentsToMeFetchedResultsController = nil;
-                    }
-                    
-                    _commentsToMeFetchedResultsController = self.fetchedResultsController;
-                    _toMeNextPage++;
-                    
                 } else if(_dataSource == CommentsTableViewDataSourceCommentsByMe) {
                     for (NSDictionary *dict in dictArray) {
                         Comment *comment = [Comment insertCommentByMe:dict inManagedObjectContext:self.managedObjectContext];
@@ -135,12 +127,6 @@
                     }
                     [self.managedObjectContext processPendingChanges];
                     
-                    if (_commentsByMeFetchedResultsController) {
-                        _commentsByMeFetchedResultsController = nil;
-                    }
-                    
-                    _commentsByMeFetchedResultsController = self.fetchedResultsController;
-                    _byMeNextPage++;
                 } else if (_dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
                     for (NSDictionary *dict in dictArray) {
                         Comment *comment = [Comment insertCommentMentioningMe:dict inManagedObjectContext:self.managedObjectContext];
@@ -155,11 +141,12 @@
                 
                 _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
                 _hasMoreViews = _nextCursor != 0;
+                _nextPage++;
             }            
         }
         
-        [self refreshEnded];
         [self adjustBackgroundView];
+        [self refreshEnded];
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_pullView finishedLoading];
         _loading = NO;
@@ -188,40 +175,6 @@
                                           page:1
                                          count:20];
     }
-}
-
-- (void)switchToToMe
-{
-	self.dataSource = CommentsTableViewDataSourceCommentsToMe;
-	
-	if (_commentsToMeFetchedResultsController) {
-		self.fetchedResultsController = _commentsToMeFetchedResultsController;
-	} else {
-		self.fetchedResultsController = nil;
-		[self refresh];
-	}
-    
-    [self resetFontsWhenSourceChanged];
-	
-	[self.tableView reloadData];
-    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.001];
-}
-
-- (void)switchToByMe
-{    
-	self.dataSource = CommentsTableViewDataSourceCommentsByMe;
-	
-	if (_commentsByMeFetchedResultsController) {
-		self.fetchedResultsController = _commentsByMeFetchedResultsController;
-	} else {
-		self.fetchedResultsController = nil;
-		[self refresh];
-	}
-    
-    [self resetFontsWhenSourceChanged];
-	
-	[self.tableView reloadData];
-    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.01];
 }
 
 - (void)resetFontsWhenSourceChanged

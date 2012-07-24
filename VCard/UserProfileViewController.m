@@ -257,6 +257,7 @@
         _statusController.pageIndex = self.pageIndex;
         _statusController.view.frame = [self frameForTableView];
         _statusController.tableView.frame = [self frameForTableView];
+        _statusController.firstLoad = YES;
     }
     return _statusController;
 }

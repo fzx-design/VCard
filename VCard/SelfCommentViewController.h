@@ -11,7 +11,8 @@
 
 @interface SelfCommentViewController : StackViewPageController
 
-@property (nonatomic, strong) SelfCommentTableViewController *commentTableViewController;
+@property (nonatomic, strong) SelfCommentTableViewController *commentToMeTableViewController;
+@property (nonatomic, strong) SelfCommentTableViewController *commentByMeTableViewController;
 @property (nonatomic, weak) IBOutlet UIButton *toMeButton;
 @property (nonatomic, weak) IBOutlet UIButton *byMeButton;
 

@@ -113,7 +113,6 @@
                 _hasMoreViews = _nextCursor != 0;
                 _page++;
             }
-            
         }
         
         [self adjustBackgroundView];

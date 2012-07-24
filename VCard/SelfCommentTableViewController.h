@@ -16,15 +16,10 @@ typedef enum {
 } CommentsTableViewDataSource;
 
 @interface SelfCommentTableViewController : RefreshableCoreDataTableViewController {
-    NSFetchedResultsController *_commentsToMeFetchedResultsController;
-    NSFetchedResultsController *_commentsByMeFetchedResultsController;
     
     int _nextCursor;
 }
 
 @property(nonatomic, assign) CommentsTableViewDataSource dataSource;
-
-- (void)switchToToMe;
-- (void)switchToByMe;
 
 @end

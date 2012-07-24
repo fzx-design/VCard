@@ -9,9 +9,7 @@
 #import "RefreshableCoreDataTableViewController.h"
 #import "UIView+Resize.h"
 
-@interface RefreshableCoreDataTableViewController () {
-    BOOL _firstLoad;
-}
+@interface RefreshableCoreDataTableViewController ()
 
 @property (nonatomic, retain) BaseLayoutView *backgroundViewA;
 @property (nonatomic, retain) BaseLayoutView *backgroundViewB;
@@ -37,7 +35,6 @@
     
     self.view.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     _refreshing = NO;
-    _firstLoad = YES;
         
     [self.tableView resetWidth:384.0];
     _pullView = [[PullToRefreshView alloc] initWithScrollView:self.tableView];
