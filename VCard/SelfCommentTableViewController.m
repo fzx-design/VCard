@@ -57,13 +57,20 @@
 }
 
 #pragma mark - Data Operation
+- (void)initialLoad
+{
+    [self.fetchedResultsController performFetch:nil];
+    if (self.fetchedResultsController.fetchedObjects.count > 0) {
+        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.001];
+    } else {
+        [self refresh];
+    }
+}
 
 - (void)refresh
 {
 	_nextCursor = -1;
     _refreshing = YES;
-    [self.fetchedResultsController performFetch:nil];
-    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.05];
 }
 

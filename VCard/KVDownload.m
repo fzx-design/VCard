@@ -91,6 +91,8 @@
         // Run completion handler
         self.completionHandler(nil, nil, error);
     }
+
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 #pragma mark - NSURLConnection delegate methods
@@ -122,6 +124,7 @@
     self.completionHandler(self.URLResponse, self.receivedData, error);
     self.connection = nil;
     self.receivedData = nil;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 // Called when the connection has finished loading.
@@ -130,6 +133,7 @@
     self.completionHandler(self.URLResponse, self.receivedData, nil);
     self.connection = nil;
     self.receivedData = nil;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 // Called if the HTTP request receives an authentication challenge.
