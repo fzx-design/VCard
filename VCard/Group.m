@@ -35,7 +35,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"Group" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"name == %@ && type == %@", name, [NSNumber numberWithInt:2]]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"name == %@ && type == %@", name, [NSNumber numberWithInt:kGroupTypeTopic]]];
     
     Group *res = [[context executeFetchRequest:request error:NULL] lastObject];
     
