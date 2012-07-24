@@ -28,8 +28,8 @@
 - (void)initialLoad
 {
     [self didClickSwitchToMeButton:nil];
-    [self.commentToMeTableViewController refresh];
-    
+    [self.commentToMeTableViewController initialLoad];
+    [self.commentByMeTableViewController initialLoad];
 }
 
 - (void)refresh
@@ -133,8 +133,8 @@
         _commentToMeTableViewController.view.frame = [self frameForTableView];
         _commentToMeTableViewController.tableView.frame = [self frameForTableView];
         _commentToMeTableViewController.dataSource = CommentsTableViewDataSourceCommentsToMe;
-        _commentByMeTableViewController.firstLoad = YES;
-//        [self.backgroundView insertSubview:_commentToMeTableViewController.view belowSubview:self.topShadowImageView];        
+//        _commentByMeTableViewController.firstLoad = YES;
+//        [self.backgroundView insertSubview:_commentToMeTableViewController.view belowSubview:self.topShadowImageView];
     }
     return _commentToMeTableViewController;
 }
@@ -147,6 +147,7 @@
         _commentByMeTableViewController.view.frame = [self frameForTableView];
         _commentByMeTableViewController.tableView.frame = [self frameForTableView];
         _commentByMeTableViewController.dataSource = CommentsTableViewDataSourceCommentsByMe;
+//        _commentByMeTableViewController.firstLoad = YES;
 //        [self.backgroundView insertSubview:_commentByMeTableViewController.view belowSubview:self.topShadowImageView];
     }
     return _commentByMeTableViewController;

@@ -20,6 +20,8 @@ typedef enum {
     int _nextCursor;
 }
 
-@property(nonatomic, assign) CommentsTableViewDataSource dataSource;
+@property (nonatomic, assign) CommentsTableViewDataSource dataSource;
+
+- (void)initialLoad;
 
 @end
