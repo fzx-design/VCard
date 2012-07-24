@@ -132,7 +132,7 @@
 
 - (void)handleNetworkChoice
 {
-    if ([NSUserDefaults hasShown3GWarning] || ![NSUserDefaults isAutoTrafficSavingEnabled]) {
+    if ([NSUserDefaults hasShown3GWarning] || [NSUserDefaults isAutoTrafficSavingEnabled]) {
         return;
     }
 
