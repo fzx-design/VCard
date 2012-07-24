@@ -26,6 +26,7 @@
 
 - (void)setTitle:(NSString *)title
 {
+    [self clearsContextBeforeDrawing];
     _titleLabel.textAlignment = UITextAlignmentLeft;
     _titleLabel.text = title;
 }

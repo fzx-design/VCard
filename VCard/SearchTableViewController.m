@@ -15,7 +15,9 @@
 #import "SearchTableViewCell.h"
 #import "SearchTableViewHighlightsCell.h"
 
-@interface SearchTableViewController ()
+@interface SearchTableViewController () {
+    BOOL _loading;
+}
 
 @property (nonatomic, retain) BaseLayoutView *backgroundViewA;
 @property (nonatomic, retain) BaseLayoutView *backgroundViewB;
@@ -37,6 +39,7 @@
 {
     [super viewDidLoad];
     
+    _loading = YES;
     _hotTopics = [[NSMutableArray alloc] init];
     _searchNameSuggestions = [[NSMutableArray alloc] initWithCapacity:5];
     _searchStatusSuggestions = [[NSMutableArray alloc] initWithCapacity:5];
@@ -72,6 +75,7 @@
     WBClient *client = [WBClient client];
     
     [client setCompletionBlock:^(WBClient *client) {
+        _loading = NO;
         if (!client.hasError) {
             NSDictionary *result = client.responseJSONObject;
             
@@ -87,9 +91,8 @@
                     [_hotTopics addObject:topicName];
                 }
             }
-            
-            [self reloadTableViewSection:1 withAnimation:UITableViewRowAnimationFade];
         }
+        [self reloadTableViewSection:1 withAnimation:UITableViewRowAnimationFade];
     }];
     
     [client getHotTopics];
@@ -274,7 +277,11 @@
             if (_hotTopics.count > 0) {
                 [searchCell setTitle:[_hotTopics objectAtIndex:indexPath.row]];
             } else {
-                [searchCell setOperationTitle:@"载入中"];
+                if (_loading) {
+                    [searchCell setOperationTitle:@"载入中..."];
+                } else {
+                    [searchCell setOperationTitle:@"加载失败"];
+                }
             }
         }
     }
