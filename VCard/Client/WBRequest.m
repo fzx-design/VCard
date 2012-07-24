@@ -266,6 +266,8 @@
 
 - (void)connect
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
     NSString *urlString = [WBRequest serializeURL:url params:params httpMethod:httpMethod];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]
 														   cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
@@ -305,6 +307,8 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    
 	responseData = [[NSMutableData alloc] init];
 	
 	if ([delegate respondsToSelector:@selector(request:didReceiveResponse:)])
@@ -326,6 +330,9 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)theConnection 
 {
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    
 	[self handleResponseData:responseData];
     
 	[responseData release];
@@ -338,6 +345,8 @@
 
 - (void)connection:(NSURLConnection *)theConnection didFailWithError:(NSError *)error
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    
 	[self failedWithError:error];
 	
 	[responseData release];

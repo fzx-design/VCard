@@ -156,10 +156,12 @@
     if (!imageURLString) {
         return;
     }
-    
+        
     NSURL *imageURL = [NSURL URLWithString:imageURLString];
     
     [[KVImageCache defaultCache] loadImageAtURL:imageURL cacheURL:imageURL imageView:self withHandler:^(UIImage * image) {
+        
+        
         if (image) {
             self.image = image;
         }
