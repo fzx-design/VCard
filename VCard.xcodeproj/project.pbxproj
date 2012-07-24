@@ -414,6 +414,7 @@
 		18EE547415B19DF3006EA93A /* SearchTableViewHighlightsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE547315B19DF3006EA93A /* SearchTableViewHighlightsCell.m */; };
 		18EE8E28159DE6160032D69B /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8E27159DE6160032D69B /* Comment.m */; };
 		18F0869215BEA7A7009455F4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0869115BEA7A7009455F4 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		18F086A115BEB408009455F4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F086A015BEB408009455F4 /* SystemConfiguration.framework */; };
 		18F1E4DE1574F47200EB71DD /* side_tableview_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F1E4DC1574F47200EB71DD /* side_tableview_bg@2x.png */; };
 		18F1E4DF1574F47200EB71DD /* side_tableview_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F1E4DD1574F47200EB71DD /* side_tableview_bg.png */; };
 		18F1E4EB15760D5E00EB71DD /* mondev_logo_gloom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F1E4E915760D5E00EB71DD /* mondev_logo_gloom@2x.png */; };
@@ -1493,6 +1494,7 @@
 		18EE8E27159DE6160032D69B /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		18F0869015BEA7A7009455F4 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		18F0869115BEA7A7009455F4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		18F086A015BEB408009455F4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		18F1E4DC1574F47200EB71DD /* side_tableview_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "side_tableview_bg@2x.png"; sourceTree = "<group>"; };
 		18F1E4DD1574F47200EB71DD /* side_tableview_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = side_tableview_bg.png; sourceTree = "<group>"; };
 		18F1E4E915760D5E00EB71DD /* mondev_logo_gloom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mondev_logo_gloom@2x.png"; sourceTree = "<group>"; };
@@ -2110,6 +2112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18F086A115BEB408009455F4 /* SystemConfiguration.framework in Frameworks */,
 				E1AA44FB15BD346900F3DCA6 /* AudioToolbox.framework in Frameworks */,
 				189F486D15B050630006DC84 /* ImageIO.framework in Frameworks */,
 				1809ED5D159ADA1200A841BC /* MessageUI.framework in Frameworks */,
@@ -2201,8 +2204,9 @@
 		181AB90915230AC1007A2A51 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E1AA44FA15BD346900F3DCA6 /* AudioToolbox.framework */,
 				1850A477153C0ADC0001A905 /* libicucore.A.dylib */,
+				18F086A015BEB408009455F4 /* SystemConfiguration.framework */,
+				E1AA44FA15BD346900F3DCA6 /* AudioToolbox.framework */,
 				189F486C15B050620006DC84 /* ImageIO.framework */,
 				1809ED5C159ADA1200A841BC /* MessageUI.framework */,
 				E1097D56157F9C1D00BD0640 /* AVFoundation.framework */,

@@ -9,7 +9,9 @@
 #import "RefreshableCoreDataTableViewController.h"
 #import "UIView+Resize.h"
 
-@interface RefreshableCoreDataTableViewController ()
+@interface RefreshableCoreDataTableViewController () {
+    BOOL _firstLoad;
+}
 
 @property (nonatomic, retain) BaseLayoutView *backgroundViewA;
 @property (nonatomic, retain) BaseLayoutView *backgroundViewB;
@@ -35,6 +37,7 @@
     
     self.view.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     _refreshing = NO;
+    _firstLoad = YES;
         
     [self.tableView resetWidth:384.0];
     _pullView = [[PullToRefreshView alloc] initWithScrollView:self.tableView];
@@ -134,6 +137,59 @@
 - (void)refreshEnded
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameRefreshEnded object:nil];
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    if (_firstLoad) {
+        return;
+    }
+    
+    [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    if (_firstLoad) {
+        return;
+    }
+    
+    UITableView *tableView = self.tableView;
+    
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationTop];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath]
+                    atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    if (_firstLoad) {
+        _firstLoad = NO;
+        [self.tableView reloadData];
+        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.005];
+    } else {
+        [self.tableView endUpdates];
+    }
 }
 
 #pragma mark - PullToRefreshViewDelegate

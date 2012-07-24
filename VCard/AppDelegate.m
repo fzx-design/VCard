@@ -24,6 +24,7 @@
 
 @interface AppDelegate () {
     BOOL _networkWarning;
+    Reachability *_reachability;
 }
 
 @end
@@ -57,6 +58,8 @@
                                              selector:@selector(saveContext) 
                                                  name:kNotificationNameShouldSaveContext
                                                object:nil];
+    _reachability = [Reachability reachabilityForInternetConnection];
+    [_reachability startNotifier];
     [ResourceProvider initialize];
     [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultKeyShouldScrollToTop];
     
@@ -130,10 +133,8 @@
     if ([NSUserDefaults hasShown3GWarning] && ![NSUserDefaults isAutoTrafficSavingEnabled]) {
         return;
     }
-    
-    Reachability *reachability = [Reachability reachabilityForInternetConnection];
-    [reachability startNotifier];
-    if ([reachability currentReachabilityStatus] == ReachableViaWWAN) {
+
+    if ([_reachability currentReachabilityStatus] == ReachableViaWWAN) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"自动流量节省模式"
                                                         message:@"您正在使用蜂窝数据浏览。打开自动节省可以为您节约数据费用，但微博图像的质量会降低。"
                                                        delegate:self
@@ -142,7 +143,7 @@
         [alert show];
         _networkWarning = YES;
     }
-    [reachability stopNotifier];
+    [_reachability stopNotifier];
 }
 
 - (void)followVCard {
