@@ -61,7 +61,7 @@
 {
     [self.fetchedResultsController performFetch:nil];
     if (self.fetchedResultsController.fetchedObjects.count > 0) {
-        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.001];
+        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
     } else {
         [self refresh];
     }
@@ -120,7 +120,7 @@
                 
                 if (_dataSource == CommentsTableViewDataSourceCommentsToMe) {
                     for (NSDictionary *dict in dictArray) {
-                        Comment *comment = [Comment insertCommentToMe:dict inManagedObjectContext:self.managedObjectContext];
+                        Comment *comment = [Comment insertCommentToMe:dict currentUserID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
                         comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
                     }
@@ -128,7 +128,7 @@
                     
                 } else if(_dataSource == CommentsTableViewDataSourceCommentsByMe) {
                     for (NSDictionary *dict in dictArray) {
-                        Comment *comment = [Comment insertCommentByMe:dict inManagedObjectContext:self.managedObjectContext];
+                        Comment *comment = [Comment insertCommentByMe:dict currentUserID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
                         comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
                     }
@@ -136,7 +136,7 @@
                     
                 } else if (_dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
                     for (NSDictionary *dict in dictArray) {
-                        Comment *comment = [Comment insertCommentMentioningMe:dict inManagedObjectContext:self.managedObjectContext];
+                        Comment *comment = [Comment insertCommentMentioningMe:dict currentUserID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
                         comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
                     }
@@ -204,11 +204,11 @@
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"commentID" ascending:NO];
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     if (self.dataSource == CommentsTableViewDataSourceCommentsToMe) {
-		request.predicate = [NSPredicate predicateWithFormat:@"toMe == %@", [NSNumber numberWithBool:YES]];
+		request.predicate = [NSPredicate predicateWithFormat:@"toMe == %@ && source == %@", [NSNumber numberWithBool:YES], self.currentUser.userID];
 	} else if(self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
-		request.predicate = [NSPredicate predicateWithFormat:@"byMe == %@", [NSNumber numberWithBool:YES]];
+		request.predicate = [NSPredicate predicateWithFormat:@"byMe == %@ && source == %@", [NSNumber numberWithBool:YES], self.currentUser.userID];
 	} else if(self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe){
-        request.predicate = [NSPredicate predicateWithFormat:@"mentioningMe == %@", [NSNumber numberWithBool:YES]]; 
+        request.predicate = [NSPredicate predicateWithFormat:@"mentioningMe == %@ && source == %@", [NSNumber numberWithBool:YES], self.currentUser.userID]; 
     }
 }
 

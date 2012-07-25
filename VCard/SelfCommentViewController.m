@@ -28,7 +28,11 @@
 - (void)initialLoad
 {
     [self didClickSwitchToMeButton:nil];
-    [self.commentToMeTableViewController initialLoad];
+    if (self.loadWithPurpose) {
+        [self.commentToMeTableViewController refresh];
+    } else {
+        [self.commentToMeTableViewController initialLoad];
+    }
     [self.commentByMeTableViewController initialLoad];
 }
 
@@ -94,7 +98,7 @@
     
     [self.backgroundView insertSubview:self.commentToMeTableViewController.view belowSubview:self.topShadowImageView];
     self.commentToMeTableViewController.tableView.scrollsToTop = YES;
-    [self.commentToMeTableViewController adjustBackgroundView];
+    [self.commentToMeTableViewController initialLoad];
     if (_commentByMeTableViewController) {
         [self.commentByMeTableViewController.view removeFromSuperview];
         self.commentByMeTableViewController.tableView.scrollsToTop = NO;
@@ -111,7 +115,7 @@
     
     [self.backgroundView insertSubview:self.commentByMeTableViewController.view belowSubview:self.topShadowImageView];
     self.commentByMeTableViewController.tableView.scrollsToTop = YES;
-    [self.commentByMeTableViewController adjustBackgroundView];
+    [self.commentByMeTableViewController initialLoad];
     if (_commentToMeTableViewController) {
         [self.commentToMeTableViewController.view removeFromSuperview];
         self.commentToMeTableViewController.tableView.scrollsToTop = NO;

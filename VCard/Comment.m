@@ -30,29 +30,32 @@
 @dynamic targetStatus;
 @dynamic targetUser;
 
-+ (Comment *)insertCommentByMe:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
++ (Comment *)insertCommentByMe:(NSDictionary *)dict currentUserID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
 {
     Comment *result = [Comment configureCommentBasicInfoWithDict:dict managedContext:context];
     
 	result.byMe = [NSNumber numberWithBool:YES];
+    result.source = userID;
     
     return result;
 }
 
-+ (Comment *)insertCommentToMe:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
++ (Comment *)insertCommentToMe:(NSDictionary *)dict currentUserID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
 {
     Comment *result = [Comment configureCommentBasicInfoWithDict:dict managedContext:context];
     
 	result.toMe = [NSNumber numberWithBool:YES];
+    result.source = userID;
     
     return result;
 }
 
-+ (Comment *)insertCommentMentioningMe:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
++ (Comment *)insertCommentMentioningMe:(NSDictionary *)dict currentUserID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
 {
     Comment *result = [Comment configureCommentBasicInfoWithDict:dict managedContext:context];
     
 	result.mentioningMe = [NSNumber numberWithBool:YES];
+    result.source = userID;
     
     return result;
 }

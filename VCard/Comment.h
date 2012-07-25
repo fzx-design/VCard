@@ -30,9 +30,9 @@
 @property (nonatomic, retain) Status *targetStatus;
 @property (nonatomic, retain) User *targetUser;
 
-+ (Comment *)insertCommentByMe:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context;
-+ (Comment *)insertCommentToMe:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context;
-+ (Comment *)insertCommentMentioningMe:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Comment *)insertCommentByMe:(NSDictionary *)dict currentUserID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Comment *)insertCommentToMe:(NSDictionary *)dict currentUserID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Comment *)insertCommentMentioningMe:(NSDictionary *)dict currentUserID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
 + (Comment *)insertComment:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (Comment *)commentWithID:(NSString *)commentID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteCommentWithID:(NSString *)commentID inManagedObjectContext:(NSManagedObjectContext *)context withObject:(id)object;
