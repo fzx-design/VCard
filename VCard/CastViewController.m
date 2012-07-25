@@ -921,7 +921,7 @@
             
             if (self.fetchedResultsController.fetchedObjects.count > 0) {
                 Status *status = [self.fetchedResultsController.fetchedObjects objectAtIndex:0];
-                if (![status.statusID isEqualToString:_previousStatusID]) {
+                if (![status.statusID isEqualToString:_previousStatusID] && _refreshing) {
                     _previousStatusID = status.statusID;
                     [[SoundManager sharedManager] playReloadSoundAfterDelay:0.7f];
                 }
