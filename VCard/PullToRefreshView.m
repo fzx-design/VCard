@@ -60,8 +60,6 @@
     
     if ((self = [super initWithFrame:frame])) {
         scrollView = scroll;
-        [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
-        
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		self.backgroundColor = [UIColor colorWithRed:80.0/255.0 green:80.0/255.0 blue:80.0/255.0 alpha:1.0];
         
@@ -97,19 +95,19 @@
         [self addSubview:iconView];
         
 		[self setState:PullToRefreshViewStateNormal];
-        
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(resetLayoutToOrientation:)
-//                                                     name:kNotificationNameOrientationWillChange
-//                                                   object:nil];
     }
     
     return self;
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)removeObserver
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [scrollView removeObserver:self forKeyPath:@"contentOffset"];
+}
+
+- (void)addObserver
+{
+    [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 #pragma mark -

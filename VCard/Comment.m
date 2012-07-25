@@ -169,7 +169,7 @@
     }
 }
 
-+ (void)deleteCommentsToMeInManagedObjectContext:(NSManagedObjectContext *)context
++ (void)deleteCommentsToMeOfCurrentUser:(NSString *)userID InManagedObjectContext:(NSManagedObjectContext *)context
 {
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
@@ -182,12 +182,12 @@
     }
 }
 
-+ (void)deleteCommentsByMeInManagedObjectContext:(NSManagedObjectContext *)context
++ (void)deleteCommentsByMeOfCurrentUser:(NSString *)userID InManagedObjectContext:(NSManagedObjectContext *)context
 {
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"byMe == %@", [NSNumber numberWithBool:YES]]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"byMe == %@ && source == %@", [NSNumber numberWithBool:YES], userID]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     for (NSManagedObject *managedObject in items) {
@@ -195,7 +195,7 @@
     }
 }
 
-+ (void)deleteCommentsMentioningMeInManagedObjectContext:(NSManagedObjectContext *)context
++ (void)deleteCommentsMentioningMeOfCurrentUser:(NSString *)userID InManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     

@@ -28,12 +28,11 @@
 - (void)initialLoad
 {
     [self didClickSwitchToMeButton:nil];
+    [self.commentByMeTableViewController initialLoad];
+    [self.commentToMeTableViewController initialLoad];
     if (self.loadWithPurpose) {
         [self.commentToMeTableViewController refresh];
-    } else {
-        [self.commentToMeTableViewController initialLoad];
     }
-    [self.commentByMeTableViewController initialLoad];
 }
 
 - (void)refresh
@@ -53,7 +52,13 @@
 - (void)enableScrollToTop
 {
     [super enableScrollToTop];
-    self.commentToMeTableViewController.tableView.scrollsToTop = YES;
+    if (self.toMeButton.selected) {
+        self.commentToMeTableViewController.tableView.scrollsToTop = YES;
+        self.commentByMeTableViewController.tableView.scrollsToTop = NO;
+    } else {
+        self.commentToMeTableViewController.tableView.scrollsToTop = NO;
+        self.commentByMeTableViewController.tableView.scrollsToTop = YES;
+    }
 }
 
 - (void)disableScrollToTop
@@ -98,7 +103,7 @@
     
     [self.backgroundView insertSubview:self.commentToMeTableViewController.view belowSubview:self.topShadowImageView];
     self.commentToMeTableViewController.tableView.scrollsToTop = YES;
-    [self.commentToMeTableViewController initialLoad];
+    [self.commentToMeTableViewController performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
     if (_commentByMeTableViewController) {
         [self.commentByMeTableViewController.view removeFromSuperview];
         self.commentByMeTableViewController.tableView.scrollsToTop = NO;
@@ -115,7 +120,7 @@
     
     [self.backgroundView insertSubview:self.commentByMeTableViewController.view belowSubview:self.topShadowImageView];
     self.commentByMeTableViewController.tableView.scrollsToTop = YES;
-    [self.commentByMeTableViewController initialLoad];
+    [self.commentByMeTableViewController performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
     if (_commentToMeTableViewController) {
         [self.commentToMeTableViewController.view removeFromSuperview];
         self.commentToMeTableViewController.tableView.scrollsToTop = NO;

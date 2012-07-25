@@ -59,6 +59,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [_pullView addObserver];
+    
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self 
                selector:@selector(resetLayoutAfterRotating:) 
@@ -92,6 +94,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [_pullView removeObserver];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -297,7 +300,6 @@
 #pragma mark - CommentTableViewCellDelegate
 - (void)commentTableViewCellDidComment
 {
-    [self refresh];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldRefreshAfterPost object:nil];
 }
 

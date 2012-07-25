@@ -61,6 +61,7 @@
 {
     [self.fetchedResultsController performFetch:nil];
     if (self.fetchedResultsController.fetchedObjects.count > 0) {
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
         [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
     } else {
         [self refresh];
@@ -92,11 +93,11 @@
 - (void)clearData
 {
     if (self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
-		[Comment deleteCommentsByMeInManagedObjectContext:self.managedObjectContext];
+		[Comment deleteCommentsByMeOfCurrentUser:self.currentUser.userID InManagedObjectContext:self.managedObjectContext];
     } else if(self.dataSource == CommentsTableViewDataSourceCommentsToMe){
-		[Comment deleteCommentsToMeInManagedObjectContext:self.managedObjectContext];
+		[Comment deleteCommentsToMeOfCurrentUser:self.currentUser.userID InManagedObjectContext:self.managedObjectContext];
     } else if(self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
-        [Comment deleteCommentsMentioningMeInManagedObjectContext:self.managedObjectContext];
+        [Comment deleteCommentsMentioningMeOfCurrentUser:self.currentUser.userID InManagedObjectContext:self.managedObjectContext];
     }
 }
 

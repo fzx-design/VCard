@@ -269,6 +269,11 @@
 	return height;
 }
 
+- (void)refreshAfterPostingComment
+{
+    [self refresh];
+}
+
 #pragma mark - Adjust table view layout
 
 - (void)setUpHeaderView

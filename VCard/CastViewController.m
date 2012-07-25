@@ -256,6 +256,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     _notificationAlreadySet = NO;
+    [_pullView removeObserver];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -275,6 +276,7 @@
     _pullView = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
     _pullView.delegate = self;
     _pullView.shouldAutoRotate = YES;
+    [_pullView addObserver];
     _loadMoreView = [[LoadMoreView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
     _loadMoreView.delegate = self;
     _loadMoreView.shouldAutoRotate = YES;
@@ -353,7 +355,7 @@
     NSDictionary *dictionary = notification.object;
     NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
     int index = indexString.intValue;
-    [self showSelfCommentListWithStackIndex:index];
+    [self showSelfCommentListWithStackIndex:index refreshing:NO];
 }
 
 - (void)showSelfMentionList:(NSNotification *)notification
@@ -361,20 +363,20 @@
     NSDictionary *dictionary = notification.object;
     NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
     int index = indexString.intValue;
-    [self showSelfMentionListWithStackIndex:index];
+    [self showSelfMentionListWithStackIndex:index refreshing:NO];
 }
 
-- (void)showSelfCommentListWithStackIndex:(int)index
+- (void)showSelfCommentListWithStackIndex:(int)index refreshing:(BOOL)refreshing
 {
     SelfCommentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfCommentViewController"];
-    vc.loadWithPurpose = YES;
+    vc.loadWithPurpose = refreshing;
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeStatusComment pageDescription:kStackViewDefaultDescription];
 }
 
-- (void)showSelfMentionListWithStackIndex:(int)index
+- (void)showSelfMentionListWithStackIndex:(int)index refreshing:(BOOL)refreshing
 {
     SelfMentionViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfMentionViewController"];
-    vc.loadWithPurpose = YES;
+    vc.loadWithPurpose = refreshing;
     vc.shouldShowFirst = YES;
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeUserMention pageDescription:kStackViewDefaultDescription];
 }
@@ -825,7 +827,7 @@
 #pragma mark Unread Indicator Button Actions
 - (IBAction)didClickUnreadCommentButton:(UnreadIndicatorButton *)sender
 {
-    [self showSelfCommentListWithStackIndex:[_stackViewController stackTopIndex]];
+    [self showSelfCommentListWithStackIndex:[_stackViewController stackTopIndex] refreshing:YES];
     [self resetUnreadCountWithType:kWBClientResetCountTypeComment];
     [_unreadIndicatorView removeIndicator:sender];
     sender.previousCount = 0;
@@ -841,7 +843,7 @@
 
 - (IBAction)didClickUnreadMentionButton:(UnreadIndicatorButton *)sender
 {
-    [self showSelfMentionListWithStackIndex:[_stackViewController stackTopIndex]];
+    [self showSelfMentionListWithStackIndex:[_stackViewController stackTopIndex] refreshing:YES];
     [self resetUnreadCountWithType:kWBClientResetCountTypeMention];
     [_unreadIndicatorView removeIndicator:sender];
     sender.previousCount = 0;
