@@ -323,7 +323,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 - (void)addEmotionToString:(NSString *)string withRange:(NSRange)range {
     [self addLinkWithTextCheckingResult:[NSTextCheckingResult correctionCheckingResultWithRange:range replacementString:string]];
     
-    NSMutableAttributedString *mutableAttributedString = [self.attributedText mutableCopy];
+    NSMutableAttributedString *mutableAttributedString = [[self.attributedText mutableCopy] autorelease];
     [mutableAttributedString removeAttribute:(NSString *)kTTTEmoticonAttributeName range:range];
     [mutableAttributedString addAttribute:(NSString *)kTTTEmoticonAttributeName value:string range:range];
 
@@ -341,7 +341,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     }
     
     NSRange range = result.range;
-    NSMutableAttributedString *mutableAttributedString = [self.attributedText mutableCopy];
+    NSMutableAttributedString *mutableAttributedString = [[self.attributedText mutableCopy] autorelease];
     [mutableAttributedString addAttribute:(NSString *)kTTTTemporaryAttributesAttributeName value:(id)[mutableAttributedString attributesAtIndex:range.location effectiveRange:nil] range:range];
     [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:range];
     [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[self.highlightedTextColor CGColor] range:range];
