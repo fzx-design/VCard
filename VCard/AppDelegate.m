@@ -14,6 +14,7 @@
 #import "NSUserDefaults+Addition.h"
 #import "CoreDataViewController.h"
 #import "Reachability.h"
+#import "SDURLCache.h"
 
 #define RECOMMEND_VCARD_TO_FRIENDS_USE_COUNT    5
 #define FOLLOW_VCARD_USE_COUNT    2
@@ -64,6 +65,12 @@
     [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultKeyShouldScrollToTop];
     
     [NSNotificationCenter registerRootViewControllerViewDidLoadNotificationWithSelector:@selector(rootViewControllerViewDidLoad:) target:[UIApplication sharedApplication]];
+    
+    SDURLCache *urlCache = [[SDURLCache alloc] initWithMemoryCapacity:1024*1024   // 1MB mem cache
+                                                         diskCapacity:1024*1024*5 // 5MB disk cache
+                                                             diskPath:[SDURLCache defaultCachePath]];
+    urlCache.ignoreMemoryOnlyStoragePolicy = YES;
+    [NSURLCache setSharedURLCache:urlCache];
     
     return YES;
 }

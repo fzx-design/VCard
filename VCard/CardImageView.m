@@ -15,6 +15,16 @@
 #import "ErrorIndicatorViewController.h"
 #import "UIView+Addition.h"
 #import "InnerBrowserViewController.h"
+#import "UIImageView+AFNetworking.h"
+
+@interface CardImageView ()
+
+
+@property (nonatomic, assign) CGFloat deltaWidth;
+@property (nonatomic, assign) CGFloat deltaHeight;
+
+@end
+
 
 @implementation CardImageView {
     ErrorIndicatorViewController *_errorIndicateViewController;
@@ -141,14 +151,18 @@
     }
     
     NSURL *url = [NSURL URLWithString:urlString];
-    void (^imageLoadingCompletion)(BOOL succeeded) = ^(BOOL succeeded){
+    
+    __block __weak id selfWeak = self;
+    CGRect targetFrame = self.imageView.frame;
+    
+    [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         
-        _staticGIFImage = self.imageView.image;
+        ((CardImageView *)selfWeak).imageView.image = (id)image;
         
-        CGFloat targetWidth = self.imageView.frame.size.width;
-        CGFloat targetHeight = self.imageView.frame.size.height;
-        CGFloat width = self.imageView.image.size.width;
-        CGFloat height = self.imageView.image.size.height;
+        CGFloat targetWidth = targetFrame.size.width;
+        CGFloat targetHeight = targetFrame.size.height;
+        CGFloat width = image.size.width;
+        CGFloat height = image.size.height;
         
         CGFloat widthFactor = targetWidth / width;
         CGFloat heightFactor = targetHeight / height;
@@ -165,8 +179,8 @@
         scaledWidth  = width * scaleFactor;
         scaledHeight = height * scaleFactor;
         
-        _deltaWidth = scaledWidth - targetWidth;
-        _deltaHeight = scaledHeight - targetHeight;
+        ((CardImageView *)selfWeak).deltaWidth = scaledWidth - targetWidth;
+        ((CardImageView *)selfWeak).deltaHeight = scaledHeight - targetHeight;
         
         widthFactor = 1024.0 / scaledWidth;
         heightFactor = 768.0 / scaledHeight;
@@ -185,7 +199,7 @@
             _targetVerticalScale = widthFactor; // scale to fit width
         
         _loadingCompleted = YES;
-        if (succeeded) {
+//        if (succeeded) {
             for (UIGestureRecognizer *gestureRecognizer in self.gestureRecognizers) {
                 gestureRecognizer.enabled = YES;
             }
@@ -194,10 +208,10 @@
             [UIView animateWithDuration:0.3 animations:^{
                 self.imageView.alpha = 1.0;
             }];
-        }
-    };
+//        }
+    } failure:nil];
     
-    [self.imageView kv_setImageAtURL:url completion:imageLoadingCompletion];
+//    [self.imageView kv_setImageAtURL:url completion:imageLoadingCompletion];
 }
 
 - (void)loadDetailedImageFromURL:(NSString *)urlString

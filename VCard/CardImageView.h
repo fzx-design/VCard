@@ -32,8 +32,6 @@ typedef enum {
     CGRect _initialFrame;
     CGSize _initialSize;
     CGFloat _initialScale;
-    CGFloat _deltaWidth;
-    CGFloat _deltaHeight;
     BOOL _isGIF;
 }
 
