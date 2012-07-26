@@ -77,7 +77,6 @@
 {
     [super viewDidLoad];
     [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
-    _coreDataIdentifier = kCoreDataIdentifierDefault;
     [self setUpVariables];
     [self initialLoad];
     
@@ -99,6 +98,19 @@
     _coverView = [[UIView alloc] initWithFrame:CGRectMake(1024.0, 0.0, 0.0, 0.0)];
     _coverView.backgroundColor = [UIColor blackColor];
     _coverView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    _coreDataIdentifier = kCoreDataIdentifierDefault;
+    
+    self.waterflowView.flowdatasource = self;
+    self.waterflowView.flowdelegate = self;
+    self.waterflowView.animationCover = self.waterflowViewAnimationCover;
+    [self.waterflowView refresh];
+    
+    _pullView = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
+    _pullView.delegate = self;
+    _pullView.shouldAutoRotate = YES;
+    _loadMoreView = [[LoadMoreView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
+    _loadMoreView.delegate = self;
+    _loadMoreView.shouldAutoRotate = YES;
     
     [_unreadFollowerIndicatorButton resetOriginY:240];
     [_unreadCommentIndicatorButton resetOriginY:240];
@@ -113,6 +125,7 @@
         return;
     }
     _notificationAlreadySet = YES;
+    [_pullView addObserver];
     
     [NSNotificationCenter registerChangeUserAvatarNotificationWith:@selector(changeUserAvatar) target:self];
     
@@ -262,18 +275,7 @@
 - (void)initialLoad
 {
     [self.fetchedResultsController performFetch:nil];
-    NSArray *undeletableUserArray = [User getUndeletableUserCount:self.managedObjectContext];
     NSArray *undeletableStatusArray = [Status getUndeletableStatusCount:self.managedObjectContext];
-
-    NSLog(@"Refresh Ended");
-    NSLog(@"Deletable comment %d", [Comment getTempCommentCount:self.managedObjectContext]);
-    NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext].count);
-    NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext].count);
-
-    NSLog(@"Undeletable comment %d", [Comment getUndeletableCommentCount:self.managedObjectContext]);
-    NSLog(@"Undeletable user %d", undeletableUserArray.count);
-    NSLog(@"Undeletable status %d", undeletableStatusArray.count);
-
     for (Status *status in undeletableStatusArray) {
         NSLog(@"%@, %@", status.text, status.author.screenName);
     }
@@ -292,19 +294,6 @@
 
 - (void)setUpWaterflowView
 {
-    self.waterflowView.flowdatasource = self;
-    self.waterflowView.flowdelegate = self;
-    self.waterflowView.animationCover = self.waterflowViewAnimationCover;
-    [self.waterflowView refresh];
-    
-    _pullView = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
-    _pullView.delegate = self;
-    _pullView.shouldAutoRotate = YES;
-    [_pullView addObserver];
-    _loadMoreView = [[LoadMoreView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
-    _loadMoreView.delegate = self;
-    _loadMoreView.shouldAutoRotate = YES;
-    
     [self.waterflowView insertSubview:_pullView atIndex:kWaterflowViewPullToRefreshViewIndex];
     [self.waterflowView addSubview:_loadMoreView];
 }
