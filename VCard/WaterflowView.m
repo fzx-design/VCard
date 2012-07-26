@@ -309,7 +309,7 @@
         _curObjIndex = 0;
         _nextBlockLimit = 0;
         
-        __block __weak typeof(self) weakSelf = self;
+        BlockWeakSelf weakSelf = self;
         
         while (self.leftColumn.visibleCells.count > 0) {
             WaterflowCell *cell = self.leftColumn.visibleCells.lastObject;
@@ -764,7 +764,7 @@
 
 - (void)showInfoBarWithTitleName:(NSString *)name
 {
-    __block __weak typeof(self) weakSelf = self;
+    BlockWeakSelf weakSelf = self;
     [UIView animateWithDuration:0.15 animations:^{
         weakSelf.titleLabel.alpha = 0.0;
     } completion:^(BOOL finished) {
@@ -819,7 +819,7 @@
 
 - (void)hideInfoBar:(BOOL)buttonClicked
 {
-    __block __weak typeof(self) weakSelf = self;
+    BlockWeakSelf weakSelf = self;
     CGFloat targetOriginY = _infoBarView.frame.origin.y - 40.0;
     [UIView animateWithDuration:0.3 animations:^{
         [weakSelf.infoBarView resetOriginY:targetOriginY];

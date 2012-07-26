@@ -67,11 +67,13 @@
         [self.activityIndicator startAnimating];
         
         [self.userPasswordTextField resignFirstResponder];
+        
+        BlockARCWeakSelf weakSelf = self;
         [self loginUsingAccount:self.userNameTextField.text password:self.userPasswordTextField.text completion:^(BOOL succeeded) {
             if(!succeeded) {
-                self.loginButton.hidden = NO;
-                self.activityIndicator.hidden = YES;
-                [self.activityIndicator stopAnimating];
+                weakSelf.loginButton.hidden = NO;
+                weakSelf.activityIndicator.hidden = YES;
+                [weakSelf.activityIndicator stopAnimating];
             }
         }];
     }

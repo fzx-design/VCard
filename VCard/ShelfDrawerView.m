@@ -24,6 +24,17 @@
 #define kDeleteDrawerButtonFrame CGRectMake(-5, -5, 44.0, 44.0)
 #define kDeleteTopicButtonFrame  CGRectMake(-10, 10, 44.0, 44.0)
 
+@interface ShelfDrawerView ()
+
+@property (nonatomic, strong) UIImageView   *photoFrameImageView;
+@property (nonatomic, strong) UIImageView   *photoImageView;
+@property (nonatomic, strong) UIImageView   *backImageView;
+@property (nonatomic, strong) UIImageView   *highlightGlowImageView;
+@property (nonatomic, strong) UILabel       *topicLabel;
+@property (nonatomic, strong) UIButton      *deleteButton;
+
+@end
+
 @implementation ShelfDrawerView
 
 - (id)initWithFrame:(CGRect)frame
@@ -163,23 +174,23 @@
 
 - (void)showHighlightGlow
 {
-    if (_editing) {
+    if (self.editing) {
         return;
     }
     
     [UIView animateWithDuration:0.15 animations:^{
-        _highlightGlowImageView.alpha = 1.0;
+        self.highlightGlowImageView.alpha = 1.0;
     }];
 }
 
 - (void)hideHighlightGlow
 {
-    if (_editing) {
+    if (self.editing) {
         return;
     }
     
     [UIView animateWithDuration:0.15 animations:^{
-        _highlightGlowImageView.alpha = 0.0;
+        self.highlightGlowImageView.alpha = 0.0;
     }];
 }
 
@@ -213,26 +224,27 @@
 
 - (void)didConfirmDelete
 {
-    if ([_delegate respondsToSelector:@selector(didClickDeleteButtonAtIndex:)]) {
-        [_delegate didClickDeleteButtonAtIndex:_index];
+    if ([self.delegate respondsToSelector:@selector(didClickDeleteButtonAtIndex:)]) {
+        [self.delegate didClickDeleteButtonAtIndex:self.index];
     }
 }
 
 - (void)showDeleteButton
 {
-    _deleteButton.hidden = NO;
-    [_deleteButton fadeIn];
-    if (_empty) {
+    self.deleteButton.hidden = NO;
+    [self.deleteButton fadeIn];
+    if (self.empty) {
         self.enabled = YES;
     }
 }
 
 - (void)hideDeleteButton
 {
-    [_deleteButton fadeOutWithCompletion:^{
-        _deleteButton.hidden = YES;
-        if (_empty) {
-            self.enabled = NO;
+    BlockARCWeakSelf weakSelf = self;
+    [self.deleteButton fadeOutWithCompletion:^{
+        weakSelf.deleteButton.hidden = YES;
+        if (weakSelf.empty) {
+            weakSelf.enabled = NO;
         }
     }];
 }

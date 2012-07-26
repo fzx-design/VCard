@@ -76,7 +76,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
     _coreDataIdentifier = kCoreDataIdentifierDefault;
     [self setUpVariables];
@@ -174,7 +173,6 @@
                selector:@selector(refreshAfterDeletingComment:)
                    name:kNotificationNameShouldDeleteComment
                  object:nil];
-    
     [center addObserver:self
                selector:@selector(updateUnreadStatusCount)
                    name:kNotificationNameShouldUpdateUnreadStatusCount
@@ -264,6 +262,22 @@
 - (void)initialLoad
 {
     [self.fetchedResultsController performFetch:nil];
+    NSArray *undeletableUserArray = [User getUndeletableUserCount:self.managedObjectContext];
+    NSArray *undeletableStatusArray = [Status getUndeletableStatusCount:self.managedObjectContext];
+
+    NSLog(@"Refresh Ended");
+    NSLog(@"Deletable comment %d", [Comment getTempCommentCount:self.managedObjectContext]);
+    NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext].count);
+    NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext].count);
+
+    NSLog(@"Undeletable comment %d", [Comment getUndeletableCommentCount:self.managedObjectContext]);
+    NSLog(@"Undeletable user %d", undeletableUserArray.count);
+    NSLog(@"Undeletable status %d", undeletableStatusArray.count);
+
+    for (Status *status in undeletableStatusArray) {
+        NSLog(@"%@, %@", status.text, status.author.screenName);
+    }
+    
     [self performSelector:@selector(setUpInitialView) withObject:nil afterDelay:0.5];
 }
 
@@ -954,25 +968,6 @@
         [_loadMoreView resetPosition];
         _loading = NO;
         _refreshing = NO;
-        
-//        NSArray *undeletableUserArray = [User getUndeletableUserCount:self.managedObjectContext];
-//        NSArray *undeletableStatusArray = [Status getUndeletableStatusCount:self.managedObjectContext];
-//        
-//        NSLog(@"Refresh Ended");
-//        NSLog(@"Deletable comment %d", [Comment getTempCommentCount:self.managedObjectContext]);
-//        NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext].count);
-//        NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext].count);
-//        
-//        NSLog(@"Undeletable comment %d", [Comment getUndeletableCommentCount:self.managedObjectContext]);
-//        NSLog(@"Undeletable user %d", undeletableUserArray.count);
-//        NSLog(@"Undeletable status %d", undeletableStatusArray.count);
-//        
-//        for (Status *status in undeletableStatusArray) {
-//            NSLog(@"%@, %@", status.text, status.author.screenName);
-//        }
-//        for (User *user in undeletableUserArray) {
-//            NSLog(@"%@", user.screenName);
-//        }
     }];
     
     long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue - 1;
@@ -1088,7 +1083,7 @@
     request.sortDescriptors = @[sortDescriptor];
     request.entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext];
  
-    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && operatable == %@ && currentUserID == %@", self.currentUser, @(NO), self.currentUser.userID];
+    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && currentUserID == %@", self.currentUser,self.currentUser.userID];
                   
 }
 

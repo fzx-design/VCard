@@ -22,10 +22,7 @@
 
 @end
 
-@interface StackView : UIView <UIScrollViewDelegate> {
-    UIScrollView *_scrollView;
-    __unsafe_unretained id<StackViewDelegate> _delegate;
-}
+@interface StackView : UIView <UIScrollViewDelegate> 
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, assign) id<StackViewDelegate> delegate;

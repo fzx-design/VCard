@@ -136,7 +136,7 @@
     [self resetSize:_initialSize];
     [self resetOrigin:_initialPosition];
     
-    __block __weak typeof(self) weakSelf = self;
+    BlockARCWeakSelf weakSelf = self;
     [UIView animateWithDuration:0.3 animations:^{
         weakSelf.transform = CGAffineTransformMakeRotation(_initialRotation);
     }];
@@ -152,7 +152,7 @@
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     
-    __block __weak typeof(self) weakSelf = self;
+    BlockARCWeakSelf weakSelf = self;
     CGRect targetFrame = self.imageView.frame;
     
     void (^successBlock)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) = ^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
@@ -249,7 +249,7 @@
             NSData *imageData = [NSData dataWithContentsOfURL:url];
             UIImage *image = [UIImage animatedImageWithGIFData:imageData];
             
-            __block __weak typeof(self) weakSelf = self;
+            BlockARCWeakSelf weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (_imageViewMode != CastViewImageViewModeNormal) {
                     weakSelf.imageView.image = image;

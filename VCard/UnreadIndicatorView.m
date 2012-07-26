@@ -110,7 +110,7 @@
 
 - (void)showBackgroundImageView
 {
-    __block __weak typeof(self) weakSelf = self;
+    BlockARCWeakSelf weakSelf = self;
     [UIView animateWithDuration:0.3 animations:^{
         weakSelf.backgroundImageView.alpha = 1.0;
     }];
@@ -118,7 +118,7 @@
 
 - (void)hideBackgroundImageView
 {
-    __block __weak typeof(self) weakSelf = self;
+    BlockARCWeakSelf weakSelf = self;
     [UIView animateWithDuration:0.3 animations:^{
         weakSelf.backgroundImageView.alpha = 0.0;
     }];

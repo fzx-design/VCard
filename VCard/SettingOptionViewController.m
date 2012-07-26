@@ -69,8 +69,9 @@
         return;
     
     NSMutableArray *array = [NSMutableArray array];
+    BlockARCWeakSelf weakSelf = self;
     [self.optionInfo.optionChosenStatusArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if(!self.optionInfo.allowMultiOptions) {
+        if(!weakSelf.optionInfo.allowMultiOptions) {
             NSNumber *item = [NSNumber numberWithBool:idx == indexPath.row ? YES : NO];
             [array addObject:item];
         } else {

@@ -138,9 +138,11 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
 }
 
 - (void)dismissViewAnimated:(BOOL)animted completion:(void (^)(void))completion {
+    
+    BlockARCWeakSelf weakSelf = self;
     void (^completionBlock)(void) = ^{
         NSLog(@"dismiss error vc with type:%d", _controllerType);
-        [self.view removeFromSuperview];
+        [weakSelf.view removeFromSuperview];
         errorIndicatorInstance = nil;
         if(completion)
             completion();

@@ -64,7 +64,7 @@ static UnreadReminder *sharedUnreadReminder;
 - (void)getUnread
 {
     WBClient *client = [WBClient client];
-    __block __weak typeof(self) weakSelf = self;
+    BlockARCWeakSelf weakSelf = self;
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             

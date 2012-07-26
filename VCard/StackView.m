@@ -18,16 +18,16 @@
     CGFloat _previousOffset;
     BOOL _bounceBack;
     BOOL _covered;
-    BOOL _touchLock;
     BOOL _shouldRecordDeceleratingFirst;
     BOOL _shouldRecordDeceleratingSecond;
 }
+
+@property (nonatomic, unsafe_unretained) BOOL       touchLock;
 
 @end
 
 @implementation StackView
 
-@synthesize scrollView = _scrollView;
 @synthesize delegate = _delegate;
 
 - (id)initWithFrame:(CGRect)frame
@@ -94,18 +94,20 @@
         
         [self sendShowBGNotification];
         
+        BlockARCWeakSelf weakSelf = self;
         [newPage resetOriginX:newPage.frame.origin.x + ScrollViewWidth];
         [UIView animateWithDuration:0.3 animations:^{
             [newPage resetOriginX:newPage.frame.origin.x - ScrollViewWidth];
         } completion:^(BOOL finished) {
-            [self scrollViewDidScroll:_scrollView];
+            [weakSelf scrollViewDidScroll:_scrollView];
         }];
     }
     
+    BlockWeakSelf weakSelf = self;
     [UIView animateWithDuration:0.3 animations:^{
-        [_scrollView setContentOffset:CGPointMake(newPage.frame.origin.x, 0.0)];
+        [weakSelf.scrollView setContentOffset:CGPointMake(newPage.frame.origin.x, 0.0)];
     } completion:^(BOOL finished) {
-        _touchLock = YES;
+        weakSelf.touchLock = YES;
         if (completion) {
             completion();
         }

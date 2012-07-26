@@ -14,14 +14,7 @@
 
 @end
 
-@interface ShelfDrawerView : UIButton <UIActionSheetDelegate> {
-    UIImageView *_photoFrameImageView;
-    UIImageView *_photoImageView;
-    UIImageView *_backImageView;
-    UIImageView *_highlightGlowImageView;
-    UILabel *_topicLabel;
-    UIButton *_deleteButton;
-}
+@interface ShelfDrawerView : UIButton <UIActionSheetDelegate> 
 
 @property (nonatomic, strong) NSString *topicName;
 @property (nonatomic, strong) NSString *picURL;

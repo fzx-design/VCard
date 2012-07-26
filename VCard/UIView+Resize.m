@@ -63,7 +63,7 @@
 - (void)appearWithDuration:(CGFloat)duration
 {
     self.alpha = 0.0;
-    __block __weak typeof(self) weakSelf = self;
+    BlockARCWeakSelf weakSelf = self;
     [UIView animateWithDuration:duration animations:^{
         weakSelf.alpha = 1.0;
     }];
@@ -72,7 +72,7 @@
 - (void)disappearWithDuration:(CGFloat)duration
 {
     self.alpha = 1.0;
-    __block __weak typeof(self) weakSelf = self;
+    BlockARCWeakSelf weakSelf = self;
     [UIView animateWithDuration:duration animations:^{
         weakSelf.alpha = 0.0;
     }];

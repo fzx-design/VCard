@@ -143,12 +143,14 @@
     UIImage *cacheImage = [self.filteredThumbnailCacheDictionary objectForKey:info.filterName];
     if(cacheImage)
         [cell setThumbnailImage:cacheImage];
-    else 
+    else {
+        BlockARCWeakSelf weakSelf = self;
         [cell loadThumbnailImage:self.thumbnailImage withFilterInfo:info completion:^{
             UIImage *filteredImage = cell.thumbnailImageView.image;
             if(filteredImage)
-                [self.filteredThumbnailCacheDictionary setObject:filteredImage forKey:info.filterName];
+                [weakSelf.filteredThumbnailCacheDictionary setObject:filteredImage forKey:info.filterName];
         }];
+    }
     
     if(!self.isCurrentOrientationLandscape) {
         cell.transform = CGAffineTransformMakeRotation(M_PI_2);
@@ -212,15 +214,17 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if(!decelerate) {
+        BlockARCWeakSelf weakSelf = self;
         [self tableViewSimulatePickerAnimationWithCompletion:^(NSInteger scrollToIndex){
-            [self.delegate filterTableViewController:self didSelectFilter:[self.filterInfoArray objectAtIndex:scrollToIndex]];
+            [weakSelf.delegate filterTableViewController:weakSelf didSelectFilter:[weakSelf.filterInfoArray objectAtIndex:scrollToIndex]];
         }];
     }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    BlockARCWeakSelf weakSelf = self;
     [self tableViewSimulatePickerAnimationWithCompletion:^(NSInteger scrollToIndex){
-        [self.delegate filterTableViewController:self didSelectFilter:[self.filterInfoArray objectAtIndex:scrollToIndex]];
+        [weakSelf.delegate filterTableViewController:weakSelf didSelectFilter:[weakSelf.filterInfoArray objectAtIndex:scrollToIndex]];
     }];
 }
 

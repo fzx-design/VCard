@@ -138,6 +138,12 @@
 
 #define kCoreDataIdentifierDefault                      @"kCoreDataIdentifierDefault"
 
+#define BlockWeakObject(o) __unsafe_unretained typeof(o)
+#define BlockWeakSelf BlockWeakObject(self)
+
+#define BlockARCWeakObject(o) __weak typeof(o)
+#define BlockARCWeakSelf BlockARCWeakObject(self)
+
 typedef enum {
     VerifiedTypeNone,
     VerifiedTypePerson,

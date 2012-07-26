@@ -932,7 +932,7 @@
 
 - (void)returnToInitialImageView
 {
-    __block __weak typeof(self) weakSelf = self;
+    BlockARCWeakSelf weakSelf = self;
     [UIView animateWithDuration:0.3 animations:^{
         [weakSelf.statusImageView playReturnAnimation];
         weakSelf.statusImageView.gifIcon.alpha = 1.0;

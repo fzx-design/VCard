@@ -122,8 +122,13 @@
 
 - (void)handleChangeCurrentUserNotification:(NSNotification *)notification {
     NSLog(@"current user name:%@", self.currentUser.screenName);
-    self.castViewController = nil;
-    self.shelfViewController = nil;
+    
+    [_castViewController.view removeFromSuperview];
+    [_shelfViewController.view removeFromSuperview];
+    
+    _castViewController = nil;
+    _shelfViewController = nil;
+    
     if(self.currentUser) {
         [Group setUpDefaultGroupWithUserID:self.currentUser.userID defaultImageURL:self.currentUser.largeAvatarURL inManagedObjectContext:self.managedObjectContext];
         [self setUpViews];

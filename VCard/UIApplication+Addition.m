@@ -159,7 +159,7 @@ static NSMutableArray *_backViewStack = nil;
     NSUInteger index = [self.modalViewControllerStack indexOfObject:vc];
     
     __block __weak typeof(vc) weakVC = vc;
-    __block __weak typeof(self) weakSelf = self;
+    BlockARCWeakSelf weakSelf = self;
     CGFloat screenHeight = self.screenSize.height;
     
     if(animated) {

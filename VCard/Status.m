@@ -246,8 +246,9 @@
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
+    NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [request setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", @(YES)]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@ && currentUserID = %@", @(YES), currentUserID]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     return items;
@@ -257,8 +258,9 @@
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
+    NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [request setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", @(NO)]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@ && currentUserID = %@", @(NO), currentUserID]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     return items;

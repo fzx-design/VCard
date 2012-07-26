@@ -138,22 +138,22 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         NSRegularExpression *regexp = NameRegularExpression();
         
         [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-            [self configureFontForAttributedString:mutableAttributedString withRange:result.range];
+            [TTTAttributedLabelConfiguer configureFontForAttributedString:mutableAttributedString withRange:result.range];
         }];
         
         regexp = TagRegularExpression();
         [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-            [self configureFontForAttributedString:mutableAttributedString withRange:result.range];
+            [TTTAttributedLabelConfiguer configureFontForAttributedString:mutableAttributedString withRange:result.range];
         }];
         
         regexp = UrlRegularExpression();
         [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-            [self configureFontForAttributedString:mutableAttributedString withRange:result.range];
+            [TTTAttributedLabelConfiguer configureFontForAttributedString:mutableAttributedString withRange:result.range];
         }];
         
         regexp = EmotionIDRegularExpression();
         [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-            [self configureEmotionsForAttributedString:mutableAttributedString withRange:result.range];
+            [TTTAttributedLabelConfiguer configureEmotionsForAttributedString:mutableAttributedString withRange:result.range];
         }];
         
         return mutableAttributedString;

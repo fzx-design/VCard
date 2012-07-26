@@ -136,16 +136,18 @@
 - (IBAction)didClickFinishCropButton:(UIButton *)sender {
     [self.activityIndicator fadeIn];
     [self.activityIndicator startAnimating];
+    
+    BlockARCWeakSelf weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if(self.filteredImage)
-            self.filteredImage = [self cropImage:self.filteredImage];
-        self.originalImage = [self cropImage:self.originalImage];
+        if(weakSelf.filteredImage)
+            weakSelf.filteredImage = [weakSelf cropImage:weakSelf.filteredImage];
+        weakSelf.originalImage = [weakSelf cropImage:weakSelf.originalImage];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self resetCropImageBgView];
-            [self.delegate cropImageViewControllerDidFinishCrop:self.originalImage];
+            [weakSelf resetCropImageBgView];
+            [weakSelf.delegate cropImageViewControllerDidFinishCrop:weakSelf.originalImage];
             
-            [self.activityIndicator fadeOutWithCompletion:^{
-                [self.activityIndicator stopAnimating];
+            [weakSelf.activityIndicator fadeOutWithCompletion:^{
+                [weakSelf.activityIndicator stopAnimating];
             }];
         });
     });
