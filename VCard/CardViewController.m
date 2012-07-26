@@ -552,7 +552,9 @@
 
 - (void)sendCommentButtonClickedNotification
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowCommentList object:@{kNotificationObjectKeyStatus: self.status, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowCommentList
+                                                        object:@{kNotificationObjectKeyStatus: self.status,
+                                                                kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 - (void)sendShowRepostListNotification

@@ -73,7 +73,7 @@
         
         self.loginUserInfoArray = [NSMutableArray array];
         [storedArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            User *user = [User userWithID:obj inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+            User *user = [User getCurrentUserWithID:obj inManagedObjectContext:self.managedObjectContext];
             [self.loginUserInfoArray addObject:user];
         }];
         

@@ -143,19 +143,6 @@
     return result;
 }
 
-+ (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context
-{
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    
-    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
-    
-    for (NSManagedObject *managedObject in items) {
-        [context deleteObject:managedObject];
-    }
-}
-
 + (void)deleteAllTempStatusesInManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];

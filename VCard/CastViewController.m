@@ -263,7 +263,17 @@
 #pragma mark - Initializing Methods
 - (void)initialLoad
 {
-    [self performSelector:@selector(setUpWaterflowView) withObject:nil afterDelay:0.001];
+    [self.fetchedResultsController performFetch:nil];
+    [self performSelector:@selector(setUpInitialView) withObject:nil afterDelay:0.5];
+}
+
+
+- (void)setUpInitialView
+{
+    if (self.fetchedResultsController.fetchedObjects.count == 0) {
+        [self refresh];
+    }
+    [self setUpWaterflowView];
 }
 
 - (void)setUpWaterflowView
