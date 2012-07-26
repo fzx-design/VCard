@@ -7,17 +7,15 @@
 //
 
 #import "UIImageView+Addition.h"
-#import "UIImageView+URL.h"
 #import "UIImageView+AFNetworking.h"
 
 @implementation UIImageView (Addition)
 
 - (void)loadImageFromURL:(NSString *)urlString
-              completion:(void (^)(BOOL succeeded))completion {
-//    [self kv_cancelImageDownload];
-    NSURL *anImageURL = [NSURL URLWithString:urlString];
-//    [self kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
+              completion:(void (^)(BOOL succeeded))completion
+{
     
+    NSURL *anImageURL = [NSURL URLWithString:urlString];
     [self setImageWithURLRequest:[NSURLRequest requestWithURL:anImageURL] placeholderImage:[UIImage imageNamed:kRLAvatarPlaceHolderBG] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         if (completion) {
             completion(YES);

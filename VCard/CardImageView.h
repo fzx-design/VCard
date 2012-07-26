@@ -25,7 +25,6 @@ typedef enum {
     CardImageViewShadowView *_shadowView;
     UIImageView *_imageView;
     UIImageView *_gifIcon;
-    UIImage *_staticGIFImage;
     
     CGFloat _initialRotation;
     CGPoint _initialPosition;

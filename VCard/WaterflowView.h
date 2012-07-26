@@ -66,11 +66,6 @@ typedef enum {
     NSInteger _leftColumnIndex;
     NSInteger _rightColumnIndex;
     
-    UIImageView *_infoBarView;
-    UIButton *_returnButton;
-    UILabel *_titleLabel;
-    UIImageView *_infoBarShadowView;
-    
     BaseLayoutView *_backgroundViewA;
     BaseLayoutView *_backgroundViewB;
 }

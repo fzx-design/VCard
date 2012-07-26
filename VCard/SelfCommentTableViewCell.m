@@ -97,8 +97,8 @@
     NSString *indexString = [NSString stringWithFormat:@"%i", self.pageIndex];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowCommentList
                                                         object:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                status, kNotificationObjectKeyStatus,
-                                                                indexString, kNotificationObjectKeyIndex, nil]];
+                                                                indexString, kNotificationObjectKeyIndex,
+                                                                status, kNotificationObjectKeyStatus,nil]];
 }
 
 - (IBAction)didClickMoreActionButton:(UIButton *)sender

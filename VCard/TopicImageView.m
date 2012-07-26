@@ -8,8 +8,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "TopicImageView.h"
-#import "UIImageView+URL.h"
 #import "UIView+Resize.h"
+#import "UIImageView+Addition.h"
 
 #define PhotoFrameFrame CGRectMake(-18.0, -10.0, 120, 114)
 
@@ -63,9 +63,7 @@
 {
     _imageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
 	
-    [_imageView kv_cancelImageDownload];
-    NSURL *anImageURL = [NSURL URLWithString:urlString];
-    [_imageView kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
+    [_imageView loadImageFromURL:urlString completion:completion];
 }
 
 - (void)setImageViewWithName:(NSString *)imageName

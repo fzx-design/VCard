@@ -34,6 +34,11 @@
     WaterflowAddSubviewMode _mode;
 }
 
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIButton *returnButton;
+@property (nonatomic, strong) UIImageView *infoBarView;
+@property (nonatomic, strong) UIImageView *infoBarShadowView;
+
 @end
 
 @implementation WaterflowView
@@ -304,6 +309,8 @@
         _curObjIndex = 0;
         _nextBlockLimit = 0;
         
+        __block __weak typeof(self) weakSelf = self;
+        
         while (self.leftColumn.visibleCells.count > 0) {
             WaterflowCell *cell = self.leftColumn.visibleCells.lastObject;
             [cell removeFromSuperview];
@@ -318,7 +325,7 @@
                 
                 [cell removeFromSuperview];
                 [cell prepareForReuse];
-                [self recycleCellIntoReusableQueue:cell];
+                [weakSelf recycleCellIntoReusableQueue:cell];
                 cell.alpha = 1.0;
             }];
         }
@@ -337,7 +344,7 @@
                 
                 [cell removeFromSuperview];
                 [cell prepareForReuse];
-                [self recycleCellIntoReusableQueue:cell];
+                [weakSelf recycleCellIntoReusableQueue:cell];
                 cell.alpha = 1.0;
             }];
         }
@@ -757,13 +764,13 @@
 
 - (void)showInfoBarWithTitleName:(NSString *)name
 {
-    
+    __block __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.15 animations:^{
-        _titleLabel.alpha = 0.0;
+        weakSelf.titleLabel.alpha = 0.0;
     } completion:^(BOOL finished) {
-        _titleLabel.text = name;
+        weakSelf.titleLabel.text = name;
         [UIView animateWithDuration:0.15 animations:^{
-            _titleLabel.alpha = 1.0;
+            weakSelf.titleLabel.alpha = 1.0;
         }];
     }];
         
@@ -776,10 +783,10 @@
         [_infoBarShadowView resetOriginY:targetOriginY - 10.0];
     
         [UIView animateWithDuration:0.3 animations:^{
-            [_infoBarView resetOriginY:targetOriginY];
-            [_returnButton resetOriginY:targetOriginY];
-            [_titleLabel resetOriginY:targetOriginY];
-            [_infoBarShadowView resetOriginY:targetOriginY + 30.0];
+            [weakSelf.infoBarView resetOriginY:targetOriginY];
+            [weakSelf.returnButton resetOriginY:targetOriginY];
+            [weakSelf.titleLabel resetOriginY:targetOriginY];
+            [weakSelf.infoBarShadowView resetOriginY:targetOriginY + 30.0];
         }];
     }
     
@@ -812,24 +819,25 @@
 
 - (void)hideInfoBar:(BOOL)buttonClicked
 {
+    __block __weak typeof(self) weakSelf = self;
     CGFloat targetOriginY = _infoBarView.frame.origin.y - 40.0;
     [UIView animateWithDuration:0.3 animations:^{
-        [_infoBarView resetOriginY:targetOriginY];
-        [_returnButton resetOriginY:targetOriginY];
-        [_titleLabel resetOriginY:targetOriginY];
-        [_infoBarShadowView resetOriginY:targetOriginY + 30.0];
+        [weakSelf.infoBarView resetOriginY:targetOriginY];
+        [weakSelf.returnButton resetOriginY:targetOriginY];
+        [weakSelf.titleLabel resetOriginY:targetOriginY];
+        [weakSelf.infoBarShadowView resetOriginY:targetOriginY + 30.0];
     } completion:^(BOOL finished) {
-        _infoBarView.hidden = YES;
-        _returnButton.hidden = YES;
-        _titleLabel.hidden = YES;
-        _infoBarShadowView.hidden = YES;
+        weakSelf.infoBarView.hidden = YES;
+        weakSelf.returnButton.hidden = YES;
+        weakSelf.titleLabel.hidden = YES;
+        weakSelf.infoBarShadowView.hidden = YES;
         
-        [_infoBarView resetOriginY:-40.0];
-        [_returnButton resetOriginY:-40.0];
-        [_titleLabel resetOriginY:-40.0];
-        [_infoBarShadowView resetOriginY:-10.0];
+        [weakSelf.infoBarView resetOriginY:-40.0];
+        [weakSelf.returnButton resetOriginY:-40.0];
+        [weakSelf.titleLabel resetOriginY:-40.0];
+        [weakSelf.infoBarShadowView resetOriginY:-10.0];
         if (buttonClicked) {
-            [_flowdelegate didClickReturnToNormalTimelineButton];
+            [weakSelf.flowdelegate didClickReturnToNormalTimelineButton];
         }
     }];
 }

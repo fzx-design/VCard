@@ -361,9 +361,10 @@ typedef enum {
     [self.params setObject:[NSNumber numberWithInt:5] forKey:@"count"];
     [self.params setObject:self.userID forKey:@"uid"];
     
+    __block __weak typeof(self) weakSelf = self;
     [self setPreCompletionBlock:^(WBClient *client) {
-        if (!client.hasError && [self.responseJSONObject isKindOfClass:[NSDictionary class]]) {
-            client.responseJSONObject = [self.responseJSONObject objectForKey:@"users"];
+        if (!client.hasError && [weakSelf.responseJSONObject isKindOfClass:[NSDictionary class]]) {
+            client.responseJSONObject = [weakSelf.responseJSONObject objectForKey:@"users"];
         }
     }];
     [self loadNormalRequest];
@@ -379,15 +380,16 @@ typedef enum {
                             password, @"password", nil];
     self.params = params;
     
+    __block __weak typeof(self) weakSelf = self;
     [self setPreCompletionBlock:^(WBClient *client) {
-        if (!client.hasError && [self.responseJSONObject isKindOfClass:[NSDictionary class]]) {
+        if (!client.hasError && [weakSelf.responseJSONObject isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dict = (NSDictionary*)client.responseJSONObject;
             
-            self.accessToken = [dict objectForKey:@"access_token"];
-            self.userID = [dict objectForKey:@"uid"];
-            self.expireTime = [[NSDate date] timeIntervalSince1970] + [[dict objectForKey:@"expires_in"] intValue];
+            weakSelf.accessToken = [dict objectForKey:@"access_token"];
+            weakSelf.userID = [dict objectForKey:@"uid"];
+            weakSelf.expireTime = [[NSDate date] timeIntervalSince1970] + [[dict objectForKey:@"expires_in"] intValue];
                         
-            [self saveAuthorizeDataToKeychain];
+            [weakSelf saveAuthorizeDataToKeychain];
             
             WBClient *advancedAuthorizeClient = [WBClient client];
             [advancedAuthorizeClient setCompletionBlock:client.completionBlock];
@@ -414,12 +416,13 @@ typedef enum {
     
     self.params = params;
     
+    __block __weak typeof(self) weakSelf = self;
     [self setPreCompletionBlock:^(WBClient *client) {
         if([self.responseJSONObject isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dict = (NSDictionary*)client.responseJSONObject;
-            self.advancedToken = [dict objectForKey:@"access_token"];
+            weakSelf.advancedToken = [dict objectForKey:@"access_token"];
             
-            NSString *serviceName = [[self urlSchemeString] stringByAppendingString:kWBKeychainServiceNameSuffix];
+            NSString *serviceName = [[weakSelf urlSchemeString] stringByAppendingString:kWBKeychainServiceNameSuffix];
             [SFHFKeychainUtils storeUsername:kWBKeychainAdvancedToken andPassword:_advancedToken forServiceName:serviceName updateExisting:YES error:nil];
             
             WBClient *getUserInfoClient = [WBClient client];
@@ -461,9 +464,10 @@ typedef enum {
         [self.params setObject:[NSString stringWithFormat:@"%d", feature] forKey:@"feature"];
     }
     
+    __block __weak typeof(self) weakSelf = self;
     [self setPreCompletionBlock:^(WBClient *client) {
-        NSDictionary *dict = self.responseJSONObject;
-        self.responseJSONObject = [dict objectForKey:@"statuses"];
+        NSDictionary *dict = weakSelf.responseJSONObject;
+        weakSelf.responseJSONObject = [dict objectForKey:@"statuses"];
     }];
     
     [self loadNormalRequest];
@@ -477,9 +481,10 @@ typedef enum {
         [self.params setObject:coordinate forKey:@"coordinate"];
     }
     
+    __block __weak typeof(self) weakSelf = self;
     [self setPreCompletionBlock:^(WBClient *client) {
-        NSDictionary *dict = self.responseJSONObject;
-        self.responseJSONObject = [dict objectForKey:@"geos"];
+        NSDictionary *dict = weakSelf.responseJSONObject;
+        weakSelf.responseJSONObject = [dict objectForKey:@"geos"];
     }];
     
     [self loadNormalRequest];
@@ -549,9 +554,10 @@ typedef enum {
         [self.params setObject:[NSString stringWithFormat:@"%d", feature] forKey:@"feature"];
     }
     
+    __block __weak typeof(self) weakSelf = self;
     [self setPreCompletionBlock:^(WBClient *client) {
-        NSDictionary *dict = self.responseJSONObject;
-        self.responseJSONObject = [dict objectForKey:@"statuses"];
+        NSDictionary *dict = weakSelf.responseJSONObject;
+        weakSelf.responseJSONObject = [dict objectForKey:@"statuses"];
     }];
     
     [self loadNormalRequest];
@@ -674,9 +680,10 @@ typedef enum {
         [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
     }
     
+    __block __weak typeof(self) weakSelf = self;
     [self setPreCompletionBlock:^(WBClient *client) {
-        NSDictionary *dict = self.responseJSONObject;
-        self.responseJSONObject = [dict objectForKey:@"statuses"];
+        NSDictionary *dict = weakSelf.responseJSONObject;
+        weakSelf.responseJSONObject = [dict objectForKey:@"statuses"];
     }];
     
     [self loadNormalRequest];
@@ -821,9 +828,10 @@ typedef enum {
         [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
     }
     
+    __block __weak typeof(self) weakSelf = self;
     [self setPreCompletionBlock:^(WBClient *client) {
-        NSDictionary *dict = self.responseJSONObject;
-        self.responseJSONObject = [dict objectForKey:@"statuses"];
+        NSDictionary *dict = weakSelf.responseJSONObject;
+        weakSelf.responseJSONObject = [dict objectForKey:@"statuses"];
     }];
     
     [self loadNormalRequest];
@@ -1010,9 +1018,10 @@ typedef enum {
         [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
     }
     
+    __block __weak typeof(self) weakSelf = self;
     [self setPreCompletionBlock:^(WBClient *client) {
-        NSDictionary *dict = self.responseJSONObject;
-        self.responseJSONObject = [dict objectForKey:@"favorites"];
+        NSDictionary *dict = weakSelf.responseJSONObject;
+        weakSelf.responseJSONObject = [dict objectForKey:@"favorites"];
     }];
     [self loadNormalRequest];
 }
@@ -1045,9 +1054,10 @@ typedef enum {
         [self.params setObject:[NSString stringWithFormat:@"%d", feature] forKey:@"feature"];
     }
     
+    __block __weak typeof(self) weakSelf = self;
     [self setPreCompletionBlock:^(WBClient *client) {
-        NSDictionary *dict = self.responseJSONObject;
-        self.responseJSONObject = [dict objectForKey:@"statuses"];
+        NSDictionary *dict = weakSelf.responseJSONObject;
+        weakSelf.responseJSONObject = [dict objectForKey:@"statuses"];
     }];
     
     [self loadAdvancedRequest];
@@ -1064,9 +1074,10 @@ typedef enum {
         return;
     }
     
+    __block __weak typeof(self) weakSelf = self;
     [self setPreCompletionBlock:^(WBClient *client) {
-        NSDictionary *dict = self.responseJSONObject;
-        self.responseJSONObject = [dict objectForKey:@"urls"];
+        NSDictionary *dict = weakSelf.responseJSONObject;
+        weakSelf.responseJSONObject = [dict objectForKey:@"urls"];
     }];
     
     [self loadNormalRequest];

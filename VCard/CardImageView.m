@@ -8,7 +8,6 @@
 
 #import "CardImageView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UIImageView+URL.h"
 #import "UIView+Resize.h"
 #import "UIApplication+Addition.h"
 #import "UIImage+animatedImageWithGIF.h"
@@ -19,9 +18,10 @@
 
 @interface CardImageView ()
 
-
-@property (nonatomic, assign) CGFloat deltaWidth;
-@property (nonatomic, assign) CGFloat deltaHeight;
+@property (nonatomic, assign) CGFloat                   deltaWidth;
+@property (nonatomic, assign) CGFloat                   deltaHeight;
+@property (nonatomic, strong) UIActivityIndicatorView   *activityIndicatiorView;
+@property (nonatomic, strong) UIImage                   *staticGIFImage;
 
 @end
 
@@ -68,10 +68,12 @@
     _initialSize = self.imageView.frame.size;
     _initialFrame = self.layer.frame;
     
-    [self.coverView resetOriginX:frame.origin.x - 5.0];
-    [self.coverView resetOriginY:frame.origin.y - 4.0];
-    [self.coverView resetWidth:frame.size.width + 10.0];
-    [self.coverView resetHeight:frame.size.height + 10.0];
+    self.coverView.frame = frame;
+    [self.coverView resetOriginXByOffset:- 5.0];
+    [self.coverView resetOriginYByOffset:- 4.0];
+    [self.coverView resetWidthByOffset:10.0];
+    [self.coverView resetHeightByOffset:10.0];
+    self.activityIndicatiorView.center = self.coverView.center;
     
     CGFloat rotatingDegree = (((float) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * 4) - 2;
     _initialRotation = rotatingDegree * M_PI / 180;
@@ -79,10 +81,8 @@
     
     _initialPosition = self.frame.origin;
     
-    CGPoint center = self.center;
-    center.y -= 12;
-    center.x += 4;
-    self.actionButton.center = center;
+    [self.actionButton resetCenterX:self.center.x + 4];
+    [self.actionButton resetCenterY:self.center.y - 12];
 }
 
 - (void)pinchResizeToScale:(CGFloat)scale
@@ -135,8 +135,10 @@
     
     [self resetSize:_initialSize];
     [self resetOrigin:_initialPosition];
+    
+    __block __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.3 animations:^{
-        self.transform = CGAffineTransformMakeRotation(_initialRotation);
+        weakSelf.transform = CGAffineTransformMakeRotation(_initialRotation);
     }];
 }
 
@@ -144,20 +146,19 @@
               completion:(void (^)())completion
 {
     _loadingCompleted = NO;
+    _activityIndicatiorView.hidden = NO;
+    [_activityIndicatiorView startAnimating];
     [self setUpGifIcon:urlString];
-    [self.imageView kv_cancelImageDownload];
-    for (UIGestureRecognizer *gestureRecognizer in self.gestureRecognizers) {
-        gestureRecognizer.enabled = NO;
-    }
     
-    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     
-    __block __weak id selfWeak = self;
+    __block __weak typeof(self) weakSelf = self;
     CGRect targetFrame = self.imageView.frame;
     
-    [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+    void (^successBlock)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) = ^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         
-        ((CardImageView *)selfWeak).imageView.image = (id)image;
+        weakSelf.imageView.image = image;
+        weakSelf.staticGIFImage = image;
         
         CGFloat targetWidth = targetFrame.size.width;
         CGFloat targetHeight = targetFrame.size.height;
@@ -179,39 +180,50 @@
         scaledWidth  = width * scaleFactor;
         scaledHeight = height * scaleFactor;
         
-        ((CardImageView *)selfWeak).deltaWidth = scaledWidth - targetWidth;
-        ((CardImageView *)selfWeak).deltaHeight = scaledHeight - targetHeight;
+        weakSelf.deltaWidth = scaledWidth - targetWidth;
+        weakSelf.deltaHeight = scaledHeight - targetHeight;
         
         widthFactor = 1024.0 / scaledWidth;
         heightFactor = 768.0 / scaledHeight;
         
         if (widthFactor > heightFactor)
-            _targetHorizontalScale = heightFactor; // scale to fit height
+            weakSelf.targetHorizontalScale = heightFactor; // scale to fit height
         else
-            _targetHorizontalScale = widthFactor; // scale to fit width
+            weakSelf.targetHorizontalScale = widthFactor; // scale to fit width
         
         widthFactor = 768.0 / scaledWidth;
         heightFactor = 1024.0 / scaledHeight;
         
         if (widthFactor > heightFactor)
-            _targetVerticalScale = heightFactor; // scale to fit height
+            weakSelf.targetVerticalScale = heightFactor; // scale to fit height
         else
-            _targetVerticalScale = widthFactor; // scale to fit width
+            weakSelf.targetVerticalScale = widthFactor; // scale to fit width
         
-        _loadingCompleted = YES;
-//        if (succeeded) {
-            for (UIGestureRecognizer *gestureRecognizer in self.gestureRecognizers) {
-                gestureRecognizer.enabled = YES;
-            }
-            
-            self.imageView.alpha = 0.0;
-            [UIView animateWithDuration:0.3 animations:^{
-                self.imageView.alpha = 1.0;
-            }];
-//        }
-    } failure:nil];
+        weakSelf.loadingCompleted = YES;
+        
+        for (UIGestureRecognizer *gestureRecognizer in self.gestureRecognizers) {
+            gestureRecognizer.enabled = YES;
+        }
+        
+        weakSelf.imageView.alpha = 0.0;
+        [UIView animateWithDuration:0.3 animations:^{
+            weakSelf.imageView.alpha = 1.0;
+        }];
+        
+        [weakSelf.activityIndicatiorView stopAnimating];
+        weakSelf.activityIndicatiorView.hidden = YES;
+    };
     
-//    [self.imageView kv_setImageAtURL:url completion:imageLoadingCompletion];
+    void (^failBlock)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        [weakSelf.activityIndicatiorView stopAnimating];
+        weakSelf.activityIndicatiorView.hidden = YES;
+    };
+    
+    [self.imageView cancelImageRequestOperation];
+    [self.imageView setImageWithURLRequest:request
+                          placeholderImage:nil
+                                   success:successBlock
+                                   failure:failBlock];
 }
 
 - (void)loadDetailedImageFromURL:(NSString *)urlString
@@ -236,9 +248,11 @@
                         
             NSData *imageData = [NSData dataWithContentsOfURL:url];
             UIImage *image = [UIImage animatedImageWithGIFData:imageData];
+            
+            __block __weak typeof(self) weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (_imageViewMode != CastViewImageViewModeNormal) {
-                    self.imageView.image = image;
+                    weakSelf.imageView.image = image;
                     
                     if (completion) {
                         completion();
@@ -256,7 +270,11 @@
         dispatch_release(downloadQueue);
     } else {
         
-        [self.imageView kv_setDetailedImageAtURL:urlString completion:completion];
+        [self.imageView cancelImageRequestOperation];
+        [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]
+                              placeholderImage:self.imageView.image
+                                       success:nil
+                                       failure:nil];
     }
 }
 
@@ -305,12 +323,15 @@
 
 - (void)reset
 {
-    self.gifIcon.hidden = YES;
+    _url = @"";
     _isGIF = NO;
+    _gifIcon.hidden = YES;
     _staticGIFImage = nil;
+    _actionButton.hidden = YES;
     
-    self.url = @"";
-    self.actionButton.hidden = YES;
+    for (UIGestureRecognizer *gestureRecognizer in self.gestureRecognizers) {
+        gestureRecognizer.enabled = NO;
+    }
 }
 
 - (UIImage *)image
@@ -358,6 +379,15 @@
     }
     
     return _actionButton;
+}
+
+- (UIActivityIndicatorView *)activityIndicatiorView
+{
+    if (!_activityIndicatiorView) {
+        _activityIndicatiorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        [self insertSubview:_activityIndicatiorView aboveSubview:self.imageView];
+    }
+    return _activityIndicatiorView;
 }
 
 - (UIImageView *)gifIcon

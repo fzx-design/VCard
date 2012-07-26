@@ -100,6 +100,7 @@ static char kAFImageRequestOperationObjectKey;
 {
     [self cancelImageRequestOperation];
     
+    __block __weak typeof(self) weakSelf = self;
     UIImage *cachedImage = [[[self class] af_sharedImageCache] cachedImageForRequest:urlRequest];
     if (cachedImage) {
         self.image = cachedImage;
@@ -114,20 +115,20 @@ static char kAFImageRequestOperationObjectKey;
         AFImageRequestOperation *requestOperation = [[[AFImageRequestOperation alloc] initWithRequest:urlRequest] autorelease];
         [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if ([[urlRequest URL] isEqual:[[self.af_imageRequestOperation request] URL]]) {
-                self.image = responseObject;
-                self.af_imageRequestOperation = nil;
+                weakSelf.image = responseObject;
+                weakSelf.af_imageRequestOperation = nil;
             }
 
             if (success) {
                 success(operation.request, operation.response, responseObject);
             }
 
-            [[[self class] af_sharedImageCache] cacheImage:responseObject forRequest:urlRequest];
+            [[[weakSelf class] af_sharedImageCache] cacheImage:responseObject forRequest:urlRequest];
             
 
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if ([[urlRequest URL] isEqual:[[self.af_imageRequestOperation request] URL]]) {
-                self.af_imageRequestOperation = nil;
+            if ([[urlRequest URL] isEqual:[[weakSelf.af_imageRequestOperation request] URL]]) {
+                weakSelf.af_imageRequestOperation = nil;
             }
 
             if (failure) {

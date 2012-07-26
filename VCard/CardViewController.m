@@ -35,7 +35,6 @@
 #define kLabelOriginX           56.0
 
 @interface CardViewController () {
-    BOOL _doesImageExist;
     BOOL _isTimeStampEnabled;
     BOOL _alreadyConfigured;
     BOOL _imageAlreadyLoaded;
@@ -44,11 +43,12 @@
     CGFloat _lastScale;
     CGFloat _currentScale;
     CGPoint _lastPoint;
-    UIPinchGestureRecognizer *_pinchGestureRecognizer;
-    UIRotationGestureRecognizer *_rotationGestureRecognizer;
-    UITapGestureRecognizer *_tapGestureRecognizer;
 }
 
+@property (nonatomic, strong) UIPinchGestureRecognizer *pinchGestureRecognizer;
+@property (nonatomic, strong) UIRotationGestureRecognizer *rotationGestureRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
+@property (nonatomic, assign) BOOL doesImageExist;
 @property (readonly) BOOL isCardDeletable;
 @property (readonly) BOOL isCardFavorited;
 @property (nonatomic, weak) UIAlertView *deleteStatusAlertView;
@@ -728,18 +728,20 @@
 
 - (void)hideFavouriteFlag
 {
+    __block __weak typeof(self) weakSelf = self;
+    
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [_favoredImageView resetHeight:10.0];
-        _favoredImageView.alpha = 0.0;
-        if (!_doesImageExist) {
-            [_originalUserAvatar resetOriginXByOffset:-kFavouriteFlagOffset];
-            [_originalUserNameButton resetOriginXByOffset:-kFavouriteFlagOffset];
-            [_originalUserNameLabel resetOriginXByOffset:-kFavouriteFlagOffset];
+        [weakSelf.favoredImageView resetHeight:10.0];
+        weakSelf.favoredImageView.alpha = 0.0;
+        if (!weakSelf.doesImageExist) {
+            [weakSelf.originalUserAvatar resetOriginXByOffset:-kFavouriteFlagOffset];
+            [weakSelf.originalUserNameButton resetOriginXByOffset:-kFavouriteFlagOffset];
+            [weakSelf.originalUserNameLabel resetOriginXByOffset:-kFavouriteFlagOffset];
         }
     } completion:^(BOOL finished) {
-        _favoredImageView.hidden = YES;
-        _favoredImageView.alpha = 1.0;
-        [_favoredImageView resetHeight:59.0];
+        weakSelf.favoredImageView.hidden = YES;
+        weakSelf.favoredImageView.alpha = 1.0;
+        [weakSelf.favoredImageView resetHeight:59.0];
     }];
 }
 
@@ -928,22 +930,23 @@
 
 - (void)returnToInitialImageView
 {
+    __block __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.3 animations:^{
-        [self.statusImageView playReturnAnimation];
-        self.statusImageView.gifIcon.alpha = 1.0;
-        self.statusImageView.actionButton.alpha = 1.0;
-        [_delegate willReturnImageView];
+        [weakSelf.statusImageView playReturnAnimation];
+        weakSelf.statusImageView.gifIcon.alpha = 1.0;
+        weakSelf.statusImageView.actionButton.alpha = 1.0;
+        [weakSelf.delegate willReturnImageView];
     } completion:^(BOOL finished) {
-        if ([_delegate respondsToSelector:@selector(didReturnImageView)]) {
-            [_delegate didReturnImageView];
+        if ([weakSelf.delegate respondsToSelector:@selector(didReturnImageView)]) {
+            [weakSelf.delegate didReturnImageView];
         }
-        [self.statusImageView returnToInitialPosition];
-        [self.cardBackground insertSubview:self.statusImageView belowSubview:self.clipImageView];
-        [self playClipTightenAnimation];
-        self.statusImageView.imageViewMode = CastViewImageViewModeNormal;
-        self.statusImageView.userInteractionEnabled = YES;
-        _pinchGestureRecognizer.enabled = YES;
-        _rotationGestureRecognizer.enabled = YES;
+        [weakSelf.statusImageView returnToInitialPosition];
+        [weakSelf.cardBackground insertSubview:self.statusImageView belowSubview:self.clipImageView];
+        [weakSelf playClipTightenAnimation];
+        weakSelf.statusImageView.imageViewMode = CastViewImageViewModeNormal;
+        weakSelf.statusImageView.userInteractionEnabled = YES;
+        weakSelf.pinchGestureRecognizer.enabled = YES;
+        weakSelf.rotationGestureRecognizer.enabled = YES;
     }];
 }
 

@@ -24,7 +24,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 static NSRegularExpression *__tagRegularExpression;
 static inline NSRegularExpression * TagRegularExpression() {
     if (!__tagRegularExpression) {
-        __tagRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"#[.+?][\\[{0}?]#" options:NSRegularExpressionCaseInsensitive error:nil];
+        __tagRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"#.+?\\[{0}?#" options:NSRegularExpressionCaseInsensitive error:nil];
     }
     
     return __tagRegularExpression;

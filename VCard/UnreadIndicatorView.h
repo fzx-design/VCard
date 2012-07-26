@@ -11,7 +11,6 @@
 
 @interface UnreadIndicatorView : UIView {
     int _currentIndicatorCount;
-    UIImageView *_backgroundImageView;
 }
 
 - (void)addNewIndicator:(UnreadIndicatorButton *)indicator;

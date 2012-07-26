@@ -7,7 +7,7 @@
 //
 
 #import "UserAvatarImageView.h"
-#import "UIImageView+URL.h"
+#import "UIImage+Addition.h"
 
 #define IconBigFrame CGRectMake(70.0, 72.0, 27.0, 27.0)
 #define IconSmallFrame CGRectMake(17.0, 17.0, 13.0, 14.0)
@@ -93,28 +93,14 @@
               completion:(void (^)(BOOL succeeded))completion
 {
     _imageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
-	
-    [_imageView kv_cancelImageDownload];
-    NSURL *anImageURL = [NSURL URLWithString:urlString];
-    [_imageView kv_setImageAtURLWithoutCropping:anImageURL completion:^(BOOL succeeded) {
-        if (completion) {
-            completion(succeeded);
-        }
-        if (succeeded) {
-            _imageView.alpha = 0.0;
-            [UIView animateWithDuration:0.3 animations:^{
-                _imageView.alpha = 1.0;
-            }];
-        }
-    }];
+    
+    [_imageView loadImageFromURL:urlString completion:completion];
 }
 
 - (void)loadImageWithoutFadeFromURL:(NSString *)urlString
                          completion:(void (^)(BOOL))completion
 {
-    [_imageView kv_cancelImageDownload];
-    NSURL *anImageURL = [NSURL URLWithString:urlString];
-    [_imageView kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
+    [_imageView loadImageFromURL:urlString completion:completion];
 }
 
 - (void)reset

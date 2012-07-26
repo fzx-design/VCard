@@ -84,7 +84,7 @@
     NSDictionary *statusDict = [dict objectForKey:@"status"];
     if ([statusDict isKindOfClass:[NSDictionary class]] && statusDict.count > 0) {
         result.targetStatus = [Status insertStatus:statusDict inManagedObjectContext:context withOperatingObject:result.operatedBy];
-        result.targetStatus.operatable = [NSNumber numberWithBool:YES];
+//        result.targetStatus.operatable = [NSNumber numberWithBool:YES];
         result.targetUser = result.targetStatus.author;
     } else {
         NSLog(@"%@", dict);

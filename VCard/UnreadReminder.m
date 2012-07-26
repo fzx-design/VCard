@@ -64,6 +64,7 @@ static UnreadReminder *sharedUnreadReminder;
 - (void)getUnread
 {
     WBClient *client = [WBClient client];
+    __block __weak typeof(self) weakSelf = self;
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             
@@ -115,7 +116,7 @@ static UnreadReminder *sharedUnreadReminder;
                     [[SoundManager sharedManager] playNewMessageSound];
             }
                         
-            [self sendUnreadNotification];
+            [weakSelf sendUnreadNotification];
         }
     }];
     

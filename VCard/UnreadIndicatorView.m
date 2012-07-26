@@ -15,6 +15,12 @@
 
 #define kUnreadIndicatorViewOriginInitialPoint  CGPointMake(5.0, 240.0)
 
+@interface UnreadIndicatorView ()
+
+@property (nonatomic, strong) UIImageView *backgroundImageView;
+
+@end
+
 @implementation UnreadIndicatorView
 
 - (id)initWithFrame:(CGRect)frame
@@ -104,15 +110,17 @@
 
 - (void)showBackgroundImageView
 {
+    __block __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.3 animations:^{
-        _backgroundImageView.alpha = 1.0;
+        weakSelf.backgroundImageView.alpha = 1.0;
     }];
 }
 
 - (void)hideBackgroundImageView
 {
+    __block __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.3 animations:^{
-        _backgroundImageView.alpha = 0.0;
+        weakSelf.backgroundImageView.alpha = 0.0;
     }];
 }
 

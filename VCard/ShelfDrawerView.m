@@ -7,10 +7,10 @@
 //
 
 #import "ShelfDrawerView.h"
-#import "UIImageView+URL.h"
 #import "Group.h"
 #import "UIView+Resize.h"
 #import "UIView+Addition.h"
+#import "UIImageView+Addition.h"
 
 #define kDrawerFrame CGRectMake(-7.0, -12.0, 148.0, 144.0)
 #define kEmptyDrawerFrame CGRectMake(-7, 59, 150, 74)
@@ -71,6 +71,7 @@
     
     _photoImageView = [[UIImageView alloc] initWithFrame:frame];
     _photoImageView.hidden = empty || type == kGroupTypeTopic;
+    _photoImageView.contentMode = UIViewContentModeScaleAspectFill;
     
     _backImageView = [[UIImageView alloc] initWithFrame:frame];
     _backImageView.image = [UIImage imageNamed:kRLAvatarPlaceHolderBG];
@@ -148,9 +149,7 @@
         return;
     }
 	
-    [_photoImageView kv_cancelImageDownload];
-    NSURL *anImageURL = [NSURL URLWithString:urlString];
-    [_photoImageView kv_setImageAtURLWithoutCropping:anImageURL completion:completion];
+    [_photoImageView loadImageFromURL:urlString completion:completion];
 }
 
 - (void)setSelected:(BOOL)selected

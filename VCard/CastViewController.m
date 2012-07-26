@@ -778,14 +778,14 @@
 {
     StackViewPageController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchViewController"];
     
-    [self stackViewAtIndex:INT64_MAX push:vc withPageType:StackViewPageTypeSearch pageDescription:self.currentUser.screenName];
+    [self stackViewAtIndex:INT16_MAX push:vc withPageType:StackViewPageTypeSearch pageDescription:self.currentUser.screenName];
 }
 
 - (IBAction)didClickShowDirectMessageButton:(UIButton *)sender
 {
     StackViewPageController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MessageListViewController"];
     
-    [self stackViewAtIndex:INT64_MAX push:vc withPageType:StackViewPageTypeDMList pageDescription:kStackViewDefaultDescription];
+    [self stackViewAtIndex:INT16_MAX push:vc withPageType:StackViewPageTypeDMList pageDescription:kStackViewDefaultDescription];
 }
 
 - (IBAction)showProfileButtonClicked:(id)sender
@@ -793,7 +793,7 @@
     UserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SelfProfileViewController"];
     vc.screenName = self.currentUser.screenName;
     
-    [self stackViewAtIndex:INT64_MAX push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
+    [self stackViewAtIndex:INT16_MAX push:vc withPageType:StackViewPageTypeUser pageDescription:vc.screenName];
 }
 
 - (void)stackViewAtIndex:(int)index

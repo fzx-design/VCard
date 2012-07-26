@@ -13,6 +13,7 @@
 #import "ErrorIndicatorViewController.h"
 #import "Reachability.h"
 #import "NSUserDefaults+Addition.h"
+#import "UIView+Resize.h"
 
 #define MODAL_BACK_VIEW_MAX_ALPHA               (0.6f)
 
@@ -124,6 +125,8 @@ static NSMutableArray *_backViewStack = nil;
     [self.modalViewControllerStack addObject:vc];
     [self.rootViewController.view addSubview:vc.view];
     
+    __block __weak typeof(vc) weakVC = vc;
+    
     if(animated) {
         CGRect frame = vc.view.frame;
         frame.origin.x = 0;
@@ -131,9 +134,7 @@ static NSMutableArray *_backViewStack = nil;
         vc.view.frame = frame;
         
         [UIView animateWithDuration:duration animations:^{
-            CGRect frame = vc.view.frame;
-            frame.origin.y = 20;
-            vc.view.frame = frame;
+            [weakVC.view resetOriginY:20];
         } completion:nil];
     }
     else {
@@ -156,12 +157,14 @@ static NSMutableArray *_backViewStack = nil;
         return;
     
     NSUInteger index = [self.modalViewControllerStack indexOfObject:vc];
-        
+    
+    __block __weak typeof(vc) weakVC = vc;
+    __block __weak typeof(self) weakSelf = self;
+    CGFloat screenHeight = self.screenSize.height;
+    
     if(animated) {
         [UIView animateWithDuration:duration animations:^{
-            CGRect frame = vc.view.frame;
-            frame.origin.y = self.screenSize.height;
-            vc.view.frame = frame;
+            [weakVC.view resetOriginY:screenHeight];
         } completion:nil];
     }
     
@@ -173,9 +176,9 @@ static NSMutableArray *_backViewStack = nil;
         backViewToAppear.alpha = MODAL_BACK_VIEW_MAX_ALPHA;
         backViewToRemove.alpha = 0;
     } completion:^(BOOL finished) {
-        [vc.view removeFromSuperview];
+        [weakVC.view removeFromSuperview];
         [backViewToRemove removeFromSuperview];
-        [self.modalViewControllerStack removeObject:vc];
+        [weakSelf.modalViewControllerStack removeObject:weakVC];
         
         NSLog(@"UIApplication+Addition : back view stack count:%d", self.backViewStack.count);
         NSLog(@"UIApplication+Addition : modal view controller stack count:%d", self.modalViewControllerStack.count);
