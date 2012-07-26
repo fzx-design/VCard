@@ -52,7 +52,7 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"CellSelected"
                                                         object:self
-                                                      userInfo:[NSDictionary dictionaryWithObject:self.indexPath forKey:@"IndexPath"]];
+                                                      userInfo:@{@"IndexPath": self.indexPath}];
 }
 
 - (void)setCellHeight:(CGFloat)height

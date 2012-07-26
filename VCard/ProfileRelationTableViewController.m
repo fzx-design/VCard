@@ -146,7 +146,7 @@
     }  else if(_type == RelationshipViewTypeSearch) {
         request.predicate = [NSPredicate predicateWithFormat:@"operatedBy == %@ && currentUserID == %@",_coreDataIdentifier, self.currentUser.userID];
     }
-    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    request.sortDescriptors = @[sortDescriptor];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -178,7 +178,7 @@
 {
     User *usr = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:[NSDictionary dictionaryWithObjectsAndKeys:usr.screenName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:@{kNotificationObjectKeyUserName: usr.screenName, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 #pragma mark - UIScrollView delegate

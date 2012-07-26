@@ -188,7 +188,7 @@
 
 - (void)viewCommentOfStatus
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowCommentList object:[NSDictionary dictionaryWithObjectsAndKeys:self.status, kNotificationObjectKeyStatus, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowCommentList object:@{kNotificationObjectKeyStatus: self.status, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 #pragma mark - TTTAttributedLabel Delegate
@@ -209,12 +209,12 @@
 
 - (void)sendUserNameClickedNotificationWithName:(NSString *)userName
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:[NSDictionary dictionaryWithObjectsAndKeys:userName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:@{kNotificationObjectKeyUserName: userName, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 - (void)sendShowTopicNotification:(NSString *)searchKey
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowTopic object:[NSDictionary dictionaryWithObjectsAndKeys:searchKey, kNotificationObjectKeySearchKey, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowTopic object:@{kNotificationObjectKeySearchKey: searchKey, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 #pragma mark - PostViewController Delegate
@@ -290,7 +290,7 @@
 - (void)sendShowRepostListNotification
 {
     Status *targetStatus = self.status.repostStatus;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowRepostList object:[NSDictionary dictionaryWithObjectsAndKeys:targetStatus, kNotificationObjectKeyStatus, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowRepostList object:@{kNotificationObjectKeyStatus: targetStatus, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 - (void)shareStatusByMail

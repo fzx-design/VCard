@@ -198,11 +198,11 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 
 - (void)commonInit {
     self.dataDetectorTypes = UIDataDetectorTypeNone;
-    self.links = [NSArray array];
+    self.links = @[];
     
     NSMutableDictionary *mutableLinkAttributes = [NSMutableDictionary dictionary];
     [mutableLinkAttributes setValue:(id)[[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor] forKey:(NSString*)kCTForegroundColorAttributeName];
-    [mutableLinkAttributes setValue:[NSNumber numberWithBool:YES] forKey:(NSString *)kTTTStrikeOutAttributeName];
+    [mutableLinkAttributes setValue:@(YES) forKey:(NSString *)kTTTStrikeOutAttributeName];
     
     self.linkAttributes = [NSDictionary dictionaryWithDictionary:mutableLinkAttributes];
     
@@ -270,7 +270,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 
 - (NSArray *)detectedLinksInString:(NSString *)string range:(NSRange)range error:(NSError **)error {
     if (!string || !self.dataDetector) {
-        return [NSArray array];
+        return @[];
     }
     
     NSMutableArray *mutableLinks = [NSMutableArray array];
@@ -347,7 +347,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[self.highlightedTextColor CGColor] range:range];
     
     [mutableAttributedString removeAttribute:(NSString *)kTTTButtonAttributeName range:range];
-    [mutableAttributedString addAttribute:(NSString *)kTTTButtonAttributeName value:[NSNumber numberWithBool:YES] range:range];
+    [mutableAttributedString addAttribute:(NSString *)kTTTButtonAttributeName value:@(YES) range:range];
     
     self.attributedText = mutableAttributedString;
     [self setNeedsDisplay];
@@ -364,7 +364,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     [mutableAttributedString addAttributes:[mutableAttributedString attribute:(NSString *)kTTTTemporaryAttributesAttributeName atIndex:range.location effectiveRange:nil] range:range];
     
     [mutableAttributedString removeAttribute:(NSString *)kTTTButtonAttributeName range:range];
-    [mutableAttributedString addAttribute:(NSString *)kTTTButtonAttributeName value:[NSNumber numberWithBool:NO] range:range];
+    [mutableAttributedString addAttribute:(NSString *)kTTTButtonAttributeName value:@(NO) range:range];
     
     self.attributedText = mutableAttributedString;
     [self setNeedsDisplay];
@@ -658,7 +658,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     
     self.attributedText = text;
 
-    self.links = [NSArray array];
+    self.links = @[];
     if (self.dataDetectorTypes != UIDataDetectorTypeNone) {
         for (NSTextCheckingResult *result in [self detectedLinksInString:[self.attributedText string] range:NSMakeRange(0, [text length]) error:nil]) {
             [self addLinkWithTextCheckingResult:result];

@@ -28,7 +28,7 @@ static GroupInfoTableViewController *groupInfoTableViewController = nil;
     [self.fetchedResultsController performFetch:nil];
     _chosenDictionary = [[NSMutableDictionary alloc] initWithCapacity:20];
     for (Group *group in self.fetchedResultsController.fetchedObjects) {
-        [_chosenDictionary setObject:[NSNumber numberWithBool:NO] forKey:group.name];
+        [_chosenDictionary setObject:@(NO) forKey:group.name];
     }
     
 //    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -46,7 +46,7 @@ static GroupInfoTableViewController *groupInfoTableViewController = nil;
             for (NSDictionary *objectDict in result.objectEnumerator) {
                 NSArray *dictArray = [objectDict objectForKey:@"lists"];
                 for (NSDictionary *dict in dictArray) {
-                    [_chosenDictionary setObject:[NSNumber numberWithBool:YES] forKey:[dict objectForKey:@"name"]];
+                    [_chosenDictionary setObject:@(YES) forKey:[dict objectForKey:@"name"]];
                 }
             }
             _originChosenDictionary = [NSDictionary dictionaryWithDictionary:_chosenDictionary];
@@ -68,8 +68,8 @@ static GroupInfoTableViewController *groupInfoTableViewController = nil;
     NSSortDescriptor *sortDescriptor;
     
     sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
-    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    request.predicate = [NSPredicate predicateWithFormat:@"groupUserID == %@ && type = %@", self.currentUser.userID, [NSNumber numberWithInt:kGroupTypeGroup]];
+    request.sortDescriptors = @[sortDescriptor];
+    request.predicate = [NSPredicate predicateWithFormat:@"groupUserID == %@ && type = %@", self.currentUser.userID, @kGroupTypeGroup];
     request.entity = [NSEntityDescription entityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
 }
 

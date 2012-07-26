@@ -713,7 +713,7 @@ typedef enum {
     self.postView.hidden = YES;
     
     [CATransaction begin];
-    [CATransaction setValue:[NSNumber numberWithFloat:FOLD_PAPER_ANIMATION_DURATION] forKey: kCATransactionAnimationDuration];
+    [CATransaction setValue:@FOLD_PAPER_ANIMATION_DURATION forKey: kCATransactionAnimationDuration];
     [CATransaction setCompletionBlock:^{
 		self.postView.hidden = NO;
         self.paperImageHolderView.hidden = YES;
@@ -723,15 +723,15 @@ typedef enum {
     
 	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:@"easeOut"]];
-	[animation setFromValue:[NSNumber numberWithDouble:-90 * factor]];
-	[animation setToValue:[NSNumber numberWithDouble:0]];
+	[animation setFromValue:@(-90 * factor)];
+	[animation setToValue:@0.0];
     [animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[self.leftPaperImageView.layer addAnimation:animation forKey:nil];
     
     animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-	[animation setFromValue:[NSNumber numberWithDouble:90 * factor]];
-	[animation setToValue:[NSNumber numberWithDouble:0]];
+	[animation setFromValue:@(90 * factor)];
+	[animation setToValue:@0.0];
     [animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[self.rightPaperImageView.layer addAnimation:animation forKey:nil];
@@ -755,21 +755,21 @@ typedef enum {
     self.paperImageHolderView.hidden = NO;
     
     [CATransaction begin];
-    [CATransaction setValue:[NSNumber numberWithFloat:UNFOLD_PAPER_ANIMATION_DURATION] forKey: kCATransactionAnimationDuration];
+    [CATransaction setValue:@UNFOLD_PAPER_ANIMATION_DURATION forKey: kCATransactionAnimationDuration];
     
     double factor = - 1 * M_PI / 180;
     
 	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:@"easeIn"]];
-	[animation setFromValue:[NSNumber numberWithDouble:0]];
-	[animation setToValue:[NSNumber numberWithDouble:-90 * factor]];
+	[animation setFromValue:@0.0];
+	[animation setToValue:@(-90 * factor)];
     [animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[self.leftPaperImageView.layer addAnimation:animation forKey:nil];
     
     animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-	[animation setFromValue:[NSNumber numberWithDouble:0]];
-	[animation setToValue:[NSNumber numberWithDouble:90 * factor]];
+	[animation setFromValue:@0.0];
+	[animation setToValue:@(90 * factor)];
     [animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[self.rightPaperImageView.layer addAnimation:animation forKey:nil];

@@ -348,7 +348,7 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     CIFilter *filter = [CIFilter filterWithName:@"CIHighlightShadowAdjust"];
     [filter setDefaults];
     [filter setValue:[CIImage imageWithCGImage:self.CGImage] forKey:@"inputImage"];
-    [filter setValue:[NSNumber numberWithFloat:shadowAmountValue] forKey:@"inputShadowAmount"];
+    [filter setValue:@(shadowAmountValue) forKey:@"inputShadowAmount"];
     CIImage *outputCIImage = [filter outputImage];
     
     CIContext *context = [CIContext contextWithOptions:nil];
@@ -363,13 +363,13 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     CIFilter *filter = [CIFilter filterWithName:@"CIColorControls"];
     [filter setDefaults];
     [filter setValue:[CIImage imageWithCGImage:self.CGImage] forKey:@"inputImage"];
-    [filter setValue:[NSNumber numberWithFloat:contrastValue] forKey:@"inputContrast"];
+    [filter setValue:@(contrastValue) forKey:@"inputContrast"];
     CIImage *outputCIImage = [filter outputImage];
     
     filter = [CIFilter filterWithName:@"CIHighlightShadowAdjust"];
     [filter setDefaults];
     [filter setValue:outputCIImage forKey:@"inputImage"];
-    [filter setValue:[NSNumber numberWithFloat:brightnessValues] forKey:@"inputShadowAmount"];
+    [filter setValue:@(brightnessValues) forKey:@"inputShadowAmount"];
     outputCIImage = [filter outputImage];
     
     CIContext *context = [CIContext contextWithOptions:nil];

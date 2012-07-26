@@ -198,8 +198,8 @@
 	
 	CABasicAnimation *rotationAnimation =[CABasicAnimation animationWithKeyPath:@"transform.rotation"];
 	rotationAnimation.duration = 1.0;
-	rotationAnimation.fromValue = [NSNumber numberWithFloat:0.0];
-	rotationAnimation.toValue = [NSNumber numberWithFloat:2.0 * M_PI];
+	rotationAnimation.fromValue = @0.0f;
+	rotationAnimation.toValue = @(2.0 * M_PI);
 	rotationAnimation.repeatCount = 65535;
 	[reloadCircleView.layer addAnimation:rotationAnimation forKey:@"kAnimationLoad"];
 }

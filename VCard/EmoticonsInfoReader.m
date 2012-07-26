@@ -76,7 +76,7 @@ static EmoticonsInfoReader *readerInstance;
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
     [self.emoticonsInfoDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         EmoticonsInfo *info = obj;
-        [result setObject:[NSNumber numberWithInteger:info.priorityLevel] forKey:info.keyName];
+        [result setObject:@(info.priorityLevel) forKey:info.keyName];
     }];
     return result;
 }

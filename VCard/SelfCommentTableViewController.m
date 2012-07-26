@@ -83,7 +83,7 @@
 - (void)adjustFont
 {
     for (Comment *comment in self.fetchedResultsController.fetchedObjects) {
-        comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+        comment.commentHeight = @([CardViewController heightForTextContent:comment.text]);
     }
 
     _resetFonts = YES;
@@ -123,7 +123,7 @@
                     for (NSDictionary *dict in dictArray) {
                         Comment *comment = [Comment insertCommentToMe:dict inManagedObjectContext:self.managedObjectContext];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
-                        comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+                        comment.commentHeight = @([CardViewController heightForTextContent:comment.text]);
                     }
                     [self.managedObjectContext processPendingChanges];
                     
@@ -131,7 +131,7 @@
                     for (NSDictionary *dict in dictArray) {
                         Comment *comment = [Comment insertCommentByMe:dict inManagedObjectContext:self.managedObjectContext];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
-                        comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+                        comment.commentHeight = @([CardViewController heightForTextContent:comment.text]);
                     }
                     [self.managedObjectContext processPendingChanges];
                     
@@ -139,7 +139,7 @@
                     for (NSDictionary *dict in dictArray) {
                         Comment *comment = [Comment insertCommentMentioningMe:dict inManagedObjectContext:self.managedObjectContext];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
-                        comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+                        comment.commentHeight = @([CardViewController heightForTextContent:comment.text]);
                     }
                     [self.managedObjectContext processPendingChanges];
                 }
@@ -190,7 +190,7 @@
     if (_resetFonts) {
         _resetFonts = NO;
         for (Comment *comment in self.fetchedResultsController.fetchedObjects) {
-            comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+            comment.commentHeight = @([CardViewController heightForTextContent:comment.text]);
         }
     }
 }
@@ -203,13 +203,13 @@
     request.entity = [NSEntityDescription entityForName:@"Comment"
                                  inManagedObjectContext:self.managedObjectContext];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"commentID" ascending:NO];
-    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    request.sortDescriptors = @[sortDescriptor];
     if (self.dataSource == CommentsTableViewDataSourceCommentsToMe) {
-		request.predicate = [NSPredicate predicateWithFormat:@"toMe == %@ && currentUserID == %@", [NSNumber numberWithBool:YES], self.currentUser.userID];
+		request.predicate = [NSPredicate predicateWithFormat:@"toMe == %@ && currentUserID == %@", @(YES), self.currentUser.userID];
 	} else if(self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
-		request.predicate = [NSPredicate predicateWithFormat:@"byMe == %@ && currentUserID == %@", [NSNumber numberWithBool:YES], self.currentUser.userID];
+		request.predicate = [NSPredicate predicateWithFormat:@"byMe == %@ && currentUserID == %@", @(YES), self.currentUser.userID];
 	} else if(self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe){
-        request.predicate = [NSPredicate predicateWithFormat:@"mentioningMe == %@ && currentUserID == %@", [NSNumber numberWithBool:YES], self.currentUser.userID]; 
+        request.predicate = [NSPredicate predicateWithFormat:@"mentioningMe == %@ && currentUserID == %@", @(YES), self.currentUser.userID]; 
     }
 }
 

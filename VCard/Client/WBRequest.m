@@ -173,8 +173,7 @@
         if (error != nil)
         {
             *error = [self errorWithCode:kWBErrorCodeSDK
-                                userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", kWBSDKErrorCodeParseError]
-                                                                     forKey:kWBSDKErrorCodeKey]];
+                                userInfo:@{kWBSDKErrorCodeKey: [NSString stringWithFormat:@"%d", kWBSDKErrorCodeParseError]}];
         }
 	}
     

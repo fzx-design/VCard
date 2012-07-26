@@ -248,7 +248,7 @@
 {
     NSSortDescriptor *col1SD = [[NSSortDescriptor alloc] initWithKey:@"type" ascending:YES];
     NSSortDescriptor *col2SD = [[NSSortDescriptor alloc] initWithKey:@"groupID" ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObjects:col1SD, col2SD, nil];
+    NSArray *sortDescriptors = @[col1SD, col2SD];
     
     request.sortDescriptors = sortDescriptors;
     request.predicate = [NSPredicate predicateWithFormat:@"groupUserID == %@", self.currentUser.userID];
@@ -473,7 +473,7 @@
     [drawerView appearWithDuration:0.3];
     [self resetDrawerViewLayout:drawerView withIndex:index];
     
-    group.index = [NSNumber numberWithInt:index];
+    group.index = @(index);
     index++;
 }
 
@@ -502,10 +502,9 @@
                 groupID = group.name;
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldChangeCastviewDataSource
-                                                                object:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                        name, kNotificationObjectKeyDataSourceDescription,
-                                                                        type, kNotificationObjectKeyDataSourceType,
-                                                                        groupID, kNotificationObjectKeyDataSourceID, nil]];
+                                                                object:@{kNotificationObjectKeyDataSourceDescription: name,
+                                                                        kNotificationObjectKeyDataSourceType: type,
+                                                                        kNotificationObjectKeyDataSourceID: groupID}];
         } else {
             NSLog(@"Core Data TableView Controller Error - Shelf change source");
         }
@@ -557,7 +556,7 @@
                 [self resetDrawerViewLayout:view withIndex:i - 1];
             } completion:^(BOOL finished) {
                 view.index--;
-                group.index = [NSNumber numberWithInt:view.index];
+                group.index = @(view.index);
             }];
         } else {
             NSLog(@"Core Data TableView Controller Error - Shelf relayout");

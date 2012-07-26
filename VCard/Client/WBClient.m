@@ -140,7 +140,7 @@ typedef enum {
 	[SFHFKeychainUtils storeUsername:kWBKeychainAccessToken andPassword:_accessToken forServiceName:serviceName updateExisting:YES error:nil];
 	[SFHFKeychainUtils storeUsername:kWBKeychainExpireTime andPassword:[NSString stringWithFormat:@"%lf", _expireTime] forServiceName:serviceName updateExisting:YES error:nil];
     
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultAuthorized];
+    [[NSUserDefaults standardUserDefaults] setValue:@(YES) forKey:kUserDefaultAuthorized];
     [[NSUserDefaults standardUserDefaults] setValue:_userID forKey:kUserDefaultCurrentUserID];
 }
 
@@ -164,7 +164,7 @@ typedef enum {
 	[SFHFKeychainUtils deleteItemForUsername:kWBKeychainAccessToken andServiceName:serviceName error:nil];
 	[SFHFKeychainUtils deleteItemForUsername:kWBKeychainExpireTime andServiceName:serviceName error:nil];
     
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:kUserDefaultAuthorized];
+    [[NSUserDefaults standardUserDefaults] setValue:@(NO) forKey:kUserDefaultAuthorized];
 }
 
 #pragma mark - WBEngine Public Methods
@@ -358,7 +358,7 @@ typedef enum {
 - (void)getUserBilateral
 {
     self.path = @"friendships/friends/bilateral.json";
-    [self.params setObject:[NSNumber numberWithInt:5] forKey:@"count"];
+    [self.params setObject:@5 forKey:@"count"];
     [self.params setObject:self.userID forKey:@"uid"];
     
     __block __weak typeof(self) weakSelf = self;

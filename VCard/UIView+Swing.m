@@ -19,7 +19,7 @@
     self.layer.position = position;
     
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-    rotationAnimation.toValue = [NSNumber numberWithFloat:toAngle];
+    rotationAnimation.toValue = @(toAngle);
     rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     rotationAnimation.fillMode = kCAFillModeForwards;
     rotationAnimation.removedOnCompletion = NO;
@@ -47,7 +47,7 @@
         rotationAnimation.beginTime = i * 0.4;
         
         if (i == 0) {
-            rotationAnimation.fromValue = [NSNumber numberWithFloat:fromAngle];
+            rotationAnimation.fromValue = @(fromAngle);
         }
         
         [animationArray addObject:rotationAnimation];

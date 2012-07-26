@@ -49,7 +49,7 @@
     
     [UIApplication presentModalViewController:vc animated:YES];
     
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:kUserDefaultKeyShouldScrollToTop];
+    [[NSUserDefaults standardUserDefaults] setValue:@(NO) forKey:kUserDefaultKeyShouldScrollToTop];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     return vc;
@@ -112,7 +112,7 @@
 #pragma mark - IBActions
 - (IBAction)didClickReturnButton:(UIButton *)sender
 {
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultKeyShouldScrollToTop];
+    [[NSUserDefaults standardUserDefaults] setValue:@(YES) forKey:kUserDefaultKeyShouldScrollToTop];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [UIApplication relayoutRootViewController];
     [UIApplication dismissModalViewControllerAnimated:YES];

@@ -65,7 +65,7 @@
 - (void)drawImage {
     [self.highlightShadowAdjustFilter setDefaults];
     [self.highlightShadowAdjustFilter setValue:self.processImage forKey:@"inputImage"];
-    [self.highlightShadowAdjustFilter setValue:[NSNumber numberWithFloat:self.shadowAmountValue]
+    [self.highlightShadowAdjustFilter setValue:@(self.shadowAmountValue)
                                forKey:@"inputShadowAmount"];
     CIImage *outputImage = [self.highlightShadowAdjustFilter outputImage];
     

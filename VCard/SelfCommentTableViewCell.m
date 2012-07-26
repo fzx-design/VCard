@@ -96,9 +96,8 @@
     Status *status = self.comment.targetStatus;
     NSString *indexString = [NSString stringWithFormat:@"%i", self.pageIndex];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowCommentList
-                                                        object:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                indexString, kNotificationObjectKeyIndex,
-                                                                status, kNotificationObjectKeyStatus,nil]];
+                                                        object:@{kNotificationObjectKeyIndex: indexString,
+                                                                kNotificationObjectKeyStatus: status}];
 }
 
 - (IBAction)didClickMoreActionButton:(UIButton *)sender
@@ -134,14 +133,13 @@
 {
     NSString *indexString = [NSString stringWithFormat:@"%i", self.pageIndex];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName
-                                                        object:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                userName, kNotificationObjectKeyUserName,
-                                                                indexString, kNotificationObjectKeyIndex, nil]];
+                                                        object:@{kNotificationObjectKeyUserName: userName,
+                                                                kNotificationObjectKeyIndex: indexString}];
 }
 
 - (void)sendShowTopicNotification:(NSString *)searchKey
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowTopic object:[NSDictionary dictionaryWithObjectsAndKeys:searchKey, kNotificationObjectKeySearchKey, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowTopic object:@{kNotificationObjectKeySearchKey: searchKey, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 

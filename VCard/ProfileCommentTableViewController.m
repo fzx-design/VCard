@@ -65,12 +65,12 @@
     if (_type == CommentTableViewControllerTypeComment) {
         for (Comment *comment in self.fetchedResultsController.fetchedObjects) {
             comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
-            comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+            comment.commentHeight = @([CardViewController heightForTextContent:comment.text]);
         }
     } else {
         for (Status *status in self.fetchedResultsController.fetchedObjects) {
             status.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:status.text];
-            status.cardSizeCardHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:status.text]];
+            status.cardSizeCardHeight = @([CardViewController heightForTextContent:status.text]);
         }
     }
     [self setUpHeaderView];
@@ -120,7 +120,7 @@
                     for (NSDictionary *dict in dictArray) {
                         Comment *comment = [Comment insertComment:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
-                        comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
+                        comment.commentHeight = @([CardViewController heightForTextContent:comment.text]);
                         [self.status addCommentsObject:comment];
                     }
                 } else {
@@ -128,7 +128,7 @@
                     for (NSDictionary *dict in dictArray) {
                         Status *status = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
                         status.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:status.text];
-                        status.cardSizeCardHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:status.text]];
+                        status.cardSizeCardHeight = @([CardViewController heightForTextContent:status.text]);
                         [_status addRepostedByObject:status];
                     }
                 }
@@ -190,13 +190,13 @@
         request.entity = [NSEntityDescription entityForName:@"Comment"
                                      inManagedObjectContext:self.managedObjectContext];
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"commentID" ascending:NO];
-        request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+        request.sortDescriptors = @[sortDescriptor];
         request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.status.comments, _coreDataIdentifier, self.currentUser.userID];
     } else {
         request.entity = [NSEntityDescription entityForName:@"Status"
                                      inManagedObjectContext:self.managedObjectContext];
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"statusID" ascending:NO];
-        request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+        request.sortDescriptors = @[sortDescriptor];
         request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.status.repostedBy, _coreDataIdentifier, self.currentUser.userID];
     }
 }

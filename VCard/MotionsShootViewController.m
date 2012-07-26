@@ -164,7 +164,7 @@
         [session addInput:self.backFacingCameraDeviceInput];
         // output
         self.stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
-        NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
+        NSDictionary *outputSettings = @{AVVideoCodecKey: AVVideoCodecJPEG};
         [self.stillImageOutput setOutputSettings:outputSettings];
         [session addOutput:self.stillImageOutput];
     }

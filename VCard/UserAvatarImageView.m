@@ -117,7 +117,7 @@
     self.layer.position = CGPointMake(95.0, 90.0 - self.frame.size.height * 0.84);
     
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-    rotationAnimation.toValue = [NSNumber numberWithFloat:toAngle];
+    rotationAnimation.toValue = @(toAngle);
     rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     rotationAnimation.fillMode = kCAFillModeForwards;
     rotationAnimation.removedOnCompletion = NO;
@@ -145,7 +145,7 @@
         rotationAnimation.beginTime = i * 0.4;
         
         if (i == 0) {
-            rotationAnimation.fromValue = [NSNumber numberWithFloat:fromAngle];
+            rotationAnimation.fromValue = @(fromAngle);
         }
         
         [animationArray addObject:rotationAnimation];
@@ -166,7 +166,7 @@
     NSMutableArray* animationArray = [NSMutableArray arrayWithCapacity:6];
     
     CABasicAnimation *readyAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-    readyAnimation.toValue = [NSNumber numberWithFloat:angle];
+    readyAnimation.toValue = @(angle);
     readyAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     readyAnimation.fillMode = kCAFillModeForwards;
     readyAnimation.removedOnCompletion = NO;

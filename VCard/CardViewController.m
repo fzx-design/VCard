@@ -547,23 +547,23 @@
 #pragma mark - Send Notification
 - (void)sendUserNameClickedNotificationWithName:(NSString *)userName
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:[NSDictionary dictionaryWithObjectsAndKeys:userName, kNotificationObjectKeyUserName, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:@{kNotificationObjectKeyUserName: userName, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 - (void)sendCommentButtonClickedNotification
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowCommentList object:[NSDictionary dictionaryWithObjectsAndKeys:self.status, kNotificationObjectKeyStatus, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowCommentList object:@{kNotificationObjectKeyStatus: self.status, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 - (void)sendShowRepostListNotification
 {
     Status *targetStatus = _isReposted ? self.status.repostStatus : self.status;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowRepostList object:[NSDictionary dictionaryWithObjectsAndKeys:targetStatus, kNotificationObjectKeyStatus, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowRepostList object:@{kNotificationObjectKeyStatus: targetStatus, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 - (void)sendShowTopicNotification:(NSString *)searchKey
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowTopic object:[NSDictionary dictionaryWithObjectsAndKeys:searchKey, kNotificationObjectKeySearchKey, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowTopic object:@{kNotificationObjectKeySearchKey: searchKey, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 #pragma mark - PostViewController Delegate
@@ -646,8 +646,8 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.status.statusID, kNotificationObjectKeyStatusID,
-                                  _coreDataIdentifier, kNotificationObjectKeyCoredataIdentifier, nil];
+            NSDictionary *dict = @{kNotificationObjectKeyStatusID: self.status.statusID,
+                                  kNotificationObjectKeyCoredataIdentifier: _coreDataIdentifier};
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldDeleteStatus object:dict];
         } else {
             //TODO: Handle Error
@@ -673,7 +673,7 @@
         }
         if(shouldFavorite) {
             [self performSelector:@selector(showFavouriteFlag) withObject:nil afterDelay:0.2];
-            self.status.favorited = [NSNumber numberWithBool:YES];
+            self.status.favorited = @(YES);
             [NSUserDefaults addFavouriteID:self.status.statusID];
             [self.managedObjectContext processPendingChanges];
             self.currentUser.favouritesIDs = [NSUserDefaults getCurrentUserFavouriteIDs];
@@ -700,7 +700,7 @@
         
         if(shouldUnfavorite) {
             [self performSelector:@selector(hideFavouriteFlag) withObject:nil afterDelay:0.2];
-            self.status.favorited = [NSNumber numberWithBool:NO];
+            self.status.favorited = @(NO);
             [self.managedObjectContext processPendingChanges];
             [NSUserDefaults removeFavouriteID:self.status.statusID];
             self.currentUser.favouritesIDs = [NSUserDefaults getCurrentUserFavouriteIDs];
@@ -993,7 +993,7 @@
     self.statusImageView.gifIcon.alpha = 0.0;
     self.statusImageView.actionButton.alpha = 0.0;
     [self playClipLooseAnimation];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowDetailImageView object:[NSDictionary dictionaryWithObjectsAndKeys:self, kNotificationObjectKeyStatus,self.statusImageView, kNotificationObjectKeyImageView, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowDetailImageView object:@{kNotificationObjectKeyStatus: self,kNotificationObjectKeyImageView: self.statusImageView}];
 }
 
 #pragma mark Adjust Clip Behavior
@@ -1001,8 +1001,8 @@
 - (void)playClipLooseAnimation
 {
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-    rotationAnimation.fromValue = [NSNumber numberWithFloat:0.0];
-    rotationAnimation.toValue = [NSNumber numberWithFloat:0.7];
+    rotationAnimation.fromValue = @0.0f;
+    rotationAnimation.toValue = @0.7f;
     rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     rotationAnimation.fillMode = kCAFillModeForwards;
     rotationAnimation.removedOnCompletion = NO;
@@ -1012,8 +1012,8 @@
     [self.clipImageView.layer addAnimation:rotationAnimation forKey:@"rotation"];
     
     CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeOutAnimation.fromValue = [NSNumber numberWithFloat:1];
-    fadeOutAnimation.toValue = [NSNumber numberWithFloat:0];
+    fadeOutAnimation.fromValue = @1.0f;
+    fadeOutAnimation.toValue = @0.0f;
     fadeOutAnimation.duration = 0.3;
     fadeOutAnimation.removedOnCompletion = NO;
     
@@ -1028,8 +1028,8 @@
 - (void)playClipTightenAnimation
 {
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-    rotationAnimation.fromValue = [NSNumber numberWithFloat:0.7];
-    rotationAnimation.toValue = [NSNumber numberWithFloat:0.0];
+    rotationAnimation.fromValue = @0.7f;
+    rotationAnimation.toValue = @0.0f;
     rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     rotationAnimation.fillMode = kCAFillModeForwards;
     rotationAnimation.removedOnCompletion = NO;
@@ -1039,8 +1039,8 @@
     [self.clipImageView.layer addAnimation:rotationAnimation forKey:@"rotation"];
     
     CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeOutAnimation.fromValue = [NSNumber numberWithFloat:0];
-    fadeOutAnimation.toValue = [NSNumber numberWithFloat:1];
+    fadeOutAnimation.fromValue = @0.0f;
+    fadeOutAnimation.toValue = @1.0f;
     fadeOutAnimation.duration = 0.3;
     fadeOutAnimation.removedOnCompletion = NO;
     

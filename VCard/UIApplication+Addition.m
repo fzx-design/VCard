@@ -264,7 +264,7 @@ static NSMutableArray *_backViewStack = nil;
 
 + (UIPopoverController *)getAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate {
     UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
-    ipc.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
+    ipc.mediaTypes = @[(NSString *)kUTTypeImage];
     ipc.delegate = delegate;
     ipc.allowsEditing = NO;
     

@@ -908,12 +908,12 @@
                 
                 Status *newStatus = nil;
                 newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
-                newStatus.forCastView = [NSNumber numberWithBool:YES];
+                newStatus.forCastView = @(YES);
                 
                 CGFloat imageHeight = [self randomImageHeight];
                 CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight timeStampEnabled:[NSUserDefaults isDateDisplayEnabled] picEnabled:[NSUserDefaults isPictureEnabled]];
-                newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
-                newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
+                newStatus.cardSizeImageHeight = @(imageHeight);
+                newStatus.cardSizeCardHeight = @(cardHeight);
                 
                 [self.currentUser addFriendsStatusesObject:newStatus];
             }
@@ -1017,17 +1017,17 @@
     [client setCompletionBlock:^(WBClient *client){
         if (!client.hasError) {
             if ([type isEqualToString:kWBClientResetCountTypeComment]) {
-                self.currentUser.unreadCommentCount = [NSNumber numberWithInt:0];
+                self.currentUser.unreadCommentCount = @0;
             } else if ([type isEqualToString:kWBClientResetCountTypeFollower]) {
-                self.currentUser.unreadFollowingCount = [NSNumber numberWithInt:0];
+                self.currentUser.unreadFollowingCount = @0;
             } else if ([type isEqualToString:kWBClientResetCountTypeMention]) {
-                self.currentUser.unreadMentionCount = [NSNumber numberWithInt:0];
+                self.currentUser.unreadMentionCount = @0;
             } else if ([type isEqualToString:kWBClientResetCountTypeStatus]){
-                self.currentUser.unreadStatusCount = [NSNumber numberWithInt:0];
+                self.currentUser.unreadStatusCount = @0;
             } else if ([type isEqualToString:kWBClientResetCountTypeMetionComment]){
-                self.currentUser.unreadMentionComment = [NSNumber numberWithInt:0];
+                self.currentUser.unreadMentionComment = @0;
             } else if ([type isEqualToString:kWBClientResetCountTypeMessage]){
-                self.currentUser.unreadMessageCount = [NSNumber numberWithInt:0];
+                self.currentUser.unreadMessageCount = @0;
             }
         }
     }];
@@ -1075,10 +1075,10 @@
     NSSortDescriptor *sortDescriptor;
 	
     sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
-    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    request.sortDescriptors = @[sortDescriptor];
     request.entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext];
  
-    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && operatable == %@ && currentUserID == %@", self.currentUser, [NSNumber numberWithBool:NO], self.currentUser.userID];
+    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && operatable == %@ && currentUserID == %@", self.currentUser, @(NO), self.currentUser.userID];
                   
 }
 

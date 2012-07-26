@@ -59,10 +59,10 @@
         [defaults setFloat:17.0 forKey:kSettingFontSize];
         [defaults setFloat:8.0 forKey:kSettingLeading];
         
-        [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:NO], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:NO], nil] forKey:kSettingOptionFontSize];
-        [defaults setObject:[NSArray arrayWithObjects:[NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:NO], nil] forKey:kSettingOptionNotification];
+        [defaults setObject:@[@(NO), @(YES), @(NO)] forKey:kSettingOptionFontSize];
+        [defaults setObject:@[@(YES), @(YES), @(YES), @(NO)] forKey:kSettingOptionNotification];
         
-        [defaults setObject:[NSArray array] forKey:kCurrentUserFavouriteIDs];
+        [defaults setObject:@[] forKey:kCurrentUserFavouriteIDs];
         
         [defaults setBool:NO forKey:kHasShownShelfTips];
         [defaults setBool:NO forKey:kHasShownStackTips];
@@ -119,7 +119,7 @@
     NSNumber *chosenStatus1 = [NSNumber numberWithBool:fontSize == (CGFloat)SettingOptionFontSizeSmall];
     NSNumber *chosenStatus2 = [NSNumber numberWithBool:fontSize == (CGFloat)SettingOptionFontSizeNormal];
     NSNumber *chosenStatus3 = [NSNumber numberWithBool:fontSize == (CGFloat)SettingOptionFontSizeBig];
-    info.optionChosenStatusArray = [NSArray arrayWithObjects:chosenStatus1, chosenStatus2, chosenStatus3, nil];
+    info.optionChosenStatusArray = @[chosenStatus1, chosenStatus2, chosenStatus3];
     [NSUserDefaults setSettingOptionInfo:info];
     
     if (fontSize == (CGFloat)SettingOptionFontSizeSmall) {
@@ -224,7 +224,7 @@
 + (NSArray *)getCurrentNotificationStatus {
     SettingOptionInfo *info = [NSUserDefaults getInfoForOptionKey:kSettingOptionNotification];
     NSMutableArray *result = [NSMutableArray arrayWithArray:info.optionChosenStatusArray];
-    [result addObject:[NSNumber numberWithBool:NO]];
+    [result addObject:@(NO)];
     return result;
 }
 
@@ -290,10 +290,9 @@
                     password:(NSString *)password {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
-                          account, kStoredUserAccountInfoAccount,
-                          password, kStoredUserAccountInfoPassword,
-                          userID, kStoredUserAccountInfoUserID, nil];
+    NSDictionary *info = @{kStoredUserAccountInfoAccount: account,
+                          kStoredUserAccountInfoPassword: password,
+                          kStoredUserAccountInfoUserID: userID};
     [defaults setObject:info forKey:KeyForStoredUserAccountInfo(userID)];
     
     [defaults synchronize];
@@ -362,11 +361,11 @@
     self = [super init];
     if(self) {
         if([optionKey isEqualToString:kSettingOptionFontSize]) {
-            self.optionsArray = [NSArray arrayWithObjects:@"小", @"正常", @"大", nil];
+            self.optionsArray = @[@"小", @"正常", @"大"];
             self.optionName = @"字体大小";
         } else if([optionKey isEqualToString:kSettingOptionNotification]) {
             self.allowMultiOptions = YES;
-            self.optionsArray = [NSArray arrayWithObjects:@"新评论", @"新粉丝", @"提到我的", nil];
+            self.optionsArray = @[@"新评论", @"新粉丝", @"提到我的"];
             self.optionName = @"消息提示";
         }
         self.optionKey = optionKey;

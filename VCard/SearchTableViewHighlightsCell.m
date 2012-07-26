@@ -90,7 +90,7 @@
             rotationAnimation.beginTime = i * 0.4;
             
             if (i == 0) {
-                rotationAnimation.fromValue = [NSNumber numberWithFloat:angle];
+                rotationAnimation.fromValue = @(angle);
             }
             
             [animationArray addObject:rotationAnimation];
@@ -135,7 +135,7 @@
     } else if ([sender.view isEqual:_topImageView6]) {
         topicName = @"体育新闻";
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowTopic object:[NSDictionary dictionaryWithObjectsAndKeys:topicName, kNotificationObjectKeySearchKey, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowTopic object:@{kNotificationObjectKeySearchKey: topicName, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
     
 }
 

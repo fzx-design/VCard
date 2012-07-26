@@ -41,9 +41,9 @@
 {
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:30];
-	[dict setObject:[NSNumber numberWithBool:YES] forKey:kUserDefaultFirstTime];
-    [dict setObject:[NSNumber numberWithBool:NO] forKey:kUserDefaultAuthorized];
-	[dict setObject:[NSNumber numberWithInt:10] forKey:kUserDefaultKeyRefreshingInterval];
+	[dict setObject:@(YES) forKey:kUserDefaultFirstTime];
+    [dict setObject:@(NO) forKey:kUserDefaultAuthorized];
+	[dict setObject:@10 forKey:kUserDefaultKeyRefreshingInterval];
     [dict setObject:[NSMutableArray array] forKey:kUserGroupInfoArray];
     [dict setObject:[NSMutableArray array] forKey:kUserDefaultKeySearchStatusHistoryList];
     [dict setObject:[NSMutableArray array] forKey:kUserDefaultKeySearchUserHistoryList];
@@ -62,7 +62,7 @@
     _reachability = [Reachability reachabilityForInternetConnection];
     [_reachability startNotifier];
     [ResourceProvider initialize];
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultKeyShouldScrollToTop];
+    [[NSUserDefaults standardUserDefaults] setValue:@(YES) forKey:kUserDefaultKeyShouldScrollToTop];
     
     [NSNotificationCenter registerRootViewControllerViewDidLoadNotificationWithSelector:@selector(rootViewControllerViewDidLoad:) target:[UIApplication sharedApplication]];
     
@@ -264,7 +264,7 @@
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"VCard4.sqlite"];
     
     //
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @(YES), NSInferMappingModelAutomaticallyOption: @(YES)};
     
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];

@@ -104,7 +104,7 @@
     result.source = [dict objectForKey:@"source"];
     
     BOOL favourited = [[NSUserDefaults getCurrentUserFavouriteIDs] containsObject:result.statusID];
-    result.favorited = [NSNumber numberWithBool:favourited];
+    result.favorited = @(favourited);
     
     NSInteger commentsCount = [[dict objectForKey:@"comments_count"] intValue];
     if (result.commentsCount.intValue < commentsCount) {
@@ -121,8 +121,8 @@
     
     NSDictionary* geoDic = (NSDictionary*)[dict objectForKey:@"geo"];
     if (geoDic && ![[geoDic class] isSubclassOfClass:[NSNull class]]) {
-        result.lat = [[NSNumber alloc] initWithFloat:[[(NSArray*)([geoDic objectForKey:@"coordinates"]) objectAtIndex:0] floatValue]];
-        result.lon = [[NSNumber alloc] initWithFloat:[[(NSArray*)([geoDic objectForKey:@"coordinates"]) objectAtIndex:1] floatValue]];
+        result.lat = @([[(NSArray*)([geoDic objectForKey:@"coordinates"]) objectAtIndex:0] floatValue]);
+        result.lon = @([[(NSArray*)([geoDic objectForKey:@"coordinates"]) objectAtIndex:1] floatValue]);
     }
     else {
         result.lat = 0;
@@ -162,7 +162,7 @@
     
     NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@ && currentUserID = %@", [NSNumber numberWithBool:YES], currentUserID]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@ && currentUserID = %@", @(YES), currentUserID]];
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
     
@@ -177,7 +177,7 @@
     
     NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@ && currentUserID = %@", user, [NSNumber numberWithBool:YES], object, currentUserID]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@ && currentUserID = %@", user, @(YES), object, currentUserID]];
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
     
@@ -221,7 +221,7 @@
     
     NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"isMentioned == %@ && forTableView == %@ && currentUserID = %@", [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], currentUserID]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"isMentioned == %@ && forTableView == %@ && currentUserID = %@", @(YES), @(YES), currentUserID]];
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
     
@@ -260,7 +260,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:YES]]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", @(YES)]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     return items;
@@ -271,7 +271,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:NO]]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", @(NO)]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     return items;

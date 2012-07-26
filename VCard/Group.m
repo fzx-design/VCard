@@ -35,7 +35,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"Group" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"name == %@ && type == %@ && groupUserID == %@", name, [NSNumber numberWithInt:kGroupTypeTopic], userID]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"name == %@ && type == %@ && groupUserID == %@", name, @kGroupTypeTopic, userID]];
     
     Group *res = [[context executeFetchRequest:request error:NULL] lastObject];
     
@@ -59,9 +59,9 @@
     NSString *url = [dict objectForKey:@"profile_image_url"];
     result.picURL = [url stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"];
     result.name = [dict objectForKey:@"name"];
-    result.type = [NSNumber numberWithInt:kGroupTypeGroup];
-    result.count = [NSNumber numberWithInt:[[dict objectForKey:@"member_count"] intValue]];
-    result.index = [NSNumber numberWithInt:10];
+    result.type = @kGroupTypeGroup;
+    result.count = @([[dict objectForKey:@"member_count"] intValue]);
+    result.index = @10;
     result.groupUserID = userID;
     
     return result;
@@ -81,9 +81,9 @@
     }
     result.groupID = groupID;
     result.name = [dict objectForKey:@"hotword"];
-    result.type = [NSNumber numberWithInt:kGroupTypeTopic];
-    result.count = [NSNumber numberWithInt:100];
-    result.index = [NSNumber numberWithInt:100];
+    result.type = @kGroupTypeTopic;
+    result.count = @100;
+    result.index = @100;
     result.groupUserID = userID;
     
     return result;
@@ -101,9 +101,9 @@
     }
     result.groupID = trendID;
     result.name = name;
-    result.type = [NSNumber numberWithInt:kGroupTypeTopic];
+    result.type = @kGroupTypeTopic;
     result.groupUserID = userID;
-    result.count = [NSNumber numberWithInt:100];
+    result.count = @100;
     
     return result;
 }
@@ -137,18 +137,18 @@
         defaultGroup.groupID = kGroupIDDefault;
         defaultGroup.groupUserID = userID;
         defaultGroup.name = @"全部关注";
-        defaultGroup.type = [NSNumber numberWithInt:kGroupTypeDefault];
-        defaultGroup.count = [NSNumber numberWithInt:100];
-        defaultGroup.index = [NSNumber numberWithInt:0];
+        defaultGroup.type = @kGroupTypeDefault;
+        defaultGroup.count = @100;
+        defaultGroup.index = @0;
         defaultGroup.picURL = defaultImageURL;
         
         Group *favourite = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:context];
         favourite.groupID = kGroupIDFavourite;
         favourite.groupUserID = userID;
         favourite.name = @"收藏";
-        favourite.type = [NSNumber numberWithInt:kGroupTypeFavourite];
-        favourite.count = [NSNumber numberWithInt:100];
-        favourite.index = [NSNumber numberWithInt:1];
+        favourite.type = @kGroupTypeFavourite;
+        favourite.count = @100;
+        favourite.index = @1;
         favourite.picURL = defaultImageURL;
     }
 }
@@ -158,7 +158,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"Group" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"type == %@ && groupUserID == %@", [NSNumber numberWithInt:type], userID]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"type == %@ && groupUserID == %@", @(type), userID]];
     
     NSArray *items = [context executeFetchRequest:request error:NULL];
     for (NSManagedObject *managedObject in items) {

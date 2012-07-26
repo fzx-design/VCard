@@ -79,8 +79,8 @@
     for (Status *status in self.fetchedResultsController.fetchedObjects) {
         CGFloat imageHeight = [self randomImageHeight];
         CGFloat cardHeight = [CardViewController heightForStatus:status andImageHeight:imageHeight timeStampEnabled:YES picEnabled:[NSUserDefaults isPictureEnabled]];
-        status.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
-        status.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
+        status.cardSizeImageHeight = @(imageHeight);
+        status.cardSizeCardHeight = @(cardHeight);
     }
 }
 
@@ -108,14 +108,14 @@
                 if (newStatus.cardSizeCardHeight.floatValue == 0.0) {
                     CGFloat imageHeight = [self randomImageHeight];
                     CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight timeStampEnabled:YES picEnabled:[NSUserDefaults isPictureEnabled]];
-                    newStatus.cardSizeImageHeight = [NSNumber numberWithFloat:imageHeight];
-                    newStatus.cardSizeCardHeight = [NSNumber numberWithFloat:cardHeight];
+                    newStatus.cardSizeImageHeight = @(imageHeight);
+                    newStatus.cardSizeCardHeight = @(cardHeight);
                 }
-                newStatus.forTableView = [NSNumber numberWithBool:YES];
+                newStatus.forTableView = @(YES);
                 if (_type == StatusTableViewControllerTypeUserStatus) {
                     newStatus.author = self.user;
                 } else if(_type == statusTableViewControllerTypeMentionStatus) {
-                    newStatus.isMentioned = [NSNumber numberWithBool:YES];
+                    newStatus.isMentioned = @(YES);
                 } else if(_type == StatusTableViewControllerTypeTopicStatus){
                     newStatus.searchKey = _searchKey;
                 }
@@ -209,13 +209,13 @@
     NSSortDescriptor *sortDescriptor;
 	
     sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"statusID" ascending:NO];
-    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    request.sortDescriptors = @[sortDescriptor];
     request.entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext];
     
     if (_type == StatusTableViewControllerTypeUserStatus) {
-        request.predicate = [NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@ && currentUserID == %@", self.user, [NSNumber numberWithBool:YES], _coreDataIdentifier, self.currentUser.userID];
+        request.predicate = [NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@ && currentUserID == %@", self.user, @(YES), _coreDataIdentifier, self.currentUser.userID];
     } else if (_type == statusTableViewControllerTypeMentionStatus){
-        request.predicate = [NSPredicate predicateWithFormat:@"isMentioned == %@ && currentUserID == %@", [NSNumber numberWithBool:YES], self.currentUser.userID];
+        request.predicate = [NSPredicate predicateWithFormat:@"isMentioned == %@ && currentUserID == %@", @(YES), self.currentUser.userID];
     } else if (_type == StatusTableViewControllerTypeTopicStatus){
         request.predicate = [NSPredicate predicateWithFormat:@"searchKey == %@ && operatedBy == %@ && currentUserID == %@", _searchKey, _coreDataIdentifier, self.currentUser.userID];
     }

@@ -142,7 +142,7 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            self.user.following = [NSNumber numberWithBool:YES];
+            self.user.following = @(YES);
             _moreInfoButton.enabled = YES;
         } else {
             //TODO: Report error
@@ -166,7 +166,7 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            self.user.following = [NSNumber numberWithBool:NO];
+            self.user.following = @(NO);
             _moreInfoButton.enabled = NO;
         } else {
             //TODO: Report error

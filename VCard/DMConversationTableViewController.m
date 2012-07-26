@@ -158,8 +158,8 @@
     
     CGSize size = [DMBubbleView sizeForText:message.text fontSize:[NSUserDefaults currentFontSize] leading:[NSUserDefaults currentLeading]];
     
-    message.messageHeight = [NSNumber numberWithFloat:size.height];
-    message.messageWidth = [NSNumber numberWithFloat:size.width];
+    message.messageHeight = @(size.height);
+    message.messageWidth = @(size.width);
 }
 
 - (void)scrollToBottom
@@ -223,12 +223,12 @@
     
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+            [tableView insertRowsAtIndexPaths:@[newIndexPath]
                              withRowAnimation:UITableViewRowAnimationTop];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+            [tableView deleteRowsAtIndexPaths:@[indexPath]
                              withRowAnimation:UITableViewRowAnimationFade];
             break;
             
@@ -238,9 +238,9 @@
             break;
             
         case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+            [tableView deleteRowsAtIndexPaths:@[indexPath]
                              withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+            [tableView insertRowsAtIndexPaths:@[newIndexPath]
                              withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
@@ -260,7 +260,7 @@
                                  inManagedObjectContext:self.managedObjectContext];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES];
     request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", _conversation.messages];
-    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    request.sortDescriptors = @[sortDescriptor];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath

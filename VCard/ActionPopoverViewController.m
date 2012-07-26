@@ -81,11 +81,11 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 
 + (ActionPopoverViewController *)getActionPopoverViewControllerWithFavoriteButtonOn:(BOOL)favoriteOn
                                                                    showDeleteButton:(BOOL)showDelete {
-    NSNumber *favorite = [NSNumber numberWithBool:favoriteOn];
-    NSNumber *delete = [NSNumber numberWithBool:showDelete];
+    NSNumber *favorite = @(favoriteOn);
+    NSNumber *delete = @(showDelete);
     
-    return [[ActionPopoverViewController alloc] initWithOptions:[NSDictionary dictionaryWithObjectsAndKeys:favorite, kActionPopoverOptionFavoriteButtonOn,
-                                                                 delete, kActionPopoverOptionShowDeleteButton, nil]];
+    return [[ActionPopoverViewController alloc] initWithOptions:@{kActionPopoverOptionFavoriteButtonOn: favorite,
+                                                                 kActionPopoverOptionShowDeleteButton: delete}];
 }
 
 - (id)initWithOptions:(NSDictionary *)options {
@@ -108,7 +108,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
                 if(showDeleteButton && showDeleteButton.boolValue == NO)
                     continue;
             }
-            [_buttonIndexArray addObject:[NSNumber numberWithUnsignedInteger:i]];
+            [_buttonIndexArray addObject:@(i)];
         }
         
         self.folded = YES;
@@ -386,7 +386,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	[upperFold addSublayer:self.upperFoldShadow];
 	self.upperFoldShadow.frame = CGRectInset(upperFold.bounds, 6, 0);
 	//self.upperFoldShadow.backgroundColor = [UIColor blackColor].CGColor;
-	self.upperFoldShadow.colors = [NSArray arrayWithObjects:(id)[UIColor darkGrayColor].CGColor, (id)[[UIColor darkGrayColor] colorWithAlphaComponent:0.5].CGColor, nil];
+	self.upperFoldShadow.colors = @[(id)[UIColor darkGrayColor].CGColor, (id)[[UIColor darkGrayColor] colorWithAlphaComponent:0.5].CGColor];
 	self.upperFoldShadow.startPoint = CGPointMake(0.5, 0);
 	self.upperFoldShadow.endPoint = CGPointMake(0.5, 1);
 	self.upperFoldShadow.opacity = 0;
@@ -395,7 +395,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	self.lowerFoldShadow = [CAGradientLayer layer];
 	[lowerFold addSublayer:self.lowerFoldShadow];
 	self.lowerFoldShadow.frame = CGRectInset(lowerFold.bounds, 6, 0);
-	self.lowerFoldShadow.colors = [NSArray arrayWithObjects:(id)[UIColor darkGrayColor].CGColor, (id)[[UIColor darkGrayColor] colorWithAlphaComponent:0.7].CGColor, nil];
+	self.lowerFoldShadow.colors = @[(id)[UIColor darkGrayColor].CGColor, (id)[[UIColor darkGrayColor] colorWithAlphaComponent:0.7].CGColor];
 	self.lowerFoldShadow.startPoint = CGPointMake(0.5, 0);
 	self.lowerFoldShadow.endPoint = CGPointMake(0.5, 1);
 	self.lowerFoldShadow.opacity = 0;
@@ -485,7 +485,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
     
 	// Create a transaction
 	[CATransaction begin];
-	[CATransaction setValue:[NSNumber numberWithFloat:duration] forKey:kCATransactionAnimationDuration];
+	[CATransaction setValue:@(duration) forKey:kCATransactionAnimationDuration];
 	[CATransaction setValue:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault] forKey:kCATransactionAnimationTimingFunction];
 	[CATransaction setCompletionBlock:^{
 		[self postFold:finish];
@@ -503,32 +503,32 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	// fold the first (top) joint away from us
 	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:rotationKey];
         
-	[animation setFromValue:forwards ? [NSNumber numberWithDouble:-90 * factor * fromProgress] : [NSNumber numberWithDouble:-90 * factor * (1 - fromProgress)]];
-	[animation setToValue:forwards ? [NSNumber numberWithDouble:-90 * factor] : [NSNumber numberWithDouble:0]];
+	[animation setFromValue:forwards ? @(-90 * factor * fromProgress) : @(-90 * factor * (1 - fromProgress))];
+	[animation setToValue:forwards ? @(-90 * factor) : @0.0];
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[self.firstJointLayer addAnimation:animation forKey:nil];
 	
 	// fold the second joint back towards us at twice the angle (since it's connected to the first fold we're folding away)
 	animation = [CABasicAnimation animationWithKeyPath:rotationKey];
-	[animation setFromValue:forwards ? [NSNumber numberWithDouble:180 * factor * fromProgress] : [NSNumber numberWithDouble:180 * factor * (1 - fromProgress)]];
-	[animation setToValue:forwards ? [NSNumber numberWithDouble:180 * factor] : [NSNumber numberWithDouble:0]];
+	[animation setFromValue:forwards ? @(180 * factor * fromProgress) : @(180 * factor * (1 - fromProgress))];
+	[animation setToValue:forwards ? @(180 * factor) : @0.0];
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[self.secondJointLayer addAnimation:animation forKey:nil];
 	
 	// fold the bottom sleeve (3rd joint) away from us, so that net result is it lays flat from user's perspective
 	animation = [CABasicAnimation animationWithKeyPath:rotationKey];
-	[animation setFromValue:forwards ? [NSNumber numberWithDouble:-90 * factor * fromProgress] : [NSNumber numberWithDouble:-90 * factor * (1 - fromProgress)]];
-	[animation setToValue:forwards ? [NSNumber numberWithDouble:-90 * factor] : [NSNumber numberWithDouble:0]];
+	[animation setFromValue:forwards ? @(-90 * factor * fromProgress) : @(-90 * factor * (1 - fromProgress))];
+	[animation setToValue:forwards ? @(-90 * factor) : @0.0];
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[self.bottomSleeve addAnimation:animation forKey:nil];
 	
 	// fold top sleeve towards us, so that net result is it lays flat from user's perspective
 	animation = [CABasicAnimation animationWithKeyPath:rotationKey];
-	[animation setFromValue:forwards ? [NSNumber numberWithDouble:90 * factor * fromProgress] : [NSNumber numberWithDouble:90 * factor * (1 - fromProgress)]];
-	[animation setToValue:forwards ? [NSNumber numberWithDouble:90 * factor] : [NSNumber numberWithDouble:0]];
+	[animation setFromValue:forwards ? @(90 * factor * fromProgress) : @(90 * factor * (1 - fromProgress))];
+	[animation setToValue:forwards ? @(90 * factor) : @0.0];
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[self.topSleeve addAnimation:animation forKey:nil];
@@ -550,13 +550,13 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 		if ((forwards && frame == frameCount) || (!forwards && frame == 0 && fromProgress == 0))
 			cosine = 0;
 		cosHeight = ((cosine) * self.foldViewHeight); // range from 2*height to 0 along a cosine curve
-		[arrayHeight addObject:[NSNumber numberWithFloat:cosHeight]];
+		[arrayHeight addObject:@(cosHeight)];
 		
 		cosShadow = FOLD_SHADOW_OPACITY * (1 - cosine);
-		[arrayShadow addObject:[NSNumber numberWithFloat:cosShadow]];
+		[arrayShadow addObject:@(cosShadow)];
         
         cosOriginY = self.foldViewHeight * (1 - cosine) / 2;
-        [arrayOriginY addObject:[NSNumber numberWithFloat:cosOriginY]];
+        [arrayOriginY addObject:@(cosOriginY)];
 	}
 	
 	// resize height of the 2 folding panels along a cosine curve.  This is necessary to maintain the 2nd joint in the center

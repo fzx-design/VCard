@@ -99,7 +99,7 @@
     result.gender = [dict objectForKey:@"gender"];
     result.selfDescription = [dict objectForKey:@"description"];
     result.location = [dict objectForKey:@"location"];
-    result.verified = [NSNumber numberWithBool:[[dict objectForKey:@"verified"] boolValue]];
+    result.verified = @([[dict objectForKey:@"verified"] boolValue]);
     
     result.verifiedType = [dict objectForKey:@"verified_type"];
     result.domainURL = [dict objectForKey:@"domain"];
@@ -113,8 +113,8 @@
     BOOL following = [[dict objectForKey:@"following"] boolValue];
     BOOL followMe = [[dict objectForKey:@"follow_me"] boolValue];
     
-    result.following = [NSNumber numberWithBool:following];
-    result.followMe = [NSNumber numberWithBool:followMe];
+    result.following = @(following);
+    result.followMe = @(followMe);
     
     return result;
 }
@@ -208,7 +208,7 @@
     
     NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@ && currentUserID == %@", [NSNumber numberWithBool:YES], currentUserID]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@ && currentUserID == %@", @(YES), currentUserID]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     for (NSManagedObject *managedObject in items) {
@@ -243,7 +243,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:YES]]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", @(YES)]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     return items;
@@ -254,7 +254,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:NO]]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", @(NO)]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     return items;

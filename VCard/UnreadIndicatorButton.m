@@ -36,8 +36,8 @@
 {
 
     CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeOutAnimation.fromValue = [NSNumber numberWithFloat:0];
-    fadeOutAnimation.toValue = [NSNumber numberWithFloat:1];
+    fadeOutAnimation.fromValue = @0.0f;
+    fadeOutAnimation.toValue = @1.0f;
     fadeOutAnimation.autoreverses = YES;
     fadeOutAnimation.duration = 0.5;
     fadeOutAnimation.removedOnCompletion = YES;
@@ -50,8 +50,8 @@
 - (void)showIndicatorUpdatedAnimation
 {
     CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeOutAnimation.fromValue = [NSNumber numberWithFloat:0];
-    fadeOutAnimation.toValue = [NSNumber numberWithFloat:1];
+    fadeOutAnimation.fromValue = @0.0f;
+    fadeOutAnimation.toValue = @1.0f;
     fadeOutAnimation.autoreverses = YES;
     fadeOutAnimation.duration = 0.5;
     fadeOutAnimation.removedOnCompletion = YES;

@@ -66,7 +66,7 @@
 
 - (void)setUpWithCardViewController:(CardViewController *)cardViewController
 {
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:kUserDefaultKeyShouldScrollToTop];
+    [[NSUserDefaults standardUserDefaults] setValue:@(NO) forKey:kUserDefaultKeyShouldScrollToTop];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     if (_cardViewController) {
@@ -127,7 +127,7 @@
 
 - (void)didReturnImageView
 {
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kUserDefaultKeyShouldScrollToTop];
+    [[NSUserDefaults standardUserDefaults] setValue:@(YES) forKey:kUserDefaultKeyShouldScrollToTop];
     [[NSUserDefaults standardUserDefaults] synchronize];
     _hasViewInDetailedMode = NO;
     self.view.hidden = YES;

@@ -103,7 +103,7 @@
                                  inManagedObjectContext:self.managedObjectContext];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updateDate" ascending:NO];
     request.predicate = [NSPredicate predicateWithFormat:@"currentUserID == %@", self.currentUser.userID];
-    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    request.sortDescriptors = @[sortDescriptor];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -137,7 +137,7 @@
 {
     Conversation *conversation = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowConversation object:[NSDictionary dictionaryWithObjectsAndKeys:conversation, kNotificationObjectKeyConversation, [NSString stringWithFormat:@"%i", self.pageIndex], kNotificationObjectKeyIndex, nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowConversation object:@{kNotificationObjectKeyConversation: conversation, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 #pragma mark - UIScrollView delegate

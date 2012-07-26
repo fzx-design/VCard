@@ -134,7 +134,7 @@
         }];
 	}];
     
-    [CATransaction setValue:[NSNumber numberWithFloat:0.3f] forKey: kCATransactionAnimationDuration];
+    [CATransaction setValue:@0.3f forKey: kCATransactionAnimationDuration];
     [self.iconImageView.layer addAnimation:[GuideBookViewController popoverAnimation] forKey:nil];
     [CATransaction commit];
 }

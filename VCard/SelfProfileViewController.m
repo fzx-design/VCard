@@ -129,12 +129,12 @@ typedef enum {
 
 - (IBAction)didClickCheckCommentButton:(UIButton *)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowSelfCommentList object:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:kNotificationObjectKeyIndex]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowSelfCommentList object:@{kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%d", self.pageIndex]}];
 }
 
 - (IBAction)didClickCheckMentionButton:(UIButton *)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowSelfMentionList object:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:kNotificationObjectKeyIndex]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowSelfMentionList object:@{kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%d", self.pageIndex]}];
 }
 
 - (IBAction)didClickChangeAvatarButton:(UIButton *)sender {
