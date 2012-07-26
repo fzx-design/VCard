@@ -111,6 +111,9 @@
     _loadMoreView = [[LoadMoreView alloc] initWithScrollView:(UIScrollView *)self.waterflowView];
     _loadMoreView.delegate = self;
     _loadMoreView.shouldAutoRotate = YES;
+    [self.waterflowView insertSubview:_pullView atIndex:kWaterflowViewPullToRefreshViewIndex];
+    [self.waterflowView addSubview:_loadMoreView];
+    [self willRotateToInterfaceOrientation:[UIApplication currentInterface] duration:0.0];
     
     [_unreadFollowerIndicatorButton resetOriginY:240];
     [_unreadCommentIndicatorButton resetOriginY:240];
@@ -294,8 +297,7 @@
 
 - (void)setUpWaterflowView
 {
-    [self.waterflowView insertSubview:_pullView atIndex:kWaterflowViewPullToRefreshViewIndex];
-    [self.waterflowView addSubview:_loadMoreView];
+    
 }
 
 #pragma mark - Notification
