@@ -23,7 +23,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"Group" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"groupID == %@", groupID]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"groupID == %@ && groupUserID == %@", groupID, userID]];
     
     Group *res = [[context executeFetchRequest:request error:NULL] lastObject];
     
@@ -35,7 +35,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"Group" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"name == %@ && type == %@", name, [NSNumber numberWithInt:kGroupTypeTopic]]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"name == %@ && type == %@ && groupUserID == %@", name, [NSNumber numberWithInt:kGroupTypeTopic], userID]];
     
     Group *res = [[context executeFetchRequest:request error:NULL] lastObject];
     
@@ -159,6 +159,19 @@
     
     [request setEntity:[NSEntityDescription entityForName:@"Group" inManagedObjectContext:context]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"type == %@ && groupUserID == %@", [NSNumber numberWithInt:type], userID]];
+    
+    NSArray *items = [context executeFetchRequest:request error:NULL];
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
+}
+
++ (void)deleteAllGroupsOfUser:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Group" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"groupUserID == %@", userID]];
     
     NSArray *items = [context executeFetchRequest:request error:NULL];
     for (NSManagedObject *managedObject in items) {

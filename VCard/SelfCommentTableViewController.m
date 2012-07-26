@@ -93,11 +93,11 @@
 - (void)clearData
 {
     if (self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
-		[Comment deleteCommentsByMeOfCurrentUser:self.currentUser.userID InManagedObjectContext:self.managedObjectContext];
+		[Comment deleteCommentsByMeInManagedObjectContext:self.managedObjectContext];
     } else if(self.dataSource == CommentsTableViewDataSourceCommentsToMe){
-		[Comment deleteCommentsToMeOfCurrentUser:self.currentUser.userID InManagedObjectContext:self.managedObjectContext];
+		[Comment deleteCommentsToMeInManagedObjectContext:self.managedObjectContext];
     } else if(self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
-        [Comment deleteCommentsMentioningMeOfCurrentUser:self.currentUser.userID InManagedObjectContext:self.managedObjectContext];
+        [Comment deleteCommentsMentioningMeInManagedObjectContext:self.managedObjectContext];
     }
 }
 
@@ -121,7 +121,7 @@
                 
                 if (_dataSource == CommentsTableViewDataSourceCommentsToMe) {
                     for (NSDictionary *dict in dictArray) {
-                        Comment *comment = [Comment insertCommentToMe:dict currentUserID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
+                        Comment *comment = [Comment insertCommentToMe:dict inManagedObjectContext:self.managedObjectContext];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
                         comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
                     }
@@ -129,7 +129,7 @@
                     
                 } else if(_dataSource == CommentsTableViewDataSourceCommentsByMe) {
                     for (NSDictionary *dict in dictArray) {
-                        Comment *comment = [Comment insertCommentByMe:dict currentUserID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
+                        Comment *comment = [Comment insertCommentByMe:dict inManagedObjectContext:self.managedObjectContext];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
                         comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
                     }
@@ -137,7 +137,7 @@
                     
                 } else if (_dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
                     for (NSDictionary *dict in dictArray) {
-                        Comment *comment = [Comment insertCommentMentioningMe:dict currentUserID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
+                        Comment *comment = [Comment insertCommentMentioningMe:dict inManagedObjectContext:self.managedObjectContext];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
                         comment.commentHeight = [NSNumber numberWithFloat:[CardViewController heightForTextContent:comment.text]];
                     }

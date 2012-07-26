@@ -104,8 +104,13 @@ static CoreDataKernal *kernalInstance = nil;
 }
 
 - (void)configureCurrentUserWithUserID:(NSString *)currentUserID {
+    if (currentUserID == nil || [currentUserID isEqualToString:@""]) {
+        return;
+    }
+    
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    User *currentUser = [User userWithID:currentUserID inManagedObjectContext:appDelegate.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+
+    User *currentUser = [User getCurrentUserWithID:currentUserID inManagedObjectContext:appDelegate.managedObjectContext];
     self.currentUser = currentUser;
     
     NSLog(@"configure current user name %@", currentUser.screenName);

@@ -2,7 +2,7 @@
 //  User.h
 //  VCard
 //
-//  Created by 海山 叶 on 12-7-21.
+//  Created by Gabriel Yeah on 12-7-26.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -41,6 +41,7 @@
 @property (nonatomic, retain) NSString * userID;
 @property (nonatomic, retain) NSNumber * verified;
 @property (nonatomic, retain) NSNumber * verifiedType;
+@property (nonatomic, retain) NSString * currentUserID;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *commentsToMe;
 @property (nonatomic, retain) Conversation *conversation;
@@ -50,6 +51,7 @@
 @property (nonatomic, retain) NSSet *friendsStatuses;
 @property (nonatomic, retain) NSSet *statuses;
 
++ (User *)getCurrentUserWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
 + (User *)insertUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (User *)userWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteFriendsOfUser:(User *)user InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;

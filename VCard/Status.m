@@ -2,7 +2,7 @@
 //  Status.m
 //  VCard
 //
-//  Created by 海山 叶 on 12-7-20.
+//  Created by Gabriel Yeah on 12-7-26.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -12,10 +12,16 @@
 #import "User.h"
 #import "NSDateAddition.h"
 #import "NSUserDefaults+Addition.h"
+#import "CoreDataViewController.h"
+
 
 @implementation Status
 
 @dynamic bmiddlePicURL;
+@dynamic cached;
+@dynamic cacheDateString;
+@dynamic cacheLinks;
+@dynamic cacheTextLabel;
 @dynamic cardSizeCardHeight;
 @dynamic cardSizeImageHeight;
 @dynamic commentsCount;
@@ -44,10 +50,7 @@
 @dynamic thumbnailPicURL;
 @dynamic type;
 @dynamic updateDate;
-@dynamic cacheTextLabel;
-@dynamic cacheDateString;
-@dynamic cacheLinks;
-@dynamic cached;
+@dynamic currentUserID;
 @dynamic author;
 @dynamic comments;
 @dynamic favoritedBy;
@@ -64,33 +67,17 @@
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
+    NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [request setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"statusID == %@ && operatedBy == %@", statudID, object]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"statusID == %@ && operatedBy == %@ && currentUserID = %@", statudID, object, currentUserID]];
     
     Status *res = [[context executeFetchRequest:request error:NULL] lastObject];
     
     return res;
 }
 
-+ (int)countOfStatuseInContext:(NSManagedObjectContext *)context
-
-{
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    
-    [request setIncludesSubentities:NO]; //Omit subentities. Default is YES (i.e. include subentities)
-    
-    NSError *err;
-    NSUInteger count = [context countForFetchRequest:request error:&err];
-    if(count == NSNotFound) {
-        //Handle error
-    }
-    
-    return count;
-}
-
 + (Status *)insertStatus:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
-{    
+{
     NSString *statusID = [[dict objectForKey:@"id"] stringValue];
     
     if (!statusID || [statusID isEqualToString:@""]) {
@@ -105,6 +92,7 @@
     result.updateDate = [NSDate date];
     
     result.statusID = statusID;
+    result.currentUserID = [CoreDataViewController getCurrentUser].userID;
     result.operatable = [NSNumber numberWithBool:![(NSString *)object isEqualToString:kCoreDataIdentifierDefault]];
     result.operatedBy = object;
     
@@ -155,26 +143,6 @@
     return result;
 }
 
-+ (void)deleteObjectsEarlierThan:(NSDate *)updateDate inManagedObjectContext:(NSManagedObjectContext *)context
-{
-    int totalNumber = [self countOfStatuseInContext:context];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(updateDate <= %@)", updateDate];
-    
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:context];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setPredicate:predicate];
-    [fetchRequest setEntity:entity];
-    
-    NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
-    
-    for (NSManagedObject *managedObject in items) {
-        [context deleteObject:managedObject];
-    }
-    
-    totalNumber = [self countOfStatuseInContext:context];
-}
-
 + (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -191,8 +159,10 @@
 + (void)deleteAllTempStatusesInManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", [NSNumber numberWithBool:YES]]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@ && currentUserID = %@", [NSNumber numberWithBool:YES], currentUserID]];
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
     
@@ -204,8 +174,10 @@
 + (void)deleteStatusesOfUser:(User *)user InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@", user, [NSNumber numberWithBool:YES], object]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@ && currentUserID = %@", user, [NSNumber numberWithBool:YES], object, currentUserID]];
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
     
@@ -217,8 +189,10 @@
 + (void)deleteStatusesWithSearchKey:(NSString *)searchKey InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"searchKey == %@ && operatedBy == %@", searchKey, object]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"searchKey == %@ && operatedBy == %@ && currentUserID = %@", searchKey, object, currentUserID]];
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
     
@@ -231,8 +205,9 @@
 {
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
+    NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [request setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", status.repostedBy, object]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID = %@", status.repostedBy, object, currentUserID]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     for (NSManagedObject *managedObject in items) {
@@ -243,8 +218,10 @@
 + (void)deleteMentionStatusesInManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"isMentioned == %@ && forTableView == %@", [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES]]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"isMentioned == %@ && forTableView == %@ && currentUserID = %@", [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], currentUserID]];
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
     
@@ -253,17 +230,13 @@
     }
 }
 
-+ (void)deleteObject:(Status *)object inManagedObjectContext:(NSManagedObjectContext *)context
-{
-    [context deleteObject:object];
-}
-
-
 + (void)deleteStatusWithID:(NSString *)statusID inManagedObjectContext:(NSManagedObjectContext *)context withObject:(id)object
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"statusID == %@ && operatedBy == %@", statusID, object]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"statusID == %@ && operatedBy == %@ && currentUserID = %@", statusID, object, currentUserID]];
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
     

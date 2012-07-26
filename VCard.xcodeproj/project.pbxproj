@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		18025BD115BAD61B00B0520B /* DMConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18025BD015BAD61A00B0520B /* DMConversationTableViewCell.m */; };
 		1802E7731557913900728B60 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1802E7721557913800728B60 /* CoreText.framework */; };
+		180446CF15C0F46D00F0F9C3 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 180446CA15C0F46D00F0F9C3 /* Comment.m */; };
+		180446D015C0F46D00F0F9C3 /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 180446CB15C0F46D00F0F9C3 /* Status.m */; };
+		180446D115C0F46D00F0F9C3 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 180446CC15C0F46D00F0F9C3 /* User.m */; };
 		18047E3015452CB900651305 /* WaterflowColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 18047E2F15452CB900651305 /* WaterflowColumn.m */; };
 		18047E3315452D7200651305 /* WaterflowLayoutUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18047E3215452D7200651305 /* WaterflowLayoutUnit.m */; };
 		1809ED5D159ADA1200A841BC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1809ED5C159ADA1200A841BC /* MessageUI.framework */; };
@@ -105,7 +108,6 @@
 		181FE5BE1557F9AE006C98ED /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181FE5BD1557F9AE006C98ED /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		182887E415B2D35E004B3675 /* UIView+Swing.m in Sources */ = {isa = PBXBuildFile; fileRef = 182887E315B2D35E004B3675 /* UIView+Swing.m */; };
 		182EC05215A497990056E282 /* TopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182EC05115A497990056E282 /* TopicViewController.m */; };
-		182EF5BB15B8F66F005E4BA2 /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 182EF5BA15B8F66F005E4BA2 /* Status.m */; };
 		182EF5C215B92AC0005E4BA2 /* GroupInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182EF5C115B92AC0005E4BA2 /* GroupInfoTableViewController.m */; };
 		1833803415A9C102001DC651 /* card_image_edge.png in Resources */ = {isa = PBXBuildFile; fileRef = 1833803215A9C102001DC651 /* card_image_edge.png */; };
 		1833803515A9C102001DC651 /* card_image_edge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1833803315A9C102001DC651 /* card_image_edge@2x.png */; };
@@ -173,7 +175,6 @@
 		189D9DE215496FA300E922D9 /* UIImageView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D9DE115496FA300E922D9 /* UIImageView+Addition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		189E5D2F15BAA2A700C1C6A7 /* Conversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 189E5D2E15BAA2A700C1C6A7 /* Conversation.m */; };
 		189E5D3215BAA30E00C1C6A7 /* DirectMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 189E5D3115BAA30E00C1C6A7 /* DirectMessage.m */; };
-		189E5D3515BAA32200C1C6A7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 189E5D3415BAA32200C1C6A7 /* User.m */; };
 		189E5D3815BAA54800C1C6A7 /* DMListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 189E5D3715BAA54800C1C6A7 /* DMListTableViewCell.m */; };
 		189F394B159D40CC00FD2E0F /* UnreadReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F394A159D40CC00FD2E0F /* UnreadReminder.m */; };
 		189F3959159D80C500FD2E0F /* indicator_body@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189F3957159D80C500FD2E0F /* indicator_body@2x.png */; };
@@ -420,7 +421,6 @@
 		18ED9D231568D92100627D8F /* button_comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18ED9D1F1568D92100627D8F /* button_comment@2x.png */; };
 		18EE547115B19DBF006EA93A /* SearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE547015B19DBF006EA93A /* SearchTableViewCell.m */; };
 		18EE547415B19DF3006EA93A /* SearchTableViewHighlightsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE547315B19DF3006EA93A /* SearchTableViewHighlightsCell.m */; };
-		18EE8E28159DE6160032D69B /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8E27159DE6160032D69B /* Comment.m */; };
 		18F0869215BEA7A7009455F4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0869115BEA7A7009455F4 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18F086A115BEB408009455F4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F086A015BEB408009455F4 /* SystemConfiguration.framework */; };
 		18F1E4DE1574F47200EB71DD /* side_tableview_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F1E4DC1574F47200EB71DD /* side_tableview_bg@2x.png */; };
@@ -992,6 +992,12 @@
 		18025BCF15BAD61A00B0520B /* DMConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMConversationTableViewCell.h; sourceTree = "<group>"; };
 		18025BD015BAD61A00B0520B /* DMConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMConversationTableViewCell.m; sourceTree = "<group>"; };
 		1802E7721557913800728B60 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		180446C915C0F46D00F0F9C3 /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
+		180446CA15C0F46D00F0F9C3 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
+		180446CB15C0F46D00F0F9C3 /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
+		180446CC15C0F46D00F0F9C3 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		180446CD15C0F46D00F0F9C3 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
+		180446CE15C0F46D00F0F9C3 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		18047E2E15452CB900651305 /* WaterflowColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterflowColumn.h; sourceTree = "<group>"; };
 		18047E2F15452CB900651305 /* WaterflowColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterflowColumn.m; sourceTree = "<group>"; };
 		18047E3115452D7200651305 /* WaterflowLayoutUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterflowLayoutUnit.h; sourceTree = "<group>"; };
@@ -1112,8 +1118,6 @@
 		182887E315B2D35E004B3675 /* UIView+Swing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Swing.m"; sourceTree = "<group>"; };
 		182EC05015A497990056E282 /* TopicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicViewController.h; sourceTree = "<group>"; };
 		182EC05115A497990056E282 /* TopicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicViewController.m; sourceTree = "<group>"; };
-		182EF5B915B8F66F005E4BA2 /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
-		182EF5BA15B8F66F005E4BA2 /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
 		182EF5C015B92AC0005E4BA2 /* GroupInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupInfoTableViewController.h; sourceTree = "<group>"; };
 		182EF5C115B92AC0005E4BA2 /* GroupInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInfoTableViewController.m; sourceTree = "<group>"; };
 		1833803215A9C102001DC651 /* card_image_edge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_image_edge.png; sourceTree = "<group>"; };
@@ -1221,8 +1225,6 @@
 		189E5D2E15BAA2A700C1C6A7 /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conversation.m; sourceTree = "<group>"; };
 		189E5D3015BAA30E00C1C6A7 /* DirectMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectMessage.h; sourceTree = "<group>"; };
 		189E5D3115BAA30E00C1C6A7 /* DirectMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectMessage.m; sourceTree = "<group>"; };
-		189E5D3315BAA32200C1C6A7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		189E5D3415BAA32200C1C6A7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		189E5D3615BAA54800C1C6A7 /* DMListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMListTableViewCell.h; sourceTree = "<group>"; };
 		189E5D3715BAA54800C1C6A7 /* DMListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMListTableViewCell.m; sourceTree = "<group>"; };
 		189F3949159D40CC00FD2E0F /* UnreadReminder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnreadReminder.h; sourceTree = "<group>"; };
@@ -1515,8 +1517,6 @@
 		18EE547015B19DBF006EA93A /* SearchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewCell.m; sourceTree = "<group>"; };
 		18EE547215B19DF3006EA93A /* SearchTableViewHighlightsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableViewHighlightsCell.h; sourceTree = "<group>"; };
 		18EE547315B19DF3006EA93A /* SearchTableViewHighlightsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewHighlightsCell.m; sourceTree = "<group>"; };
-		18EE8E26159DE6160032D69B /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
-		18EE8E27159DE6160032D69B /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		18F0869015BEA7A7009455F4 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		18F0869115BEA7A7009455F4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		18F086A015BEB408009455F4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -2638,18 +2638,18 @@
 		18E707D3153D2C6B0012092E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				18EE8E26159DE6160032D69B /* Comment.h */,
-				18EE8E27159DE6160032D69B /* Comment.m */,
+				180446CD15C0F46D00F0F9C3 /* Comment.h */,
+				180446CA15C0F46D00F0F9C3 /* Comment.m */,
 				189E5D2D15BAA2A700C1C6A7 /* Conversation.h */,
 				189E5D2E15BAA2A700C1C6A7 /* Conversation.m */,
-				18CCC61D15B300FC00DF94F5 /* Group.h */,
-				18CCC61E15B300FC00DF94F5 /* Group.m */,
 				189E5D3015BAA30E00C1C6A7 /* DirectMessage.h */,
 				189E5D3115BAA30E00C1C6A7 /* DirectMessage.m */,
-				182EF5B915B8F66F005E4BA2 /* Status.h */,
-				182EF5BA15B8F66F005E4BA2 /* Status.m */,
-				189E5D3315BAA32200C1C6A7 /* User.h */,
-				189E5D3415BAA32200C1C6A7 /* User.m */,
+				18CCC61D15B300FC00DF94F5 /* Group.h */,
+				18CCC61E15B300FC00DF94F5 /* Group.m */,
+				180446C915C0F46D00F0F9C3 /* Status.h */,
+				180446CB15C0F46D00F0F9C3 /* Status.m */,
+				180446CE15C0F46D00F0F9C3 /* User.h */,
+				180446CC15C0F46D00F0F9C3 /* User.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -4861,7 +4861,6 @@
 				18D3E430159D875B00626D75 /* UnreadCountButton.m in Sources */,
 				18BDD5A4159D9A8A005246F2 /* UnreadIndicatorButton.m in Sources */,
 				18BDD5A8159D9B14005246F2 /* UnreadIndicatorView.m in Sources */,
-				18EE8E28159DE6160032D69B /* Comment.m in Sources */,
 				E1AF111E15A01A67004236ED /* MotionsFilterCell.m in Sources */,
 				E1AF112115A01A67004236ED /* MotionsFilterTableViewController.m in Sources */,
 				18A997E915A1AA8200C2E7A5 /* ShelfViewController.m in Sources */,
@@ -4905,7 +4904,6 @@
 				E10CBEB015B541B800CFA21F /* ActionPopoverViewController.m in Sources */,
 				E10CBEB315B5420800CFA21F /* MPAnimation.m in Sources */,
 				E11D800B15B86025003E078C /* ActionPopoverGestureRecognizeView.m in Sources */,
-				182EF5BB15B8F66F005E4BA2 /* Status.m in Sources */,
 				182EF5C215B92AC0005E4BA2 /* GroupInfoTableViewController.m in Sources */,
 				186E2A2615B9B8B8000CE7E7 /* MessageListViewController.m in Sources */,
 				186E2A2A15B9B8CB000CE7E7 /* MessageConversationViewController.m in Sources */,
@@ -4913,7 +4911,6 @@
 				18C89BFC15BA9208006A5B21 /* DMConversationTableViewController.m in Sources */,
 				189E5D2F15BAA2A700C1C6A7 /* Conversation.m in Sources */,
 				189E5D3215BAA30E00C1C6A7 /* DirectMessage.m in Sources */,
-				189E5D3515BAA32200C1C6A7 /* User.m in Sources */,
 				189E5D3815BAA54800C1C6A7 /* DMListTableViewCell.m in Sources */,
 				E119126915BBC0FE00247151 /* NSString+Addition.m in Sources */,
 				18025BD115BAD61B00B0520B /* DMConversationTableViewCell.m in Sources */,
@@ -4933,6 +4930,9 @@
 				1850B86415C0119500A1C411 /* AFXMLRequestOperation.m in Sources */,
 				1850B86515C0119500A1C411 /* UIImageView+AFNetworking.m in Sources */,
 				1850B86915C011A500A1C411 /* SDURLCache.m in Sources */,
+				180446CF15C0F46D00F0F9C3 /* Comment.m in Sources */,
+				180446D015C0F46D00F0F9C3 /* Status.m in Sources */,
+				180446D115C0F46D00F0F9C3 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

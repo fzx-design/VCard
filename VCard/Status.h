@@ -2,7 +2,7 @@
 //  Status.h
 //  VCard
 //
-//  Created by 海山 叶 on 12-7-20.
+//  Created by Gabriel Yeah on 12-7-26.
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
@@ -19,6 +19,10 @@
 @interface Status : NSManagedObject
 
 @property (nonatomic, retain) NSString * bmiddlePicURL;
+@property (nonatomic, retain) NSNumber * cached;
+@property (nonatomic, retain) id cacheDateString;
+@property (nonatomic, retain) id cacheLinks;
+@property (nonatomic, retain) id cacheTextLabel;
 @property (nonatomic, retain) NSNumber * cardSizeCardHeight;
 @property (nonatomic, retain) NSNumber * cardSizeImageHeight;
 @property (nonatomic, retain) NSString * commentsCount;
@@ -47,10 +51,7 @@
 @property (nonatomic, retain) NSString * thumbnailPicURL;
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSDate * updateDate;
-@property (nonatomic, retain) id cacheTextLabel;
-@property (nonatomic, retain) id cacheDateString;
-@property (nonatomic, retain) id cacheLinks;
-@property (nonatomic, retain) NSNumber * cached;
+@property (nonatomic, retain) NSString * currentUserID;
 @property (nonatomic, retain) User *author;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) User *favoritedBy;
@@ -61,12 +62,9 @@
 - (BOOL)isEqualToStatus:(Status *)status;
 + (Status *)insertStatus:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (Status *)statusWithID:(NSString *)statudID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
-+ (void)deleteObjectsEarlierThan:(NSDate *)updateDate inManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteRepostsOfStatus:(Status *)status ManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
-+ (int)countOfStatuseInContext:(NSManagedObjectContext *)context;
 + (void)deleteAllTempStatusesInManagedObjectContext:(NSManagedObjectContext *)context;
-+ (void)deleteObject:(Status *)object inManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteStatusWithID:(NSString *)statusID inManagedObjectContext:(NSManagedObjectContext *)context withObject:(id)object;
 + (void)deleteStatusesOfUser:(User *)user InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteStatusesWithSearchKey:(NSString *)searchKey InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;

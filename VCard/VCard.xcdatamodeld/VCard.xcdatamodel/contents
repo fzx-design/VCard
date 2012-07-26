@@ -10,6 +10,7 @@
         <attribute name="createdAt" attributeType="Date">
             <userInfo/>
         </attribute>
+        <attribute name="currentUserID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mentioningMe" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="operatable" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="operatedBy" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -81,6 +82,7 @@
         <attribute name="createdAt" attributeType="Date">
             <userInfo/>
         </attribute>
+        <attribute name="currentUserID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="favorited" optional="YES" attributeType="Boolean">
             <userInfo/>
         </attribute>
@@ -147,6 +149,7 @@
         <attribute name="createdAt" optional="YES" attributeType="Date">
             <userInfo/>
         </attribute>
+        <attribute name="currentUserID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="domainURL" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>

@@ -37,4 +37,6 @@
 + (Group *)setUpDefaultGroupImageWithDefaultURL:(NSString *)defaultURL UserID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteAllGroupsOfType:(int)type OfUser:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (void)deleteAllGroupsOfUser:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end
