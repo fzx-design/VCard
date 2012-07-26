@@ -58,7 +58,7 @@
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             NSDictionary *userDict = client.responseJSONObject;
-            User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+            User *user = [User insertCurrentUser:userDict inManagedObjectContext:self.managedObjectContext];
             
             [NSUserDefaults insertUserAccountInfoWithUserID:user.userID account:account password:password];
             

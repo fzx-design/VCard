@@ -55,7 +55,21 @@
 @dynamic friendsStatuses;
 @dynamic statuses;
 
++ (User *)insertCurrentUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    User *user = [User configureBasicUserInfoWithDict:dict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierDefault];
+    user.currentUserID = user.userID;
+    return user;
+}
+
 + (User *)insertUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
+{
+    User *user = [User configureBasicUserInfoWithDict:dict inManagedObjectContext:context withOperatingObject:object];
+    user.currentUserID = [CoreDataViewController getCurrentUser].userID;
+    return user;
+}
+
++ (User *)configureBasicUserInfoWithDict:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
 {
     NSString *userID = [[dict objectForKey:@"id"] stringValue];
     
@@ -73,7 +87,6 @@
     result.updateDate = [NSDate date];
     
     result.userID = userID;
-    result.currentUserID = [CoreDataViewController getCurrentUser].userID;
     result.screenName = [dict objectForKey:@"screen_name"];
     result.operatable = [NSNumber numberWithBool:![(NSString *)object isEqualToString:kCoreDataIdentifierDefault]];
     result.operatedBy = object;

@@ -52,6 +52,7 @@
 @property (nonatomic, retain) NSSet *statuses;
 
 + (User *)getCurrentUserWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
++ (User *)insertCurrentUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context;
 + (User *)insertUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (User *)userWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteFriendsOfUser:(User *)user InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
