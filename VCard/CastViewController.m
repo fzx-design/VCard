@@ -1078,7 +1078,7 @@
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext];
  
-    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && operatable == %@", self.currentUser, [NSNumber numberWithBool:NO]];
+    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && operatable == %@ && currentUserID == %@", self.currentUser, [NSNumber numberWithBool:NO], self.currentUser.userID];
                   
 }
 

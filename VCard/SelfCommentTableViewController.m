@@ -205,11 +205,11 @@
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"commentID" ascending:NO];
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     if (self.dataSource == CommentsTableViewDataSourceCommentsToMe) {
-		request.predicate = [NSPredicate predicateWithFormat:@"toMe == %@ && source == %@", [NSNumber numberWithBool:YES], self.currentUser.userID];
+		request.predicate = [NSPredicate predicateWithFormat:@"toMe == %@ && currentUserID == %@", [NSNumber numberWithBool:YES], self.currentUser.userID];
 	} else if(self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
-		request.predicate = [NSPredicate predicateWithFormat:@"byMe == %@ && source == %@", [NSNumber numberWithBool:YES], self.currentUser.userID];
+		request.predicate = [NSPredicate predicateWithFormat:@"byMe == %@ && currentUserID == %@", [NSNumber numberWithBool:YES], self.currentUser.userID];
 	} else if(self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe){
-        request.predicate = [NSPredicate predicateWithFormat:@"mentioningMe == %@ && source == %@", [NSNumber numberWithBool:YES], self.currentUser.userID]; 
+        request.predicate = [NSPredicate predicateWithFormat:@"mentioningMe == %@ && currentUserID == %@", [NSNumber numberWithBool:YES], self.currentUser.userID]; 
     }
 }
 

@@ -191,13 +191,13 @@
                                      inManagedObjectContext:self.managedObjectContext];
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"commentID" ascending:NO];
         request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.status.comments, _coreDataIdentifier];
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.status.comments, _coreDataIdentifier, self.currentUser.userID];
     } else {
         request.entity = [NSEntityDescription entityForName:@"Status"
                                      inManagedObjectContext:self.managedObjectContext];
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"statusID" ascending:NO];
         request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.status.repostedBy, _coreDataIdentifier];
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.status.repostedBy, _coreDataIdentifier, self.currentUser.userID];
     }
 }
 

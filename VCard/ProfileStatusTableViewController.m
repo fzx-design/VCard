@@ -213,11 +213,11 @@
     request.entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext];
     
     if (_type == StatusTableViewControllerTypeUserStatus) {
-        request.predicate = [NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@", self.user, [NSNumber numberWithBool:YES], _coreDataIdentifier];
+        request.predicate = [NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@ && currentUserID == %@", self.user, [NSNumber numberWithBool:YES], _coreDataIdentifier, self.currentUser.userID];
     } else if (_type == statusTableViewControllerTypeMentionStatus){
-        request.predicate = [NSPredicate predicateWithFormat:@"isMentioned == %@", [NSNumber numberWithBool:YES]];
+        request.predicate = [NSPredicate predicateWithFormat:@"isMentioned == %@ && currentUserID == %@", [NSNumber numberWithBool:YES], self.currentUser.userID];
     } else if (_type == StatusTableViewControllerTypeTopicStatus){
-        request.predicate = [NSPredicate predicateWithFormat:@"searchKey == %@ && operatedBy == %@", _searchKey, _coreDataIdentifier];
+        request.predicate = [NSPredicate predicateWithFormat:@"searchKey == %@ && operatedBy == %@ && currentUserID == %@", _searchKey, _coreDataIdentifier, self.currentUser.userID];
     }
 }
 

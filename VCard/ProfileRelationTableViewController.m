@@ -140,11 +140,11 @@
                                  inManagedObjectContext:self.managedObjectContext];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updateDate" ascending:YES];
     if (_type == RelationshipViewTypeFriends) {
-        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.user.friends, _coreDataIdentifier];
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.user.friends, _coreDataIdentifier, self.currentUser.userID];
     } else if(_type == RelationshipViewTypeFollowers) {
-        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@", self.user.followers, _coreDataIdentifier];
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.user.followers, _coreDataIdentifier, self.currentUser.userID];
     }  else if(_type == RelationshipViewTypeSearch) {
-        request.predicate = [NSPredicate predicateWithFormat:@"operatedBy == %@",_coreDataIdentifier];
+        request.predicate = [NSPredicate predicateWithFormat:@"operatedBy == %@ && currentUserID == %@",_coreDataIdentifier, self.currentUser.userID];
     }
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
 }
