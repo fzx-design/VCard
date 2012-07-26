@@ -50,9 +50,6 @@
     self.navLabelInitFrame = self.navLabel.frame;
     
     self.textView.selectedRange = NSMakeRange(self.textView.text.length, 0);
-    
-    if([NSUserDefaults isAutoLocateEnabled])
-        [self didClickNavButton:self.navButton];
 
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
@@ -66,6 +63,11 @@
 }
 
 #pragma mark - UI methods
+
+- (void)unfoldAnimationDidFinish {
+    if([NSUserDefaults isAutoLocateEnabled])
+        [self didClickNavButton:self.navButton];
+}
 
 - (void)showNavLocationLabel:(NSString *)place {
     self.navLabel.text = place;

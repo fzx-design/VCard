@@ -96,6 +96,7 @@ typedef enum {
 - (void)showViewFromRect:(CGRect)rect;
 - (void)dismissViewToRect:(CGRect)rect;
 - (void)dismissViewUpwards;
+- (void)unfoldAnimationDidFinish;
 
 - (void)saveImageInBackground:(UIImage *)image;
 

@@ -708,6 +708,10 @@ typedef enum {
                      }];
 }
 
+- (void)unfoldAnimationDidFinish {
+    
+}
+
 - (void)unfoldPaperAnimation {
     [self configurePaperHolderImageView];    
     self.postView.hidden = YES;
@@ -717,6 +721,7 @@ typedef enum {
     [CATransaction setCompletionBlock:^{
 		self.postView.hidden = NO;
         self.paperImageHolderView.hidden = YES;
+        [self unfoldAnimationDidFinish];
 	}];
     
     double factor = - 1 * M_PI / 180;
