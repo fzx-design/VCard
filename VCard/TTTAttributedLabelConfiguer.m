@@ -129,7 +129,6 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 
 + (void)setCardViewController:(CardViewController *)vc SummaryText:(NSString *)text toLabel:(TTTAttributedLabel*)label
 {
-    NSRegularExpression *regexp = EmotionRegularExpression();
     NSRange stringRange = NSMakeRange(0, [text length]);
     
     [label setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
@@ -158,8 +157,8 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         
         return mutableAttributedString;
     }];
-    
-    regexp = NameRegularExpression();
+
+    NSRegularExpression * regexp = NameRegularExpression();
     [regexp enumerateMatchesInString:text options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
         NSRange range = result.range;
         if (range.length != 1) {
@@ -219,8 +218,8 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         
         [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:stringRange];
         [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)RegexColor range:stringRange];
+        CFRelease(systemFont);
     }
-    CFRelease(systemFont);
 }
 
 + (void)configureEmotionsForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange

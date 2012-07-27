@@ -433,7 +433,9 @@ typedef enum {
         } else {
             imageRect = CGRectMake(0, (image.size.height - image.size.width) / 2, image.size.width, image.size.width);
         }
-        UIImage *optimizedImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(image.CGImage, imageRect)];
+        CGImageRef optimizedImageRef = CGImageCreateWithImageInRect(image.CGImage, imageRect);
+        UIImage *optimizedImage = [UIImage imageWithCGImage:optimizedImageRef];
+        CGImageRelease(optimizedImageRef);
         
         if (NULL != UIGraphicsBeginImageContextWithOptions)
             UIGraphicsBeginImageContextWithOptions(imageViewRect.size, NO, 0);
@@ -460,8 +462,15 @@ typedef enum {
     
     CGRect leftRect = CGRectMake(0, 0, viewImage.size.width / 2, viewImage.size.height);
     CGRect rightRect = CGRectMake(viewImage.size.width / 2, 0, viewImage.size.width / 2, viewImage.size.height);
-    UIImage *leftImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, leftRect)];
-    UIImage *rightImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, rightRect)];
+    
+    CGImageRef leftImageRef = CGImageCreateWithImageInRect(viewImage.CGImage, leftRect);
+    CGImageRef rightImageRef = CGImageCreateWithImageInRect(viewImage.CGImage, rightRect);
+    
+    UIImage *leftImage = [UIImage imageWithCGImage:leftImageRef];
+    UIImage *rightImage = [UIImage imageWithCGImage:rightImageRef];
+    
+    CGImageRelease(leftImageRef);
+    CGImageRelease(rightImageRef);
     
     self.leftPaperImageView.image = leftImage;
     self.rightPaperImageView.image = rightImage;

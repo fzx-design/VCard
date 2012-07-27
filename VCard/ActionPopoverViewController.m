@@ -669,8 +669,13 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
     
     CGRect topCropRect = CGRectMake(0, topY * scale, cropView.frame.size.width * scale, (bottomY - topY) * scale);
     CGRect bottomCropRect = CGRectMake(0, bottomY * scale, cropView.frame.size.width * scale, (cropView.frame.size.height - bottomY) * scale);
-    UIImage *topImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, topCropRect)];
-    UIImage *bottomImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, bottomCropRect)];
+    CGImageRef topImageRef = CGImageCreateWithImageInRect(viewImage.CGImage, topCropRect);
+    CGImageRef bottomRef = CGImageCreateWithImageInRect(viewImage.CGImage, bottomCropRect);
+    UIImage *topImage = [UIImage imageWithCGImage:topImageRef];
+    UIImage *bottomImage = [UIImage imageWithCGImage:bottomRef];
+    
+    CGImageRelease(topImageRef);
+    CGImageRelease(bottomRef);
     
     self.topBar.image = topImage;
     self.bottomBar.image = bottomImage;

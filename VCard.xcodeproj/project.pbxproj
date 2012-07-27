@@ -397,7 +397,6 @@
 		18EA50451534711A005ED94F /* stackview_pre_shadow_cover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA503F1534711A005ED94F /* stackview_pre_shadow_cover@2x.png */; };
 		18EB247C15AE93380047530E /* UIScrollView+ZoomToPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB247B15AE93380047530E /* UIScrollView+ZoomToPoint.m */; };
 		18EB3FB815BB96500017B047 /* TTTAttributedLabelConfiguer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB3FB715BB96500017B047 /* TTTAttributedLabelConfiguer.m */; };
-		18ED04AF1558B76200EF6641 /* ResourceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ED04AE1558B76200EF6641 /* ResourceProvider.m */; };
 		18ED9CE61568BA1900627D8F /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ED9CE51568BA1900627D8F /* UIImage+Addition.m */; };
 		18ED9CED1568BF6C00627D8F /* castview_bg_unit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18ED9CEB1568BF6C00627D8F /* castview_bg_unit@2x.png */; };
 		18ED9CEE1568BF6C00627D8F /* castview_bg_unit.png in Resources */ = {isa = PBXBuildFile; fileRef = 18ED9CEC1568BF6C00627D8F /* castview_bg_unit.png */; };
@@ -1477,8 +1476,6 @@
 		18EB247B15AE93380047530E /* UIScrollView+ZoomToPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+ZoomToPoint.m"; sourceTree = "<group>"; };
 		18EB3FB615BB96500017B047 /* TTTAttributedLabelConfiguer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabelConfiguer.h; sourceTree = "<group>"; };
 		18EB3FB715BB96500017B047 /* TTTAttributedLabelConfiguer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabelConfiguer.m; sourceTree = "<group>"; };
-		18ED04AD1558B76200EF6641 /* ResourceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceProvider.h; sourceTree = "<group>"; };
-		18ED04AE1558B76200EF6641 /* ResourceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceProvider.m; sourceTree = "<group>"; };
 		18ED9CE41568BA1800627D8F /* UIImage+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Addition.h"; sourceTree = "<group>"; };
 		18ED9CE51568BA1900627D8F /* UIImage+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Addition.m"; sourceTree = "<group>"; };
 		18ED9CEB1568BF6C00627D8F /* castview_bg_unit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "castview_bg_unit@2x.png"; sourceTree = "<group>"; };
@@ -2343,8 +2340,6 @@
 			isa = PBXGroup;
 			children = (
 				E1AA44F615BD32E000F3DCA6 /* Sound */,
-				18ED04AD1558B76200EF6641 /* ResourceProvider.h */,
-				18ED04AE1558B76200EF6641 /* ResourceProvider.m */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -4767,7 +4762,6 @@
 				18047E3315452D7200651305 /* WaterflowLayoutUnit.m in Sources */,
 				189D9DE215496FA300E922D9 /* UIImageView+Addition.m in Sources */,
 				181FE5BE1557F9AE006C98ED /* TTTAttributedLabel.m in Sources */,
-				18ED04AF1558B76200EF6641 /* ResourceProvider.m in Sources */,
 				18AC828E155B924700AD99C4 /* PullToRefreshView.m in Sources */,
 				18ED9CE61568BA1900627D8F /* UIImage+Addition.m in Sources */,
 				18DF3740156B55AC00C56685 /* WaterflowCardCell.m in Sources */,

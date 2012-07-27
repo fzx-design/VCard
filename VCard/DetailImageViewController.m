@@ -261,9 +261,7 @@
     CGFloat height = [_imageView targetSize].height * targetScale;
     
     [_imageView resetOrigin:CGPointMake(screenWidth / 2 - width / 2, screenHeight / 2 - height / 2)];
-    
-    scale = _scrollView.zoomScale / _originScale;
-    
+        
     _scrollView.contentSize = CGSizeMake(width, height - 20);
     _originScale = _scrollView.zoomScale;
     _scrollView.minimumZoomScale = _originScale;
@@ -271,9 +269,6 @@
     if (_scrollView.maximumZoomScale < 1.0) {
         _scrollView.maximumZoomScale = 1.0;
     }
-    
-    
-    scale *= _originScale;
     
     [_imageView resetSize:CGSizeMake(width, height)];
     

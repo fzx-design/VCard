@@ -11,7 +11,6 @@
 #import "UIImageView+Addition.h"
 #import "UIApplication+Addition.h"
 #import "NSDateAddition.h"
-#import "ResourceProvider.h"
 #import "User.h"
 #import "Comment.h"
 #import "WBClient.h"

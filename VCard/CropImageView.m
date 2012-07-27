@@ -120,7 +120,9 @@ typedef enum {
 
 - (void)drawShadow {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, CGColorCreateCopyWithAlpha([UIColor blackColor].CGColor, 0.6f));
+    CGColorRef colorRef = CGColorCreateCopyWithAlpha([UIColor blackColor].CGColor, 0.6f);
+    CGContextSetFillColorWithColor(context, colorRef);
+    CGColorRelease(colorRef);
     
     CGRect rectangle = CGRectMake(0, 0, (int)[self pointImageViewWithIdentifier:PointPositionRightTop].center.x, (int)[self pointImageViewWithIdentifier:PointPositionRightTop].center.y);
     CGContextAddRect(context, rectangle);
@@ -142,7 +144,9 @@ typedef enum {
 - (void)drawLine {
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2.0);
-    CGContextSetStrokeColorWithColor(context, CGColorCreateCopyWithAlpha([UIColor whiteColor].CGColor, 0.6f));
+    CGColorRef colorRef = CGColorCreateCopyWithAlpha([UIColor whiteColor].CGColor, 0.6f);
+    CGContextSetStrokeColorWithColor(context, colorRef);
+    CGColorRelease(colorRef);
     
     CGPoint initPos = [self pointImageViewWithIdentifier:PointPositionLeftBottom].center;
     CGContextMoveToPoint(context, initPos.x, initPos.y);
@@ -574,8 +578,7 @@ Vector rotateVector(Vector src, float rotate) {
     Vector rectPoints[4] = {rectLT, rectLB, rectRT, rectRB};
     
     for(int i = 0; i < 4; i++) {
-        Vector p = rectPoints[i];
-        p = rotateVector(rectPoints[i], rotateFactor);
+        Vector p = rotateVector(rectPoints[i], rotateFactor);
         minX = minX < p.x ? minX : p.x;
         minY = minY < p.y ? minY : p.y;
         maxX = maxX > p.x ? maxX : p.x;

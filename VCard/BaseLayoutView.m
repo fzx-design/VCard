@@ -8,7 +8,6 @@
 
 #import "BaseLayoutView.h"
 #import "ResourceList.h"
-#import "ResourceProvider.h"
 #import <QuartzCore/CATiledLayer.h>
 
 #define CenterTileRect CGRectMake(0.0, 0.0, 1024, 62)
@@ -38,22 +37,6 @@
     }
     return self;
 }
-
-
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-//- (void)drawRect:(CGRect)rect
-//{
-//    // Drawing code
-//    CGContextRef currentContext = UIGraphicsGetCurrentContext();
-//    
-//    CGContextTranslateCTM(currentContext, 0, rect.size.height);
-//    CGContextScaleCTM(currentContext, 1.0, -1.0);
-//    
-//    CGContextClipToRect(currentContext, rect);
-//    CGRect centerTileRect = CenterTileRect;
-//    CGContextDrawTiledImage(currentContext, centerTileRect, [ResourceProvider backgroundTileImageRef]);
-//}
 
 
 @end

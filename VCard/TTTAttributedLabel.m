@@ -359,7 +359,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     }
     
     NSRange range = result.range;
-    NSMutableAttributedString *mutableAttributedString = [self.attributedText mutableCopy];
+    NSMutableAttributedString *mutableAttributedString = [[self.attributedText mutableCopy] autorelease];
     [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:range];
     [mutableAttributedString addAttributes:[mutableAttributedString attribute:(NSString *)kTTTTemporaryAttributesAttributeName atIndex:range.location effectiveRange:nil] range:range];
     
@@ -533,7 +533,6 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
         
         if (foundExpression) {
             [self drawTextSelectionButtonWithRect:buttonFrame];
-            foundExpression = NO;
         }
         
         lineIndex++;

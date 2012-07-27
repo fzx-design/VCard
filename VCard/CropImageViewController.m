@@ -120,7 +120,9 @@
     CGSize sizeAfterRotate = image.size;
     CGPoint newCenter = CGPointMake(sizeAfterRotate.width / 2, sizeAfterRotate.height / 2);
     CGRect rotateFrame = CGRectMake(newCenter.x - (center.x - x), newCenter.y - (center.y - y), w, h);
-    UIImage *result = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(image.CGImage, rotateFrame)];
+    CGImageRef resultRef = CGImageCreateWithImageInRect(image.CGImage, rotateFrame);
+    UIImage *result = [UIImage imageWithCGImage:resultRef];
+    CGImageRelease(resultRef);
     return result;
 }
 

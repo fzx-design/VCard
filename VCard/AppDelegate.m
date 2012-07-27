@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "ResourceProvider.h"
 #import "ErrorIndicatorManager.h"
 #import "NSNotificationCenter+Addition.h"
 #import "WBClient.h"
@@ -61,7 +60,6 @@
                                                object:nil];
     _reachability = [Reachability reachabilityForInternetConnection];
     [_reachability startNotifier];
-    [ResourceProvider initialize];
     [[NSUserDefaults standardUserDefaults] setValue:@(YES) forKey:kUserDefaultKeyShouldScrollToTop];
     
     [NSNotificationCenter registerRootViewControllerViewDidLoadNotificationWithSelector:@selector(rootViewControllerViewDidLoad:) target:[UIApplication sharedApplication]];
