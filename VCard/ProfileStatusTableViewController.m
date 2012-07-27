@@ -14,6 +14,7 @@
 #import "User.h"
 #import "WaterflowLayoutUnit.h"
 #import "NSUserDefaults+Addition.h"
+#import "NSNotificationCenter+Addition.h"
 
 @interface ProfileStatusTableViewController () {
     long long _nextCursor;
@@ -90,6 +91,7 @@
         return;
     }
     _loading = YES;
+    [NSNotificationCenter postWillReloadCardCellNotification];
     
     WBClient *client = [WBClient client];
     
@@ -127,6 +129,7 @@
             _hasMoreViews = dictArray.count == 20;
         }
         
+        [NSNotificationCenter postDidReloadCardCellNotification];
         [self refreshEnded];
         [self adjustBackgroundView];
         [_pullView finishedLoading];

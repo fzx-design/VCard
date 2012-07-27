@@ -906,6 +906,8 @@
     }
     _loading = YES;
     
+    [NSNotificationCenter postWillReloadCardCellNotification];
+    
     WBClient *client = [WBClient client];
     
     [client setCompletionBlock:^(WBClient *client) {
@@ -953,6 +955,7 @@
             _hasMoreViews = dictArray.count == 20;
         }
         
+        [NSNotificationCenter postDidReloadCardCellNotification];
         [self refreshEnded];
         [_pullView finishedLoading];
         [_loadMoreView finishedLoading:_hasMoreViews];
