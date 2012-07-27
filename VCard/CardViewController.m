@@ -38,7 +38,6 @@
     BOOL _isTimeStampEnabled;
     BOOL _alreadyConfigured;
     BOOL _imageAlreadyLoaded;
-    BOOL _isActionPopoverShown;
     CGFloat _scale;
     CGFloat _lastScale;
     CGFloat _currentScale;
@@ -52,6 +51,7 @@
 @property (readonly) BOOL isCardDeletable;
 @property (readonly) BOOL isCardFavorited;
 @property (nonatomic, weak) UIAlertView *deleteStatusAlertView;
+@property (readonly, getter = isActionPopoverShowing) BOOL actionPopoverShowing;
 
 @end
 
@@ -194,7 +194,6 @@
     }
     
     _alreadyConfigured = YES;
-    _isActionPopoverShown = NO;
     _coreDataIdentifier = identifier;
     self.statusImageView.imageViewMode = CastViewImageViewModeNormal;
     _pageIndex = pageIndex_;
@@ -541,7 +540,7 @@
 
 - (BOOL)attributedLabelShouldReceiveTouchEvent:(TTTAttributedLabel *)label
 {
-    return _isActionPopoverShown;
+    return self.isActionPopoverShowing;
 }
 
 #pragma mark - Send Notification
@@ -1064,12 +1063,13 @@
     return self.status.favorited.boolValue;
 }
 
-- (ActionPopoverViewController *)actionPopoverViewController {
-    if(!_actionPopoverViewController) {
-        _actionPopoverViewController = [ActionPopoverViewController getActionPopoverViewControllerWithFavoriteButtonOn:self.isCardFavorited showDeleteButton:self.isCardDeletable];
-        _actionPopoverViewController.delegate = self;
-    }
-    return _actionPopoverViewController;
+- (BOOL)isActionPopoverShowing {
+    return self.actionPopoverViewController != nil;
+}
+
+- (void)buildActionPopoverViewController {    
+    self.actionPopoverViewController = [ActionPopoverViewController getActionPopoverViewControllerWithFavoriteButtonOn:self.isCardFavorited showDeleteButton:self.isCardDeletable];
+    self.actionPopoverViewController.delegate = self;
 }
 
 - (void)adjustScrollView:(UIScrollView *)scrollView cropBottomY:(CGFloat)cropPosBottomY cellPosY:(CGFloat)cellPosY {
@@ -1085,6 +1085,8 @@
 }
 
 - (void)showActionPopoverAnimated:(BOOL)animated {
+    if(self.isActionPopoverShowing)
+        return;
     
     CGFloat cropPosTopY = self.repostButton.frame.origin.y;
     CGFloat cropPosBottomY = self.repostButton.frame.origin.y + self.repostButton.frame.size.height;
@@ -1113,6 +1115,7 @@
     [cropCardView addSubview:self.view];
     [superView addSubview:cropCardView];
     
+    [self buildActionPopoverViewController];
     [[UIApplication sharedApplication].rootViewController.view addSubview:self.actionPopoverViewController.view];
     
     cardFrame.origin.y += cropPosTopY;
@@ -1137,29 +1140,35 @@
         [self adjustScrollView:scrollView cropBottomY:cropPosBottomY cellPosY:superView.frame.origin.y];
     } else {
         NSLog(@"not scrollview");
+        abort();
     }
 }
 
 - (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {
     if(gesture.state == UIGestureRecognizerStateBegan) {
         if (!self.originalStatusLabel.linkCaptured && !self.repostStatusLabel.linkCaptured) {
-            _isActionPopoverShown = YES;
             [self showActionPopoverAnimated:YES];
         }
     }
 }
 
+- (void)clearActionPopoverViewController {
+    
+}
+
 #pragma mark - ActionPopoverViewController delegate
 
 - (void)actionPopoverViewDidDismiss {
-    _isActionPopoverShown = NO;
+    if(!self.isActionPopoverShowing)
+        return;
+    
     UIView *cropCardView = self.view.superview;
     UIView *superView = self.view.superview.superview;
+    [self.view removeFromSuperview];
     [cropCardView removeFromSuperview];
     
     UIEdgeInsets cardInsets = CARD_CROP_INSETS;
     
-    [self.view removeFromSuperview];
     [self.view resetOrigin:CGPointMake(cropCardView.frame.origin.x - cardInsets.left, cropCardView.frame.origin.y - cardInsets.top)];
     [superView addSubview:self.view];
     
@@ -1174,6 +1183,8 @@
     UIScrollView *scrollView = (UIScrollView *)self.view.superview.superview;
     if([scrollView isKindOfClass:[UIScrollView class]]) {
         scrollView.scrollEnabled = YES;
+    } else {
+        abort();
     }
 }
 

@@ -278,7 +278,7 @@ typedef enum {
              commentType:(RepostWeiboType)type {
     self.path = @"statuses/repost.json";
     [self.params setObject:(text ? text : @"") forKey:@"status"];
-    [self.params setObject:originID forKey:@"id"];
+    [self.params setObject:originID ? originID : @"" forKey:@"id"];
     [self.params setObject:[NSString stringWithFormat:@"%d", type] forKey:@"is_comment"];
     self.postDataType = kWBRequestPostDataTypeNormal;
     self.httpMethod = HTTPMethodPost;
@@ -290,7 +290,7 @@ typedef enum {
                commentOrigin:(BOOL)commentOrigin {
     self.path = @"comments/create.json";
     [self.params setObject:(text ? text : @"") forKey:@"comment"];
-    [self.params setObject:originID forKey:@"id"];
+    [self.params setObject:originID ? originID : @"" forKey:@"id"];
     [self.params setObject:[NSString stringWithFormat:@"%d", commentOrigin] forKey:@"comment_ori"];
     self.postDataType = kWBRequestPostDataTypeNormal;
     self.httpMethod = HTTPMethodPost;
@@ -303,8 +303,8 @@ typedef enum {
                    commentOrigin:(BOOL)commentOrigin {
     self.path = @"comments/reply.json";
     [self.params setObject:(text ? text : @"") forKey:@"comment"];
-    [self.params setObject:originID forKey:@"id"];
-    [self.params setObject:replyID forKey:@"cid"];
+    [self.params setObject:originID ? originID : @"" forKey:@"id"];
+    [self.params setObject:replyID ? replyID : @"" forKey:@"cid"];
     [self.params setObject:[NSString stringWithFormat:@"%d", commentOrigin] forKey:@"comment_ori"];
     self.postDataType = kWBRequestPostDataTypeNormal;
     self.httpMethod = HTTPMethodPost;
