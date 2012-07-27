@@ -128,6 +128,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSLog(@"Card Appear");
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
                selector:@selector(recoverFromPause)
@@ -137,6 +138,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    NSLog(@"Card Disppear");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self clearActionPopoverViewController];
 }

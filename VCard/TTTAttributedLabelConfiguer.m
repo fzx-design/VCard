@@ -219,8 +219,8 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         
         [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:stringRange];
         [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)RegexColor range:stringRange];
-        
     }
+    CFRelease(systemFont);
 }
 
 + (void)configureEmotionsForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange
@@ -229,6 +229,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     CTFontRef systemFont = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
     [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:stringRange];
     [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)systemFont range:stringRange];
+    CFRelease(systemFont);
 }
 
 
