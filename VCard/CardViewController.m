@@ -1155,8 +1155,6 @@
 }
 
 - (void)clearActionPopoverViewController {
-    UIView *nonCropCardView = self.actionPopoverViewController.contentView.superview;
-    [nonCropCardView removeFromSuperview];
     [self.actionPopoverViewController.view removeFromSuperview];
     self.actionPopoverViewController = nil;
     
@@ -1184,6 +1182,9 @@
     
     self.view.tag = 0;
     superView.tag = 0;
+    
+    UIView *nonCropCardView = self.actionPopoverViewController.contentView.superview;
+    [nonCropCardView removeFromSuperview];
     
     [self clearActionPopoverViewController];
 }
