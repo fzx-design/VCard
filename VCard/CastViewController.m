@@ -76,7 +76,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
     [self setUpVariables];
     [self initialLoad];
     
@@ -99,6 +98,8 @@
     _coverView.backgroundColor = [UIColor blackColor];
     _coverView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     _coreDataIdentifier = kCoreDataIdentifierDefault;
+    
+    [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
     
     self.waterflowView.flowdatasource = self;
     self.waterflowView.flowdelegate = self;
@@ -278,10 +279,6 @@
 - (void)initialLoad
 {
     [self.fetchedResultsController performFetch:nil];
-    NSArray *undeletableStatusArray = [Status getUndeletableStatusCount:self.managedObjectContext];
-    for (Status *status in undeletableStatusArray) {
-        NSLog(@"%@, %@", status.text, status.author.screenName);
-    }
     
     [self performSelector:@selector(setUpInitialView) withObject:nil afterDelay:0.5];
 }
