@@ -202,6 +202,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
         }
     }];
+        
     if(!_located)
         [client sendWeiBoWithText:self.textView.text image:self.motionsOriginalImage];
     else {

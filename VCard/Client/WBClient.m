@@ -1137,6 +1137,20 @@ typedef enum {
 - (void)request:(WBRequest *)request didFinishLoadingWithResult:(id)result
 {
     self.responseJSONObject = result;
+    
+    if([result isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dict = (NSDictionary *)result;
+        NSString *errorDescription = [dict objectForKey:@"error"];
+        if(errorDescription) {
+            self.hasError = YES;
+            NSError *error = [[NSError alloc] initWithDomain:@"error" code:0 userInfo:dict];
+            self.responseError = error;
+            
+            if(self.shouldReportError)
+                [NSNotificationCenter postWBClientErrorNotification:error];
+        }
+    }
+    
     [self reportCompletion];
     [self autorelease];
 }
