@@ -80,8 +80,19 @@
         [filter setValue:processImage forKey:@"inputImage"];
         [param enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             NSString *paramKey = key;
-            NSNumber *amount = obj;
-            [filter setValue:amount forKey:paramKey];
+            if([obj isKindOfClass:[NSNumber class]]) {
+                NSNumber *amount = obj;
+                [filter setValue:amount forKey:paramKey];
+            } else if([obj isKindOfClass:[NSArray class]]) {
+                NSArray *array = obj;
+                float rgba[4];
+                for(NSUInteger i = 0; i < 4; i++) {
+                    NSNumber *component = [array objectAtIndex:i];
+                    rgba[i] = component.floatValue;
+                }
+                CIColor *color = [[CIColor alloc] initWithColor:[UIColor colorWithRed:rgba[0] green:rgba[1] blue:rgba[2] alpha:rgba[3]]];
+                [filter setValue:color forKey:paramKey];
+            }
         }];
         processImage = [filter outputImage];
     }];

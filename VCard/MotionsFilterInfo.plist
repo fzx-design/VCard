@@ -127,5 +127,54 @@
 			</dict>
 		</dict>
 	</dict>
+	<dict>
+		<key>FilterName</key>
+		<string>锐丽</string>
+		<key>RequirePurchase</key>
+		<false/>
+		<key>FilterParameter</key>
+		<dict>
+			<key>CIVibrance</key>
+			<dict>
+				<key>inputAmount</key>
+				<real>1</real>
+			</dict>
+		</dict>
+	</dict>
+	<dict>
+		<key>FilterName</key>
+		<string>记忆</string>
+		<key>RequirePurchase</key>
+		<false/>
+		<key>FilterParameter</key>
+		<dict>
+			<key>CIColorMonochrome</key>
+			<dict>
+				<key>inputIntensity</key>
+				<real>1</real>
+			</dict>
+		</dict>
+	</dict>
+	<dict>
+		<key>FilterName</key>
+		<string>赤目</string>
+		<key>RequirePurchase</key>
+		<false/>
+		<key>FilterParameter</key>
+		<dict>
+			<key>CIColorMonochrome</key>
+			<dict>
+				<key>inputIntensity</key>
+				<real>0.5</real>
+				<key>inputColor</key>
+				<array>
+					<integer>1</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>1</integer>
+				</array>
+			</dict>
+		</dict>
+	</dict>
 </array>
 </plist>
