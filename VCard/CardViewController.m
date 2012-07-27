@@ -42,6 +42,7 @@
     CGFloat _lastScale;
     CGFloat _currentScale;
     CGPoint _lastPoint;
+    BOOL _viewAppearLock;
 }
 
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinchGestureRecognizer;
@@ -128,6 +129,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    if(_viewAppearLock)
+        return;
+    
     NSLog(@"Card Appear");
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
@@ -138,6 +142,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    if(_viewAppearLock)
+        return;
+    
     NSLog(@"Card Disppear");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self clearActionPopoverViewController];
@@ -1091,6 +1098,8 @@
     if(self.isActionPopoverShowing)
         return;
     
+    _viewAppearLock = YES;
+    
     CGFloat cropPosTopY = self.repostButton.frame.origin.y;
     CGFloat cropPosBottomY = self.repostButton.frame.origin.y + self.repostButton.frame.size.height;
     
@@ -1144,6 +1153,8 @@
     } else {
         NSLog(@"not scrollview");
     }
+    
+    _viewAppearLock = NO;
 }
 
 - (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {
@@ -1170,6 +1181,8 @@
     if(!self.isActionPopoverShowing)
         return;
     
+    _viewAppearLock = YES;
+    
     UIView *cropCardView = self.view.superview;
     UIView *superView = self.view.superview.superview;
     [self.view removeFromSuperview];
@@ -1187,6 +1200,8 @@
     [nonCropCardView removeFromSuperview];
     
     [self clearActionPopoverViewController];
+    
+    _viewAppearLock = NO;
 }
 
 - (void)actionPopoverDidClickButtonWithIdentifier:(ActionPopoverButtonIdentifier)identifier {
