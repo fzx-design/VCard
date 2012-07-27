@@ -308,9 +308,7 @@
     if (needRefresh) {
         _curObjIndex = 0;
         _nextBlockLimit = 0;
-        
-        BlockWeakSelf weakSelf = self;
-        
+                
         while (self.leftColumn.visibleCells.count > 0) {
             __block WaterflowCell *cell = self.leftColumn.visibleCells.lastObject;
             [cell removeFromSuperview];
