@@ -31,6 +31,8 @@
             if([cardCell isKindOfClass:[WaterflowCardCell class]]) {
                 CGPoint cardCellPoint = [self convertPoint:point toView:cardCell];
                 if([cardCell pointInside:cardCellPoint withEvent:event] && cardCell.cardViewController.view.tag == ACTION_POPOVER_CONTAINER_VIEW) {
+                    if(!cardCell.cardViewController.actionPopoverViewController)
+                        continue;
                     UIView *actionPopoverCenterBar = cardCell.cardViewController.actionPopoverViewController.centerBar;
                     CGPoint actionPopoverPoint = [cardCell convertPoint:cardCellPoint toView:actionPopoverCenterBar];
                     if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
@@ -54,6 +56,8 @@
                     if([tableView.tableHeaderView isKindOfClass:[ProfileCommentStatusTableCell class]]) {
                         ProfileCommentStatusTableCell *commentStatusCell = (ProfileCommentStatusTableCell *)tableView.tableHeaderView;
                         if(commentStatusCell.cardViewController.view.tag == ACTION_POPOVER_CONTAINER_VIEW) {
+                            if(!commentStatusCell.cardViewController.actionPopoverViewController)
+                                continue;
                             UIView *actionPopoverCenterBar = commentStatusCell.cardViewController.actionPopoverViewController.centerBar;
                             CGPoint actionPopoverPoint = [tableView convertPoint:tableViewPoint toView:actionPopoverCenterBar];
                             if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
@@ -71,6 +75,8 @@
                         }
                         
                         if(tableViewCell.cardViewController.view.tag == ACTION_POPOVER_CONTAINER_VIEW) {
+                            if(!tableViewCell.cardViewController.actionPopoverViewController)
+                                continue;
                             UIView *actionPopoverCenterBar = tableViewCell.cardViewController.actionPopoverViewController.centerBar;
                             CGPoint actionPopoverPoint = [tableView convertPoint:tableViewPoint toView:actionPopoverCenterBar];
                             if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {

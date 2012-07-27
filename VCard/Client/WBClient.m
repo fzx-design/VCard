@@ -475,8 +475,8 @@ typedef enum {
     [self loadNormalRequest];
 }
 
-- (void)getAddressFromGeoWithCoordinate:(NSString *)coordinate
-{
+- (void)getAddressFromGeoWithCoordinate:(NSString *)coordinate {
+    self.shouldReportError = NO;
     self.path = @"location/geo/geo_to_address.json";
 	
     if (coordinate) {

@@ -138,6 +138,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self clearActionPopoverViewController];
 }
 
 #pragma mark - Functional Method
@@ -553,7 +554,7 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowCommentList
                                                         object:@{kNotificationObjectKeyStatus: self.status,
-                                                                kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
+                                   kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 - (void)sendShowRepostListNotification
@@ -648,7 +649,7 @@
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             NSDictionary *dict = @{kNotificationObjectKeyStatusID: self.status.statusID,
-                                  kNotificationObjectKeyCoredataIdentifier: _coreDataIdentifier};
+        kNotificationObjectKeyCoredataIdentifier: _coreDataIdentifier};
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldDeleteStatus object:dict];
         } else {
             //TODO: Handle Error
@@ -1140,7 +1141,6 @@
         [self adjustScrollView:scrollView cropBottomY:cropPosBottomY cellPosY:superView.frame.origin.y];
     } else {
         NSLog(@"not scrollview");
-        abort();
     }
 }
 
@@ -1153,7 +1153,15 @@
 }
 
 - (void)clearActionPopoverViewController {
+    UIView *nonCropCardView = self.actionPopoverViewController.contentView.superview;
+    [nonCropCardView removeFromSuperview];
+    [self.actionPopoverViewController.view removeFromSuperview];
+    self.actionPopoverViewController = nil;
     
+    UIScrollView *scrollView = (UIScrollView *)self.view.superview.superview;
+    if([scrollView isKindOfClass:[UIScrollView class]]) {
+        scrollView.scrollEnabled = YES;
+    }
 }
 
 #pragma mark - ActionPopoverViewController delegate
@@ -1172,20 +1180,10 @@
     [self.view resetOrigin:CGPointMake(cropCardView.frame.origin.x - cardInsets.left, cropCardView.frame.origin.y - cardInsets.top)];
     [superView addSubview:self.view];
     
-    UIView *nonCropCardView = self.actionPopoverViewController.contentView.superview;
-    [nonCropCardView removeFromSuperview];
-    [self.actionPopoverViewController.view removeFromSuperview];
-    self.actionPopoverViewController = nil;
-    
     self.view.tag = 0;
     superView.tag = 0;
     
-    UIScrollView *scrollView = (UIScrollView *)self.view.superview.superview;
-    if([scrollView isKindOfClass:[UIScrollView class]]) {
-        scrollView.scrollEnabled = YES;
-    } else {
-        abort();
-    }
+    [self clearActionPopoverViewController];
 }
 
 - (void)actionPopoverDidClickButtonWithIdentifier:(ActionPopoverButtonIdentifier)identifier {
