@@ -16,7 +16,32 @@
 #define kRootViewControllerViewDidLoadNotification  @"RootViewControllerViewDidLoadNotification"
 #define kShouldPostRecommendVCardWeiboNotification  @"ShouldPostRecommendVCardWeiboNotification"
 
+#define kWillReloadCardCellNotification @"WillReloadCardCellNotification"
+#define kDidReloadCardCellNotification @"DidReloadCardCellNotification"
+
 @implementation NSNotificationCenter (Addition)
+
++ (void)postWillReloadCardCellNotification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kWillReloadCardCellNotification object:nil userInfo:nil];
+}
+
++ (void)registerWillReloadCardCellNotificationWithSelector:(SEL)aSelector target:(id)aTarget {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:aTarget selector:aSelector
+                   name:kWillReloadCardCellNotification 
+                 object:nil];
+}
+
++ (void)postDidReloadCardCellNotification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kDidReloadCardCellNotification object:nil userInfo:nil];
+}
+
++ (void)registerDidReloadCardCellNotificationWithSelector:(SEL)aSelector target:(id)aTarget {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:aTarget selector:aSelector
+                   name:kDidReloadCardCellNotification 
+                 object:nil];
+}
 
 + (void)postShouldPostRecommendVCardWeiboNotification {
     [[NSNotificationCenter defaultCenter] postNotificationName:kShouldPostRecommendVCardWeiboNotification object:nil userInfo:nil];
