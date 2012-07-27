@@ -38,6 +38,8 @@
 
 #define kShouldPostRecommendVCardWeibo      @"ShouldPostRecommendVCardWeibo"
 
+#define kReloadingCardCell                  @"ReloadingCardCell"
+
 #define KeyForStoredUserAccountInfo(userID) ([NSString stringWithFormat:@"%@_%@", kStoredUserAccountInfo, (userID)])
 
 @implementation NSUserDefaults (Addition)
@@ -326,6 +328,17 @@
 + (void)setLoginUserArray:(NSArray *)array {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:array forKey:kStoredLoginUserArray];
+    [defaults synchronize];
+}
+
++ (BOOL)isReloaingCardCell {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kReloadingCardCell];
+}
+
++ (void)setReloadingCardCellStatus:(BOOL)reloading {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:reloading forKey:kReloadingCardCell];
     [defaults synchronize];
 }
 

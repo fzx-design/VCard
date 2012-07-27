@@ -81,6 +81,9 @@ typedef enum {
 + (BOOL)shouldPostRecommendVCardWeibo;
 + (void)setShouldPostRecommendVCardWeibo:(BOOL)shouldPost;
 
++ (BOOL)isReloaingCardCell;
++ (void)setReloadingCardCellStatus:(BOOL)reloading;
+
 @end
 
 @interface UserAccountInfo : NSObject
