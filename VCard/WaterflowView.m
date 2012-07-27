@@ -312,7 +312,7 @@
         BlockWeakSelf weakSelf = self;
         
         while (self.leftColumn.visibleCells.count > 0) {
-            WaterflowCell *cell = self.leftColumn.visibleCells.lastObject;
+            __block WaterflowCell *cell = self.leftColumn.visibleCells.lastObject;
             [cell removeFromSuperview];
             [_animationCover addSubview:cell];
             [self.leftColumn.visibleCells removeObject:cell];
@@ -324,14 +324,15 @@
             } completion:^(BOOL finished) {
                 
                 [cell removeFromSuperview];
-                [cell prepareForReuse];
-                [weakSelf recycleCellIntoReusableQueue:cell];
-                cell.alpha = 1.0;
+                cell = nil;
+//                [cell prepareForReuse];
+//                [weakSelf recycleCellIntoReusableQueue:cell];
+//                cell.alpha = 1.0;
             }];
         }
         
         while (self.rightColumn.visibleCells.count > 0) {
-            WaterflowCell *cell = self.rightColumn.visibleCells.lastObject;
+            __block WaterflowCell *cell = self.rightColumn.visibleCells.lastObject;
             [cell removeFromSuperview];
             [_animationCover addSubview:cell];
             [self.rightColumn.visibleCells removeObject:cell];
@@ -343,9 +344,10 @@
             } completion:^(BOOL finished) {
                 
                 [cell removeFromSuperview];
-                [cell prepareForReuse];
-                [weakSelf recycleCellIntoReusableQueue:cell];
-                cell.alpha = 1.0;
+                cell = nil;
+//                [cell prepareForReuse];
+//                [weakSelf recycleCellIntoReusableQueue:cell];
+//                cell.alpha = 1.0;
             }];
         }
         
@@ -559,6 +561,10 @@
         origin_y = unit.upperBound;
         height = [unit unitHeight];
         
+        if (origin_y + height - self.contentOffset.y < 0.0001) {
+            break;
+        }
+        
         int actualOriginX = unit.isBlockDivider ? 0.0 : origin_x;
         int actualWidth = unit.isBlockDivider ? [self widthOfSceen] : width;
         
@@ -572,7 +578,7 @@
     }
     
     //2. remove cell above this basic cell if there's no margin between basic cell and top
-    while (cell &&  ((cell.frame.origin.y + cell.frame.size.height  - self.contentOffset.y) <  0.0001)) 
+    while (cell &&  ((cell.frame.origin.y + cell.frame.size.height  - self.contentOffset.y) <  0.0001))
     {
         [cell removeFromSuperview];
         [cell prepareForReuse];
@@ -596,7 +602,7 @@
         if(unitIndex == column.unitContainer.count - 1) {
             cell = nil;
             break;
-        } 
+        }
         
         WaterflowLayoutUnit *unit = [column.unitContainer objectAtIndex:unitIndex + 1];
         origin_y = unit.upperBound;
