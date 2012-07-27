@@ -16,6 +16,7 @@
 #import "Comment.h"
 #import "WBClient.h"
 #import "UIApplication+Addition.h"
+#import "NSNotificationCenter+Addition.h"
 #import "UIView+Resize.h"
 #import "EmoticonsInfoReader.h"
 #import "InnerBrowserViewController.h"
@@ -45,7 +46,8 @@
     BOOL _viewAppearLock;
 }
 
-@property (nonatomic, strong) UIPinchGestureRecognizer *pinchGestureRecognizer;
+@property (nonatomic, strong) UIPinchGestureRecognizer *cardImagePinchGestureRecognizer;
+@property (nonatomic, strong) UIPinchGestureRecognizer *actionPopoverPinchGestureRecognizer;
 @property (nonatomic, strong) UIRotationGestureRecognizer *rotationGestureRecognizer;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @property (nonatomic, assign) BOOL doesImageExist;
@@ -57,11 +59,6 @@
 @end
 
 @implementation CardViewController
-
-@synthesize status = _status;
-@synthesize imageHeight = _imageHeight;
-@synthesize actionPopoverViewController = _actionPopoverViewController;
-@synthesize deleteStatusAlertView = _deleteStatusAlertView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -102,9 +99,9 @@
     _rotationGestureRecognizer.delegate = self;
     [self.statusImageView addGestureRecognizer:_rotationGestureRecognizer];
     
-    _pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
-    _pinchGestureRecognizer.delegate = self;
-    [self.statusImageView addGestureRecognizer:_pinchGestureRecognizer];
+    _cardImagePinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+    _cardImagePinchGestureRecognizer.delegate = self;
+    [self.statusImageView addGestureRecognizer:_cardImagePinchGestureRecognizer];
     
     _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     _tapGestureRecognizer.numberOfTapsRequired = 1;
@@ -116,9 +113,11 @@
     favouriteTapGesture.delegate = self;
     [self.favoredImageView addGestureRecognizer:favouriteTapGesture];
     
-    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionPopoverPinchGesture:)];
-    pinchGesture.delegate = self;
-    [self.view addGestureRecognizer:pinchGesture];
+    _actionPopoverPinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionPopoverPinchGesture:)];
+    _actionPopoverPinchGestureRecognizer.delegate = self;
+    [self.view addGestureRecognizer:_actionPopoverPinchGestureRecognizer];
+    
+    [self actionPopoverViewDidDismiss];
 }
 
 - (void)viewDidUnload
@@ -138,6 +137,9 @@
                selector:@selector(recoverFromPause)
                    name:UIApplicationDidBecomeActiveNotification
                  object:nil];
+    
+    [NSNotificationCenter registerWillReloadCardCellNotificationWithSelector:@selector(willReloadCardCell) target:self];
+    [NSNotificationCenter registerDidReloadCardCellNotificationWithSelector:@selector(didReloadCardCell) target:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -147,7 +149,6 @@
     
     NSLog(@"Card Disppear");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self clearActionPopoverViewController];
 }
 
 #pragma mark - Functional Method
@@ -855,7 +856,7 @@
     if (sender.state == UIGestureRecognizerStateEnded || (sender.state == UIGestureRecognizerStateChanged && sender.numberOfTouches < 2) || sender.numberOfTouches > 2) {
         
         self.statusImageView.userInteractionEnabled = NO;
-        _pinchGestureRecognizer.enabled = NO;
+        _cardImagePinchGestureRecognizer.enabled = NO;
         _rotationGestureRecognizer.enabled = NO;
         
         BOOL shouldReturn = YES;
@@ -956,7 +957,7 @@
         [weakSelf playClipTightenAnimation];
         weakSelf.statusImageView.imageViewMode = CastViewImageViewModeNormal;
         weakSelf.statusImageView.userInteractionEnabled = YES;
-        weakSelf.pinchGestureRecognizer.enabled = YES;
+        weakSelf.cardImagePinchGestureRecognizer.enabled = YES;
         weakSelf.rotationGestureRecognizer.enabled = YES;
     }];
 }
@@ -973,9 +974,9 @@
     [self playClipTightenAnimation];
     self.statusImageView.imageViewMode = CastViewImageViewModeNormal;
     self.statusImageView.userInteractionEnabled = YES;
-    _pinchGestureRecognizer.enabled = NO;
+    _cardImagePinchGestureRecognizer.enabled = NO;
     _rotationGestureRecognizer.enabled = NO;
-    _pinchGestureRecognizer.enabled = YES;
+    _cardImagePinchGestureRecognizer.enabled = YES;
     _rotationGestureRecognizer.enabled = YES;
 }
 
@@ -1165,14 +1166,12 @@
     }
 }
 
-- (void)clearActionPopoverViewController {
-    [self.actionPopoverViewController.view removeFromSuperview];
-    self.actionPopoverViewController = nil;
-    
-    UIScrollView *scrollView = (UIScrollView *)self.view.superview.superview;
-    if([scrollView isKindOfClass:[UIScrollView class]]) {
-        scrollView.scrollEnabled = YES;
-    }
+- (void)willReloadCardCell {
+    self.view.userInteractionEnabled = NO;
+}
+
+- (void)didReloadCardCell {
+    self.view.userInteractionEnabled = YES;
 }
 
 #pragma mark - ActionPopoverViewController delegate
@@ -1199,7 +1198,13 @@
     UIView *nonCropCardView = self.actionPopoverViewController.contentView.superview;
     [nonCropCardView removeFromSuperview];
     
-    [self clearActionPopoverViewController];
+    [self.actionPopoverViewController.view removeFromSuperview];
+    self.actionPopoverViewController = nil;
+    
+    UIScrollView *scrollView = (UIScrollView *)self.view.superview.superview;
+    if([scrollView isKindOfClass:[UIScrollView class]]) {
+        scrollView.scrollEnabled = YES;
+    }
     
     _viewAppearLock = NO;
 }
