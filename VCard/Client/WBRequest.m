@@ -8,7 +8,7 @@
 
 #import "WBRequest.h"
 #import "WBUtil.h"
-#import "JSON.h"
+#import "JSONKit.h"
 
 #import "WBSDKGlobal.h"
 
@@ -161,38 +161,9 @@
 
 - (id)parseJSONData:(NSData *)data error:(NSError **)error
 {
-	
-	NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	SBJSON *jsonParser = [[SBJSON alloc]init];
-	
-	NSError *parseError = nil;
-	id result = [jsonParser objectWithString:dataString error:&parseError];
-	
-	if (parseError)
-    {
-        if (error != nil)
-        {
-            *error = [self errorWithCode:kWBErrorCodeSDK
-                                userInfo:@{kWBSDKErrorCodeKey: [NSString stringWithFormat:@"%d", kWBSDKErrorCodeParseError]}];
-        }
-	}
+    JSONDecoder *decoder = [JSONDecoder decoderWithParseOptions:JKParseOptionNone];
     
-	[dataString release];
-	[jsonParser release];
-	
-    
-	if ([result isKindOfClass:[NSDictionary class]])
-	{
-		if ([result objectForKey:@"error_code"] != nil && [[result objectForKey:@"error_code"] intValue] != 200)
-		{
-			if (error != nil) 
-			{
-				*error = [self errorWithCode:kWBErrorCodeInterface userInfo:result];
-			}
-		}
-	}
-	
-	return result;
+	return [decoder objectWithData:data error:error];
 }
 
 - (id)errorWithCode:(NSInteger)code userInfo:(NSDictionary *)userInfo

@@ -62,7 +62,7 @@
 - (BOOL)isEqualToStatus:(Status *)status;
 + (Status *)insertStatus:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (Status *)statusWithID:(NSString *)statudID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
-+ (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context;
++ (void)deleteAllObjectsFetchedByUser:(NSString *)currentUserID InManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteRepostsOfStatus:(Status *)status ManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteAllTempStatusesInManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteStatusWithID:(NSString *)statusID inManagedObjectContext:(NSManagedObjectContext *)context withObject:(id)object;
