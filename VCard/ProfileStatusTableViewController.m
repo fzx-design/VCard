@@ -135,7 +135,7 @@
         [weakSelf refreshEnded];
         [weakSelf adjustBackgroundView];
         [weakSelf finishedLoading];
-//        [weakSelf scrollViewDidScroll:weakSelf.tableView];
+        [weakSelf scrollViewDidScroll:weakSelf.tableView];
     }];
          
     long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue;
