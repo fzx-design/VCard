@@ -12,11 +12,11 @@
 @interface CoreDataViewController : UIViewController <NSFetchedResultsControllerDelegate> {
     NSManagedObjectContext *_managedObjectContext;
     NSFetchedResultsController *_fetchedResultsController;
-    NSString *_coreDataIdentifier;
 }
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSString *coreDataIdentifier;
 @property (nonatomic, readonly) User *currentUser;
 
 + (User *)getCurrentUser;

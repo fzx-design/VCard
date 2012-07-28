@@ -268,6 +268,14 @@
     return view.frame.origin.y <= originY && view.frame.origin.y + view.frame.size.height > originY;
 }
 
+- (void)finishedLoading
+{
+    [_pullView finishedLoading];
+    [_loadMoreView finishedLoading:self.hasMoreViews];
+    _refreshing = NO;
+    _loading = NO;
+}
+
 #pragma mark - UIScrollView Delegate
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
 {

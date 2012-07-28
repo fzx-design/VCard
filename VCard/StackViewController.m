@@ -99,14 +99,16 @@
     if (self.controllerStack.count != 0) {
         while (self.controllerStack.count - 1 > targetIndex) {
             StackViewPageController *lastViewController = [self.controllerStack lastObject];
-            [self.stackView removeLastView:lastViewController.view];
-            [self.controllerStack removeLastObject];
+            [lastViewController.view removeFromSuperview];
+            [self.controllerStack removeObject:lastViewController];
+            lastViewController = nil;
             replacingOtherView = YES;
         }
     }
     
-    vc.pageIndex = _controllerStack.count;    
-    [vc.view resetHeight:self.view.frame.size.height];
+    vc.pageIndex = _controllerStack.count;
+    CGFloat targetHeight = self.view.frame.size.height;
+    [vc.view resetHeight:targetHeight];
     
     [self.controllerStack addObject:vc];
     if (replacingOtherView) {

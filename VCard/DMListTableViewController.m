@@ -81,14 +81,12 @@
             [self.fetchedResultsController performFetch:nil];
             
             _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
-            _hasMoreViews = _nextCursor != 0;
+            self.hasMoreViews = _nextCursor != 0;
         }
         
         [self adjustBackgroundView];
         [self refreshEnded];
-        [_loadMoreView finishedLoading:_hasMoreViews];
-        [_pullView finishedLoading];
-        _loading = NO;
+        [self finishedLoading];
         
     }];
     
@@ -144,7 +142,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [super scrollViewDidScroll:scrollView];
-    if (_hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
+    if (self.hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
         [self loadMoreData];
     }
 }

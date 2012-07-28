@@ -60,7 +60,7 @@
 
 - (void)initialLoadMessageData
 {
-    _refreshing = YES;
+    self.refreshing = YES;
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
 }
 
@@ -110,14 +110,11 @@
             [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
             
             _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
-            _hasMoreViews = NO;
+            self.hasMoreViews = NO;
         }
         
         [self refreshEnded];
-        [_pullView finishedLoading];
-        _loading = NO;
-        _refreshing = NO;
-        _loadingMore = NO;
+        [self finishedLoading];
         
     }];
     
@@ -298,7 +295,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [super scrollViewDidScroll:scrollView];
-    if (_hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
+    if (self.hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
         [self loadMoreData];
     }
 }

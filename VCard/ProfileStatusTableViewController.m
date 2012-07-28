@@ -18,8 +18,9 @@
 
 @interface ProfileStatusTableViewController () {
     long long _nextCursor;
-    NSInteger _searchPage;
 }
+
+@property (nonatomic, unsafe_unretained) NSInteger searchPage;
 
 @end
 
@@ -38,9 +39,9 @@
 {
     [super viewDidLoad];
     self.view.autoresizingMask = UIViewAutoresizingNone;
-    _coreDataIdentifier =  self.description;
+    self.coreDataIdentifier =  self.description;
     _loading = NO;
-    _hasMoreViews = YES;
+    self.hasMoreViews = YES;
 }
 
 - (void)viewDidUnload
@@ -54,11 +55,11 @@
 - (void)clearData
 {
     if (_type == StatusTableViewControllerTypeUserStatus) {
-        [Status deleteStatusesOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+        [Status deleteStatusesOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
     } else if(_type == statusTableViewControllerTypeMentionStatus){
         [Status deleteMentionStatusesInManagedObjectContext:self.managedObjectContext];
     } else if(_type == StatusTableViewControllerTypeTopicStatus){
-        [Status deleteStatusesWithSearchKey:_searchKey InManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+        [Status deleteStatusesWithSearchKey:_searchKey InManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
     }
 }
 
@@ -93,54 +94,52 @@
     _loading = YES;
     [NSNotificationCenter postWillReloadCardCellNotification];
     
-    WBClient *client = [WBClient client];
+    BlockARCWeakSelf weakSelf = self;
     
+    WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             NSArray *dictArray = client.responseJSONObject;
             
-            if (_refreshing) {
-                [self clearData];
+            if (weakSelf.refreshing) {
+                [weakSelf clearData];
             }
             
             for (NSDictionary *dict in dictArray) {
                 Status *newStatus = nil;
-                newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                newStatus = [Status insertStatus:dict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:weakSelf.coreDataIdentifier];
                                 
                 if (newStatus.cardSizeCardHeight.floatValue == 0.0) {
-                    CGFloat imageHeight = [self randomImageHeight];
+                    CGFloat imageHeight = [weakSelf randomImageHeight];
                     CGFloat cardHeight = [CardViewController heightForStatus:newStatus andImageHeight:imageHeight timeStampEnabled:YES picEnabled:[NSUserDefaults isPictureEnabled]];
                     newStatus.cardSizeImageHeight = @(imageHeight);
                     newStatus.cardSizeCardHeight = @(cardHeight);
                 }
                 newStatus.forTableView = @(YES);
-                if (_type == StatusTableViewControllerTypeUserStatus) {
-                    newStatus.author = self.user;
-                } else if(_type == statusTableViewControllerTypeMentionStatus) {
+                if (weakSelf.type == StatusTableViewControllerTypeUserStatus) {
+                    newStatus.author = weakSelf.user;
+                } else if(weakSelf.type == statusTableViewControllerTypeMentionStatus) {
                     newStatus.isMentioned = @(YES);
-                } else if(_type == StatusTableViewControllerTypeTopicStatus){
-                    newStatus.searchKey = _searchKey;
+                } else if(weakSelf.type == StatusTableViewControllerTypeTopicStatus){
+                    newStatus.searchKey = weakSelf.searchKey;
                 }
             }
             
-            [self.managedObjectContext processPendingChanges];
-            [self.fetchedResultsController performFetch:nil];
+            [weakSelf.managedObjectContext processPendingChanges];
+            [weakSelf.fetchedResultsController performFetch:nil];
             
-            _hasMoreViews = dictArray.count == 20;
+            weakSelf.hasMoreViews = dictArray.count == 20;
         }
         
         [NSNotificationCenter postDidReloadCardCellNotification];
-        [self refreshEnded];
-        [self adjustBackgroundView];
-        [_pullView finishedLoading];
-        [self scrollViewDidScroll:self.tableView];
-        [_loadMoreView finishedLoading:_hasMoreViews];
-        _loading = NO;
-        _refreshing = NO;
+        [weakSelf refreshEnded];
+        [weakSelf adjustBackgroundView];
+        [weakSelf finishedLoading];
+        [weakSelf scrollViewDidScroll:weakSelf.tableView];
     }];
          
     long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue;
-    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
+    NSString *maxIDString = self.refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
     
     
     if (_type == StatusTableViewControllerTypeUserStatus) {
@@ -164,7 +163,7 @@
 
 - (void)refresh
 {
-    _refreshing = YES;
+    self.refreshing = YES;
     _searchPage = 1;
     [self.fetchedResultsController performFetch:nil];
     [self loadMoreData];
@@ -179,9 +178,9 @@
 {
     NSDictionary *dict = notification.object;
     NSString *coredataIdentifier = [dict objectForKey:kNotificationObjectKeyCoredataIdentifier];
-    if ([coredataIdentifier isEqualToString:_coreDataIdentifier]) {
+    if ([coredataIdentifier isEqualToString:self.coreDataIdentifier]) {
         NSString *statusID = [dict objectForKey:kNotificationObjectKeyStatusID];
-        [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
+        [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:self.coreDataIdentifier];
         [self.managedObjectContext processPendingChanges];
         [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
     }
@@ -216,11 +215,11 @@
     request.entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext];
     
     if (_type == StatusTableViewControllerTypeUserStatus) {
-        request.predicate = [NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@ && currentUserID == %@", self.user, @(YES), _coreDataIdentifier, self.currentUser.userID];
+        request.predicate = [NSPredicate predicateWithFormat:@"author == %@ && forTableView == %@ && operatedBy == %@ && currentUserID == %@", self.user, @(YES), self.coreDataIdentifier, self.currentUser.userID];
     } else if (_type == statusTableViewControllerTypeMentionStatus){
         request.predicate = [NSPredicate predicateWithFormat:@"isMentioned == %@ && currentUserID == %@", @(YES), self.currentUser.userID];
     } else if (_type == StatusTableViewControllerTypeTopicStatus){
-        request.predicate = [NSPredicate predicateWithFormat:@"searchKey == %@ && operatedBy == %@ && currentUserID == %@", _searchKey, _coreDataIdentifier, self.currentUser.userID];
+        request.predicate = [NSPredicate predicateWithFormat:@"searchKey == %@ && operatedBy == %@ && currentUserID == %@", _searchKey, self.coreDataIdentifier, self.currentUser.userID];
     }
 }
 
@@ -235,7 +234,7 @@
                                                    imageHeight:targetStatus.cardSizeImageHeight.floatValue
                                                      pageIndex:self.pageIndex
                                                    currentUser:self.currentUser
-                                            coreDataIdentifier:_coreDataIdentifier];
+                                            coreDataIdentifier:self.coreDataIdentifier];
     } else {
         NSLog(@"Core Data TableView Controller Error - profile status config");
     }
@@ -262,7 +261,7 @@
     for (ProfileStatusTableViewCell *cell in self.tableView.visibleCells) {
         [cell loadImageAfterScrollingStop];
     }
-    if (_hasMoreViews && self.tableView.contentOffset.y > self.tableView.contentSize.height - self.tableView.frame.size.height) {
+    if (self.hasMoreViews && self.tableView.contentOffset.y > self.tableView.contentSize.height - self.tableView.frame.size.height) {
         [self loadMoreData];
     }
 }

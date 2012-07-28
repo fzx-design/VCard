@@ -107,6 +107,7 @@ typedef enum {
     
     [_userID release], _userID = nil;
     [_accessToken release], _accessToken = nil;
+    [_advancedToken release], _advancedToken = nil;
     
     [_redirectURI release], _redirectURI = nil;
     
@@ -117,9 +118,16 @@ typedef enum {
     [_statusID release], _statusID = nil;
     [_responseError release], _responseError = nil;
     [_responseJSONObject release], _responseJSONObject = nil;
+//    if (_preCompletionBlock) {
+//        [_preCompletionBlock release], _preCompletionBlock = nil;
+//    }
+//    if (_completionBlock) {
+//        [_completionBlock release], _completionBlock = nil;
+//    }
     
     [_path release], _path = nil;
     [_params release], _params = nil;
+    [_responseError release], _responseError = nil;
     
     _delegate = nil;
     

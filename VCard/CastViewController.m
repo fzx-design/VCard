@@ -97,7 +97,7 @@
     _coverView = [[UIView alloc] initWithFrame:CGRectMake(1024.0, 0.0, 0.0, 0.0)];
     _coverView.backgroundColor = [UIColor blackColor];
     _coverView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    _coreDataIdentifier = kCoreDataIdentifierDefault;
+    self.coreDataIdentifier = kCoreDataIdentifierDefault;
     
     [self.profileImageView loadImageFromURL:self.currentUser.profileImageURL completion:nil];
     
@@ -479,9 +479,9 @@
 {
     NSDictionary *dict = notification.object;
     NSString *coredataIdentifier = [dict objectForKey:kNotificationObjectKeyCoredataIdentifier];
-    if ([coredataIdentifier isEqualToString:_coreDataIdentifier]) {
+    if ([coredataIdentifier isEqualToString:self.coreDataIdentifier]) {
         NSString *statusID = [dict objectForKey:kNotificationObjectKeyStatusID];
-        [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
+        [Status deleteStatusWithID:statusID inManagedObjectContext:self.managedObjectContext withObject:self.coreDataIdentifier];
         [self.fetchedResultsController performFetch:nil];
         [self.waterflowView refresh];
     }

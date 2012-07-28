@@ -30,9 +30,9 @@
 {
     [super viewDidLoad];
     self.view.autoresizingMask = UIViewAutoresizingNone;
-    _coreDataIdentifier = self.description;
+    self.coreDataIdentifier = self.description;
     _loading = NO;
-    _hasMoreViews = YES;
+    self.hasMoreViews = YES;
     _sourceChanged = NO;
     _filterByAuthor = NO;    
 }
@@ -50,7 +50,7 @@
 {
     _page = 1;
 	_nextCursor = -1;
-    _refreshing = YES;
+    self.refreshing = YES;
     [self.fetchedResultsController performFetch:nil];
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
 }
@@ -82,11 +82,11 @@
     if (_type == CommentTableViewControllerTypeComment) {
         [Comment deleteCommentsOfStatus:self.status
                    ManagedObjectContext:self.managedObjectContext
-                    withOperatingObject:_coreDataIdentifier];
+                    withOperatingObject:self.coreDataIdentifier];
     } else {
         [Status deleteRepostsOfStatus:self.status
                  ManagedObjectContext:self.managedObjectContext
-                  withOperatingObject:_coreDataIdentifier];
+                  withOperatingObject:self.coreDataIdentifier];
     }
 }
 
@@ -108,7 +108,7 @@
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             
-            if (_sourceChanged || _refreshing) {
+            if (_sourceChanged || self.refreshing) {
                 _sourceChanged = NO;
                 [self clearData];
             }
@@ -118,7 +118,7 @@
                 if (_type == CommentTableViewControllerTypeComment) {
                     NSArray *dictArray = [result objectForKey:@"comments"];
                     for (NSDictionary *dict in dictArray) {
-                        Comment *comment = [Comment insertComment:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                        Comment *comment = [Comment insertComment:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
                         comment.commentHeight = @([CardViewController heightForTextContent:comment.text]);
                         [self.status addCommentsObject:comment];
@@ -126,14 +126,14 @@
                 } else {
                     NSArray *dictArray = [result objectForKey:@"reposts"];
                     for (NSDictionary *dict in dictArray) {
-                        Status *status = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                        Status *status = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
                         status.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:status.text];
                         status.cardSizeCardHeight = @([CardViewController heightForTextContent:status.text]);
                         [_status addRepostedByObject:status];
                     }
                 }
                 _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
-                _hasMoreViews = _nextCursor != 0;
+                self.hasMoreViews = _nextCursor != 0;
             }
                         
             [self.managedObjectContext processPendingChanges];
@@ -146,24 +146,21 @@
         
         [self refreshEnded];
         [self adjustBackgroundView];
-        [_loadMoreView finishedLoading:_hasMoreViews];
-        [_pullView finishedLoading];
-        _loading = NO;
-        _refreshing = NO;
+        [self finishedLoading];
         
     }];
     
     
     if (_type == CommentTableViewControllerTypeComment) {
         long long maxID = ((Comment *)self.fetchedResultsController.fetchedObjects.lastObject).commentID.longLongValue;
-        NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
+        NSString *maxIDString = self.refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
         [client getCommentOfStatus:self.status.statusID
                              maxID:maxIDString
                              count:20
                       authorFilter:_filterByAuthor];
     } else {
         long long maxID = ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).statusID.longLongValue;
-        NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
+        NSString *maxIDString = self.refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID - 1];
         [client getRepostOfStatus:self.status.statusID
                             maxID:maxIDString
                             count:20
@@ -174,7 +171,7 @@
 - (void)refreshAfterDeletingComment:(NSNotification *)notification
 {
     NSString *commentID = notification.object;
-    [Comment deleteCommentWithID:commentID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
+    [Comment deleteCommentWithID:commentID inManagedObjectContext:self.managedObjectContext withObject:self.coreDataIdentifier];
     [self.managedObjectContext processPendingChanges];
     self.status.commentsCount = [NSString stringWithFormat:@"%d", self.status.commentsCount.intValue - 1];
     [self performSelector:@selector(updateHeaderViewInfo) withObject:nil afterDelay:0.001];
@@ -191,13 +188,13 @@
                                      inManagedObjectContext:self.managedObjectContext];
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"commentID" ascending:NO];
         request.sortDescriptors = @[sortDescriptor];
-        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.status.comments, _coreDataIdentifier, self.currentUser.userID];
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.status.comments, self.coreDataIdentifier, self.currentUser.userID];
     } else {
         request.entity = [NSEntityDescription entityForName:@"Status"
                                      inManagedObjectContext:self.managedObjectContext];
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"statusID" ascending:NO];
         request.sortDescriptors = @[sortDescriptor];
-        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.status.repostedBy, _coreDataIdentifier, self.currentUser.userID];
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.status.repostedBy, self.coreDataIdentifier, self.currentUser.userID];
     }
 }
 
@@ -290,7 +287,7 @@
                                                     imageHeight:ImageHeightHigh
                                                       pageIndex:self.pageIndex
                                                     currentUser:self.currentUser
-                                             coreDataIdentifier:_coreDataIdentifier];
+                                             coreDataIdentifier:self.coreDataIdentifier];
     [_headerViewCell loadImageAfterScrollingStop];
     _headerViewCell.typeString = _type == CommentTableViewControllerTypeComment ? @"评论" : @"转发";
     _headerViewCell.pageIndex = self.pageIndex;
@@ -329,7 +326,7 @@
 {
     [super scrollViewDidScroll:scrollView];
     
-    if (_hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
+    if (self.hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
         [self loadMoreData];
     }
 }

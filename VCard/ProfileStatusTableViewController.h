@@ -14,11 +14,9 @@ typedef enum {
     StatusTableViewControllerTypeTopicStatus,
 } StatusTableViewControllerType;
 
-@interface ProfileStatusTableViewController : RefreshableCoreDataTableViewController {
-    
-}
+@interface ProfileStatusTableViewController : RefreshableCoreDataTableViewController
 
-@property (nonatomic, assign) StatusTableViewControllerType type;
+@property (nonatomic, unsafe_unretained) StatusTableViewControllerType type;
 @property (nonatomic, strong) NSString *searchKey;
 
 - (void)refresh;

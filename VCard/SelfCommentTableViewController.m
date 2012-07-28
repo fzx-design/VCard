@@ -33,17 +33,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _coreDataIdentifier = self.description;
+    self.coreDataIdentifier = self.description;
     _loading = NO;
     _nextPage = 1;
-    _hasMoreViews = YES;
+    self.hasMoreViews = YES;
     _resetFonts = NO;
 }
 
 - (void)refreshAfterDeletingComment:(NSNotification *)notification
 {
     NSString *commentID = notification.object;
-    [Comment deleteCommentWithID:commentID inManagedObjectContext:self.managedObjectContext withObject:_coreDataIdentifier];
+    [Comment deleteCommentWithID:commentID inManagedObjectContext:self.managedObjectContext withObject:self.coreDataIdentifier];
     [self.managedObjectContext processPendingChanges];
     
     [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
@@ -71,7 +71,7 @@
 - (void)refresh
 {
 	_nextCursor = -1;
-    _refreshing = YES;
+    self.refreshing = YES;
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.05];
 }
 
@@ -115,7 +115,7 @@
             if ([result isKindOfClass:[NSDictionary class]]) {
                 NSArray *dictArray = [result objectForKey:@"comments"];
                 
-                if (_refreshing) {
+                if (self.refreshing) {
                     [self clearData];
                 }
                 
@@ -148,23 +148,20 @@
                 [self.fetchedResultsController performFetch:nil];
                 
                 _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
-                _hasMoreViews = _nextCursor != 0;
+                self.hasMoreViews = _nextCursor != 0;
                 _nextPage++;
             }            
         }
         
         [self adjustBackgroundView];
         [self refreshEnded];
-        [_loadMoreView finishedLoading:_hasMoreViews];
-        [_pullView finishedLoading];
-        _loading = NO;
-        _refreshing = NO;
+        [self finishedLoading];
         
     }];
     
     long long maxID = ((Comment *)self.fetchedResultsController.fetchedObjects.lastObject).commentID.longLongValue - 1;
     maxID = maxID < 0 ? 0 : maxID;
-    NSString *maxIDString = _refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID];
+    NSString *maxIDString = self.refreshing ? nil : [NSString stringWithFormat:@"%lld", maxID];
     
     if (self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
 		[client getCommentsByMeSinceID:nil
@@ -262,7 +259,7 @@
 {
     [super scrollViewDidScroll:scrollView];
     
-    if (_hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
+    if (self.hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
         [self loadMoreData];
     }
 }

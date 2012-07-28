@@ -38,9 +38,9 @@
 {
     [super viewDidLoad];
     self.view.autoresizingMask = UIViewAutoresizingNone;
-    _coreDataIdentifier = self.description;
+    self.coreDataIdentifier = self.description;
     _loading = NO;
-    _hasMoreViews = YES;
+    self.hasMoreViews = YES;
 }
 
 - (void)viewDidUnload
@@ -68,11 +68,11 @@
 - (void)clearData
 {
     if (_type == RelationshipViewTypeFriends) {
-        [User deleteFriendsOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+        [User deleteFriendsOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
     } else if(_type == RelationshipViewTypeFollowers) {
-        [User deleteFollowersOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+        [User deleteFollowersOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
     } else if(_type == RelationshipViewTypeSearch) {
-        [User deleteUsersInManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+        [User deleteUsersInManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
     }
 }
 
@@ -96,7 +96,7 @@
                 }
                 
                 for (NSDictionary *dict in dictArray) {
-                    User *usr = [User insertUser:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                    User *usr = [User insertUser:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
                     if (_type == RelationshipViewTypeFollowers) {
                         [self.user addFollowersObject:usr];
                     } else if(_type == RelationshipViewTypeFriends) {
@@ -110,16 +110,14 @@
                 [self.fetchedResultsController performFetch:nil];
                 
                 _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
-                _hasMoreViews = _nextCursor != 0;
+                self.hasMoreViews = _nextCursor != 0;
                 _page++;
             }
         }
         
         [self adjustBackgroundView];
         [self refreshEnded];
-        [_loadMoreView finishedLoading:_hasMoreViews];
-        [_pullView finishedLoading];
-        _loading = NO;
+        [self finishedLoading];
         
     }];
         
@@ -140,11 +138,11 @@
                                  inManagedObjectContext:self.managedObjectContext];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updateDate" ascending:YES];
     if (_type == RelationshipViewTypeFriends) {
-        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.user.friends, _coreDataIdentifier, self.currentUser.userID];
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.user.friends, self.coreDataIdentifier, self.currentUser.userID];
     } else if(_type == RelationshipViewTypeFollowers) {
-        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.user.followers, _coreDataIdentifier, self.currentUser.userID];
+        request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.user.followers, self.coreDataIdentifier, self.currentUser.userID];
     }  else if(_type == RelationshipViewTypeSearch) {
-        request.predicate = [NSPredicate predicateWithFormat:@"operatedBy == %@ && currentUserID == %@",_coreDataIdentifier, self.currentUser.userID];
+        request.predicate = [NSPredicate predicateWithFormat:@"operatedBy == %@ && currentUserID == %@",self.coreDataIdentifier, self.currentUser.userID];
     }
     request.sortDescriptors = @[sortDescriptor];
 }
@@ -185,7 +183,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [super scrollViewDidScroll:scrollView];
-    if (_hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
+    if (self.hasMoreViews && self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.frame.size.height) {
         [self loadMoreData];
     }
 }

@@ -193,7 +193,7 @@
     }
     
     _alreadyConfigured = YES;
-    _coreDataIdentifier = identifier;
+    self.coreDataIdentifier = identifier;
     self.statusImageView.imageViewMode = CastViewImageViewModeNormal;
     _pageIndex = pageIndex_;
     
@@ -432,7 +432,7 @@
                     self.status.location = locationString;
                     [self showLocationInfo];
                 } else {
-                    Status *status = [Status statusWithID:client.statusID inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                    Status *status = [Status statusWithID:client.statusID inManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
                     status.location = locationString;
                 }
             }
@@ -465,7 +465,7 @@
                     
                     int type = [[dict objectForKey:@"type"] intValue];
                     NSString *urlLong = [dict objectForKey:@"url_long"];
-                    Status *status = [Status statusWithID:client.statusID inManagedObjectContext:self.managedObjectContext withOperatingObject:_coreDataIdentifier];
+                    Status *status = [Status statusWithID:client.statusID inManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
                     
                     if ([status.type isEqualToString:kStatusTypeMedia] || [status.type isEqualToString:kStatusTypeVote]) {
                         return ;
@@ -649,7 +649,7 @@
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             NSDictionary *dict = @{kNotificationObjectKeyStatusID: self.status.statusID,
-        kNotificationObjectKeyCoredataIdentifier: _coreDataIdentifier};
+        kNotificationObjectKeyCoredataIdentifier: self.coreDataIdentifier};
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldDeleteStatus object:dict];
         } else {
             //TODO: Handle Error

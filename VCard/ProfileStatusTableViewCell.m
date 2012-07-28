@@ -7,6 +7,7 @@
 //
 
 #import "ProfileStatusTableViewCell.h"
+#import "UIView+Resize.h"
 
 @implementation ProfileStatusTableViewCell
 
@@ -55,10 +56,8 @@
         
         _cardViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:NULL] instantiateViewControllerWithIdentifier:@"CardViewController"];
         
-        CGRect frame = _cardViewController.view.frame;
-        frame.origin = CGPointMake(10, 15);
-        frame.size = CGSizeMake(362, 500);
-        _cardViewController.view.frame = frame;
+        [_cardViewController.view resetOrigin:CGPointMake(10, 15)];
+        [_cardViewController.view resetSize:CGSizeMake(362, 500)];
         
         [self addSubview:_cardViewController.view];
     }

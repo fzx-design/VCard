@@ -25,11 +25,11 @@
     LoadMoreView *_loadMoreView;
     
     User *_user;
-    BOOL _hasMoreViews;
-    BOOL _refreshing;
     NSString *_identifier;
 }
 
+@property (nonatomic, unsafe_unretained) BOOL refreshing;
+@property (nonatomic, unsafe_unretained) BOOL hasMoreViews;
 @property (nonatomic, assign) int pageIndex;
 @property (nonatomic, assign) BOOL firstLoad;
 @property (nonatomic, strong) User *user;
@@ -42,5 +42,6 @@
 - (void)refreshAfterPostingComment;
 - (void)refreshAfterDeletingComment:(NSNotification *)notification;
 - (void)refreshAfterDeletingStatuses:(NSNotification *)notification;
+- (void)finishedLoading;
 
 @end
