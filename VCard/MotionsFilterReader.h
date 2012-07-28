@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSDictionary *filterParameter;
 @property (nonatomic, assign) BOOL requirePurchase;
 
-- (UIImage *)processImage:(UIImage *)image;
+- (UIImage *)processUIImage:(UIImage *)image;
+- (CIImage *)processCIImage:(CIImage *)image;
 
 @end

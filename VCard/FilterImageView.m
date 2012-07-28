@@ -24,16 +24,6 @@
 @synthesize coreImageContext = _coreImageContext;
 @synthesize highlightShadowAdjustFilter = _highlightShadowAdjustFilter;
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-        [self initializeParameter];
-    }
-    return self;
-}
-
 - (void)initializeParameter {
     self.shadowAmountValue = 0;
 }
@@ -43,20 +33,26 @@
 }
 
 - (void)didMoveToSuperview {
-    CIFilter *filter = [CIFilter filterWithName:@"CIHighlightShadowAdjust"];
-    self.highlightShadowAdjustFilter = filter;
+    NSLog(@"FilterImageView : didMoveToSuperview");
     
-    self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    if (!self.context) {
-        NSLog(@"Failed to create ES context");
+    if(!self.coreImageContext) {
+        self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+        if (!self.context) {
+            NSLog(@"Failed to create ES context");
+        }
+        
+        self.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+        
+        glGenRenderbuffers(1, &_renderBuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, _renderBuffer);
+        
+        self.coreImageContext = [CIContext contextWithEAGLContext:self.context];
+        
+        CIFilter *filter = [CIFilter filterWithName:@"CIHighlightShadowAdjust"];
+        self.highlightShadowAdjustFilter = filter;
+        
+        [self initializeParameter];
     }
-    
-    self.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-    
-    glGenRenderbuffers(1, &_renderBuffer);
-    glBindRenderbuffer(GL_RENDERBUFFER, _renderBuffer);
-    
-    self.coreImageContext = [CIContext contextWithEAGLContext:self.context];
 }
 
 // Only override drawRect: if you perform custom drawing.
@@ -68,6 +64,10 @@
     [self.highlightShadowAdjustFilter setValue:@(self.shadowAmountValue)
                                forKey:@"inputShadowAmount"];
     CIImage *outputImage = [self.highlightShadowAdjustFilter outputImage];
+    
+    if(self.filterInfo) {
+        outputImage = [self.filterInfo processCIImage:outputImage];
+    }
     
     [_coreImageContext drawImage:outputImage atPoint:CGPointZero fromRect:outputImage.extent];
     [self.context presentRenderbuffer:GL_RENDERBUFFER];

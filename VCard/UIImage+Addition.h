@@ -17,6 +17,7 @@
 
 - (UIImage *)brightness:(CGFloat)brightness contrast:(CGFloat)contrast;
 - (UIImage *)shadowAmount:(CGFloat)shadowAmountValue;
++ (UIImage *)shadowAmount:(CGFloat)shadowAmountValue withCIImage:(CIImage *)source;
 
 - (UIImage *)imageAtRect:(CGRect)rect;
 - (UIImage *)imageByScalingProportionallyToMinimumSize:(CGSize)targetSize;

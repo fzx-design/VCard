@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
+#import "MotionsFilterReader.h"
 
 @interface FilterImageView : GLKView {
     GLuint _renderBuffer;
@@ -15,6 +16,7 @@
 
 @property (nonatomic, assign) float shadowAmountValue;
 @property (nonatomic, strong) CIImage *processImage;
+@property (nonatomic, strong) MotionsFilterInfo *filterInfo;
 
 - (void)setImage:(UIImage *)image;
 - (void)initializeParameter;

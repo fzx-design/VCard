@@ -344,10 +344,10 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     return newImage;
 }
 
-- (UIImage *)shadowAmount:(CGFloat)shadowAmountValue {
++ (UIImage *)shadowAmount:(CGFloat)shadowAmountValue withCIImage:(CIImage *)source {
     CIFilter *filter = [CIFilter filterWithName:@"CIHighlightShadowAdjust"];
     [filter setDefaults];
-    [filter setValue:[CIImage imageWithCGImage:self.CGImage] forKey:@"inputImage"];
+    [filter setValue:source forKey:@"inputImage"];
     [filter setValue:@(shadowAmountValue) forKey:@"inputShadowAmount"];
     CIImage *outputCIImage = [filter outputImage];
     
@@ -357,6 +357,10 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     CGImageRelease(ref);
     
     return result;
+}
+
+- (UIImage *)shadowAmount:(CGFloat)shadowAmountValue {
+    return [UIImage shadowAmount:shadowAmountValue withCIImage:[CIImage imageWithCGImage:self.CGImage]];
 }
 
 - (UIImage *)brightness:(CGFloat)brightnessValues contrast:(CGFloat)contrastValue {

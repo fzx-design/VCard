@@ -35,7 +35,7 @@
             withFilterInfo:(MotionsFilterInfo *)info
                 completion:(void (^)(void))completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *filteredImage = [info processImage:image];
+        UIImage *filteredImage = [info processUIImage:image];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setThumbnailImage:filteredImage];
             [self.thumbnailImageView fadeIn];

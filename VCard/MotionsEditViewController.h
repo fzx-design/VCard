@@ -21,14 +21,16 @@
 @property (nonatomic, weak) IBOutlet UIButton *changePictureButton;
 @property (nonatomic, weak) IBOutlet UIButton *revertButton;
 @property (nonatomic, weak) IBOutlet UIButton *finishEditButton;
-@property (nonatomic, weak) IBOutlet FilterImageView *filterImageView;
 @property (nonatomic, weak) IBOutlet UIView *bgView;
 @property (nonatomic, weak) IBOutlet UIView *functionView;
-@property (nonatomic, weak) IBOutlet UIImageView *capturedImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *croppedImageView;
 @property (nonatomic, weak) IBOutlet UIView *capturedImageEditBar;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, weak) IBOutlet UIView *editAccessoryView;
-@property (nonatomic, weak) id<MotionsEditViewControllerDelegate> delegate;
+@property (nonatomic, weak) NSObject<MotionsEditViewControllerDelegate> *delegate;
+
+@property (nonatomic, weak) IBOutlet FilterImageView *filterImageViewA;
+@property (nonatomic, weak) IBOutlet FilterImageView *filterImageViewB;
 
 - (IBAction)didChangeSlider:(UISlider *)sender;
 - (IBAction)didClickCropButton:(UIButton *)sender;

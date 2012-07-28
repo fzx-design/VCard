@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1536</int>
+		<int key="IBDocument.SystemTarget">1296</int>
 		<string key="IBDocument.SystemVersion">12A256</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2541</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
 		<string key="IBDocument.AppKitVersion">1185</string>
 		<string key="IBDocument.HIToolboxVersion">622.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1875</string>
+			<string key="NS.object.0">1498</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -175,6 +175,19 @@
 								<string key="NSFrameSize">{840, 630}</string>
 								<reference key="NSSuperview" ref="817685746"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="234170641"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<int key="IBUIContentMode">2</int>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+							</object>
+							<object class="IBUIView" id="234170641">
+								<reference key="NSNextResponder" ref="817685746"/>
+								<int key="NSvFlags">-2147483347</int>
+								<array class="NSMutableArray" key="NSSubviews"/>
+								<string key="NSFrameSize">{840, 630}</string>
+								<reference key="NSSuperview" ref="817685746"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="927900187"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -269,6 +282,7 @@
 										<string key="NSFrame">{{758, 32}, {74, 30}}</string>
 										<reference key="NSSuperview" ref="1057417799"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -354,14 +368,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">filterImageView</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="637546016"/>
-					</object>
-					<int key="connectionID">146</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">changePictureButton</string>
 						<reference key="source" ref="841351856"/>
 						<reference key="destination" ref="825215145"/>
@@ -402,14 +408,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">capturedImageView</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="28969452"/>
-					</object>
-					<int key="connectionID">164</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">activityIndicator</string>
 						<reference key="source" ref="841351856"/>
 						<reference key="destination" ref="927900187"/>
@@ -447,6 +445,30 @@
 						<reference key="destination" ref="800493116"/>
 					</object>
 					<int key="connectionID">178</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">croppedImageView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="28969452"/>
+					</object>
+					<int key="connectionID">179</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">filterImageViewA</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="637546016"/>
+					</object>
+					<int key="connectionID">181</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">filterImageViewB</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="234170641"/>
+					</object>
+					<int key="connectionID">182</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -538,6 +560,7 @@
 							<reference ref="1057417799"/>
 							<reference ref="28969452"/>
 							<reference ref="927900187"/>
+							<reference ref="234170641"/>
 						</array>
 						<reference key="parent" ref="766721923"/>
 					</object>
@@ -621,6 +644,11 @@
 						<reference key="object" ref="108927770"/>
 						<reference key="parent" ref="271865688"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">180</int>
+						<reference key="object" ref="234170641"/>
+						<reference key="parent" ref="817685746"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -649,13 +677,15 @@
 				<string key="163.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="170.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="173.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="180.CustomClassName">FilterImageView</string>
+				<string key="180.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">178</int>
+			<int key="maxID">182</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -703,11 +733,12 @@
 						<string key="activityIndicator">UIActivityIndicatorView</string>
 						<string key="bgView">UIView</string>
 						<string key="capturedImageEditBar">UIView</string>
-						<string key="capturedImageView">UIImageView</string>
 						<string key="changePictureButton">UIButton</string>
 						<string key="cropButton">UIButton</string>
+						<string key="croppedImageView">UIImageView</string>
 						<string key="editAccessoryView">UIView</string>
-						<string key="filterImageView">FilterImageView</string>
+						<string key="filterImageViewA">FilterImageView</string>
+						<string key="filterImageViewB">FilterImageView</string>
 						<string key="finishEditButton">UIButton</string>
 						<string key="functionView">UIView</string>
 						<string key="revertButton">UIButton</string>
@@ -726,10 +757,6 @@
 							<string key="name">capturedImageEditBar</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="capturedImageView">
-							<string key="name">capturedImageView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="changePictureButton">
 							<string key="name">changePictureButton</string>
 							<string key="candidateClassName">UIButton</string>
@@ -738,12 +765,20 @@
 							<string key="name">cropButton</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="croppedImageView">
+							<string key="name">croppedImageView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="editAccessoryView">
 							<string key="name">editAccessoryView</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="filterImageView">
-							<string key="name">filterImageView</string>
+						<object class="IBToOneOutletInfo" key="filterImageViewA">
+							<string key="name">filterImageViewA</string>
+							<string key="candidateClassName">FilterImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="filterImageViewB">
+							<string key="name">filterImageViewB</string>
 							<string key="candidateClassName">FilterImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="finishEditButton">
@@ -788,6 +823,10 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
+			<real value="1296" key="NS.object.0"/>
+		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
@@ -797,6 +836,6 @@
 			<string key="motions_button_crop_done.png">{60, 70}</string>
 			<string key="motions_slider_bg.png">{60, 180}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1875</string>
+		<string key="IBCocoaTouchPluginVersion">1498</string>
 	</data>
 </archive>

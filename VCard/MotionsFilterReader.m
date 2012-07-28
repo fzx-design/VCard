@@ -68,8 +68,22 @@
 @synthesize filterParameter = _filterParameter;
 @synthesize requirePurchase = _requirePurchase;
 
-- (UIImage *)processImage:(UIImage *)image {
-    __block CIImage *processImage = [CIImage imageWithCGImage:image.CGImage];
+- (UIImage *)processUIImage:(UIImage *)image {
+    CIImage *source = [CIImage imageWithCGImage:image.CGImage];
+    CIImage *processImage = [self processCIImage:source];
+    if(processImage == source)
+        return image;
+    
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef ref = [context createCGImage:processImage fromRect:processImage.extent];
+    UIImage *result = [UIImage imageWithCGImage:ref];
+    CGImageRelease(ref);
+    
+    return result;
+}
+
+- (CIImage *)processCIImage:(CIImage *)image {
+    __block CIImage *processImage = image;
     [self.filterParameter enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         NSString *filterKey = key;
         NSDictionary *param = obj;
@@ -96,15 +110,11 @@
         }];
         processImage = [filter outputImage];
     }];
+    
     if(processImage == nil)
         return image;
     
-    CIContext *context = [CIContext contextWithOptions:nil];
-    CGImageRef ref = [context createCGImage:processImage fromRect:processImage.extent];
-    UIImage *result = [UIImage imageWithCGImage:ref];
-    CGImageRelease(ref);
-    
-    return result;
+    return processImage;
 }
 
 @end

@@ -22,50 +22,31 @@
 
 @interface MotionsEditViewController () {
     BOOL _shouldShowCropView;
+    NSUInteger _currentFilterImageViewIndex;
 }
 
 @property (nonatomic, assign) BOOL useForAvatar;
-@property (nonatomic, assign, getter = isDirty) BOOL dirty;
 @property (nonatomic, strong) UIImage *originalImage;
-@property (nonatomic, strong) UIImage *modifiedImage;
-@property (nonatomic, strong) UIImage *filterImage;
-@property (nonatomic, readonly) UIImage *filteredImage;
+@property (nonatomic, strong) UIImage *croppedImage;
+
 @property (nonatomic, strong) CropImageViewController *cropImageViewController;
-@property (nonatomic, readonly, getter = isShadowAmountFilterAdded) BOOL shadowAmountFilterAdded;
 @property (nonatomic, strong) UIPopoverController *popoverController;
 @property (nonatomic, strong) UIActionSheet *actionSheet;
 @property (nonatomic, strong) MotionsFilterTableViewController *filterViewController;
 @property (nonatomic, strong) MotionsFilterInfo *currentFilterInfo;
-@property (nonatomic, strong) UIImage *cacheFilteredImage;
 @property (nonatomic, assign) CGFloat currentShadowAmountValue;
+
+@property (readonly, getter = isDirty) BOOL dirty;
+@property (readonly, getter = isShadowAmountFilterAdded) BOOL shadowAmountFilterAdded;
+@property (readonly) FilterImageView *currentFilterImageView;
+@property (readonly) FilterImageView *backupFilterImageView;
+@property (readonly) UIImage *filteredImage;
 
 @end
 
 @implementation MotionsEditViewController
 
-@synthesize cropButton = _cropButton;
-@synthesize shadowAmountSlider = _shadowAmountSlider;
-@synthesize filterImageView = _filterImageView;
-@synthesize changePictureButton = _changePictureButton;
-@synthesize finishEditButton = _finishEditButton;
-@synthesize revertButton = _revertButton;
-@synthesize delegate = _delegate;
-@synthesize bgView = _bgView;
-@synthesize functionView = _functionView;
-@synthesize capturedImageView = _capturedImageView;
-@synthesize capturedImageEditBar = _capturedImageEditView;
-@synthesize activityIndicator = _activityIndicator;
-@synthesize editAccessoryView = _editAccessoryView;
-
-@synthesize originalImage = _originalImage;
-@synthesize modifiedImage = _modifiedImage;
-@synthesize filterImage = _filterImage;
-@synthesize dirty = _dirty;
 @synthesize popoverController = _pc;
-@synthesize actionSheet = _actionSheet;
-@synthesize filterViewController = _filterViewController;
-@synthesize currentFilterInfo = _currentFilterInfo;
-@synthesize cacheFilteredImage = _cacheFilteredImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -80,7 +61,6 @@
     self = [self init];
     if(self) {
         self.originalImage = image;
-        self.modifiedImage = self.originalImage;
         
         _useForAvatar = useForAvatar;
         _shouldShowCropView = useForAvatar;
@@ -93,33 +73,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     //[self performSelector:@selector(configureFilterImageView) withObject:nil afterDelay:0.3f];
-    self.capturedImageView.image = self.modifiedImage;
+    
+    self.croppedImage = self.originalImage;
+    
     [self configureSlider];
     [self configureButtons];
     [self configureFilterTableViewController];
 }
 
-- (void)viewDidUnload
-{
-    self.cropButton = nil;
-    self.shadowAmountSlider = nil;
-    self.changePictureButton = nil;
-    self.revertButton = nil;
-    self.finishEditButton = nil;
-    self.bgView = nil;
-    self.functionView = nil;
-    self.capturedImageView = nil;
-    self.capturedImageEditBar = nil;
-    self.activityIndicator = nil;
-    self.editAccessoryView = nil;
-    [super viewDidUnload];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)viewDidAppear:(BOOL)animated {
-    UIImage *currentImage = self.cacheFilteredImage;
-    currentImage = currentImage ? currentImage : self.modifiedImage;
-    [self configureFilterImageView:currentImage];
+    [self configureFilterImageView:self.croppedImage];
 }
 
 - (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -129,71 +92,75 @@
 
 #pragma mark - Logic methods
 
+- (void)refreshViewWithImage:(UIImage *)image {    
+    self.currentFilterInfo = nil;
+    
+    [self changeCurrentFilterImageView];
+    [self resetSliders];
+    [self configureFilterImageView:image];
+    
+    BlockARCWeakSelf weakSelf = self;
+    [self.currentFilterImageView fadeInWithCompletion:^{
+        BOOL reloadFilterTableView = (weakSelf.originalImage != image || weakSelf.originalImage != weakSelf.croppedImage);
+        
+        self.originalImage = image;
+        self.croppedImage = self.originalImage;
+        
+        if(weakSelf.useForAvatar)
+            [weakSelf didClickCropButton:weakSelf.cropButton];
+        
+        if(reloadFilterTableView)
+            [weakSelf.filterViewController refreshWithImage:self.croppedImage];
+        else
+            [weakSelf.filterViewController.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewRowAnimationTop animated:YES];
+    }];
+}
+
+- (void)changeCurrentFilterImageView {
+    _currentFilterImageViewIndex = (_currentFilterImageViewIndex + 1) % 2;
+    
+    self.backupFilterImageView.alpha = 1;
+    self.currentFilterImageView.alpha = 1;
+    
+    self.currentFilterImageView.hidden = NO;
+    [self.currentFilterImageView initializeParameter];
+    [self.currentFilterImageView setNeedsDisplay];
+    
+    [self.currentFilterImageView removeFromSuperview];
+    [self.bgView insertSubview:self.currentFilterImageView aboveSubview:self.backupFilterImageView];
+}
+
+#pragma mark - Properties
+
 - (BOOL)isDirty {
     BOOL result = NO;
     if(self.isShadowAmountFilterAdded)
         result = YES;
     else if(self.currentFilterInfo)
         result = YES;
-    else if(self.modifiedImage != self.originalImage)
+    else if(self.croppedImage != self.originalImage)
         result = YES;
     return result;
-}
-
-- (void)initViewWithImage:(UIImage *)image {
-    [self.activityIndicator fadeIn];
-    [self.activityIndicator startAnimating];
-    
-    BlockARCWeakSelf weakSelf = self;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *filteredImage = weakSelf.filteredImage;
-        UIImage *targetImage = image;
-        weakSelf.currentFilterInfo = nil;
-        weakSelf.cacheFilteredImage = nil;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf resetSliders];
-            [weakSelf currentImage:filteredImage targetImage:targetImage transitionAnimationWithCompletion:^{
-                [weakSelf configureFilterImageView:weakSelf.modifiedImage];
-            }];
-            
-            BOOL reloadFilterTableView = (weakSelf.originalImage != image || weakSelf.originalImage != weakSelf.modifiedImage);
-            
-            weakSelf.originalImage = image;
-            weakSelf.modifiedImage = weakSelf.originalImage;
-            
-            if(reloadFilterTableView)
-                [weakSelf.filterViewController refreshWithImage:self.modifiedImage];
-            else
-                [weakSelf.filterViewController.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewRowAnimationTop animated:YES];
-            
-            [weakSelf.activityIndicator fadeOutWithCompletion:^{
-                [weakSelf.activityIndicator stopAnimating];
-            }];
-            
-            if(weakSelf.useForAvatar)
-                [weakSelf didClickCropButton:weakSelf.cropButton];
-        });
-    });
 }
 
 - (BOOL)isShadowAmountFilterAdded {
     return self.currentShadowAmountValue != 0;
 }
 
-- (UIImage *)filteredImage {
-    UIImage *filteredImage = [self.currentFilterInfo processImage:self.modifiedImage];
-    filteredImage = filteredImage ? filteredImage : self.modifiedImage;
-    if(self.isShadowAmountFilterAdded) {
-        filteredImage = [filteredImage shadowAmount:self.currentShadowAmountValue];
+- (FilterImageView *)currentFilterImageView {
+    if(_currentFilterImageViewIndex == 0) {
+        return self.filterImageViewA;
+    } else {
+        return self.filterImageViewB;
     }
-    return filteredImage;
 }
 
-- (UIImage *)cacheFilteredImage {
-    if(!_cacheFilteredImage) {
-        _cacheFilteredImage = [self.currentFilterInfo processImage:self.modifiedImage];
+- (FilterImageView *)backupFilterImageView {
+    if(_currentFilterImageViewIndex == 1) {
+        return self.filterImageViewA;
+    } else {
+        return self.filterImageViewB;
     }
-    return _cacheFilteredImage;
 }
 
 - (MotionsFilterTableViewController *)filterViewController {
@@ -205,27 +172,30 @@
     return _filterViewController;
 }
 
-#pragma mark - Animations
-
-- (void)currentImage:(UIImage *)currentImage targetImage:(UIImage *)targetIamge transitionAnimationWithCompletion:(void (^)(void))completion {
-    self.capturedImageView.image = targetIamge;
-    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:currentImage];
-    tempImageView.opaque = NO;
-    tempImageView.clearsContextBeforeDrawing = YES;
-    tempImageView.frame = self.filterImageView.frame;
-    tempImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [tempImageView setNeedsLayout];
-    [self.bgView insertSubview:tempImageView belowSubview:self.capturedImageEditBar];
-    self.filterImageView.hidden = YES;
-    self.capturedImageView.hidden = NO;
-    [tempImageView fadeOutWithCompletion:^{
-        [tempImageView removeFromSuperview];
-        self.filterImageView.hidden = NO;
-        self.capturedImageView.hidden = YES;
-        if(completion)
-            completion();
-    }];
+- (UIImage *)filteredImage {
+    UIImage *result = nil;
+    
+    if(self.isShadowAmountFilterAdded && self.currentFilterInfo) {
+        CIImage *source = [CIImage imageWithCGImage:self.croppedImage.CGImage];
+        CIImage *filteredImage = [self.currentFilterInfo processCIImage:source];
+        result = [UIImage shadowAmount:self.currentShadowAmountValue withCIImage:filteredImage];
+    } else if(self.currentFilterInfo) {
+        result = [self.currentFilterInfo processUIImage:self.croppedImage];
+    } else if(self.shadowAmountFilterAdded) {
+        result = [self.croppedImage shadowAmount:self.currentShadowAmountValue];
+    } else {
+        result = self.croppedImage;
+    }
+    
+    return result;
 }
+
+- (void)setCroppedImage:(UIImage *)croppedImage {
+    self.croppedImageView.image = croppedImage;
+    _croppedImage = croppedImage;
+}
+
+#pragma mark - Animations
 
 - (void)semiTransparentEditViewForCropAnimation {
     [UIView animateWithDuration:0.3f animations:^{
@@ -265,7 +235,7 @@
     self.cropButton.selected = NO;
     
     BlockARCWeakSelf weakSelf = self;
-    [self.cropImageViewController zoomOutToCenter:self.filterImageView.center withScaleFactor:self.capturedImageView.contentScaleFactor completion:^{
+    [self.cropImageViewController zoomOutToCenter:self.currentFilterImageView.center withScaleFactor:self.croppedImageView.contentScaleFactor completion:^{
         [weakSelf.cropImageViewController.view removeFromSuperview];
         weakSelf.cropImageViewController = nil;
         weakSelf.cropButton.userInteractionEnabled = YES;
@@ -354,16 +324,20 @@
 }
 
 - (void)configureFilterImageView:(UIImage *)image {
-    UIImage *filterImage = [image imageCroppedToFitSize:self.filterImageView.frame.size];
-    BOOL filterImageViewEmpty = !self.filterImageView.processImage;
-    [self.filterImageView setImage:filterImage];
-    self.filterImageView.shadowAmountValue = self.currentShadowAmountValue;
-    [self.filterImageView setNeedsDisplay];
-    if(filterImageViewEmpty)
-        [self.filterImageView fadeIn];
-    self.filterImage = filterImage;
+    BOOL filterImageViewEmpty = !self.currentFilterImageView.processImage;
     
-    [(NSObject *)self.delegate performSelector:@selector(editViewControllerDidBecomeActiveWithCompletion:) withObject:nil afterDelay:0.3f];
+    UIImage *filterImage = [image imageCroppedToFitSize:self.currentFilterImageView.frame.size];
+    
+    [self.currentFilterImageView setImage:filterImage];
+    self.currentFilterImageView.shadowAmountValue = self.currentShadowAmountValue;
+    self.currentFilterImageView.filterInfo = nil;
+    
+    [self.currentFilterImageView setNeedsDisplay];
+    
+    if(filterImageViewEmpty)
+        [self.currentFilterImageView fadeIn];
+    
+    [self.delegate performSelector:@selector(editViewControllerDidBecomeActiveWithCompletion:) withObject:nil afterDelay:0.3f];
     
     if(_shouldShowCropView) {
         [self performSelector:@selector(didClickCropButton:) withObject:self.cropButton afterDelay:0.3f];
@@ -393,16 +367,14 @@
 - (void)resetSliders {
     self.currentShadowAmountValue = 0;
     [self.shadowAmountSlider setValue:self.currentShadowAmountValue animated:YES];
-    [self.filterImageView initializeParameter];
 }
 
 #pragma mark - IBActions
 
 - (IBAction)didChangeSlider:(UISlider *)sender {
     self.currentShadowAmountValue = -1 * sender.value;
-    self.filterImageView.shadowAmountValue = self.currentShadowAmountValue;
-    [self.filterImageView setNeedsDisplay];
-    self.cacheFilteredImage = nil;
+    self.currentFilterImageView.shadowAmountValue = self.currentShadowAmountValue;
+    [self.currentFilterImageView setNeedsDisplay];
 }
 
 - (IBAction)didClickCropButton:(UIButton *)sender {
@@ -417,14 +389,14 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             UIImage *filteredImage = self.filteredImage;
             dispatch_async(dispatch_get_main_queue(), ^{
-                weakSelf.cropImageViewController = [[CropImageViewController alloc] initWithImage:weakSelf.modifiedImage filteredImage:filteredImage useForAvatar:_useForAvatar];
+                weakSelf.cropImageViewController = [[CropImageViewController alloc] initWithImage:weakSelf.croppedImage filteredImage:filteredImage useForAvatar:_useForAvatar];
                 weakSelf.cropImageViewController.delegate = weakSelf;
-                weakSelf.cropImageViewController.view.frame = weakSelf.filterImageView.frame;
+                weakSelf.cropImageViewController.view.frame = weakSelf.currentFilterImageView.frame;
                 
                 [weakSelf.bgView insertSubview:weakSelf.cropImageViewController.view aboveSubview:weakSelf.capturedImageEditBar];
                 
                 weakSelf.cropButton.userInteractionEnabled = NO;
-                [weakSelf.cropImageViewController zoomInFromCenter:weakSelf.filterImageView.center withScaleFactor:weakSelf.capturedImageView.contentScaleFactor completion:^{
+                [weakSelf.cropImageViewController zoomInFromCenter:weakSelf.currentFilterImageView.center withScaleFactor:weakSelf.croppedImageView.contentScaleFactor completion:^{
                     weakSelf.cropButton.userInteractionEnabled = YES;
                     
                     [weakSelf.activityIndicator fadeOutWithCompletion:^{
@@ -462,7 +434,7 @@
     if(!self.isDirty) 
         return;
     
-    [self initViewWithImage:self.originalImage];
+    [self refreshViewWithImage:self.originalImage];
 }
 
 - (IBAction)didClickFinishEditButton:(UIButton *)sender {
@@ -483,22 +455,13 @@
 #pragma mark - CropImageViewController delegate
 
 - (void)cropImageViewControllerDidFinishCrop:(UIImage *)image {
-    BlockARCWeakSelf weakSelf = self;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        weakSelf.modifiedImage = image;
-        UIImage *filteredImage = [weakSelf.currentFilterInfo processImage:weakSelf.modifiedImage];
-        filteredImage = filteredImage ? filteredImage : weakSelf.modifiedImage;
-        weakSelf.capturedImageView.image = filteredImage;
-        weakSelf.cacheFilteredImage = nil;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf configureFilterImageView:filteredImage];
-            [weakSelf hideCropImageViewControllerAnimation];
-            
-            CGPoint filterTableViewContentOffset = weakSelf.filterViewController.tableView.contentOffset;
-            [weakSelf.filterViewController refreshWithImage:weakSelf.modifiedImage];
-            weakSelf.filterViewController.tableView.contentOffset = filterTableViewContentOffset;
-        });
-    });
+    self.croppedImage = image;
+    [self configureFilterImageView:image];
+    [self hideCropImageViewControllerAnimation];
+    
+    CGPoint filterTableViewContentOffset = self.filterViewController.tableView.contentOffset;
+    [self.filterViewController refreshWithImage:self.croppedImage];
+    self.filterViewController.tableView.contentOffset = filterTableViewContentOffset;
 }
 
 - (void)cropImageViewControllerDidCancelCrop {
@@ -528,45 +491,35 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *rotatedImage = [image motionsAdjustImage];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf initViewWithImage:rotatedImage];
+            [weakSelf refreshViewWithImage:rotatedImage];
         });
     });
 }
 
-#pragma mark -
-#pragma mark UIPopoverController delegate 
+#pragma mark - UIPopoverController delegate 
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
     self.popoverController = nil;
 }
 
-#pragma mark - 
-#pragma mark MotionsFilterTableViewController delegate
+#pragma mark - MotionsFilterTableViewController delegate
 
 - (void)filterTableViewController:(MotionsFilterTableViewController *)vc didSelectFilter:(MotionsFilterInfo *)info {
     if([self.currentFilterInfo.filterName isEqualToString:info.filterName])
         return;
-    [self.activityIndicator fadeIn];
-    [self.activityIndicator startAnimating];
+    
+    self.currentFilterInfo = info;
+    
+    self.backupFilterImageView.processImage = self.currentFilterImageView.processImage;
+    self.backupFilterImageView.filterInfo = info;
+    
+    [self changeCurrentFilterImageView];
     
     BlockARCWeakSelf weakSelf = self;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *filteredImage = [info processImage:weakSelf.modifiedImage];
-        UIImage *currentImage = weakSelf.cacheFilteredImage;
-        currentImage = currentImage ? currentImage : weakSelf.modifiedImage;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf resetSliders];
-            [weakSelf currentImage:currentImage targetImage:filteredImage transitionAnimationWithCompletion:^{
-                [weakSelf configureFilterImageView:filteredImage];
-                weakSelf.currentFilterInfo = info;
-                weakSelf.cacheFilteredImage = filteredImage;
-            }];
-            
-            [weakSelf.activityIndicator fadeOutWithCompletion:^{
-                [weakSelf.activityIndicator stopAnimating];
-            }];
-        });
-    });
+    [self.currentFilterImageView fadeInWithCompletion:^{
+        self.backupFilterImageView.hidden = YES;
+        [weakSelf resetSliders];
+    }];
 }
 
 @end
