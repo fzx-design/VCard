@@ -118,13 +118,7 @@ typedef enum {
     [_statusID release], _statusID = nil;
     [_responseError release], _responseError = nil;
     [_responseJSONObject release], _responseJSONObject = nil;
-//    if (_preCompletionBlock) {
-//        [_preCompletionBlock release], _preCompletionBlock = nil;
-//    }
-//    if (_completionBlock) {
-//        [_completionBlock release], _completionBlock = nil;
-//    }
-    
+
     [_path release], _path = nil;
     [_params release], _params = nil;
     [_responseError release], _responseError = nil;

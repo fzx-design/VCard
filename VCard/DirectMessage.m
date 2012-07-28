@@ -33,7 +33,8 @@
     [request setEntity:[NSEntityDescription entityForName:@"DirectMessage" inManagedObjectContext:context]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"messageID == %@", messageID]];
     
-    DirectMessage *res = [[context executeFetchRequest:request error:NULL] lastObject];
+    NSArray *items = [context executeFetchRequest:request error:NULL];
+    DirectMessage *res = [items lastObject];
     
     return res;
 }

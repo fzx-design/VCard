@@ -71,7 +71,8 @@
     [request setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:context]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"statusID == %@ && operatedBy == %@ && currentUserID = %@", statudID, object, currentUserID]];
     
-    Status *res = [[context executeFetchRequest:request error:NULL] lastObject];
+    NSArray *items = [context executeFetchRequest:request error:NULL];
+    Status *res = [items lastObject];
     
     return res;
 }

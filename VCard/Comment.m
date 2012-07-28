@@ -153,7 +153,8 @@
     [request setEntity:[NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"commentID == %@ && operatedBy == %@ && currentUserID == %@", commentID, object, currentUserID]];
     
-    Comment *res = [[context executeFetchRequest:request error:NULL] lastObject];
+    NSArray *items = [context executeFetchRequest:request error:NULL];
+    Comment *res = [items lastObject];
     
     return res;
 }

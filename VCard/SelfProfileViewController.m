@@ -186,11 +186,12 @@ typedef enum {
     
     ErrorIndicatorViewController *vc = [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeLoading contentText:nil];
     
+    BlockARCWeakSelf weakSelf = self;
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if(!client.hasError) {
             
-            [self loadUserAndChangeAvatar];
+            [weakSelf loadUserAndChangeAvatar];
             
             [vc dismissViewAnimated:NO completion:^{
                 [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"修改成功" animated:NO];
@@ -200,7 +201,7 @@ typedef enum {
                 [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureFailure contentText:@"修改失败" animated:NO];
             }];
         }
-        self.view.userInteractionEnabled = YES;
+        weakSelf.view.userInteractionEnabled = YES;
     }];
     [client uploadAvatar:image];
     [[UIApplication sharedApplication].rootViewController dismissModalViewControllerAnimated:YES];
@@ -208,14 +209,14 @@ typedef enum {
 
 - (void)loadUserAndChangeAvatar
 {
+    BlockARCWeakSelf weakSelf = self;
     WBClient *userClient = [WBClient client];
-    
     [userClient setCompletionBlock:^(WBClient *client) {
         if (!userClient.hasError) {
             NSDictionary *userDict = client.responseJSONObject;
-            User *user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+            User *user = [User insertUser:userDict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
             [NSNotificationCenter postChangeUserAvatarNotification];
-            [self.avatarImageView loadImageWithoutFadeFromURL:user.largeAvatarURL completion:nil];
+            [weakSelf.avatarImageView loadImageWithoutFadeFromURL:user.largeAvatarURL completion:nil];
         } else {
         
         }

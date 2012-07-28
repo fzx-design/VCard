@@ -126,7 +126,8 @@
     [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"userID == %@ && currentUserID == %@ && operatedBy == %@", userID, userID, kCoreDataIdentifierDefault]];
     
-    User *res = [[context executeFetchRequest:request error:NULL] lastObject];
+    NSArray *items = [context executeFetchRequest:request error:NULL];
+    User *res = [items lastObject];
     
     return res;
 }
@@ -139,7 +140,8 @@
     [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"userID == %@ && operatedBy == %@ && currentUserID == %@", userID, object, currentUserID]];
     
-    User *res = [[context executeFetchRequest:request error:NULL] lastObject];
+    NSArray *items = [context executeFetchRequest:request error:NULL];
+    User *res = [items lastObject];
     
     return res;
 }

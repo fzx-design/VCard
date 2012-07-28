@@ -29,7 +29,8 @@
     [request setEntity:[NSEntityDescription entityForName:@"Conversation" inManagedObjectContext:context]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"currentUserID == %@ && targetUserID == %@", currentUserID, targetUserID]];
     
-    Conversation *res = [[context executeFetchRequest:request error:NULL] lastObject];
+    NSArray *items = [context executeFetchRequest:request error:NULL];
+    Conversation *res = [items lastObject];
     
     return res;
 }
