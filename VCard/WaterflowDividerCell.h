@@ -9,9 +9,7 @@
 #import "WaterflowCell.h"
 #import "DividerViewController.h"
 
-@interface WaterflowDividerCell : WaterflowCell {
-    DividerViewController *_dividerViewController;
-}
+@interface WaterflowDividerCell : WaterflowCell
 
 @property (nonatomic, strong) DividerViewController *dividerViewController;
 

@@ -85,7 +85,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     label.highlightedTextColor = [UIColor whiteColor];
     label.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
     
-    [self setCardViewController:vc SummaryText:string toLabel:label];
+//    [self setCardViewController:vc SummaryText:string toLabel:label];
 }
 
 + (void)setMessageTextLabel:(TTTAttributedLabel *)label withText:(NSString *)string

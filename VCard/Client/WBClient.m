@@ -173,12 +173,14 @@ typedef enum {
 {
     [_completionBlock autorelease];
     _completionBlock = [completionBlock copy];
+    [completionBlock release];
 }
 
 - (void)setPreCompletionBlock:(WCCompletionBlock)preCompletionBlock
 {
     [_preCompletionBlock autorelease];
     _preCompletionBlock = [preCompletionBlock copy];
+    [preCompletionBlock release];
 }
 
 - (WCCompletionBlock)completionBlock
@@ -191,10 +193,12 @@ typedef enum {
     if (_preCompletionBlock) {
         BlockWeakSelf weakSelf = self;
         _preCompletionBlock(weakSelf);
+        [_preCompletionBlock release];
     }
     if (_completionBlock) {
         BlockWeakSelf weakSelf = self;
         _completionBlock(weakSelf);
+        [_completionBlock release];
     }
 }
 

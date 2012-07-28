@@ -42,7 +42,7 @@ extern NSString * AFCreateIncompleteDownloadDirectoryPath(void);
 /**
  The last HTTP response received by the operation's connection.
  */
-@property (readonly, nonatomic, retain) NSHTTPURLResponse *response;
+@property (readonly, nonatomic, strong) NSHTTPURLResponse *response;
 
 /**
  Set a target file for the response, will stream directly into this destination.
@@ -85,12 +85,12 @@ extern NSString * AFCreateIncompleteDownloadDirectoryPath(void);
 /** 
  The callback dispatch queue on success. If `NULL` (default), the main queue is used.
  */
-@property (nonatomic, assign) dispatch_queue_t successCallbackQueue;
+@property (nonatomic) dispatch_queue_t successCallbackQueue;
 
 /** 
  The callback dispatch queue on failure. If `NULL` (default), the main queue is used.
  */
-@property (nonatomic, assign) dispatch_queue_t failureCallbackQueue;
+@property (nonatomic) dispatch_queue_t failureCallbackQueue;
 
 ///-------------------------------------------------------------
 /// @name Managing Accceptable HTTP Status Codes & Content Types

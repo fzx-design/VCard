@@ -25,15 +25,14 @@
 #import "AFHTTPRequestOperation.h"
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED
-static NSTimeInterval const kAFNetworkActivityIndicatorInvisibilityDelay = 0.17;
+static NSTimeInterval const kAFNetworkActivityIndicatorInvisibilityDelay = 0.25;
 
 @interface AFNetworkActivityIndicatorManager ()
 @property (readwrite, atomic, assign) NSInteger activityCount;
-@property (readwrite, nonatomic, retain) NSTimer *activityIndicatorVisibilityTimer;
+@property (readwrite, nonatomic) NSTimer *activityIndicatorVisibilityTimer;
 @property (readonly, getter = isNetworkActivityIndicatorVisible) BOOL networkActivityIndicatorVisible;
 
 - (void)updateNetworkActivityIndicatorVisibility;
-- (void)updateNetworkActivityIndicatorVisibilityDelayed;
 @end
 
 @implementation AFNetworkActivityIndicatorManager
@@ -68,9 +67,7 @@ static NSTimeInterval const kAFNetworkActivityIndicatorInvisibilityDelay = 0.17;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [_activityIndicatorVisibilityTimer invalidate];
-    [_activityIndicatorVisibilityTimer release]; _activityIndicatorVisibilityTimer = nil;
     
-    [super dealloc];
 }
 
 - (void)updateNetworkActivityIndicatorVisibilityDelayed {
@@ -79,9 +76,9 @@ static NSTimeInterval const kAFNetworkActivityIndicatorInvisibilityDelay = 0.17;
         if (![self isNetworkActivityIndicatorVisible]) {
             [self.activityIndicatorVisibilityTimer invalidate];
             self.activityIndicatorVisibilityTimer = [NSTimer timerWithTimeInterval:kAFNetworkActivityIndicatorInvisibilityDelay target:self selector:@selector(updateNetworkActivityIndicatorVisibility) userInfo:nil repeats:NO];
-            [[NSRunLoop mainRunLoop] addTimer:self.activityIndicatorVisibilityTimer forMode:NSRunLoopCommonModes];
+            [[NSRunLoop currentRunLoop] addTimer:self.activityIndicatorVisibilityTimer forMode:NSRunLoopCommonModes];
         } else {
-            [self performSelectorOnMainThread:@selector(updateNetworkActivityIndicatorVisibility) withObject:nil waitUntilDone:NO modes:[NSArray arrayWithObject:NSRunLoopCommonModes]];
+            [self updateNetworkActivityIndicatorVisibility];
         }
     }
 }
@@ -91,7 +88,9 @@ static NSTimeInterval const kAFNetworkActivityIndicatorInvisibilityDelay = 0.17;
 }
 
 - (void)updateNetworkActivityIndicatorVisibility {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:[self isNetworkActivityIndicatorVisible]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:[self isNetworkActivityIndicatorVisible]];
+    });
 }
 
 // Not exposed, but used if activityCount is set via KVC.

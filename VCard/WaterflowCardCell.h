@@ -9,10 +9,7 @@
 #import "WaterflowCell.h"
 #import "CardViewController.h"
 
-@interface WaterflowCardCell : WaterflowCell {
-
-    CardViewController *_cardViewController;
-}
+@interface WaterflowCardCell : WaterflowCell
 
 @property (nonatomic, strong) CardViewController *cardViewController;
 

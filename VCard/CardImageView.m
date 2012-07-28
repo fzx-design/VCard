@@ -328,6 +328,7 @@
     _gifIcon.hidden = YES;
     _staticGIFImage = nil;
     _actionButton.hidden = YES;
+    _imageView.image = nil;
     
     for (UIGestureRecognizer *gestureRecognizer in self.gestureRecognizers) {
         gestureRecognizer.enabled = NO;

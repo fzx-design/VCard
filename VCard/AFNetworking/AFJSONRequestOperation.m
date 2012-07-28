@@ -21,7 +21,6 @@
 // THE SOFTWARE.
 
 #import "AFJSONRequestOperation.h"
-#import "AFJSONUtilities.h"
 
 static dispatch_queue_t af_json_request_operation_processing_queue;
 static dispatch_queue_t json_request_operation_processing_queue() {
@@ -33,8 +32,8 @@ static dispatch_queue_t json_request_operation_processing_queue() {
 }
 
 @interface AFJSONRequestOperation ()
-@property (readwrite, nonatomic, retain) id responseJSON;
-@property (readwrite, nonatomic, retain) NSError *JSONError;
+@property (readwrite, nonatomic) id responseJSON;
+@property (readwrite, nonatomic) NSError *JSONError;
 @end
 
 @implementation AFJSONRequestOperation
@@ -45,7 +44,7 @@ static dispatch_queue_t json_request_operation_processing_queue() {
                                                     success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON))success 
                                                     failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON))failure
 {
-    AFJSONRequestOperation *requestOperation = [[[self alloc] initWithRequest:urlRequest] autorelease];
+    AFJSONRequestOperation *requestOperation = [[self alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success(operation.request, operation.response, responseObject);
@@ -59,11 +58,6 @@ static dispatch_queue_t json_request_operation_processing_queue() {
     return requestOperation;
 }
 
-- (void)dealloc {
-    [_responseJSON release];
-    [_JSONError release];
-    [super dealloc];
-}
 
 - (id)responseJSON {
     if (!_responseJSON && [self.responseData length] > 0 && [self isFinished] && !self.JSONError) {
@@ -72,7 +66,7 @@ static dispatch_queue_t json_request_operation_processing_queue() {
         if ([self.responseData length] == 0) {
             self.responseJSON = nil;
         } else {
-            self.responseJSON = AFJSONDecode(self.responseData, &error);
+            self.responseJSON = [NSJSONSerialization JSONObjectWithData:self.responseData options:0 error:&error];
         }
         
         self.JSONError = error;
@@ -102,31 +96,32 @@ static dispatch_queue_t json_request_operation_processing_queue() {
 - (void)setCompletionBlockWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
+    __weak AFJSONRequestOperation *weakSelf = self;
     self.completionBlock = ^ {
-        if ([self isCancelled]) {
+        if ([weakSelf isCancelled]) {
             return;
         }
         
-        if (self.error) {
+        if (weakSelf.error) {
             if (failure) {
-                dispatch_async(self.failureCallbackQueue ? self.failureCallbackQueue : dispatch_get_main_queue(), ^{
-                    failure(self, self.error);
+                dispatch_async(weakSelf.failureCallbackQueue ? weakSelf.failureCallbackQueue : dispatch_get_main_queue(), ^{
+                    failure(weakSelf, weakSelf.error);
                 });
             }
         } else {
             dispatch_async(json_request_operation_processing_queue(), ^{
-                id JSON = self.responseJSON;
+                id JSON = weakSelf.responseJSON;
                 
                 if (self.JSONError) {
                     if (failure) {
-                        dispatch_async(self.failureCallbackQueue ? self.failureCallbackQueue : dispatch_get_main_queue(), ^{
-                            failure(self, self.error);
+                        dispatch_async(weakSelf.failureCallbackQueue ? weakSelf.failureCallbackQueue : dispatch_get_main_queue(), ^{
+                            failure(weakSelf, weakSelf.error);
                         });
                     }
                 } else {
                     if (success) {
-                        dispatch_async(self.successCallbackQueue ? self.successCallbackQueue : dispatch_get_main_queue(), ^{
-                            success(self, JSON);
+                        dispatch_async(weakSelf.successCallbackQueue ? weakSelf.successCallbackQueue : dispatch_get_main_queue(), ^{
+                            success(weakSelf, JSON);
                         });
                     }                    
                 }

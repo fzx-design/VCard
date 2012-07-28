@@ -25,7 +25,7 @@
 @interface StackView : UIView <UIScrollViewDelegate> 
 
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, assign) id<StackViewDelegate> delegate;
+@property (nonatomic, weak) id<StackViewDelegate> delegate;
 
 - (void)addNewPage:(UIView *)newPage
      replacingView:(BOOL)replacing

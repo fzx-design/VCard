@@ -12,16 +12,12 @@
 #import "TipsViewController.h"
 #import "NSUserDefaults+Addition.h"
 
-@interface StackViewController () {
-    StackViewPageController *_activePageViewController;
-}
+@interface StackViewController ()
+@property (nonatomic, weak) StackViewPageController *activePageViewController;
 
 @end
 
 @implementation StackViewController
-
-@synthesize controllerStack = _controllerStack;
-@synthesize delegate = _delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,8 +33,6 @@
     [super viewDidLoad];
     self.stackView.delegate = self;
     
-    //FIXME: Debug
-    //    self.view.backgroundColor = [UIColor blackColor];
     if(![NSUserDefaults hasShownStackTips]) {
         [[[TipsViewController alloc] initWithType:TipsViewControllerTypeStack] show];
         [NSUserDefaults setShownStackTips:YES];
@@ -175,6 +169,7 @@
         [self.controllerStack removeLastObject];
         vc = nil;
     }
+    self.controllerStack = nil;
 }
 
 - (void)stackViewDidScroll

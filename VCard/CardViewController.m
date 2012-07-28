@@ -59,17 +59,6 @@
 
 @implementation CardViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        _alreadyConfigured = NO;
-        _imageAlreadyLoaded = NO;
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -288,13 +277,13 @@
     self.locationLabel.hidden = YES;
     self.locationLabel.text = @"";
     
-    [_originalUserAvatar resetOriginX:kAvatarOriginX];
-    [_originalUserNameButton resetOriginX:kButtonOriginX];
-    [_originalUserNameLabel resetOriginX:kLabelOriginX];
+    [self.originalUserAvatar resetOriginX:kAvatarOriginX];
+    [self.originalUserNameButton resetOriginX:kButtonOriginX];
+    [self.originalUserNameLabel resetOriginX:kLabelOriginX];
     
-    [_repostUserAvatar resetOriginX:kAvatarOriginX];
-    [_repostUserNameButton resetOriginX:kButtonOriginX];
-    [_repostUserNameLabel resetOriginX:kLabelOriginX];
+    [self.repostUserAvatar resetOriginX:kAvatarOriginX];
+    [self.repostUserNameButton resetOriginX:kButtonOriginX];
+    [self.repostUserNameLabel resetOriginX:kLabelOriginX];
     
     [self.originalUserAvatar reset];
     [self.repostUserAvatar reset];
@@ -741,7 +730,7 @@
 
 - (void)hideFavouriteFlag
 {
-    __block __weak typeof(self) weakSelf = self;
+    BlockARCWeakSelf weakSelf = self;
     
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [weakSelf.favoredImageView resetHeight:10.0];

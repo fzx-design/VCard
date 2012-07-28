@@ -25,6 +25,7 @@
 @interface AppDelegate () {
     BOOL _networkWarning;
     Reachability *_reachability;
+    SDURLCache *_urlCache;
 }
 
 @end
@@ -64,13 +65,18 @@
     
     [NSNotificationCenter registerRootViewControllerViewDidLoadNotificationWithSelector:@selector(rootViewControllerViewDidLoad:) target:[UIApplication sharedApplication]];
     
-    SDURLCache *urlCache = [[SDURLCache alloc] initWithMemoryCapacity:1024*1024   // 1MB mem cache
-                                                         diskCapacity:1024*1024*5 // 5MB disk cache
-                                                             diskPath:[SDURLCache defaultCachePath]];
-    urlCache.ignoreMemoryOnlyStoragePolicy = YES;
-    [NSURLCache setSharedURLCache:urlCache];
+    _urlCache = [[SDURLCache alloc] initWithMemoryCapacity:1024*1024   // 1MB mem cache
+                                              diskCapacity:1024*1024*5 // 5MB disk cache
+                                                  diskPath:[SDURLCache defaultCachePath]];
+    _urlCache.ignoreMemoryOnlyStoragePolicy = YES;
+    [NSURLCache setSharedURLCache:_urlCache];
     
     return YES;
+}
+
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+{
+    [_urlCache removeAllCachedResponsesInMemory];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

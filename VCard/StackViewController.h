@@ -18,16 +18,12 @@
 
 @end
 
-@interface StackViewController : CoreDataViewController <StackViewDelegate> {    
-    NSMutableArray *_controllerStack;
-    
-    __unsafe_unretained id<StackViewControllerDelegate> _delegate;
-}
+@interface StackViewController : CoreDataViewController <StackViewDelegate>
 
 @property (nonatomic, weak) IBOutlet StackView *stackView;
 @property (nonatomic, strong) NSMutableArray *controllerStack;
 
-@property (nonatomic, assign) id<StackViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<StackViewControllerDelegate> delegate;
 
 - (void)insertStackPage:(StackViewPageController *)vc
                 atIndex:(int)targetIndex

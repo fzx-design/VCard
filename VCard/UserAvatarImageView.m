@@ -105,7 +105,7 @@
 
 - (void)reset
 {
-    _vipImageView.image = nil;
+    _imageView.image = nil;
     _vipImageView.hidden = YES;
 }
 

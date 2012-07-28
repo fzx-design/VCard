@@ -41,8 +41,6 @@
 
 @interface CardViewController : CoreDataViewController <TTTAttributedLabelDelegate, PostViewControllerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate, ActionPopoverViewControllerDelegate> {
     
-    Status *_status;
-    
     NSInteger _imageHeight;
 }
 
@@ -69,7 +67,7 @@
 @property (nonatomic, weak) IBOutlet TTTAttributedLabel *repostStatusLabel;
 @property (nonatomic, weak) IBOutlet BaseCardBackgroundView *cardBackground;
 @property (nonatomic, weak) IBOutlet BaseCardBackgroundView *repostCardBackground;
-@property (nonatomic, strong) Status *status;
+@property (nonatomic, weak) Status *status;
 @property (nonatomic, assign) NSInteger imageHeight;
 @property (nonatomic, assign) NSInteger pageIndex;
 @property (nonatomic, assign) BOOL isReposted;
