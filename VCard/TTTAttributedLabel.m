@@ -633,7 +633,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     CGFloat originX = rect.origin.x + leftMargin;
     if (originX < 10) {
         originX += 3;
-    } else if (originY > 300) {
+    } else if (originX > 300) {
         originX -= 5;
     }
     
