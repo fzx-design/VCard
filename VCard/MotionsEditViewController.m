@@ -41,6 +41,7 @@
 @property (readonly) FilterImageView *currentFilterImageView;
 @property (readonly) FilterImageView *backupFilterImageView;
 @property (readonly) UIImage *filteredImage;
+@property (readonly) CGFloat filterImageViewContentScaleFactor;
 
 @end
 
@@ -132,6 +133,12 @@
 
 #pragma mark - Properties
 
+- (CGFloat)filterImageViewContentScaleFactor {
+    CGFloat widthScale = self.currentFilterImageView.bounds.size.width / self.croppedImage.size.width;
+    CGFloat heightScale = self.currentFilterImageView.bounds.size.height / self.croppedImage.size.height;
+    return MAX(widthScale, heightScale);
+}
+
 - (BOOL)isDirty {
     BOOL result = NO;
     if(self.isShadowAmountFilterAdded)
@@ -190,11 +197,6 @@
     return result;
 }
 
-- (void)setCroppedImage:(UIImage *)croppedImage {
-    self.croppedImageView.image = croppedImage;
-    _croppedImage = croppedImage;
-}
-
 #pragma mark - Animations
 
 - (void)semiTransparentEditViewForCropAnimation {
@@ -235,7 +237,7 @@
     self.cropButton.selected = NO;
     
     BlockARCWeakSelf weakSelf = self;
-    [self.cropImageViewController zoomOutToCenter:self.currentFilterImageView.center withScaleFactor:self.croppedImageView.contentScaleFactor completion:^{
+    [self.cropImageViewController zoomOutToCenter:self.currentFilterImageView.center withScaleFactor:self.filterImageViewContentScaleFactor completion:^{
         [weakSelf.cropImageViewController.view removeFromSuperview];
         weakSelf.cropImageViewController = nil;
         weakSelf.cropButton.userInteractionEnabled = YES;
@@ -330,7 +332,7 @@
     
     [self.currentFilterImageView setImage:filterImage];
     self.currentFilterImageView.shadowAmountValue = self.currentShadowAmountValue;
-    self.currentFilterImageView.filterInfo = nil;
+    self.currentFilterImageView.filterInfo = self.currentFilterInfo;
     
     [self.currentFilterImageView setNeedsDisplay];
     
@@ -396,7 +398,7 @@
                 [weakSelf.bgView insertSubview:weakSelf.cropImageViewController.view aboveSubview:weakSelf.capturedImageEditBar];
                 
                 weakSelf.cropButton.userInteractionEnabled = NO;
-                [weakSelf.cropImageViewController zoomInFromCenter:weakSelf.currentFilterImageView.center withScaleFactor:weakSelf.croppedImageView.contentScaleFactor completion:^{
+                [weakSelf.cropImageViewController zoomInFromCenter:weakSelf.currentFilterImageView.center withScaleFactor:weakSelf.filterImageViewContentScaleFactor completion:^{
                     weakSelf.cropButton.userInteractionEnabled = YES;
                     
                     [weakSelf.activityIndicator fadeOutWithCompletion:^{

@@ -23,7 +23,6 @@
 @property (nonatomic, weak) IBOutlet UIButton *finishEditButton;
 @property (nonatomic, weak) IBOutlet UIView *bgView;
 @property (nonatomic, weak) IBOutlet UIView *functionView;
-@property (nonatomic, weak) IBOutlet UIImageView *croppedImageView;
 @property (nonatomic, weak) IBOutlet UIView *capturedImageEditBar;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, weak) IBOutlet UIView *editAccessoryView;
