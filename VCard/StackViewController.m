@@ -99,7 +99,7 @@
     if (self.controllerStack.count != 0) {
         while (self.controllerStack.count - 1 > targetIndex) {
             StackViewPageController *lastViewController = [self.controllerStack lastObject];
-            [lastViewController.view removeFromSuperview];
+            [self.stackView removeLastView:lastViewController.view];
             [self.controllerStack removeObject:lastViewController];
             lastViewController = nil;
             replacingOtherView = YES;

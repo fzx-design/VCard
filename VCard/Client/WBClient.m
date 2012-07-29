@@ -173,15 +173,17 @@ typedef enum {
 
 - (void)setCompletionBlock:(void (^)(WBClient* client))completionBlock
 {
-    [_completionBlock autorelease];
+//    WCCompletionBlock oldCompletionBlock = _completionBlock;
     _completionBlock = [completionBlock copy];
+//    [oldCompletionBlock autorelease];
     [completionBlock release];
 }
 
 - (void)setPreCompletionBlock:(WCCompletionBlock)preCompletionBlock
 {
-    [_preCompletionBlock autorelease];
+//    WCCompletionBlock oldCompletionBlock = _preCompletionBlock;
     _preCompletionBlock = [preCompletionBlock copy];
+//    [oldCompletionBlock autorelease];
     [preCompletionBlock release];
 }
 
@@ -426,7 +428,7 @@ typedef enum {
     
     BlockWeakSelf weakSelf = self;
     [self setPreCompletionBlock:^(WBClient *client) {
-        if([self.responseJSONObject isKindOfClass:[NSDictionary class]]) {
+        if([weakSelf.responseJSONObject isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dict = (NSDictionary*)client.responseJSONObject;
             weakSelf.advancedToken = [dict objectForKey:@"access_token"];
             

@@ -104,30 +104,30 @@ static char kAFImageRequestOperationObjectKey;
     if (cachedImage) {
         self.image = cachedImage;
         self.af_imageRequestOperation = nil;
-        
         if (success) {
             success(nil, nil, cachedImage);
         }
     } else {
         self.image = placeholderImage;
         
+        BlockARCWeakSelf weakSelf = self;
         AFImageRequestOperation *requestOperation = [[AFImageRequestOperation alloc] initWithRequest:urlRequest];
         [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if ([[urlRequest URL] isEqual:[[self.af_imageRequestOperation request] URL]]) {
-                self.image = responseObject;
-                self.af_imageRequestOperation = nil;
+            if ([[urlRequest URL] isEqual:[[weakSelf.af_imageRequestOperation request] URL]]) {
+                weakSelf.image = responseObject;
+                weakSelf.af_imageRequestOperation = nil;
             }
 
             if (success) {
                 success(operation.request, operation.response, responseObject);
             }
 
-            [[[self class] af_sharedImageCache] cacheImage:responseObject forRequest:urlRequest];
+            [[[weakSelf class] af_sharedImageCache] cacheImage:responseObject forRequest:urlRequest];
             
 
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if ([[urlRequest URL] isEqual:[[self.af_imageRequestOperation request] URL]]) {
-                self.af_imageRequestOperation = nil;
+            if ([[urlRequest URL] isEqual:[[weakSelf.af_imageRequestOperation request] URL]]) {
+                weakSelf.af_imageRequestOperation = nil;
             }
 
             if (failure) {

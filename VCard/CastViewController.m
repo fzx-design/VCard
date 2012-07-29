@@ -296,8 +296,7 @@
 - (void)setUpWaterflowView
 {
     [self.waterflowView refresh];
-//    [_loadMoreView resetLayoutTo:[UIApplication currentInterface]];
-//    [_pullView resetLayoutTo:[UIApplication currentInterface]];
+    [_loadMoreView resetPosition];
 }
 
 #pragma mark - Notification
