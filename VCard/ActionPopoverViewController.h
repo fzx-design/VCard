@@ -30,7 +30,6 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIImageView *bottomBar;
 @property (nonatomic, weak) IBOutlet UIImageView *shadowView;
 @property (nonatomic, weak) id<ActionPopoverViewControllerDelegate> delegate;
-@property (readonly) CGFloat foldViewHeight;
 
 - (void)setCropView:(UIView *)view cropPosTopY:(CGFloat)topY cropPosBottomY:(CGFloat)bottomY;
 - (void)handlePinch:(UIPinchGestureRecognizer *)gestureRecognizer;

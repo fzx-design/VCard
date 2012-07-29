@@ -37,6 +37,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 @property (nonatomic, assign, getter = isFolded) BOOL folded;
 @property (nonatomic, assign, getter = isFolding) BOOL folding;
 @property (assign, nonatomic) CGFloat lastProgress;
+@property (readonly) CGFloat foldViewHeight;
 
 @property (strong, nonatomic) UIView *animationView;
 @property (strong, nonatomic) CALayer *perspectiveLayer;

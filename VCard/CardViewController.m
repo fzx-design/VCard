@@ -1073,15 +1073,28 @@
     self.actionPopoverViewController.delegate = self;
 }
 
-- (void)adjustScrollView:(UIScrollView *)scrollView cropBottomY:(CGFloat)cropPosBottomY cellPosY:(CGFloat)cellPosY {
+- (void)adjustScrollView:(UIScrollView *)scrollView
+             cropBottomY:(CGFloat)cropPosBottomY
+                cellPosY:(CGFloat)cellPosY
+              completion:(void (^)(void))completion {
     CGFloat scrollViewHeight = scrollView.frame.size.height;
     CGFloat scrollViewContentHeight = scrollView.contentSize.height;
     CGFloat scrollViewContentOffsetY = scrollView.contentOffset.y;
+    CGFloat actionPopoverFoldViewHeight = 100;
     
-    CGFloat scrollUp = 50 + cellPosY + cropPosBottomY + self.actionPopoverViewController.foldViewHeight - scrollViewContentOffsetY - scrollViewHeight;
+    CGFloat scrollUp = 50 + cellPosY + cropPosBottomY + actionPopoverFoldViewHeight - scrollViewContentOffsetY - scrollViewHeight;
     
     if(scrollUp > 0 && scrollViewContentOffsetY + scrollUp + scrollViewHeight < scrollViewContentHeight) {
-        [scrollView setContentOffset:CGPointMake(0, scrollViewContentOffsetY + scrollUp) animated:YES];
+        [UIView animateWithDuration:0.3f animations:^{
+            scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, scrollViewContentOffsetY + scrollUp);
+        } completion:^(BOOL finished) {
+            if(completion)
+                completion();
+        }];
+        //[scrollView setContentOffset:CGPointMake(0, scrollViewContentOffsetY + scrollUp) animated:YES];
+    } else {
+        if(completion)
+            completion();
     }
 }
 
@@ -1097,50 +1110,52 @@
     UIView *superView = self.view.superview;
     WaterflowView *superSuperView = (WaterflowView *)self.view.superview.superview;
     
-    [superView removeFromSuperview];
-    if([superSuperView respondsToSelector:@selector(addCellToWaterflowView:)])
-        [superSuperView addCellToWaterflowView:superView];
-    else
-        [superSuperView addSubview:superView];
-    
-    CGRect cardFrame = self.view.frame;
-    
-    UIEdgeInsets cardInsets = CARD_CROP_INSETS;
-    CGRect insetFrame = CGRectMake(cardFrame.origin.x + cardInsets.left, cardFrame.origin.y + cardInsets.top, cardFrame.size.width - cardInsets.left - cardInsets.right, cropPosTopY - cardInsets.top - cardInsets.bottom);
-    
-    UIView *cropCardView = [[UIView alloc] initWithFrame:insetFrame];
-    cropCardView.backgroundColor = [UIColor clearColor];
-    cropCardView.clipsToBounds = YES;
-    
-    [self.view resetOrigin:CGPointMake(-cardInsets.left, -cardInsets.top)];
-    
-    [self.view removeFromSuperview];
-    [cropCardView addSubview:self.view];
-    [superView addSubview:cropCardView];
-    
-    [self buildActionPopoverViewController];
-    [[UIApplication sharedApplication].rootViewController.view addSubview:self.actionPopoverViewController.view];
-    
-    cardFrame.origin.y += cropPosTopY;
-    UIView *nonCropCardView = [[UIView alloc] initWithFrame:cardFrame];
-    nonCropCardView.backgroundColor = [UIColor clearColor];
-    [nonCropCardView addSubview:self.actionPopoverViewController.contentView];
-    [self.actionPopoverViewController.contentView resetOrigin:CGPointMake(0, 0)];
-    [superView addSubview:nonCropCardView];
-    
-    [self.actionPopoverViewController setCropView:self.view cropPosTopY:cropPosTopY cropPosBottomY:cropPosBottomY];
-    
-    if(animated)
-        [self.actionPopoverViewController foldAnimation];
-    
-    // 设置tag以被ActionPopoverGestureRecognizeView识别。
-    self.view.tag = ACTION_POPOVER_CONTAINER_VIEW;
-    superView.tag = ACTION_POPOVER_CONTAINER_CONTAINER_VIEW;
-    
     UIScrollView *scrollView = (UIScrollView *)superSuperView;
     if([scrollView isKindOfClass:[UIScrollView class]]) {
         scrollView.scrollEnabled = NO;
-        [self adjustScrollView:scrollView cropBottomY:cropPosBottomY cellPosY:superView.frame.origin.y];
+        [self adjustScrollView:scrollView cropBottomY:cropPosBottomY cellPosY:superView.frame.origin.y completion:^{
+            
+            [superView removeFromSuperview];
+            if([superSuperView respondsToSelector:@selector(addCellToWaterflowView:)])
+                [superSuperView addCellToWaterflowView:superView];
+            else
+                [superSuperView addSubview:superView];
+            
+            CGRect cardFrame = self.view.frame;
+            
+            UIEdgeInsets cardInsets = CARD_CROP_INSETS;
+            CGRect insetFrame = CGRectMake(cardFrame.origin.x + cardInsets.left, cardFrame.origin.y + cardInsets.top, cardFrame.size.width - cardInsets.left - cardInsets.right, cropPosTopY - cardInsets.top - cardInsets.bottom);
+            
+            UIView *cropCardView = [[UIView alloc] initWithFrame:insetFrame];
+            cropCardView.backgroundColor = [UIColor clearColor];
+            cropCardView.clipsToBounds = YES;
+            
+            [self.view resetOrigin:CGPointMake(-cardInsets.left, -cardInsets.top)];
+            
+            [self.view removeFromSuperview];
+            [cropCardView addSubview:self.view];
+            [superView addSubview:cropCardView];
+            
+            [self buildActionPopoverViewController];
+            [[UIApplication sharedApplication].rootViewController.view addSubview:self.actionPopoverViewController.view];
+            
+            cardFrame.origin.y += cropPosTopY;
+            UIView *nonCropCardView = [[UIView alloc] initWithFrame:cardFrame];
+            nonCropCardView.backgroundColor = [UIColor clearColor];
+            [nonCropCardView addSubview:self.actionPopoverViewController.contentView];
+            [self.actionPopoverViewController.contentView resetOrigin:CGPointMake(0, 0)];
+            [superView addSubview:nonCropCardView];
+            
+            [self.actionPopoverViewController setCropView:self.view cropPosTopY:cropPosTopY cropPosBottomY:cropPosBottomY];
+            
+            if(animated)
+                [self.actionPopoverViewController foldAnimation];
+            
+            // 设置tag以被ActionPopoverGestureRecognizeView识别。
+            self.view.tag = ACTION_POPOVER_CONTAINER_VIEW;
+            superView.tag = ACTION_POPOVER_CONTAINER_CONTAINER_VIEW;
+            
+        }];
     } else {
         NSLog(@"not scrollview");
     }
