@@ -1085,13 +1085,8 @@
     CGFloat scrollUp = 50 + cellPosY + cropPosBottomY + actionPopoverFoldViewHeight - scrollViewContentOffsetY - scrollViewHeight;
     
     if(scrollUp > 0 && scrollViewContentOffsetY + scrollUp + scrollViewHeight < scrollViewContentHeight) {
-        [UIView animateWithDuration:0.3f animations:^{
-            scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, scrollViewContentOffsetY + scrollUp);
-        } completion:^(BOOL finished) {
-            if(completion)
-                completion();
-        }];
-        //[scrollView setContentOffset:CGPointMake(0, scrollViewContentOffsetY + scrollUp) animated:YES];
+        [scrollView setContentOffset:CGPointMake(0, scrollViewContentOffsetY + scrollUp) animated:YES];
+        [UIApplication excuteBlock:completion afterDelay:0.3f];
     } else {
         if(completion)
             completion();
