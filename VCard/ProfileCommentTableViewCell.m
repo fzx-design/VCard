@@ -8,7 +8,7 @@
 
 #import "ProfileCommentTableViewCell.h"
 #import "TTTAttributedLabelConfiguer.h"
-#import "NSDateAddition.h"
+#import "NSDate+Addition.h"
 #import "UIView+Resize.h"
 #import "CardViewController.h"
 #import "User.h"

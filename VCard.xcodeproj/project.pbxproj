@@ -258,7 +258,7 @@
 		18E6FA8415B18B28003B5A39 /* button_arrow_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E6FA8015B18B28003B5A39 /* button_arrow_card.png */; };
 		18E6FA8C15B197D6003B5A39 /* SearchTableviewSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6FA8B15B197D5003B5A39 /* SearchTableviewSectionView.m */; };
 		18E707C9153D28A60012092E /* VCard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18E707C7153D28A60012092E /* VCard.xcdatamodeld */; };
-		18E707E4153D2E2C0012092E /* NSDateAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E707E0153D2E2C0012092E /* NSDateAddition.m */; };
+		18E707E4153D2E2C0012092E /* NSDate+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E707E0153D2E2C0012092E /* NSDate+Addition.m */; };
 		18E707EF153D32680012092E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E707EE153D32680012092E /* CoreData.framework */; };
 		18EA4F4415346DFD005ED94F /* button_back_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA4E5A15346DFD005ED94F /* button_back_dark.png */; };
 		18EA4F4515346DFD005ED94F /* button_back_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA4E5B15346DFD005ED94F /* button_back_dark@2x.png */; };
@@ -1332,8 +1332,8 @@
 		18E6FA8A15B197D5003B5A39 /* SearchTableviewSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableviewSectionView.h; sourceTree = "<group>"; };
 		18E6FA8B15B197D5003B5A39 /* SearchTableviewSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableviewSectionView.m; sourceTree = "<group>"; };
 		18E707C8153D28A60012092E /* VCard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VCard.xcdatamodel; sourceTree = "<group>"; };
-		18E707DF153D2E2C0012092E /* NSDateAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDateAddition.h; sourceTree = "<group>"; };
-		18E707E0153D2E2C0012092E /* NSDateAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateAddition.m; sourceTree = "<group>"; };
+		18E707DF153D2E2C0012092E /* NSDate+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Addition.h"; sourceTree = "<group>"; };
+		18E707E0153D2E2C0012092E /* NSDate+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Addition.m"; sourceTree = "<group>"; };
 		18E707EE153D32680012092E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		18EA4E5A15346DFD005ED94F /* button_back_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_back_dark.png; sourceTree = "<group>"; };
 		18EA4E5B15346DFD005ED94F /* button_back_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_back_dark@2x.png"; sourceTree = "<group>"; };
@@ -2620,8 +2620,8 @@
 		18E707D8153D2E020012092E /* Catagaories */ = {
 			isa = PBXGroup;
 			children = (
-				18E707DF153D2E2C0012092E /* NSDateAddition.h */,
-				18E707E0153D2E2C0012092E /* NSDateAddition.m */,
+				18E707DF153D2E2C0012092E /* NSDate+Addition.h */,
+				18E707E0153D2E2C0012092E /* NSDate+Addition.m */,
 				E1A59EA815AC242F001F0A94 /* NSNotificationCenter+Addition.h */,
 				E1A59EA915AC2430001F0A94 /* NSNotificationCenter+Addition.m */,
 				E119126715BBC0FE00247151 /* NSString+Addition.h */,
@@ -4745,7 +4745,7 @@
 				188BA4F91539B3EB00344288 /* CardImageView.m in Sources */,
 				1850A457153BE4020001A905 /* CardImageViewShadowView.m in Sources */,
 				18E707C9153D28A60012092E /* VCard.xcdatamodeld in Sources */,
-				18E707E4153D2E2C0012092E /* NSDateAddition.m in Sources */,
+				18E707E4153D2E2C0012092E /* NSDate+Addition.m in Sources */,
 				18E558F8153EA95200ECCA3B /* WaterflowView.m in Sources */,
 				18E558FB153EA9D000ECCA3B /* BaseNavigationView.m in Sources */,
 				18E558FE153EAAD400ECCA3B /* CastViewController.m in Sources */,

@@ -10,7 +10,7 @@
 #import "CardViewController.h"
 #import "UIImageView+Addition.h"
 #import "UIApplication+Addition.h"
-#import "NSDateAddition.h"
+#import "NSDate+Addition.h"
 #import "User.h"
 #import "Comment.h"
 #import "WBClient.h"

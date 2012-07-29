@@ -10,7 +10,7 @@
 #import "Comment.h"
 #import "Status.h"
 #import "User.h"
-#import "NSDateAddition.h"
+#import "NSDate+Addition.h"
 #import "NSUserDefaults+Addition.h"
 #import "CoreDataViewController.h"
 

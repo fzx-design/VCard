@@ -68,9 +68,9 @@
     self.rightCameraCoverCloseFrame = self.rightCameraCoverImageView.frame;
     [self configureCancelButton];
     if(self.originalImage) {
-        [self configureEditViewController];
+        [self configureEditViewControllerAfterDelay:0.1f completion:nil];
     } else {
-        [self configureShootViewController];
+        [self configureShootViewControllerAfterDelay:0.1f completion:nil];
     }
 }
 
@@ -175,11 +175,33 @@
 }
 
 - (void)configureShootViewController {
-    [self.bgView insertSubview:self.shootViewController.view aboveSubview:self.captureBgView];
+    [self configureShootViewControllerWithCompletion:nil];
 }
 
 - (void)configureEditViewController {
+    [self configureEditViewControllerWithCompletion:nil];
+}
+
+- (void)configureShootViewControllerWithCompletion:(void (^)(void))completion {
+    [self.bgView insertSubview:self.shootViewController.view aboveSubview:self.captureBgView];
+    
+    if(completion)
+        completion();
+}
+
+- (void)configureEditViewControllerWithCompletion:(void (^)(void))completion {
     [self.bgView insertSubview:self.editViewController.view aboveSubview:self.captureBgView];
+    
+    if(completion)
+        completion();
+}
+
+- (void)configureShootViewControllerAfterDelay:(NSTimeInterval)delay completion:(void (^)(void))completion {
+    [self performSelector:@selector(configureShootViewControllerWithCompletion:) withObject:completion afterDelay:delay];
+}
+
+- (void)configureEditViewControllerAfterDelay:(NSTimeInterval)delay completion:(void (^)(void))completion {
+    [self performSelector:@selector(configureEditViewControllerWithCompletion:) withObject:completion afterDelay:delay];
 }
 
 #pragma mark - IBActions
@@ -271,8 +293,11 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
         [self.shootViewController.view removeFromSuperview];
         self.shootViewController = nil;
         self.originalImage = image;
-        [self configureEditViewController];
-        [self.editViewController showEditAccessoriesAnimationWithCompletion:nil];
+        
+        BlockARCWeakSelf weakSelf = self;
+        [self configureEditViewControllerAfterDelay:0.1f completion:^{
+            [weakSelf.editViewController showEditAccessoriesAnimationWithCompletion:nil];
+        }];
     }];
 }
 
@@ -303,8 +328,11 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
         self.editViewController = nil;
         self.originalImage = nil;
         
-        [self configureShootViewController];
-        [self.shootViewController showShootAccessoriesAnimationWithCompletion:nil];
+        BlockARCWeakSelf weakSelf = self;
+        [self configureShootViewControllerAfterDelay:0.1f completion:^{
+            [weakSelf.shootViewController showShootAccessoriesAnimationWithCompletion:nil];
+        }];
+        
     }];
 }
 

@@ -9,7 +9,7 @@
 #import "DirectMessage.h"
 #import "Conversation.h"
 #import "User.h"
-#import "NSDateAddition.h"
+#import "NSDate+Addition.h"
 
 
 @implementation DirectMessage

@@ -15,7 +15,7 @@
 #import "NSUserDefaults+Addition.h"
 #import "DMBubbleView.h"
 #import "TTTAttributedLabelConfiguer.h"
-#import "NSDateAddition.h"
+#import "NSDate+Addition.h"
 
 @interface DMConversationTableViewController () {
     long long _nextCursor;

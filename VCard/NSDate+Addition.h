@@ -1,5 +1,5 @@
 //
-//  NSDateAddition.h
+//  NSDate+Addition.h
 //  PushBox
 //
 //  Created by Xie Hasky on 11-7-29.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSDate (NSDateAddition)
+@interface NSDate (Addition)
 
 + (NSDate *)dateFromStringRepresentation:(NSString *)dateString;
 - (NSString *)stringRepresentation;

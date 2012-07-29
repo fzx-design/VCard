@@ -40,4 +40,6 @@
 + (UIPopoverController *)getAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate;
 + (UIPopoverController *)showAlbumImagePickerFromButton:(UIButton *)button delegate:(id)delegate;
 
++ (void)excuteBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
+
 @end

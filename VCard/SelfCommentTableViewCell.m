@@ -10,7 +10,7 @@
 #import "CardViewController.h"
 #import "User.h"
 #import "UIView+Resize.h"
-#import "NSDateAddition.h"
+#import "NSDate+Addition.h"
 #import "UIApplication+Addition.h"
 #import "UserAccountManager.h"
 #import "WBClient.h"

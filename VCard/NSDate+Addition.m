@@ -1,14 +1,14 @@
 //
-//  NSDateAddition.m
+//  NSDate+Addition.m
 //  PushBox
 //
 //  Created by Xie Hasky on 11-7-29.
 //  Copyright 2011年 同济大学. All rights reserved.
 //
 
-#import "NSDateAddition.h"
+#import "NSDate+Addition.h"
 
-@implementation NSDate (NSDateAddition)
+@implementation NSDate (Addition)
 
 + (NSDate *)dateFromStringRepresentation:(NSString *)dateString
 {

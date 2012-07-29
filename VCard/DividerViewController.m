@@ -7,7 +7,7 @@
 //
 
 #import "DividerViewController.h"
-#import "NSDateAddition.h"
+#import "NSDate+Addition.h"
 #import "ResourceList.h"
 
 @interface DividerViewController ()

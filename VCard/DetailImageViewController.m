@@ -10,7 +10,7 @@
 #import "UIView+Resize.h"
 #import "UIApplication+Addition.h"
 #import "User.h"
-#import "NSDateAddition.h"
+#import "NSDate+Addition.h"
 #import "UIScrollView+ZoomToPoint.h"
 #import "ErrorIndicatorViewController.h"
 

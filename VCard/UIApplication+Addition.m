@@ -282,4 +282,13 @@ static NSMutableArray *_backViewStack = nil;
     return pc;
 }
 
+#pragma Block
+
++ (void)excuteBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay {
+    if(block)
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * delay), dispatch_get_current_queue(), ^{
+            block();
+        });
+}
+
 @end
