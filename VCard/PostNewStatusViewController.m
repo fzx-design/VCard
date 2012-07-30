@@ -10,6 +10,7 @@
 #import "WBClient.h"
 #import "ErrorIndicatorViewController.h"
 #import "NSUserDefaults+Addition.h"
+#import "ErrorIndicatorViewController.h"
 
 @interface PostNewStatusViewController ()
 
@@ -124,6 +125,7 @@
     self.navActivityIndicator.hidden = YES;
     [self.navActivityIndicator stopAnimating];
     self.navButton.selected = NO;
+    [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureFailure contentText:@"定位失败"];
 }
 
 - (void)locationManager:(CLLocationManager *)manager

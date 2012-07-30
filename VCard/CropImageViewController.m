@@ -117,12 +117,14 @@
     CGPoint center = CGPointMake(sizeBeforeRotate.width / 2, sizeBeforeRotate.height / 2);
     
     image = [image imageRotatedByRadians:self.cropImageView.rotationFactor];
+    
     CGSize sizeAfterRotate = image.size;
     CGPoint newCenter = CGPointMake(sizeAfterRotate.width / 2, sizeAfterRotate.height / 2);
     CGRect rotateFrame = CGRectMake(newCenter.x - (center.x - x), newCenter.y - (center.y - y), w, h);
     CGImageRef resultRef = CGImageCreateWithImageInRect(image.CGImage, rotateFrame);
     UIImage *result = [UIImage imageWithCGImage:resultRef];
     CGImageRelease(resultRef);
+    
     return result;
 }
 
