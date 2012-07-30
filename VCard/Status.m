@@ -73,6 +73,7 @@
     
     NSArray *items = [context executeFetchRequest:request error:NULL];
     Status *res = [items lastObject];
+    items = nil;
     
     return res;
 }

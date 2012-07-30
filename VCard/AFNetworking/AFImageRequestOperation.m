@@ -150,7 +150,8 @@ static dispatch_queue_t image_request_operation_processing_queue() {
     if (!_responseImage && [self.responseData length] > 0 && [self isFinished]) {
         UIImage *image = [UIImage imageWithData:self.responseData];
         
-        self.responseImage = [UIImage imageWithCGImage:[image CGImage] scale:self.imageScale orientation:image.imageOrientation];
+//        self.responseImage = [UIImage imageWithCGImage:[image CGImage] scale:self.imageScale orientation:image.imageOrientation];
+        self.responseImage = image;
     }
     
     return _responseImage;

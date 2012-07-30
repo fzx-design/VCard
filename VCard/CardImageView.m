@@ -146,9 +146,10 @@
               completion:(void (^)())completion
 {
     _loadingCompleted = NO;
-    _activityIndicatiorView.hidden = NO;
-    [_activityIndicatiorView startAnimating];
+    self.activityIndicatiorView.hidden = NO;
+    [self.activityIndicatiorView startAnimating];
     [self setUpGifIcon:urlString];
+    [self setGestureEnabled:NO];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     
@@ -200,11 +201,7 @@
             weakSelf.targetVerticalScale = widthFactor; // scale to fit width
         
         weakSelf.loadingCompleted = YES;
-        
-        for (UIGestureRecognizer *gestureRecognizer in self.gestureRecognizers) {
-            gestureRecognizer.enabled = YES;
-        }
-        
+        [weakSelf setGestureEnabled:YES];
         weakSelf.imageView.alpha = 0.0;
         [UIView animateWithDuration:0.3 animations:^{
             weakSelf.imageView.alpha = 1.0;
@@ -329,9 +326,13 @@
     _staticGIFImage = nil;
     _actionButton.hidden = YES;
     _imageView.image = nil;
-    
+    [self setGestureEnabled:NO];
+}
+
+- (void)setGestureEnabled:(BOOL)enabled
+{
     for (UIGestureRecognizer *gestureRecognizer in self.gestureRecognizers) {
-        gestureRecognizer.enabled = NO;
+        gestureRecognizer.enabled = enabled;
     }
 }
 
@@ -385,8 +386,8 @@
 - (UIActivityIndicatorView *)activityIndicatiorView
 {
     if (!_activityIndicatiorView) {
-        _activityIndicatiorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        [self insertSubview:_activityIndicatiorView aboveSubview:self.imageView];
+        _activityIndicatiorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [self insertSubview:_activityIndicatiorView aboveSubview:self.actionButton];
     }
     return _activityIndicatiorView;
 }
