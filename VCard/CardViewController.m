@@ -191,9 +191,10 @@
     }
     
     _alreadyConfigured = YES;
+    _pageIndex = pageIndex_;
+    self.view.userInteractionEnabled = ![NSUserDefaults isReloaingCardCell];
     self.coreDataIdentifier = identifier;
     self.statusImageView.imageViewMode = CastViewImageViewModeNormal;
-    _pageIndex = pageIndex_;
     
     [self setUpStatus:status_];
     
