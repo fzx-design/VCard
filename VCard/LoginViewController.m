@@ -18,8 +18,6 @@
 
 #define kSinaWeiboRegisterURL @"http://weibo.com/signup/signup.php?ps=u3&lang=zh-cn"
 
-#define VIEW_APPEAR_ANIMATION_DURATION  0.5f
-
 #define LOGO_VIEW_LANDSCAPE_CENTER      CGPointMake(512, 90)
 #define LOGO_VIEW_PORTRAIT_CENTER       CGPointMake(384, 125)
 
@@ -56,9 +54,9 @@
 @synthesize keyboardHeight = _keyboardHeight;
 
 - (id)initWithType:(LoginViewControllerType)type {
-    _controllerType = type;
     self = [self init];
     if(self) {
+        _controllerType = type;
         if(_controllerType == LoginViewControllerTypeDeleteCurrentUser) {
             [self deleteUser:self.currentUser];
         }
@@ -90,7 +88,7 @@
     if(_controllerType == LoginViewControllerTypeCreateNewUser) {
         self.currentCellIndex = [self numberOfCellsInScrollView] - 1;
     } else if(_controllerType == LoginViewControllerTypeDeleteCurrentUser) {
-        [self performSelector:@selector(postDeleteCurrentUserNotification) withObject:nil afterDelay:VIEW_APPEAR_ANIMATION_DURATION];
+        [self performSelector:@selector(postDeleteCurrentUserNotification) withObject:nil afterDelay:LOGIN_VIEW_APPEAR_ANIMATION_DURATION];
     }
     
     [self configureUI];
@@ -199,7 +197,7 @@
 }
 
 - (void)show {
-    [UIApplication presentModalViewController:self animated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
+    [UIApplication presentModalViewController:self animated:NO duration:LOGIN_VIEW_APPEAR_ANIMATION_DURATION];
     [self viewWillAppear:NO];
 }
 
@@ -269,7 +267,7 @@
 // return -1 if user not exist, else return the index of the user in self.loginUserInfoArray
 - (NSUInteger)deleteUser:(User *)oldUser {
     NSMutableArray *userIDArray = [NSMutableArray array];
-    __block NSUInteger index = -1;
+    __block NSUInteger index = NSUIntegerMax;
     [self.loginUserInfoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         User *user = obj;
         if([user.userID isEqualToString:oldUser.userID])
@@ -278,10 +276,11 @@
             [userIDArray addObject:user.userID];
     }];
     
-    if(index != -1) {
+    if(index != NSUIntegerMax) {
         [self.loginUserInfoArray removeObject:oldUser];
         userIDArray = userIDArray.count > 0 ? userIDArray : nil;
         [NSUserDefaults setLoginUserArray:userIDArray];
+        NSLog(@"LoginViewController : remove user at index %d, loginUserInfoArray count %d", index, self.loginUserInfoArray.count);
     }
     return index;
 }
@@ -309,7 +308,7 @@
     __block CGRect frame = self.view.frame;
     frame.origin = CGPointMake(0, -frame.size.height);
     self.view.frame = frame;
-    [UIView animateWithDuration:VIEW_APPEAR_ANIMATION_DURATION animations:^{
+    [UIView animateWithDuration:LOGIN_VIEW_APPEAR_ANIMATION_DURATION animations:^{
         frame.origin = CGPointMake(0, 0);
         self.view.frame = frame;
     }];
@@ -319,7 +318,7 @@
     __block CGRect frame = self.view.frame;
     frame.origin = CGPointMake(0, 0);
     self.view.frame = frame;
-    [UIView animateWithDuration:VIEW_APPEAR_ANIMATION_DURATION animations:^{
+    [UIView animateWithDuration:LOGIN_VIEW_APPEAR_ANIMATION_DURATION animations:^{
         frame.origin = CGPointMake(0, -frame.size.height);
         self.view.frame = frame;
     } completion:^(BOOL finished) {
@@ -396,7 +395,7 @@
     [self insertNewUser:user];
     [self viewDisappearAnimation];
     
-    [UIApplication dismissModalViewControllerAnimated:NO duration:VIEW_APPEAR_ANIMATION_DURATION];
+    [UIApplication dismissModalViewControllerAnimated:NO duration:LOGIN_VIEW_APPEAR_ANIMATION_DURATION];
 }
 
 - (void)loginCellWillLoginUser {

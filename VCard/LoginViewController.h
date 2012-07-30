@@ -16,6 +16,7 @@ typedef enum {
     LoginViewControllerTypeCreateNewUser = 2,
 } LoginViewControllerType;
 
+#define LOGIN_VIEW_APPEAR_ANIMATION_DURATION  0.5f
 
 @interface LoginViewController : CoreDataViewController <UIScrollViewDelegate, LoginCellViewControllerDelegate>
 

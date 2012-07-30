@@ -66,7 +66,6 @@
             
             [self.delegate loginCellDidLoginUser:user];
             
-            
             if(compeltion)
                 compeltion(YES);
             

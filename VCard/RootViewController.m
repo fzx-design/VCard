@@ -19,7 +19,9 @@
 
 #define kShelfViewControllerFrame CGRectMake(0.0, -150.0, 768.0, 150.0);
 
-@interface RootViewController ()
+@interface RootViewController () {
+    BOOL _showingLoginView;
+}
 
 @end
 
@@ -49,8 +51,6 @@
     
     [NSNotificationCenter registerChangeCurrentUserNotificationWithSelector:@selector(handleChangeCurrentUserNotification:) target:self];
     [NSNotificationCenter postRootViewControllerViewDidLoadNotification];
-    
-    
 }
 
 - (void)loadUserAndChangeAvatar
@@ -105,9 +105,35 @@
     // Release any retained subviews of the main view.
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    if (self.currentUser == nil) {
+- (void)showLoginViewController {
+    NSLog(@"RootViewController : showLoginViewController");
+    NSString *launchImageName = nil;
+    BOOL isLandscape = [UIApplication isCurrentOrientationLandscape];
+    if([UIApplication isRetinaDisplayiPad])
+        launchImageName = isLandscape ? @"Default-Landscape@2x~ipad" : @"Default-Portrait@2x~ipad";
+    else
+        launchImageName = isLandscape ? @"Default-Landscape~ipad" : @"Default-Portrait~ipad";
+    
+    UIImage *launchImage = [UIImage imageNamed:launchImageName];
+    UIImageView *launchImageView = [[UIImageView alloc] initWithImage:launchImage];
+    
+    [launchImageView resetOrigin:CGPointZero];
+    
+    [self.view addSubview:launchImageView];
+    
+    [UIApplication excuteBlock:^{
+        [launchImageView removeFromSuperview];
+    } afterDelay:LOGIN_VIEW_APPEAR_ANIMATION_DURATION + 0.3f];
+    
+    [UIApplication excuteBlock:^{
         [[[LoginViewController alloc] init] show];
+    } afterDelay:0.3f];
+}
+
+- (void)viewWillLayoutSubviews {
+    if (self.currentUser == nil && !_showingLoginView) {
+        [self showLoginViewController];
+        _showingLoginView = YES;
     }
 }
 
@@ -121,7 +147,7 @@
 }
 
 - (void)handleChangeCurrentUserNotification:(NSNotification *)notification {
-    NSLog(@"current user name:%@", self.currentUser.screenName);
+    NSLog(@"RootViewController : current user name:%@", self.currentUser.screenName);
     
     [_castViewController.view removeFromSuperview];
     [_shelfViewController.view removeFromSuperview];

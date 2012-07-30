@@ -103,17 +103,16 @@ static CoreDataKernal *kernalInstance = nil;
     return kernalInstance;
 }
 
+// pass nil to delete current user
 - (void)configureCurrentUserWithUserID:(NSString *)currentUserID {
-    if (currentUserID == nil || [currentUserID isEqualToString:@""]) {
-        return;
-    }
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 
-    User *currentUser = [User getCurrentUserWithID:currentUserID inManagedObjectContext:appDelegate.managedObjectContext];
+    User *currentUser = currentUserID ? [User getCurrentUserWithID:currentUserID inManagedObjectContext:appDelegate.managedObjectContext] : nil;
+    
     self.currentUser = currentUser;
     
-    NSLog(@"configure current user name %@", currentUser.screenName);
+    NSLog(@"CoreDataViewController : configure current user name %@", currentUser.screenName);
     
     [NSUserDefaults setCurrentUserID:currentUser.userID];
     
@@ -143,6 +142,10 @@ static CoreDataKernal *kernalInstance = nil;
 
 - (void)handleCoreChangeCurrentUserNotification:(NSNotification *)notification {
     NSString *currentUserID = notification.object;
+    if ([currentUserID isEqualToString:@""]) {
+        return;
+    }
+    
     [self configureCurrentUserWithUserID:currentUserID];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
     [NSNotificationCenter postChangeCurrentUserNotification];
