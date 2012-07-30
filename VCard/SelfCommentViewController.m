@@ -92,6 +92,12 @@
     self.toMeButton.selected = YES;
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_commentByMeTableViewController viewWillDisappear:NO];
+    [_commentToMeTableViewController viewWillDisappear:NO];
+}
+
 #pragma mark - IBActions
 - (IBAction)didClickSwitchToMeButton:(UIButton *)sender
 {

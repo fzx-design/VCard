@@ -38,6 +38,11 @@
     // Release any retained subviews of the main view.
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_userListViewController viewWillDisappear:NO];
+}
+
 - (void)clearPage
 {
     [_userListViewController.view removeFromSuperview];

@@ -15,10 +15,7 @@ typedef enum {
     CommentsTableViewDataSourceCommentsMentioningMe,
 } CommentsTableViewDataSource;
 
-@interface SelfCommentTableViewController : RefreshableCoreDataTableViewController {
-    
-    int _nextCursor;
-}
+@interface SelfCommentTableViewController : RefreshableCoreDataTableViewController
 
 @property (nonatomic, assign) CommentsTableViewDataSource dataSource;
 

@@ -14,10 +14,10 @@
 #import "UIView+Resize.h"
 
 
-@interface ProfileRelationTableViewController () {
-    int _nextCursor;
-    int _page;
-}
+@interface ProfileRelationTableViewController ()
+
+@property (nonatomic, unsafe_unretained) int nextCursor;
+@property (nonatomic, unsafe_unretained) int page;
 
 @end
 
@@ -83,41 +83,46 @@
     }
     _loading = YES;
     
+    BlockARCWeakSelf weakSelf = self;
+    
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
+            if (weakSelf == nil) {
+                return;
+            }
             
             NSDictionary *result = client.responseJSONObject;
             if ([result isKindOfClass:[NSDictionary class]]) {
                 NSArray *dictArray = [result objectForKey:@"users"];
                 
-                if (_nextCursor == -1) {
-                    [self clearData];
+                if (weakSelf.nextCursor == -1) {
+                    [weakSelf clearData];
                 }
                 
                 for (NSDictionary *dict in dictArray) {
-                    User *usr = [User insertUser:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
-                    if (_type == RelationshipViewTypeFollowers) {
-                        [self.user addFollowersObject:usr];
-                    } else if(_type == RelationshipViewTypeFriends) {
-                        [self.user addFriendsObject:usr];
-                    } else if(_type == RelationshipViewTypeSearch) {
+                    User *usr = [User insertUser:dict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:weakSelf.coreDataIdentifier];
+                    if (weakSelf.type == RelationshipViewTypeFollowers) {
+                        [weakSelf.user addFollowersObject:usr];
+                    } else if(weakSelf.type == RelationshipViewTypeFriends) {
+                        [weakSelf.user addFriendsObject:usr];
+                    } else if(weakSelf.type == RelationshipViewTypeSearch) {
                         //TODO:
                     }
                 }
                 
-                [self.managedObjectContext processPendingChanges];
-                [self.fetchedResultsController performFetch:nil];
+                [weakSelf.managedObjectContext processPendingChanges];
+                [weakSelf.fetchedResultsController performFetch:nil];
                 
-                _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
-                self.hasMoreViews = _nextCursor != 0;
-                _page++;
+                weakSelf.nextCursor = [[result objectForKey:@"next_cursor"] intValue];
+                weakSelf.hasMoreViews = _nextCursor != 0;
+                weakSelf.page++;
             }
         }
         
-        [self adjustBackgroundView];
-        [self refreshEnded];
-        [self finishedLoading];
+        [weakSelf adjustBackgroundView];
+        [weakSelf refreshEnded];
+        [weakSelf finishedLoading];
         
     }];
         

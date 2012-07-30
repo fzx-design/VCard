@@ -38,6 +38,11 @@
     [super viewDidUnload];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_listTableViewController viewWillDisappear:NO];
+}
+
 - (void)initialLoad
 {
     [self.listTableViewController refresh];

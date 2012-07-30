@@ -18,11 +18,7 @@ typedef enum {
 @class ProfileCommentStatusTableCell;
 @class ProfileCommentTableViewCell;
 
-@interface ProfileCommentTableViewController : RefreshableCoreDataTableViewController {
-    int _nextCursor;
-    int _page;
-    BOOL _sourceChanged;
-}
+@interface ProfileCommentTableViewController : RefreshableCoreDataTableViewController
 
 @property (nonatomic, assign) BOOL filterByAuthor;
 @property (nonatomic, strong) Status *status;

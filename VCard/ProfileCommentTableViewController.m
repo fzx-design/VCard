@@ -15,6 +15,14 @@
 #import "WaterflowLayoutUnit.h"
 #import "TTTAttributedLabelConfiguer.h"
 
+@interface ProfileCommentTableViewController ()
+
+@property (nonatomic, unsafe_unretained) int nextCursor;
+@property (nonatomic, unsafe_unretained) int page;
+@property (nonatomic, unsafe_unretained) BOOL sourceChanged;
+
+@end
+
 @implementation ProfileCommentTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -104,49 +112,55 @@
     }
     _loading = YES;
     
+    BlockARCWeakSelf weakSelf = self;
+    
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
+        if (weakSelf == nil) {
+            return;
+        }
+        
         if (!client.hasError) {
             
-            if (_sourceChanged || self.refreshing) {
-                _sourceChanged = NO;
-                [self clearData];
+            if (weakSelf.sourceChanged || weakSelf.refreshing) {
+                weakSelf.sourceChanged = NO;
+                [weakSelf clearData];
             }
             
             NSDictionary *result = client.responseJSONObject;
             if ([result isKindOfClass:[NSDictionary class]]) {
-                if (_type == CommentTableViewControllerTypeComment) {
+                if (weakSelf.type == CommentTableViewControllerTypeComment) {
                     NSArray *dictArray = [result objectForKey:@"comments"];
                     for (NSDictionary *dict in dictArray) {
-                        Comment *comment = [Comment insertComment:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
+                        Comment *comment = [Comment insertComment:dict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:weakSelf.coreDataIdentifier];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
                         comment.commentHeight = @([CardViewController heightForTextContent:comment.text]);
-                        [self.status addCommentsObject:comment];
+                        [weakSelf.status addCommentsObject:comment];
                     }
                 } else {
                     NSArray *dictArray = [result objectForKey:@"reposts"];
                     for (NSDictionary *dict in dictArray) {
-                        Status *status = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
+                        Status *status = [Status insertStatus:dict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:weakSelf.coreDataIdentifier];
                         status.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:status.text];
                         status.cardSizeCardHeight = @([CardViewController heightForTextContent:status.text]);
-                        [_status addRepostedByObject:status];
+                        [weakSelf.status addRepostedByObject:status];
                     }
                 }
-                _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
-                self.hasMoreViews = _nextCursor != 0;
+                weakSelf.nextCursor = [[result objectForKey:@"next_cursor"] intValue];
+                weakSelf.hasMoreViews = weakSelf.nextCursor != 0;
             }
                         
-            [self.managedObjectContext processPendingChanges];
-            [self.fetchedResultsController performFetch:nil];
+            [weakSelf.managedObjectContext processPendingChanges];
+            [weakSelf.fetchedResultsController performFetch:nil];
             
-            [self updateHeaderViewInfo];
-            [self updateVisibleCells];
+            [weakSelf updateHeaderViewInfo];
+            [weakSelf updateVisibleCells];
             
         }
         
-        [self refreshEnded];
-        [self adjustBackgroundView];
-        [self finishedLoading];
+        [weakSelf refreshEnded];
+        [weakSelf adjustBackgroundView];
+        [weakSelf finishedLoading];
         
     }];
     

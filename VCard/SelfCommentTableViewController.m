@@ -12,10 +12,11 @@
 #import "CardViewController.h"
 #import "TTTAttributedLabelConfiguer.h"
 
-@interface SelfCommentTableViewController () {
-    int _nextPage;
-    BOOL _resetFonts;
-}
+@interface SelfCommentTableViewController ()
+
+@property (nonatomic, unsafe_unretained) int nextCursor;
+@property (nonatomic, unsafe_unretained) int nextPage;
+@property (nonatomic, unsafe_unretained) BOOL resetFonts;
 
 @end
 
@@ -108,54 +109,59 @@
     }
     _loading = YES;
     
+    BlockARCWeakSelf weakSelf = self;
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
+            if (weakSelf == nil) {
+                return;
+            }
+            
             NSDictionary *result = client.responseJSONObject;
             if ([result isKindOfClass:[NSDictionary class]]) {
                 NSArray *dictArray = [result objectForKey:@"comments"];
                 
-                if (self.refreshing) {
-                    [self clearData];
+                if (weakSelf.refreshing) {
+                    [weakSelf clearData];
                 }
                 
-                if (_dataSource == CommentsTableViewDataSourceCommentsToMe) {
+                if (weakSelf.dataSource == CommentsTableViewDataSourceCommentsToMe) {
                     for (NSDictionary *dict in dictArray) {
-                        Comment *comment = [Comment insertCommentToMe:dict inManagedObjectContext:self.managedObjectContext];
+                        Comment *comment = [Comment insertCommentToMe:dict inManagedObjectContext:weakSelf.managedObjectContext];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
                         comment.commentHeight = @([CardViewController heightForTextContent:comment.text]);
                     }
-                    [self.managedObjectContext processPendingChanges];
+                    [weakSelf.managedObjectContext processPendingChanges];
                     
-                } else if(_dataSource == CommentsTableViewDataSourceCommentsByMe) {
+                } else if(weakSelf.dataSource == CommentsTableViewDataSourceCommentsByMe) {
                     for (NSDictionary *dict in dictArray) {
-                        Comment *comment = [Comment insertCommentByMe:dict inManagedObjectContext:self.managedObjectContext];
+                        Comment *comment = [Comment insertCommentByMe:dict inManagedObjectContext:weakSelf.managedObjectContext];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
                         comment.commentHeight = @([CardViewController heightForTextContent:comment.text]);
                     }
-                    [self.managedObjectContext processPendingChanges];
+                    [weakSelf.managedObjectContext processPendingChanges];
                     
-                } else if (_dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
+                } else if (weakSelf.dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
                     for (NSDictionary *dict in dictArray) {
-                        Comment *comment = [Comment insertCommentMentioningMe:dict inManagedObjectContext:self.managedObjectContext];
+                        Comment *comment = [Comment insertCommentMentioningMe:dict inManagedObjectContext:weakSelf.managedObjectContext];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
                         comment.commentHeight = @([CardViewController heightForTextContent:comment.text]);
                     }
-                    [self.managedObjectContext processPendingChanges];
+                    [weakSelf.managedObjectContext processPendingChanges];
                 }
                 
-                [self.managedObjectContext processPendingChanges];
-                [self.fetchedResultsController performFetch:nil];
+                [weakSelf.managedObjectContext processPendingChanges];
+                [weakSelf.fetchedResultsController performFetch:nil];
                 
-                _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
-                self.hasMoreViews = _nextCursor != 0;
-                _nextPage++;
+                weakSelf.nextCursor = [[result objectForKey:@"next_cursor"] intValue];
+                weakSelf.hasMoreViews = weakSelf.nextCursor != 0;
+                weakSelf.nextPage++;
             }            
         }
         
-        [self adjustBackgroundView];
-        [self refreshEnded];
-        [self finishedLoading];
+        [weakSelf adjustBackgroundView];
+        [weakSelf refreshEnded];
+        [weakSelf finishedLoading];
         
     }];
     

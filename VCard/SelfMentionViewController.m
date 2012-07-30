@@ -34,6 +34,19 @@
     }
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self.topShadowImageView resetOrigin:[self frameForTableView].origin];
+    [self.backgroundView addSubview:self.topShadowImageView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.commentTableViewController viewWillDisappear:NO];
+    [self.statusTableViewController viewWillDisappear:NO];
+}
+
 - (void)refresh
 {
     [self.statusTableViewController refresh];
@@ -101,13 +114,6 @@
     }
 }
 
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self.topShadowImageView resetOrigin:[self frameForTableView].origin];
-    [self.backgroundView addSubview:self.topShadowImageView];
-}
 
 #pragma mark - Properties
 - (CGRect)frameForTableView

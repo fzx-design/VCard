@@ -59,6 +59,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [_searchTableViewController viewWillDisappear:NO];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

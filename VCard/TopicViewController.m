@@ -43,6 +43,11 @@
     // Release any retained subviews of the main view.
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_statusTableViewController viewWillDisappear:NO];
+}
+
 - (void)initialLoad
 {
     [self.statusTableViewController refresh];

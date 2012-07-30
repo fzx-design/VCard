@@ -92,10 +92,13 @@
                 }
             }
         }
-        [self reloadTableViewSection:1 withAnimation:UITableViewRowAnimationFade];
+        if (self.tableViewState == SearchTableViewStateNormal) {
+            [self reloadTableViewSection:1 withAnimation:UITableViewRowAnimationFade];
+        }
     }];
     
     [client getHotTopics];
+    [self adjustBackgroundView];
 }
 
 - (void)updateSuggestionWithKey:(NSString *)key
@@ -121,9 +124,10 @@
             for(NSDictionary *dict in array) {
                 NSString *topicName = [dict valueForKey:@"suggestion"];
                 [_searchStatusSuggestions addObject:topicName];
-
             }
-            [self reloadTableViewSection:0 withAnimation:UITableViewRowAnimationAutomatic];
+            if (self.tableViewState == SearchTableviewStateTyping) {
+                [self reloadTableViewSection:0 withAnimation:UITableViewRowAnimationAutomatic];
+            }
         }
     }];
     
@@ -144,8 +148,9 @@
                 NSString *screenName = [dict valueForKey:@"screen_name"];
                 [_searchNameSuggestions addObject:screenName];
             }
-            
-            [self reloadTableViewSection:0 withAnimation:UITableViewRowAnimationAutomatic];
+            if (self.tableViewState == SearchTableviewStateTyping) {
+                [self reloadTableViewSection:0 withAnimation:UITableViewRowAnimationAutomatic];
+            }
         }
     }];
     

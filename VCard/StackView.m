@@ -121,6 +121,7 @@
 
 - (void)removeLastView:(UIView *)lastView
 {
+    lastView.userInteractionEnabled = NO;
     [UIView animateWithDuration:0.3 animations:^{
         [lastView resetOriginX:lastView.frame.origin.x + ScrollViewWidth];
     } completion:^(BOOL finished) {

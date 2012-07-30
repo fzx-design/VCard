@@ -99,6 +99,10 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
+            if (weakSelf == nil) {
+                return;
+            }
+            
             NSArray *dictArray = client.responseJSONObject;
             
             if (weakSelf.refreshing) {

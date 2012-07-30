@@ -64,6 +64,11 @@
     [self layoutFooterView];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_conversationTableViewController viewWillDisappear:NO];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

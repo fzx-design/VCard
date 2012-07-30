@@ -71,6 +71,11 @@
     [_commentButton setTitle:commentButtonString forState:UIControlStateHighlighted];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_commentTableViewController viewWillDisappear:NO];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

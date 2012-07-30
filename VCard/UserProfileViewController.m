@@ -110,6 +110,13 @@
     [self.backgroundView addSubview:self.topShadowImageView];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_friendController viewWillDisappear:NO];
+    [_followerController viewWillDisappear:NO];
+    [_statusController viewWillDisappear:NO];
+}
+
 - (void)setUpViews
 {
     [self.statusController refresh];
