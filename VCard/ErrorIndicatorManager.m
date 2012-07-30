@@ -126,6 +126,7 @@ static ErrorIndicatorManager *managerInstance = nil;
                 errorMessage = @"已经关注";
                 break;
             case 21315:
+            case 21327:
                 if(!_handlingTokenFailureSituation)
                     [self handleTokenExpireSituation];
                 return;
