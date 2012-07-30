@@ -503,7 +503,7 @@
 - (void)updateUnreadStatusCount
 {
     int unreadStatusCount = self.currentUser.unreadStatusCount.intValue;
-    if (unreadStatusCount != 0) {
+    if (unreadStatusCount != 0 && !_loading) {
         if (_dataSource != CastviewDataSourceNone) {
             _unreadCountButton.hidden = YES;
         } else {
