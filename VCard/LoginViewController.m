@@ -277,7 +277,7 @@
     }];
     
     if(index != NSUIntegerMax) {
-        [self.loginUserInfoArray removeObject:oldUser];
+        [self.loginUserInfoArray removeObjectAtIndex:index];
         userIDArray = userIDArray.count > 0 ? userIDArray : nil;
         [NSUserDefaults setLoginUserArray:userIDArray];
         NSLog(@"LoginViewController : remove user at index %d, loginUserInfoArray count %d", index, self.loginUserInfoArray.count);
