@@ -644,7 +644,7 @@
             [cell resetOrigin:origin];
         }];
     } else if (_mode == WaterflowAddSubviewModeRefresh) {
-        originY = -screenHeight;
+        originY = cell.frame.origin.y - screenHeight;
         [cell resetOriginY:originY];
         
         [UIView animateWithDuration:0.7 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
