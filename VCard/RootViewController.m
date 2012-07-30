@@ -125,9 +125,11 @@
     
     [_castViewController.view removeFromSuperview];
     [_shelfViewController.view removeFromSuperview];
+    [_detailImageViewController.view removeFromSuperview];
     
     _castViewController = nil;
     _shelfViewController = nil;
+    _detailImageViewController = nil;
     
     if(self.currentUser) {
         [Group setUpDefaultGroupWithUserID:self.currentUser.userID defaultImageURL:self.currentUser.largeAvatarURL inManagedObjectContext:self.managedObjectContext];

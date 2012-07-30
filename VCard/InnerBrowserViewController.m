@@ -116,13 +116,17 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     [UIApplication relayoutRootViewController];
     [UIApplication dismissModalViewControllerAnimated:YES];
+    
     [self performSelector:@selector(resetWebview) withObject:nil afterDelay:0.3];
 }
 
 - (void)resetWebview
 {
     _targetURL = nil;
-    [_webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"about:blank"]]];
+    [_webView loadHTMLString:@"" baseURL:nil];
+    [_webView stopLoading];
+    _webView.delegate = nil;
+    [_webView removeFromSuperview];
 }
 
 - (IBAction)didClickMoreActionButton:(UIButton *)sender
@@ -171,6 +175,7 @@
     [_loadingIndicator stopAnimating];
     _loadingIndicator.hidden = YES;
     _titleLabel.text = [_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error

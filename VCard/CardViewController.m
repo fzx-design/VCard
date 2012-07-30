@@ -118,8 +118,7 @@
 {
     if(_viewAppearLock)
         return;
-    
-    NSLog(@"Card Appear");
+
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
                selector:@selector(recoverFromPause)
@@ -135,7 +134,6 @@
     if(_viewAppearLock)
         return;
     
-    NSLog(@"Card Disppear");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
