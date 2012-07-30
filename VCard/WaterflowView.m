@@ -271,6 +271,7 @@
     if (self.contentOffset.y > 0) {
         self.contentOffset = CGPointZero;
     }
+    self.userInteractionEnabled = NO;
     [self relayout];
 }
 
@@ -308,7 +309,7 @@
     if (needRefresh) {
         _curObjIndex = 0;
         _nextBlockLimit = 0;
-                
+        
         while (self.leftColumn.visibleCells.count > 0) {
             __block WaterflowCell *cell = self.leftColumn.visibleCells.lastObject;
             [cell removeFromSuperview];
@@ -320,12 +321,8 @@
                 cell.alpha = 0.0;
                 [cell resetOriginY:cell.frame.origin.y + [UIApplication screenHeight]];
             } completion:^(BOOL finished) {
-                
                 [cell removeFromSuperview];
                 cell = nil;
-//                [cell prepareForReuse];
-//                [weakSelf recycleCellIntoReusableQueue:cell];
-//                cell.alpha = 1.0;
             }];
         }
         
@@ -340,12 +337,8 @@
                 cell.alpha = 0.0;
                 [cell resetOriginY:cell.frame.origin.y + [UIApplication screenHeight]];
             } completion:^(BOOL finished) {
-                
                 [cell removeFromSuperview];
                 cell = nil;
-//                [cell prepareForReuse];
-//                [weakSelf recycleCellIntoReusableQueue:cell];
-//                cell.alpha = 1.0;
             }];
         }
         
@@ -656,7 +649,9 @@
         
         [UIView animateWithDuration:0.7 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [cell resetOrigin:origin];
-        } completion:nil];
+        } completion:^(BOOL finished) {
+            self.userInteractionEnabled = YES;
+        }];
     }
     
 }
