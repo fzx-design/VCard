@@ -169,6 +169,7 @@
         _statusTableViewController.user = self.currentUser;
         _statusTableViewController.type = StatusTableViewControllerTypeTopicStatus;
         _statusTableViewController.searchKey = _searchKey;
+        _statusTableViewController.firstLoad = YES;
         [self.backgroundView insertSubview:_statusTableViewController.view belowSubview:self.topShadowImageView];
     }
     return _statusTableViewController;

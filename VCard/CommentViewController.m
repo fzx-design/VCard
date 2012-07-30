@@ -158,6 +158,7 @@
         _commentTableViewController.tableView.frame = [self frameForTableView];
         _commentTableViewController.status = self.status;
         _commentTableViewController.type = self.type;
+        _commentTableViewController.firstLoad = YES;
         [self.backgroundView insertSubview:_commentTableViewController.view belowSubview:self.topShadowImageView];        
     }
     return _commentTableViewController;

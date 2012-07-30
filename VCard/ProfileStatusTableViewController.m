@@ -93,6 +93,7 @@
     }
     _loading = YES;
     [NSNotificationCenter postWillReloadCardCellNotification];
+    [NSUserDefaults setReloadingCardCellStatus:YES];
     
     BlockARCWeakSelf weakSelf = self;
     
@@ -136,6 +137,7 @@
         }
         
         [NSNotificationCenter postDidReloadCardCellNotification];
+        [NSUserDefaults setReloadingCardCellStatus:NO];
         [weakSelf refreshEnded];
         [weakSelf adjustBackgroundView];
         [weakSelf finishedLoading];

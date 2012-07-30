@@ -906,6 +906,7 @@
     _loading = YES;
     
     [NSNotificationCenter postWillReloadCardCellNotification];
+    [NSUserDefaults setReloadingCardCellStatus:YES];
     
     WBClient *client = [WBClient client];
     
@@ -955,6 +956,7 @@
         }
         
         [NSNotificationCenter postDidReloadCardCellNotification];
+        [NSUserDefaults setReloadingCardCellStatus:NO];
         [self refreshEnded];
         [_pullView finishedLoading];
         [_loadMoreView finishedLoading:_hasMoreViews];
