@@ -117,6 +117,7 @@
     UIImage *launchImage = [UIImage imageNamed:launchImageName];
     UIImageView *launchImageView = [[UIImageView alloc] initWithImage:launchImage];
     
+    [launchImageView resetSize:self.view.frame.size];
     [launchImageView resetOrigin:CGPointZero];
     
     [self.view addSubview:launchImageView];
