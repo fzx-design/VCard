@@ -38,6 +38,12 @@
     [super viewDidUnload];
 }
 
+- (void)clearPage
+{
+    [_listTableViewController.view removeFromSuperview];
+    _listTableViewController = nil;
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [_listTableViewController viewWillDisappear:NO];

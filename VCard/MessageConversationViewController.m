@@ -59,6 +59,12 @@
     [super viewDidUnload];
 }
 
+- (void)clearPage
+{
+    [_conversationTableViewController.view removeFromSuperview];
+    _conversationTableViewController = nil;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [self layoutFooterView];

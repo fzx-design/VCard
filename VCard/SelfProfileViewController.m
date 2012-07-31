@@ -212,7 +212,8 @@ typedef enum {
     BlockARCWeakSelf weakSelf = self;
     WBClient *userClient = [WBClient client];
     [userClient setCompletionBlock:^(WBClient *client) {
-        if (!userClient.hasError) {
+        if (!userClient.hasError && weakSelf) {
+            
             NSDictionary *userDict = client.responseJSONObject;
             User *user = [User insertUser:userDict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
             [NSNotificationCenter postChangeUserAvatarNotification];

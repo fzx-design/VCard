@@ -43,8 +43,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [self.commentTableViewController viewWillDisappear:NO];
-    [self.statusTableViewController viewWillDisappear:NO];
+    [_commentTableViewController viewWillDisappear:NO];
+    [_statusTableViewController viewWillDisappear:NO];
 }
 
 - (void)refresh
