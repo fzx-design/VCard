@@ -70,7 +70,9 @@
 {
     StackViewPageController *searchResult = [self checkStackForType:pageType description:pageDescription];
     if (searchResult) {
-        [self.stackView scrollToTargetView:searchResult.view];
+        
+        [self scrollToTargetVieController:searchResult];
+        
         if (vc.loadWithPurpose) {
             searchResult.shouldShowFirst = vc.shouldShowFirst;
             [searchResult showWithPurpose];
@@ -79,6 +81,18 @@
         [self addViewController:vc atIndex:targetIndex];
     }
 }
+
+- (void)scrollToTargetVieController:(StackViewPageController *)vc
+{
+    if (self.activePageViewController.pageIndex != vc.pageIndex) {
+        BOOL toLeft = vc.pageIndex < self.activePageViewController.pageIndex;
+        for (StackViewPageController *animationVC in self.controllerStack) {
+            [animationVC stackScrollingStartFromLeft:toLeft];
+        }
+    }
+    [self.stackView scrollToTargetView:vc.view];
+}
+
 
 - (StackViewPageController *)checkStackForType:(StackViewPageType)pageType description:(NSString *)pageDescription
 {
@@ -99,8 +113,8 @@
     if (self.controllerStack.count != 0) {
         while (self.controllerStack.count - 1 > targetIndex) {
             StackViewPageController *lastViewController = [self.controllerStack lastObject];
-            [self.stackView removeLastView:lastViewController.view];
             [lastViewController viewWillDisappear:NO];
+            [self.stackView removeLastView:lastViewController.view];
             [self.controllerStack removeObject:lastViewController];
             lastViewController = nil;
             replacingOtherView = YES;
@@ -115,14 +129,18 @@
     [self.controllerStack addObject:vc];
     if (replacingOtherView) {
         StackViewPageController *animationVC = [self.controllerStack lastObject];
-        [animationVC stackScrollingStart];
+        [animationVC stackScrollingStartFromLeft:NO];
+        if (self.activePageViewController.pageIndex == self.controllerStack.count - 2) {
+            [self.activePageViewController stackScrollingStartFromLeft:NO];
+        }
     } else {
         for (StackViewPageController *animationVC in self.controllerStack) {
-            [animationVC stackScrollingStart];
+            [animationVC stackScrollingStartFromLeft:NO];
         }
     }
     [self.stackView addNewPage:vc.view replacingView:replacingOtherView completion:^{
         [vc initialLoad];
+        [self stackViewDidEndScrolling];
     }];
 }
 

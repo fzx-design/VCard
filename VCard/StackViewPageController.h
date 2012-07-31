@@ -50,7 +50,7 @@ typedef enum {
 
 - (void)initialLoad;
 - (void)stackScrolling:(CGFloat)speed;
-- (void)stackScrollingStart;
+- (void)stackScrollingStartFromLeft:(BOOL)toLeft;
 - (void)stackScrollingEnd;
 - (void)stackDidScroll;
 - (void)enableScrollToTop;

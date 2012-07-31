@@ -47,10 +47,11 @@
     [_avatarImageView swingOnceThenHalt:_avatarImageView.layer angle:angle * M_PI];
 }
 
-- (void)stackScrollingStart
+- (void)stackScrollingStartFromLeft:(BOOL)toLeft
 {
     //TODO: Test
-    [_avatarImageView swingOnceThenHalt:_avatarImageView.layer angle:-0.089 * M_PI];
+    CGFloat factor = toLeft ? 1.0 : -1.0;
+    [_avatarImageView swingOnceThenHalt:_avatarImageView.layer angle:factor * 0.089 * M_PI];
 }
 
 - (void)stackScrollingEnd

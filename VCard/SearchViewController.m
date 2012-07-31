@@ -74,10 +74,11 @@
     [self.searchTableViewController swingWithAngle:angle];
 }
 
-- (void)stackScrollingStart
+- (void)stackScrollingStartFromLeft:(BOOL)toLeft
 {
     //TODO: Test
-    [self.searchTableViewController swingWithAngle:-0.089 * M_PI];
+    CGFloat factor = toLeft ? 1.0 : -1.0;
+    [self.searchTableViewController swingWithAngle:factor * 0.089 * M_PI];
 }
 
 - (void)stackDidScroll

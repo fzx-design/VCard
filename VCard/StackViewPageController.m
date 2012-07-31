@@ -61,7 +61,7 @@
 }
 
 //To be overloaded
-- (void)stackScrollingStart
+- (void)stackScrollingStartFromLeft:(BOOL)toLeft
 {
     
 }

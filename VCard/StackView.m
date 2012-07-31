@@ -77,6 +77,8 @@
 {
     [UIView animateWithDuration:0.3 animations:^{
         _scrollView.contentOffset = CGPointMake(targetView.frame.origin.x, 0.0);
+    } completion:^(BOOL finished) {
+        [_delegate stackViewDidEndScrolling];
     }];
 }
 
