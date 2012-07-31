@@ -197,6 +197,7 @@
 		18C1903715945D1700DA1A6A /* comments_thread_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903315945D1700DA1A6A /* comments_thread_up.png */; };
 		18C1903815945D1700DA1A6A /* comments_thread_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C1903415945D1700DA1A6A /* comments_thread_up@2x.png */; };
 		18C1903B15946C5F00DA1A6A /* ProfileCommentStatusTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1903A15946C5E00DA1A6A /* ProfileCommentStatusTableCell.m */; };
+		18C468D715C7E415008DA7B2 /* tell_friends_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18C468D615C7E415008DA7B2 /* tell_friends_image.jpg */; };
 		18C89BF915BA91F5006A5B21 /* DMListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C89BF815BA91F5006A5B21 /* DMListTableViewController.m */; };
 		18C89BFC15BA9208006A5B21 /* DMConversationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C89BFB15BA9208006A5B21 /* DMConversationTableViewController.m */; };
 		18CCC61F15B300FC00DF94F5 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CCC61E15B300FC00DF94F5 /* Group.m */; };
@@ -1245,6 +1246,7 @@
 		18C1903415945D1700DA1A6A /* comments_thread_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comments_thread_up@2x.png"; sourceTree = "<group>"; };
 		18C1903915946C5E00DA1A6A /* ProfileCommentStatusTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCommentStatusTableCell.h; sourceTree = "<group>"; };
 		18C1903A15946C5E00DA1A6A /* ProfileCommentStatusTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCommentStatusTableCell.m; sourceTree = "<group>"; };
+		18C468D615C7E415008DA7B2 /* tell_friends_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = tell_friends_image.jpg; path = "../topic images/tell_friends_image.jpg"; sourceTree = "<group>"; };
 		18C89BF715BA91F5006A5B21 /* DMListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMListTableViewController.h; sourceTree = "<group>"; };
 		18C89BF815BA91F5006A5B21 /* DMListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMListTableViewController.m; sourceTree = "<group>"; };
 		18C89BFA15BA9208006A5B21 /* DMConversationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMConversationTableViewController.h; sourceTree = "<group>"; };
@@ -3782,6 +3784,7 @@
 		E1F7F88C15B2CA4F00712019 /* tips */ = {
 			isa = PBXGroup;
 			children = (
+				18C468D615C7E415008DA7B2 /* tell_friends_image.jpg */,
 				E1F7F88D15B2CA4F00712019 /* fingertips_1.png */,
 				E1F7F88E15B2CA4F00712019 /* fingertips_1@2x.png */,
 				E1F7F88F15B2CA4F00712019 /* fingertips_2.png */,
@@ -4696,6 +4699,7 @@
 				1811F4C815BD351D005D6C61 /* topbar_change.png in Resources */,
 				1839176415BE469100C84F7A /* error_indicator_body@2x.png in Resources */,
 				1839176515BE469100C84F7A /* error_indicator_body.png in Resources */,
+				18C468D715C7E415008DA7B2 /* tell_friends_image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
