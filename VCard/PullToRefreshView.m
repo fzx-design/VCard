@@ -33,9 +33,10 @@
 #define FLIP_ANIMATION_DURATION 0.18f
 
 
-@interface PullToRefreshView (Private)
+@interface PullToRefreshView ()
 
-@property (nonatomic, assign) PullToRefreshViewState state;
+@property (nonatomic, assign) PullToRefreshViewState    state;
+@property (nonatomic, assign) BOOL                      observerAlreadyAdded;
 
 @end
 
@@ -95,6 +96,7 @@
         [self addSubview:iconView];
         
 		[self setState:PullToRefreshViewStateNormal];
+        self.observerAlreadyAdded = NO;
     }
     
     return self;
@@ -102,12 +104,16 @@
 
 - (void)removeObserver
 {
-    [scrollView removeObserver:self forKeyPath:@"contentOffset"];
+    if (self.observerAlreadyAdded) {
+        [scrollView removeObserver:self forKeyPath:@"contentOffset"];
+    }
 }
 
 - (void)addObserver
 {
-    [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+    if (!self.observerAlreadyAdded) {
+        [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+    }
 }
 
 #pragma mark -
