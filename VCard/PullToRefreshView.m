@@ -105,6 +105,7 @@
 - (void)removeObserver
 {
     if (self.observerAlreadyAdded) {
+        self.observerAlreadyAdded = NO;
         [scrollView removeObserver:self forKeyPath:@"contentOffset"];
     }
 }
@@ -112,6 +113,7 @@
 - (void)addObserver
 {
     if (!self.observerAlreadyAdded) {
+        self.observerAlreadyAdded = YES;
         [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
     }
 }
