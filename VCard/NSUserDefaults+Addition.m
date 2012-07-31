@@ -62,8 +62,7 @@
         [defaults setFloat:8.0 forKey:kSettingLeading];
         
         [defaults setObject:@[@(NO), @(YES), @(NO)] forKey:kSettingOptionFontSize];
-        [defaults setObject:@[@(YES), @(YES), @(YES), @(NO)] forKey:kSettingOptionNotification];
-        
+        [defaults setObject:@[@(YES), @(YES), @(YES), @(YES)] forKey:kSettingOptionNotification];
         [defaults setObject:@[] forKey:kCurrentUserFavouriteIDs];
         
         [defaults setBool:NO forKey:kHasShownShelfTips];
@@ -225,9 +224,7 @@
 
 + (NSArray *)getCurrentNotificationStatus {
     SettingOptionInfo *info = [NSUserDefaults getInfoForOptionKey:kSettingOptionNotification];
-    NSMutableArray *result = [NSMutableArray arrayWithArray:info.optionChosenStatusArray];
-    [result addObject:@(NO)];
-    return result;
+    return info.optionChosenStatusArray;
 }
 
 + (SettingOptionInfo *)getInfoForOptionKey:(NSString *)optionKey {
@@ -378,7 +375,7 @@
             self.optionName = @"字体大小";
         } else if([optionKey isEqualToString:kSettingOptionNotification]) {
             self.allowMultiOptions = YES;
-            self.optionsArray = @[@"新评论", @"新粉丝", @"提到我的"];
+            self.optionsArray = @[@"新评论", @"新粉丝", @"提到我的", @"新私信"];
             self.optionName = @"消息提示";
         }
         self.optionKey = optionKey;
