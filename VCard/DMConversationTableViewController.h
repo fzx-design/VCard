@@ -13,7 +13,7 @@
 @property (nonatomic, weak) Conversation *conversation;
 
 - (void)initialLoadMessageData;
-- (void)scrollToBottom;
+- (void)scrollToBottom:(BOOL)animated;
 - (void)receivedNewMessage:(NSDictionary *)dict;
 
 @end

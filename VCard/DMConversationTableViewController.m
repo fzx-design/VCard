@@ -137,7 +137,7 @@
     [self adjustSingleMessageSize:message];
     [self.managedObjectContext processPendingChanges];
     [self.fetchedResultsController performFetch:nil];
-    [self scrollToBottom];
+    [self scrollToBottom:YES];
 }
 
 - (void)adjustMessageSize
@@ -159,12 +159,12 @@
     message.messageWidth = @(size.width);
 }
 
-- (void)scrollToBottom
+- (void)scrollToBottom:(BOOL)animated
 {
     int count = self.fetchedResultsController.fetchedObjects.count;
     if (count > 0) {
         NSIndexPath *bottomIndexPath = [NSIndexPath indexPathForRow:count - 1 inSection:0];
-        [self.tableView scrollToRowAtIndexPath:bottomIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        [self.tableView scrollToRowAtIndexPath:bottomIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
         [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
     }
 }

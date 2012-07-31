@@ -189,7 +189,7 @@
     [_sendButton resetOriginY:_sendButton.frame.origin.y + offset];
     [_emoticonButton resetOriginY:_emoticonButton.frame.origin.y + offset];
     [self.conversationTableViewController.view resetHeightByOffset:-offset];
-    [self.conversationTableViewController scrollToBottom];
+    [self.conversationTableViewController scrollToBottom:NO];
     
 }
 
