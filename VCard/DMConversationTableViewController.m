@@ -111,7 +111,8 @@
             [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
             
             if (self.fetchedResultsController.fetchedObjects.count > 0) {
-                DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:0];
+                int count = self.fetchedResultsController.fetchedObjects.count - 1;
+                DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count];
                 _lastMessageID = message.messageID;
             }
             
@@ -173,11 +174,14 @@
             [self adjustMessageSize];
             
             if (self.fetchedResultsController.fetchedObjects.count > 0) {
-                DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:0];
+                int count = self.fetchedResultsController.fetchedObjects.count - 1;
+                DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count];
+
                 if (![_lastMessageID isEqualToString:message.messageID]) {
-                    _targetIndexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - 1 inSection:0];
-                    [self.tableView scrollToRowAtIndexPath:_targetIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - 1 inSection:0];
                     _lastMessageID = message.messageID;
+                    [self.tableView reloadData];
+                    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
                 }
             }
 
