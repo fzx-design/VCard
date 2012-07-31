@@ -10,6 +10,7 @@
 #import "TTTAttributedLabel.h"
 
 #define kMaxBubbleSize          CGSizeMake(256.0, 9999.0)
+#define kMaxTextSize            CGSizeMake(250.0, 9999.0)
 
 typedef enum {
     DMBubbleViewTypeReceived,

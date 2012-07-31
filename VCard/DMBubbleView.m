@@ -45,8 +45,8 @@
 {
     CGFloat height = 50.0f;
     CGFloat width = 0.0f;
-    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxBubbleSize lineBreakMode:UILineBreakModeWordWrap];
-    CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxBubbleSize lineBreakMode:UILineBreakModeWordWrap].height);
+    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxTextSize lineBreakMode:UILineBreakModeWordWrap];
+    CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxTextSize lineBreakMode:UILineBreakModeWordWrap].height);
     int lineCount = size.height / singleLineHeight - 1;
     int leading = kLeadingSize;
     
@@ -85,8 +85,8 @@
 {
     CGFloat height = 0.0f;
     CGFloat width = 0.0f;
-    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxBubbleSize lineBreakMode:UILineBreakModeWordWrap];
-    CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxBubbleSize lineBreakMode:UILineBreakModeWordWrap].height);
+    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxTextSize lineBreakMode:UILineBreakModeWordWrap];
+    CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxTextSize lineBreakMode:UILineBreakModeWordWrap].height);
     int lineCount = size.height / singleLineHeight;
     lineCount -= lineCount / 3;
     int leading = kLeadingSize;
@@ -134,18 +134,19 @@
         imageName = @"cell_bg_msg.png";
     }
     
-    [_textLabel resetOrigin:CGPointMake(targetOriginX + _originXOffset + 3.0, _originYOffset)];
+    [_textLabel resetOrigin:CGPointMake(targetOriginX + _originXOffset + 4.0, _originYOffset - 2.0)];
     _textLabelFrame = _textLabel.frame;
+    _textLabelFrame.size.height -= 2;
     
     _backgroundImageViewFrame.origin.x = targetOriginX;
     _backgroundImageViewFrame.origin.y = 0.0;
     _backgroundImageViewFrame.size.height = _textLabelFrame.size.height + _originYOffset + _bottomOffset + kTimeStampLabelHeight + kTimeStampLabelGap;
-    _backgroundImageViewFrame.size.width = _textLabelFrame.size.width + _originXOffset + _rightOffset;
+    _backgroundImageViewFrame.size.width = _textLabelFrame.size.width + _originXOffset + _rightOffset + 6.0;
     _backgroundImageView.frame = _backgroundImageViewFrame;
     _backgroundImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(_originYOffset, _originXOffset, _bottomOffset, _rightOffset)];
     
     [_timeStampLabel resetOriginX:_textLabelFrame.origin.x];
-    [_timeStampLabel resetWidth:_textLabelFrame.size.width - 10.0];
+    [_timeStampLabel resetWidth:_textLabelFrame.size.width - 5.0];
     [_timeStampLabel resetOriginY:_textLabelFrame.origin.y + _textLabelFrame.size.height + kTimeStampLabelGap];
 }
 
