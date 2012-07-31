@@ -12,7 +12,6 @@
 #import "UIImage+Addition.h"
 #import "WBClient.h"
 
-#define kVCardAppStoreURL       @"http://itunes.apple.com/cn/app/id420598288?mt=8"
 #define kTeamMemberCell         @"kTeamMemberCell"
 
 #define POST_VIEW_SHOW_FROM_RECT    CGRectMake(([UIApplication screenWidth] - 44) / 2, ([UIApplication screenHeight] - 44) / 2, 44, 44)
@@ -160,7 +159,7 @@
 #pragma mark - IBActions
 
 - (void)didClickTellFriendsCell {
-    PostViewController *vc = [PostViewController getNewStatusViewControllerWithPrefixContent:[NSString stringWithFormat:@"@VCard微博 客户端很酷！推荐有 iPad 的童鞋们试试看。%@", kVCardAppStoreURL] delegate:self];
+    PostViewController *vc = [PostViewController getRecommendVCardNewStatusViewControllerWithDelegate:self];
     [vc showViewFromRect:POST_VIEW_SHOW_FROM_RECT];
 }
 

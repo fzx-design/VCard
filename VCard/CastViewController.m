@@ -34,7 +34,6 @@
 #import "LoginViewController.h"
 
 #define kStackViewDefaultDescription @"kStackViewDefaultDescription"
-#define kVCardAppStoreURL       @"http://itunes.apple.com/cn/app/id420598288?mt=8"
 
 @interface CastViewController () {
     BOOL _loading;
@@ -775,7 +774,7 @@
         vc = [PostViewController getNewStatusViewControllerWithDelegate:self];
     } else {
         _postErrorIndicator.hidden = YES;
-        vc = [PostViewController getNewStatusViewControllerWithPrefixContent:_prevPostContent delegate:self];
+        vc = [PostViewController getNewStatusViewControllerWithPrefixContent:_prevPostContent image:nil delegate:self];
     }
     [vc showViewFromRect:sender.frame];
 }
@@ -1292,7 +1291,7 @@
 #pragma mark - Post recommand VCard weibo
 
 - (void)postRecommandVCardWeibo {
-    PostViewController *vc = [PostViewController getNewStatusViewControllerWithPrefixContent:[NSString stringWithFormat:@"@VCard微博 客户端很酷！推荐有 iPad 的童鞋们试试看。%@", kVCardAppStoreURL] delegate:self];
+    PostViewController *vc = [PostViewController getRecommendVCardNewStatusViewControllerWithDelegate:self];
     
     [vc showViewFromRect:self.createStatusButton.frame];
     

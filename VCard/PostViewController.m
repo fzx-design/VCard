@@ -124,18 +124,23 @@ typedef enum {
 @synthesize textViewPreserveText = _textViewPreserveText;
 @synthesize motionsCompressImage = _motionsCompressImage;
 
++ (id)getRecommendVCardNewStatusViewControllerWithDelegate:(id<PostViewControllerDelegate>)delegate {
+    return [PostViewController getNewStatusViewControllerWithPrefixContent:[NSString stringWithFormat:@"@VCard微博 客户端很酷！推荐有 iPad 的童鞋们试试看。%@", kVCardAppStoreURL] image:[UIImage imageNamed:@"tell_friends_image.jpg"] delegate:delegate];
+}
+
 + (id)getNewStatusViewControllerWithDelegate:(id<PostViewControllerDelegate>)delegate {
-    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeNewStatus delegate:delegate weiboID:nil replyID:nil weiboOwnerName:nil weiboContent:nil];
+    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeNewStatus delegate:delegate weiboID:nil replyID:nil weiboOwnerName:nil weiboContent:nil image:nil];
 }
 
 + (id)getNewStatusViewControllerWithAtUserName:(NSString *)name
                                       delegate:(id<PostViewControllerDelegate>)delegate {
-    return [PostViewController getNewStatusViewControllerWithPrefixContent:[NSString stringWithFormat:@"@%@ ", name] delegate:delegate];
+    return [PostViewController getNewStatusViewControllerWithPrefixContent:[NSString stringWithFormat:@"@%@ ", name] image:nil delegate:delegate];
 }
 
 + (id)getNewStatusViewControllerWithPrefixContent:(NSString *)prefix
+                                            image:(UIImage *)image
                                          delegate:(id<PostViewControllerDelegate>)delegate {
-    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeNewStatus delegate:delegate weiboID:nil replyID:nil weiboOwnerName:nil weiboContent:prefix];
+    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeNewStatus delegate:delegate weiboID:nil replyID:nil weiboOwnerName:nil weiboContent:prefix image:image];
     
 }
 
@@ -143,20 +148,20 @@ typedef enum {
                           weiboOwnerName:(NSString *)ownerName
                                  content:(NSString *)content
                                 delegate:(id<PostViewControllerDelegate>)delegate {
-    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeRepost delegate:delegate weiboID:weiboID replyID:nil weiboOwnerName:ownerName weiboContent:content];
+    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeRepost delegate:delegate weiboID:weiboID replyID:nil weiboOwnerName:ownerName weiboContent:content image:nil];
 }
 
 + (id)getCommentWeiboViewControllerWithWeiboID:(NSString *)weiboID
                                 weiboOwnerName:(NSString *)ownerName
                                 delegate:(id<PostViewControllerDelegate>)delegate {
-    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeCommentWeibo delegate:delegate weiboID:weiboID replyID:nil weiboOwnerName:ownerName weiboContent:nil];
+    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeCommentWeibo delegate:delegate weiboID:weiboID replyID:nil weiboOwnerName:ownerName weiboContent:nil image:nil];
 }
 
 + (id)getCommentReplyViewControllerWithWeiboID:(NSString *)weiboID
                                 replyID:(NSString *)replyID
                                 weiboOwnerName:(NSString *)ownerName
                                       delegate:(id<PostViewControllerDelegate>)delegate {
-    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeCommentReply delegate:delegate weiboID:weiboID replyID:replyID weiboOwnerName:ownerName weiboContent:nil];
+    return [PostViewController getPostViewControllerViewWithType:PostViewControllerTypeCommentReply delegate:delegate weiboID:weiboID replyID:replyID weiboOwnerName:ownerName weiboContent:nil image:nil];
 }
 
 + (id)getPostViewControllerViewWithType:(PostViewControllerType)type
@@ -164,7 +169,8 @@ typedef enum {
                                 weiboID:(NSString *)weiboID
                                 replyID:(NSString *)replyID
                          weiboOwnerName:(NSString *)ownerName
-                           weiboContent:(NSString *)content {
+                           weiboContent:(NSString *)content
+                                  image:(UIImage *)image {
     PostViewController *vc = nil;
     if(type == PostViewControllerTypeNewStatus) {
         vc = [[PostNewStatusViewController alloc] initWithContent:content];
@@ -185,6 +191,8 @@ typedef enum {
     
     vc.type = type;
     vc.delegate = delegate;
+    vc.motionsOriginalImage = image;
+    
     return vc;
 }
 
@@ -217,7 +225,7 @@ typedef enum {
         self.textView.text = self.textViewPreserveText;
         self.textViewPreserveText = nil;
     }
-    self.motionsImageView.image = self.motionsCompressImage;
+    [self setMotionsImage:self.motionsOriginalImage];
     
     [self configureViewFrame];
     [self configureMotionsImageView];

@@ -108,7 +108,7 @@
 - (IBAction)didClickPostTopicButton:(UIButton *)sender
 {
     CGRect frame = [self.view convertRect:_postTopicButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
-    PostViewController *vc = [PostViewController getNewStatusViewControllerWithPrefixContent:_topicTitleLabel.text
+    PostViewController *vc = [PostViewController getNewStatusViewControllerWithPrefixContent:_topicTitleLabel.text image:nil
                                                                                     delegate:self];
     [vc showViewFromRect:frame];
 }

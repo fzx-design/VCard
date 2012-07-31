@@ -137,8 +137,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
     [self.view addGestureRecognizer:panGesture];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
     self.contentView = nil;
     self.topBar = nil;
     self.centerBar = nil;

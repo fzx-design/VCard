@@ -19,6 +19,8 @@ typedef enum {
     PostViewControllerTypeCommentReply,
 } PostViewControllerType;
 
+#define kVCardAppStoreURL   @"http://itunes.apple.com/cn/app/id420598288?mt=8"
+
 @protocol PostViewControllerDelegate;
 @interface PostViewController : UIViewController <MotionsViewControllerDelegate, UITextViewDelegate, PostHintViewDelegate, UIScrollViewDelegate, PostRootViewDelegate, EmoticonsViewControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
     BOOL _keyboardHidden;
@@ -62,10 +64,13 @@ typedef enum {
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) UIImage *motionsOriginalImage;
 
++ (id)getRecommendVCardNewStatusViewControllerWithDelegate:(id<PostViewControllerDelegate>)delegate;
+
 + (id)getNewStatusViewControllerWithAtUserName:(NSString *)name
                                       delegate:(id<PostViewControllerDelegate>)delegate;
 
 + (id)getNewStatusViewControllerWithPrefixContent:(NSString *)prefix
+                                            image:(UIImage *)image
                                       delegate:(id<PostViewControllerDelegate>)delegate;
 
 + (id)getNewStatusViewControllerWithDelegate:(id<PostViewControllerDelegate>)delegate;
