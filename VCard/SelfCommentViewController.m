@@ -94,8 +94,11 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [_commentByMeTableViewController viewWillDisappear:NO];
-    [_commentToMeTableViewController viewWillDisappear:NO];
+    if (self.toMeButton.selected) {
+        [_commentToMeTableViewController viewWillDisappear:NO];
+    } else {
+        [_commentByMeTableViewController viewWillDisappear:NO];
+    }
 }
 
 #pragma mark - IBActions

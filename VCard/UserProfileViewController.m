@@ -113,9 +113,13 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [_friendController viewWillDisappear:NO];
-    [_followerController viewWillDisappear:NO];
-    [_statusController viewWillDisappear:NO];
+    if (self.checkStatusesButton.selected) {
+        [_statusController viewWillDisappear:NO];
+    } else if (self.checkFriendsButton.selected) {
+        [_friendController viewWillDisappear:NO];
+    } else {
+        [_followerController viewWillDisappear:NO];
+    }
 }
 
 - (void)setUpViews

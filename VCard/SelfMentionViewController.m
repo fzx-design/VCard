@@ -43,8 +43,11 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [_commentTableViewController viewWillDisappear:NO];
-    [_statusTableViewController viewWillDisappear:NO];
+    if (self.checkCommentButton.selected) {
+        [_commentTableViewController viewWillDisappear:NO];
+    } else {
+        [_statusTableViewController viewWillDisappear:NO];
+    }
 }
 
 - (void)refresh
