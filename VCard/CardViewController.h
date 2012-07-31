@@ -27,7 +27,6 @@
 #define CardTailHeight 24
 #define CardTailOffset -55
 #define MaxCardSize CGSizeMake(326,9999)
-#define RegexColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]
 
 @protocol CardViewControllerDelegate <NSObject>
 

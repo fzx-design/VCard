@@ -627,8 +627,11 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
 - (void)drawEmoticonWithRect:(CGRect)rect andFileName:(NSString *)imageFileName
 {
     UIImage *emoticon = [UIImage imageNamed:imageFileName];
-    CGFloat width = [NSUserDefaults currentFontSize] == (CGFloat)SettingOptionFontSizeSmall ? 23.0 : 25.0;
-    CGFloat leftMargin = [NSUserDefaults currentFontSize] == (CGFloat)SettingOptionFontSizeSmall ? 1 : -2;
+    
+    BOOL shouldShowSmallEmoticon = [NSUserDefaults currentFontSize] == (CGFloat)SettingOptionFontSizeSmall || self.displaySmallEmoticon;
+    
+    CGFloat width = shouldShowSmallEmoticon ? 23.0 : 25.0;
+    CGFloat leftMargin = shouldShowSmallEmoticon ? 1 : -2;
     CGFloat originY = rect.size.height - rect.origin.y - 7.0;
     CGFloat originX = rect.origin.x + leftMargin;
     if (originX < 10) {

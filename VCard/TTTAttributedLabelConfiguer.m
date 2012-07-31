@@ -12,6 +12,10 @@
 #import "EmoticonsInfoReader.h"
 #import "TTTAttributedLabel.h"
 
+#define kReceivedBubbleTextColor    [UIColor colorWithRed:42.0/255 green:42.0/255 blue:42.0/255 alpha:1.0]
+#define kSentBubbleTextColor        [UIColor colorWithRed:0.0/255 green:76.0/255 blue:96.0/255 alpha:1.0]
+#define RegexColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]
+
 static NSRegularExpression *__nameRegularExpression;
 static inline NSRegularExpression * NameRegularExpression() {
     if (!__nameRegularExpression) {
@@ -85,20 +89,26 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     label.highlightedTextColor = [UIColor whiteColor];
     label.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
     
-    [self setCardViewController:vc SummaryText:string toLabel:label];
+    [self setCardViewController:vc SummaryText:string toLabel:label fontSize:[NSUserDefaults currentFontSize]];
 }
 
-+ (void)setMessageTextLabel:(TTTAttributedLabel *)label withText:(NSString *)string
++ (void)setMessageTextLabel:(TTTAttributedLabel *)label
+                   withText:(NSString *)string
+                    leading:(CGFloat)leading
+                   fontSize:(CGFloat)fontSize
+                 isReceived:(BOOL)isReceived
 {
-    label.font = [UIFont systemFontOfSize:[NSUserDefaults currentFontSize]];
-    label.textColor = [UIColor colorWithRed:49.0/255 green:42.0/255 blue:37.0/255 alpha:1.0];
+    label.font = [UIFont systemFontOfSize:fontSize];
+    label.textColor = isReceived ? kReceivedBubbleTextColor : kSentBubbleTextColor;
+    label.shadowColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(0.0, 1.0);
     label.lineBreakMode = UILineBreakModeWordWrap;
     label.numberOfLines = 0;
-    label.leading = [NSUserDefaults currentLeading];
+    label.leading = leading;
     label.highlightedTextColor = [UIColor whiteColor];
     label.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
     
-    [self setCardViewController:nil SummaryText:string toLabel:label];
+    [self setCardViewController:nil SummaryText:string toLabel:label fontSize:fontSize];
 }
 
 + (NSString *)replaceEmotionStrings:(NSString *)text
@@ -127,7 +137,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     return text;
 }
 
-+ (void)setCardViewController:(CardViewController *)vc SummaryText:(NSString *)text toLabel:(TTTAttributedLabel*)label
++ (void)setCardViewController:(CardViewController *)vc SummaryText:(NSString *)text toLabel:(TTTAttributedLabel*)label fontSize:(CGFloat)fontSize
 {
     NSRange stringRange = NSMakeRange(0, [text length]);
     
@@ -137,17 +147,17 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
         NSRegularExpression *regexp = NameRegularExpression();
         
         [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-            [TTTAttributedLabelConfiguer configureFontForAttributedString:mutableAttributedString withRange:result.range];
+            [TTTAttributedLabelConfiguer configureFontForAttributedString:mutableAttributedString withRange:result.range fontSize:fontSize];
         }];
         
         regexp = TagRegularExpression();
         [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-            [TTTAttributedLabelConfiguer configureFontForAttributedString:mutableAttributedString withRange:result.range];
+            [TTTAttributedLabelConfiguer configureFontForAttributedString:mutableAttributedString withRange:result.range fontSize:fontSize];
         }];
         
         regexp = UrlRegularExpression();
         [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-            [TTTAttributedLabelConfiguer configureFontForAttributedString:mutableAttributedString withRange:result.range];
+            [TTTAttributedLabelConfiguer configureFontForAttributedString:mutableAttributedString withRange:result.range fontSize:fontSize];
         }];
         
         regexp = EmotionIDRegularExpression();
@@ -208,9 +218,9 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     
 }
 
-+ (void)configureFontForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange
++ (void)configureFontForAttributedString:(NSMutableAttributedString *)mutableAttributedString withRange:(NSRange)stringRange fontSize:(CGFloat)fontSize
 {
-    UIFont *font = [UIFont boldSystemFontOfSize:[NSUserDefaults currentFontSize]];
+    UIFont *font = [UIFont boldSystemFontOfSize:fontSize];
     CTFontRef systemFont = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
     if (systemFont) {
         [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:stringRange];

@@ -164,6 +164,8 @@ extern NSString * const kTTTButtonAttributeName;
 
 @property (nonatomic, readonly) BOOL linkCaptured;
 
+@property (nonatomic, assign) BOOL displaySmallEmoticon;
+
 ///----------------------------------
 /// @name Setting the Text Attributes
 ///----------------------------------

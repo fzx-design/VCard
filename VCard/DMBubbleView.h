@@ -23,7 +23,7 @@ typedef enum {
 @property (nonatomic, strong) TTTAttributedLabel    *textLabel;
 @property (nonatomic, readonly) DMBubbleViewType    type;
 
-+ (CGSize)sizeForText:(NSString *)text fontSize:(CGFloat)fontSize leading:(CGFloat)leadingSize;
++ (CGSize)sizeForText:(NSString *)text;
 - (void)resetWithText:(NSString *)text dateString:(NSString *)dateString type:(DMBubbleViewType)type;
 
 @end

@@ -14,7 +14,7 @@
 @interface TTTAttributedLabelConfiguer : NSObject
 
 + (void)setCardViewController:(CardViewController *)vc StatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string;
-+ (void)setMessageTextLabel:(TTTAttributedLabel *)label withText:(NSString *)string;
++ (void)setMessageTextLabel:(TTTAttributedLabel *)label withText:(NSString *)string leading:(CGFloat)leading fontSize:(CGFloat)fontSize isReceived:(BOOL)isReceived;
 + (NSString *)replaceEmotionStrings:(NSString *)text;
 + (CGFloat)heightForCellWithText:(NSString *)text;
 

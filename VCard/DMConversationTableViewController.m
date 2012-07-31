@@ -153,7 +153,7 @@
 {
     message.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:message.text];
     
-    CGSize size = [DMBubbleView sizeForText:message.text fontSize:[NSUserDefaults currentFontSize] leading:[NSUserDefaults currentLeading]];
+    CGSize size = [DMBubbleView sizeForText:message.text];
     
     message.messageHeight = @(size.height);
     message.messageWidth = @(size.width);

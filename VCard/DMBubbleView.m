@@ -23,6 +23,9 @@
 #define kTimeStampLabelHeight   20.0
 #define kTimeStampLabelGap      5.0
 
+#define kFontSize               14.0
+#define kLeadingSize            6.0
+
 @interface DMBubbleView () {
     CGFloat _originXOffset;
     CGFloat _originYOffset;
@@ -38,14 +41,14 @@
 
 @implementation DMBubbleView
 
-+ (CGSize)sizeForText:(NSString *)text fontSize:(CGFloat)fontSize leading:(CGFloat)leadingSize
++ (CGSize)sizeForText:(NSString *)text
 {
     CGFloat height = 50.0f;
     CGFloat width = 0.0f;
-    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:fontSize] constrainedToSize:kMaxBubbleSize lineBreakMode:UILineBreakModeWordWrap];
-    CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:fontSize] constrainedToSize:kMaxBubbleSize lineBreakMode:UILineBreakModeWordWrap].height);
+    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxBubbleSize lineBreakMode:UILineBreakModeWordWrap];
+    CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxBubbleSize lineBreakMode:UILineBreakModeWordWrap].height);
     int lineCount = size.height / singleLineHeight - 1;
-    int leading = leadingSize - 2;
+    int leading = kLeadingSize;
     
     height += ceilf(size.height + lineCount * leading) + kTimeStampLabelHeight + kTimeStampLabelGap ;
     width += ceilf(size.width);
@@ -60,6 +63,7 @@
         CGRect frame = self.frame;
         _textLabel = [[TTTAttributedLabel alloc] initWithFrame:frame];
         _textLabel.backgroundColor = [UIColor clearColor];
+        _textLabel.displaySmallEmoticon = YES;
         
         _timeStampLabel = [[UILabel alloc] initWithFrame:frame];
         _timeStampLabel.backgroundColor = [UIColor clearColor];
@@ -81,11 +85,11 @@
 {
     CGFloat height = 0.0f;
     CGFloat width = 0.0f;
-    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:[NSUserDefaults currentFontSize]] constrainedToSize:kMaxBubbleSize lineBreakMode:UILineBreakModeWordWrap];
-    CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:[NSUserDefaults currentFontSize]] constrainedToSize:kMaxBubbleSize lineBreakMode:UILineBreakModeWordWrap].height);
+    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxBubbleSize lineBreakMode:UILineBreakModeWordWrap];
+    CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxBubbleSize lineBreakMode:UILineBreakModeWordWrap].height);
     int lineCount = size.height / singleLineHeight;
     lineCount -= lineCount / 3;
-    int leading = [NSUserDefaults currentLeading];
+    int leading = kLeadingSize;
     
     height += ceilf(size.height + lineCount * leading);
     width += ceilf(size.width) + 5.0;
@@ -102,7 +106,7 @@
     _timeStampLabel.text = dateString;
     [_textLabel resetWidth:_textSize.width];
     [_textLabel resetHeight:_textSize.height];
-    [TTTAttributedLabelConfiguer setMessageTextLabel:_textLabel withText:text];
+    [TTTAttributedLabelConfiguer setMessageTextLabel:_textLabel withText:text leading:kLeadingSize fontSize:kFontSize isReceived:type == DMBubbleViewTypeReceived];
     
     [self resetWithType:type];
 }
