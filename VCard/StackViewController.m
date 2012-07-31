@@ -108,6 +108,7 @@
     }
     
     vc.pageIndex = _controllerStack.count;
+    vc.delegate = self;
     CGFloat targetHeight = self.view.frame.size.height;
     [vc.view resetHeight:targetHeight];
     
@@ -185,14 +186,13 @@
     int currentPage = [self.stackView currentPage];
     if (currentPage >= 0 && currentPage <= self.controllerStack.count - 1) {
         _activePageViewController = [self.controllerStack objectAtIndex:currentPage];
-//        [_activePageViewController enableScrollToTop];
     }
 }
 
 - (void)stackViewWillScroll
 {
-    if (_activePageViewController) {
-//        [_activePageViewController disableScrollToTop];
+    for (StackViewPageController *animationVC in self.controllerStack) {
+        [animationVC stackDidScroll];
     }
 }
 
@@ -201,6 +201,12 @@
     for (StackViewPageController *animationVC in self.controllerStack) {
         [animationVC stackScrolling:speed];
     }
+}
+
+#pragma mark - Stack View Page Controller Delegate
+- (void)stackViewPage:(StackViewPageController *)vc shouldBecomeActivePageAnimated:(BOOL)animated
+{
+    [self.stackView scrollToTargetView:vc.view];
 }
 
 #pragma mark - Property

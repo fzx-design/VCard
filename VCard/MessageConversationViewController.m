@@ -75,6 +75,11 @@
     [_conversationTableViewController viewWillDisappear:NO];
 }
 
+- (void)stackDidScroll
+{
+    [self.textView resignFirstResponder];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -109,19 +114,11 @@
 #pragma mark - Notification
 - (void)resetLayoutBeforeRotating:(NSNotification *)notification
 {
-//    if ([(NSString *)notification.object isEqualToString:kOrientationPortrait]) {
-//        CGFloat height = 961.0 - _topCoverImageView.frame.size.height - _footerView.frame.size.height;
-//        [self.conversationTableViewController.view resetHeight:height];
-//    }
     [self layoutFooterView];
 }
 
 - (void)resetLayoutAfterRotating:(NSNotification *)notification
 {
-//    if ([UIApplication isCurrentOrientationLandscape]) {
-//        CGFloat height = 705.0 - _topCoverImageView.frame.size.height - _footerView.frame.size.height;
-//        [self.conversationTableViewController.view resetHeight:height];
-//    }
     [self layoutFooterView];
 }
 
@@ -143,6 +140,11 @@
     [UIView animateWithDuration:0.25f animations:^{
         [self layoutFooterView];
     }];
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    [self.delegate stackViewPage:self shouldBecomeActivePageAnimated:YES];
 }
 
 - (void)layoutFooterView

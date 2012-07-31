@@ -1070,7 +1070,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="用户名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="VQT-OI-K9Y">
-                                        <rect key="frame" x="172" y="33" width="103" height="22"/>
+                                        <rect key="frame" x="172" y="33" width="120" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -1322,7 +1322,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="用户名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="MUB-mu-ydS">
-                                        <rect key="frame" x="172" y="33" width="122" height="22"/>
+                                        <rect key="frame" x="172" y="33" width="120" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -1517,8 +1517,8 @@
                                             <action selector="didClickRelationButton:" destination="Crt-Sg-sLH" eventType="touchUpInside" id="bix-NB-lzk"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MB4-eJ-DND">
-                                        <rect key="frame" x="343" y="13" width="50" height="32"/>
+                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MB4-eJ-DND">
+                                        <rect key="frame" x="345" y="13" width="50" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <size key="titleShadowOffset" width="0.0" height="1"/>
@@ -1535,7 +1535,7 @@
                                         </connections>
                                     </button>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yWn-XT-bTR">
-                                        <rect key="frame" x="349" y="13" width="44" height="32"/>
+                                        <rect key="frame" x="293" y="13" width="44" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <size key="titleShadowOffset" width="0.0" height="1"/>

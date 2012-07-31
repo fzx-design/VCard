@@ -162,7 +162,12 @@
         _shouldRecordDeceleratingSecond = NO;
     }
 }
-     
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [_delegate stackViewWillScroll];
+}
+
 - (void)sendShowBGNotification
 {
     if (_covered) {
@@ -195,11 +200,6 @@
         }];
     }
     [_delegate stackViewDidEndScrolling];
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    [_delegate stackViewWillScroll];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate

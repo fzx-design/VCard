@@ -80,6 +80,11 @@
     [self.searchTableViewController swingWithAngle:-0.089 * M_PI];
 }
 
+- (void)stackDidScroll
+{
+    [self.searchBar resignFirstResponder];
+}
+
 - (void)clearPage
 {
     [_searchTableViewController.view removeFromSuperview];
@@ -138,6 +143,7 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
+    [self.delegate stackViewPage:self shouldBecomeActivePageAnimated:YES];
     [self showSegment];
     [self.searchTableViewController setState:SearchTableviewStateTyping];
 }

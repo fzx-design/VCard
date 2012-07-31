@@ -23,6 +23,15 @@ typedef enum {
     StackViewPageTypeDMConversation,
 } StackViewPageType;
 
+@class StackViewPageController;
+
+@protocol StackViewPageControllerDelegate <NSObject>
+
+@required
+- (void)stackViewPage:(StackViewPageController *)vc shouldBecomeActivePageAnimated:(BOOL)animated;
+
+@end
+
 @interface StackViewPageController : CoreDataViewController {
     NSInteger _pageIndex;
     BOOL _active;
@@ -37,11 +46,13 @@ typedef enum {
 @property (nonatomic, assign) StackViewPageType pageType;
 @property (nonatomic, assign) BOOL loadWithPurpose;
 @property (nonatomic, assign) BOOL shouldShowFirst;
+@property (nonatomic, weak)   id<StackViewPageControllerDelegate> delegate;
 
 - (void)initialLoad;
 - (void)stackScrolling:(CGFloat)speed;
 - (void)stackScrollingStart;
 - (void)stackScrollingEnd;
+- (void)stackDidScroll;
 - (void)enableScrollToTop;
 - (void)disableScrollToTop;
 - (void)pagePopedFromStack;

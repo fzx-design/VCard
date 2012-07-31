@@ -73,6 +73,12 @@
 }
 
 //To be overloaded
+- (void)stackDidScroll
+{
+    
+}
+
+//To be overloaded
 - (void)pagePopedFromStack
 {
     

@@ -18,11 +18,10 @@
 
 @end
 
-@interface StackViewController : CoreDataViewController <StackViewDelegate>
+@interface StackViewController : CoreDataViewController <StackViewDelegate, StackViewPageControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet StackView *stackView;
 @property (nonatomic, strong) NSMutableArray *controllerStack;
-
 @property (nonatomic, weak) id<StackViewControllerDelegate> delegate;
 
 - (void)insertStackPage:(StackViewPageController *)vc
