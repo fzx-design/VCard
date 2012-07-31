@@ -18,6 +18,7 @@
 + (void)postShouldPostRecommendVCardWeiboNotification;
 + (void)postWillReloadCardCellNotification;
 + (void)postDidReloadCardCellNotification;
++ (void)postTimerFiredNotification;
 
 + (void)registerCoreChangeCurrentUserNotificationWithSelector:(SEL)aSelector target:(id)aTarget;
 + (void)registerChangeCurrentUserNotificationWithSelector:(SEL)aSelector target:(id)aTarget;
@@ -27,5 +28,6 @@
 + (void)registerShouldPostRecommendVCardWeiboNotificationWithSelector:(SEL)aSelector target:(id)aTarget;
 + (void)registerWillReloadCardCellNotificationWithSelector:(SEL)aSelector target:(id)aTarget;
 + (void)registerDidReloadCardCellNotificationWithSelector:(SEL)aSelector target:(id)aTarget;
++ (void)registerTimerFiredNotificationWithSelector:(SEL)aSelector target:(id)aTarget;
 
 @end

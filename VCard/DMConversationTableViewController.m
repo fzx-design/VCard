@@ -20,6 +20,7 @@
 @interface DMConversationTableViewController () {
     long long _nextCursor;
     BOOL _loadingMore;
+    NSString *_lastMessageID;
     NSIndexPath *_targetIndexPath;
 }
 
@@ -109,6 +110,11 @@
             }
             [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
             
+            if (self.fetchedResultsController.fetchedObjects.count > 0) {
+                DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:0];
+                _lastMessageID = message.messageID;
+            }
+            
             _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
             self.hasMoreViews = NO;
         }
@@ -138,6 +144,59 @@
     [self.managedObjectContext processPendingChanges];
     [self.fetchedResultsController performFetch:nil];
     [self scrollToBottom:YES];
+    _lastMessageID = message.messageID;
+}
+
+- (void)getUnreadMessage
+{
+    if (self.currentUser.unreadMessageCount.intValue == 0) {
+        return;
+    }
+    
+    if (_loading == YES) {
+        return;
+    }
+    
+    _loading = YES;
+    
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            NSDictionary *result = client.responseJSONObject;
+            NSArray *dictArray = [result objectForKey:@"direct_messages"];
+            for (NSDictionary *dict in dictArray) {
+                [DirectMessage insertMessage:dict withConversation:_conversation inManagedObjectContext:self.managedObjectContext];
+            }
+            
+            [self.managedObjectContext processPendingChanges];
+            [self.fetchedResultsController performFetch:nil];
+            [self adjustMessageSize];
+            
+            if (self.fetchedResultsController.fetchedObjects.count > 0) {
+                DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:0];
+                if (![_lastMessageID isEqualToString:message.messageID]) {
+                    _targetIndexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - 1 inSection:0];
+                    [self.tableView scrollToRowAtIndexPath:_targetIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                    _lastMessageID = message.messageID;
+                }
+            }
+
+            [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
+            
+            _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
+            self.hasMoreViews = NO;
+        }
+        
+        [self refreshEnded];
+        [self finishedLoading];
+        
+    }];
+    
+    [client getDirectMessageConversionMessagesOfUser:_conversation.targetUserID
+                                             sinceID:nil
+                                               maxID:nil
+                                      startingAtPage:0
+                                               count:20];
 }
 
 - (void)adjustMessageSize

@@ -37,15 +37,16 @@ typedef enum {
     BOOL _active;
 }
 
-@property (nonatomic, assign) NSInteger pageIndex;
 
 @property (nonatomic, strong) UIImageView *topShadowImageView;
 @property (nonatomic, weak) IBOutlet BaseStackLayoutView *backgroundView;
 
-@property (nonatomic, strong) NSString *pageDescription;
-@property (nonatomic, assign) StackViewPageType pageType;
-@property (nonatomic, assign) BOOL loadWithPurpose;
-@property (nonatomic, assign) BOOL shouldShowFirst;
+@property (nonatomic, copy) NSString *pageDescription;
+@property (nonatomic, unsafe_unretained) NSInteger pageIndex;
+@property (nonatomic, unsafe_unretained) StackViewPageType pageType;
+@property (nonatomic, unsafe_unretained) BOOL loadWithPurpose;
+@property (nonatomic, unsafe_unretained) BOOL shouldShowFirst;
+@property (nonatomic, unsafe_unretained) BOOL isActive;
 @property (nonatomic, weak)   id<StackViewPageControllerDelegate> delegate;
 
 - (void)initialLoad;

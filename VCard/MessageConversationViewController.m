@@ -10,6 +10,7 @@
 #import "Conversation.h"
 #import "UIApplication+Addition.h"
 #import "WBClient.h"
+#import "NSNotificationCenter+Addition.h"
 
 #define kTextViewMaxHeight 160.0
 
@@ -17,6 +18,8 @@
     CGFloat _keyboardHeight;
     CGFloat _prevTextViewContentHeight;
 }
+
+@property (nonatomic, unsafe_unretained) BOOL isEditing;
 
 @end
 
@@ -52,6 +55,8 @@
     _topCoverImageView.image = [[UIImage imageNamed:kRLCastViewBGUnit] resizableImageWithCapInsets:UIEdgeInsetsZero];
 
     _sendButton.enabled = NO;
+    
+    [NSNotificationCenter registerTimerFiredNotificationWithSelector:@selector(timerFired) target:self];
 }
 
 - (void)viewDidUnload
@@ -125,6 +130,11 @@
 #pragma mark Text View
 
 - (void)keyboardWillShow:(NSNotification *)notification {
+    
+    if (!self.isActive) {
+        return;
+    }
+    
     NSDictionary *info = [notification userInfo];
     CGRect keyboardBounds = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat keyboardHeight = [UIApplication isCurrentOrientationLandscape] ? keyboardBounds.size.width : keyboardBounds.size.height;
@@ -210,6 +220,7 @@
 }
 
 - (IBAction)didClickClearHistoryButton:(UIButton *)sender {
+    
 }
 
 #pragma mark - Message Methods
@@ -225,6 +236,11 @@
     }];
     
     [client sendDirectMessage:message toUser:_conversation.targetUser.screenName];
+}
+
+- (void)timerFired
+{
+    [_conversationTableViewController getUnreadMessage];
 }
 
 #pragma mark - Properties

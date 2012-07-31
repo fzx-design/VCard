@@ -1232,7 +1232,7 @@
                                                           currentUser:self.currentUser
                                                    coreDataIdentifier:kCoreDataIdentifierDefault];
         } else {
-            NSLog(@"Core Data Error! - CastViewController");
+            NSLog(@"Core Data Error! - CastViewController Card");
         }
         
     } else if(layoutUnit.unitType == UnitTypeDivider) {
@@ -1240,7 +1240,7 @@
             Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
             [((WaterflowDividerCell *)cell).dividerViewController updateTimeInformation:targetStatus.createdAt];
         } else {
-            NSLog(@"Core Data Error! - CastViewController");
+            NSLog(@"Core Data Error! - CastViewController Divider");
         }
     }
     

@@ -203,7 +203,9 @@
 {
     int currentPage = [self.stackView currentPage];
     if (currentPage >= 0 && currentPage <= self.controllerStack.count - 1) {
+        [_activePageViewController setIsActive:NO];
         _activePageViewController = [self.controllerStack objectAtIndex:currentPage];
+        [_activePageViewController setIsActive:YES];
     }
 }
 

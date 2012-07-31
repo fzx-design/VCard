@@ -11,6 +11,7 @@
 #import "User.h"
 #import "WBClient.h"
 #import "NSUserDefaults+Addition.h"
+#import "NSNotificationCenter+Addition.h"
 
 @interface UnreadReminder () {
     NSTimer *_timer;
@@ -59,6 +60,7 @@ static UnreadReminder *sharedUnreadReminder;
 - (void)timerFired:(NSTimer *)timer
 {
     [self getUnread];
+    [NSNotificationCenter postTimerFiredNotification];
 }
 
 - (void)getUnread

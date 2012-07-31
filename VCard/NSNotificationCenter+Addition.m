@@ -19,6 +19,8 @@
 #define kWillReloadCardCellNotification @"WillReloadCardCellNotification"
 #define kDidReloadCardCellNotification @"DidReloadCardCellNotification"
 
+#define kTimerFiredNotification                 @"kTimerFiredNotification"
+
 @implementation NSNotificationCenter (Addition)
 
 + (void)postWillReloadCardCellNotification {
@@ -107,6 +109,20 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:aTarget selector:aSelector
                    name:kNotificationNameShouldChangeUserAvatar
+                 object:nil];
+}
+
+
++ (void)postTimerFiredNotification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTimerFiredNotification object:nil userInfo:nil];
+}
+
++ (void)registerTimerFiredNotificationWithSelector:(SEL)aSelector target:(id)aTarget
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:aTarget selector:aSelector
+                   name:kTimerFiredNotification
                  object:nil];
 }
 
