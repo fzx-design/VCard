@@ -16,6 +16,8 @@
 #define kSentBubbleTextColor        [UIColor colorWithRed:0.0/255 green:76.0/255 blue:96.0/255 alpha:1.0]
 #define RegexColor [[UIColor colorWithRed:161.0/255 green:161.0/255 blue:161.0/255 alpha:1.0] CGColor]
 
+
+
 static NSRegularExpression *__nameRegularExpression;
 static inline NSRegularExpression * NameRegularExpression() {
     if (!__nameRegularExpression) {
@@ -28,7 +30,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 static NSRegularExpression *__tagRegularExpression;
 static inline NSRegularExpression * TagRegularExpression() {
     if (!__tagRegularExpression) {
-        __tagRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"#.+?\\[{0}?#" options:NSRegularExpressionCaseInsensitive error:nil];
+        __tagRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"#[^\\[\\]]+#" options:NSRegularExpressionCaseInsensitive error:nil];
     }
     
     return __tagRegularExpression;
