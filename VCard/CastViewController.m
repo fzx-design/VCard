@@ -469,12 +469,13 @@
 
 - (void)hideWaterflowView
 {
-    _stackViewController.view.backgroundColor = [UIColor clearColor];
+    self.view.userInteractionEnabled = NO;
+//    _stackViewController.view.backgroundColor = [UIColor clearColor];
 }
 
 - (void)showWaterflowView
 {
-    _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+//    _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
 }
 
 - (void)refreshWaterflowView
@@ -1147,6 +1148,7 @@
 {
     _waterflowView.scrollsToTop = YES;
     _groupButton.enabled = YES;
+    self.view.userInteractionEnabled = YES;
     [UIView animateWithDuration:0.3 animations:^{
         _unreadCountButton.alpha = 1.0;
     }];

@@ -191,6 +191,7 @@
 {
     if (scrollView.contentOffset.x == 0.0) {
         self.userInteractionEnabled = NO;
+        [self sendHideBGNotification];
         [UIView animateWithDuration:0.3 animations:^{
             [self resetOriginX:self.frame.origin.x + 200.0];
         } completion:^(BOOL finished) {
