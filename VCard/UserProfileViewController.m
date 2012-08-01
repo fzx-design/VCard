@@ -11,6 +11,9 @@
 #import "UIView+Resize.h"
 #import "User.h"
 
+#import "SelfProfileViewController.h"
+#import "FriendProfileViewController.h"
+
 @interface UserProfileViewController ()
 
 @end
@@ -254,7 +257,12 @@
         _friendController.view.frame = [self frameForTableView];
         _friendController.tableView.frame = [self frameForTableView];
         _friendController.user = self.user;
-        _friendController.type = RelationshipViewTypeFriends;
+        if ([self isKindOfClass:[SelfProfileViewController class]]) {
+            _friendController.type = RelationshipViewTypeSelfFriends;
+        } else {
+            _friendController.type = RelationshipViewTypeUserFriends;
+        }
+        
         _friendController.pageIndex = self.pageIndex;
         [_friendController refresh];
     }
@@ -268,7 +276,12 @@
         _followerController.view.frame = [self frameForTableView];
         _followerController.tableView.frame = [self frameForTableView];
         _followerController.user = self.user;
-        _followerController.type = RelationshipViewTypeFollowers;
+        if ([self isKindOfClass:[SelfProfileViewController class]]) {
+            _followerController.type = RelationshipViewTypeSelfFollowers;
+        } else {
+            _followerController.type = RelationshipViewTypeUserFollowers;
+        }
+        
         _followerController.pageIndex = self.pageIndex;
         [_followerController refresh];
     }

@@ -54,9 +54,9 @@
     [self.listTableViewController refresh];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)showWithPurpose
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    [_listTableViewController refresh];
 }
 
 #pragma mark - Properties

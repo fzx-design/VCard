@@ -67,13 +67,14 @@
 
 - (void)clearData
 {
-    if (_type == RelationshipViewTypeFriends) {
+    if (_type == RelationshipViewTypeSelfFriends || _type == RelationshipViewTypeUserFriends) {
         [User deleteFriendsOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
-    } else if(_type == RelationshipViewTypeFollowers) {
+    } else if(_type == RelationshipViewTypeSelfFollowers || _type == RelationshipViewTypeUserFollowers) {
         [User deleteFollowersOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
     } else if(_type == RelationshipViewTypeSearch) {
         [User deleteUsersInManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
     }
+    [self resetUnreadFollowerCount];
 }
 
 - (void)loadMoreData
@@ -102,9 +103,9 @@
                 
                 for (NSDictionary *dict in dictArray) {
                     User *usr = [User insertUser:dict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:weakSelf.coreDataIdentifier];
-                    if (weakSelf.type == RelationshipViewTypeFollowers) {
+                    if (weakSelf.type == RelationshipViewTypeSelfFollowers || weakSelf.type == RelationshipViewTypeUserFollowers) {
                         [weakSelf.user addFollowersObject:usr];
-                    } else if(weakSelf.type == RelationshipViewTypeFriends) {
+                    } else if(weakSelf.type == RelationshipViewTypeSelfFriends || weakSelf.type == RelationshipViewTypeUserFriends) {
                         [weakSelf.user addFriendsObject:usr];
                     } else if(weakSelf.type == RelationshipViewTypeSearch) {
                         //TODO:
@@ -126,13 +127,30 @@
         
     }];
         
-    if (_type == RelationshipViewTypeFriends) {
+    if (_type == RelationshipViewTypeSelfFriends || _type == RelationshipViewTypeUserFriends) {
         [client getFriendsOfUser:self.user.userID cursor:_nextCursor count:20];
-    } else if (_type == RelationshipViewTypeFollowers){
+    } else if (_type == RelationshipViewTypeSelfFollowers || _type == RelationshipViewTypeUserFollowers){
         [client getFollowersOfUser:self.user.userID cursor:_nextCursor count:20];
     } else if (_type == RelationshipViewTypeSearch) {
         [client searchUser:_searchKey page:_page count:20];
     }
+}
+
+- (void)resetUnreadFollowerCount
+{
+    if (self.type != RelationshipViewTypeSelfFollowers) {
+        return;
+    }
+    
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client){
+        if (!client.hasError) {
+            self.currentUser.unreadFollowingCount = @0;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldUpdateUnreadFollowCount object:nil];
+        }
+    }];
+    
+    [client resetUnreadCount:kWBClientResetCountTypeFollower];
 }
 
 #pragma mark - Core Data Table View Method
@@ -142,9 +160,9 @@
     request.entity = [NSEntityDescription entityForName:@"User"
                                  inManagedObjectContext:self.managedObjectContext];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updateDate" ascending:YES];
-    if (_type == RelationshipViewTypeFriends) {
+    if (_type == RelationshipViewTypeSelfFriends || _type == RelationshipViewTypeUserFriends) {
         request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.user.friends, self.coreDataIdentifier, self.currentUser.userID];
-    } else if(_type == RelationshipViewTypeFollowers) {
+    } else if(_type == RelationshipViewTypeSelfFollowers || _type == RelationshipViewTypeUserFollowers) {
         request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.user.followers, self.coreDataIdentifier, self.currentUser.userID];
     }  else if(_type == RelationshipViewTypeSearch) {
         request.predicate = [NSPredicate predicateWithFormat:@"operatedBy == %@ && currentUserID == %@",self.coreDataIdentifier, self.currentUser.userID];

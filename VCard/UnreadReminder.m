@@ -15,6 +15,7 @@
 
 @interface UnreadReminder () {
     NSTimer *_timer;
+    int _messageWaitingRound;
 }
 
 @end
@@ -55,6 +56,7 @@ static UnreadReminder *sharedUnreadReminder;
 											selector:@selector(timerFired:) 
 											userInfo:nil 
 											 repeats:YES];
+    _messageWaitingRound = 0;
 }
 
 - (void)timerFired:(NSTimer *)timer
@@ -66,7 +68,6 @@ static UnreadReminder *sharedUnreadReminder;
 - (void)getUnread
 {
     WBClient *client = [WBClient client];
-    BlockARCWeakSelf weakSelf = self;
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
             
@@ -86,81 +87,65 @@ static UnreadReminder *sharedUnreadReminder;
             NSNumber *unreadMentionComment = [dict objectForKey:@"mention_cmt"];
             NSNumber *unreadMessageCount = [dict objectForKey:@"dm"];
             
+            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
             sharedUnreadReminder.currentUser.unreadStatusCount = unreadStatusCount;
+            
+            int unreadCount = self.currentUser.unreadStatusCount.intValue;
+            if (unreadCount != 0) {
+                [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadStatusCount object:nil];
+            }
             
             if(sharedUnreadReminder.currentUser.unreadCommentCount.integerValue != unreadCommentCount.integerValue) {
                 sharedUnreadReminder.currentUser.unreadCommentCount = unreadCommentCount;
-                if(commentEnabled)
-                    [[SoundManager sharedManager] playNewMessageSound];
+                if(commentEnabled) {
+                    [self playSoundEffectWithUnreadCount:unreadCommentCount.integerValue];
+                    [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadCommentCount object:nil];
+                }
             }
             
             if(sharedUnreadReminder.currentUser.unreadFollowingCount.integerValue != unreadFollowingCount.integerValue) {
                 sharedUnreadReminder.currentUser.unreadFollowingCount = unreadFollowingCount;
-                if(followerEnabled)
-                    [[SoundManager sharedManager] playNewMessageSound];
+                if(followerEnabled) {
+                    [self playSoundEffectWithUnreadCount:unreadFollowingCount.integerValue];
+                    [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadFollowCount object:nil];
+                }
             }
             
             if(sharedUnreadReminder.currentUser.unreadMentionCount.integerValue != unreadMentionCount.integerValue) {
                 sharedUnreadReminder.currentUser.unreadMentionCount = unreadMentionCount;
-                if(mentionEnabled)
-                    [[SoundManager sharedManager] playNewMessageSound];
+                if(mentionEnabled) {
+                    [self playSoundEffectWithUnreadCount:unreadMentionCount.integerValue];
+                    [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMentionCount object:nil];
+                }
             }
             
             if(sharedUnreadReminder.currentUser.unreadMentionComment.integerValue != unreadMentionComment.integerValue) {
                 sharedUnreadReminder.currentUser.unreadMentionComment = unreadMentionComment;
-                if(mentionEnabled)
-                    [[SoundManager sharedManager] playNewMessageSound];
+                if(mentionEnabled) {
+                    [self playSoundEffectWithUnreadCount:unreadMentionComment.integerValue];
+                    [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMentionCommentCount object:nil];
+                }
             }
             
             if(sharedUnreadReminder.currentUser.unreadMessageCount.integerValue != unreadMessageCount.integerValue) {
+                _messageWaitingRound = unreadMessageCount == 0 ? 0 : _messageWaitingRound + 1;
                 sharedUnreadReminder.currentUser.unreadMessageCount = unreadMessageCount;
-                if(messageEnabled)
-                    [[SoundManager sharedManager] playNewMessageSound];
+                if(messageEnabled && _messageWaitingRound > 1) {
+                    _messageWaitingRound = 0;
+                    [self playSoundEffectWithUnreadCount:unreadMessageCount.integerValue];
+                    [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMessageCount object:nil];
+                }
             }
-                        
-            [weakSelf sendUnreadNotification];
         }
     }];
     
     [client getUnreadCount:self.currentUser.userID];
 }
 
-- (void)sendUnreadNotification
+- (void)playSoundEffectWithUnreadCount:(int)unreadCount
 {
-    NSArray *notificationStatusArray = [NSUserDefaults getCurrentNotificationStatus];
-    
-    BOOL commentEnabled = ((NSNumber *)[notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeComment]).boolValue;
-    BOOL followerEnabled = ((NSNumber *)[notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeFollower]).boolValue;
-    BOOL mentionEnabled = ((NSNumber *)[notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeMention]).boolValue;
-    BOOL messageEnabled = ((NSNumber *)[notificationStatusArray objectAtIndex:SettingOptionFontNotificationTypeMessage]).boolValue;
-    
-    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    int unreadCount = self.currentUser.unreadStatusCount.intValue;
-    if (unreadCount != 0) {
-        [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadStatusCount object:nil];
-    }
-    
-    unreadCount = self.currentUser.unreadCommentCount.intValue;
-    if (unreadCount != 0 && commentEnabled) {
-        [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadCommentCount object:nil];
-    }
-    
-    unreadCount = self.currentUser.unreadMentionCount.intValue;
-    if (unreadCount != 0 && mentionEnabled) {
-        [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMentionCount object:nil];
-    }
-    
-    unreadCount = self.currentUser.unreadFollowingCount.intValue;
-    if (unreadCount != 0 && followerEnabled) {
-        [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadFollowCount object:nil];
-    }
-    unreadCount = self.currentUser.unreadMentionComment.intValue;
-    if (unreadCount != 0 && mentionEnabled) {
-        [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMentionCommentCount object:nil];
-    }
-    unreadCount = self.currentUser.unreadMessageCount.intValue;
-    if (unreadCount != 0 && messageEnabled) {
-        [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMessageCount object:nil];
+    if (unreadCount > 0) {
+        [[SoundManager sharedManager] playNewMessageSound];
     }
 }
 

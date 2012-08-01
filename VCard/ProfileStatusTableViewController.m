@@ -61,6 +61,7 @@
     } else if(_type == StatusTableViewControllerTypeTopicStatus){
         [Status deleteStatusesWithSearchKey:_searchKey InManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
     }
+    [self resetUnreadFollowerCount];
 }
 
 - (void)adjustFont
@@ -178,6 +179,23 @@
 - (void)loadMore
 {
     [self loadMoreData];
+}
+
+- (void)resetUnreadFollowerCount
+{
+    if (self.type != statusTableViewControllerTypeMentionStatus) {
+        return;
+    }
+    
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client){
+        if (!client.hasError) {
+            self.currentUser.unreadMentionCount = @0;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldUpdateUnreadMentionCount object:nil];
+        }
+    }];
+    
+    [client resetUnreadCount:kWBClientResetCountTypeMention];
 }
 
 - (void)refreshAfterDeletingStatuses:(NSNotification *)notification

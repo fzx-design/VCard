@@ -100,6 +100,7 @@
     } else if(self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
         [Comment deleteCommentsMentioningMeInManagedObjectContext:self.managedObjectContext];
     }
+    [self resetUnreadCommentCount];
 }
 
 - (void)loadMoreData
@@ -198,6 +199,29 @@
     }
 }
 
+- (void)resetUnreadCommentCount
+{
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client){
+        if (!client.hasError) {
+            if (self.dataSource == CommentsTableViewDataSourceCommentsToMe) {
+                self.currentUser.unreadCommentCount = @0;
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldUpdateUnreadCommentCount object:nil];
+            } else if (self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
+                self.currentUser.unreadMentionComment = @0;
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldUpdateUnreadMentionCommentCount object:nil];
+            }
+        }
+    }];
+    
+    NSString *type = @"";
+    if (self.dataSource == CommentsTableViewDataSourceCommentsToMe) {
+        type = kWBClientResetCountTypeComment;
+    } else if (self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
+        type = kWBClientResetCountTypeMetionComment;
+    }
+    [client resetUnreadCount:type];
+}
 
 #pragma mark - Core Data Table View Method
 

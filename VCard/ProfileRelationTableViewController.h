@@ -10,8 +10,10 @@
 #import "RefreshableCoreDataTableViewController.h"
 
 typedef enum {
-    RelationshipViewTypeFriends,
-    RelationshipViewTypeFollowers,
+    RelationshipViewTypeSelfFriends,
+    RelationshipViewTypeSelfFollowers,
+    RelationshipViewTypeUserFriends,
+    RelationshipViewTypeUserFollowers,
     RelationshipViewTypeSearch,
 } RelationshipViewType;
 

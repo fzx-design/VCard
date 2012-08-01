@@ -182,6 +182,8 @@
                     _lastMessageID = message.messageID;
                     [self.tableView reloadData];
                     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                    
+                    [self resetUnreadMessageCount];
                 }
             }
 
@@ -201,6 +203,19 @@
                                                maxID:nil
                                       startingAtPage:0
                                                count:20];
+}
+
+- (void)resetUnreadMessageCount
+{
+    WBClient *client = [WBClient client];
+    
+    [client setCompletionBlock:^(WBClient *client){
+        if (!client.hasError) {
+            self.currentUser.unreadMessageCount = @0;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldUpdateUnreadMessageCount object:nil];
+        }
+    }];
+    [client resetUnreadCount:kWBClientResetCountTypeMessage];
 }
 
 - (void)adjustMessageSize

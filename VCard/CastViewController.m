@@ -444,6 +444,15 @@
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeTopic pageDescription:[searchKey stringByAppendingString:@"_userSearch"]];
 }
 
+- (void)showMessageListShouldRefresh:(BOOL)shouldRefresh
+{
+    StackViewPageController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MessageListViewController"];
+    
+    vc.loadWithPurpose = shouldRefresh;
+    
+    [self stackViewAtIndex:INT16_MAX push:vc withPageType:StackViewPageTypeDMList pageDescription:kStackViewDefaultDescription];
+}
+
 - (void)showConversation:(NSNotification *)notification
 {
     NSDictionary *dictionary = notification.object;
@@ -528,12 +537,12 @@
             } else {
                 [_unreadCommentIndicatorButton showIndicatorUpdatedAnimation];
             }
+            
+            NSString *content = [NSString stringWithFormat:@"     %i 条新评论", unreadCommentCount];
+            [_unreadCommentIndicatorButton setTitle:content forState:UIControlStateNormal];
+            [_unreadCommentIndicatorButton setTitle:content forState:UIControlStateHighlighted];
+            [_unreadCommentIndicatorButton setTitle:content forState:UIControlStateDisabled];
         }
-        
-        NSString *content = [NSString stringWithFormat:@"     %i 条新评论", unreadCommentCount];
-        [_unreadCommentIndicatorButton setTitle:content forState:UIControlStateNormal];
-        [_unreadCommentIndicatorButton setTitle:content forState:UIControlStateHighlighted];
-        [_unreadCommentIndicatorButton setTitle:content forState:UIControlStateDisabled];
     }
 }
 
@@ -796,9 +805,7 @@
 
 - (IBAction)didClickShowDirectMessageButton:(UIButton *)sender
 {
-    StackViewPageController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MessageListViewController"];
-    
-    [self stackViewAtIndex:INT16_MAX push:vc withPageType:StackViewPageTypeDMList pageDescription:kStackViewDefaultDescription];
+    [self showMessageListShouldRefresh:NO];
 }
 
 - (IBAction)showProfileButtonClicked:(id)sender
@@ -876,6 +883,8 @@
     [self resetUnreadCountWithType:kWBClientResetCountTypeMessage];
     [_unreadIndicatorView removeIndicator:sender];
     sender.previousCount = 0;
+    
+    [self showMessageListShouldRefresh:YES];
 }
 
 
