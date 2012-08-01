@@ -127,14 +127,15 @@ static UnreadReminder *sharedUnreadReminder;
                 }
             }
             
-            if(sharedUnreadReminder.currentUser.unreadMessageCount.integerValue != unreadMessageCount.integerValue) {
-                _messageWaitingRound = unreadMessageCount.integerValue == 0 ? 0 : _messageWaitingRound + 1;
+            if (sharedUnreadReminder.currentUser.unreadMessageCount.integerValue != unreadMessageCount.integerValue) {
                 sharedUnreadReminder.currentUser.unreadMessageCount = unreadMessageCount;
-                if(messageEnabled && _messageWaitingRound > 2) {
-                    _messageWaitingRound = 0;
-                    [self playSoundEffectWithUnreadCount:unreadMessageCount.integerValue];
-                    [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMessageCount object:nil];
-                }
+            }
+            
+            _messageWaitingRound = unreadMessageCount.integerValue == 0 ? 0 : _messageWaitingRound + 1;
+            if(messageEnabled && _messageWaitingRound > 2) {
+                _messageWaitingRound = 0;
+                [self playSoundEffectWithUnreadCount:unreadMessageCount.integerValue];
+                [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMessageCount object:nil];
             }
         }
     }];

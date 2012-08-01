@@ -14,6 +14,7 @@
 
 @interface DMListTableViewController () {
     long long _nextCursor;
+    BOOL _shouldReload;
 }
 
 @end
@@ -31,6 +32,7 @@
 
 - (void)viewDidLoad
 {
+    _shouldReload = NO;
     [super viewDidLoad];
 }
 
@@ -123,6 +125,7 @@
     } else {
         NSLog(@"Conversation List Core Data Error!");
     }
+    [self adjustBackgroundView];
 }
 
 - (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
@@ -130,11 +133,50 @@
     return @"DMListTableViewCell";
 }
 
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    _shouldReload = YES;
+    [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    
+    UITableView *tableView = self.tableView;
+    
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:@[newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationTop];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:@[indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath]
+                    atIndexPath:indexPath];
+            _shouldReload = NO;
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:@[indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+    [self adjustBackgroundView];
+}
+
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
     if (self.isBeingDisplayed) {
         [self.tableView reloadData];
-        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
+        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.01];
     }
 }
 
