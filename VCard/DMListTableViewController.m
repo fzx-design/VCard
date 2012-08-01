@@ -53,7 +53,7 @@
 
 - (void)clearData
 {
-    //TODO: 
+    [Conversation deleteEmptyConversationsOfUser:self.currentUser.userID managedObjectContext:self.managedObjectContext];
 }
 
 - (void)loadMoreData
@@ -66,12 +66,11 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-			if (_nextCursor == 0) {
+            if (_nextCursor == 0) {
 				[self clearData];
 			}
             
             NSDictionary *result = client.responseJSONObject;
-			
             NSArray *dictArray = [result objectForKey:@"user_list"];
             for (NSDictionary *dict in dictArray) {
                 [Conversation insertConversation:dict toCurrentUser:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];

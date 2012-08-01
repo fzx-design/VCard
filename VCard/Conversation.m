@@ -86,4 +86,25 @@
     return result;
 }
 
++ (void)deleteEmptyConversationsOfUser:(NSString *)currentUserID managedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Conversation" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"currentUserID == %@", currentUserID]];
+    
+    NSArray *items = [context executeFetchRequest:request error:NULL];
+    for (NSManagedObject *object in items) {
+        [context deleteObject:object];
+    }
+    items = nil;
+    
+    NSFetchRequest *requestMessage = [[NSFetchRequest alloc] init];
+    [requestMessage setEntity:[NSEntityDescription entityForName:@"DirectMessage" inManagedObjectContext:context]];
+    items = [context executeFetchRequest:requestMessage error:NULL];
+    for (NSManagedObject *object in items) {
+        [context deleteObject:object];
+    }
+}
+
 @end
