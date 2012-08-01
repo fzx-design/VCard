@@ -72,7 +72,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    if (self.conversation.messages.count == 0) {
+    if ([self.conversation.latestMessageText isEqualToString:@""]) {
         [self.managedObjectContext deleteObject:self.conversation];
         self.conversation = nil;
     }
@@ -93,7 +93,7 @@
     
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
-        if (!client.hasError) {
+        if (!client.hasError && self.isBeingDisplayed) {
 			if (_nextCursor == 0) {
 				[self clearData];
 			}
@@ -121,6 +121,7 @@
                 int count = self.fetchedResultsController.fetchedObjects.count - 1;
                 DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count];
                 _lastMessageID = message.messageID;
+                self.conversation.empty = @(NO);
             }
             
             [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
@@ -171,7 +172,7 @@
     
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
-        if (!client.hasError) {
+        if (!client.hasError && self.isBeingDisplayed) {
             NSDictionary *result = client.responseJSONObject;
             NSArray *dictArray = [result objectForKey:@"direct_messages"];
             for (NSDictionary *dict in dictArray) {
@@ -210,6 +211,10 @@
 
 - (void)checkNewMessage
 {
+    if (!self.isBeingDisplayed) {
+        return;
+    }
+    
     if (self.fetchedResultsController.fetchedObjects.count > 0) {
         int count = self.fetchedResultsController.fetchedObjects.count - 1;
         DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count];
@@ -222,6 +227,7 @@
             [self resetUnreadMessageCount];
             [[SoundManager sharedManager] playNewMessageSound];
         }
+        self.conversation.latestMessageText = message.text;
     }
 }
 
@@ -343,8 +349,10 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 //    [self.tableView endUpdates];
-    [self.tableView reloadData];
-    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
+    if (self.isBeingDisplayed) {
+        [self.tableView reloadData];
+        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
+    }
 }
 
 

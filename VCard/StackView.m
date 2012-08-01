@@ -86,6 +86,7 @@
 {
     int pageNumber = [_delegate pageNumber];
     int width = ScrollViewWidth * (pageNumber + 1);
+    self.userInteractionEnabled = NO;
     
     newPage.frame = [self frameForNewView:pageNumber];
     
@@ -110,6 +111,7 @@
     } completion:^(BOOL finished) {
         if (weakSelf != nil) {
             weakSelf.touchLock = YES;
+            weakSelf.userInteractionEnabled = YES;
         }
         if (completion) {
             completion();

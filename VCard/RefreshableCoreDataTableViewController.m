@@ -18,8 +18,6 @@
 
 @implementation RefreshableCoreDataTableViewController
 
-@synthesize user = _user;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -60,6 +58,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [_pullView addObserver];
+    _isBeingDisplayed = YES;
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self 
@@ -95,6 +94,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [_pullView removeObserver];
+    _isBeingDisplayed = NO;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

@@ -37,6 +37,7 @@
     </entity>
     <entity name="Conversation" representedClassName="Conversation" syncable="YES">
         <attribute name="currentUserID" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="empty" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="latestMessageText" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="targetUserAvatarURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="targetUserID" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
@@ -227,11 +228,11 @@
         </relationship>
     </entity>
     <elements>
-        <element name="Comment" positionX="0" positionY="0" width="128" height="300"/>
-        <element name="Conversation" positionX="0" positionY="0" width="128" height="150"/>
-        <element name="DirectMessage" positionX="0" positionY="0" width="128" height="195"/>
-        <element name="Group" positionX="0" positionY="0" width="128" height="150"/>
-        <element name="Status" positionX="0" positionY="0" width="128" height="645"/>
-        <element name="User" positionX="0" positionY="0" width="128" height="600"/>
+        <element name="Comment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Conversation" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="DirectMessage" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Group" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Status" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

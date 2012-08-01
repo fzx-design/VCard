@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString * targetUserID;
 @property (nonatomic, retain) NSString * latestMessageText;
 @property (nonatomic, retain) NSDate * updateDate;
+@property (nonatomic, retain) NSNumber * empty;
 @property (nonatomic, retain) NSSet *messages;
 @property (nonatomic, retain) User *targetUser;
 

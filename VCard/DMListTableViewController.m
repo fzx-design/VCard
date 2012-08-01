@@ -66,15 +66,15 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            if (_nextCursor == 0) {
-				[self clearData];
-			}
-            
             NSDictionary *result = client.responseJSONObject;
             NSArray *dictArray = [result objectForKey:@"user_list"];
             for (NSDictionary *dict in dictArray) {
                 [Conversation insertConversation:dict toCurrentUser:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
             }
+            
+            if (_nextCursor == 0) {
+				[self clearData];
+			}
             
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
@@ -128,6 +128,14 @@
 - (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
 {
     return @"DMListTableViewCell";
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView endUpdates];
+    if (self.isBeingDisplayed) {
+        [self.tableView reloadData];
+        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

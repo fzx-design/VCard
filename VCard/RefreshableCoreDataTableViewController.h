@@ -30,8 +30,9 @@
 
 @property (nonatomic, unsafe_unretained) BOOL refreshing;
 @property (nonatomic, unsafe_unretained) BOOL hasMoreViews;
-@property (nonatomic, assign) int pageIndex;
-@property (nonatomic, assign) BOOL firstLoad;
+@property (nonatomic, unsafe_unretained) int pageIndex;
+@property (nonatomic, unsafe_unretained) BOOL firstLoad;
+@property (nonatomic, unsafe_unretained) BOOL isBeingDisplayed;
 @property (nonatomic, strong) User *user;
 
 - (void)refresh;

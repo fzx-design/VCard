@@ -18,6 +18,7 @@
 @dynamic targetUserID;
 @dynamic latestMessageText;
 @dynamic updateDate;
+@dynamic empty;
 @dynamic messages;
 @dynamic targetUser;
 
@@ -63,7 +64,9 @@
         NSString *dateString = [messageDict objectForKey:@"created_at"];
         result.updateDate = [NSDate dateFromStringRepresentation:dateString];
         result.latestMessageText = [messageDict objectForKey:@"text"];
+        result.empty = @(NO);
     } else {
+        result.empty = @(YES);
         NSLog(@"Conversation has no message %@", dict);
     }
     
@@ -94,17 +97,19 @@
     [request setPredicate:[NSPredicate predicateWithFormat:@"currentUserID == %@", currentUserID]];
     
     NSArray *items = [context executeFetchRequest:request error:NULL];
-    for (NSManagedObject *object in items) {
-        [context deleteObject:object];
+    for (Conversation *object in items) {
+        if (object.empty.boolValue || [object.latestMessageText isEqualToString:@""]) {
+            [context deleteObject:object];
+        }
     }
     items = nil;
     
-    NSFetchRequest *requestMessage = [[NSFetchRequest alloc] init];
-    [requestMessage setEntity:[NSEntityDescription entityForName:@"DirectMessage" inManagedObjectContext:context]];
-    items = [context executeFetchRequest:requestMessage error:NULL];
-    for (NSManagedObject *object in items) {
-        [context deleteObject:object];
-    }
+//    NSFetchRequest *requestMessage = [[NSFetchRequest alloc] init];
+//    [requestMessage setEntity:[NSEntityDescription entityForName:@"DirectMessage" inManagedObjectContext:context]];
+//    items = [context executeFetchRequest:requestMessage error:NULL];
+//    for (NSManagedObject *object in items) {
+//        [context deleteObject:object];
+//    }
 }
 
 @end
