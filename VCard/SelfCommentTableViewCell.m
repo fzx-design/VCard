@@ -131,10 +131,12 @@
 
 - (void)sendUserNameClickedNotificationWithName:(NSString *)userName
 {
-    NSString *indexString = [NSString stringWithFormat:@"%i", self.pageIndex];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName
-                                                        object:@{kNotificationObjectKeyUserName: userName,
-                                                                kNotificationObjectKeyIndex: indexString}];
+    if (userName) {
+        NSString *indexString = [NSString stringWithFormat:@"%i", self.pageIndex];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName
+                                                            object:@{kNotificationObjectKeyUserName: userName,
+                                       kNotificationObjectKeyIndex: indexString}];
+    }
 }
 
 - (void)sendShowTopicNotification:(NSString *)searchKey

@@ -546,7 +546,9 @@
 #pragma mark - Send Notification
 - (void)sendUserNameClickedNotificationWithName:(NSString *)userName
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:@{kNotificationObjectKeyUserName: userName, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
+    if (userName) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:@{kNotificationObjectKeyUserName: userName, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
+    }    
 }
 
 - (void)sendCommentButtonClickedNotification
