@@ -198,11 +198,18 @@
         
     }];
     
+    NSString *sinceIDString = nil;
+    if (self.fetchedResultsController.fetchedObjects.count > 0) {
+        int count = self.fetchedResultsController.fetchedObjects.count - 1;
+        long long maxID = ((DirectMessage *)[self.fetchedResultsController.fetchedObjects objectAtIndex:count]).messageID.longLongValue - 1;
+        sinceIDString = [NSString stringWithFormat:@"%lld", maxID - 1];
+    }
+    
     [client getDirectMessageConversionMessagesOfUser:_conversation.targetUserID
-                                             sinceID:nil
+                                             sinceID:sinceIDString
                                                maxID:nil
                                       startingAtPage:0
-                                               count:20];
+                                               count:100];
 }
 
 - (void)resetUnreadMessageCount
