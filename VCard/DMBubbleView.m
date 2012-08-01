@@ -47,13 +47,33 @@
     CGFloat width = 0.0f;
     CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxTextSize lineBreakMode:UILineBreakModeWordWrap];
     CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxTextSize lineBreakMode:UILineBreakModeWordWrap].height);
-    int lineCount = size.height / singleLineHeight - 1;
+    int lineCount = size.height / singleLineHeight;
+    lineCount -= lineCount / 3;
     int leading = kLeadingSize;
     
     height += ceilf(size.height + lineCount * leading) + kTimeStampLabelHeight + kTimeStampLabelGap ;
     width += ceilf(size.width);
     
     return CGSizeMake(width, height);
+}
+
+- (void)setTextSize:(NSString *)text
+{
+    CGFloat height = 0.0f;
+    CGFloat width = 0.0f;
+    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxTextSize lineBreakMode:UILineBreakModeWordWrap];
+    CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxTextSize lineBreakMode:UILineBreakModeWordWrap].height);
+    int lineCount = size.height / singleLineHeight;
+    lineCount -= lineCount / 3;
+    int leading = kLeadingSize;
+    
+    height += ceilf(size.height + lineCount * leading);
+    width += ceilf(size.width) + 5.0;
+    if (width < 120.0) {
+        width = 120.0;
+    }
+    
+    _textSize = CGSizeMake(width, height);
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -79,25 +99,6 @@
         [self addSubview:_timeStampLabel];
     }
     return self;
-}
-
-- (void)setTextSize:(NSString *)text
-{
-    CGFloat height = 0.0f;
-    CGFloat width = 0.0f;
-    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxTextSize lineBreakMode:UILineBreakModeWordWrap];
-    CGFloat singleLineHeight = ceilf([@"测试单行高度" sizeWithFont:[UIFont systemFontOfSize:kFontSize] constrainedToSize:kMaxTextSize lineBreakMode:UILineBreakModeWordWrap].height);
-    int lineCount = size.height / singleLineHeight;
-    lineCount -= lineCount / 3;
-    int leading = kLeadingSize;
-    
-    height += ceilf(size.height + lineCount * leading);
-    width += ceilf(size.width) + 5.0;
-    if (width < 120.0) {
-        width = 120.0;
-    }
-    
-    _textSize = CGSizeMake(width, height);
 }
 
 - (void)resetWithText:(NSString *)text dateString:(NSString *)dateString type:(DMBubbleViewType)type
@@ -136,7 +137,7 @@
     
     [_textLabel resetOrigin:CGPointMake(targetOriginX + _originXOffset + 4.0, _originYOffset - 2.0)];
     _textLabelFrame = _textLabel.frame;
-    _textLabelFrame.size.height -= 2;
+//    _textLabelFrame.size.height;
     
     _backgroundImageViewFrame.origin.x = targetOriginX;
     _backgroundImageViewFrame.origin.y = 0.0;
