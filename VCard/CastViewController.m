@@ -1159,9 +1159,9 @@
     CGFloat screenWidth = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? 768.0 : 1024.0;
     CGFloat screenHeight = screenWidth == 768.0 ? 1024.0 : 768.0;
     CGFloat originX = screenWidth - scrollViewOffsetX;
-    CGFloat width = scrollViewWidth > screenWidth ? screenWidth : scrollViewWidth;
+//    CGFloat width = scrollViewWidth > screenWidth ? screenWidth : scrollViewWidth;
 
-    [_coverView setFrame:CGRectMake(originX, 0.0, width, screenHeight)];
+    [_coverView setFrame:CGRectMake(originX, 0.0, scrollViewWidth, screenHeight)];
 }
 
 #pragma mark - PullToRefreshViewDelegate

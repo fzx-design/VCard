@@ -3139,7 +3139,6 @@
                 <relationship kind="action" name="didClickUnreadCommentButton:" candidateClass="UnreadIndicatorButton"/>
                 <relationship kind="action" name="didClickUnreadFollowerButton:" candidateClass="UnreadIndicatorButton"/>
                 <relationship kind="action" name="didClickUnreadMentionButton:" candidateClass="UnreadIndicatorButton"/>
-                <relationship kind="action" name="didClickUnreadMentionCommentButton:" candidateClass="UnreadIndicatorButton"/>
                 <relationship kind="action" name="refreshButtonClicked:"/>
                 <relationship kind="action" name="showProfileButtonClicked:"/>
                 <relationship kind="outlet" name="changeAccountButton" candidateClass="UIButton"/>
