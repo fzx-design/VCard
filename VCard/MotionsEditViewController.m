@@ -80,6 +80,9 @@
     [self configureSlider];
     [self configureButtons];
     [self configureFilterTableViewController];
+    
+    self.currentFilterImageView.hidden = NO;
+    self.backupFilterImageView.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
