@@ -49,7 +49,7 @@
     
     _textView.delegate = self;
     _prevTextViewContentHeight = _textView.contentSize.height;
-    [_textView resetOrigin:CGPointMake(1.0, 0.0)];
+    [_textView resetOrigin:CGPointMake(1.0, -2.0)];
     [_textViewBackgroundImageView addSubview:_textView];
     
     _topCoverImageView.image = [[UIImage imageNamed:kRLCastViewBGUnit] resizableImageWithCapInsets:UIEdgeInsetsZero];
