@@ -634,7 +634,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     CGFloat leftMargin = shouldShowSmallEmoticon ? 1 : -2;
     CGFloat originY = rect.size.height - rect.origin.y - 7.0;
     CGFloat originX = rect.origin.x + leftMargin;
-    if (originX < 10) {
+    if (originX < 5) {
         originX += 3;
     } else if (originX > 300) {
         originX -= 5;
