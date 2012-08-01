@@ -72,7 +72,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self layoutFooterView];
+    [self layoutFooterView:_keyboardHeight];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -119,45 +119,46 @@
 #pragma mark - Notification
 - (void)resetLayoutBeforeRotating:(NSNotification *)notification
 {
-    [self layoutFooterView];
+    [self layoutFooterView:_keyboardHeight];
 }
 
 - (void)resetLayoutAfterRotating:(NSNotification *)notification
 {
-    [self layoutFooterView];
+    [self layoutFooterView:_keyboardHeight];
 }
 
 #pragma mark Text View
 
 - (void)keyboardWillShow:(NSNotification *)notification {
     
-    if (!self.isActive) {
-        return;
-    }
-    
     NSDictionary *info = [notification userInfo];
     CGRect keyboardBounds = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat keyboardHeight = [UIApplication isCurrentOrientationLandscape] ? keyboardBounds.size.width : keyboardBounds.size.height;
     _keyboardHeight = keyboardHeight;
     
+    if (!self.isActive) {
+        return;
+    }
+    
     [UIView animateWithDuration:0.25f animations:^{
-        [self layoutFooterView];
+        [self layoutFooterView:_keyboardHeight];
     }];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     _keyboardHeight = 0;
     [UIView animateWithDuration:0.25f animations:^{
-        [self layoutFooterView];
+        [self layoutFooterView:0];
     }];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     [self.delegate stackViewPage:self shouldBecomeActivePageAnimated:YES];
+    [self layoutFooterView:_keyboardHeight];
 }
 
-- (void)layoutFooterView
+- (void)layoutFooterView:(CGFloat)keyboardHeight
 {
     CGFloat footerViewOriginY = self.view.frame.size.height - _keyboardHeight - _footerView.frame.size.height;
     CGFloat tableViewHeight = footerViewOriginY - self.conversationTableViewController.view.frame.origin.y + 1;
