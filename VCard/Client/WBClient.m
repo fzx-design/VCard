@@ -1017,6 +1017,19 @@ typedef enum {
     [self loadAdvancedRequest];
 }
 
+- (void)isMessageAvailable:(NSString *)userID
+{
+    self.path = @"direct_messages/is_capable.json";
+	
+    if (userID) {
+        [self.params setObject:userID forKey:@"uid"];
+    } else {
+        return;
+    }
+    self.shouldReportError = NO;
+    [self loadAdvancedRequest];
+}
+
 - (void)getFavouritesWithPage:(int)page
                         count:(int)count
 {

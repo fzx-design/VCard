@@ -145,9 +145,9 @@
     
     if (scrollView.contentOffset.x >= 2 * ScrollViewWidth + leftMargin && 
         scrollView.contentOffset.x < scrollView.contentSize.width - ScrollViewWidth) {
-        [self sendHideBGNotification];
+//        [self sendHideBGNotification];
     } else {
-        [self sendShowBGNotification];
+//        [self sendShowBGNotification];
     }
     
     [_delegate stackViewDidScroll];

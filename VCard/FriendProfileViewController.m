@@ -68,10 +68,24 @@
 
 - (void)setUpSpecificView
 {
-    _messageButton.enabled = YES;
     _mentionButton.enabled = YES;
+    [self checkMessageAvailable];
     [self showStatuses:nil];
     [self updateRelationshipfollowing:self.user.following.boolValue];
+}
+
+- (void)checkMessageAvailable
+{
+    WBClient *client = [WBClient client];
+    
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError && [client.responseJSONObject isKindOfClass:[NSDictionary class]]) {
+            NSNumber *available = [client.responseJSONObject objectForKey:@"result"];
+            _messageButton.enabled = available.boolValue;
+        }
+    }];
+    
+    [client isMessageAvailable:self.user.userID];
 }
 
 - (void)updateRelationshipfollowing:(BOOL)following

@@ -204,7 +204,7 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                                   startingAtPage:(int)page
                                            count:(int)count;
 - (void)sendDirectMessage:(NSString *)text toUser:(NSString *)screenName;
-
+- (void)isMessageAvailable:(NSString *)userID;
 
 - (void)getFavouritesWithPage:(int)page
                         count:(int)count;
