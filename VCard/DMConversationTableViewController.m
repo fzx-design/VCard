@@ -268,7 +268,7 @@
     int count = self.fetchedResultsController.fetchedObjects.count;
     if (count > 0) {
         NSIndexPath *bottomIndexPath = [NSIndexPath indexPathForRow:count - 1 inSection:0];
-        [self.tableView scrollToRowAtIndexPath:bottomIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+        [self.tableView scrollToRowAtIndexPath:bottomIndexPath atScrollPosition:UITableViewScrollPositionTop animated:animated];
         [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
     }
 }

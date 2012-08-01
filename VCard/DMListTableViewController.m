@@ -55,7 +55,7 @@
 
 - (void)clearData
 {
-    [Conversation deleteEmptyConversationsOfUser:self.currentUser.userID managedObjectContext:self.managedObjectContext];
+    
 }
 
 - (void)loadMoreData
@@ -176,7 +176,8 @@
     [self.tableView endUpdates];
     if (self.isBeingDisplayed) {
         [self.tableView reloadData];
-        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.01];
+        [self scrollViewDidScroll:self.tableView];
+        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
     }
 }
 

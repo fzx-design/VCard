@@ -200,7 +200,7 @@
     [_sendButton resetOriginY:_sendButton.frame.origin.y + offset];
     [_emoticonButton resetOriginY:_emoticonButton.frame.origin.y + offset];
     [self.conversationTableViewController.view resetHeightByOffset:-offset];
-    [self.conversationTableViewController scrollToBottom:NO];
+//    [self.conversationTableViewController scrollToBottom:NO];
     
 }
 
@@ -231,8 +231,8 @@
     
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            [self.conversationTableViewController receivedNewMessage:client.responseJSONObject];
             self.textView.text = @"";
+            [self.conversationTableViewController receivedNewMessage:client.responseJSONObject];
         }
     }];
     
