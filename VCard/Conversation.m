@@ -9,14 +9,15 @@
 #import "Conversation.h"
 #import "DirectMessage.h"
 #import "User.h"
+#import "NSDate+Addition.h"
 
 @implementation Conversation
 
 @dynamic currentUserID;
 @dynamic targetUserAvatarURL;
 @dynamic targetUserID;
+@dynamic latestMessageText;
 @dynamic updateDate;
-@dynamic latestMessage;
 @dynamic messages;
 @dynamic targetUser;
 
@@ -59,12 +60,28 @@
     
     NSDictionary *messageDict = [dict objectForKey:@"direct_message"];
     if ([messageDict isKindOfClass:[NSDictionary class]] && messageDict.count > 0) {
-        result.latestMessage = [DirectMessage insertMessage:messageDict withConversation:result inManagedObjectContext:context];
-        result.updateDate = result.latestMessage.createdAt;
+        NSString *dateString = [messageDict objectForKey:@"created_at"];
+        result.updateDate = [NSDate dateFromStringRepresentation:dateString];
+        result.latestMessageText = [messageDict objectForKey:@"text"];
     } else {
         NSLog(@"Conversation has no message %@", dict);
     }
     
+    return result;
+}
+
++ (Conversation *)insertCOnversationWithCurrentUserID:(NSString *)currentUserID
+                                           targetUser:(User *)targetUser
+                               inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    Conversation *result = [NSEntityDescription insertNewObjectForEntityForName:@"Conversation" inManagedObjectContext:context];
+    
+    result.targetUser = targetUser;
+    result.targetUserAvatarURL = targetUser.largeAvatarURL;
+    result.targetUserID = targetUser.userID;
+    result.currentUserID = currentUserID;
+    result.updateDate = [NSDate date];
+    result.latestMessageText = @"";
     
     return result;
 }

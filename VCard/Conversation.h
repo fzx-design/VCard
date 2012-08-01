@@ -16,8 +16,8 @@
 @property (nonatomic, retain) NSString * currentUserID;
 @property (nonatomic, retain) NSString * targetUserAvatarURL;
 @property (nonatomic, retain) NSString * targetUserID;
+@property (nonatomic, retain) NSString * latestMessageText;
 @property (nonatomic, retain) NSDate * updateDate;
-@property (nonatomic, retain) DirectMessage *latestMessage;
 @property (nonatomic, retain) NSSet *messages;
 @property (nonatomic, retain) User *targetUser;
 
@@ -25,6 +25,9 @@
                                    targetUserID:(NSString *)targetUserID
                          inManagedObjectContext:(NSManagedObjectContext *)context;
 + (Conversation *)insertConversation:(NSDictionary *)dict toCurrentUser:(NSString *)currentUserID inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Conversation *)insertCOnversationWithCurrentUserID:(NSString *)currentUserID
+                                           targetUser:(User *)targetUser
+                               inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end
 

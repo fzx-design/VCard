@@ -73,6 +73,7 @@
         _listTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DMListTableViewController"];
         _listTableViewController.view.frame = [self frameForTableView];
         _listTableViewController.tableView.frame = [self frameForTableView];
+        _listTableViewController.pageIndex = self.pageIndex;
     }
     return _listTableViewController;
 }

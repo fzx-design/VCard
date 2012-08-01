@@ -110,7 +110,7 @@
         DMListTableViewCell *listCell = (DMListTableViewCell *)cell;
         Conversation *conversation = [self.fetchedResultsController objectAtIndexPath:indexPath];
         listCell.screenNameLabel.text = conversation.targetUser.screenName;
-        listCell.infoLabel.text = conversation.latestMessage.text;
+        listCell.infoLabel.text = conversation.latestMessageText;
         
         [listCell.avatarImageView loadImageFromURL:conversation.targetUser.profileImageURL
                                         completion:NULL];

@@ -12,6 +12,7 @@
 #import "PostViewController.h"
 #import "UIApplication+Addition.h"
 #import "GroupInfoTableViewController.h"
+#import "Conversation.h"
 
 @implementation FriendProfileViewController
 
@@ -31,6 +32,8 @@
     [self.screenNameLabel setText:self.screenName];
     [ThemeResourceProvider configButtonPaperLight:_mentionButton];
     [ThemeResourceProvider configButtonPaperLight:_messageButton];
+    _mentionButton.enabled = NO;
+    _messageButton.enabled = NO;
     
     if (self.user == nil) {
         [self loadUser];
@@ -50,6 +53,13 @@
             self.user = [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
             [super setUpViews];
             [self setUpSpecificView];
+        } else {
+            [self.relationshipButton setTitle:@"读取失败" forState:UIControlStateNormal];
+            [self.relationshipButton setTitle:@"读取失败" forState:UIControlStateHighlighted];
+            self.relationshipButton.enabled = NO;
+            self.moreInfoButton.enabled = NO;
+            [self.discriptionLabel setText:@""];
+            [self.discriptionShadowLabel setText:@""];
         }
     }];
     
@@ -58,6 +68,8 @@
 
 - (void)setUpSpecificView
 {
+    _messageButton.enabled = YES;
+    _mentionButton.enabled = YES;
     [self showStatuses:nil];
     [self updateRelationshipfollowing:self.user.following.boolValue];
 }
@@ -129,7 +141,16 @@
 
 - (IBAction)didClickMessageButton:(UIButton *)sender
 {
+    Conversation *conversation = [Conversation conversationWithCurrentUserID:self.currentUser.userID
+                                                                targetUserID:self.user.userID
+                                                      inManagedObjectContext:self.managedObjectContext];
+    if (conversation == nil) {
+        conversation = [Conversation insertCOnversationWithCurrentUserID:self.currentUser.userID
+                                                              targetUser:self.user
+                                                  inManagedObjectContext:self.managedObjectContext];
+    }
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowConversation object:@{kNotificationObjectKeyConversation: conversation, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 - (void)followUser

@@ -70,6 +70,15 @@
     [self loadMoreData];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    if (self.conversation.messages.count == 0) {
+        [self.managedObjectContext deleteObject:self.conversation];
+        self.conversation = nil;
+    }
+    [super viewWillDisappear:animated];
+}
+
 - (void)clearData
 {
     //TODO: 
@@ -101,20 +110,20 @@
             [self.fetchedResultsController performFetch:nil];
             [self adjustMessageSize];
             
-            if (_loadingMore) {
-                _targetIndexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - prevFetchedCount inSection:0];
-                [self.tableView scrollToRowAtIndexPath:_targetIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
-            } else {
-                _targetIndexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - 1 inSection:0];
-                [self.tableView scrollToRowAtIndexPath:_targetIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-            }
-            [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
-            
             if (self.fetchedResultsController.fetchedObjects.count > 0) {
+                if (_loadingMore) {
+                    _targetIndexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - prevFetchedCount inSection:0];
+                    [self.tableView scrollToRowAtIndexPath:_targetIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                } else {
+                    _targetIndexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - 1 inSection:0];
+                    [self.tableView scrollToRowAtIndexPath:_targetIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+                }
                 int count = self.fetchedResultsController.fetchedObjects.count - 1;
                 DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count];
                 _lastMessageID = message.messageID;
             }
+            
+            [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
             
             _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
             self.hasMoreViews = NO;
@@ -172,20 +181,7 @@
             [self.managedObjectContext processPendingChanges];
             [self.fetchedResultsController performFetch:nil];
             [self adjustMessageSize];
-            
-            if (self.fetchedResultsController.fetchedObjects.count > 0) {
-                int count = self.fetchedResultsController.fetchedObjects.count - 1;
-                DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count];
-
-                if (![_lastMessageID isEqualToString:message.messageID]) {
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - 1 inSection:0];
-                    _lastMessageID = message.messageID;
-                    [self.tableView reloadData];
-                    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-                    
-                    [self resetUnreadMessageCount];
-                }
-            }
+            [self checkNewMessage];
 
             [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
             
@@ -201,8 +197,8 @@
     NSString *sinceIDString = nil;
     if (self.fetchedResultsController.fetchedObjects.count > 0) {
         int count = self.fetchedResultsController.fetchedObjects.count - 1;
-        long long maxID = ((DirectMessage *)[self.fetchedResultsController.fetchedObjects objectAtIndex:count]).messageID.longLongValue - 1;
-        sinceIDString = [NSString stringWithFormat:@"%lld", maxID - 1];
+        long long maxID = ((DirectMessage *)[self.fetchedResultsController.fetchedObjects objectAtIndex:count]).messageID.longLongValue;
+        sinceIDString = [NSString stringWithFormat:@"%lld", maxID];
     }
     
     [client getDirectMessageConversionMessagesOfUser:_conversation.targetUserID
@@ -210,6 +206,23 @@
                                                maxID:nil
                                       startingAtPage:0
                                                count:100];
+}
+
+- (void)checkNewMessage
+{
+    if (self.fetchedResultsController.fetchedObjects.count > 0) {
+        int count = self.fetchedResultsController.fetchedObjects.count - 1;
+        DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count];
+        
+        if (![_lastMessageID isEqualToString:message.messageID]) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - 1 inSection:0];
+            _lastMessageID = message.messageID;
+            [self.tableView reloadData];
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            [self resetUnreadMessageCount];
+            [[SoundManager sharedManager] playNewMessageSound];
+        }
+    }
 }
 
 - (void)resetUnreadMessageCount

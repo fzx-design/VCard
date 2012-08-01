@@ -21,7 +21,6 @@
 @property (nonatomic, retain) NSString * senderScreenName;
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) NSSet *conversation;
-@property (nonatomic, retain) Conversation *isLatestMessageOf;
 @property (nonatomic, retain) NSNumber * messageHeight;
 @property (nonatomic, retain) NSNumber * messageWidth;
 

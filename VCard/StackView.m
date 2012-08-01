@@ -93,7 +93,6 @@
     [_scrollView addSubview:newPage];
     
     if (replacing) {
-        
         [self sendShowBGNotification];
         
         BlockARCWeakSelf weakSelf = self;
@@ -109,7 +108,9 @@
     [UIView animateWithDuration:0.3 animations:^{
         [weakSelf.scrollView setContentOffset:CGPointMake(newPage.frame.origin.x, 0.0)];
     } completion:^(BOOL finished) {
-        weakSelf.touchLock = YES;
+        if (weakSelf != nil) {
+            weakSelf.touchLock = YES;
+        }
         if (completion) {
             completion();
         }

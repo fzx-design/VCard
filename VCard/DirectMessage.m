@@ -22,7 +22,6 @@
 @dynamic senderScreenName;
 @dynamic text;
 @dynamic conversation;
-@dynamic isLatestMessageOf;
 @dynamic messageHeight;
 @dynamic messageWidth;
 
