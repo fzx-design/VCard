@@ -44,7 +44,6 @@
 - (void)refresh
 {
 	_nextCursor = 0;
-//    [self.fetchedResultsController performFetch:nil];
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
 }
 
@@ -154,6 +153,7 @@
         case NSFetchedResultsChangeDelete:
             [tableView deleteRowsAtIndexPaths:@[indexPath]
                              withRowAnimation:UITableViewRowAnimationFade];
+            _shouldReload = YES;
             break;
             
         case NSFetchedResultsChangeUpdate:
@@ -173,7 +173,7 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
-    if (self.isBeingDisplayed && self.shouldReload && !self.firstLoad) {
+    if ((self.isBeingDisplayed && self.shouldReload) || self.firstLoad) {
         [self.tableView reloadData];
         self.shouldReload = NO;
         self.firstLoad = NO;

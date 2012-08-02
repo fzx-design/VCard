@@ -17,12 +17,12 @@
 #import "TTTAttributedLabelConfiguer.h"
 #import "NSDate+Addition.h"
 
-@interface DMConversationTableViewController () {
-    long long _nextCursor;
-    BOOL _loadingMore;
-    NSString *_lastMessageID;
-    NSIndexPath *_targetIndexPath;
-}
+@interface DMConversationTableViewController ()
+
+@property (nonatomic, unsafe_unretained) long long      nextCursor;
+@property (nonatomic, unsafe_unretained) BOOL           loadingMore;
+@property (nonatomic, unsafe_unretained) NSString       *lastMessageID;
+@property (nonatomic, unsafe_unretained) NSIndexPath    *targetIndexPath;
 
 @end
 
@@ -159,31 +159,29 @@
     if (_loading == YES) {
         return;
     }
-    
     _loading = YES;
     
+    BlockARCWeakSelf weakSelf = self;
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
-        if (!client.hasError && self.isBeingDisplayed) {
+        if (!client.hasError && weakSelf.isBeingDisplayed) {
             NSDictionary *result = client.responseJSONObject;
             NSArray *dictArray = [result objectForKey:@"direct_messages"];
             for (NSDictionary *dict in dictArray) {
-                [DirectMessage insertMessage:dict withConversation:_conversation inManagedObjectContext:self.managedObjectContext];
+                [DirectMessage insertMessage:dict withConversation:weakSelf.conversation inManagedObjectContext:weakSelf.managedObjectContext];
             }
             
-            [self.managedObjectContext processPendingChanges];
-            [self.fetchedResultsController performFetch:nil];
-            [self adjustMessageSize];
-            [self checkNewMessage];
-
-            [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
+            [weakSelf.managedObjectContext processPendingChanges];
+            [weakSelf.fetchedResultsController performFetch:nil];
+            [weakSelf adjustMessageSize];
+            [weakSelf checkNewMessage];
             
-            _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
-            self.hasMoreViews = NO;
+            weakSelf.nextCursor = [[result objectForKey:@"next_cursor"] intValue];
+            weakSelf.hasMoreViews = NO;
         }
         
-        [self refreshEnded];
-        [self finishedLoading];
+        [weakSelf refreshEnded];
+        [weakSelf finishedLoading];
         
     }];
     
@@ -211,9 +209,9 @@
         int count = self.fetchedResultsController.fetchedObjects.count - 1;
         DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count];
         
-        if (![_lastMessageID isEqualToString:message.messageID]) {
+        if (![self.lastMessageID isEqualToString:message.messageID]) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - 1 inSection:0];
-            _lastMessageID = message.messageID;
+            self.lastMessageID = message.messageID;
             [self.tableView reloadData];
             [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
             [self resetUnreadMessageCount];
@@ -221,6 +219,7 @@
         }
         self.conversation.latestMessageText = message.text;
     }
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
 }
 
 - (void)resetUnreadMessageCount
