@@ -90,6 +90,11 @@
     [self.textView resignFirstResponder];
 }
 
+- (void)refresh
+{
+    [self.conversationTableViewController getUnreadMessage];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -249,7 +254,7 @@
 
 - (void)timerFired
 {
-    [_conversationTableViewController getUnreadMessage];
+    [_conversationTableViewController getUnreadMessageThroughTimer];
 }
 
 #pragma mark - Properties

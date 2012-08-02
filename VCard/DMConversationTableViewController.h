@@ -17,5 +17,6 @@
 - (void)scrollToBottom:(BOOL)animated;
 - (void)receivedNewMessage:(NSDictionary *)dict;
 - (void)getUnreadMessage;
+- (void)getUnreadMessageThroughTimer;
 
 @end

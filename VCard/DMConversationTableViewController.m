@@ -154,12 +154,17 @@
     _lastMessageID = message.messageID;
 }
 
-- (void)getUnreadMessage
+- (void)getUnreadMessageThroughTimer
 {
     if (self.currentUser.unreadMessageCount.intValue == 0 && self.isBeingDisplayed) {
         return;
     }
     
+    [self getUnreadMessage];
+}
+
+- (void)getUnreadMessage
+{
     if (_loading == YES) {
         return;
     }
@@ -202,6 +207,8 @@
                                       startingAtPage:0
                                                count:100];
 }
+
+
 
 - (void)checkNewMessage
 {
