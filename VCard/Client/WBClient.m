@@ -321,6 +321,7 @@ typedef enum {
 
 - (void)getAtUsersSuggestions:(NSString *)q {
     self.path = @"search/suggestions/at_users.json";
+    self.shouldReportError = NO;
     // 0 for friends, 1 for followers
     [self.params setObject:@"0" forKey:@"type"];
     [self.params setObject:q forKey:@"q"];
@@ -329,6 +330,7 @@ typedef enum {
 
 - (void)getTopicSuggestions:(NSString *)q {
     self.path = @"search/suggestions/statuses.json";
+    self.shouldReportError = NO;
     [self.params setObject:q forKey:@"q"];
     [self loadNormalRequest];
 }
@@ -336,6 +338,7 @@ typedef enum {
 - (void)getUserSuggestions:(NSString *)q
 {
     self.path = @"search/suggestions/users.json";
+    self.shouldReportError = NO;
     [self.params setObject:q forKey:@"q"];
     [self loadNormalRequest];
 }
@@ -368,6 +371,7 @@ typedef enum {
 - (void)getUserBilateral
 {
     self.path = @"friendships/friends/bilateral.json";
+    self.shouldReportError = NO;
     [self.params setObject:@5 forKey:@"count"];
     [self.params setObject:self.userID forKey:@"uid"];
     
@@ -748,7 +752,7 @@ typedef enum {
 }
 
 - (void)getFavouriteIDs:(int)count {
-    _shouldReportError = NO;
+    self.shouldReportError = NO;
     self.path = @"favorites/ids.json";
     [self.params setObject:[NSString stringWithFormat:@"%i", count] forKey:@"count"];
     [self loadNormalRequest];
@@ -857,6 +861,7 @@ typedef enum {
 - (void)getTrends
 {
     self.path = @"trends.json";
+    self.shouldReportError = NO;
     [self.params setObject:self.userID forKey:@"uid"];
     [self.params setObject:[NSString stringWithFormat:@"%d", 200] forKey:@"count"];
     [self loadNormalRequest];
