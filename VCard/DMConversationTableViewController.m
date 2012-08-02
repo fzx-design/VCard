@@ -41,9 +41,10 @@
 {
     [super viewDidLoad];
     _loadMoreView.hidden = YES;
-    UIEdgeInsets inset = self.tableView.contentInset;
-    inset.bottom = 20.0;
-    self.tableView.contentInset = inset;
+    self.tableView.alpha = 0.0;
+//    UIEdgeInsets inset = self.tableView.contentInset;
+//    inset.bottom = 20.0;
+//    self.tableView.contentInset = inset;
 }
 
 - (void)viewDidUnload
@@ -105,7 +106,7 @@
                     _targetIndexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - prevFetchedCount inSection:0];
                     [self.tableView scrollToRowAtIndexPath:_targetIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
                 } else {
-                    [self scrollToBottom:YES];
+                    [self scrollToBottom:NO];
                 }
                 int count = self.fetchedResultsController.fetchedObjects.count - 1;
                 DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count];
@@ -120,6 +121,9 @@
         } else {
             [self.fetchedResultsController performFetch:nil];
             [self adjustMessageSize];
+            if (!_loadingMore) {
+                [self scrollToBottom:NO];
+            }
         }
         
         [self refreshEnded];
@@ -256,11 +260,19 @@
 
 - (void)scrollToBottom:(BOOL)animated
 {
-    int count = self.fetchedResultsController.fetchedObjects.count;
-    if (count > 0) {
-        NSIndexPath *bottomIndexPath = [NSIndexPath indexPathForRow:count - 1 inSection:0];
-        [self.tableView scrollToRowAtIndexPath:bottomIndexPath atScrollPosition:UITableViewScrollPositionNone animated:animated];
-        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
+    if (self.firstLoad) {
+        self.firstLoad = NO;
+        [UIView animateWithDuration:0.2 animations:^{
+            self.tableView.alpha = 1.0;
+        }];
+    }
+
+    if (animated) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.tableView.contentOffset = CGPointMake(0.0, self.tableView.contentSize.height - self.tableView.frame.size.height);
+        }];
+    } else {
+        self.tableView.contentOffset = CGPointMake(0.0, self.tableView.contentSize.height - self.tableView.frame.size.height);
     }
 }
 

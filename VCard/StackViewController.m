@@ -116,6 +116,7 @@
             [self.stackView removeLastView:lastViewController.view completion:^{
                 [lastViewController.view removeFromSuperview];
             }];
+            [lastViewController pagePopedFromStack];
             [lastViewController viewWillDisappear:NO];
             [self.controllerStack removeObject:lastViewController];
             lastViewController = nil;

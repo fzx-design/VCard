@@ -92,6 +92,11 @@
     _searchTableViewController = nil;
 }
 
+- (void)pagePopedFromStack
+{
+    [self.searchBar resignFirstResponder];
+}
+
 #pragma mark - Segment
 - (void)showSegment
 {

@@ -13,6 +13,7 @@
 #import "NSNotificationCenter+Addition.h"
 
 #define kTextViewMaxHeight 160.0
+#define kFooterViewOriginalHeight 54.0
 
 @interface MessageConversationViewController () {
     CGFloat _keyboardHeight;
@@ -48,12 +49,14 @@
     
     _textView.delegate = self;
     _prevTextViewContentHeight = _textView.contentSize.height;
-    [_textView resetOrigin:CGPointMake(1.0, -2.0)];
+    [_textView resetOrigin:CGPointMake(1.0, 0.0)];
     [_textViewBackgroundImageView addSubview:_textView];
     
     _topCoverImageView.image = [[UIImage imageNamed:kRLCastViewBGUnit] resizableImageWithCapInsets:UIEdgeInsetsZero];
 
     _sendButton.enabled = NO;
+    
+    [self.conversationTableViewController initialLoadMessageData];
     
     [NSNotificationCenter registerTimerFiredNotificationWithSelector:@selector(timerFired) target:self];
 }
@@ -65,7 +68,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self layoutFooterView:_keyboardHeight];
+    [self layoutFooterViewWithKeyboardHeight:_keyboardHeight footerViewHeight:_footerView.frame.size.height];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -74,6 +77,11 @@
 }
 
 - (void)stackDidScroll
+{
+    [self.textView resignFirstResponder];
+}
+
+- (void)pagePopedFromStack
 {
     [self.textView resignFirstResponder];
 }
@@ -106,18 +114,17 @@
 
 - (void)initialLoad
 {
-    [self.conversationTableViewController initialLoadMessageData];
 }
 
 #pragma mark - Notification
 - (void)resetLayoutBeforeRotating:(NSNotification *)notification
 {
-    [self layoutFooterView:_keyboardHeight];
+    [self layoutFooterViewWithKeyboardHeight:_keyboardHeight footerViewHeight:_footerView.frame.size.height];
 }
 
 - (void)resetLayoutAfterRotating:(NSNotification *)notification
 {
-    [self layoutFooterView:_keyboardHeight];
+    [self layoutFooterViewWithKeyboardHeight:_keyboardHeight footerViewHeight:_footerView.frame.size.height];
 }
 
 #pragma mark Text View
@@ -134,26 +141,26 @@
     }
     
     [UIView animateWithDuration:0.25f animations:^{
-        [self layoutFooterView:_keyboardHeight];
+        [self layoutFooterViewWithKeyboardHeight:_keyboardHeight footerViewHeight:_footerView.frame.size.height];
     }];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     _keyboardHeight = 0;
     [UIView animateWithDuration:0.25f animations:^{
-        [self layoutFooterView:0];
+        [self layoutFooterViewWithKeyboardHeight:0 footerViewHeight:_footerView.frame.size.height];
     }];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     [self.delegate stackViewPage:self shouldBecomeActivePageAnimated:YES];
-    [self layoutFooterView:_keyboardHeight];
+    [self layoutFooterViewWithKeyboardHeight:_keyboardHeight footerViewHeight:_footerView.frame.size.height];
 }
 
-- (void)layoutFooterView:(CGFloat)keyboardHeight
+- (void)layoutFooterViewWithKeyboardHeight:(CGFloat)keyboardHeight footerViewHeight:(CGFloat)footerViewHeight
 {
-    CGFloat footerViewOriginY = self.view.frame.size.height - _keyboardHeight - _footerView.frame.size.height;
+    CGFloat footerViewOriginY = self.view.frame.size.height - _keyboardHeight - footerViewHeight;
     CGFloat tableViewHeight = footerViewOriginY - self.conversationTableViewController.view.frame.origin.y + 1;
     [_footerView resetOriginY:footerViewOriginY];
     [self.conversationTableViewController.view resetHeight:tableViewHeight];
@@ -193,7 +200,6 @@
     [_sendButton resetOriginY:_sendButton.frame.origin.y + offset];
     [_emoticonButton resetOriginY:_emoticonButton.frame.origin.y + offset];
     [_conversationTableViewController.view resetHeightByOffset:-offset];
-//    [self.conversationTableViewController scrollToBottom:NO];
     
 }
 
@@ -251,6 +257,7 @@
         _conversationTableViewController.view.frame = [self frameForTableView];
         _conversationTableViewController.tableView.frame = [self frameForTableView];
         _conversationTableViewController.conversation = _conversation;
+        _conversationTableViewController.firstLoad = YES;
     }
     return _conversationTableViewController;
 }
