@@ -158,6 +158,7 @@
     [self.fetchedResultsController performFetch:nil];
     [self scrollToBottom:YES];
     [self finishedLoading];
+    [self resetLatestConversationMessage];
     _lastMessageID = message.messageID;
 }
 
