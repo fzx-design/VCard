@@ -11,7 +11,6 @@
 
 @interface MessageConversationViewController : StackViewPageController <UITextViewDelegate>
 
-@property (nonatomic, weak) IBOutlet UIButton       *clearHistoryButton;
 @property (nonatomic, weak) IBOutlet UIButton       *viewProfileButton;
 @property (nonatomic, weak) IBOutlet UILabel        *titleLabel;
 @property (nonatomic, weak) IBOutlet UIView         *footerView;
@@ -33,6 +32,5 @@
 - (IBAction)didClickSendButton:(UIButton *)sender;
 
 - (IBAction)didClickViewProfileButton:(UIButton *)sender;
-- (IBAction)didClickClearHistoryButton:(UIButton *)sender;
 
 @end

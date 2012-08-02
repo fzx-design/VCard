@@ -40,7 +40,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [_loadMoreView removeFromSuperview];
     _loadMoreView.hidden = YES;
     UIEdgeInsets inset = self.tableView.contentInset;
     inset.bottom = 20.0;
@@ -56,16 +55,13 @@
 - (void)refresh
 {
     _loadingMore = YES;
-    [self scrollToBottom:YES];
-	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
+	[self loadMoreData];
 }
 
 - (void)initialLoadMessageData
 {
     self.refreshing = YES;
-    [self.fetchedResultsController performFetch:nil];
-    [self scrollToBottom:YES];
-	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
+	[self loadMoreData];
 }
 
 - (void)loadMore
@@ -88,7 +84,7 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError && self.isBeingDisplayed) {
-			if (_nextCursor == 0) {
+			if (self.refreshing) {
 				[self clearData];
 			}
             

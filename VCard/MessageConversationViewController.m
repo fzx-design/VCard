@@ -41,7 +41,6 @@
     [self.backgroundView insertSubview:self.topShadowImageView belowSubview:_footerView];
     [self.backgroundView insertSubview:self.conversationTableViewController.view belowSubview:self.topShadowImageView];
     _titleLabel.text = _conversation.targetUser.screenName;
-    [ThemeResourceProvider configButtonPaperLight:_clearHistoryButton];
     [ThemeResourceProvider configButtonPaperDark:_viewProfileButton];
     
     _textViewBackgroundImageView.image = [[UIImage imageNamed:@"msg_textfield_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(13, 0, 12, 0)];
@@ -212,10 +211,6 @@
 - (IBAction)didClickViewProfileButton:(UIButton *)sender
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:@{kNotificationObjectKeyUserName: _conversation.targetUser.screenName, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
-}
-
-- (IBAction)didClickClearHistoryButton:(UIButton *)sender {
-    
 }
 
 #pragma mark - Message Methods
