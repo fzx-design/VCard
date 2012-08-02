@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MotionsViewController.h"
-#import "PostAtHintView.h"
 #import "PostRootView.h"
-#import "EmoticonsViewController.h"
+#import "PostHintTextView.h"
 
 typedef enum {
     PostViewControllerTypeNewStatus,
@@ -22,15 +21,14 @@ typedef enum {
 #define kVCardAppStoreURL   @"http://itunes.apple.com/cn/app/id420598288?mt=8"
 
 @protocol PostViewControllerDelegate;
-@interface PostViewController : UIViewController <MotionsViewControllerDelegate, UITextViewDelegate, PostHintViewDelegate, UIScrollViewDelegate, PostRootViewDelegate, EmoticonsViewControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
+@interface PostViewController : UIViewController <MotionsViewControllerDelegate, PostHintTextViewDelegate, UITextViewDelegate, UIScrollViewDelegate, PostRootViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
     BOOL _keyboardHidden;
-    BOOL _needFillPoundSign;
     CGRect _functionRightViewInitFrame;
     BOOL _playingFoldPaperAnimation;
 }
 
 @property (nonatomic, weak) IBOutlet UIImageView  *motionsImageView;
-@property (nonatomic, weak) IBOutlet UITextView   *textView;
+@property (nonatomic, weak) IBOutlet PostHintTextView   *textView;
 @property (nonatomic, weak) IBOutlet UILabel      *textCountLabel;
 @property (nonatomic, weak) IBOutlet UIView       *postView;
 @property (nonatomic, weak) IBOutlet UIView       *textContainerView;

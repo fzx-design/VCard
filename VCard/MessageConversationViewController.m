@@ -11,6 +11,8 @@
 #import "UIApplication+Addition.h"
 #import "WBClient.h"
 #import "NSNotificationCenter+Addition.h"
+#import "PostAtHintView.h"
+#import "PostTopicHintView.h"
 
 #define kTextViewMaxHeight 160.0
 #define kFooterViewOriginalHeight 54.0
@@ -223,6 +225,10 @@
     
 }
 
+#pragma mark - Emoticons and Hint View
+
+
+
 #pragma mark - IBActions
 - (IBAction)didClickEmoticonButton:(UIButton *)sender
 {
@@ -289,6 +295,18 @@
         _emoticonsViewController.delegate = self;
     }
     return _emoticonsViewController;
+}
+
+#pragma mark - EmoticonsViewController Delegate
+
+- (void)didClickEmoticonsButtonWithInfoKey:(NSString *)key {
+    
+}
+
+#pragma mark - PostHintView Delegate
+
+- (void)postHintView:(PostHintView *)hintView didSelectHintString:(NSString *)text {
+    
 }
 
 @end

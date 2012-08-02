@@ -9,15 +9,16 @@
 #import "PostViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <QuartzCore/QuartzCore.h>
-#import "UIApplication+Addition.h"
-#import "PostAtHintView.h"
-#import "PostTopicHintView.h"
-#import "UIView+Addition.h"
 #import "WBClient.h"
 #import "PostNewStatusViewController.h"
 #import "PostRepostCommentViewController.h"
+#import "EmoticonsViewController.h"
+#import "PostAtHintView.h"
+#import "PostTopicHintView.h"
+#import "UIView+Addition.h"
 #import "UIImage+Addition.h"
 #import "NSString+Addition.h"
+#import "UIApplication+Addition.h"
 
 #define WEIBO_TEXT_MAX_LENGTH   140
 #define HINT_VIEW_OFFSET        CGSizeMake(-16, 27)
@@ -35,9 +36,6 @@
 #define MOTIONS_ACTION_SHEET_ALBUM_INDEX    1
 #define MOTIONS_ACTION_SHEET_EDIT_INDEX     2
 #define MOTIONS_ACTION_SHEET_CLEAR_INDEX    3
-
-static NSString *weiboAtRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_\\s]*";
-static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
 
 typedef enum {
     HintViewTypeNone,
@@ -59,8 +57,6 @@ typedef enum {
 @property (nonatomic, assign) CGFloat keyboardHeight;
 @property (nonatomic, strong) PostHintView *currentHintView;
 @property (nonatomic, readonly) CGPoint cursorPos;
-@property (nonatomic, assign) NSRange currentHintStringRange;
-@property (nonatomic, readonly) NSString *currentHintString;
 @property (nonatomic, assign) HintViewType currentHintViewType;
 @property (nonatomic, strong) EmoticonsViewController *emoticonsViewController;
 @property (nonatomic, readonly) PostRootView *postRootView;
@@ -78,51 +74,7 @@ typedef enum {
 
 @implementation PostViewController
 
-@synthesize motionsImageView = _motionsImageView;
-@synthesize textView = _textView;
-@synthesize textCountLabel = _textCountLabel;
-@synthesize postView = _postView;
-@synthesize textContainerView = _textContainerView;
-@synthesize navButton = _navButton;
-@synthesize atButton = _atButton;
-@synthesize motionsButton = _motionsButton;
-@synthesize emoticonsButton = _emoticonsButton;
-@synthesize topicButton = _topicButton;
-@synthesize repostCommentCheckmarkButton = _repostCommentCheckmarkButton;
-@synthesize navActivityIndicator = _navActivityIndicator;
-@synthesize navLabel = _navLabel;
-@synthesize functionLeftNavView = _functionLeftNavView;
-@synthesize functionLeftCheckmarkView = _functionLeftCheckmarkView;
-@synthesize functionRightView = _functionRightView;
-@synthesize delegate = _delegate;
-@synthesize leftPaperImageView = _leftPaperImageView;
-@synthesize rightPaperImageView = _rightPaperImageView;
-@synthesize paperImageHolderView = _paperImageHolderView;
-@synthesize leftPaperGloomImageView = _leftPaperGloomImageView;
-@synthesize rightPaperGloomImageView = _rightPaperGloomImageView;
-@synthesize topBarLabel = _topBarLabel;
-@synthesize repostCommentButton = _repostCommentButton;
-@synthesize motionsView = _motionsView;
-@synthesize cancelButton = _cancelButton;
-@synthesize postButton = _postButton;
-@synthesize type = _type;
-@synthesize content = _content;
-
-@synthesize keyboardHeight = _keyboardHeight;
-@synthesize currentHintView = _currentHintView;
-@synthesize currentHintStringRange = _currentHintStringRange;
-@synthesize currentHintString = _currentHintString;
-@synthesize currentHintViewType = _currentHintViewType;
-@synthesize emoticonsViewController = _emoticonsViewController;
-@synthesize currentActionSheetType = _currentActionSheetType;
-@synthesize actionSheet = _actionSheet;
 @synthesize popoverController = _pc;
-@synthesize motionsOriginalImage = _motionsOriginalImage;
-@synthesize startButtonFrame = _startButtonFrame;
-@synthesize prefixText = _prefixText;
-@synthesize postImageView = _postImageView;
-@synthesize textViewPreserveText = _textViewPreserveText;
-@synthesize motionsCompressImage = _motionsCompressImage;
 
 + (id)getRecommendVCardNewStatusViewControllerWithDelegate:(id<PostViewControllerDelegate>)delegate {
     return [PostViewController getNewStatusViewControllerWithPrefixContent:[NSString stringWithFormat:@"@VCard微博 客户端很酷！推荐有 iPad 的童鞋们试试看。%@", kVCardAppStoreURL] image:[UIImage imageNamed:@"tell_friends_image.jpg"] delegate:delegate];
@@ -355,13 +307,9 @@ typedef enum {
 - (EmoticonsViewController *)emoticonsViewController {
     if(!_emoticonsViewController) {
         _emoticonsViewController = [[EmoticonsViewController alloc] init];
-        _emoticonsViewController.delegate = self;
+        _emoticonsViewController.delegate = self.textView;
     }
     return _emoticonsViewController;
-}
-
-- (NSString *)currentHintString {
-    return [self.textView.text substringWithRange:self.currentHintStringRange];
 }
 
 - (int)textDoubleCount:(NSString*)text {
@@ -395,41 +343,6 @@ typedef enum {
         cursorPos.y += self.textContainerView.frame.origin.y + self.textView.frame.origin.y + HINT_VIEW_OFFSET.height - textScrollViewOffsetY;
     }
     return cursorPos;
-}
-
-- (BOOL)isAtHintStringValid {
-    NSRange range = [self.currentHintString rangeOfString:weiboAtRegEx options:NSRegularExpressionSearch];
-    return range.length == self.currentHintString.length;
-}
-
-- (BOOL)isTopicHintStringValid {
-    return YES; // no limit
-    NSRange range = [self.currentHintString rangeOfString:weiboTopicRegEx options:NSRegularExpressionSearch];
-    return range.length == self.currentHintString.length;
-}
-
-- (void)replaceHintWithResult:(NSString *)text {
-    int location = self.currentHintStringRange.location;
-    NSString *replaceText = text;
-    if([self.currentHintView isMemberOfClass:[PostAtHintView class]]) {
-        replaceText = [NSString stringWithFormat:@"%@ ", replaceText];
-    } else if([self.currentHintView isMemberOfClass:[PostTopicHintView class]] && _needFillPoundSign) {
-        replaceText = [NSString stringWithFormat:@"%@#", replaceText];
-    }
-    
-    UITextPosition *beginning = self.textView.beginningOfDocument;
-    UITextPosition *start = [self.textView positionFromPosition:beginning offset:self.currentHintStringRange.location];
-    UITextPosition *end = [self.textView positionFromPosition:start offset:self.currentHintStringRange.length];
-    UITextRange *textRange = [self.textView textRangeFromPosition:start toPosition:end];
-    [self.textView replaceRange:textRange withText:replaceText];
-    
-    NSRange range = NSMakeRange(location + replaceText.length, 0);
-    if([self.currentHintView isMemberOfClass:[PostTopicHintView class]])
-        range.location += 1;
-    self.textView.selectedRange = range;
-    self.currentHintStringRange = range;
-    if([self.currentHintView isKindOfClass:[PostHintView class]])
-        [self dismissHintView];
 }
 
 - (void)setMotionsImage:(UIImage *)image {
@@ -560,7 +473,7 @@ typedef enum {
         return;
     PostAtHintView *atView = [[PostAtHintView alloc] initWithCursorPos:cursorPos];
     self.currentHintView = atView;
-    self.currentHintView.delegate = self;
+    atView.delegate = self.textView;
     [self checkCurrentHintViewFrame];
     [self.postView addSubview:atView];
 }
@@ -572,7 +485,7 @@ typedef enum {
         return;
     PostTopicHintView *topicView = [[PostTopicHintView alloc] initWithCursorPos:cursorPos];
     self.currentHintView = topicView;
-    self.currentHintView.delegate = self;
+    topicView.delegate = self.textView;
     [self checkCurrentHintViewFrame];
     [self.postView addSubview:topicView];
     [topicView updateHint:@""];
@@ -587,14 +500,14 @@ typedef enum {
     if(!self.currentHintView)
         return;
     if([self.currentHintView isMemberOfClass:[PostAtHintView class]]) {
-        if([self isAtHintStringValid])
-            [self.currentHintView updateHint:self.currentHintString];
+        if(self.textView.isAtHintStringValid)
+            [self.currentHintView updateHint:self.textView.currentHintString];
         else {
             [self dismissHintView]; 
         }
     } else if([self.currentHintView isMemberOfClass:[PostTopicHintView class]]) {
-        if([self isTopicHintStringValid])
-            [self.currentHintView updateHint:self.currentHintString];
+        if(self.textView.isTopicHintStringValid)
+            [self.currentHintView updateHint:self.textView.currentHintString];
         else {
             [self dismissHintView];
         }    
@@ -627,7 +540,6 @@ typedef enum {
 }
 
 - (void)dismissHintView {
-    self.currentHintStringRange = NSMakeRange(0, 0);
     UIView *currentHintView = self.currentHintView;
     self.currentHintView = nil;
     [currentHintView fadeOutWithCompletion:^{
@@ -636,7 +548,6 @@ typedef enum {
     self.atButton.selected = NO;
     self.topicButton.selected = NO;
     self.emoticonsButton.selected = NO;
-    _needFillPoundSign = NO;
     self.postRootView.observingViewTag = PostRootViewSubviewTagNone;
 }
 
@@ -653,7 +564,7 @@ typedef enum {
     [self.postView addSubview:vc.view];
     self.currentHintView = (PostHintView *)vc.view;
     self.emoticonsButton.selected = YES;
-    self.currentHintStringRange = NSMakeRange(self.textView.selectedRange.location, 0);
+    self.textView.currentHintStringRange = NSMakeRange(self.textView.selectedRange.location, 0);
     [self checkCurrentHintViewFrame];
 }
 
@@ -864,31 +775,22 @@ typedef enum {
 - (IBAction)didClickAtButton:(UIButton *)sender {
     BOOL select = !sender.isSelected;
     if(select) {
-        [self.textView insertText:@"@"];
         [self presentAtHintView];
-        NSInteger location = self.textView.selectedRange.location;
-        NSRange range = NSMakeRange(location, 0);
-        self.currentHintStringRange = range;
     } else {
         [self dismissHintView];
     }
+    [self.textView initAtHintView:select];
     sender.selected = select;
 }
 
 - (IBAction)didClickTopicButton:(UIButton *)sender {
     BOOL select = !sender.isSelected;
     if(select) {
-        [self.textView insertText:@"##"];
         [self presentTopicHintView];
-        NSInteger location = self.textView.selectedRange.location;
-        NSRange range = NSMakeRange(location - 1, 0);
-        self.currentHintStringRange = range;
-        self.textView.selectedRange = range;
     } else {
-        if(!_needFillPoundSign)
-            self.textView.selectedRange = NSMakeRange(self.textView.selectedRange.location + 1, 0);
         [self dismissHintView];
     }
+    [self.textView initTopicHintView:select];
     sender.selected = select;
 }
 
@@ -925,52 +827,24 @@ typedef enum {
 #pragma mark - UITextView delegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if(self.currentHintView) {
-        if([self.currentHintView isMemberOfClass:[PostAtHintView class]] && [text isEqualToString:@" "]) {
-            [self dismissHintView];
-            return YES;
-        }
-    } else if([text isEqualToString:@"@"]) {
+    if([text isEqualToString:@"@"] && !self.currentHintView) {
         [self presentAtHintView];
         self.atButton.selected = YES;
-        self.currentHintStringRange = NSMakeRange(range.location + text.length - range.length, 0);
-    } else if([text isEqualToString:@"#"]) {
+    } else if([text isEqualToString:@"#"] && !self.currentHintView) {
         [self presentTopicHintView];
         self.topicButton.selected = YES;
-        self.currentHintStringRange = NSMakeRange(range.location + text.length - range.length, 0);
-        _needFillPoundSign = YES;
     }
-    return YES;
+    return [self.textView shouldChangeTextInRange:range replacementText:text currentHintView:self.currentHintView];
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    if([self.currentHintView isKindOfClass:[PostHintView class]]) {
-        NSInteger length = self.textView.selectedRange.location - self.currentHintStringRange.location;
-        if(length < 0)
-            [self dismissHintView];
-        else {
-            self.currentHintStringRange = NSMakeRange(self.currentHintStringRange.location, length);
-        }
-    } else if(self.currentHintView) {
-        self.currentHintStringRange = NSMakeRange(self.textView.selectedRange.location, 0);
-    }
+    [self.textView textViewDidChangeWithCurrentHintView:self.currentHintView];
     [self updateTextCountAndPostButton];
     [self updateCurrentHintView];
 }
 
 - (void)textViewDidChangeSelection:(UITextView *)textView {
-    if([self.currentHintView isKindOfClass:[PostHintView class]]) {
-        if(textView.selectedRange.location < self.currentHintStringRange.location
-           || textView.selectedRange.location > self.currentHintStringRange.location + self.currentHintStringRange.length) {
-            [self dismissHintView];
-        }
-    }
-}
-
-#pragma mark - PostHintView delegate
-
-- (void)postHintView:(PostHintView *)hintView didSelectHintString:(NSString *)text {
-    [self replaceHintWithResult:text];
+    [self.textView textViewDidChangeSelectionWithCurrentHintView:self.currentHintView];
 }
 
 #pragma mark - UIScrollView delegate 
@@ -987,12 +861,6 @@ typedef enum {
     if(otherView == self.emoticonsButton)
         return;
     [self dismissHintView];
-}
-
-#pragma mark - EmoticonsViewController delegate
-
-- (void)didClickEmoticonsButtonWithInfoKey:(NSString *)key {
-    [self replaceHintWithResult:key];
 }
 
 #pragma mark - UIActionSheet delegate
@@ -1026,8 +894,7 @@ typedef enum {
     self.currentActionSheetType = ActionSheetTypeNone;
 }
 
-#pragma mark -
-#pragma mark UIImagePickerController delegate
+#pragma mark - UIImagePickerController delegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [self.popoverController dismissPopoverAnimated:YES];
@@ -1040,19 +907,23 @@ typedef enum {
     self.popoverController = nil;
 }
 
-#pragma mark -
-#pragma mark UIPopoverController delegate 
+#pragma mark - UIPopoverController delegate 
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
     self.popoverController = nil;
 }
 
-#pragma mark -
-#pragma mark Save image methods
+#pragma mark - Save image methods
 
 - (void)saveImageInBackground:(UIImage *)image {
     if(image)
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+}
+
+#pragma mark - PostHintTextView delegate
+
+- (void)postHintTextViewCallDismissHintView {
+    [self dismissHintView];
 }
 
 @end

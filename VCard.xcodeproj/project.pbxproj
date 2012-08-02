@@ -865,6 +865,7 @@
 		E1AF112215A01A67004236ED /* MotionsFilterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1AF111D15A01A67004236ED /* MotionsFilterTableViewController.xib */; };
 		E1BCBFBB159D53A40086FA7E /* MotionsSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BCBFBA159D53A40086FA7E /* MotionsSlider.m */; };
 		E1BCBFBD159D565B0086FA7E /* MotionsSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BCBFBA159D53A40086FA7E /* MotionsSlider.m */; };
+		E1E7403A15CAB38E008DB670 /* PostHintTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E7403915CAB38D008DB670 /* PostHintTextView.m */; };
 		E1F0E6F215A5DC76008C9449 /* motions_crop_puller.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F0E6F015A5DC76008C9449 /* motions_crop_puller.png */; };
 		E1F0E6F315A5DC76008C9449 /* motions_crop_puller@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F0E6F115A5DC76008C9449 /* motions_crop_puller@2x.png */; };
 		E1F3079215A4933F0047FED7 /* MotionsFilterCell-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1F3079115A4933E0047FED7 /* MotionsFilterCell-landscape.xib */; };
@@ -2008,6 +2009,8 @@
 		E1AF111D15A01A67004236ED /* MotionsFilterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MotionsFilterTableViewController.xib; sourceTree = "<group>"; };
 		E1BCBFB9159D53A30086FA7E /* MotionsSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionsSlider.h; sourceTree = "<group>"; };
 		E1BCBFBA159D53A40086FA7E /* MotionsSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionsSlider.m; sourceTree = "<group>"; };
+		E1E7403815CAB38D008DB670 /* PostHintTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostHintTextView.h; sourceTree = "<group>"; };
+		E1E7403915CAB38D008DB670 /* PostHintTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostHintTextView.m; sourceTree = "<group>"; };
 		E1F0E6F015A5DC76008C9449 /* motions_crop_puller.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_crop_puller.png; sourceTree = "<group>"; };
 		E1F0E6F115A5DC76008C9449 /* motions_crop_puller@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_crop_puller@2x.png"; sourceTree = "<group>"; };
 		E1F3079115A4933E0047FED7 /* MotionsFilterCell-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MotionsFilterCell-landscape.xib"; sourceTree = "<group>"; };
@@ -2709,18 +2712,16 @@
 		18E707F2153D3EEF0012092E /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				18AC828A155B924700AD99C4 /* PullToRefreshView.h */,
-				18AC828B155B924700AD99C4 /* PullToRefreshView.m */,
+				188BA4E915398DC800344288 /* BaseCardBackgroundView.h */,
+				188BA4EA15398DC800344288 /* BaseCardBackgroundView.m */,
+				1890C68F15356F6F00023A13 /* BaseLayoutView.h */,
+				1890C69015356F6F00023A13 /* BaseLayoutView.m */,
 				18DF3732153905A800C783C9 /* BaseNavigationBar.h */,
 				18DF3733153905A800C783C9 /* BaseNavigationBar.m */,
 				18E558F9153EA9D000ECCA3B /* BaseNavigationView.h */,
 				18E558FA153EA9D000ECCA3B /* BaseNavigationView.m */,
-				1890C68F15356F6F00023A13 /* BaseLayoutView.h */,
-				1890C69015356F6F00023A13 /* BaseLayoutView.m */,
-				188BA4E915398DC800344288 /* BaseCardBackgroundView.h */,
-				188BA4EA15398DC800344288 /* BaseCardBackgroundView.m */,
-				18114551156F665600B3BF21 /* UserAvatarImageView.h */,
-				18114552156F665700B3BF21 /* UserAvatarImageView.m */,
+				18AC828A155B924700AD99C4 /* PullToRefreshView.h */,
+				18AC828B155B924700AD99C4 /* PullToRefreshView.m */,
 				18BF4A1815A47EF70001F653 /* TopicImageView.h */,
 				18BF4A1915A47EF70001F653 /* TopicImageView.m */,
 				18D3E42E159D875B00626D75 /* UnreadCountButton.h */,
@@ -2729,6 +2730,8 @@
 				18BDD5A3159D9A8A005246F2 /* UnreadIndicatorButton.m */,
 				18BDD5A6159D9B14005246F2 /* UnreadIndicatorView.h */,
 				18BDD5A7159D9B14005246F2 /* UnreadIndicatorView.m */,
+				18114551156F665600B3BF21 /* UserAvatarImageView.h */,
+				18114552156F665700B3BF21 /* UserAvatarImageView.m */,
 			);
 			name = CustomViews;
 			sourceTree = "<group>";
@@ -3340,8 +3343,14 @@
 				E1097CFA157F99E700BD0640 /* PostAtHintCell.xib */,
 				E1097CFB157F99E700BD0640 /* PostAtHintView.h */,
 				E1097CFC157F99E700BD0640 /* PostAtHintView.m */,
+				E1E7403815CAB38D008DB670 /* PostHintTextView.h */,
+				E1E7403915CAB38D008DB670 /* PostHintTextView.m */,
 				E1097CFD157F99E700BD0640 /* PostHintView.h */,
 				E1097CFE157F99E700BD0640 /* PostHintView.m */,
+				E1998AF61592EB5400BBAC55 /* PostNewStatusViewController.h */,
+				E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */,
+				E1998AFC1592EBAD00BBAC55 /* PostRepostCommentViewController.h */,
+				E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */,
 				E1599CC71580CD7300B9AE72 /* PostRootView.h */,
 				E1599CC81580CD7400B9AE72 /* PostRootView.m */,
 				E1097CFF157F99E700BD0640 /* PostTopicHintCell.h */,
@@ -3352,10 +3361,6 @@
 				E1097D04157F99E700BD0640 /* PostViewController.h */,
 				E1097D05157F99E700BD0640 /* PostViewController.m */,
 				E1097D06157F99E700BD0640 /* PostViewController.xib */,
-				E1998AF61592EB5400BBAC55 /* PostNewStatusViewController.h */,
-				E1998AF71592EB5400BBAC55 /* PostNewStatusViewController.m */,
-				E1998AFC1592EBAD00BBAC55 /* PostRepostCommentViewController.h */,
-				E1A7EFDB15936D4A00E2B900 /* PostRepostCommentViewController.m */,
 			);
 			name = Post;
 			sourceTree = "<group>";
@@ -4931,6 +4936,7 @@
 				183831A715C396DB00E129EF /* AFXMLRequestOperation.m in Sources */,
 				183831A815C396DB00E129EF /* UIImageView+AFNetworking.m in Sources */,
 				180B1E0B15CA7FB9005CCFA7 /* EmptyIndicatorViewController.m in Sources */,
+				E1E7403A15CAB38E008DB670 /* PostHintTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
