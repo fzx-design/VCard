@@ -51,6 +51,9 @@
     _prevTextViewContentHeight = _textView.contentSize.height;
     [_textView resetOrigin:CGPointMake(1.0, 0.0)];
     [_textViewBackgroundImageView addSubview:_textView];
+    UIEdgeInsets inset = _textView.contentInset;
+    inset.top = -2.0;
+    _textView.contentInset = inset;
     
     _topCoverImageView.image = [[UIImage imageNamed:kRLCastViewBGUnit] resizableImageWithCapInsets:UIEdgeInsetsZero];
 
@@ -176,10 +179,16 @@
         if (targetHeight > kTextViewMaxHeight) {
             _textView.scrollEnabled = YES;
             _textView.clipsToBounds = YES;
+            UIEdgeInsets inset = _textView.contentInset;
+            inset.top = 0.0;
+            _textView.contentInset = inset;
             targetHeight = kTextViewMaxHeight;
         } else {
             _textView.scrollEnabled = NO;
             _textView.clipsToBounds = NO;
+            UIEdgeInsets inset = _textView.contentInset;
+            inset.top = -2.0;
+            _textView.contentInset = inset;
         }
         
         [self resizeTextView:targetHeight];
