@@ -19,8 +19,9 @@
 @property (nonatomic, readonly) NSString *currentHintString;
 @property (nonatomic, readonly) BOOL isAtHintStringValid;
 @property (nonatomic, readonly) BOOL isTopicHintStringValid;
+@property (nonatomic, assign) BOOL needFillPoundSign;
 
-- (BOOL)shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text currentHintView:(id)hintView;
+- (void)shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text currentHintView:(id)hintView;
 - (void)textViewDidChangeWithCurrentHintView:(id)hintView;
 - (void)textViewDidChangeSelectionWithCurrentHintView:(id)hintView;
 

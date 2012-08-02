@@ -15,8 +15,6 @@ static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
 
 @interface PostHintTextView()
 
-@property (nonatomic, assign) BOOL needFillPoundSign;
-
 @end
 
 @implementation PostHintTextView
@@ -41,8 +39,6 @@ static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
 #pragma mark - Logic methods
 
 - (void)callDismissHintView {
-    self.currentHintStringRange = NSMakeRange(0, 0);
-    self.needFillPoundSign = NO;
     [self.hintDelegate postHintTextViewCallDismissHintView];
 }
 
@@ -71,7 +67,7 @@ static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
     }
 }
 
-- (BOOL)shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text currentHintView:(id)hintView {
+- (void)shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text currentHintView:(id)hintView {
     if(hintView) {
         if([hintView isMemberOfClass:[PostAtHintView class]] && [text isEqualToString:@" "]) {
             [self.hintDelegate postHintTextViewCallDismissHintView];
@@ -82,7 +78,6 @@ static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
         self.currentHintStringRange = NSMakeRange(range.location + text.length - range.length, 0);
         self.needFillPoundSign = YES;
     }
-    return YES;
 }
 
 - (void)textViewDidChangeWithCurrentHintView:(id)hintView {

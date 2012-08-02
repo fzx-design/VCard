@@ -545,6 +545,10 @@ typedef enum {
     [currentHintView fadeOutWithCompletion:^{
         [currentHintView removeFromSuperview];
     }];
+    
+    self.textView.currentHintStringRange = NSMakeRange(0, 0);
+    self.textView.needFillPoundSign = NO;
+    
     self.atButton.selected = NO;
     self.topicButton.selected = NO;
     self.emoticonsButton.selected = NO;
@@ -827,6 +831,7 @@ typedef enum {
 #pragma mark - UITextView delegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    [self.textView shouldChangeTextInRange:range replacementText:text currentHintView:self.currentHintView];
     if([text isEqualToString:@"@"] && !self.currentHintView) {
         [self presentAtHintView];
         self.atButton.selected = YES;
@@ -834,7 +839,7 @@ typedef enum {
         [self presentTopicHintView];
         self.topicButton.selected = YES;
     }
-    return [self.textView shouldChangeTextInRange:range replacementText:text currentHintView:self.currentHintView];
+    return YES;
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
