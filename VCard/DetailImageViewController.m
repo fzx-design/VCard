@@ -56,7 +56,7 @@
     
     _scrollView.delegate = self;
     _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
-    _scrollView.maximumZoomScale = 5.0;
+    _scrollView.maximumZoomScale = 3.0;
     _scrollView.minimumZoomScale = 0.5;
     _rotationGestureRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotationGesture:)];
     _rotationGestureRecognizer.delegate = self;
@@ -199,9 +199,9 @@
     _scrollView.contentSize = CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight] - 20);
     _originScale = _scrollView.zoomScale;
     _scrollView.minimumZoomScale = _originScale;
-    _scrollView.maximumZoomScale = _originScale * 5.0;
+    _scrollView.maximumZoomScale = _originScale * 3.0;
     if (_scrollView.maximumZoomScale < 1.0) {
-        _scrollView.maximumZoomScale = 1.0;
+        _scrollView.maximumZoomScale = 2.0;
     }
 }
 
@@ -270,9 +270,9 @@
     _scrollView.contentSize = CGSizeMake(width, height - 20);
     _originScale = _scrollView.zoomScale;
     _scrollView.minimumZoomScale = _originScale;
-    _scrollView.maximumZoomScale = _originScale * 5.0;
+    _scrollView.maximumZoomScale = _originScale * 3.0;
     if (_scrollView.maximumZoomScale < 1.0) {
-        _scrollView.maximumZoomScale = 1.0;
+        _scrollView.maximumZoomScale = 2.0;
     }
     
     [_imageView resetSize:CGSizeMake(width, height)];
