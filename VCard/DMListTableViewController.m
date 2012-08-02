@@ -166,6 +166,7 @@
                              withRowAnimation:UITableViewRowAnimationFade];
             [tableView insertRowsAtIndexPaths:@[newIndexPath]
                              withRowAnimation:UITableViewRowAnimationFade];
+            _shouldReload = YES;
             break;
     }
     [self adjustBackgroundView];

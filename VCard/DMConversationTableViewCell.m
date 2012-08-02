@@ -45,6 +45,23 @@
     }
     [_bubbleView resetWithText:text dateString:dateString type:type];
     [_bubbleView resetOriginX:originX];
+    _bubbleView.delegate = self;
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+    if (highlighted) {
+        [_bubbleView showHighlight];
+    } else {
+        [_bubbleView hideHighlight];
+    }
+}
+
+- (void)shouldDeleteBubble
+{
+    if ([self.delegate respondsToSelector:@selector(shouldDeleteMessageAtIndex:)]) {
+        [self.delegate shouldDeleteMessageAtIndex:self.index];
+    }
 }
 
 @end

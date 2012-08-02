@@ -17,14 +17,23 @@ typedef enum {
     DMBubbleViewTypeSent,
 } DMBubbleViewType;
 
-@interface DMBubbleView : UIView
+@protocol DMBubbleViewDelegate <NSObject>
 
-@property (nonatomic, strong) UIImageView           *backgroundImageView;
-@property (nonatomic, strong) UILabel               *timeStampLabel;
-@property (nonatomic, strong) TTTAttributedLabel    *textLabel;
-@property (nonatomic, readonly) DMBubbleViewType    type;
+- (void)shouldDeleteBubble;
+
+@end
+
+@interface DMBubbleView : UIView <UIActionSheetDelegate>
+
+@property (nonatomic, strong) UIImageView               *backgroundImageView;
+@property (nonatomic, strong) UIImageView               *highlightCoverImageView;
+@property (nonatomic, strong) UILabel                   *timeStampLabel;
+@property (nonatomic, strong) TTTAttributedLabel        *textLabel;
+@property (nonatomic, readonly) DMBubbleViewType        type;
+@property (nonatomic, weak) id<DMBubbleViewDelegate>    delegate;
 
 + (CGSize)sizeForText:(NSString *)text;
 - (void)resetWithText:(NSString *)text dateString:(NSString *)dateString type:(DMBubbleViewType)type;
-
+- (void)showHighlight;
+- (void)hideHighlight;
 @end

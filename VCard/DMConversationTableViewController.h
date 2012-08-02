@@ -7,8 +7,9 @@
 //
 
 #import "RefreshableCoreDataTableViewController.h"
+#import "DMConversationTableViewCell.h"
 
-@interface DMConversationTableViewController : RefreshableCoreDataTableViewController
+@interface DMConversationTableViewController : RefreshableCoreDataTableViewController <DMConversationTableViewCellDelegate>
 
 @property (nonatomic, weak) Conversation *conversation;
 

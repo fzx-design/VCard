@@ -301,25 +301,24 @@
     return cell;
 }
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-//    [self.tableView beginUpdates];
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    //Intended to be left blank
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
-    
+    //Intended to be left blank
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-//    [self.tableView endUpdates];
     if (self.isBeingDisplayed) {
         [self.tableView reloadData];
         [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
     }
 }
-
 
 
 - (void)configureRequest:(NSFetchRequest *)request
@@ -340,6 +339,8 @@
         DMBubbleViewType type = [message.senderID isEqualToString:self.currentUser.userID] ? DMBubbleViewTypeSent : DMBubbleViewTypeReceived;
         NSString *dateString = [[message createdAt] stringRepresentation];
         
+        messageCell.index = indexPath.row;
+        messageCell.delegate = self;
         [messageCell resetWithText:message.text dateString:dateString type:type imageURL:_conversation.targetUserAvatarURL];
         
     } else {
@@ -360,6 +361,25 @@
         height = message.messageHeight.floatValue;
     }
     return height;
+}
+
+#pragma mark - DMCell delegate
+- (void)shouldDeleteMessageAtIndex:(int)index
+{
+    if (index >= self.fetchedResultsController.fetchedObjects.count) {
+        return;
+    }
+    
+    DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:index];
+    
+    WBClient *client = [WBClient client];
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            [self.managedObjectContext deleteObject:message];
+            [self.managedObjectContext processPendingChanges];
+        }
+    }];
+    [client deleteDirectMessage:message.messageID];
 }
 
 #pragma mark - UIScrollView delegate

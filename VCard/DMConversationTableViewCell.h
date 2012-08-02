@@ -10,11 +10,19 @@
 #import "DMBubbleView.h"
 #import "UserAvatarImageView.h"
 
-@interface DMConversationTableViewCell : UITableViewCell
+@protocol DMConversationTableViewCellDelegate <NSObject>
+@required
+- (void)shouldDeleteMessageAtIndex:(int)index;
+
+@end
+
+@interface DMConversationTableViewCell : UITableViewCell <DMBubbleViewDelegate>
 
 @property (nonatomic, weak) IBOutlet DMBubbleView           *bubbleView;
 @property (nonatomic, weak) IBOutlet UserAvatarImageView    *userAvatarImageView;
 @property (nonatomic, weak) IBOutlet UIImageView            *userAvatarCoverImageView;
+@property (nonatomic, unsafe_unretained) NSInteger          index;
+@property (nonatomic, weak) id<DMConversationTableViewCellDelegate> delegate;
 
 - (void)resetWithText:(NSString *)text dateString:(NSString *)dateString type:(DMBubbleViewType)type imageURL:(NSString *)imageURL;
 

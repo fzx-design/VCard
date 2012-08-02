@@ -723,7 +723,6 @@
 #pragma mark Account
 - (IBAction)didClickChangeAccountButton:(UIButton *)sender
 {
-
     NSString *firstTitle = [NSUserDefaults getLoginUserArray].count > 1 ? @"切换用户" : @"添加新帐户";
     NSString *secondTitle = [NSUserDefaults getLoginUserArray].count > 1 ? @"添加新帐户" : nil;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil

@@ -12,6 +12,7 @@
 #import "UIView+Resize.h"
 #import "TTTAttributedLabelConfiguer.h"
 #import "NSUserDefaults+Addition.h"
+#import "UIView+Addition.h"
 
 #define kReceivedOrigin         CGPointMake(20.0, 16.0)
 #define kSentOrigin             CGPointMake(12.0, 18.0)
@@ -35,7 +36,11 @@
     CGRect _backgroundImageViewFrame;
     CGRect _textLabelFrame;
     CGSize _textSize;
+    
+    BOOL   _readyForAction;
 }
+
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGesture;
 
 @end
 
@@ -93,8 +98,15 @@
         [_timeStampLabel resetHeight:20.0];
         
         _backgroundImageView = [[UIImageView alloc] initWithFrame:frame];
+        _highlightCoverImageView = [[UIImageView alloc] initWithFrame:frame];
+        _highlightCoverImageView.hidden = YES;
+        
+        _longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+        _longPressGesture.minimumPressDuration = 0.1;
+        [self addGestureRecognizer:_longPressGesture];
         
         [self addSubview:_backgroundImageView];
+        [self addSubview:_highlightCoverImageView];
         [self addSubview:_textLabel];
         [self addSubview:_timeStampLabel];
     }
@@ -108,7 +120,6 @@
     [_textLabel resetWidth:_textSize.width];
     [_textLabel resetHeight:_textSize.height];
     [TTTAttributedLabelConfiguer setMessageTextLabel:_textLabel withText:text leading:kLeadingSize fontSize:kFontSize isReceived:type == DMBubbleViewTypeReceived];
-    
     [self resetWithType:type];
 }
 
@@ -118,6 +129,7 @@
     CGFloat targetWidth = _textSize.width < fixedWidth ? _textSize.width + _originXOffset + _rightOffset : kMaxBubbleSize.width;
     CGFloat targetOriginX = 0.0;
     NSString *imageName = @"";
+    NSString *hightlightImageName = @"";
     
     if (type == DMBubbleViewTypeSent) {
         _originXOffset = kSentOrigin.x;
@@ -126,6 +138,8 @@
         _bottomOffset = kSentBottomOffset;
         targetOriginX = fixedWidth - targetWidth;
         imageName = @"cell_bg_msg_blue.png";
+        hightlightImageName = @"cell_bg_msg_blue_hover.png";
+        
     } else {
         _originXOffset = kReceivedOrigin.x;
         _originYOffset = kReceivedOrigin.y;
@@ -133,11 +147,11 @@
         _bottomOffset = kReceicedBottomOffset;
         targetOriginX = 0.0;
         imageName = @"cell_bg_msg.png";
+        hightlightImageName = @"cell_bg_msg_hover.png";
     }
     
     [_textLabel resetOrigin:CGPointMake(targetOriginX + _originXOffset + 4.0, _originYOffset - 2.0)];
     _textLabelFrame = _textLabel.frame;
-//    _textLabelFrame.size.height;
     
     _backgroundImageViewFrame.origin.x = targetOriginX;
     _backgroundImageViewFrame.origin.y = 0.0;
@@ -146,10 +160,65 @@
     _backgroundImageView.frame = _backgroundImageViewFrame;
     _backgroundImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(_originYOffset, _originXOffset, _bottomOffset, _rightOffset)];
     
+    _highlightCoverImageView.image = [[UIImage imageNamed:hightlightImageName] resizableImageWithCapInsets:UIEdgeInsetsMake(_originYOffset, _originXOffset, _bottomOffset, _rightOffset)];
+    _highlightCoverImageView.frame = _backgroundImageView.frame;
+    
     [_timeStampLabel resetOriginX:_textLabelFrame.origin.x];
     [_timeStampLabel resetWidth:_textLabelFrame.size.width - 5.0];
     [_timeStampLabel resetOriginY:_textLabelFrame.origin.y + _textLabelFrame.size.height + kTimeStampLabelGap];
 }
 
+- (void)handleLongPress:(UILongPressGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        [self showHighlight];
+    } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled || gesture.state ==UIGestureRecognizerStateFailed) {
+        [self hideHighlight];
+    }
+}
+
+- (void)showHighlight
+{
+    _readyForAction = YES;
+    _highlightCoverImageView.hidden = NO;
+    _highlightCoverImageView.alpha = 0.0;
+    [_highlightCoverImageView fadeInWithCompletion:^{
+        if (_readyForAction) {
+            [self showActionSheet];
+        }
+    }];
+}
+
+- (void)hideHighlight
+{
+    _readyForAction = NO;
+    [_highlightCoverImageView fadeOutWithCompletion:^{
+        _highlightCoverImageView.hidden = YES;
+        _readyForAction = YES;
+    }];
+}
+
+- (void)showActionSheet
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:nil
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"复制", @"删除", nil];
+    actionSheet.delegate = self;
+    actionSheet.destructiveButtonIndex = 1;
+    [actionSheet showFromRect:self.backgroundImageView.frame inView:self animated:YES];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        //TODO: copy
+    } else if (buttonIndex == 1) {
+        if ([self.delegate respondsToSelector:@selector(shouldDeleteBubble)]) {
+            [self.delegate shouldDeleteBubble];
+        }
+    }
+}
 
 @end
