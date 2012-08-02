@@ -98,6 +98,8 @@
         _timeStampLabel.textColor = kTimeStampLabelColor;
         _timeStampLabel.font = [UIFont boldSystemFontOfSize:12.0];
         _timeStampLabel.textAlignment = UITextAlignmentRight;
+        _timeStampLabel.minimumFontSize = 10.0;
+        _timeStampLabel.adjustsFontSizeToFitWidth = YES;
         [_timeStampLabel resetHeight:20.0];
         
         _backgroundImageView = [[UIImageView alloc] initWithFrame:frame];
@@ -105,7 +107,7 @@
         _highlightCoverImageView.hidden = YES;
         
         _longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-        _longPressGesture.minimumPressDuration = 0.5;
+        _longPressGesture.minimumPressDuration = 0.3;
         [self addGestureRecognizer:_longPressGesture];
         
         [self addSubview:_backgroundImageView];

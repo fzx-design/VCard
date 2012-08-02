@@ -95,6 +95,11 @@
     [self.conversationTableViewController getUnreadMessage];
 }
 
+- (void)stackScrollingStartFromLeft:(BOOL)toLeft
+{
+    [self.textView resignFirstResponder];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

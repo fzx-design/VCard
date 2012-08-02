@@ -274,12 +274,17 @@
         }];
     }
 
+    CGFloat originY = self.tableView.contentSize.height - self.tableView.frame.size.height;
+    if (originY < 0) {
+        originY = 0;
+    }
+    
     if (animated) {
         [UIView animateWithDuration:0.3 animations:^{
-            self.tableView.contentOffset = CGPointMake(0.0, self.tableView.contentSize.height - self.tableView.frame.size.height);
+            self.tableView.contentOffset = CGPointMake(0.0, originY);
         }];
     } else {
-        self.tableView.contentOffset = CGPointMake(0.0, self.tableView.contentSize.height - self.tableView.frame.size.height);
+        self.tableView.contentOffset = CGPointMake(0.0, originY);
     }
 }
 
