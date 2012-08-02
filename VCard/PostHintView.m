@@ -15,11 +15,6 @@
 
 @implementation PostHintView
 
-@synthesize tableView = _tableView;
-@synthesize tableViewDataSourceArray = _tableViewDataSourceArray;
-@synthesize delegate = _delegate;
-@synthesize maxViewHeight = _maxViewHeight;
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -84,10 +79,18 @@
 
 - (void)refreshFrame {
     CGRect frame = self.frame;
+    CGPoint bottomPos = frame.origin;
+    bottomPos.y += frame.size.height;
+    
     NSInteger columnCount = self.tableViewDataSourceArray.count;
     columnCount = columnCount > 0 ? columnCount : 1;
     frame.size.height = columnCount * 44;
     frame.size.height = frame.size.height > self.maxViewHeight ? self.maxViewHeight : frame.size.height;
+    
+    if(self.strechUpwards) {
+        frame.origin.y = bottomPos.y - frame.size.height;
+    }
+    
     self.frame = frame;
 }
 

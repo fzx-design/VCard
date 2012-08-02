@@ -19,6 +19,7 @@
 @property (nonatomic, weak) id<PostHintViewDelegate> delegate;
 @property (nonatomic, readonly) NSString *firstHintResult;
 @property (nonatomic, assign) CGFloat maxViewHeight;
+@property (nonatomic, assign) BOOL strechUpwards;
 
 - (id)initWithCursorPos:(CGPoint)cursorPos;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;

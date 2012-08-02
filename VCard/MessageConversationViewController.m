@@ -19,7 +19,7 @@
 #define kTextViewMaxHeight 160.0
 #define kFooterViewOriginalHeight 54.0
 
-#define OTHER_HINT_VIEW_HEIGHT      220
+#define OTHER_HINT_VIEW_HEIGHT      44
 #define EMOTICONS_HINT_VIEW_HEIGHT  157
 #define HINT_VIEW_OFFSET_Y          25
 
@@ -359,7 +359,10 @@ typedef enum {
     if(type == HintViewTypeEmoticons) {
         cursorPos.y -= EMOTICONS_HINT_VIEW_HEIGHT + HINT_VIEW_OFFSET_Y;
     } else if(type == HintViewTypeOther) {
-        cursorPos.y -= OTHER_HINT_VIEW_HEIGHT + HINT_VIEW_OFFSET_Y;
+        CGFloat hintViewHeight = OTHER_HINT_VIEW_HEIGHT;
+        if(self.currentHintView);
+            hintViewHeight = self.currentHintView.frame.size.height;
+        cursorPos.y -= hintViewHeight + HINT_VIEW_OFFSET_Y;
     }
     return cursorPos;
 }
@@ -379,6 +382,7 @@ typedef enum {
     if(CGPointEqualToPoint(cursorPos, CGPointZero))
         return;
     PostAtHintView *atView = [[PostAtHintView alloc] initWithCursorPos:cursorPos];
+    atView.strechUpwards = YES;
     self.currentHintView = atView;
     atView.delegate = self.textView;
     [self checkCurrentHintViewFrame];
@@ -391,6 +395,7 @@ typedef enum {
     if(CGPointEqualToPoint(cursorPos, CGPointZero))
         return;
     PostTopicHintView *topicView = [[PostTopicHintView alloc] initWithCursorPos:cursorPos];
+    topicView.strechUpwards = YES;
     self.currentHintView = topicView;
     topicView.delegate = self.textView;
     [self checkCurrentHintViewFrame];
