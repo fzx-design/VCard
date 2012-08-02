@@ -3025,6 +3025,10 @@
                                             <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <size key="shadowOffset" width="0.0" height="1"/>
                                         </label>
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="mark_new.png" id="CfY-gJ-7C0">
+                                            <rect key="frame" x="346" y="21" width="18" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="p4q-qS-FFO">
                                             <rect key="frame" x="47" y="36" width="317" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3042,6 +3046,7 @@
                                 <connections>
                                     <outlet property="avatarImageView" destination="b3E-RH-p3W" id="Py1-Ga-udG"/>
                                     <outlet property="cellSelectionImageView" destination="Rrw-Io-QKf" id="RNs-4p-Oa7"/>
+                                    <outlet property="hasNewIndicator" destination="CfY-gJ-7C0" id="9sn-Hf-Q1A"/>
                                     <outlet property="infoLabel" destination="p4q-qS-FFO" id="eaJ-0s-kmx"/>
                                     <outlet property="screenNameLabel" destination="35u-gX-NBh" id="bWu-wr-Q5N"/>
                                 </connections>
@@ -3161,6 +3166,7 @@
         <image name="icon_text_mode.png" width="30" height="30"/>
         <image name="imageview_placeholder.png" width="175" height="175"/>
         <image name="logo_v.png" width="150" height="100"/>
+        <image name="mark_new.png" width="18" height="18"/>
         <image name="mode_segement_bg.png" width="100" height="52"/>
         <image name="mode_segement_selected_l_bg.png" width="50" height="50"/>
         <image name="mode_segement_selected_r_bg.png" width="50" height="50"/>

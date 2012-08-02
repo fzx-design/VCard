@@ -18,7 +18,7 @@
 @dynamic targetUserID;
 @dynamic latestMessageText;
 @dynamic updateDate;
-@dynamic empty;
+@dynamic hasNew;
 @dynamic messages;
 @dynamic targetUser;
 
@@ -63,10 +63,10 @@
     if ([messageDict isKindOfClass:[NSDictionary class]] && messageDict.count > 0) {
         NSString *dateString = [messageDict objectForKey:@"created_at"];
         result.updateDate = [NSDate dateFromStringRepresentation:dateString];
+        NSString *text = [messageDict objectForKey:@"text"];
+        result.hasNew = @(![text isEqualToString:result.latestMessageText]);
         result.latestMessageText = [messageDict objectForKey:@"text"];
-        result.empty = @(NO);
     } else {
-        result.empty = @(YES);
         NSLog(@"Conversation has no message %@", dict);
     }
     
@@ -84,6 +84,7 @@
     result.targetUserID = targetUser.userID;
     result.currentUserID = currentUserID;
     result.updateDate = [NSDate date];
+    result.hasNew = @(NO);
     result.latestMessageText = @"";
     
     return result;
@@ -98,7 +99,7 @@
     
     NSArray *items = [context executeFetchRequest:request error:NULL];
     for (Conversation *object in items) {
-        if (object.empty.boolValue || [object.latestMessageText isEqualToString:@""]) {
+        if ([object.latestMessageText isEqualToString:@""]) {
             [context deleteObject:object];
         }
     }

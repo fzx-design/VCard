@@ -114,10 +114,11 @@
                 int count = self.fetchedResultsController.fetchedObjects.count - 1;
                 DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count];
                 _lastMessageID = message.messageID;
-                self.conversation.empty = @(NO);
             } else {
                 self.tableView.alpha = 1.0;
             }
+            
+            [self resetLatestConversationMessage];
             
             [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
             
@@ -193,6 +194,8 @@
             
             weakSelf.nextCursor = [[result objectForKey:@"next_cursor"] intValue];
             weakSelf.hasMoreViews = NO;
+            
+            [weakSelf resetLatestConversationMessage];
         }
         
         [weakSelf refreshEnded];
@@ -213,8 +216,6 @@
                                       startingAtPage:0
                                                count:100];
 }
-
-
 
 - (void)checkNewMessage
 {
@@ -237,6 +238,18 @@
         self.conversation.latestMessageText = message.text;
     }
     [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
+}
+
+- (void)resetLatestConversationMessage
+{
+    int count = self.fetchedResultsController.fetchedObjects.count;
+    if (count > 0) {
+        DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count - 1];
+        self.conversation.latestMessageText = message.text;
+    } else {
+        self.conversation.latestMessageText = @"";
+    }
+    [self.managedObjectContext processPendingChanges];
 }
 
 - (void)resetUnreadMessageCount
@@ -409,6 +422,7 @@
         if (!client.hasError) {
             [self.managedObjectContext deleteObject:message];
             [self.managedObjectContext processPendingChanges];
+            [self resetLatestConversationMessage];
         }
     }];
     [client deleteDirectMessage:message.messageID];
