@@ -8,20 +8,19 @@
 
 #import "StackViewPageController.h"
 #import "DMConversationTableViewController.h"
-#import "EmoticonsViewController.h"
-#import "PostHintView.h"
+#import "PostHintTextView.h"
 
-@interface MessageConversationViewController : StackViewPageController <UITextViewDelegate, EmoticonsViewControllerDelegate, PostHintViewDelegate>
+@interface MessageConversationViewController : StackViewPageController <UITextViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIButton       *viewProfileButton;
 @property (nonatomic, weak) IBOutlet UILabel        *titleLabel;
 @property (nonatomic, weak) IBOutlet UIView         *footerView;
 @property (nonatomic, weak) IBOutlet UIImageView    *footerBackgroundImageView;
 @property (nonatomic, weak) IBOutlet UIImageView    *textViewBackgroundImageView;
-@property (nonatomic, weak) IBOutlet UITextView     *textView;
-@property (nonatomic, weak) IBOutlet UIButton       *emoticonButton;
+@property (nonatomic, weak) IBOutlet UIButton       *emoticonsButton;
 @property (nonatomic, weak) IBOutlet UIButton       *sendButton;
 @property (nonatomic, weak) IBOutlet UIImageView    *topCoverImageView;
+@property (nonatomic, weak) IBOutlet PostHintTextView *textView;
 
 
 @property (nonatomic, strong) NSString              *titleText;

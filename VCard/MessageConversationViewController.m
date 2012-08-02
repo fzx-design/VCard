@@ -8,14 +8,24 @@
 
 #import "MessageConversationViewController.h"
 #import "Conversation.h"
-#import "UIApplication+Addition.h"
 #import "WBClient.h"
-#import "NSNotificationCenter+Addition.h"
+#import "EmoticonsViewController.h"
 #import "PostAtHintView.h"
 #import "PostTopicHintView.h"
+#import "UIView+Addition.h"
+#import "NSNotificationCenter+Addition.h"
+#import "UIApplication+Addition.h"
 
 #define kTextViewMaxHeight 160.0
 #define kFooterViewOriginalHeight 54.0
+
+#define HINT_VIEW_ORIGIN_Y      (0 - 55 * 4 - 10)
+#define EMOTICONS_VIEW_ORIGIN_Y (0 - 157 - 10)
+
+typedef enum {
+    HintViewTypeEmoticons,
+    HintViewTypeOther,
+} HintViewType;
 
 @interface MessageConversationViewController () {
     CGFloat _keyboardHeight;
@@ -24,6 +34,7 @@
 
 @property (nonatomic, unsafe_unretained) BOOL isEditing;
 @property (nonatomic, strong) EmoticonsViewController *emoticonsViewController;
+@property (nonatomic, strong) PostHintView *currentHintView;
 
 @end
 
@@ -50,7 +61,6 @@
     _textViewBackgroundImageView.image = [[UIImage imageNamed:@"msg_textfield_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(13, 0, 12, 0)];
     _footerBackgroundImageView.image = [[UIImage imageNamed:@"msg_sendfield_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 0, 25, 0)];
     
-    _textView.delegate = self;
     _prevTextViewContentHeight = _textView.contentSize.height;
     [_textView resetOrigin:CGPointMake(1.0, 0.0)];
     [_textViewBackgroundImageView addSubview:_textView];
@@ -167,6 +177,21 @@
     }];
 }
 
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    [self.textView shouldChangeTextInRange:range replacementText:text currentHintView:self.currentHintView];
+    if([text isEqualToString:@"@"] && !self.currentHintView) {
+        [self presentAtHintView];
+    } else if([text isEqualToString:@"#"] && !self.currentHintView) {
+        [self presentTopicHintView];
+    }
+    return YES;
+}
+
+- (void)textViewDidChangeSelection:(UITextView *)textView {
+    [self.textView textViewDidChangeSelectionWithCurrentHintView:self.currentHintView];
+}
+
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     [self.delegate stackViewPage:self shouldBecomeActivePageAnimated:YES];
@@ -206,6 +231,9 @@
         [self resizeTextView:targetHeight];
     }
     _sendButton.enabled = ![textView.text isEqualToString:@""];
+    
+    [self.textView textViewDidChangeWithCurrentHintView:self.currentHintView];
+    [self updateCurrentHintView];
 }
 
 - (void)resizeTextView:(CGFloat)targetHeight
@@ -219,19 +247,23 @@
     [_textView resetHeight:targetHeight - 6];
     
     [_sendButton resetOriginY:_sendButton.frame.origin.y + offset];
-    [_emoticonButton resetOriginY:_emoticonButton.frame.origin.y + offset];
+    [_emoticonsButton resetOriginY:_emoticonsButton.frame.origin.y + offset];
     [_conversationTableViewController.view resetHeightByOffset:-offset];
     
 }
 
-#pragma mark - Emoticons and Hint View
-
-
-
 #pragma mark - IBActions
+
 - (IBAction)didClickEmoticonButton:(UIButton *)sender
 {
-
+    BOOL select = !sender.isSelected;
+    if(select) {
+        [self.textView becomeFirstResponder];
+        [self presentEmoticonsView];
+    } else {
+        [self dismissHintView];
+    }
+    sender.selected = select;
 }
 
 - (IBAction)didClickSendButton:(UIButton *)sender
@@ -291,21 +323,124 @@
 - (EmoticonsViewController *)emoticonsViewController {
     if(!_emoticonsViewController) {
         _emoticonsViewController = [[EmoticonsViewController alloc] init];
-        _emoticonsViewController.delegate = self;
+        _emoticonsViewController.delegate = self.textView;
     }
     return _emoticonsViewController;
 }
 
-#pragma mark - EmoticonsViewController Delegate
+#pragma mark - PostHintTextView delegate
 
-- (void)didClickEmoticonsButtonWithInfoKey:(NSString *)key {
-    
+- (void)postHintTextViewCallDismissHintView {
+    [self dismissHintView];
 }
 
-#pragma mark - PostHintView Delegate
-
-- (void)postHintView:(PostHintView *)hintView didSelectHintString:(NSString *)text {
+- (void)dismissHintView {
+    UIView *currentHintView = self.currentHintView;
+    self.currentHintView = nil;
+    [currentHintView fadeOutWithCompletion:^{
+        [currentHintView removeFromSuperview];
+    }];
     
+    self.textView.currentHintStringRange = NSMakeRange(0, 0);
+    self.textView.needFillPoundSign = NO;
+    
+    self.emoticonsButton.selected = NO;
+    //self.postRootView.observingViewTag = PostRootViewSubviewTagNone;
+}
+
+#pragma mark - Emoticons and Hint View
+
+- (CGPoint)hintViewOriginWithType:(HintViewType)type {
+    CGPoint cursorPos = [self textViewCursorPos];
+    if(type == HintViewTypeEmoticons) {
+        cursorPos.y = EMOTICONS_VIEW_ORIGIN_Y;
+    } else if(type == HintViewTypeOther) {
+        cursorPos.y = HINT_VIEW_ORIGIN_Y;
+    }
+    return cursorPos;
+}
+
+- (CGPoint)textViewCursorPos {
+    CGPoint cursorPos = CGPointZero;
+    if(self.textView.selectedTextRange.empty && self.textView.selectedTextRange) {
+        cursorPos = [self.textView caretRectForPosition:self.textView.selectedTextRange.start].origin;
+    }
+    return cursorPos;
+}
+
+- (void)presentAtHintView {
+    [self dismissHintView];
+    CGPoint cursorPos = [self hintViewOriginWithType:HintViewTypeOther];
+    if(CGPointEqualToPoint(cursorPos, CGPointZero))
+        return;
+    PostAtHintView *atView = [[PostAtHintView alloc] initWithCursorPos:cursorPos];
+    self.currentHintView = atView;
+    atView.delegate = self.textView;
+    [self.footerView addSubview:atView];
+}
+
+- (void)presentTopicHintView {
+    [self dismissHintView];
+    CGPoint cursorPos = [self hintViewOriginWithType:HintViewTypeOther];
+    if(CGPointEqualToPoint(cursorPos, CGPointZero))
+        return;
+    PostTopicHintView *topicView = [[PostTopicHintView alloc] initWithCursorPos:cursorPos];
+    self.currentHintView = topicView;
+    topicView.delegate = self.textView;
+    [self.footerView addSubview:topicView];
+    [topicView updateHint:@""];
+}
+
+- (void)presentEmoticonsView {
+    [self dismissHintView];
+    _emoticonsViewController = nil;
+    //self.postRootView.observingViewTag = PostRootViewSubviewTagEmoticons;
+    EmoticonsViewController *vc = self.emoticonsViewController;
+    vc.view.alpha = 1;
+    [vc.view resetOrigin:[self hintViewOriginWithType:HintViewTypeEmoticons]];
+    //vc.view.tag = PostRootViewSubviewTagEmoticons;
+    [self.footerView addSubview:vc.view];
+    self.currentHintView = (PostHintView *)vc.view;
+    self.emoticonsButton.selected = YES;
+    self.textView.currentHintStringRange = NSMakeRange(self.textView.selectedRange.location, 0);
+}
+
+- (void)updateCurrentHintView {
+    [self updateCurrentHintViewFrame];
+    [self updateCurrentHintViewContent];
+}
+
+- (void)updateCurrentHintViewFrame {
+    if(!self.currentHintView)
+        return;
+    
+    CGPoint cursorPos;
+    if([self.currentHintView isKindOfClass:[PostHintView class]])
+        cursorPos = [self hintViewOriginWithType:HintViewTypeOther];
+    else
+        cursorPos = [self hintViewOriginWithType:HintViewTypeEmoticons];
+    
+    if(!CGPointEqualToPoint(cursorPos, CGPointZero)) {
+        [self.currentHintView resetOrigin:cursorPos];
+    }
+}
+
+- (void)updateCurrentHintViewContent {
+    if(!self.currentHintView)
+        return;
+    if([self.currentHintView isMemberOfClass:[PostAtHintView class]]) {
+        if(self.textView.isAtHintStringValid)
+            [self.currentHintView updateHint:self.textView.currentHintString];
+        else {
+            [self dismissHintView];
+        }
+    } else if([self.currentHintView isMemberOfClass:[PostTopicHintView class]]) {
+        if(self.textView.isTopicHintStringValid)
+            [self.currentHintView updateHint:self.textView.currentHintString];
+        else {
+            [self dismissHintView];
+        }
+    }
 }
 
 @end
