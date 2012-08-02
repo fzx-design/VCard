@@ -271,7 +271,6 @@
     if (self.contentOffset.y > 0) {
         self.contentOffset = CGPointZero;
     }
-    self.userInteractionEnabled = NO;
     [self relayout];
 }
 
@@ -347,6 +346,19 @@
     }
     
     int numberOfObjectsInSection = [self.flowdatasource numberOfObjectsInSection];
+    
+    if (numberOfObjectsInSection == 0) {
+        if (self.contentEmptyIndicatorView.hidden) {
+            self.contentEmptyIndicatorView.hidden = NO;
+            [self.contentEmptyIndicatorView fadeIn];
+        }
+    } else {
+        if (!self.contentEmptyIndicatorView.hidden) {
+            [self.contentEmptyIndicatorView fadeOutWithCompletion:^{
+                self.contentEmptyIndicatorView.hidden = YES;
+            }];
+        }
+    }
     
     for (  ; _curObjIndex < numberOfObjectsInSection; _curObjIndex++) {
         
@@ -528,7 +540,6 @@
         cell = [_flowdatasource flowView:self cellForLayoutUnit:currentUnit];
         cell.indexPath = [NSIndexPath indexPathForRow: currentUnit.unitIndex inSection:direction];
         cell.frame = CGRectMake(actualOriginX, origin_y, actualWidth, height);
-//        [self insertSubview:cell belowSubview:_infoBarView];
         [self addCellToWaterflowView:cell];
         [column.visibleCells insertObject:cell atIndex:0];
     } else {
@@ -563,8 +574,6 @@
         cell.indexPath = [NSIndexPath indexPathForRow:unit.unitIndex inSection:direction];
         cell.frame = CGRectMake(actualOriginX, origin_y , actualWidth, height);
         [column.visibleCells insertObject:cell atIndex:0];
-        
-//        [self insertSubview:cell belowSubview:_infoBarView];
         [self addCellToWaterflowView:cell];
     }
     
@@ -606,8 +615,6 @@
         cell.indexPath = [NSIndexPath indexPathForRow:unitIndex + 1 inSection:direction];
         cell.frame = CGRectMake(actualOriginX, origin_y, actualWidth, height);
         [column.visibleCells addObject:cell];
-        
-//        [self insertSubview:cell belowSubview:_infoBarView];
         [self addCellToWaterflowView:cell];
     }
     
@@ -635,7 +642,7 @@
     CGFloat originY = 0.0;
     CGPoint origin = cell.frame.origin;
     
-    [self insertSubview:cell belowSubview:_infoBarView];
+    [self insertSubview:cell belowSubview:self.infoBarView];
     
     if (_mode == WaterflowAddSubviewModeLoadmore) {
         originY = screenHeight + offsetY;
@@ -649,11 +656,8 @@
         
         [UIView animateWithDuration:0.7 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [cell resetOrigin:origin];
-        } completion:^(BOOL finished) {
-            self.userInteractionEnabled = YES;
-        }];
+        } completion:nil];
     }
-    
 }
 
 - (CGFloat)originXForColumn:(ColumnDirection)direction
@@ -755,10 +759,9 @@
     _titleLabel.hidden = YES;
     _infoBarShadowView.hidden = YES;
     
-    [self insertSubview:_infoBarView atIndex:kWaterflowViewInfoBarViewIndex];
-    [self insertSubview:_titleLabel atIndex:kWaterflowViewInfoBarViewIndex];
-    [self insertSubview:_returnButton atIndex:kWaterflowViewInfoBarViewIndex];
-    [self insertSubview:_infoBarShadowView atIndex:kWaterflowViewInfoBarViewIndex];
+    [self insertSubview:_infoBarView belowSubview:self.contentEmptyIndicatorView];
+    [self insertSubview:_titleLabel belowSubview:self.contentEmptyIndicatorView];
+    [self insertSubview:_returnButton belowSubview:self.contentEmptyIndicatorView];
 }
 
 - (void)showInfoBarWithTitleName:(NSString *)name
@@ -920,6 +923,12 @@
         [self insertSubview:_backgroundViewB atIndex:0];
     }
     return _backgroundViewB;
+}
+
+- (void)setContentEmptyIndicatorView:(UIView *)contentEmptyIndicatorView
+{
+    [self insertSubview:contentEmptyIndicatorView aboveSubview:self.infoBarView];
+    _contentEmptyIndicatorView = contentEmptyIndicatorView;
 }
 
 @end

@@ -112,6 +112,7 @@
     _loadMoreView.shouldAutoRotate = YES;
     [self.waterflowView insertSubview:_pullView atIndex:kWaterflowViewPullToRefreshViewIndex];
     [self.waterflowView addSubview:_loadMoreView];
+    [self.waterflowView setContentEmptyIndicatorView:_contentEmptyIndicatorView];
     
     [_loadMoreView resetLayoutTo:[UIApplication currentInterface]];
     [_pullView resetLayoutTo:[UIApplication currentInterface]];

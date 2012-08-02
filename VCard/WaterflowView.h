@@ -83,8 +83,9 @@ typedef enum {
 @property (nonatomic, retain) BaseLayoutView *backgroundViewB;
 
 @property (nonatomic, assign) UIView *animationCover;
+@property (nonatomic, assign) UIView *contentEmptyIndicatorView;
 
-
+- (void)setContentEmptyIndicatorView:(UIView *)contentEmptyIndicatorView;
 - (void)reloadData;
 - (void)refresh;
 - (id)dequeueReusableCellWithIdentifier:(NSString *)identifier;

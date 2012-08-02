@@ -61,6 +61,7 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UnreadIndicatorButton *unreadMessageIndicatorButton;
 @property (nonatomic, weak) IBOutlet UnreadIndicatorView *unreadIndicatorView;
 @property (nonatomic, weak) IBOutlet UIView *waterflowViewAnimationCover;
+@property (nonatomic, weak) IBOutlet UIView *contentEmptyIndicatorView;
 @property (nonatomic, weak) id<CastViewControllerDelegate> delegate;
 @property (nonatomic, strong) StackViewController *stackViewController;
 

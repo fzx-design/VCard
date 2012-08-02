@@ -21,6 +21,7 @@
 }
 
 @property (nonatomic, unsafe_unretained) BOOL isEditing;
+@property (nonatomic, strong) EmoticonsViewController *emoticonsViewController;
 
 @end
 
@@ -215,7 +216,7 @@
 #pragma mark - IBActions
 - (IBAction)didClickEmoticonButton:(UIButton *)sender
 {
-    
+
 }
 
 - (IBAction)didClickSendButton:(UIButton *)sender
@@ -270,6 +271,14 @@
         _conversationTableViewController.pageIndex = self.pageIndex;
     }
     return _conversationTableViewController;
+}
+
+- (EmoticonsViewController *)emoticonsViewController {
+    if(!_emoticonsViewController) {
+        _emoticonsViewController = [[EmoticonsViewController alloc] init];
+        _emoticonsViewController.delegate = self;
+    }
+    return _emoticonsViewController;
 }
 
 @end
