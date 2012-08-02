@@ -12,10 +12,10 @@
 #import "DirectMessage.h"
 #import "WBClient.h"
 
-@interface DMListTableViewController () {
-    long long _nextCursor;
-    BOOL _shouldReload;
-}
+@interface DMListTableViewController ()
+
+@property (nonatomic, unsafe_unretained) long long nextCursor;
+@property (nonatomic, unsafe_unretained) BOOL shouldReload;
 
 @end
 
@@ -134,7 +134,6 @@
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    _shouldReload = YES;
     [self.tableView beginUpdates];
 }
 
@@ -149,6 +148,7 @@
         case NSFetchedResultsChangeInsert:
             [tableView insertRowsAtIndexPaths:@[newIndexPath]
                              withRowAnimation:UITableViewRowAnimationTop];
+            _shouldReload = YES;
             break;
             
         case NSFetchedResultsChangeDelete:
@@ -159,7 +159,6 @@
         case NSFetchedResultsChangeUpdate:
             [self configureCell:[tableView cellForRowAtIndexPath:indexPath]
                     atIndexPath:indexPath];
-            _shouldReload = NO;
             break;
             
         case NSFetchedResultsChangeMove:
@@ -174,10 +173,12 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
-    if (self.isBeingDisplayed) {
+    if (self.isBeingDisplayed && self.shouldReload && !self.firstLoad) {
         [self.tableView reloadData];
-        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
+        self.shouldReload = NO;
+        self.firstLoad = NO;
     }
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

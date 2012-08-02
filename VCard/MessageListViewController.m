@@ -67,6 +67,7 @@
         _listTableViewController.view.frame = [self frameForTableView];
         _listTableViewController.tableView.frame = [self frameForTableView];
         _listTableViewController.pageIndex = self.pageIndex;
+        _listTableViewController.firstLoad = YES;
     }
     return _listTableViewController;
 }
