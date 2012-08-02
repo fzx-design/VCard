@@ -618,7 +618,7 @@
     UIPasteboard *pb = [UIPasteboard generalPasteboard];
     [pb setString:[statusText replaceRegExWithEmoticons]];
     
-    [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"已复制"];
+    [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"已拷贝"];
 }
 
 - (void)shareStatusByMail

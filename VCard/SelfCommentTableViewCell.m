@@ -17,6 +17,7 @@
 #import "InnerBrowserViewController.h"
 #import "TTTAttributedLabelConfiguer.h"
 #import "NSString+Addition.h"
+#import "ErrorIndicatorViewController.h"
 
 #define kActionSheetViewCopyIndex   0
 #define kActionSheetViewDelete      1
@@ -108,7 +109,7 @@
                                                              delegate:self 
                                                     cancelButtonTitle:nil 
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"复制评论", deleteTitle, nil];
+                                                    otherButtonTitles:@"拷贝评论", deleteTitle, nil];
     actionSheet.destructiveButtonIndex = kActionSheetViewDelete;
     actionSheet.delegate = self;
     [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
@@ -172,6 +173,8 @@
     if(buttonIndex == kActionSheetViewCopyIndex) {
         UIPasteboard *pb = [UIPasteboard generalPasteboard];
         [pb setString:[self.comment.text replaceRegExWithEmoticons]];
+        
+        [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"已拷贝"];
     } else if(buttonIndex == kActionSheetViewDelete) {
         [self deleteComment];
     }

@@ -17,6 +17,7 @@
 #import "WBClient.h"
 #import "InnerBrowserViewController.h"
 #import "NSString+Addition.h"
+#import "ErrorIndicatorViewController.h"
 
 #define kActionSheetCommentCopyIndex   0
 #define kActionSheetCommentDelete      1
@@ -156,7 +157,7 @@
                                                                  delegate:self 
                                                         cancelButtonTitle:nil 
                                                    destructiveButtonTitle:nil
-                                                        otherButtonTitles:@"复制评论", deleteTitle, nil];
+                                                        otherButtonTitles:@"拷贝评论", deleteTitle, nil];
         actionSheet.destructiveButtonIndex = kActionSheetCommentDelete;
         actionSheet.delegate = self;
         [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
@@ -167,7 +168,7 @@
                                                                  delegate:self 
                                                         cancelButtonTitle:nil 
                                                    destructiveButtonTitle:nil
-                                                        otherButtonTitles:@"转发", favourTitle, @"复制微博", @"邮件分享", deleteTitle, nil];
+                                                        otherButtonTitles:@"转发", favourTitle, @"拷贝微博", @"邮件分享", deleteTitle, nil];
         actionSheet.destructiveButtonIndex = kActionSheetStatusDeleteIndex;
         actionSheet.delegate = self;
         [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
@@ -250,6 +251,7 @@
         if(buttonIndex == kActionSheetCommentCopyIndex) {
             UIPasteboard *pb = [UIPasteboard generalPasteboard];
             [pb setString:[self.comment.text replaceRegExWithEmoticons]];
+            [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"已拷贝"];
         } else if(buttonIndex == kActionSheetCommentDelete) {
             [self deleteComment];
         }
@@ -289,6 +291,8 @@
 
     UIPasteboard *pb = [UIPasteboard generalPasteboard];
     [pb setString:[statusText replaceRegExWithEmoticons]];
+    
+    [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"已拷贝"];
 }
 
 - (void)sendShowRepostListNotification

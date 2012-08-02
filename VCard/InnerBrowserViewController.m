@@ -10,6 +10,7 @@
 #import "UIApplication+Addition.h"
 #import "UIView+Resize.h"
 #import "WBClient.h"
+#import "ErrorIndicatorViewController.h"
 
 @interface InnerBrowserViewController () {
     BOOL _loading;
@@ -135,7 +136,7 @@
                                                              delegate:self 
                                                     cancelButtonTitle:nil 
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"复制链接", @"在 Safari 中打开", nil];
+                                                    otherButtonTitles:@"拷贝链接", @"在 Safari 中打开", nil];
     actionSheet.delegate = self;
     [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
 }
@@ -201,6 +202,8 @@
     UIPasteboard *pb = [UIPasteboard generalPasteboard];
     NSURL *url = _webView.canGoBack ? _webView.request.URL : _targetURL;
     [pb setString:url.absoluteString];
+    
+    [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"已拷贝"];
 }
 
 - (void)openInSafari
