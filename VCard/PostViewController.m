@@ -425,6 +425,7 @@ typedef enum {
 
 - (void)configureTextView {
     [self updateTextCountAndPostButton];
+    [[UIApplication sharedApplication].rootViewController.view endEditing:YES];
     [self.textView becomeFirstResponder];
 }
 
@@ -831,14 +832,13 @@ typedef enum {
 #pragma mark - UITextView delegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    [self.textView shouldChangeTextInRange:range replacementText:text currentHintView:self.currentHintView];
-    if([text isEqualToString:@"@"] && !self.currentHintView) {
+    UIView *currentHintView = self.currentHintView;
+    if([text isEqualToString:@"@"] && !currentHintView) {
         [self presentAtHintView];
-        self.atButton.selected = YES;
-    } else if([text isEqualToString:@"#"] && !self.currentHintView) {
+    } else if([text isEqualToString:@"#"] && !currentHintView) {
         [self presentTopicHintView];
-        self.topicButton.selected = YES;
     }
+    [self.textView shouldChangeTextInRange:range replacementText:text currentHintView:currentHintView];
     return YES;
 }
 

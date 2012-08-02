@@ -19,8 +19,9 @@
 #define kTextViewMaxHeight 160.0
 #define kFooterViewOriginalHeight 54.0
 
-#define HINT_VIEW_ORIGIN_Y      (0 - 55 * 4 - 10)
-#define EMOTICONS_VIEW_ORIGIN_Y (0 - 157 - 10)
+#define OTHER_HINT_VIEW_HEIGHT      220
+#define EMOTICONS_HINT_VIEW_HEIGHT  157
+#define HINT_VIEW_OFFSET_Y          25
 
 typedef enum {
     HintViewTypeEmoticons,
@@ -175,16 +176,19 @@ typedef enum {
     [UIView animateWithDuration:0.25f animations:^{
         [self layoutFooterViewWithKeyboardHeight:0 footerViewHeight:_footerView.frame.size.height];
     }];
+    
+    [self dismissHintView];
 }
 
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    [self.textView shouldChangeTextInRange:range replacementText:text currentHintView:self.currentHintView];
-    if([text isEqualToString:@"@"] && !self.currentHintView) {
+    UIView *currentHintView = self.currentHintView;
+    if([text isEqualToString:@"@"] && !currentHintView) {
         [self presentAtHintView];
-    } else if([text isEqualToString:@"#"] && !self.currentHintView) {
+    } else if([text isEqualToString:@"#"] && !currentHintView) {
         [self presentTopicHintView];
     }
+    [self.textView shouldChangeTextInRange:range replacementText:text currentHintView:currentHintView];
     return YES;
 }
 
@@ -353,9 +357,9 @@ typedef enum {
 - (CGPoint)hintViewOriginWithType:(HintViewType)type {
     CGPoint cursorPos = [self textViewCursorPos];
     if(type == HintViewTypeEmoticons) {
-        cursorPos.y = EMOTICONS_VIEW_ORIGIN_Y;
+        cursorPos.y -= EMOTICONS_HINT_VIEW_HEIGHT + HINT_VIEW_OFFSET_Y;
     } else if(type == HintViewTypeOther) {
-        cursorPos.y = HINT_VIEW_ORIGIN_Y;
+        cursorPos.y -= OTHER_HINT_VIEW_HEIGHT + HINT_VIEW_OFFSET_Y;
     }
     return cursorPos;
 }
@@ -364,6 +368,7 @@ typedef enum {
     CGPoint cursorPos = CGPointZero;
     if(self.textView.selectedTextRange.empty && self.textView.selectedTextRange) {
         cursorPos = [self.textView caretRectForPosition:self.textView.selectedTextRange.start].origin;
+        cursorPos = [self.backgroundView convertPoint:cursorPos fromView:self.textView];
     }
     return cursorPos;
 }
@@ -376,7 +381,8 @@ typedef enum {
     PostAtHintView *atView = [[PostAtHintView alloc] initWithCursorPos:cursorPos];
     self.currentHintView = atView;
     atView.delegate = self.textView;
-    [self.footerView addSubview:atView];
+    [self checkCurrentHintViewFrame];
+    [self.backgroundView addSubview:atView];
 }
 
 - (void)presentTopicHintView {
@@ -387,7 +393,8 @@ typedef enum {
     PostTopicHintView *topicView = [[PostTopicHintView alloc] initWithCursorPos:cursorPos];
     self.currentHintView = topicView;
     topicView.delegate = self.textView;
-    [self.footerView addSubview:topicView];
+    [self checkCurrentHintViewFrame];
+    [self.backgroundView addSubview:topicView];
     [topicView updateHint:@""];
 }
 
@@ -399,7 +406,8 @@ typedef enum {
     vc.view.alpha = 1;
     [vc.view resetOrigin:[self hintViewOriginWithType:HintViewTypeEmoticons]];
     //vc.view.tag = PostRootViewSubviewTagEmoticons;
-    [self.footerView addSubview:vc.view];
+    [self checkCurrentHintViewFrame];
+    [self.backgroundView addSubview:vc.view];
     self.currentHintView = (PostHintView *)vc.view;
     self.emoticonsButton.selected = YES;
     self.textView.currentHintStringRange = NSMakeRange(self.textView.selectedRange.location, 0);
@@ -422,6 +430,7 @@ typedef enum {
     
     if(!CGPointEqualToPoint(cursorPos, CGPointZero)) {
         [self.currentHintView resetOrigin:cursorPos];
+        [self checkCurrentHintViewFrame];
     }
 }
 
@@ -441,6 +450,18 @@ typedef enum {
             [self dismissHintView];
         }
     }
+}
+
+- (void)checkCurrentHintViewFrame {
+    CGPoint pos = self.currentHintView.frame.origin;
+    CGSize size = self.currentHintView.frame.size;
+    CGPoint sendButtonOrigin = self.sendButton.frame.origin;
+    sendButtonOrigin = [self.backgroundView convertPoint:sendButtonOrigin fromView:self.footerView];
+    CGFloat maxHintViewBorderX = sendButtonOrigin.x + self.sendButton.frame.size.width;
+    
+    pos.x = pos.x + size.width > maxHintViewBorderX ? maxHintViewBorderX - size.width : pos.x;
+    
+    self.currentHintView.frame = CGRectMake(pos.x, pos.y, size.width, size.height);
 }
 
 @end
