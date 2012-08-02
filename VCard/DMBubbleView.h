@@ -31,6 +31,7 @@ typedef enum {
 @property (nonatomic, strong) TTTAttributedLabel        *textLabel;
 @property (nonatomic, readonly) DMBubbleViewType        type;
 @property (nonatomic, weak) id<DMBubbleViewDelegate>    delegate;
+@property (nonatomic, copy) NSString                    *text;
 
 + (CGSize)sizeForText:(NSString *)text;
 - (void)resetWithText:(NSString *)text dateString:(NSString *)dateString type:(DMBubbleViewType)type;

@@ -13,6 +13,7 @@
 #import "TTTAttributedLabelConfiguer.h"
 #import "NSUserDefaults+Addition.h"
 #import "UIView+Addition.h"
+#import "NSString+Addition.h"
 
 #define kReceivedOrigin         CGPointMake(20.0, 16.0)
 #define kSentOrigin             CGPointMake(12.0, 18.0)
@@ -102,7 +103,7 @@
         _highlightCoverImageView.hidden = YES;
         
         _longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-        _longPressGesture.minimumPressDuration = 0.1;
+        _longPressGesture.minimumPressDuration = 0.5;
         [self addGestureRecognizer:_longPressGesture];
         
         [self addSubview:_backgroundImageView];
@@ -115,6 +116,7 @@
 
 - (void)resetWithText:(NSString *)text dateString:(NSString *)dateString type:(DMBubbleViewType)type
 {
+    self.text = text;
     [self setTextSize:text];
     _timeStampLabel.text = dateString;
     [_textLabel resetWidth:_textSize.width];
@@ -166,14 +168,17 @@
     [_timeStampLabel resetOriginX:_textLabelFrame.origin.x];
     [_timeStampLabel resetWidth:_textLabelFrame.size.width - 5.0];
     [_timeStampLabel resetOriginY:_textLabelFrame.origin.y + _textLabelFrame.size.height + kTimeStampLabelGap];
+    
+    [self resetHeight:_backgroundImageView.frame.size.height];
 }
 
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gesture
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         [self showHighlight];
+        [self showActionSheet];
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled || gesture.state ==UIGestureRecognizerStateFailed) {
-        [self hideHighlight];
+        _readyForAction = NO;
     }
 }
 
@@ -183,15 +188,14 @@
     _highlightCoverImageView.hidden = NO;
     _highlightCoverImageView.alpha = 0.0;
     [_highlightCoverImageView fadeInWithCompletion:^{
-        if (_readyForAction) {
-            [self showActionSheet];
-        }
+//        if (!_readyForAction) {
+//            [self hideHighlight];
+//        }
     }];
 }
 
 - (void)hideHighlight
 {
-    _readyForAction = NO;
     [_highlightCoverImageView fadeOutWithCompletion:^{
         _highlightCoverImageView.hidden = YES;
         _readyForAction = YES;
@@ -210,10 +214,16 @@
     [actionSheet showFromRect:self.backgroundImageView.frame inView:self animated:YES];
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    [self hideHighlight];
+}
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        //TODO: copy
+        UIPasteboard *pb = [UIPasteboard generalPasteboard];
+        [pb setString:[self.text replaceRegExWithEmoticons]];
     } else if (buttonIndex == 1) {
         if ([self.delegate respondsToSelector:@selector(shouldDeleteBubble)]) {
             [self.delegate shouldDeleteBubble];

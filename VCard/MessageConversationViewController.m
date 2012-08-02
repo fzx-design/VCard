@@ -205,7 +205,10 @@
 
 - (IBAction)didClickSendButton:(UIButton *)sender
 {
-    [self sendMessage:_textView.text];
+    NSString *text = _textView.text;
+    if (text && ![text isEqualToString:@""]) {
+        [self sendMessage:text];
+    }
 }
 
 - (IBAction)didClickViewProfileButton:(UIButton *)sender

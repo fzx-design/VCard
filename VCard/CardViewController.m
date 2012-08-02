@@ -24,6 +24,7 @@
 #import "ErrorIndicatorViewController.h"
 #import "DirectMessage.h"
 #import "TTTAttributedLabelConfiguer.h"
+#import "NSString+Addition.h"
 
 #define ACTION_POPOVER_CONTAINER_CONTAINER_VIEW 3002
 
@@ -613,8 +614,9 @@
     if (_isReposted) {
         statusText = [statusText stringByAppendingFormat:@":@%@:%@", self.status.repostStatus.author.screenName, self.status.repostStatus.text];
     }
+        
     UIPasteboard *pb = [UIPasteboard generalPasteboard];
-    [pb setString:statusText];
+    [pb setString:[statusText replaceRegExWithEmoticons]];
     
     [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"已复制"];
 }

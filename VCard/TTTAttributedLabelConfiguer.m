@@ -243,5 +243,4 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
     CFRelease(systemFont);
 }
 
-
 @end

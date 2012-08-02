@@ -16,6 +16,7 @@
 #import "UserAccountManager.h"
 #import "WBClient.h"
 #import "InnerBrowserViewController.h"
+#import "NSString+Addition.h"
 
 #define kActionSheetCommentCopyIndex   0
 #define kActionSheetCommentDelete      1
@@ -248,7 +249,7 @@
     if (_comment) {
         if(buttonIndex == kActionSheetCommentCopyIndex) {
             UIPasteboard *pb = [UIPasteboard generalPasteboard];
-            [pb setString:self.comment.text];
+            [pb setString:[self.comment.text replaceRegExWithEmoticons]];
         } else if(buttonIndex == kActionSheetCommentDelete) {
             [self deleteComment];
         }
@@ -287,7 +288,7 @@
     NSString *statusText = [NSString stringWithFormat:@"%@:@%@:%@", self.status.text, self.status.repostStatus.author.screenName, self.status.repostStatus.text];
 
     UIPasteboard *pb = [UIPasteboard generalPasteboard];
-    [pb setString:statusText];
+    [pb setString:[statusText replaceRegExWithEmoticons]];
 }
 
 - (void)sendShowRepostListNotification

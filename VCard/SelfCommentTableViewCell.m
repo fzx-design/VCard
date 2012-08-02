@@ -16,6 +16,7 @@
 #import "WBClient.h"
 #import "InnerBrowserViewController.h"
 #import "TTTAttributedLabelConfiguer.h"
+#import "NSString+Addition.h"
 
 #define kActionSheetViewCopyIndex   0
 #define kActionSheetViewDelete      1
@@ -170,7 +171,7 @@
     
     if(buttonIndex == kActionSheetViewCopyIndex) {
         UIPasteboard *pb = [UIPasteboard generalPasteboard];
-        [pb setString:self.comment.text];
+        [pb setString:[self.comment.text replaceRegExWithEmoticons]];
     } else if(buttonIndex == kActionSheetViewDelete) {
         [self deleteComment];
     }
