@@ -85,6 +85,7 @@
             self.hasMoreViews = _nextCursor != 0;
             
             [self resetUnreadMessageCount];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
         }
         
         [self adjustBackgroundView];
