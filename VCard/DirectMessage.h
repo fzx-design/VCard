@@ -26,6 +26,7 @@
 
 + (DirectMessage *)messageWithID:(NSString *)messageID inManagedObjectContext:(NSManagedObjectContext *)context;
 + (DirectMessage *)insertMessage:(NSDictionary *)dict withConversation:(Conversation *)targetConversation inManagedObjectContext:(NSManagedObjectContext *)context;
++ (void)deleteMessagesOfConversion:(Conversation *)conversion inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end
 

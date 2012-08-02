@@ -124,13 +124,15 @@
     return CGRectMake((pageNumber) * ScrollViewWidth, 0.0, 384.0, self.frame.size.height);
 }
 
-- (void)removeLastView:(UIView *)lastView
+- (void)removeLastView:(UIView *)lastView completion:(void(^)())completion
 {
     lastView.userInteractionEnabled = NO;
     [UIView animateWithDuration:0.3 animations:^{
         [lastView resetOriginX:lastView.frame.origin.x + ScrollViewWidth];
     } completion:^(BOOL finished) {
-        [lastView removeFromSuperview];
+        if (completion) {
+            completion();
+        }
     }];
 }
 

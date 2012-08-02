@@ -75,4 +75,17 @@
     return result;
 }
 
++ (void)deleteMessagesOfConversion:(Conversation *)conversion inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"DirectMessage" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"SELF IN %@", conversion.messages]];
+    
+    NSArray *items = [context executeFetchRequest:request error:NULL];
+    for (NSManagedObject *object in items) {
+        [context deleteObject:object];
+    }
+}
+
 @end

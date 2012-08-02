@@ -44,7 +44,7 @@
 - (void)refresh
 {
 	_nextCursor = 0;
-    [self.fetchedResultsController performFetch:nil];
+//    [self.fetchedResultsController performFetch:nil];
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
 }
 
@@ -176,7 +176,6 @@
     [self.tableView endUpdates];
     if (self.isBeingDisplayed) {
         [self.tableView reloadData];
-        [self scrollViewDidScroll:self.tableView];
         [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
     }
 }

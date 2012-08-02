@@ -34,14 +34,7 @@
 
 - (void)viewDidUnload
 {
-    _listTableViewController = nil;
     [super viewDidUnload];
-}
-
-- (void)clearPage
-{
-    [_listTableViewController.view removeFromSuperview];
-    _listTableViewController = nil;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -56,7 +49,7 @@
 
 - (void)showWithPurpose
 {
-    [_listTableViewController refresh];
+    [self.listTableViewController refresh];
 }
 
 #pragma mark - Properties

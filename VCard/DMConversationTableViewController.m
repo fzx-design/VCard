@@ -40,7 +40,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [_loadMoreView removeFromSuperview];
+//    [_loadMoreView removeFromSuperview];
+    _loadMoreView.hidden = YES;
     UIEdgeInsets inset = self.tableView.contentInset;
     inset.bottom = 20.0;
     self.tableView.contentInset = inset;
@@ -55,13 +56,15 @@
 - (void)refresh
 {
     _loadingMore = YES;
-    [self.fetchedResultsController performFetch:nil];
+    [self scrollToBottom:YES];
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
 }
 
 - (void)initialLoadMessageData
 {
     self.refreshing = YES;
+    [self.fetchedResultsController performFetch:nil];
+    [self scrollToBottom:YES];
 	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
 }
 
@@ -70,18 +73,9 @@
     [self loadMoreData];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    if ([self.conversation.latestMessageText isEqualToString:@""]) {
-        [self.managedObjectContext deleteObject:self.conversation];
-        self.conversation = nil;
-    }
-    [super viewWillDisappear:animated];
-}
-
 - (void)clearData
 {
-    //TODO: 
+    [DirectMessage deleteMessagesOfConversion:self.conversation inManagedObjectContext:self.managedObjectContext];
 }
 
 - (void)loadMoreData
@@ -115,8 +109,7 @@
                     _targetIndexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - prevFetchedCount inSection:0];
                     [self.tableView scrollToRowAtIndexPath:_targetIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
                 } else {
-                    _targetIndexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - 1 inSection:0];
-                    [self.tableView scrollToRowAtIndexPath:_targetIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+                    [self scrollToBottom:YES];
                 }
                 int count = self.fetchedResultsController.fetchedObjects.count - 1;
                 DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count];
@@ -128,6 +121,9 @@
             
             _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
             self.hasMoreViews = NO;
+        } else {
+            [self.fetchedResultsController performFetch:nil];
+            [self adjustMessageSize];
         }
         
         [self refreshEnded];
@@ -160,7 +156,7 @@
 
 - (void)getUnreadMessage
 {
-    if (self.currentUser.unreadMessageCount.intValue == 0) {
+    if (self.currentUser.unreadMessageCount.intValue == 0 && self.isBeingDisplayed) {
         return;
     }
     
@@ -268,7 +264,7 @@
     int count = self.fetchedResultsController.fetchedObjects.count;
     if (count > 0) {
         NSIndexPath *bottomIndexPath = [NSIndexPath indexPathForRow:count - 1 inSection:0];
-        [self.tableView scrollToRowAtIndexPath:bottomIndexPath atScrollPosition:UITableViewScrollPositionTop animated:animated];
+        [self.tableView scrollToRowAtIndexPath:bottomIndexPath atScrollPosition:UITableViewScrollPositionNone animated:animated];
         [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
     }
 }
@@ -316,35 +312,9 @@
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath {
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
     
-    return;
-    
-    UITableView *tableView = self.tableView;
-    
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:@[newIndexPath]
-                             withRowAnimation:UITableViewRowAnimationTop];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:@[indexPath]
-                             withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath]
-                    atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:@[indexPath]
-                             withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[newIndexPath]
-                             withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {

@@ -30,7 +30,7 @@
 - (void)addNewPage:(UIView *)newPage
      replacingView:(BOOL)replacing
         completion:(void (^)())completion;
-- (void)removeLastView:(UIView *)lastView;
+- (void)removeLastView:(UIView *)lastView completion:(void(^)())completion;
 - (void)sendShowBGNotification;
 - (void)scrollToTargetView:(UIView *)targetView;
 - (int)currentPage;

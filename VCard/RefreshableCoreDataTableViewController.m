@@ -93,8 +93,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [_pullView removeObserver];
     _isBeingDisplayed = NO;
+    [_pullView removeObserver];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

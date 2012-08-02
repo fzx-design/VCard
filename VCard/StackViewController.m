@@ -113,8 +113,10 @@
     if (self.controllerStack.count != 0) {
         while (self.controllerStack.count - 1 > targetIndex) {
             StackViewPageController *lastViewController = [self.controllerStack lastObject];
+            [self.stackView removeLastView:lastViewController.view completion:^{
+                [lastViewController.view removeFromSuperview];
+            }];
             [lastViewController viewWillDisappear:NO];
-            [self.stackView removeLastView:lastViewController.view];
             [self.controllerStack removeObject:lastViewController];
             lastViewController = nil;
             replacingOtherView = YES;
@@ -138,9 +140,13 @@
             [animationVC stackScrollingStartFromLeft:NO];
         }
     }
+    self.view.userInteractionEnabled = NO;
+    BlockARCWeakSelf weakSelf = self;
+    
     [self.stackView addNewPage:vc.view replacingView:replacingOtherView completion:^{
         [vc initialLoad];
-        [self stackViewDidEndScrolling];
+        [weakSelf stackViewDidEndScrolling];
+        weakSelf.view.userInteractionEnabled = YES;
     }];
 }
 

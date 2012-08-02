@@ -64,12 +64,6 @@
     [super viewDidUnload];
 }
 
-- (void)clearPage
-{
-    [_conversationTableViewController.view removeFromSuperview];
-    _conversationTableViewController = nil;
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [self layoutFooterView:_keyboardHeight];
@@ -77,7 +71,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [_conversationTableViewController viewWillDisappear:NO];
+    [_conversationTableViewController viewWillDisappear:animated];
 }
 
 - (void)stackDidScroll
@@ -199,7 +193,7 @@
     
     [_sendButton resetOriginY:_sendButton.frame.origin.y + offset];
     [_emoticonButton resetOriginY:_emoticonButton.frame.origin.y + offset];
-    [self.conversationTableViewController.view resetHeightByOffset:-offset];
+    [_conversationTableViewController.view resetHeightByOffset:-offset];
 //    [self.conversationTableViewController scrollToBottom:NO];
     
 }

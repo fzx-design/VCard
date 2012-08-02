@@ -478,6 +478,11 @@
 //    _stackViewController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
 }
 
+- (void)disableWaterflowView
+{
+    self.view.userInteractionEnabled = NO;
+}
+
 - (void)refreshWaterflowView
 {
     [_waterflowView refresh];
