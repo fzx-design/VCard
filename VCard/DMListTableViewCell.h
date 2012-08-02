@@ -15,5 +15,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *screenNameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *infoLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *cellSelectionImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *hasNewIndicator;
 
 @end

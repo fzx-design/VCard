@@ -96,5 +96,6 @@ typedef enum {
 - (void)hideInfoBar:(BOOL)buttonClicked;
 
 - (void)addCellToWaterflowView:(UIView *)cell;
+- (void)checkContentEmpty;
 
 @end

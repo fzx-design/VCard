@@ -93,7 +93,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
     self = [super init];
     if (self) {
         // Custom initialization
-        _buttonTitleArray = [NSMutableArray arrayWithObjects:@"转发", @"收藏", @"查看转发", @"复制", @"删除", nil];
+        _buttonTitleArray = [NSMutableArray arrayWithObjects:@"转发", @"收藏", @"查看转发", @"拷贝", @"删除", nil];
         _buttonIconFileNameArray = [NSMutableArray arrayWithObjects:@"button_ap_repost", @"button_ap_fav", @"button_ap_repost_list", @"button_ap_copy", @"button_ap_delete", nil];
         
         NSNumber *favoriteButtonOn = [options objectForKey:kActionPopoverOptionFavoriteButtonOn];

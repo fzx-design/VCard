@@ -35,6 +35,7 @@
 #define kHasShownShelfTips                  @"HasShownShelfTips"
 #define kHasShownStackTips                  @"HasShownStackTips"
 #define kHasShown3GWarning                  @"kHasShown3GWarning"
+#define kHasFetchedMessages                 @"kHasFetchedMessages"
 
 #define kShouldPostRecommendVCardWeibo      @"ShouldPostRecommendVCardWeibo"
 
@@ -69,6 +70,7 @@
         [defaults setBool:NO forKey:kHasShownStackTips];
         [defaults setBool:NO forKey:kHasShownGuideBook];
         [defaults setBool:NO forKey:kHasShown3GWarning];
+        [defaults setBool:NO forKey:kHasFetchedMessages];
     }
     [defaults setBool:YES forKey:kVCard4_0_Initialized];
     [defaults synchronize];
@@ -190,6 +192,18 @@
     [defaults setBool:hasShown forKey:kHasShown3GWarning];
     [defaults synchronize];
 }
+
++ (BOOL)hasFetchedMessages {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kHasFetchedMessages];
+}
+
++ (void)setFetchedMessages:(BOOL)hasShown {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:hasShown forKey:kHasFetchedMessages];
+    [defaults synchronize];
+}
+
 
 + (void)setCurrentUserFavouriteIDs:(NSArray *)array
 {

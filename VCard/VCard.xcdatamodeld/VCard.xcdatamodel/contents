@@ -37,7 +37,7 @@
     </entity>
     <entity name="Conversation" representedClassName="Conversation" syncable="YES">
         <attribute name="currentUserID" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="empty" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="hasNew" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="latestMessageText" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="targetUserAvatarURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="targetUserID" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>

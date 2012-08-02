@@ -11,6 +11,7 @@
 #import "Conversation.h"
 #import "DirectMessage.h"
 #import "WBClient.h"
+#import "NSUserDefaults+Addition.h"
 
 @interface DMListTableViewController ()
 
@@ -44,7 +45,7 @@
 - (void)refresh
 {
 	_nextCursor = 0;
-	[self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.01];
+	[self loadMoreData];
 }
 
 - (void)loadMore
@@ -54,7 +55,7 @@
 
 - (void)clearData
 {
-    
+     
 }
 
 - (void)loadMoreData
@@ -82,6 +83,9 @@
             
             _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
             self.hasMoreViews = _nextCursor != 0;
+            
+            [self resetUnreadMessageCount];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
         }
         
         [self adjustBackgroundView];
@@ -91,6 +95,20 @@
     }];
     
     [client getDirectMessageConversationListWithCursor:_nextCursor count:20];
+}
+
+- (void)resetUnreadMessageCount
+{
+    [NSUserDefaults setFetchedMessages:YES];
+    WBClient *client = [WBClient client];
+    
+    [client setCompletionBlock:^(WBClient *client){
+        if (!client.hasError) {
+            self.currentUser.unreadMessageCount = @0;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldUpdateUnreadMessageCount object:nil];
+        }
+    }];
+    [client resetUnreadCount:kWBClientResetCountTypeMessage];
 }
 
 #pragma mark - Core Data Table View Method
@@ -111,6 +129,7 @@
         Conversation *conversation = [self.fetchedResultsController objectAtIndexPath:indexPath];
         listCell.screenNameLabel.text = conversation.targetUser.screenName;
         listCell.infoLabel.text = conversation.latestMessageText;
+        listCell.hasNewIndicator.hidden = !conversation.hasNew.boolValue;
         
         [listCell.avatarImageView loadImageFromURL:conversation.targetUser.profileImageURL
                                         completion:NULL];
@@ -185,6 +204,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Conversation *conversation = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    conversation.hasNew = @(NO);
+    
+    DMListTableViewCell *cell = (DMListTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    cell.hasNewIndicator.hidden = YES;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowConversation object:@{kNotificationObjectKeyConversation: conversation, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }

@@ -15,6 +15,7 @@
 #import "UIView+Addition.h"
 #import "NSString+Addition.h"
 #import "InnerBrowserViewController.h"
+#import "ErrorIndicatorViewController.h"
 
 #define kReceivedOrigin         CGPointMake(20.0, 16.0)
 #define kSentOrigin             CGPointMake(12.0, 18.0)
@@ -212,7 +213,7 @@
                                                              delegate:self
                                                     cancelButtonTitle:nil
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"复制", @"删除", nil];
+                                                    otherButtonTitles:@"拷贝", @"删除", nil];
     actionSheet.delegate = self;
     actionSheet.destructiveButtonIndex = 1;
     [actionSheet showFromRect:self.backgroundImageView.frame inView:self animated:YES];
@@ -228,6 +229,8 @@
     if (buttonIndex == 0) {
         UIPasteboard *pb = [UIPasteboard generalPasteboard];
         [pb setString:[self.text replaceRegExWithEmoticons]];
+        
+        [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"已拷贝"];
     } else if (buttonIndex == 1) {
         if ([self.delegate respondsToSelector:@selector(shouldDeleteBubble)]) {
             [self.delegate shouldDeleteBubble];

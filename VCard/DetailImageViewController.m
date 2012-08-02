@@ -49,9 +49,14 @@
     [ThemeResourceProvider configBackButtonDark:_returnButton];
     _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapEvent:)];
     [_scrollView addGestureRecognizer:_tapGestureRecognizer];
+    
+    _doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+    [_doubleTapGestureRecognizer setNumberOfTapsRequired:2];
+    [_scrollView addGestureRecognizer:_doubleTapGestureRecognizer];
+    
     _scrollView.delegate = self;
     _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
-    _scrollView.maximumZoomScale = 5.0;
+    _scrollView.maximumZoomScale = 3.0;
     _scrollView.minimumZoomScale = 0.5;
     _rotationGestureRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotationGesture:)];
     _rotationGestureRecognizer.delegate = self;
@@ -194,9 +199,9 @@
     _scrollView.contentSize = CGSizeMake([UIApplication screenWidth], [UIApplication screenHeight] - 20);
     _originScale = _scrollView.zoomScale;
     _scrollView.minimumZoomScale = _originScale;
-    _scrollView.maximumZoomScale = _originScale * 5.0;
+    _scrollView.maximumZoomScale = _originScale * 3.0;
     if (_scrollView.maximumZoomScale < 1.0) {
-        _scrollView.maximumZoomScale = 1.0;
+        _scrollView.maximumZoomScale = 2.0;
     }
 }
 
@@ -265,9 +270,9 @@
     _scrollView.contentSize = CGSizeMake(width, height - 20);
     _originScale = _scrollView.zoomScale;
     _scrollView.minimumZoomScale = _originScale;
-    _scrollView.maximumZoomScale = _originScale * 5.0;
+    _scrollView.maximumZoomScale = _originScale * 3.0;
     if (_scrollView.maximumZoomScale < 1.0) {
-        _scrollView.maximumZoomScale = 1.0;
+        _scrollView.maximumZoomScale = 2.0;
     }
     
     [_imageView resetSize:CGSizeMake(width, height)];
@@ -385,6 +390,16 @@
     }
 }
 
+- (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer {
+    
+    if(_scrollView.zoomScale > _scrollView.minimumZoomScale) {
+        [_scrollView setZoomScale:_scrollView.minimumZoomScale animated:YES];
+    } else {
+        CGRect zoomRect = [self zoomRectForScrollView:_scrollView withScale:_scrollView.maximumZoomScale withCenter:[gestureRecognizer locationInView:self.imageView]];
+        [_scrollView zoomToRect:zoomRect animated:YES];
+    }
+}
+
 #pragma mark - IBActions
 - (IBAction)didClickCommentButton:(UIButton *)sender
 {
@@ -479,6 +494,20 @@
     } else {
         [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"保存成功"];
     }
+}
+
+- (CGRect)zoomRectForScrollView:(UIScrollView *)scrollView withScale:(float)scale withCenter:(CGPoint)center
+{
+    CGRect zoomRect;
+    
+    zoomRect.size.height = scrollView.frame.size.height / scale;
+    zoomRect.size.width  = scrollView.frame.size.width  / scale;
+    
+    // choose an origin so as to get the right center.
+    zoomRect.origin.x = center.x - (zoomRect.size.width  / 2.0);
+    zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0);
+    
+    return zoomRect;
 }
 
 @end

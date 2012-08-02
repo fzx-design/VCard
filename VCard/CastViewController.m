@@ -972,6 +972,7 @@
         [NSNotificationCenter postDidReloadCardCellNotification];
         [NSUserDefaults setReloadingCardCellStatus:NO];
         [self refreshEnded];
+        [self.waterflowView checkContentEmpty];
         [_pullView finishedLoading];
         [_loadMoreView finishedLoading:_hasMoreViews];
         [_loadMoreView resetPosition];
