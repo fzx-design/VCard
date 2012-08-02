@@ -411,9 +411,9 @@ typedef enum {
     vc.view.alpha = 1;
     [vc.view resetOrigin:[self hintViewOriginWithType:HintViewTypeEmoticons]];
     //vc.view.tag = PostRootViewSubviewTagEmoticons;
-    [self checkCurrentHintViewFrame];
     [self.backgroundView addSubview:vc.view];
     self.currentHintView = (PostHintView *)vc.view;
+    [self checkCurrentHintViewFrame];
     self.emoticonsButton.selected = YES;
     self.textView.currentHintStringRange = NSMakeRange(self.textView.selectedRange.location, 0);
 }
