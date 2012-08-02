@@ -129,11 +129,11 @@ static UnreadReminder *sharedUnreadReminder;
             
             if (sharedUnreadReminder.currentUser.unreadMessageCount.integerValue != unreadMessageCount.integerValue) {
                 sharedUnreadReminder.currentUser.unreadMessageCount = unreadMessageCount;
+                _messageWaitingRound = 0;
             }
             
             _messageWaitingRound = unreadMessageCount.integerValue == 0 ? 0 : _messageWaitingRound + 1;
-            if(messageEnabled && _messageWaitingRound > 2) {
-                _messageWaitingRound = 0;
+            if(messageEnabled && _messageWaitingRound == 2) {
                 [self playSoundEffectWithUnreadCount:unreadMessageCount.integerValue];
                 [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMessageCount object:nil];
             }

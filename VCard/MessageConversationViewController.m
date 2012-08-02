@@ -60,8 +60,6 @@
 
     _sendButton.enabled = NO;
     
-    [self.conversationTableViewController initialLoadMessageData];
-    
     [NSNotificationCenter registerTimerFiredNotificationWithSelector:@selector(timerFired) target:self];
 }
 
@@ -128,6 +126,7 @@
 
 - (void)initialLoad
 {
+    [self.conversationTableViewController initialLoadMessageData];
 }
 
 #pragma mark - Notification

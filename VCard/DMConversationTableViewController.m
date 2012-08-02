@@ -154,6 +154,7 @@
     [self.managedObjectContext processPendingChanges];
     [self.fetchedResultsController performFetch:nil];
     [self scrollToBottom:YES];
+    [self finishedLoading];
     _lastMessageID = message.messageID;
 }
 
