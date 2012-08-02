@@ -14,6 +14,7 @@
 #import "NSUserDefaults+Addition.h"
 #import "UIView+Addition.h"
 #import "NSString+Addition.h"
+#import "InnerBrowserViewController.h"
 
 #define kReceivedOrigin         CGPointMake(20.0, 16.0)
 #define kSentOrigin             CGPointMake(12.0, 18.0)
@@ -90,6 +91,7 @@
         _textLabel = [[TTTAttributedLabel alloc] initWithFrame:frame];
         _textLabel.backgroundColor = [UIColor clearColor];
         _textLabel.displaySmallEmoticon = YES;
+        _textLabel.delegate = self;
         
         _timeStampLabel = [[UILabel alloc] initWithFrame:frame];
         _timeStampLabel.backgroundColor = [UIColor clearColor];
@@ -229,6 +231,34 @@
             [self.delegate shouldDeleteBubble];
         }
     }
+}
+
+#pragma mark - TTTAttributedLabel Delegate
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithPhoneNumber:(NSString *)userName
+{
+    [self sendUserNameClickedNotificationWithName:userName];
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithQuate:(NSString *)quate
+{
+    [self sendShowTopicNotification:quate];
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url
+{
+    [InnerBrowserViewController loadLinkWithURL:url];
+}
+
+- (void)sendUserNameClickedNotificationWithName:(NSString *)userName
+{
+    if (userName) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:@{kNotificationObjectKeyUserName: userName, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
+    }
+}
+
+- (void)sendShowTopicNotification:(NSString *)searchKey
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowTopic object:@{kNotificationObjectKeySearchKey: searchKey, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
 @end

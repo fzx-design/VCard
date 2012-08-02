@@ -23,7 +23,7 @@ typedef enum {
 
 @end
 
-@interface DMBubbleView : UIView <UIActionSheetDelegate>
+@interface DMBubbleView : UIView <UIActionSheetDelegate, TTTAttributedLabelDelegate>
 
 @property (nonatomic, strong) UIImageView               *backgroundImageView;
 @property (nonatomic, strong) UIImageView               *highlightCoverImageView;
@@ -32,6 +32,7 @@ typedef enum {
 @property (nonatomic, readonly) DMBubbleViewType        type;
 @property (nonatomic, weak) id<DMBubbleViewDelegate>    delegate;
 @property (nonatomic, copy) NSString                    *text;
+@property (nonatomic, unsafe_unretained) NSInteger      pageIndex;
 
 + (CGSize)sizeForText:(NSString *)text;
 - (void)resetWithText:(NSString *)text dateString:(NSString *)dateString type:(DMBubbleViewType)type;

@@ -352,8 +352,10 @@
         NSString *dateString = [[message createdAt] stringRepresentation];
         
         messageCell.index = indexPath.row;
-        messageCell.delegate = self;
         [messageCell resetWithText:message.text dateString:dateString type:type imageURL:_conversation.targetUserAvatarURL];
+        messageCell.delegate = self;
+        messageCell.pageIndex = self.pageIndex;
+        [messageCell setUp];
         
     } else {
         NSLog(@"Conversation List Core Data Error!");

@@ -267,6 +267,7 @@
         _conversationTableViewController.tableView.frame = [self frameForTableView];
         _conversationTableViewController.conversation = _conversation;
         _conversationTableViewController.firstLoad = YES;
+        _conversationTableViewController.pageIndex = self.pageIndex;
     }
     return _conversationTableViewController;
 }

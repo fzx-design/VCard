@@ -45,7 +45,6 @@
     }
     [_bubbleView resetWithText:text dateString:dateString type:type];
     [_bubbleView resetOriginX:originX];
-    _bubbleView.delegate = self;
 }
 
 - (void)setHighlighted:(BOOL)highlighted
@@ -55,6 +54,12 @@
     } else {
         [_bubbleView hideHighlight];
     }
+}
+
+- (void)setUp
+{
+    _bubbleView.pageIndex = self.pageIndex;
+    _bubbleView.delegate = self;
 }
 
 - (void)shouldDeleteBubble
