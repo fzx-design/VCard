@@ -55,7 +55,7 @@
 
 - (void)clearData
 {
-    
+     
 }
 
 - (void)loadMoreData
