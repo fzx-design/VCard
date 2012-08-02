@@ -39,8 +39,9 @@
     [super viewDidLoad];
     self.view.autoresizingMask = UIViewAutoresizingNone;
     self.coreDataIdentifier = self.description;
-    _loading = NO;
     self.hasMoreViews = YES;
+    self.isEmptyIndicatorForbidden = YES;
+    _loading = NO;
 }
 
 - (void)viewDidUnload
