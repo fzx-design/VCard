@@ -195,6 +195,7 @@
             NSNumber *weiboErrorCode = [client.responseError.userInfo objectForKey:@"error_code"];
             if(weiboErrorCode.intValue == 20506) {
                 user.following = @(YES);
+                button.enabled = NO;
             }
         }
     }];
