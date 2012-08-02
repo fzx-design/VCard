@@ -103,6 +103,9 @@
             
             if (self.fetchedResultsController.fetchedObjects.count > 0) {
                 if (_loadingMore) {
+                    if (prevFetchedCount == 0) {
+                        prevFetchedCount = 1;
+                    }
                     _targetIndexPath = [NSIndexPath indexPathForRow:self.fetchedResultsController.fetchedObjects.count - prevFetchedCount inSection:0];
                     [self.tableView scrollToRowAtIndexPath:_targetIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
                 } else {
