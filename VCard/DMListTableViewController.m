@@ -11,6 +11,7 @@
 #import "Conversation.h"
 #import "DirectMessage.h"
 #import "WBClient.h"
+#import "NSUserDefaults+Addition.h"
 
 @interface DMListTableViewController ()
 
@@ -45,7 +46,6 @@
 {
 	_nextCursor = 0;
 	[self loadMoreData];
-    [self resetUnreadMessageCount];
 }
 
 - (void)loadMore
@@ -83,6 +83,8 @@
             
             _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
             self.hasMoreViews = _nextCursor != 0;
+            
+            [self resetUnreadMessageCount];
         }
         
         [self adjustBackgroundView];
@@ -96,6 +98,7 @@
 
 - (void)resetUnreadMessageCount
 {
+    [NSUserDefaults setFetchedMessages:YES];
     WBClient *client = [WBClient client];
     
     [client setCompletionBlock:^(WBClient *client){

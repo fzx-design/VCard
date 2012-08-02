@@ -16,6 +16,7 @@
 #import "DMBubbleView.h"
 #import "TTTAttributedLabelConfiguer.h"
 #import "NSDate+Addition.h"
+#import "NSString+Addition.h"
 
 @interface DMConversationTableViewController ()
 
@@ -246,7 +247,7 @@
     int count = self.fetchedResultsController.fetchedObjects.count;
     if (count > 0) {
         DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count - 1];
-        self.conversation.latestMessageText = message.text;
+        self.conversation.latestMessageText = [message.text replaceRegExWithEmoticons];
     } else {
         self.conversation.latestMessageText = @"";
     }

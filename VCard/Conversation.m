@@ -10,6 +10,7 @@
 #import "DirectMessage.h"
 #import "User.h"
 #import "NSDate+Addition.h"
+#import "NSUserDefaults+Addition.h"
 
 @implementation Conversation
 
@@ -64,7 +65,7 @@
         NSString *dateString = [messageDict objectForKey:@"created_at"];
         result.updateDate = [NSDate dateFromStringRepresentation:dateString];
         NSString *text = [messageDict objectForKey:@"text"];
-        result.hasNew = @(![text isEqualToString:result.latestMessageText]);
+        result.hasNew = @(![text isEqualToString:result.latestMessageText] && [NSUserDefaults hasFetchedMessages]);
         result.latestMessageText = [messageDict objectForKey:@"text"];
     } else {
         NSLog(@"Conversation has no message %@", dict);

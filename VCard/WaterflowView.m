@@ -349,19 +349,6 @@
     
     int numberOfObjectsInSection = [self.flowdatasource numberOfObjectsInSection];
     
-    if (numberOfObjectsInSection == 0) {
-        if (self.contentEmptyIndicatorView.hidden) {
-            self.contentEmptyIndicatorView.hidden = NO;
-            [self.contentEmptyIndicatorView fadeIn];
-        }
-    } else {
-        if (!self.contentEmptyIndicatorView.hidden) {
-            [self.contentEmptyIndicatorView fadeOutWithCompletion:^{
-                self.contentEmptyIndicatorView.hidden = YES;
-            }];
-        }
-    }
-    
     for (  ; _curObjIndex < numberOfObjectsInSection; _curObjIndex++) {
         
         [self setBlockDivider:_curObjIndex];
@@ -412,6 +399,22 @@
         dividerUnitRight.lowerBound = dividerUnitRight.upperBound + BlockDividerHeight;
         dividerUnitRight.unitIndex = self.rightColumn.unitContainer.count;
         [self.rightColumn addObject:dividerUnitRight];
+    }
+}
+
+- (void)checkContentEmpty
+{
+    if ([self.flowdatasource numberOfObjectsInSection] == 0) {
+        if (self.contentEmptyIndicatorView.hidden) {
+            self.contentEmptyIndicatorView.hidden = NO;
+            [self.contentEmptyIndicatorView fadeIn];
+        }
+    } else {
+        if (!self.contentEmptyIndicatorView.hidden) {
+            [self.contentEmptyIndicatorView fadeOutWithCompletion:^{
+                self.contentEmptyIndicatorView.hidden = YES;
+            }];
+        }
     }
 }
 
