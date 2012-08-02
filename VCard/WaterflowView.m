@@ -173,10 +173,12 @@
     CGFloat height = [self heightOfWaterflowView];
     
     if (height < self.frame.size.height) {
-        height = self.frame.size.height + 1;
+        height = UIInterfaceOrientationIsPortrait(orientation) ? 962 : 706;
     }
-    
     self.contentSize = CGSizeMake(width, height);
+    
+    CGFloat emptyIndicatorOriginY = UIInterfaceOrientationIsPortrait(orientation) ? 200 : 100;
+    [self.contentEmptyIndicatorView resetOriginY:emptyIndicatorOriginY];
 }
 
 - (UIInterfaceOrientation)currentOrientation
@@ -759,9 +761,10 @@
     _titleLabel.hidden = YES;
     _infoBarShadowView.hidden = YES;
     
-    [self insertSubview:_infoBarView belowSubview:self.contentEmptyIndicatorView];
-    [self insertSubview:_titleLabel belowSubview:self.contentEmptyIndicatorView];
-    [self insertSubview:_returnButton belowSubview:self.contentEmptyIndicatorView];
+    [self insertSubview:_infoBarView atIndex:kWaterflowViewInfoBarViewIndex];
+    [self insertSubview:_titleLabel atIndex:kWaterflowViewInfoBarViewIndex];
+    [self insertSubview:_returnButton atIndex:kWaterflowViewInfoBarViewIndex];
+    [self insertSubview:_infoBarShadowView atIndex:kWaterflowViewInfoBarViewIndex];
 }
 
 - (void)showInfoBarWithTitleName:(NSString *)name

@@ -10,6 +10,7 @@
 #import "PullToRefreshView.h"
 #import "LoadMoreView.h"
 #import "BaseLayoutView.h"
+#import "EmptyIndicatorViewController.h"
 
 @class User;
 
@@ -19,7 +20,7 @@
 
 @end
 
-@interface RefreshableCoreDataTableViewController : CoreDataTableViewController <PullToRefreshViewDelegate, LoadMoreViewDelegate, UIScrollViewDelegate, UITableViewDelegate, CommentTableViewCellDelegate> {
+@interface RefreshableCoreDataTableViewController : CoreDataTableViewController <PullToRefreshViewDelegate, LoadMoreViewDelegate, UIScrollViewDelegate, UITableViewDelegate, CommentTableViewCellDelegate, EmptyIndicatorViewControllerDelegate> {
     
     PullToRefreshView *_pullView;
     LoadMoreView *_loadMoreView;
@@ -33,6 +34,8 @@
 @property (nonatomic, unsafe_unretained) int pageIndex;
 @property (nonatomic, unsafe_unretained) BOOL firstLoad;
 @property (nonatomic, unsafe_unretained) BOOL isBeingDisplayed;
+@property (nonatomic, unsafe_unretained) BOOL isEmptyIndicatorForbidden;
+@property (nonatomic, strong) EmptyIndicatorViewController *emptyIndicatorViewController;
 @property (nonatomic, strong) User *user;
 
 - (void)refresh;

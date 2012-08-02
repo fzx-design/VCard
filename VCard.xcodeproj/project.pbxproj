@@ -19,6 +19,7 @@
 		180B1E0515CA68AB005CCFA7 /* button_reload_flat.png in Resources */ = {isa = PBXBuildFile; fileRef = 180B1E0115CA68AB005CCFA7 /* button_reload_flat.png */; };
 		180B1E0615CA68AB005CCFA7 /* button_reload_flat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180B1E0215CA68AB005CCFA7 /* button_reload_flat@2x.png */; };
 		180B1E0715CA68AB005CCFA7 /* logo_v.png in Resources */ = {isa = PBXBuildFile; fileRef = 180B1E0315CA68AB005CCFA7 /* logo_v.png */; };
+		180B1E0B15CA7FB9005CCFA7 /* EmptyIndicatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B1E0A15CA7FB8005CCFA7 /* EmptyIndicatorViewController.m */; };
 		180E376C15B400CF00D36348 /* button_delete_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 180E376A15B400B700D36348 /* button_delete_black.png */; };
 		180E376D15B400CF00D36348 /* button_delete_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180E376B15B400C300D36348 /* button_delete_black@2x.png */; };
 		180E377A15B4230A00D36348 /* topic_food.png in Resources */ = {isa = PBXBuildFile; fileRef = 180E377415B4230A00D36348 /* topic_food.png */; };
@@ -1010,6 +1011,8 @@
 		180B1E0115CA68AB005CCFA7 /* button_reload_flat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_reload_flat.png; sourceTree = "<group>"; };
 		180B1E0215CA68AB005CCFA7 /* button_reload_flat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_reload_flat@2x.png"; sourceTree = "<group>"; };
 		180B1E0315CA68AB005CCFA7 /* logo_v.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_v.png; sourceTree = "<group>"; };
+		180B1E0915CA7FB8005CCFA7 /* EmptyIndicatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyIndicatorViewController.h; sourceTree = "<group>"; };
+		180B1E0A15CA7FB8005CCFA7 /* EmptyIndicatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyIndicatorViewController.m; sourceTree = "<group>"; };
 		180E376A15B400B700D36348 /* button_delete_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_delete_black.png; sourceTree = "<group>"; };
 		180E376B15B400C300D36348 /* button_delete_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_delete_black@2x.png"; sourceTree = "<group>"; };
 		180E377415B4230A00D36348 /* topic_food.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topic_food.png; sourceTree = "<group>"; };
@@ -2576,6 +2579,8 @@
 				18E4AE35157458F5009A701F /* RefreshableCoreDataTableViewController.m */,
 				18F1E4ED15760FA200EB71DD /* LoadMoreView.h */,
 				18F1E4EE15760FA200EB71DD /* LoadMoreView.m */,
+				180B1E0915CA7FB8005CCFA7 /* EmptyIndicatorViewController.h */,
+				180B1E0A15CA7FB8005CCFA7 /* EmptyIndicatorViewController.m */,
 			);
 			name = TableView;
 			sourceTree = "<group>";
@@ -4925,6 +4930,7 @@
 				183831A615C396DB00E129EF /* AFURLConnectionOperation.m in Sources */,
 				183831A715C396DB00E129EF /* AFXMLRequestOperation.m in Sources */,
 				183831A815C396DB00E129EF /* UIImageView+AFNetworking.m in Sources */,
+				180B1E0B15CA7FB9005CCFA7 /* EmptyIndicatorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

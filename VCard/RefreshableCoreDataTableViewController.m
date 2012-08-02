@@ -8,6 +8,7 @@
 
 #import "RefreshableCoreDataTableViewController.h"
 #import "UIView+Resize.h"
+#import "UIView+Addition.h"
 
 @interface RefreshableCoreDataTableViewController ()
 
@@ -274,6 +275,24 @@
     [_loadMoreView finishedLoading:self.hasMoreViews];
     _refreshing = NO;
     _loading = NO;
+    
+    if (!self.isEmptyIndicatorForbidden) {
+        [self checkContentEmpty];
+    }
+}
+
+- (void)checkContentEmpty
+{
+    if (self.fetchedResultsController.fetchedObjects.count == 0 ) {
+        self.emptyIndicatorViewController.view.hidden = NO;
+        [self.emptyIndicatorViewController.view fadeIn];
+    } else {
+        if (_emptyIndicatorViewController) {
+            [self.emptyIndicatorViewController.view fadeOutWithCompletion:^{
+                self.emptyIndicatorViewController.view.hidden = YES;
+            }];
+        }
+    }
 }
 
 #pragma mark - UIScrollView Delegate
@@ -305,10 +324,29 @@
     return _backgroundViewB;
 }
 
+- (EmptyIndicatorViewController *)emptyIndicatorViewController
+{
+    if (!_emptyIndicatorViewController) {
+        _emptyIndicatorViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EmptyIndicatorViewController"];
+        _emptyIndicatorViewController.delegate = self;
+        [_emptyIndicatorViewController.view resetOriginY:20];
+        [_emptyIndicatorViewController.view resetOriginX:0];
+        [self.tableView addSubview:_emptyIndicatorViewController.view];
+        _emptyIndicatorViewController.view.hidden = YES;
+    }
+    return _emptyIndicatorViewController;
+}
+
 #pragma mark - CommentTableViewCellDelegate
 - (void)commentTableViewCellDidComment
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldRefreshAfterPost object:nil];
+}
+
+#pragma mark - Empty Indicator View Controller Delegate
+- (void)didClickRefreshButton
+{
+    [self refresh];
 }
 
 @end

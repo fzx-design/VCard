@@ -40,9 +40,10 @@
     self.view.autoresizingMask = UIViewAutoresizingNone;
     self.coreDataIdentifier = self.description;
     _loading = NO;
-    self.hasMoreViews = YES;
     _sourceChanged = NO;
-    _filterByAuthor = NO;    
+    _filterByAuthor = NO;
+    self.hasMoreViews = YES;
+    self.isEmptyIndicatorForbidden = YES;
 }
 
 - (void)viewDidUnload
