@@ -115,6 +115,8 @@
                 DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count];
                 _lastMessageID = message.messageID;
                 self.conversation.empty = @(NO);
+            } else {
+                self.tableView.alpha = 1.0;
             }
             
             [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
