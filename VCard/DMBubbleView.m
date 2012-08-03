@@ -180,8 +180,10 @@
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gesture
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
-        [self showHighlight];
-        [self showActionSheet];
+        if (!_textLabel.linkCaptured) {
+            [self showHighlight];
+            [self showActionSheet];
+        }
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled || gesture.state ==UIGestureRecognizerStateFailed) {
         _readyForAction = NO;
     }
@@ -192,11 +194,7 @@
     _readyForAction = YES;
     _highlightCoverImageView.hidden = NO;
     _highlightCoverImageView.alpha = 0.0;
-    [_highlightCoverImageView fadeInWithCompletion:^{
-//        if (!_readyForAction) {
-//            [self hideHighlight];
-//        }
-    }];
+    [_highlightCoverImageView fadeIn];
 }
 
 - (void)hideHighlight
