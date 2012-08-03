@@ -114,6 +114,10 @@
     [self.waterflowView addSubview:_loadMoreView];
     [self.waterflowView setContentEmptyIndicatorView:_contentEmptyIndicatorView];
     
+    if ([NSUserDefaults getCurrentGroupIndex] != 0) {
+        [self.waterflowView showInfoBarWithTitleName:[NSUserDefaults getCurrentGroupTitle]];
+    }
+    
     [_loadMoreView resetLayoutTo:[UIApplication currentInterface]];
     [_pullView resetLayoutTo:[UIApplication currentInterface]];
     
@@ -266,7 +270,6 @@
     if ([NSUserDefaults getLoginUserArray].count > 1) {
         [self.changeAccountButton setImage:[UIImage imageNamed:@"topbar_change.png"] forState:UIControlStateNormal];
     }
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated

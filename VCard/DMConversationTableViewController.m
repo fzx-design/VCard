@@ -300,7 +300,7 @@
         [UIView animateWithDuration:0.3 animations:^{
             self.tableView.contentOffset = CGPointMake(0.0, originY);
         } completion:^(BOOL finished) {
-            [self adjustBackgroundView];
+            [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
         }];
     } else {
         self.tableView.contentOffset = CGPointMake(0.0, originY);

@@ -162,6 +162,8 @@
         [Group setUpDefaultGroupWithUserID:self.currentUser.userID defaultImageURL:self.currentUser.largeAvatarURL inManagedObjectContext:self.managedObjectContext];
         [self setUpViews];
         [NSUserDefaults setFetchedMessages:NO];
+        [NSUserDefaults setCurrentGroupTitle:@""];
+        [NSUserDefaults setCurrentGroupIndex:0];
         if (![[NSUserDefaults getLoginUserArray] containsObject:self.currentUser.userID]) {
             [self.castViewController clearData];
             [self.managedObjectContext processPendingChanges];

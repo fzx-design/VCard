@@ -141,6 +141,9 @@
     [drawerView showHighlightGlow];
     drawerView.enabled = NO;
     _currentDrawerView = drawerView;
+    
+    [NSUserDefaults setCurrentGroupIndex:0];
+    [NSUserDefaults setCurrentGroupTitle:@""];
 }
 
 #pragma mark - Group Infomation Behavior
@@ -439,7 +442,8 @@
     }
     
     if (_currentDrawerView == nil) {
-        _currentDrawerView = [_drawerViewArray objectAtIndex:0];
+        int currentGroupIndex = [NSUserDefaults getCurrentGroupIndex];
+        _currentDrawerView = [_drawerViewArray objectAtIndex:currentGroupIndex];
         [_currentDrawerView showHighlightGlow];
         _currentDrawerView.enabled = NO;
     } else {
@@ -505,6 +509,10 @@
                                                                 object:@{kNotificationObjectKeyDataSourceDescription: name,
                                                                         kNotificationObjectKeyDataSourceType: type,
                                                                         kNotificationObjectKeyDataSourceID: groupID}];
+            
+            [NSUserDefaults setCurrentGroupIndex:view.index];
+            [NSUserDefaults setCurrentGroupTitle:name];
+            
         } else {
             NSLog(@"Core Data TableView Controller Error - Shelf change source");
         }
