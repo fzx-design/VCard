@@ -207,6 +207,11 @@ typedef enum {
     CGFloat footerViewOriginY = self.view.frame.size.height - _keyboardHeight - footerViewHeight;
     CGFloat tableViewHeight = footerViewOriginY - self.conversationTableViewController.view.frame.origin.y + 1;
     [_footerView resetOriginY:footerViewOriginY];
+    [self adjustTableViewHeight:tableViewHeight];
+}
+
+- (void)adjustTableViewHeight:(CGFloat)tableViewHeight
+{
     CGFloat offset = tableViewHeight - self.conversationTableViewController.view.frame.size.height;
     if (offset < 0) {
         [UIView animateWithDuration:0.25 animations:^{
