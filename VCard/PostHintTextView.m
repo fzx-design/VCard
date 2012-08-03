@@ -99,6 +99,8 @@ static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
            || self.selectedRange.location > self.currentHintStringRange.location + self.currentHintStringRange.length) {
             [self callDismissHintView];
         }
+    } else {
+        [self callDismissHintView];
     }
 }
 

@@ -68,6 +68,7 @@ typedef enum {
     UIEdgeInsets inset = _textView.contentInset;
     inset.top = -2.0;
     _textView.contentInset = inset;
+    _textView.hintDelegate = self;
     
     _topCoverImageView.image = [[UIImage imageNamed:kRLCastViewBGUnit] resizableImageWithCapInsets:UIEdgeInsetsZero];
 
