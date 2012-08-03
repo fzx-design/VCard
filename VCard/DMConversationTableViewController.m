@@ -121,8 +121,6 @@
             
             [self resetLatestConversationMessageNeedReplace:YES];
             
-            [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
-            
             _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
             self.hasMoreViews = NO;
         } else {

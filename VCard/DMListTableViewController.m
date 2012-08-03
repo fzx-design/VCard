@@ -12,6 +12,7 @@
 #import "DirectMessage.h"
 #import "WBClient.h"
 #import "NSUserDefaults+Addition.h"
+#import "UIView+Addition.h"
 
 @interface DMListTableViewController ()
 
@@ -90,7 +91,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
         }
         
-        [self adjustBackgroundView];
+//        [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
         [self refreshEnded];
         [self finishedLoading];
         
@@ -145,7 +146,7 @@
     } else {
         NSLog(@"Conversation List Core Data Error!");
     }
-    [self adjustBackgroundView];
+//    [self adjustBackgroundView];
 }
 
 - (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
@@ -190,7 +191,7 @@
             _shouldReload = YES;
             break;
     }
-    [self adjustBackgroundView];
+//    [self adjustBackgroundView];
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
@@ -200,7 +201,7 @@
         self.shouldReload = NO;
         self.firstLoad = NO;
     }
-    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
+//    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.10];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -215,6 +216,7 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowConversation object:@{kNotificationObjectKeyConversation: conversation, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
+
 
 #pragma mark - UIScrollView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

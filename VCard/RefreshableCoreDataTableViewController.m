@@ -228,6 +228,11 @@
 }
 
 #pragma mark - Adjust Background View
+- (void)viewWillLayoutSubviews
+{
+    [self adjustBackgroundView];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self adjustBackgroundView];
