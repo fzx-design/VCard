@@ -9,6 +9,7 @@
 #import "RefreshableCoreDataTableViewController.h"
 #import "UIView+Resize.h"
 #import "UIView+Addition.h"
+#import "UIApplication+Addition.h"
 
 @interface RefreshableCoreDataTableViewController ()
 
@@ -217,7 +218,7 @@
 
 - (void)resetLayoutAfterRotating:(NSNotification *)notification
 {
-    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+    if ([UIApplication isCurrentOrientationLandscape]) {
         CGFloat height = 705.0 - self.view.frame.origin.y;
         [self.tableView resetHeight:height];
     } else {
@@ -230,6 +231,13 @@
 #pragma mark - Adjust Background View
 - (void)viewWillLayoutSubviews
 {
+    if ([UIApplication isCurrentOrientationLandscape]) {
+        CGFloat height = 705.0 - self.view.frame.origin.y;
+        [self.tableView resetHeight:height];
+    } else {
+        CGFloat height = 961.0 - self.view.frame.origin.y;
+        [self.tableView resetHeight:height];
+    }
     [self adjustBackgroundView];
 }
 

@@ -387,7 +387,7 @@
     } else {
         if ([self isSearchKeyEmpty]) {
             if (index < _searchUserHistoryList.count) {
-                [self showUserProfilePageWithKey:[_searchUserHistoryList objectAtIndex:index]];
+                [self addUserSearchPageWithSearchKey:[_searchUserHistoryList objectAtIndex:index]];
             } else {
                 [self clearHistoryList:_searchUserHistoryList];
                 [[NSUserDefaults standardUserDefaults] setObject:_searchUserHistoryList forKey:kUserDefaultKeySearchUserHistoryList];
