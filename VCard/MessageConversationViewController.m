@@ -305,11 +305,50 @@ typedef enum {
     NSString *text = _textView.text;
     [self dismissHintView];
     if (text && ![text isEqualToString:@""]) {
-//        while (text.length > 300) {
-//            
-//        }
-        [self sendMessage:text];
+        
+        NSArray *stringArray = [self messageContentArrayFromText:text];
+        
+        [stringArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [self performSelector:@selector(sendMessage:) withObject:obj afterDelay:1.0 * idx];
+        }];
+        
+        self.textView.text = @"";
     }
+}
+
+- (NSArray *)messageContentArrayFromText:(NSString*)text {
+    NSMutableArray *stringArray = [[NSMutableArray alloc] init];
+    
+    int stringLength = text.length;
+    int currentLength = 0;
+    int characterCount = 0;
+    int delta = 0;
+    int loc = 0;
+    unichar c;
+    
+    for(int i = 0; i < stringLength; i++) {
+        c = [text characterAtIndex:i];
+
+        delta = !isblank(c) && !isascii(c) ? 2 : 1;
+        
+        if (currentLength + delta > 300) {
+            NSRange range = NSMakeRange(loc, characterCount);
+            NSString *subString = [text substringWithRange:range];
+            [stringArray addObject:subString];
+            loc = i;
+            currentLength = delta;
+            characterCount = 0;
+        } else {
+            currentLength += delta;
+        }
+        characterCount++;
+    }
+    
+    NSRange range = NSMakeRange(loc, characterCount);
+    NSString *subString = [text substringWithRange:range];
+    [stringArray addObject:subString];
+    
+    return stringArray;
 }
 
 - (IBAction)didClickViewProfileButton:(UIButton *)sender
