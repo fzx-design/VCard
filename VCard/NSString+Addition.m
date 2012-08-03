@@ -9,7 +9,7 @@
 #import "NSString+Addition.h"
 #import "EmoticonsInfoReader.h"
 
-#define EMOTICONS_IDENTIFIER_REG_EX @" \\[[[a-f][0-9] ]*\\] "
+#define EMOTICONS_IDENTIFIER_REG_EX @"  \\[[[a-f][0-9] ]*\\]  "
 
 @implementation NSString (Addition)
 
@@ -33,7 +33,12 @@
     NSRange range = [returnString rangeOfString:EMOTICONS_IDENTIFIER_REG_EX options:NSRegularExpressionSearch];
     while(range.location != NSNotFound) {
         NSString *regString = [returnString substringWithRange:range];
-        EmoticonsInfo *info = [[EmoticonsInfoReader sharedReader] emoticonsInfoForIdentifier:regString];
+        NSString *identifier = nil;
+        if (regString.length > 2) {
+            NSRange identifierRange = NSMakeRange(1, regString.length - 2);
+            identifier = [regString substringWithRange:identifierRange];
+        }
+        EmoticonsInfo *info = [[EmoticonsInfoReader sharedReader] emoticonsInfoForIdentifier:identifier];
         if(info == nil)
             continue;
         

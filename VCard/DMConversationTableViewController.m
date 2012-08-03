@@ -154,10 +154,10 @@
 - (void)receivedNewMessage:(NSDictionary *)dict
 {
     DirectMessage *message = [DirectMessage insertMessage:dict withConversation:_conversation inManagedObjectContext:self.managedObjectContext];
+    [self adjustSingleMessageSize:message];
     [self.managedObjectContext processPendingChanges];
     [self.fetchedResultsController performFetch:nil];
-    [self resetLatestConversationMessageNeedReplace:NO];
-    [self adjustSingleMessageSize:message];
+    [self resetLatestConversationMessageNeedReplace:YES];
     [self scrollToBottom:YES];
     [self finishedLoading];
     _lastMessageID = message.messageID;
@@ -165,7 +165,7 @@
 
 - (void)getUnreadMessageThroughTimer
 {
-    if (self.currentUser.unreadMessageCount.intValue == 0 && self.isBeingDisplayed) {
+    if (self.currentUser.unreadMessageCount.intValue == 0 || !self.isBeingDisplayed) {
         return;
     }
     
@@ -191,13 +191,13 @@
             
             [weakSelf.managedObjectContext processPendingChanges];
             [weakSelf.fetchedResultsController performFetch:nil];
-            [weakSelf resetLatestConversationMessageNeedReplace:NO];
             
             [weakSelf adjustMessageSize];
             [weakSelf checkNewMessage];
             
             weakSelf.nextCursor = [[result objectForKey:@"next_cursor"] intValue];
             weakSelf.hasMoreViews = NO;
+            [weakSelf resetLatestConversationMessageNeedReplace:YES];
             
         }
         
@@ -240,7 +240,7 @@
         }
         self.conversation.latestMessageText = message.text;
     }
-    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
+    [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
 }
 
 - (void)resetLatestConversationMessageNeedReplace:(BOOL)needReplace

@@ -56,7 +56,10 @@
 
 - (void)timerFired
 {
-//    [self.listTableViewController refresh];
+    if (self.currentUser.unreadMessageCount.intValue == 0 || !self.listTableViewController.isBeingDisplayed) {
+        return;
+    }
+    [self.listTableViewController refresh];
 }
 
 #pragma mark - Properties
