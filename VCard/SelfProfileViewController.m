@@ -215,7 +215,7 @@ typedef enum {
         if (!userClient.hasError && weakSelf) {
             
             NSDictionary *userDict = client.responseJSONObject;
-            User *user = [User insertUser:userDict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+            User *user = [User insertUser:userDict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeCurrentUser];
             [NSNotificationCenter postChangeUserAvatarNotification];
             [weakSelf.avatarImageView loadImageWithoutFadeFromURL:user.largeAvatarURL completion:nil];
         } else {

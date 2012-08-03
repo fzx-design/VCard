@@ -53,11 +53,13 @@
 
 + (User *)getCurrentUserWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context;
 + (User *)insertCurrentUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context;
-+ (User *)insertUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
-+ (User *)userWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
++ (User *)insertUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object  operatableType:(int)type;
++ (User *)userWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object operatableType:(int)type;
 + (void)deleteFriendsOfUser:(User *)user InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteFollowersOfUser:(User *)user InManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteUsersInManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
++ (void)deleteRedundantUsersInManagedObjectContext:(NSManagedObjectContext *)context;
++ (void)deleteCommentRelatedUsersInManagedObjectContext:(NSManagedObjectContext *)context operatableType:(int)type;
 + (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context;
 - (BOOL)isEqualToUser:(User *)user;
 - (VerifiedType)verifiedTypeOfUser;

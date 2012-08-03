@@ -141,7 +141,7 @@
                 } else {
                     NSArray *dictArray = [result objectForKey:@"reposts"];
                     for (NSDictionary *dict in dictArray) {
-                        Status *status = [Status insertStatus:dict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:weakSelf.coreDataIdentifier];
+                        Status *status = [Status insertStatus:dict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:weakSelf.coreDataIdentifier operatableType:kOperatableTypeNone];
                         status.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:status.text];
                         status.cardSizeCardHeight = @([CardViewController heightForTextContent:status.text]);
                         [weakSelf.status addRepostedByObject:status];

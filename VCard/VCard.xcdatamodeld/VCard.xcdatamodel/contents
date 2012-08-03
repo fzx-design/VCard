@@ -12,7 +12,7 @@
         </attribute>
         <attribute name="currentUserID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mentioningMe" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="operatable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="operatable" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="operatedBy" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="source" optional="YES" attributeType="String">
             <userInfo/>
@@ -97,7 +97,7 @@
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lon" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="mediaLink" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="operatable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="operatable" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="operatedBy" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="originalPicURL" optional="YES" attributeType="String">
             <userInfo/>
@@ -174,7 +174,7 @@
         <attribute name="location" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
-        <attribute name="operatable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="operatable" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="operatedBy" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="profileImageURL" optional="YES" attributeType="String">
             <userInfo/>

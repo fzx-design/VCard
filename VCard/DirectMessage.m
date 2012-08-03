@@ -60,14 +60,14 @@
     
     NSDictionary *senderDict = [dict objectForKey:@"sender"];
     if ([senderDict isKindOfClass:[NSDictionary class]] && senderDict > 0) {
-        User *sender = [User insertUser:senderDict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierDefault];
+        User *sender = [User insertUser:senderDict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeMessage];
         result.senderID = sender.userID;
         result.senderScreenName = sender.screenName;
     }
     
     NSDictionary *recipientDict = [dict objectForKey:@"recipient"];
     if ([recipientDict isKindOfClass:[NSDictionary class]] && recipientDict > 0) {
-        User *recipient = [User insertUser:recipientDict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierDefault];
+        User *recipient = [User insertUser:recipientDict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeMessage];
         result.recipientID = recipient.userID;
         result.recipientScreenName = recipient.screenName;
     }

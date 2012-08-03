@@ -102,7 +102,7 @@
     }
     
     if([info.itemTitle isEqualToString:kTeamMemberCell]) {
-        User *user = [User userWithID:info.nibFileName inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+        User *user = [User userWithID:info.nibFileName inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeCurrentUser];
         if(user) {
             settingCell.textLabel.text = user.screenName;
             UIImage *avatarImage = [self avatarImageForUser:user];
@@ -120,7 +120,7 @@
             WBClient *client = [WBClient client];
             [client setCompletionBlock:^(WBClient *client) {
                 NSDictionary *userDict = client.responseJSONObject;
-                [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+                [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeCurrentUser];
                 [self.tableView reloadData];
             }];
             [client getUser:info.nibFileName];
@@ -181,7 +181,7 @@
     
     NSArray *sectionInfoArray = [self.dataSourceDictionary objectForKey:[self.dataSourceIndexArray objectAtIndex:indexPath.section]];
     SettingInfo *info = [sectionInfoArray objectAtIndex:indexPath.row];
-    User *user = [User userWithID:info.nibFileName inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+    User *user = [User userWithID:info.nibFileName inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeCurrentUser];
     
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {

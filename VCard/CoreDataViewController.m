@@ -131,7 +131,7 @@ static CoreDataKernal *kernalInstance = nil;
         [client setCompletionBlock:^(WBClient *client) {
             NSDictionary *userDict = client.responseJSONObject;
             AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-            [User insertUser:userDict inManagedObjectContext:delegate.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+            [User insertUser:userDict inManagedObjectContext:delegate.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeCurrentUser];
         }];
         [client getUser:teamMemberID];
     }

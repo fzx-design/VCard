@@ -44,7 +44,7 @@
     
     NSDictionary *userDict = [dict objectForKey:@"user"];
     if ([userDict isKindOfClass:[NSDictionary class]] && userDict.count > 0) {
-        targetUser = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierDefault];
+        targetUser = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeMessage];
     } else {
         NSLog(@"Conversation error: %@", dict);
         return nil;

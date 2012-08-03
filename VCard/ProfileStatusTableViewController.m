@@ -113,7 +113,7 @@
             
             for (NSDictionary *dict in dictArray) {
                 Status *newStatus = nil;
-                newStatus = [Status insertStatus:dict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:weakSelf.coreDataIdentifier];
+                newStatus = [Status insertStatus:dict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:weakSelf.coreDataIdentifier operatableType:kOperatableTypeNone];
                                 
                 if (newStatus.cardSizeCardHeight.floatValue == 0.0) {
                     CGFloat imageHeight = [weakSelf randomImageHeight];

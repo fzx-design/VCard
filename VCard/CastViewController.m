@@ -910,6 +910,7 @@
     for (Status *status in self.fetchedResultsController.fetchedObjects) {
         [self.managedObjectContext deleteObject:status];
     }
+    [User deleteRedundantUsersInManagedObjectContext:self.managedObjectContext];
 }
 
 - (void)loadMoreData
@@ -938,7 +939,7 @@
                 }
                 
                 Status *newStatus = nil;
-                newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+                newStatus = [Status insertStatus:dict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeDefault];
                 newStatus.forCastView = @(YES);
                 
                 CGFloat imageHeight = [self randomImageHeight];
@@ -1123,8 +1124,8 @@
 //        NSLog(@"Undeletable user %d", [User getUndeletableUserCount:self.managedObjectContext].count);
 //        NSLog(@"Undeletable status %d", [Status getUndeletableStatusCount:self.managedObjectContext].count);
         
-        [User deleteAllTempUsersInManagedObjectContext:self.managedObjectContext];
         [Comment deleteAllTempCommentsInManagedObjectContext:self.managedObjectContext];
+        [User deleteAllTempUsersInManagedObjectContext:self.managedObjectContext];
         [Status deleteAllTempStatusesInManagedObjectContext:self.managedObjectContext];
         [Conversation deleteEmptyConversationsOfUser:self.currentUser.userID managedObjectContext:self.managedObjectContext];
         [self.managedObjectContext processPendingChanges];

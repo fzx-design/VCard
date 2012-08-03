@@ -137,6 +137,15 @@
 #define kOrientationLandscape                           @"kOrientationLandscape"
 
 #define kCoreDataIdentifierDefault                      @"kCoreDataIdentifierDefault"
+#define kCoreDataIdentifierComment                      @"kCoreDataIdentifierComment"
+
+#define kOperatableTypeCurrentUser                      100
+#define kOperatableTypeDefault                          0
+#define kOperatableTypeNone                             1
+#define kOperatableTypeCommentToMe                      2
+#define kOperatableTypeCommentByMe                      3
+#define kOperatableTypeCommentMentioningMe              4
+#define kOperatableTypeMessage                          5
 
 #define BlockWeakObject(o) __unsafe_unretained typeof(o)
 #define BlockWeakSelf BlockWeakObject(self)

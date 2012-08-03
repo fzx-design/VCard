@@ -432,7 +432,9 @@
                     self.status.location = locationString;
                     [self showLocationInfo];
                 } else {
-                    Status *status = [Status statusWithID:client.statusID inManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
+                    int opertableType = [self.coreDataIdentifier isEqualToString:kCoreDataIdentifierDefault] ? kOperatableTypeDefault : kOperatableTypeNone;
+                    
+                    Status *status = [Status statusWithID:client.statusID inManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier operatableType:opertableType];
                     status.location = locationString;
                 }
             }
@@ -465,7 +467,12 @@
                     
                     int type = [[dict objectForKey:@"type"] intValue];
                     NSString *urlLong = [dict objectForKey:@"url_long"];
-                    Status *status = [Status statusWithID:client.statusID inManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
+                    
+                    int opertableType = [self.coreDataIdentifier isEqualToString:kCoreDataIdentifierDefault] ? kOperatableTypeDefault : kOperatableTypeNone;
+                    Status *status = [Status statusWithID:client.statusID
+                                   inManagedObjectContext:self.managedObjectContext
+                                      withOperatingObject:self.coreDataIdentifier
+                                           operatableType:opertableType];
                     
                     if ([status.type isEqualToString:kStatusTypeMedia] || [status.type isEqualToString:kStatusTypeVote]) {
                         return ;

@@ -57,19 +57,19 @@
 
 + (User *)insertCurrentUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    User *user = [User configureBasicUserInfoWithDict:dict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierDefault];
+    User *user = [User configureBasicUserInfoWithDict:dict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeCurrentUser];
     user.currentUserID = user.userID;
     return user;
 }
 
-+ (User *)insertUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
++ (User *)insertUser:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object operatableType:(int)type
 {
-    User *user = [User configureBasicUserInfoWithDict:dict inManagedObjectContext:context withOperatingObject:object];
+    User *user = [User configureBasicUserInfoWithDict:dict inManagedObjectContext:context withOperatingObject:object operatableType:type];
     user.currentUserID = [CoreDataViewController getCurrentUser].userID;
     return user;
 }
 
-+ (User *)configureBasicUserInfoWithDict:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
++ (User *)configureBasicUserInfoWithDict:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object operatableType:(int)type
 {
     NSString *userID = [[dict objectForKey:@"id"] stringValue];
     
@@ -77,7 +77,7 @@
         return nil;
     }
     
-    User *result = [User userWithID:userID inManagedObjectContext:context withOperatingObject:object];
+    User *result = [User userWithID:userID inManagedObjectContext:context withOperatingObject:object operatableType:type];
     if (!result) {
         result = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:context];
     } else {
@@ -88,7 +88,8 @@
     
     result.userID = userID;
     result.screenName = [dict objectForKey:@"screen_name"];
-    result.operatable = [NSNumber numberWithBool:![(NSString *)object isEqualToString:kCoreDataIdentifierDefault]];
+    
+    result.operatable = @(type);
     result.operatedBy = object;
     
     NSString *dateString = [dict objectForKey:@"created_at"];
@@ -132,13 +133,13 @@
     return res;
 }
 
-+ (User *)userWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
++ (User *)userWithID:(NSString *)userID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object operatableType:(int)type
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"userID == %@ && operatedBy == %@ && currentUserID == %@", userID, object, currentUserID]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"userID == %@ && operatedBy == %@ && currentUserID == %@ && operatable == %@", userID, object, currentUserID, @(type)]];
     
     NSArray *items = [context executeFetchRequest:request error:NULL];
     User *res = [items lastObject];
@@ -204,17 +205,51 @@
     }
 }
 
++ (void)deleteRedundantUsersInManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
+    [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"currentUserID == %@ && userID != %@ && operatable == %@", currentUserID, currentUserID, @(kOperatableTypeDefault)]];
+	NSArray *items = [context executeFetchRequest:request error:NULL];
+    
+    for (User *user in items) {
+        NSLog(@"cast view delete: %@", user.screenName);
+        [context deletedObjects];
+    }
+}
+
++ (void)deleteCommentRelatedUsersInManagedObjectContext:(NSManagedObjectContext *)context operatableType:(int)type
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
+    [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"currentUserID == %@ && userID != %@ && operatable == %@", currentUserID, currentUserID, @(type)]];
+	NSArray *items = [context executeFetchRequest:request error:NULL];
+    
+    for (User *user in items) {
+        NSLog(@"comment type: %@ delete: %@", user.operatable, user.screenName);
+        [context deleteObject:user];
+    }
+    items = nil;
+}
+
 + (void)deleteAllTempUsersInManagedObjectContext:(NSManagedObjectContext *)context
 {
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@ && currentUserID == %@", @(YES), currentUserID]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@ && currentUserID == %@", @(kOperatableTypeNone), currentUserID]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
-    for (NSManagedObject *managedObject in items) {
-        [context deleteObject:managedObject];
+    NSLog(@"stack delete %d users", items.count);
+    
+    for (User *user in items) {
+        NSLog(@"stack delete %@", user.screenName);
+        [context deleteObject:user];
     }
 }
 
@@ -245,7 +280,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", @(YES)]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", @(kOperatableTypeNone)]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     return items;
@@ -256,7 +291,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@", @(NO)]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable != %@", @(kOperatableTypeNone)]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     return items;

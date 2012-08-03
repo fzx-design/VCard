@@ -60,8 +60,8 @@
 @property (nonatomic, retain) Status *repostStatus;
 
 - (BOOL)isEqualToStatus:(Status *)status;
-+ (Status *)insertStatus:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
-+ (Status *)statusWithID:(NSString *)statudID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
++ (Status *)insertStatus:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object operatableType:(int)type;
++ (Status *)statusWithID:(NSString *)statudID inManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object operatableType:(int)type;
 + (void)deleteAllObjectsFetchedByUser:(NSString *)currentUserID InManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteRepostsOfStatus:(Status *)status ManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteAllTempStatusesInManagedObjectContext:(NSManagedObjectContext *)context;

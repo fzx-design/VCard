@@ -103,7 +103,7 @@
                 }
                 
                 for (NSDictionary *dict in dictArray) {
-                    User *usr = [User insertUser:dict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:weakSelf.coreDataIdentifier];
+                    User *usr = [User insertUser:dict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:weakSelf.coreDataIdentifier operatableType:kOperatableTypeNone];
                     if (weakSelf.type == RelationshipViewTypeSelfFollowers || weakSelf.type == RelationshipViewTypeUserFollowers) {
                         [weakSelf.user addFollowersObject:usr];
                     } else if(weakSelf.type == RelationshipViewTypeSelfFriends || weakSelf.type == RelationshipViewTypeUserFriends) {

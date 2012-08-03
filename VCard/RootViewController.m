@@ -60,7 +60,7 @@
     [userClient setCompletionBlock:^(WBClient *client) {
         if (!userClient.hasError) {
             NSDictionary *userDict = client.responseJSONObject;
-            [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault];
+            [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeCurrentUser];
             [NSNotificationCenter postChangeUserAvatarNotification];
         }
     }];

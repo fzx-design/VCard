@@ -34,16 +34,17 @@
 
 + (Comment *)insertCommentByMe:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    Comment *result = [Comment configureCommentBasicInfoWithDict:dict managedContext:context];
+    Comment *result = [Comment configureCommentBasicInfoWithDict:dict managedContext:context operatableType:kOperatableTypeCommentByMe];
     
 	result.byMe = @(YES);
+    result.operatable = @(kOperatableTypeCommentByMe);
     
     return result;
 }
 
 + (Comment *)insertCommentToMe:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    Comment *result = [Comment configureCommentBasicInfoWithDict:dict managedContext:context];
+    Comment *result = [Comment configureCommentBasicInfoWithDict:dict managedContext:context operatableType:kOperatableTypeCommentToMe];
     
 	result.toMe = @(YES);
     
@@ -52,14 +53,14 @@
 
 + (Comment *)insertCommentMentioningMe:(NSDictionary *)dict inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    Comment *result = [Comment configureCommentBasicInfoWithDict:dict managedContext:context];
+    Comment *result = [Comment configureCommentBasicInfoWithDict:dict managedContext:context operatableType:kOperatableTypeCommentMentioningMe];
     
 	result.mentioningMe = @(YES);
     
     return result;
 }
 
-+ (Comment *)configureCommentBasicInfoWithDict:(NSDictionary *)dict managedContext:(NSManagedObjectContext *)context
++ (Comment *)configureCommentBasicInfoWithDict:(NSDictionary *)dict managedContext:(NSManagedObjectContext *)context operatableType:(int)type
 {
     NSString *commentID = [[dict objectForKey:@"id"] stringValue];
     
@@ -73,8 +74,8 @@
     }
     result.commentID = [[dict objectForKey:@"id"] stringValue];
     result.currentUserID = [CoreDataViewController getCurrentUser].userID;
+    result.operatable = @(type);
     result.operatedBy = kCoreDataIdentifierDefault;
-    result.operatable = @(NO);
     result.updateDate = [NSDate date];
     
     NSString *dateString = [dict objectForKey:@"created_at"];
@@ -83,8 +84,7 @@
     
     NSDictionary *statusDict = [dict objectForKey:@"status"];
     if ([statusDict isKindOfClass:[NSDictionary class]] && statusDict.count > 0) {
-        result.targetStatus = [Status insertStatus:statusDict inManagedObjectContext:context withOperatingObject:result.operatedBy];
-        //        result.targetStatus.operatable = [NSNumber numberWithBool:YES];
+        result.targetStatus = [Status insertStatus:statusDict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierComment operatableType:type];
         result.targetUser = result.targetStatus.author;
     } else {
         NSLog(@"%@", dict);
@@ -92,7 +92,7 @@
     
     NSDictionary *userDict = [dict objectForKey:@"user"];
     if ([userDict isKindOfClass:[NSDictionary class]] && userDict.count > 0) {
-        result.author = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:result.operatedBy];
+        result.author = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierComment operatableType:type];
     } else {
         NSLog(@"%@", dict);
     }
@@ -116,7 +116,7 @@
     result.commentID = commentID;
     result.currentUserID = [CoreDataViewController getCurrentUser].userID;
     result.operatedBy = object;
-    result.operatable = @(YES);
+    result.operatable = @(kOperatableTypeNone);
     
     result.updateDate = [NSDate date];
     
@@ -128,7 +128,7 @@
     NSDictionary *statusDict = [dict objectForKey:@"status"];
     
     if ([statusDict isKindOfClass:[NSDictionary class]] && statusDict.count > 0) {
-        result.targetStatus = [Status insertStatus:statusDict inManagedObjectContext:context withOperatingObject:result.operatedBy];
+        result.targetStatus = [Status insertStatus:statusDict inManagedObjectContext:context withOperatingObject:result.operatedBy operatableType:kOperatableTypeNone];
         result.targetUser = result.targetStatus.author;
     } else {
         NSLog(@"%@", dict);
@@ -137,7 +137,7 @@
     NSDictionary *userDict = [dict objectForKey:@"user"];
     
     if ([userDict isKindOfClass:[NSDictionary class]] && userDict.count > 0) {
-        result.author = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:object];
+        result.author = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:object operatableType:kOperatableTypeNone];
     } else {
         NSLog(@"%@", dict);
     }
@@ -171,6 +171,8 @@
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
     }
+    
+    [User deleteCommentRelatedUsersInManagedObjectContext:context operatableType:kOperatableTypeCommentToMe];
 }
 
 + (void)deleteCommentsByMeInManagedObjectContext:(NSManagedObjectContext *)context
@@ -185,6 +187,8 @@
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
     }
+    
+    [User deleteCommentRelatedUsersInManagedObjectContext:context operatableType:kOperatableTypeCommentByMe];
 }
 
 + (void)deleteCommentsMentioningMeInManagedObjectContext:(NSManagedObjectContext *)context
@@ -199,6 +203,8 @@
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
     }
+    
+    [User deleteCommentRelatedUsersInManagedObjectContext:context operatableType:kOperatableTypeCommentMentioningMe];
 }
 
 + (void)deleteCommentsOfStatus:(Status *)status ManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object
@@ -229,9 +235,10 @@
     
     NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [request setEntity:[NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@ && currentUserID == %@", @(YES), currentUserID]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@ && currentUserID == %@", @(kOperatableTypeNone), currentUserID]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
+    NSLog(@"stack delete %d comments", items.count);
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
     }
@@ -243,7 +250,7 @@
     
     NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [request setEntity:[NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@ && currentUserID == %@", @(YES), currentUserID]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"currentUserID == %@", currentUserID]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     for (NSManagedObject *managedObject in items) {
