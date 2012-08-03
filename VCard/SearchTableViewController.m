@@ -375,6 +375,8 @@
                 [self addTopicPageWithSearchKey:[_searchStatusHistoryList objectAtIndex:index]];
             } else {
                 [self clearHistoryList:_searchStatusHistoryList];
+                [[NSUserDefaults standardUserDefaults] setObject:_searchStatusHistoryList forKey:kUserDefaultKeySearchStatusHistoryList];
+                [[NSUserDefaults standardUserDefaults] synchronize];
                 shouldResign = NO;
             }
         } else {
@@ -388,6 +390,8 @@
                 [self showUserProfilePageWithKey:[_searchUserHistoryList objectAtIndex:index]];
             } else {
                 [self clearHistoryList:_searchUserHistoryList];
+                [[NSUserDefaults standardUserDefaults] setObject:_searchUserHistoryList forKey:kUserDefaultKeySearchUserHistoryList];
+                [[NSUserDefaults standardUserDefaults] synchronize];
                 shouldResign = NO;
             }
         } else {
@@ -417,6 +421,7 @@
 {
     [array removeAllObjects];
     [self reloadTableViewSection:0 withAnimation:UITableViewRowAnimationAutomatic];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)search
