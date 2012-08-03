@@ -557,7 +557,7 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     CGContextAddArcToPoint(context, maxx, maxy, midx, maxy, radius);
     CGContextAddArcToPoint(context, minx, maxy, minx, midy, radius);
     CGContextClosePath(context);
-    CGContextDrawPath(context, kCGPathFillStroke);
+    CGContextDrawPath(context, kCGPathFill);
 }
 
 - (void)drawEmoticons:(CTFrameRef)frame inRect:(CGRect)rect context:(CGContextRef)c
