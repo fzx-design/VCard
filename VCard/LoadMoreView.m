@@ -45,14 +45,6 @@
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(resetLayoutToOrientation:)
-//                                                 name:kNotificationNameOrientationWillChange
-//                                               object:nil];
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -70,6 +62,7 @@
 
 - (void)resetPosition
 {
+    self.alpha = 1.0;
     if (_state == LoadMoreViewStateHidden) {
         [self stopLoadingAnimation];
     } else {

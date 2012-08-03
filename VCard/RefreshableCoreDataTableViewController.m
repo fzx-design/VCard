@@ -274,11 +274,11 @@
 
 - (void)finishedLoading
 {
-    [_pullView finishedLoading];
-    [_loadMoreView finishedLoading:self.hasMoreViews];
     _refreshing = NO;
     _loading = NO;
-    [self adjustBackgroundView];
+    [_pullView finishedLoading];
+    [_loadMoreView finishedLoading:self.hasMoreViews];
+    _loadMoreView.alpha = 0.0;
     
     if (!self.isEmptyIndicatorForbidden) {
         [self checkContentEmpty];
