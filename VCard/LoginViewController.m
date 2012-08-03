@@ -15,6 +15,10 @@
 #import "LoginInputCellViewController.h"
 #import "LoginUserCellViewController.h"
 #import "InnerBrowserViewController.h"
+#import "Status.h"
+#import "Comment.h"
+#import "Conversation.h"
+#import "Group.h"
 
 #define kSinaWeiboRegisterURL @"http://weibo.com/signup/signup.php?ps=u3&lang=zh-cn"
 
@@ -275,6 +279,14 @@
         else
             [userIDArray addObject:user.userID];
     }];
+    
+    NSString *userID = oldUser.userID;
+    
+    [User deleteAllObjectsOfUser:userID InManagedObjectContext:self.managedObjectContext];
+    [Status deleteAllObjectsFetchedByUser:userID InManagedObjectContext:self.managedObjectContext];
+    [Comment deleteAllCommentsFetchedByCurrentUser:userID inManagedObjectContext:self.managedObjectContext];
+    [Conversation deleteAllConversationsOfUser:userID managedObjectContext:self.managedObjectContext];
+    [Group deleteAllGroupsOfUser:userID inManagedObjectContext:self.managedObjectContext];
     
     if(index != NSUIntegerMax) {
         [self.loginUserInfoArray removeObjectAtIndex:index];

@@ -30,6 +30,7 @@
                                            targetUser:(User *)targetUser
                                inManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteEmptyConversationsOfUser:(NSString *)currentUserID managedObjectContext:(NSManagedObjectContext *)context;
++ (void)deleteAllConversationsOfUser:(NSString *)currentUserID managedObjectContext:(NSManagedObjectContext *)context;
 
 @end
 

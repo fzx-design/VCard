@@ -60,7 +60,7 @@
 + (void)deleteUsersInManagedObjectContext:(NSManagedObjectContext *)context withOperatingObject:(id)object;
 + (void)deleteRedundantUsersInManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)deleteCommentRelatedUsersInManagedObjectContext:(NSManagedObjectContext *)context operatableType:(int)type;
-+ (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context;
++ (void)deleteAllObjectsOfUser:(NSString *)currentUserID InManagedObjectContext:(NSManagedObjectContext *)context;
 - (BOOL)isEqualToUser:(User *)user;
 - (VerifiedType)verifiedTypeOfUser;
 

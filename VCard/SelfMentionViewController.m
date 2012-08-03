@@ -32,6 +32,7 @@
         [self didClickCheckCommentButton:nil];
         [self.commentTableViewController refresh];
     }
+    [self.commentTableViewController initialLoad];
 }
 
 - (void)viewDidLoad

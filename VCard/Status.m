@@ -158,6 +158,8 @@
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
     
+    NSLog(@"Log out user deleting %d statuses", items.count);
+    
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
     }

@@ -105,13 +105,23 @@
         }
     }
     items = nil;
+}
+
++ (void)deleteAllConversationsOfUser:(NSString *)currentUserID managedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
-//    NSFetchRequest *requestMessage = [[NSFetchRequest alloc] init];
-//    [requestMessage setEntity:[NSEntityDescription entityForName:@"DirectMessage" inManagedObjectContext:context]];
-//    items = [context executeFetchRequest:requestMessage error:NULL];
-//    for (NSManagedObject *object in items) {
-//        [context deleteObject:object];
-//    }
+    [request setEntity:[NSEntityDescription entityForName:@"Conversation" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"currentUserID == %@", currentUserID]];
+    
+    NSArray *items = [context executeFetchRequest:request error:NULL];
+    
+    NSLog(@"Log out user deleting %d conversations", items.count);
+    
+    for (Conversation *object in items) {
+        [context deleteObject:object];
+    }
+    items = nil;
 }
 
 @end

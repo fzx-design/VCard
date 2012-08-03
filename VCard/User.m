@@ -190,11 +190,10 @@
     }
 }
 
-+ (void)deleteAllObjectsInManagedObjectContext:(NSManagedObjectContext *)context
++ (void)deleteAllObjectsOfUser:(NSString *)currentUserID InManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
-    NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:context]];
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"currentUserID == %@", currentUserID]];
     
@@ -203,6 +202,8 @@
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
     }
+    
+    NSLog(@"Log out user deleting %d users", items.count);
 }
 
 + (void)deleteRedundantUsersInManagedObjectContext:(NSManagedObjectContext *)context

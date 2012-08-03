@@ -248,10 +248,11 @@
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
-    NSString *currentUserID = [CoreDataViewController getCurrentUser].userID;
     [request setEntity:[NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"currentUserID == %@", currentUserID]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"currentUserID == %@", userID]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
+    
+    NSLog(@"Log out user deleting %d comments", items.count);
     
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
