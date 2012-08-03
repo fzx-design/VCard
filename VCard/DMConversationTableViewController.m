@@ -130,8 +130,11 @@
         
         if (self.firstLoad) {
             self.firstLoad = NO;
+            [self adjustBackgroundView];
             [UIView animateWithDuration:0.2 animations:^{
                 self.tableView.alpha = 1.0;
+            } completion:^(BOOL finished) {
+                [self adjustBackgroundView];
             }];
         }
         
@@ -300,7 +303,7 @@
         [UIView animateWithDuration:0.3 animations:^{
             self.tableView.contentOffset = CGPointMake(0.0, originY);
         } completion:^(BOOL finished) {
-            [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.05];
+            [self adjustBackgroundView];
         }];
     } else {
         self.tableView.contentOffset = CGPointMake(0.0, originY);
@@ -310,6 +313,11 @@
 #pragma mark - Core Data Table View Method
 
 - (void)viewWillLayoutSubviews
+{
+    [self adjustBackgroundView];
+}
+
+- (void)viewDidLayoutSubviews
 {
     [self adjustBackgroundView];
 }

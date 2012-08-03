@@ -241,6 +241,11 @@
     [self adjustBackgroundView];
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [self adjustBackgroundView];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self adjustBackgroundView];
