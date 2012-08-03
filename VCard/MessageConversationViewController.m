@@ -83,7 +83,7 @@ typedef enum {
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self layoutFooterViewWithKeyboardHeight:_keyboardHeight footerViewHeight:_footerView.frame.size.height];
+    [self layoutFooterViewWithKeyboardHeight:_keyboardHeight];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -143,17 +143,18 @@ typedef enum {
         [self.textView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.1];
     }
     [self.conversationTableViewController initialLoadMessageData];
+    [self layoutFooterViewWithKeyboardHeight:0];
 }
 
 #pragma mark - Notification
 - (void)resetLayoutBeforeRotating:(NSNotification *)notification
 {
-    [self layoutFooterViewWithKeyboardHeight:_keyboardHeight footerViewHeight:_footerView.frame.size.height];
+    [self layoutFooterViewWithKeyboardHeight:_keyboardHeight];
 }
 
 - (void)resetLayoutAfterRotating:(NSNotification *)notification
 {
-    [self layoutFooterViewWithKeyboardHeight:_keyboardHeight footerViewHeight:_footerView.frame.size.height];
+    [self layoutFooterViewWithKeyboardHeight:_keyboardHeight];
 }
 
 #pragma mark Text View
@@ -171,14 +172,14 @@ typedef enum {
     }
     
     [UIView animateWithDuration:0.25f animations:^{
-        [self layoutFooterViewWithKeyboardHeight:_keyboardHeight footerViewHeight:_footerView.frame.size.height];
+        [self layoutFooterViewWithKeyboardHeight:_keyboardHeight];
     }];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     _keyboardHeight = 0;
     [UIView animateWithDuration:0.25f animations:^{
-        [self layoutFooterViewWithKeyboardHeight:0 footerViewHeight:_footerView.frame.size.height];
+        [self layoutFooterViewWithKeyboardHeight:0];
     }];
     
     [self dismissHintView];
@@ -204,12 +205,12 @@ typedef enum {
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     [self.delegate stackViewPage:self shouldBecomeActivePageAnimated:YES];
-    [self layoutFooterViewWithKeyboardHeight:_keyboardHeight footerViewHeight:_footerView.frame.size.height];
+    [self layoutFooterViewWithKeyboardHeight:_keyboardHeight];
 }
 
-- (void)layoutFooterViewWithKeyboardHeight:(CGFloat)keyboardHeight footerViewHeight:(CGFloat)footerViewHeight
+- (void)layoutFooterViewWithKeyboardHeight:(CGFloat)keyboardHeight
 {
-    CGFloat footerViewOriginY = self.view.frame.size.height - _keyboardHeight - footerViewHeight;
+    CGFloat footerViewOriginY = self.view.frame.size.height - _keyboardHeight - _footerView.frame.size.height;
     CGFloat tableViewHeight = footerViewOriginY - self.conversationTableViewController.view.frame.origin.y + 1;
     [_footerView resetOriginY:footerViewOriginY];
     [self adjustTableViewHeight:tableViewHeight];
@@ -217,21 +218,26 @@ typedef enum {
 
 - (void)adjustTableViewHeight:(CGFloat)tableViewHeight
 {
-    CGFloat offset = tableViewHeight - self.conversationTableViewController.view.frame.size.height;
-    if (self.conversationTableViewController.tableView.contentSize.height > tableViewHeight) {
-        if (offset < 0) {
+    CGFloat contentSizeHeight = self.conversationTableViewController.tableView.contentSize.height;
+    CGFloat offset = tableViewHeight - self.conversationTableViewController.tableView.frame.size.height;
+    
+    if (offset < 0) {
+        if (contentSizeHeight > tableViewHeight + 20) {
+            CGFloat originOffset =  tableViewHeight - contentSizeHeight;
+            originOffset = originOffset < offset ? offset : originOffset;
+            
             [UIView animateWithDuration:0.25 animations:^{
-                [self.conversationTableViewController.view resetOriginYByOffset:offset];
+                [self.conversationTableViewController.view resetOriginYByOffset:originOffset];
             } completion:^(BOOL finished) {
-                [self.conversationTableViewController.view resetOriginYByOffset:-offset];
+                [self.conversationTableViewController.view resetOriginYByOffset:-originOffset];
                 [self.conversationTableViewController.view resetHeight:tableViewHeight];
                 [self.conversationTableViewController scrollToBottom:NO];
             }];
-        } else {
-            [self.conversationTableViewController.view resetHeight:tableViewHeight];
-            [self.conversationTableViewController scrollToBottom:YES];
         }
-    }    
+    } else {
+        [self.conversationTableViewController.view resetHeight:tableViewHeight];
+        [self.conversationTableViewController scrollToBottom:YES];
+    }
 }
 
 - (void)textViewDidChange:(UITextView *)textView
@@ -297,9 +303,12 @@ typedef enum {
 - (IBAction)didClickSendButton:(UIButton *)sender
 {
     NSString *text = _textView.text;
+    [self dismissHintView];
     if (text && ![text isEqualToString:@""]) {
+//        while (text.length > 300) {
+//            
+//        }
         [self sendMessage:text];
-        [self dismissHintView];
     }
 }
 

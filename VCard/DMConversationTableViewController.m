@@ -43,9 +43,6 @@
     [super viewDidLoad];
     _loadMoreView.hidden = YES;
     self.tableView.alpha = 0.0;
-//    UIEdgeInsets inset = self.tableView.contentInset;
-//    inset.bottom = 20.0;
-//    self.tableView.contentInset = inset;
 }
 
 - (void)viewDidUnload
@@ -294,8 +291,6 @@
 
 - (void)scrollToBottom:(BOOL)animated
 {
-
-
     CGFloat originY = self.tableView.contentSize.height - self.tableView.frame.size.height;
     if (originY < 0) {
         originY = 0;
