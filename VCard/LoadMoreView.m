@@ -57,18 +57,24 @@
     } else {
         [self setState:LoadMoreViewStateHidden];
     }
+    self.alpha = 0.0;
+    [self performSelector:@selector(show) withObject:nil afterDelay:0.5];
     [_activityView stopAnimating];
 }
 
 - (void)resetPosition
 {
-    self.alpha = 1.0;
     if (_state == LoadMoreViewStateHidden) {
         [self stopLoadingAnimation];
     } else {
         [self startLoadingAnimation];
     }
     [self resetOriginY:self.scrollView.contentSize.height];
+}
+
+- (void)show
+{
+    self.alpha = 1.0;
 }
 
 - (void)startLoadingAnimation
