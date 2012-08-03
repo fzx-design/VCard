@@ -923,6 +923,11 @@
     [NSNotificationCenter postWillReloadCardCellNotification];
     [NSUserDefaults setReloadingCardCellStatus:YES];
     
+    if (self.fetchedResultsController.fetchedObjects.count > 0) {
+        Status *status = [self.fetchedResultsController.fetchedObjects objectAtIndex:0];
+        _previousStatusID = status.statusID;
+    }
+    
     WBClient *client = [WBClient client];
     
     [client setCompletionBlock:^(WBClient *client) {
@@ -1115,29 +1120,11 @@
         [_stackViewController.stackView removeFromSuperview];
         _stackViewController = nil;
         
-//        NSLog(@"before delete");
-//        NSLog(@"Deletable comment %d", [Comment getTempCommentCount:self.managedObjectContext]);
-//        NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext].count);
-//        NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext].count);
-//        
-//        NSLog(@"Undeletable comment %d", [Comment getUndeletableCommentCount:self.managedObjectContext]);
-//        NSLog(@"Undeletable user %d", [User getUndeletableUserCount:self.managedObjectContext].count);
-//        NSLog(@"Undeletable status %d", [Status getUndeletableStatusCount:self.managedObjectContext].count);
-        
         [Comment deleteAllTempCommentsInManagedObjectContext:self.managedObjectContext];
         [User deleteAllTempUsersInManagedObjectContext:self.managedObjectContext];
         [Status deleteAllTempStatusesInManagedObjectContext:self.managedObjectContext];
         [Conversation deleteEmptyConversationsOfUser:self.currentUser.userID managedObjectContext:self.managedObjectContext];
         [self.managedObjectContext processPendingChanges];
-        
-//        NSLog(@"after delete");
-//        NSLog(@"Deletable comment %d", [Comment getTempCommentCount:self.managedObjectContext]);
-//        NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext].count);
-//        NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext].count);
-//        
-//        NSLog(@"Undeletable comment %d", [Comment getUndeletableCommentCount:self.managedObjectContext]);
-//        NSLog(@"Undeletable user %d", [User getUndeletableUserCount:self.managedObjectContext].count);
-//        NSLog(@"Undeletable status %d", [Status getUndeletableStatusCount:self.managedObjectContext].count);
         
         [self exitStackView];
     }];
