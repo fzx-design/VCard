@@ -36,6 +36,7 @@ typedef enum {
 @property (nonatomic, unsafe_unretained) BOOL isEditing;
 @property (nonatomic, strong) EmoticonsViewController *emoticonsViewController;
 @property (nonatomic, strong) PostHintView *currentHintView;
+@property (nonatomic, readonly) PostRootView *postRootView;
 
 @end
 
@@ -68,7 +69,6 @@ typedef enum {
     UIEdgeInsets inset = _textView.contentInset;
     inset.top = -2.0;
     _textView.contentInset = inset;
-    _textView.hintDelegate = self;
     
     _topCoverImageView.image = [[UIImage imageNamed:kRLCastViewBGUnit] resizableImageWithCapInsets:UIEdgeInsetsZero];
 
@@ -402,6 +402,7 @@ typedef enum {
     if(!_emoticonsViewController) {
         _emoticonsViewController = [[EmoticonsViewController alloc] init];
         _emoticonsViewController.delegate = self.textView;
+        _emoticonsViewController.view.tag = PostRootViewSubviewTagEmoticons;
     }
     return _emoticonsViewController;
 }
@@ -423,10 +424,14 @@ typedef enum {
     self.textView.needFillPoundSign = NO;
     
     self.emoticonsButton.selected = NO;
-    //self.postRootView.observingViewTag = PostRootViewSubviewTagNone;
+    self.postRootView.observingViewTag = PostRootViewSubviewTagNone;
 }
 
 #pragma mark - Emoticons and Hint View
+
+- (PostRootView *)postRootView {
+    return (PostRootView *)self.view;
+}
 
 - (CGPoint)hintViewOriginWithType:(HintViewType)type {
     CGPoint cursorPos = [self textViewCursorPos];
@@ -479,12 +484,10 @@ typedef enum {
 
 - (void)presentEmoticonsView {
     [self dismissHintView];
-    _emoticonsViewController = nil;
-    //self.postRootView.observingViewTag = PostRootViewSubviewTagEmoticons;
+    self.emoticonsViewController = nil;
+    self.postRootView.observingViewTag = PostRootViewSubviewTagEmoticons;
     EmoticonsViewController *vc = self.emoticonsViewController;
-    vc.view.alpha = 1;
     [vc.view resetOrigin:[self hintViewOriginWithType:HintViewTypeEmoticons]];
-    //vc.view.tag = PostRootViewSubviewTagEmoticons;
     [self.backgroundView addSubview:vc.view];
     self.currentHintView = (PostHintView *)vc.view;
     [self checkCurrentHintViewFrame];
@@ -541,6 +544,14 @@ typedef enum {
     pos.x = pos.x + size.width > maxHintViewBorderX ? maxHintViewBorderX - size.width : pos.x;
     
     self.currentHintView.frame = CGRectMake(pos.x, pos.y, size.width, size.height);
+}
+
+#pragma mark - PostRootView Delegate
+
+- (void)postRootView:(PostRootView *)view didObserveTouchOtherView:(UIView *)otherView {
+    if(otherView == self.emoticonsButton)
+        return;
+    [self dismissHintView];
 }
 
 @end

@@ -17,7 +17,7 @@ typedef enum {
 @interface PostRootView : UIView
 
 @property (nonatomic, assign) NSInteger observingViewTag;
-@property (nonatomic, weak) id<PostRootViewDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<PostRootViewDelegate> delegate;
 
 @end
 

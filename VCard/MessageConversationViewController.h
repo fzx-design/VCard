@@ -9,8 +9,9 @@
 #import "StackViewPageController.h"
 #import "DMConversationTableViewController.h"
 #import "PostHintTextView.h"
+#import "PostRootView.h"
 
-@interface MessageConversationViewController : StackViewPageController <UITextViewDelegate, PostHintTextViewDelegate>
+@interface MessageConversationViewController : StackViewPageController <UITextViewDelegate, PostHintTextViewDelegate, PostRootViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIButton       *viewProfileButton;
 @property (nonatomic, weak) IBOutlet UILabel        *titleLabel;

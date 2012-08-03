@@ -19,6 +19,7 @@
 #import "UIImage+Addition.h"
 #import "NSString+Addition.h"
 #import "UIApplication+Addition.h"
+#import "UIView+Resize.h"
 
 #define WEIBO_TEXT_MAX_LENGTH   140
 #define HINT_VIEW_OFFSET        CGSizeMake(-16, 27)
@@ -169,7 +170,6 @@ typedef enum {
     self.navActivityIndicator.hidden = YES;
     self.navLabel.text = @"";
     _functionRightViewInitFrame = self.functionRightView.frame;
-    self.postRootView.delegate = self;
     [ThemeResourceProvider configButtonPaperLight:self.cancelButton];
     
     //恢复view did unload造成的影响
@@ -308,6 +308,7 @@ typedef enum {
     if(!_emoticonsViewController) {
         _emoticonsViewController = [[EmoticonsViewController alloc] init];
         _emoticonsViewController.delegate = self.textView;
+        _emoticonsViewController.view.tag = PostRootViewSubviewTagEmoticons;
     }
     return _emoticonsViewController;
 }
@@ -558,14 +559,10 @@ typedef enum {
 
 - (void)presentEmoticonsView {
     [self dismissHintView];
-    _emoticonsViewController = nil;
+    self.emoticonsViewController = nil;
     self.postRootView.observingViewTag = PostRootViewSubviewTagEmoticons;
     EmoticonsViewController *vc = self.emoticonsViewController;
-    vc.view.alpha = 1;
-    CGRect frame = vc.view.frame;
-    frame.origin = self.cursorPos;
-    vc.view.frame = frame;
-    vc.view.tag = PostRootViewSubviewTagEmoticons;
+    [vc.view resetOrigin:self.cursorPos];
     [self.postView addSubview:vc.view];
     self.currentHintView = (PostHintView *)vc.view;
     self.emoticonsButton.selected = YES;
