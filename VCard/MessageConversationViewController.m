@@ -207,7 +207,19 @@ typedef enum {
     CGFloat footerViewOriginY = self.view.frame.size.height - _keyboardHeight - footerViewHeight;
     CGFloat tableViewHeight = footerViewOriginY - self.conversationTableViewController.view.frame.origin.y + 1;
     [_footerView resetOriginY:footerViewOriginY];
-    [self.conversationTableViewController.view resetHeight:tableViewHeight];
+    CGFloat offset = tableViewHeight - self.conversationTableViewController.view.frame.size.height;
+    if (offset < 0) {
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.conversationTableViewController.view resetOriginYByOffset:offset];
+        } completion:^(BOOL finished) {
+            [self.conversationTableViewController.view resetOriginYByOffset:-offset];
+            [self.conversationTableViewController.view resetHeight:tableViewHeight];
+            [self.conversationTableViewController scrollToBottom:NO];
+        }];
+    } else {
+        [self.conversationTableViewController.view resetHeight:tableViewHeight];
+        [self.conversationTableViewController scrollToBottom:YES];
+    }
 }
 
 - (void)textViewDidChange:(UITextView *)textView

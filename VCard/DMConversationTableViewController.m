@@ -131,6 +131,13 @@
             }
         }
         
+        if (self.firstLoad) {
+            self.firstLoad = NO;
+            [UIView animateWithDuration:0.2 animations:^{
+                self.tableView.alpha = 1.0;
+            }];
+        }
+        
         [self refreshEnded];
         [self finishedLoading];
         
@@ -287,12 +294,7 @@
 
 - (void)scrollToBottom:(BOOL)animated
 {
-    if (self.firstLoad) {
-        self.firstLoad = NO;
-        [UIView animateWithDuration:0.2 animations:^{
-            self.tableView.alpha = 1.0;
-        }];
-    }
+
 
     CGFloat originY = self.tableView.contentSize.height - self.tableView.frame.size.height;
     if (originY < 0) {
@@ -311,6 +313,11 @@
 }
 
 #pragma mark - Core Data Table View Method
+
+- (void)viewWillLayoutSubviews
+{
+    [self adjustBackgroundView];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
