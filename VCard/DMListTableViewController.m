@@ -214,7 +214,9 @@
     DMListTableViewCell *cell = (DMListTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     cell.hasNewIndicator.hidden = YES;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowConversation object:@{kNotificationObjectKeyConversation: conversation, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowConversation object:@{kNotificationObjectKeyConversation: conversation,
+                 kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex],
+         kNotificationObjectKeyShouldRefresh: @(NO)}];
 }
 
 

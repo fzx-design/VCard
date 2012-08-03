@@ -300,7 +300,7 @@
 
 - (void)checkContentEmpty
 {
-    if (self.fetchedResultsController.fetchedObjects.count == 0 ) {
+    if (self.fetchedResultsController.fetchedObjects.count == 0) {
         self.emptyIndicatorViewController.view.hidden = NO;
         [self.emptyIndicatorViewController.view fadeIn];
     } else {
@@ -310,6 +310,16 @@
             }];
         }
     }
+}
+
+- (void)showEmptyIndicator
+{
+    [self.emptyIndicatorViewController.view fadeIn];
+}
+
+- (void)hideEmptyIndicator
+{
+    [self.emptyIndicatorViewController.view fadeOut];
 }
 
 #pragma mark - UIScrollView Delegate

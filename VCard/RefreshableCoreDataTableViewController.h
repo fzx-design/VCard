@@ -48,4 +48,7 @@
 - (void)refreshAfterDeletingStatuses:(NSNotification *)notification;
 - (void)finishedLoading;
 
+- (void)hideEmptyIndicator;
+- (void)showEmptyIndicator;
+
 @end

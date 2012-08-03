@@ -118,6 +118,7 @@
 #define kNotificationObjectKeyConversation              @"kNotificationObjectKeyConversation"
 #define kNotificationObjectKeyCoredataIdentifier        @"kNotificationObjectKeyCoredataIdentifier"
 #define kNotificationObjectKeyStatusID                  @"kNotificationObjectKeyStatusID"
+#define kNotificationObjectKeyShouldRefresh             @"kNotificationObjectKeyShouldRefresh"
 
 #define kNotificationObjectKeyImageView                 @"kNotificationObjectKeyImageView"
 

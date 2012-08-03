@@ -164,7 +164,10 @@
                                                   inManagedObjectContext:self.managedObjectContext];
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowConversation object:@{kNotificationObjectKeyConversation: conversation, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowConversation
+                                                        object:@{kNotificationObjectKeyConversation: conversation,
+                                                                        kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex],
+                                                                kNotificationObjectKeyShouldRefresh: @(YES)}];
 }
 
 - (void)followUser

@@ -21,6 +21,7 @@
 @property (nonatomic, weak) IBOutlet UIButton       *sendButton;
 @property (nonatomic, weak) IBOutlet UIImageView    *topCoverImageView;
 @property (nonatomic, weak) IBOutlet PostHintTextView *textView;
+@property (nonatomic, unsafe_unretained) BOOL       shouldAutomaticallyBecomeFirstResponder;
 
 
 @property (nonatomic, strong) NSString              *titleText;

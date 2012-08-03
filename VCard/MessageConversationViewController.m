@@ -139,6 +139,9 @@ typedef enum {
 
 - (void)initialLoad
 {
+    if (self.shouldAutomaticallyBecomeFirstResponder) {
+        [self.textView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.1];
+    }
     [self.conversationTableViewController initialLoadMessageData];
 }
 
@@ -161,6 +164,7 @@ typedef enum {
     CGRect keyboardBounds = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat keyboardHeight = [UIApplication isCurrentOrientationLandscape] ? keyboardBounds.size.width : keyboardBounds.size.height;
     _keyboardHeight = keyboardHeight;
+    [self.conversationTableViewController hideEmptyIndicator];
     
     if (!self.isActive) {
         return;
@@ -178,6 +182,7 @@ typedef enum {
     }];
     
     [self dismissHintView];
+    [self.conversationTableViewController showEmptyIndicator];
 }
 
 
@@ -213,18 +218,20 @@ typedef enum {
 - (void)adjustTableViewHeight:(CGFloat)tableViewHeight
 {
     CGFloat offset = tableViewHeight - self.conversationTableViewController.view.frame.size.height;
-    if (offset < 0) {
-        [UIView animateWithDuration:0.25 animations:^{
-            [self.conversationTableViewController.view resetOriginYByOffset:offset];
-        } completion:^(BOOL finished) {
-            [self.conversationTableViewController.view resetOriginYByOffset:-offset];
+    if (self.conversationTableViewController.tableView.contentSize.height > tableViewHeight) {
+        if (offset < 0) {
+            [UIView animateWithDuration:0.25 animations:^{
+                [self.conversationTableViewController.view resetOriginYByOffset:offset];
+            } completion:^(BOOL finished) {
+                [self.conversationTableViewController.view resetOriginYByOffset:-offset];
+                [self.conversationTableViewController.view resetHeight:tableViewHeight];
+                [self.conversationTableViewController scrollToBottom:NO];
+            }];
+        } else {
             [self.conversationTableViewController.view resetHeight:tableViewHeight];
-            [self.conversationTableViewController scrollToBottom:NO];
-        }];
-    } else {
-        [self.conversationTableViewController.view resetHeight:tableViewHeight];
-        [self.conversationTableViewController scrollToBottom:YES];
-    }
+            [self.conversationTableViewController scrollToBottom:YES];
+        }
+    }    
 }
 
 - (void)textViewDidChange:(UITextView *)textView

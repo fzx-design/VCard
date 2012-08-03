@@ -460,10 +460,12 @@
     
     Conversation *conversation = [dictionary objectForKey:kNotificationObjectKeyConversation];
     NSString *indexString = [dictionary valueForKey:kNotificationObjectKeyIndex];
+    NSNumber *shouldRefresh = [dictionary valueForKey:kNotificationObjectKeyShouldRefresh];
     int index = [indexString intValue];
     
     MessageConversationViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MessageConversationViewController"];
     vc.conversation = conversation;
+    vc.shouldAutomaticallyBecomeFirstResponder = shouldRefresh.boolValue;
     
     [self stackViewAtIndex:index push:vc withPageType:StackViewPageTypeDMConversation pageDescription:conversation.targetUserID];
 }
