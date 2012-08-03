@@ -82,6 +82,11 @@ typedef enum {
 + (BOOL)hasShownMessageList;
 + (void)setShownMessageList:(BOOL)hasShown;
 
++ (void)setCurrentGroupTitle:(NSString *)groupTitle;
++ (NSString *)getCurrentGroupTitle;
++ (void)setCurrentGroupIndex:(int)groupIndex;
++ (int)getCurrentGroupIndex;
+
 + (BOOL)shouldPostRecommendVCardWeibo;
 + (void)setShouldPostRecommendVCardWeibo:(BOOL)shouldPost;
 

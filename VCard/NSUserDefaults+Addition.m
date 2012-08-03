@@ -23,6 +23,8 @@
 #define kSettingEnableDateDisplay           @"SettingEnableDateDisplay"
 
 #define kCurrentUserFavouriteIDs            @"kCurrentUserFavouriteIDs"
+#define kCurrentGroupIndex                  @"kCurrentGroupIndex"
+#define kCurrentGroupTitle                  @"kCurrentGroupTitle"
 
 #define kVCard4_0_Initialized               @"VCard4_0_Initialized"
 
@@ -62,6 +64,9 @@
         [defaults setBool:NO forKey:kSettingEnableDateDisplay];
         [defaults setFloat:17.0 forKey:kSettingFontSize];
         [defaults setFloat:8.0 forKey:kSettingLeading];
+        
+        [defaults setInteger:0 forKey:kCurrentGroupIndex];
+        [defaults setObject:@"" forKey:kCurrentGroupTitle];
         
         [defaults setObject:@[@(NO), @(YES), @(NO)] forKey:kSettingOptionFontSize];
         [defaults setObject:@[@(YES), @(YES), @(YES), @(YES)] forKey:kSettingOptionNotification];
@@ -343,6 +348,30 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *userID = [defaults stringForKey:kStoredCurrentUserID];
     return userID;
+}
+
++ (void)setCurrentGroupTitle:(NSString *)groupTitle {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:groupTitle forKey:kCurrentGroupTitle];
+    [defaults synchronize];
+}
+
++ (NSString *)getCurrentGroupTitle {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *userID = [defaults stringForKey:kCurrentGroupTitle];
+    return userID;
+}
+
++ (void)setCurrentGroupIndex:(int)groupIndex {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger:groupIndex forKey:kCurrentGroupIndex];
+    [defaults synchronize];
+}
+
++ (int)getCurrentGroupIndex {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    int currentGroupIndex = [defaults integerForKey:kCurrentGroupIndex];
+    return currentGroupIndex;
 }
 
 + (NSArray *)getLoginUserArray {
