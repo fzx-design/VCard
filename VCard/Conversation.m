@@ -46,7 +46,6 @@
     if ([userDict isKindOfClass:[NSDictionary class]] && userDict.count > 0) {
         targetUser = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeMessage];
     } else {
-        NSLog(@"Conversation error: %@", dict);
         return nil;
     }
     
@@ -67,8 +66,6 @@
         NSString *text = [messageDict objectForKey:@"text"];
         result.hasNew = @(![text isEqualToString:result.latestMessageText] && [NSUserDefaults hasFetchedMessages]);
         result.latestMessageText = [messageDict objectForKey:@"text"];
-    } else {
-        NSLog(@"Conversation has no message %@", dict);
     }
     
     return result;
@@ -115,9 +112,7 @@
     [request setPredicate:[NSPredicate predicateWithFormat:@"currentUserID == %@", currentUserID]];
     
     NSArray *items = [context executeFetchRequest:request error:NULL];
-    
-    NSLog(@"Log out user deleting %d conversations", items.count);
-    
+        
     for (Conversation *object in items) {
         [context deleteObject:object];
     }

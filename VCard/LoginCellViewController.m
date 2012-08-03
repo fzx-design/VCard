@@ -69,12 +69,10 @@
             if(compeltion)
                 compeltion(YES);
             
-            NSLog(@"login step 3 succeeded");
         } else {
             if(compeltion)
                 compeltion(NO);
             
-            NSLog(@"login step 3 failed");
             [self.delegate loginCellDidFailLoginUser];
         }
         self.view.userInteractionEnabled = YES;

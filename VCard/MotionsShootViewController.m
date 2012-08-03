@@ -279,12 +279,10 @@
     }
     
     if(!videoConnection) {
-        NSLog(@"no videoConnection");
         return;
     }
     
     if(!self.stillImageOutput) {
-        NSLog(@"no stillImageOutput");
         return;
     }
     
@@ -300,9 +298,6 @@
                         [weakSelf.delegate shootViewController:weakSelf didCaptureImage:weakSelf.capturedImage];
                     });
                 });
-            }
-            else {
-                NSLog(@"error:%@", error.localizedDescription);
             }
         }];
     }];
@@ -334,19 +329,15 @@
     if([self.currentDevice lockForConfiguration:nil] == NO)
         return;
     if(self.currentDevice.focusPointOfInterestSupported) {
-        NSLog(@"focusPointOfInterestSupported");
         [self.currentDevice setFocusPointOfInterest:focusPoint];
         if([self.currentDevice isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
             [self.currentDevice setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
-            NSLog(@"AVCaptureFocusModeContinuousAutoFocus");
         }
     }
     else if(self.currentDevice.exposurePointOfInterestSupported) {
-        NSLog(@"exposurePointOfInterestSupported");
         [self.currentDevice setExposurePointOfInterest:focusPoint];
         if([self.currentDevice isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
             [self.currentDevice setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
-            NSLog(@"AVCaptureExposureModeContinuousAutoExposure");
         }
     }
     [self.currentDevice unlockForConfiguration];

@@ -229,8 +229,6 @@
                                    isFirstComment:isFirstComment];
             commentCell.pageIndex = self.pageIndex;
             commentCell.delegate = self;
-        } else {
-            NSLog(@"Core Data TableView Controller Error - ProfileComment config");
         }
     } else {
         if (indexPath.row < self.fetchedResultsController.fetchedObjects.count) {
@@ -239,8 +237,6 @@
             [commentCell.baseCardBackgroundView resetSize:CGSizeMake(362.0, repost.cardSizeCardHeight.floatValue)];
             [commentCell configureCellWithStatus:repost];
             commentCell.pageIndex = self.pageIndex;
-        } else {
-            NSLog(@"Core Data TableView Controller Error - ProfileComment config");
         }
     }
     
@@ -268,14 +264,10 @@
     if (_type == CommentTableViewControllerTypeComment) {
         if (self.fetchedResultsController.fetchedObjects.count > indexPath.row) {
             height += ((Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row]).commentHeight.floatValue;
-        } else {
-            NSLog(@"Core Data TableView Controller Error - ProfileComment height");
         }
     } else  {
         if (self.fetchedResultsController.fetchedObjects.count > indexPath.row) {
             height += ((Status *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row]).cardSizeCardHeight.floatValue;
-        } else {
-            NSLog(@"Core Data TableView Controller Error - ProfileComment height");
         }
     }
 	return height;

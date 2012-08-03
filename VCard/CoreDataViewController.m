@@ -111,9 +111,7 @@ static CoreDataKernal *kernalInstance = nil;
     User *currentUser = currentUserID ? [User getCurrentUserWithID:currentUserID inManagedObjectContext:appDelegate.managedObjectContext] : nil;
     
     self.currentUser = currentUser;
-    
-    NSLog(@"CoreDataViewController : configure current user name %@", currentUser.screenName);
-    
+        
     [NSUserDefaults setCurrentUserID:currentUser.userID];
     
     [UnreadReminder initializeWithCurrentUser:currentUser];

@@ -191,9 +191,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
         
         [button resetOrigin:CGPointMake(floorf(button.frame.origin.x), floorf(button.frame.origin.y))];
         [titleLabel resetOrigin:CGPointMake(floorf(titleLabel.frame.origin.x), floorf(titleLabel.frame.origin.y))];
-        
-        NSLog(@"center x:%f", centerX);
-        
+                
         counter++;
         
         [self.centerBar addSubview:button];

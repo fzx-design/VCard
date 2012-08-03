@@ -410,10 +410,8 @@ typedef enum {
             client.completionBlock = nil;
             [advancedAuthorizeClient authorizeWithAdvancedAppKeyUsingUserID:userID password:password];
             
-            NSLog(@"login step 1 succeeded");
         } else {
             client.hasError = YES;
-            NSLog(@"login step 1 failed");
         }
     }];
     [self loadAuthorizeRequest];
@@ -444,10 +442,8 @@ typedef enum {
             client.completionBlock = nil;
             [getUserInfoClient getUser:client.userID];
             
-            NSLog(@"login step 2 succeeded");
         } else {
             client.hasError = YES;
-            NSLog(@"login step 2 failed");
         }
     }];
     

@@ -106,7 +106,6 @@
 }
 
 - (void)showLoginViewController {
-    NSLog(@"RootViewController : showLoginViewController");
     NSString *launchImageName = nil;
     BOOL isLandscape = [UIApplication isCurrentOrientationLandscape];
     if([UIApplication isRetinaDisplayiPad])
@@ -148,7 +147,6 @@
 }
 
 - (void)handleChangeCurrentUserNotification:(NSNotification *)notification {
-    NSLog(@"RootViewController : current user name:%@", self.currentUser.screenName);
     
     [_castViewController.view removeFromSuperview];
     [_shelfViewController.view removeFromSuperview];

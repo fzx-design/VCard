@@ -43,9 +43,7 @@
             continue;
         
         NSString *substitute = [NSString stringWithFormat:@"[%@]", info.keyName];
-        
-        NSLog(@"reString:%@, substitute:%@", regString, substitute);
-        
+                
         returnString = [returnString stringByReplacingCharactersInRange:range withString:substitute];
         NSUInteger newRangeLoc = range.location + substitute.length;
         searchRange = NSMakeRange(newRangeLoc, returnString.length - newRangeLoc);

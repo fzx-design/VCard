@@ -187,9 +187,7 @@
     [client setCompletionBlock:^(WBClient *client) {
         if(!client.hasError) {
             user.following = @(YES);
-            NSLog(@"follow succeeded");
         } else {
-            NSLog(@"follow failed");
             button.enabled = YES;
             
             NSNumber *weiboErrorCode = [client.responseError.userInfo objectForKey:@"error_code"];

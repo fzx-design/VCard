@@ -157,9 +157,7 @@
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"currentUserID = %@", currentUserID]];
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
-    
-    NSLog(@"Log out user deleting %d statuses", items.count);
-    
+        
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
     }
@@ -175,7 +173,6 @@
     
     NSArray *items = [context executeFetchRequest:fetchRequest error:NULL];
     
-    NSLog(@"stack delete %d statuses", items.count);
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
     }

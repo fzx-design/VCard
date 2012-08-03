@@ -259,8 +259,6 @@
                                                      pageIndex:self.pageIndex
                                                    currentUser:self.currentUser
                                             coreDataIdentifier:self.coreDataIdentifier];
-    } else {
-        NSLog(@"Core Data TableView Controller Error - profile status config");
     }
 }
 

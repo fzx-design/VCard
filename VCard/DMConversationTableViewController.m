@@ -401,8 +401,6 @@
         messageCell.pageIndex = self.pageIndex;
         [messageCell setUp];
         
-    } else {
-        NSLog(@"Conversation List Core Data Error!");
     }
 }
 

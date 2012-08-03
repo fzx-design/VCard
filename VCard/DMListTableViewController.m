@@ -143,8 +143,6 @@
         } else {
             listCell.contentView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.05];
         }
-    } else {
-        NSLog(@"Conversation List Core Data Error!");
     }
     [self adjustBackgroundView];
 }

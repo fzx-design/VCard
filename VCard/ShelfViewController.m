@@ -513,8 +513,6 @@
             [NSUserDefaults setCurrentGroupIndex:view.index];
             [NSUserDefaults setCurrentGroupTitle:name];
             
-        } else {
-            NSLog(@"Core Data TableView Controller Error - Shelf change source");
         }
     }
 }
@@ -551,8 +549,6 @@
             [self.managedObjectContext deleteObject:group];
             [self.fetchedResultsController performFetch:nil];
             [self updatePageControlAndScrollViewSize:[UIApplication sharedApplication].statusBarOrientation];
-        } else {
-            NSLog(@"Core Data TableView Controller Error - Shelf remove");
         }
     }];
     
@@ -566,8 +562,6 @@
                 view.index--;
                 group.index = @(view.index);
             }];
-        } else {
-            NSLog(@"Core Data TableView Controller Error - Shelf relayout");
         }
     }
 }
@@ -617,8 +611,6 @@
             if (self.fetchedResultsController.fetchedObjects.count > view.index) {
                 Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:view.index];
                 [view loadImageFromURL:group.picURL completion:nil];
-            } else {
-                NSLog(@"Core Data TableView Controller Error - Shelf load image");
             }
         }
     }
@@ -637,8 +629,6 @@
     if (self.fetchedResultsController.fetchedObjects.count > index) {
         Group *group = [self.fetchedResultsController.fetchedObjects objectAtIndex:index];
         [self deleteGroup:group];
-    } else {
-        NSLog(@"Core Data TableView Controller Error - Shelf");
     }
 }
 

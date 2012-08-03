@@ -51,11 +51,9 @@ static ErrorIndicatorManager *managerInstance = nil;
         WBClient *client = [WBClient client];
         [client setCompletionBlock:^(WBClient *client) {
             if (!client.hasError) {
-                NSLog(@"login step 3 succeeded(wrong password expired)");
                 _handlingTokenFailureSituation = NO;
                 [NSUserDefaults insertUserAccountInfoWithUserID:accountInfo.userID account:accountInfo.account password:newPassword];
             } else {
-                NSLog(@"login step 3 failed(wrong password expired)");
                 [self handleWrongPasswordSituation];
             }
         }];
@@ -86,10 +84,8 @@ static ErrorIndicatorManager *managerInstance = nil;
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if (!client.hasError) {
-            NSLog(@"login step 3 succeeded(token expired)");
             _handlingTokenFailureSituation = NO;
         } else {
-            NSLog(@"login step 3 failed(token expired)");
             [self handleWrongPasswordSituation];
         }
     }];

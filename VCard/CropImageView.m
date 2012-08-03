@@ -302,7 +302,6 @@ typedef enum {
     }];
     
     if(![self isRotateValid:self.rotationFactor]) {
-        NSLog(@"move point rotate invalid");
         for(int i = 0; i < 4; i++) {
             [self pointImageViewWithIdentifier:i].center = preservedPoint[i];
         }

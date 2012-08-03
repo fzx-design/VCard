@@ -36,7 +36,6 @@
                     UIView *actionPopoverCenterBar = cardCell.cardViewController.actionPopoverViewController.centerBar;
                     CGPoint actionPopoverPoint = [cardCell convertPoint:cardCellPoint toView:actionPopoverCenterBar];
                     if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
-                        //NSLog(@"action popover");
                         UIView *testView = [actionPopoverCenterBar hitTest:actionPopoverPoint withEvent:event];
                         if([testView isKindOfClass:[UIButton class]])
                             return testView;
@@ -61,7 +60,6 @@
                             UIView *actionPopoverCenterBar = commentStatusCell.cardViewController.actionPopoverViewController.centerBar;
                             CGPoint actionPopoverPoint = [tableView convertPoint:tableViewPoint toView:actionPopoverCenterBar];
                             if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
-                                //NSLog(@"action popover in stack view");
                                 UIView *testView = [actionPopoverCenterBar hitTest:actionPopoverPoint withEvent:event];
                                 if([testView isKindOfClass:[UIButton class]])
                                     return testView;
@@ -80,7 +78,6 @@
                             UIView *actionPopoverCenterBar = tableViewCell.cardViewController.actionPopoverViewController.centerBar;
                             CGPoint actionPopoverPoint = [tableView convertPoint:tableViewPoint toView:actionPopoverCenterBar];
                             if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
-                                //NSLog(@"action popover in stack view");
                                 UIView *testView = [actionPopoverCenterBar hitTest:actionPopoverPoint withEvent:event];
                                 if([testView isKindOfClass:[UIButton class]])
                                     return testView;

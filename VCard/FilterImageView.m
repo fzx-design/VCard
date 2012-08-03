@@ -33,7 +33,6 @@
 }
 
 - (void)didMoveToSuperview {
-    NSLog(@"FilterImageView : didMoveToSuperview");
     
     if(!self.coreImageContext) {
         self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];

@@ -1017,24 +1017,6 @@
                       count:20];
     }
     
-//    NSLog(@"Before refresh");
-//    NSArray *undeletableUserArray = [User getUndeletableUserCount:self.managedObjectContext];
-//    NSArray *undeletableStatusArray = [Status getUndeletableStatusCount:self.managedObjectContext];
-//    NSLog(@"Deletable comment %d", [Comment getTempCommentCount:self.managedObjectContext]);
-//    NSLog(@"Deletable user %d", [User getTempUserCount:self.managedObjectContext].count);
-//    NSLog(@"Deletable status %d", [Status getTempStatusCount:self.managedObjectContext].count);
-//    
-//    NSLog(@"Undeletable comment %d", [Comment getUndeletableCommentCount:self.managedObjectContext]);
-//    NSLog(@"Undeletable user %d", undeletableUserArray.count);
-//    NSLog(@"Undeletable status %d", undeletableStatusArray.count);
-//    
-//    for (Status *status in undeletableStatusArray) {
-//        NSLog(@"%@, %@", status.text, status.author.screenName);
-//    }
-//    for (User *user in undeletableUserArray) {
-//        NSLog(@"%@", user.screenName);
-//    }
-    
 }
 
 - (void)resetUnreadCountWithType:(NSString *)type
@@ -1242,17 +1224,13 @@
                                                             pageIndex:0
                                                           currentUser:self.currentUser
                                                    coreDataIdentifier:kCoreDataIdentifierDefault];
-        } else {
-            NSLog(@"Core Data Error! - CastViewController Card");
         }
         
     } else if(layoutUnit.unitType == UnitTypeDivider) {
         if (self.fetchedResultsController.fetchedObjects.count > layoutUnit.dataIndex) {
             Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
             [((WaterflowDividerCell *)cell).dividerViewController updateTimeInformation:targetStatus.createdAt];
-        } else {
-            NSLog(@"Core Data Error! - CastViewController Divider");
-        }
+        } 
     }
     
 	return cell;

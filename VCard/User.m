@@ -80,8 +80,6 @@
     User *result = [User userWithID:userID inManagedObjectContext:context withOperatingObject:object operatableType:type];
     if (!result) {
         result = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:context];
-    } else {
-        //        NSLog(@"%@, %@", result.screenName, result.operatedBy);
     }
     
     result.updateDate = [NSDate date];
@@ -202,8 +200,6 @@
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
     }
-    
-    NSLog(@"Log out user deleting %d users", items.count);
 }
 
 + (void)deleteRedundantUsersInManagedObjectContext:(NSManagedObjectContext *)context
@@ -216,7 +212,6 @@
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     for (User *user in items) {
-        NSLog(@"cast view delete: %@", user.screenName);
         [context deletedObjects];
     }
 }
@@ -231,7 +226,6 @@
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
     for (User *user in items) {
-        NSLog(@"comment type: %@ delete: %@", user.operatable, user.screenName);
         [context deleteObject:user];
     }
     items = nil;
@@ -246,10 +240,7 @@
     [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@ && currentUserID == %@", @(kOperatableTypeNone), currentUserID]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
-    NSLog(@"stack delete %d users", items.count);
-    
     for (User *user in items) {
-        NSLog(@"stack delete %@", user.screenName);
         [context deleteObject:user];
     }
 }

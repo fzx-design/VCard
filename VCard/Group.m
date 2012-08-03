@@ -174,9 +174,7 @@
     [request setPredicate:[NSPredicate predicateWithFormat:@"groupUserID == %@", userID]];
     
     NSArray *items = [context executeFetchRequest:request error:NULL];
-    
-    NSLog(@"Log out user deleting %d groups", items.count);
-    
+        
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
     }

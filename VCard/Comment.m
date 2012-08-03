@@ -86,15 +86,11 @@
     if ([statusDict isKindOfClass:[NSDictionary class]] && statusDict.count > 0) {
         result.targetStatus = [Status insertStatus:statusDict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierComment operatableType:type];
         result.targetUser = result.targetStatus.author;
-    } else {
-        NSLog(@"%@", dict);
     }
     
     NSDictionary *userDict = [dict objectForKey:@"user"];
     if ([userDict isKindOfClass:[NSDictionary class]] && userDict.count > 0) {
         result.author = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:kCoreDataIdentifierComment operatableType:type];
-    } else {
-        NSLog(@"%@", dict);
     }
     
     return result;
@@ -130,16 +126,12 @@
     if ([statusDict isKindOfClass:[NSDictionary class]] && statusDict.count > 0) {
         result.targetStatus = [Status insertStatus:statusDict inManagedObjectContext:context withOperatingObject:result.operatedBy operatableType:kOperatableTypeNone];
         result.targetUser = result.targetStatus.author;
-    } else {
-        NSLog(@"%@", dict);
     }
     
     NSDictionary *userDict = [dict objectForKey:@"user"];
     
     if ([userDict isKindOfClass:[NSDictionary class]] && userDict.count > 0) {
         result.author = [User insertUser:userDict inManagedObjectContext:context withOperatingObject:object operatableType:kOperatableTypeNone];
-    } else {
-        NSLog(@"%@", dict);
     }
     
     return result;
@@ -238,7 +230,6 @@
     [request setPredicate:[NSPredicate predicateWithFormat:@"operatable == %@ && currentUserID == %@", @(kOperatableTypeNone), currentUserID]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
     
-    NSLog(@"stack delete %d comments", items.count);
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];
     }
@@ -251,8 +242,6 @@
     [request setEntity:[NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"currentUserID == %@", userID]];
 	NSArray *items = [context executeFetchRequest:request error:NULL];
-    
-    NSLog(@"Log out user deleting %d comments", items.count);
     
     for (NSManagedObject *managedObject in items) {
         [context deleteObject:managedObject];

@@ -251,10 +251,7 @@
         [commentCell configureCellWithComment:comment];
         commentCell.pageIndex = self.pageIndex;
         commentCell.delegate = self;
-    } else {
-        NSLog(@"Core Data TableView Controller Error - Self comment config");
     }
-    
 }
 
 - (NSString *)customCellClassNameForIndex:(NSIndexPath *)indexPath
@@ -278,8 +275,6 @@
     CGFloat height = indexPath.row == self.fetchedResultsController.fetchedObjects.count - 1 ? 0.0 : 10.0;
     if (self.fetchedResultsController.fetchedObjects.count > indexPath.row) {
         height += ((Comment *)[self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row]).commentHeight.floatValue;
-    } else {
-        NSLog(@"Core Data TableView Controller Error - Self comment height");
     }
 	return height;
 }

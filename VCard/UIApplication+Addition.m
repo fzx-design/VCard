@@ -33,7 +33,6 @@ static NSMutableArray *_backViewStack = nil;
 #pragma mark - Notification handlers
 
 - (void)rootViewControllerViewDidLoad:(NSNotification *)notification {
-    NSLog(@"UIApplication+Addition : Reiceive RootViewControllerViewDidLoad Notification");
     UIView *rootView = self.rootViewController.view;
     for(int i = 0; i < self.modalViewControllerStack.count; i++) {
         UIViewController *vc = [self.modalViewControllerStack objectAtIndex:i];
@@ -179,9 +178,6 @@ static NSMutableArray *_backViewStack = nil;
         [weakVC.view removeFromSuperview];
         [backViewToRemove removeFromSuperview];
         [weakSelf.modalViewControllerStack removeObject:weakVC];
-        
-        NSLog(@"UIApplication+Addition : back view stack count:%d", self.backViewStack.count);
-        NSLog(@"UIApplication+Addition : modal view controller stack count:%d", self.modalViewControllerStack.count);
     }];
 }
 

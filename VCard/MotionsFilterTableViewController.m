@@ -200,7 +200,6 @@
 #pragma mark - UIScrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"scroll view content offset:%f", scrollView.contentOffset.y);
     
     static NSUInteger immediateCellIndex = 0;
     
