@@ -76,6 +76,7 @@
             
             if (_nextCursor == 0) {
 				[self clearData];
+                [self resetUnreadMessageCount];
 			}
             
             [self.managedObjectContext processPendingChanges];
@@ -84,7 +85,6 @@
             _nextCursor = [[result objectForKey:@"next_cursor"] intValue];
             self.hasMoreViews = _nextCursor != 0;
             
-            [self resetUnreadMessageCount];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldSaveContext object:nil];
         }
         
