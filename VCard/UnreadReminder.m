@@ -133,7 +133,7 @@ static UnreadReminder *sharedUnreadReminder;
             }
             
             _messageWaitingRound = unreadMessageCount.integerValue == 0 ? 0 : _messageWaitingRound + 1;
-            if(messageEnabled && _messageWaitingRound == 2) {
+            if(messageEnabled && _messageWaitingRound == 2 && ![NSUserDefaults hasShownMessageList]) {
                 [self playSoundEffectWithUnreadCount:unreadMessageCount.integerValue];
                 [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMessageCount object:nil];
             }

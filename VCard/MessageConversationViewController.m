@@ -275,6 +275,7 @@ typedef enum {
     NSString *text = _textView.text;
     if (text && ![text isEqualToString:@""]) {
         [self sendMessage:text];
+        [self dismissHintView];
     }
 }
 

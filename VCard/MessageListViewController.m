@@ -8,6 +8,7 @@
 
 #import "MessageListViewController.h"
 #import "NSNotificationCenter+Addition.h"
+#import "NSUserDefaults+Addition.h"
 
 @interface MessageListViewController ()
 
@@ -39,9 +40,15 @@
     [super viewDidUnload];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [NSUserDefaults setShownMessageList:YES];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [_listTableViewController viewWillDisappear:NO];
+    [NSUserDefaults setShownMessageList:NO];
 }
 
 - (void)initialLoad

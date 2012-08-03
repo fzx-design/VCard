@@ -79,6 +79,8 @@ typedef enum {
 + (void)setShown3GWarning:(BOOL)hasShown;
 + (BOOL)hasFetchedMessages;
 + (void)setFetchedMessages:(BOOL)hasShown;
++ (BOOL)hasShownMessageList;
++ (void)setShownMessageList:(BOOL)hasShown;
 
 + (BOOL)shouldPostRecommendVCardWeibo;
 + (void)setShouldPostRecommendVCardWeibo:(BOOL)shouldPost;

@@ -278,6 +278,7 @@
     [_loadMoreView finishedLoading:self.hasMoreViews];
     _refreshing = NO;
     _loading = NO;
+    [self adjustBackgroundView];
     
     if (!self.isEmptyIndicatorForbidden) {
         [self checkContentEmpty];

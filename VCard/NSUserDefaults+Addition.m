@@ -36,6 +36,7 @@
 #define kHasShownStackTips                  @"HasShownStackTips"
 #define kHasShown3GWarning                  @"kHasShown3GWarning"
 #define kHasFetchedMessages                 @"kHasFetchedMessages"
+#define kHasShownMessageList                @"kHasShownMessageList"
 
 #define kShouldPostRecommendVCardWeibo      @"ShouldPostRecommendVCardWeibo"
 
@@ -74,6 +75,8 @@
     }
     [defaults setBool:YES forKey:kVCard4_0_Initialized];
     [defaults synchronize];
+    
+    [NSUserDefaults setShownMessageList:NO];
 }
 
 + (SettingOptionFontSizeType)currentFontSizeType {
@@ -204,6 +207,18 @@
     [defaults synchronize];
 }
 
++ (BOOL)hasShownMessageList
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kHasShownMessageList];
+}
+
++ (void)setShownMessageList:(BOOL)hasShown
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:hasShown forKey:kHasShownMessageList];
+    [defaults synchronize];
+}
 
 + (void)setCurrentUserFavouriteIDs:(NSArray *)array
 {

@@ -304,6 +304,8 @@
     if (animated) {
         [UIView animateWithDuration:0.3 animations:^{
             self.tableView.contentOffset = CGPointMake(0.0, originY);
+        } completion:^(BOOL finished) {
+            [self adjustBackgroundView];
         }];
     } else {
         self.tableView.contentOffset = CGPointMake(0.0, originY);
