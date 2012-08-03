@@ -48,11 +48,14 @@
     _hasViewInDetailedMode = NO;
     [ThemeResourceProvider configBackButtonDark:_returnButton];
     _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapEvent:)];
+    [_tapGestureRecognizer setNumberOfTapsRequired:1];
     [_scrollView addGestureRecognizer:_tapGestureRecognizer];
     
     _doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
     [_doubleTapGestureRecognizer setNumberOfTapsRequired:2];
     [_scrollView addGestureRecognizer:_doubleTapGestureRecognizer];
+    
+    [_tapGestureRecognizer requireGestureRecognizerToFail:_doubleTapGestureRecognizer];
     
     _scrollView.delegate = self;
     _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);

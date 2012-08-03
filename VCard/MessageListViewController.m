@@ -7,6 +7,7 @@
 //
 
 #import "MessageListViewController.h"
+#import "NSNotificationCenter+Addition.h"
 
 @interface MessageListViewController ()
 
@@ -30,6 +31,7 @@
     [self.topShadowImageView resetOriginY:[self frameForTableView].origin.y];
     [self.topShadowImageView resetOriginX:0.0];
     [self.view addSubview:self.topShadowImageView];
+    [NSNotificationCenter registerTimerFiredNotificationWithSelector:@selector(timerFired) target:self];
 }
 
 - (void)viewDidUnload
@@ -50,6 +52,11 @@
 - (void)showWithPurpose
 {
     [self.listTableViewController refresh];
+}
+
+- (void)timerFired
+{
+//    [self.listTableViewController refresh];
 }
 
 #pragma mark - Properties

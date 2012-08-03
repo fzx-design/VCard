@@ -65,6 +65,8 @@
         NSString *dateString = [messageDict objectForKey:@"created_at"];
         result.updateDate = [NSDate dateFromStringRepresentation:dateString];
         NSString *text = [messageDict objectForKey:@"text"];
+        NSString *lastText = result.latestMessageText;
+        BOOL hasNew = ![text isEqualToString:result.latestMessageText];
         result.hasNew = @(![text isEqualToString:result.latestMessageText] && [NSUserDefaults hasFetchedMessages]);
         result.latestMessageText = [messageDict objectForKey:@"text"];
     } else {

@@ -119,7 +119,7 @@
                 self.tableView.alpha = 1.0;
             }
             
-            [self resetLatestConversationMessage];
+            [self resetLatestConversationMessageNeedReplace:YES];
             
             [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
             
@@ -154,12 +154,12 @@
 - (void)receivedNewMessage:(NSDictionary *)dict
 {
     DirectMessage *message = [DirectMessage insertMessage:dict withConversation:_conversation inManagedObjectContext:self.managedObjectContext];
-    [self adjustSingleMessageSize:message];
     [self.managedObjectContext processPendingChanges];
     [self.fetchedResultsController performFetch:nil];
+    [self resetLatestConversationMessageNeedReplace:NO];
+    [self adjustSingleMessageSize:message];
     [self scrollToBottom:YES];
     [self finishedLoading];
-    [self resetLatestConversationMessage];
     _lastMessageID = message.messageID;
 }
 
@@ -191,13 +191,14 @@
             
             [weakSelf.managedObjectContext processPendingChanges];
             [weakSelf.fetchedResultsController performFetch:nil];
+            [weakSelf resetLatestConversationMessageNeedReplace:NO];
+            
             [weakSelf adjustMessageSize];
             [weakSelf checkNewMessage];
             
             weakSelf.nextCursor = [[result objectForKey:@"next_cursor"] intValue];
             weakSelf.hasMoreViews = NO;
             
-            [weakSelf resetLatestConversationMessage];
         }
         
         [weakSelf refreshEnded];
@@ -242,12 +243,12 @@
     [self performSelector:@selector(adjustBackgroundView) withObject:nil afterDelay:0.03];
 }
 
-- (void)resetLatestConversationMessage
+- (void)resetLatestConversationMessageNeedReplace:(BOOL)needReplace
 {
     int count = self.fetchedResultsController.fetchedObjects.count;
     if (count > 0) {
         DirectMessage *message = [self.fetchedResultsController.fetchedObjects objectAtIndex:count - 1];
-        self.conversation.latestMessageText = [message.text replaceRegExWithEmoticons];
+        self.conversation.latestMessageText = needReplace ? [message.text replaceRegExWithEmoticons] : message.text;
     } else {
         self.conversation.latestMessageText = @"";
     }
@@ -424,7 +425,7 @@
         if (!client.hasError) {
             [self.managedObjectContext deleteObject:message];
             [self.managedObjectContext processPendingChanges];
-            [self resetLatestConversationMessage];
+            [self resetLatestConversationMessageNeedReplace:YES];
         }
     }];
     [client deleteDirectMessage:message.messageID];
