@@ -17,6 +17,7 @@
 
 @property (nonatomic, unsafe_unretained) long long nextCursor;
 @property (nonatomic, unsafe_unretained) BOOL shouldReload;
+@property (nonatomic, unsafe_unretained) int selectedRow;
 
 @end
 
@@ -33,8 +34,9 @@
 
 - (void)viewDidLoad
 {
-    _shouldReload = NO;
     [super viewDidLoad];
+    _shouldReload = NO;
+    _selectedRow = -1;
 }
 
 - (void)viewDidUnload
@@ -129,7 +131,7 @@
         Conversation *conversation = [self.fetchedResultsController objectAtIndexPath:indexPath];
         listCell.screenNameLabel.text = conversation.targetUser.screenName;
         listCell.infoLabel.text = conversation.latestMessageText;
-        listCell.hasNewIndicator.hidden = !conversation.hasNew.boolValue;
+        listCell.hasNewIndicator.hidden = !conversation.hasNew.boolValue || indexPath.row == _selectedRow;
         
         [listCell.avatarImageView loadImageFromURL:conversation.targetUser.profileImageURL
                                         completion:NULL];
@@ -203,6 +205,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    _selectedRow = indexPath.row;
+    
     Conversation *conversation = [self.fetchedResultsController objectAtIndexPath:indexPath];
     conversation.hasNew = @(NO);
     
