@@ -56,13 +56,18 @@ static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
 
     [UIView setAnimationsEnabled:NO];
     [self resignFirstResponder];
+    [self textViewDidChangeWithCurrentHintView:hintView];
     [self becomeFirstResponder];
     [UIView setAnimationsEnabled:YES];
     
     UITextPosition *beginning = self.beginningOfDocument;
     UITextPosition *start = [self positionFromPosition:beginning offset:!shouldReplaceFormerPoundSign ? self.currentHintStringRange.location : self.currentHintStringRange.location - 1];
     UITextPosition *end = [self positionFromPosition:start offset:!shouldReplaceFormerPoundSign ? self.currentHintStringRange.length : self.currentHintStringRange.length + 1];
+    
+    NSLog(@"start:%d, end:%d", !shouldReplaceFormerPoundSign ? self.currentHintStringRange.location : self.currentHintStringRange.location - 1, !shouldReplaceFormerPoundSign ? self.currentHintStringRange.length : self.currentHintStringRange.length + 1);
+    
     UITextRange *textRange = [self textRangeFromPosition:start toPosition:end];
+    
     [self replaceRange:textRange withText:replaceText];
     
     NSUInteger replaceTextLength = location + replaceText.length;
