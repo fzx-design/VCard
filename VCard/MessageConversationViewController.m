@@ -192,7 +192,7 @@ typedef enum {
     UIView *currentHintView = self.currentHintView;
     if([text isEqualToString:@"@"] && !currentHintView) {
         [self presentAtHintView];
-    } else if([text isEqualToString:@"#"] && !currentHintView) {
+    } else if(([text isEqualToString:@"#"] || [text isEqualToString:@"＃"]) && !currentHintView) {
         [self presentTopicHintView];
     }
     [self.textView shouldChangeTextInRange:range replacementText:text currentHintView:currentHintView];

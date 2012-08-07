@@ -45,19 +45,30 @@ static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
 - (void)replaceHintWithResult:(NSString *)text fromHintView:(id)hintView {
     int location = self.currentHintStringRange.location;
     NSString *replaceText = text;
+    
+    BOOL shouldReplaceFormerPoundSign = [hintView isMemberOfClass:[PostTopicHintView class]] && self.needFillPoundSign;
+    
     if([hintView isMemberOfClass:[PostAtHintView class]]) {
         replaceText = [NSString stringWithFormat:@"%@ ", replaceText];
-    } else if([hintView isMemberOfClass:[PostTopicHintView class]] && self.needFillPoundSign) {
-        replaceText = [NSString stringWithFormat:@"%@#", replaceText];
+    } else if(shouldReplaceFormerPoundSign) {
+        replaceText = [NSString stringWithFormat:@"#%@#", replaceText];
     }
+
+    [UIView setAnimationsEnabled:NO];
+    [self resignFirstResponder];
+    [self becomeFirstResponder];
+    [UIView setAnimationsEnabled:YES];
     
     UITextPosition *beginning = self.beginningOfDocument;
-    UITextPosition *start = [self positionFromPosition:beginning offset:self.currentHintStringRange.location];
-    UITextPosition *end = [self positionFromPosition:start offset:self.currentHintStringRange.length];
+    UITextPosition *start = [self positionFromPosition:beginning offset:!shouldReplaceFormerPoundSign ? self.currentHintStringRange.location : self.currentHintStringRange.location - 1];
+    UITextPosition *end = [self positionFromPosition:start offset:!shouldReplaceFormerPoundSign ? self.currentHintStringRange.length : self.currentHintStringRange.length + 1];
     UITextRange *textRange = [self textRangeFromPosition:start toPosition:end];
     [self replaceRange:textRange withText:replaceText];
     
-    NSRange range = NSMakeRange(location + replaceText.length, 0);
+    NSUInteger replaceTextLength = location + replaceText.length;
+    if(shouldReplaceFormerPoundSign)
+        replaceTextLength -= 1;
+    NSRange range = NSMakeRange(replaceTextLength, 0);
     if([hintView isMemberOfClass:[PostTopicHintView class]])
         range.location += 1;
     self.selectedRange = range;
@@ -76,7 +87,7 @@ static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
         }
     } else if([text isEqualToString:@"@"]) {
         self.currentHintStringRange = NSMakeRange(range.location + text.length - range.length, 0);
-    } else if([text isEqualToString:@"#"]) {
+    } else if([text isEqualToString:@"#"] || [text isEqualToString:@"＃"]) {
         self.currentHintStringRange = NSMakeRange(range.location + text.length - range.length, 0);
         self.needFillPoundSign = YES;
     }
