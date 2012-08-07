@@ -331,7 +331,7 @@ typedef enum {
 
 - (int)weiboTextBackwardsCount {
     int textLength = [self textDoubleCount:self.textView.text] + [self textDoubleCount:self.prefixText];
-    textLength = floorf((float)textLength / 2.0f);
+    textLength = ceilf((float)textLength / 2.0f);
     return WEIBO_TEXT_MAX_LENGTH - textLength;
 }
 
