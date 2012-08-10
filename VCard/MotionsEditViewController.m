@@ -453,8 +453,19 @@
             filteredImage = [filteredImage compressImageToSize:CGSizeMake(180, 180)];
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.delegate editViewControllerDidFinishEditImage:filteredImage];
+            
+            if(self.isDirty) {
+                [self performSelectorInBackground:@selector(saveImageInBackground:) withObject:filteredImage];
+            }
         });
     });
+}
+
+#pragma mark - Save image methods
+
+- (void)saveImageInBackground:(UIImage *)image {
+    if(image)
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 }
 
 #pragma mark - CropImageViewController delegate

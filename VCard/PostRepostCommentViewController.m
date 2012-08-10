@@ -87,7 +87,6 @@
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
         if(!client.hasError) {
-            [self performSelectorInBackground:@selector(saveImageInBackground:) withObject:self.motionsOriginalImage];
             [self.delegate postViewController:self didPostMessage:self.textView.text];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
             NSString *errorMessage = self.type == PostViewControllerTypeRepost ? @"转发成功" : @"评论成功";

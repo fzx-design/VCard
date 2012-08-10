@@ -101,8 +101,6 @@ typedef enum {
 - (void)dismissViewUpwards;
 - (void)unfoldAnimationDidFinish;
 
-- (void)saveImageInBackground:(UIImage *)image;
-
 @end
 
 @protocol PostViewControllerDelegate <NSObject>
