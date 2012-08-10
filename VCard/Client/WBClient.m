@@ -265,9 +265,9 @@ typedef enum {
     }
     
     if(image)
-        [self.params setObject:(text ? text : @"分享图片") forKey:@"status"];
+        [self.params setObject:((text && ![text isEqualToString:@""]) ? text : @"分享图片") forKey:@"status"];
     else
-        [self.params setObject:(text ? text : @"发表微博") forKey:@"status"];
+        [self.params setObject:((text && ![text isEqualToString:@""]) ? text : @"发表微博") forKey:@"status"];
     
     if(longtitude && latitude) {
         [self.params setObject:longtitude forKey:@"long"];
