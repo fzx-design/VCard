@@ -267,21 +267,17 @@
     return NO;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration 
+- (void)viewDidLayoutSubviews
 {
+    UIInterfaceOrientation toInterfaceOrientation = [UIApplication currentInterface];
     [self updatePageControlAndScrollViewSize:toInterfaceOrientation];
     [self resetContentSize:toInterfaceOrientation];
     [self resetContentLayout:toInterfaceOrientation];
     [self resetSettingViewLayout:toInterfaceOrientation];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    CGFloat toWidth = UIInterfaceOrientationIsPortrait(fromInterfaceOrientation) ? 1024 : 768;
-    [_scrollView resetWidth:toWidth];
+    
+    [_scrollView resetWidth:[UIApplication screenWidth]];
     _scrollView.contentOffset = CGPointMake([UIApplication screenWidth] * _pageControl.currentPage, 0.0);
-    [_pageControl resetCenterX:_scrollView.contentOffset.x + toWidth / 2];
+    [_pageControl resetCenterX:_scrollView.contentOffset.x + [UIApplication screenWidth] / 2];
 }
 
 - (void)resetContentSize:(UIInterfaceOrientation)orientation
