@@ -142,8 +142,11 @@
     drawerView.enabled = NO;
     _currentDrawerView = drawerView;
     
-    [NSUserDefaults setCurrentGroupIndex:0];
-    [NSUserDefaults setCurrentGroupTitle:@""];
+    [NSUserDefaults setUserAccountInfoWithUserID:self.currentUser.userID
+                                      groupIndex:0
+                                      groupTitle:@""
+                               groupDatasourceID:@""
+                                       groupType:kGroupTypeDefault];
 }
 
 #pragma mark - Group Infomation Behavior
@@ -442,7 +445,12 @@
     }
     
     if (_currentDrawerView == nil) {
-        int currentGroupIndex = [NSUserDefaults getCurrentGroupIndex];
+        UserAccountInfo *info = [NSUserDefaults getUserAccountInfoWithUserID:self.currentUser.userID];
+        int currentGroupIndex = info.groupIndex;
+        if (currentGroupIndex > _drawerViewArray.count - 1 || currentGroupIndex < 0) {
+            currentGroupIndex = 0;
+        }
+        
         _currentDrawerView = [_drawerViewArray objectAtIndex:currentGroupIndex];
         [_currentDrawerView showHighlightGlow];
         _currentDrawerView.enabled = NO;
@@ -510,8 +518,11 @@
                                                                         kNotificationObjectKeyDataSourceType: type,
                                                                         kNotificationObjectKeyDataSourceID: groupID}];
             
-            [NSUserDefaults setCurrentGroupIndex:view.index];
-            [NSUserDefaults setCurrentGroupTitle:name];
+            [NSUserDefaults setUserAccountInfoWithUserID:self.currentUser.userID
+                                              groupIndex:view.index
+                                              groupTitle:name
+                                       groupDatasourceID:groupID
+                                               groupType:type];
             
         }
     }

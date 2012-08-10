@@ -37,6 +37,12 @@ typedef enum {
                                password:(NSString *)password;
 
 + (UserAccountInfo *)getUserAccountInfoWithUserID:(NSString *)userID;
++ (void)setUserAccountInfoWithUserID:(NSString *)userID
+                          groupIndex:(NSInteger)index
+                          groupTitle:(NSString *)title
+                   groupDatasourceID:(NSString *)dataSourceID
+                           groupType:(NSString *)groupType;
+
 + (void)setCurrentUserID:(NSString *)userID;
 + (NSString *)getCurrentUserID;
 
@@ -82,11 +88,6 @@ typedef enum {
 + (BOOL)hasShownMessageList;
 + (void)setShownMessageList:(BOOL)hasShown;
 
-+ (void)setCurrentGroupTitle:(NSString *)groupTitle;
-+ (NSString *)getCurrentGroupTitle;
-+ (void)setCurrentGroupIndex:(int)groupIndex;
-+ (int)getCurrentGroupIndex;
-
 + (BOOL)shouldPostRecommendVCardWeibo;
 + (void)setShouldPostRecommendVCardWeibo:(BOOL)shouldPost;
 
@@ -100,8 +101,14 @@ typedef enum {
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *account;
 @property (nonatomic, strong) NSString *password;
+@property (nonatomic, strong) NSString *groupTitle;
+@property (nonatomic, strong) NSString *groupIndexString;
+@property (nonatomic, strong) NSString *groupDataSourceID;
+@property (nonatomic, strong) NSString *groupType;
 
 - (id)initWithInfoDict:(NSDictionary *)dict;
+- (NSDictionary *)infoDictionary;
+- (NSInteger)groupIndex;
 
 @end
 
