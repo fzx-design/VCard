@@ -986,7 +986,7 @@
             } else {
                 [self.waterflowView reloadData];
             }
-            _hasMoreViews = dictArray.count == 20;
+            _hasMoreViews = dictArray.count > 15;
         }
         
         [NSNotificationCenter postDidReloadCardCellNotification];
@@ -1021,8 +1021,10 @@
                                       count:20
                                     feature:0];
     } else if (_dataSource == CastviewDataSourceTopic) {
+        NSDate *startDate = _refreshing ? nil : ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).createdAt;
+        
         [client searchTopic:_dataSourceID
-             startingAtPage:_nextPage++
+                 startingAt:startDate
                       count:20];
     }
     
@@ -1161,11 +1163,6 @@
     [self refresh];
 }
 
-- (void)loadMoreViewShouldLoadMoreView:(LoadMoreView *)view
-{
-    [self loadMoreData];
-}
-
 #pragma mark - WaterflowDelegate
 - (void)didDragWaterflowViewWithOffset:(CGFloat)offset
 {    
@@ -1247,7 +1244,9 @@
 
 - (void)flowViewLoadMoreViews
 {
-    [self loadMoreData];
+    if (_hasMoreViews) {
+        [self loadMoreData];
+    }
 }
 
 - (int)numberOfObjectsInSection

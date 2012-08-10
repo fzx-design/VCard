@@ -157,6 +157,8 @@
             [weakSelf updateHeaderViewInfo];
             [weakSelf updateVisibleCells];
             
+        } else {
+            weakSelf.hasMoreViews = NO;
         }
         
         [weakSelf refreshEnded];
