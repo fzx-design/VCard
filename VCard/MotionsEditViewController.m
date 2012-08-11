@@ -526,6 +526,9 @@
     
     self.currentFilterInfo = info;
     
+    if(info.filterParameter == nil)
+        self.currentFilterInfo = nil;
+    
     self.backupFilterImageView.processImage = self.currentFilterImageView.processImage;
     self.backupFilterImageView.filterInfo = info;
     
