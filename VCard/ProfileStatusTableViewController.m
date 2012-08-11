@@ -168,11 +168,15 @@
                               page:0
                              count:20];
     } else if(_type == StatusTableViewControllerTypeTopicStatus){
-        NSDate *startDate = self.refreshing ? nil : ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).createdAt;
-        
-        [client searchTopic:_searchKey
-                 startingAt:startDate
-                      count:20];
+        if ([self.searchKey isEqualToString:kTopicNameHot]) {
+            [client getHotStatuses];
+        } else {
+            NSDate *startDate = self.refreshing ? nil : ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).createdAt;
+            [client searchTopic:_searchKey
+                     startingAt:startDate
+                       clearDup:YES
+                          count:20];
+        }
     }
 }
 

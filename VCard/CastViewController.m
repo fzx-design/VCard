@@ -1025,6 +1025,7 @@
         
         [client searchTopic:_dataSourceID
                  startingAt:startDate
+                   clearDup:YES
                       count:20];
     }
     

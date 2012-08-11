@@ -182,8 +182,10 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 
 - (void)searchUser:(NSString *)q page:(int)page count:(int)count;
 
+- (void)getHotStatuses;
 - (void)searchTopic:(NSString *)q
          startingAt:(NSDate *)startDate
+           clearDup:(BOOL)dup
               count:(int)count;
 - (void)searchTopic:(NSString *)q
      startingAtPage:(int)page
