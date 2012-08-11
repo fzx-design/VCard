@@ -184,6 +184,7 @@ typedef void (^WCCompletionBlock)(WBClient *client);
 
 - (void)searchTopic:(NSString *)q
          startingAt:(NSDate *)startDate
+           clearDup:(BOOL)dup
               count:(int)count;
 - (void)searchTopic:(NSString *)q
      startingAtPage:(int)page

@@ -58,7 +58,7 @@
     [_topImageView5 addGestureRecognizer:gesture5];
     [_topImageView6 addGestureRecognizer:gesture6];
     
-    [_topicLabel1 setText:@"温馨一刻"];
+    [_topicLabel1 setText:@"微博精选"];
     [_topicLabel2 setText:@"时事新闻"];
     [_topicLabel3 setText:@"搞笑"];
     [_topicLabel4 setText:@"美食"];
@@ -123,7 +123,7 @@
 {
     NSString *topicName = @"";
     if ([sender.view isEqual:_topImageView1]) {
-        topicName = @"温馨一刻";
+        topicName = kTopicNameHot;
     } else if ([sender.view isEqual:_topImageView2]) {
         topicName = @"图片新闻";
     } else if ([sender.view isEqual:_topImageView3]) {

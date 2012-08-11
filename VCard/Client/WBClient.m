@@ -849,6 +849,7 @@ typedef enum {
 
 - (void)searchTopic:(NSString *)q
          startingAt:(NSDate *)startDate
+           clearDup:(BOOL)dup
               count:(int)count
 {
     self.path = @"search/statuses.json";
@@ -866,6 +867,8 @@ typedef enum {
         long long timeInterval = [startDate timeIntervalSince1970];
         [self.params setObject:[NSString stringWithFormat:@"%lld", timeInterval] forKey:@"endtime"];
     }
+    
+    [self.params setObject:[NSString stringWithFormat:@"%d", dup] forKey:@"dup"];
     
     BlockWeakSelf weakSelf = self;
     [self setPreCompletionBlock:^(WBClient *client) {

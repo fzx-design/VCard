@@ -148,6 +148,8 @@
 #define kOperatableTypeCommentMentioningMe              4
 #define kOperatableTypeMessage                          5
 
+#define kTopicNameHot                                   @"微博精选"
+
 #define BlockWeakObject(o) __unsafe_unretained typeof(o)
 #define BlockWeakSelf BlockWeakObject(self)
 

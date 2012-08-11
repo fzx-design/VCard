@@ -111,7 +111,9 @@
                 [weakSelf clearData];
             }
             
-            for (NSDictionary *dict in dictArray) {
+            for (NSDictionary *rawDict in dictArray) {
+                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:rawDict];
+                
                 Status *newStatus = nil;
                 newStatus = [Status insertStatus:dict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:weakSelf.coreDataIdentifier operatableType:kOperatableTypeNone];
                                 
@@ -168,10 +170,11 @@
                               page:0
                              count:20];
     } else if(_type == StatusTableViewControllerTypeTopicStatus){
+
         NSDate *startDate = self.refreshing ? nil : ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).createdAt;
-        
         [client searchTopic:_searchKey
                  startingAt:startDate
+                   clearDup:YES
                       count:20];
     }
 }
