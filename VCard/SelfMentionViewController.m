@@ -136,6 +136,7 @@
         _statusTableViewController.tableView.frame = [self frameForTableView];
         _statusTableViewController.user = self.currentUser;
         _statusTableViewController.type = statusTableViewControllerTypeMentionStatus;
+        _statusTableViewController.firstLoad = YES;
     }
     return _statusTableViewController;
 }

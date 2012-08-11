@@ -147,6 +147,7 @@
 #define kOperatableTypeCommentByMe                      3
 #define kOperatableTypeCommentMentioningMe              4
 #define kOperatableTypeMessage                          5
+#define kOpreatableTypeMentioningStatuses               6
 
 #define kTopicNameHot                                   @"微博精选"
 
