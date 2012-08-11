@@ -11,6 +11,10 @@
 #import "Group.h"
 #import "UIApplication+Addition.h"
 
+#define kFollowTextContent @"加入卡片架"
+#define kUnfollowTextContent @"从卡片架移除"
+#define kOperatingTextContent @"操作中"
+
 @interface TopicViewController () {
     BOOL _isTopicFollowed;
     NSString *_topicID;
@@ -81,27 +85,29 @@
     
     [ThemeResourceProvider configButtonPaperLight:_followTopicButton];
     [ThemeResourceProvider configButtonPaperDark:_postTopicButton];
-    _topicTitleLabel.text = [NSString stringWithFormat:@"#%@#", _searchKey];
+    _topicTitleLabel.text = [NSString stringWithFormat:@"%@", _searchKey];
 }
 
 - (void)loadTopicStatus
 {
     _group = [Group groupWithName:_searchKey userID:self.currentUser.userID inManagedObjectContext:self.managedObjectContext];
     _isTopicFollowed = _group != nil;
-    NSString *buttonText = _isTopicFollowed ? @"取消关注" : @"关注话题";
-    _followTopicButton.titleLabel.text = buttonText;
+    NSString *buttonText = _isTopicFollowed ? kUnfollowTextContent : kFollowTextContent;
+    [_followTopicButton setTitle:buttonText forState:UIControlStateNormal];
 }
 
 #pragma mark - IBActions
 - (IBAction)didClickFollowTopicButton:(UIButton *)sender
 {
+    NSString *followStateContent = nil;
     if (_isTopicFollowed) {
         [self unfollowTopic];
-        _followTopicButton.titleLabel.text = @"取消关注中";
+        followStateContent = kOperatingTextContent;
     } else {
         [self followTopic];
-        _followTopicButton.titleLabel.text = @"关注中";
+        followStateContent = kOperatingTextContent;
     }
+    [_followTopicButton setTitle:followStateContent forState:UIControlStateNormal];
     _followTopicButton.userInteractionEnabled = NO;
 }
 
@@ -117,17 +123,20 @@
 {
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
+        NSString *followStateContent = nil;
         if (!client.hasError) {
             NSDictionary *dict = client.responseJSONObject;
             NSString *groupID = [dict objectForKey:@"topicid"];
             _group = [Group insertTopicWithName:_searchKey userID:self.currentUser.userID andID:groupID inManangedObjectContext:self.managedObjectContext];
             [self.managedObjectContext processPendingChanges];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldCreateNewGroup object:_group];
-            _followTopicButton.titleLabel.text = @"取消关注";
+            followStateContent = kUnfollowTextContent;
             _isTopicFollowed = YES;
         } else {
-            _followTopicButton.titleLabel.text = @"关注话题";
+            followStateContent = kFollowTextContent;
         }
+        
+        [_followTopicButton setTitle:followStateContent forState:UIControlStateNormal];
         _followTopicButton.userInteractionEnabled = YES;
     }];
     [client followTrend:_searchKey];
@@ -137,14 +146,18 @@
 {
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
+        
+        NSString *followStateContent = nil;
         if (!client.hasError) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldDeleteGroup object:_group];
-            _followTopicButton.titleLabel.text = @"关注话题";
+            followStateContent = kFollowTextContent;
             _isTopicFollowed = NO;
             _group = nil;
         } else {
-            _followTopicButton.titleLabel.text = @"取消关注";
+            followStateContent = kUnfollowTextContent;
         }
+        
+        [_followTopicButton setTitle:followStateContent forState:UIControlStateNormal];
         _followTopicButton.userInteractionEnabled = YES;
     }];
     [client unfollowTrend:_group.groupID];

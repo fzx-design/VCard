@@ -130,16 +130,13 @@
     CGFloat textShadowAlphaFactor = type == kGroupTypeTopic ? 0.6 : 1.0;
     
     CGRect frame;
-    NSString *title;
     if (_type == kGroupTypeTopic) {
         frame = kTopicLabelFrame;
-        title = [NSString stringWithFormat:@"#%@#", _topicName];
     } else {
         frame = kDrawerLabelFrame;
-        title = [NSString stringWithFormat:@"%@", _topicName];
     }
     _topicLabel = [[UILabel alloc] initWithFrame:frame];
-    _topicLabel.text = title;
+    _topicLabel.text = _topicName;
     _topicLabel.textAlignment = UITextAlignmentCenter;
     _topicLabel.minimumFontSize = 12.0
     ;

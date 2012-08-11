@@ -26,7 +26,7 @@
 
 - (void)setUpImages
 {
-    [_topImageView1 setImageViewWithName:@"topic_warm.png"];
+    [_topImageView1 setImageViewWithName:@"topic_select.png"];
     [_topImageView2 setImageViewWithName:@"topic_news.png"];
     [_topImageView3 setImageViewWithName:@"topic_funny.png"];
     [_topImageView4 setImageViewWithName:@"topic_food.png"];
