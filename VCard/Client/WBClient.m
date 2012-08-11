@@ -847,15 +847,6 @@ typedef enum {
     [self loadNormalRequest];
 }
 
-- (void)getHotStatuses
-{
-    self.path = @"statuses/hot/repost_daily.json";
-    
-    [self.params setObject:@"50" forKey:@"count"];
-    
-    [self loadNormalRequest];
-}
-
 - (void)searchTopic:(NSString *)q
          startingAt:(NSDate *)startDate
            clearDup:(BOOL)dup

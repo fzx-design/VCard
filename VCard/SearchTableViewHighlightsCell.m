@@ -58,7 +58,7 @@
     [_topImageView5 addGestureRecognizer:gesture5];
     [_topImageView6 addGestureRecognizer:gesture6];
     
-    [_topicLabel1 setText:@"热门微博"];
+    [_topicLabel1 setText:@"微博精选"];
     [_topicLabel2 setText:@"时事新闻"];
     [_topicLabel3 setText:@"搞笑"];
     [_topicLabel4 setText:@"美食"];
