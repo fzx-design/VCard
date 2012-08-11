@@ -506,7 +506,7 @@
             NSString *name = group.name;
             NSString *groupID = group.groupID;
             if (type.intValue == kGroupTypeTopic) {
-                name = [NSString stringWithFormat:@"#%@#", name];
+                name = [NSString stringWithFormat:@"%@", name];
                 groupID = group.name;
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldChangeCastviewDataSource

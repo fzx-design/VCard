@@ -28,6 +28,8 @@
         [images addObject:[UIImage imageWithCGImage:cgImage]];
         CGImageRelease(cgImage);
     }
+    
+    NSLog(@"%zd images for gif", count);
     return [UIImage animatedImageWithImages:images duration:duration];
 }
 
@@ -51,7 +53,13 @@
             break;
         }
     }
-    return duration/100;
+    
+    while (duration > 100.0) {
+        duration /= 100.0;
+    }
+    
+    NSLog(@"%f seconds interval for gif", duration);
+    return duration;
 }
 
 + (UIImage *)animatedImageWithGIFData:(NSData *)data{
