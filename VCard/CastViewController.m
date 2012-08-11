@@ -116,7 +116,7 @@
     
     UserAccountInfo *info = [NSUserDefaults getUserAccountInfoWithUserID:self.currentUser.userID];
     if (info.groupIndex != 0) {
-        [self changeCastViewDataSouceWithType:info.groupType description:info.groupTitle dataSourceID:info.groupDataSourceID];
+        [self changeCastViewDataSouceWithType:info.groupType description:info.groupTitle dataSourceID:info.groupDataSourceID needRefresh:NO];
     }
     
     [_loadMoreView resetLayoutTo:[UIApplication currentInterface]];
@@ -283,22 +283,27 @@
 #pragma mark - Initializing Methods
 - (void)initialLoad
 {
-    [self.fetchedResultsController performFetch:nil];
-    
-    [self performSelector:@selector(setUpInitialView) withObject:nil afterDelay:0.5];
-}
-
-
-- (void)setUpInitialView
-{
-    if (self.fetchedResultsController.fetchedObjects.count == 0) {
-        [self refresh];
-    }
-    [self setUpWaterflowView];
+    BOOL succeeded = [self.fetchedResultsController performFetch:nil];
+    NSLog(@"%d", succeeded);
+    [self performSelector:@selector(setUpWaterflowView) withObject:nil afterDelay:0.5];
 }
 
 - (void)setUpWaterflowView
 {
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && currentUserID == %@", self.currentUser, self.currentUser.userID]];
+    
+    NSArray *items = [self.managedObjectContext executeFetchRequest:request error:nil];
+    NSLog(@"%@", self.currentUser.userID);
+    for (Status *status in items) {
+        NSLog(@"%@", status.text);
+    }
+    
+    if (self.fetchedResultsController.fetchedObjects.count == 0) {
+        [self refresh];
+    }
     [self.waterflowView refresh];
     [_loadMoreView resetPosition];
 }
@@ -671,12 +676,13 @@
         _errorIndicateViewController = [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeLoading contentText:nil animated:YES];
     }
     
-    [self changeCastViewDataSouceWithType:typeString description:description dataSourceID:dataSouceID];
+    [self changeCastViewDataSouceWithType:typeString description:description dataSourceID:dataSouceID needRefresh:YES];
 }
 
 - (void)changeCastViewDataSouceWithType:(NSString *)typeString
                             description:(NSString *)description
                            dataSourceID:(NSString *)dataSourceID
+                            needRefresh:(BOOL)needRefresh
 {
     int type = typeString.intValue;
     _dataSourceID = dataSourceID;
@@ -696,7 +702,10 @@
         }
         [_waterflowView showInfoBarWithTitleName:description];
         [self updateUnreadStatusCount];
-        [self refresh];
+        
+        if (needRefresh) {
+            [self refresh];
+        }
     }
     _previousStatusID = @"";
 }
@@ -1097,8 +1106,7 @@
     sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
     request.sortDescriptors = @[sortDescriptor];
     request.entity = [NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext];
- 
-    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && currentUserID == %@", self.currentUser,self.currentUser.userID];
+    request.predicate = [NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && currentUserID == %@", self.currentUser, self.currentUser.userID];
                   
 }
 
@@ -1106,6 +1114,7 @@
 {
     return @"CardTableViewCell";
 }
+
 
 #pragma mark - Stack View Controller Delegate
 - (void)clearStack

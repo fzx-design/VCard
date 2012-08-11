@@ -62,21 +62,15 @@ static CoreDataKernal *kernalInstance = nil;
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
-    if (_fetchedResultsController != nil)
-    {
-        return _fetchedResultsController;
+    if (_fetchedResultsController == nil) {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        [self configureRequest:fetchRequest];
+        
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+        _fetchedResultsController.delegate = self;
+        
+        [_fetchedResultsController performFetch:nil];
     }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    
-    [self configureRequest:fetchRequest];
-    
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
-    
-	[self.fetchedResultsController performFetch:NULL];
-    
     return _fetchedResultsController;
 }
 
@@ -119,6 +113,10 @@ static CoreDataKernal *kernalInstance = nil;
     if(self.currentUser == nil) {
         [[WBClient client] logOut];
     }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+
 }
 
 - (void)refreshTeamMemberFollowStatus {

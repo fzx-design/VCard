@@ -2624,7 +2624,7 @@
                                         <rect key="frame" x="24" y="0.0" width="384" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <searchBar contentMode="redraw" barStyle="blackTranslucent" placeholder="搜索" id="4D3-Zx-ihO">
+                                    <searchBar contentMode="redraw" barStyle="blackTranslucent" placeholder="搜索微博 / 用户" id="4D3-Zx-ihO">
                                         <rect key="frame" x="25" y="0.0" width="374" height="44"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
