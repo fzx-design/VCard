@@ -318,7 +318,7 @@
     
     CGFloat statusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
     CardSizeUserAvatarHeight + CardSizeTextGap + 
-    self.originalStatusLabel.frame.size.height;
+    self.originalStatusLabel.frame.size.height - 20.0;
     if (_doesImageExist) {
         statusViewHeight += CardSizeImageGap;
     }
@@ -359,7 +359,7 @@
         
         CGFloat repostStatusViewHeight = CardSizeTopViewHeight + CardSizeBottomViewHeight +
         CardSizeUserAvatarHeight + CardSizeTextGap + 
-        self.repostStatusLabel.frame.size.height;
+        self.repostStatusLabel.frame.size.height - 20.0;
         
         //        if (_isTimeStampEnabled) {
         repostStatusViewHeight += CardTailHeight;

@@ -79,7 +79,7 @@ static inline NSRegularExpression * EmotionIDRegularExpression() {
 + (void)setCardViewController:(CardViewController *)vc StatusTextLabel:(TTTAttributedLabel*)label withText:(NSString*)string
 {
     CGRect frame = label.frame;
-    frame.size.height = [TTTAttributedLabelConfiguer heightForCellWithText:string];
+    frame.size.height = [TTTAttributedLabelConfiguer heightForCellWithText:string] + 20.0;
     label.frame = frame;
     
     label.font = [UIFont systemFontOfSize:[NSUserDefaults currentFontSize]];

@@ -86,6 +86,7 @@
 - (void)setUpVariables
 {
     _loading = NO;
+    _hasMoreViews = YES;
     _nextPage = 1;
     _notificationAlreadySet = NO;
     _refreshIndicatorView.hidden = YES;
