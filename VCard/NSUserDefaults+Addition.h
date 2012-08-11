@@ -41,7 +41,7 @@ typedef enum {
                           groupIndex:(NSInteger)index
                           groupTitle:(NSString *)title
                    groupDatasourceID:(NSString *)dataSourceID
-                           groupType:(NSString *)groupType;
+                           groupType:(int)groupType;
 
 + (void)setCurrentUserID:(NSString *)userID;
 + (NSString *)getCurrentUserID;

@@ -518,7 +518,7 @@
                                               groupIndex:view.index
                                               groupTitle:name
                                        groupDatasourceID:groupID
-                                               groupType:type];
+                                               groupType:group.type.intValue];
             
         }
     }

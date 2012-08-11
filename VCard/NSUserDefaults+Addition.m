@@ -353,14 +353,15 @@
                           groupIndex:(NSInteger)index
                           groupTitle:(NSString *)title
                    groupDatasourceID:(NSString *)dataSourceID
-                           groupType:(NSString *)type
+                           groupType:(int)type
 {
     NSString *indexString = [NSString stringWithFormat:@"%d", index];
+    NSString *typeString = [NSString stringWithFormat:@"%d", type];
     
     UserAccountInfo *info = [NSUserDefaults getUserAccountInfoWithUserID:userID];
     info.groupIndexString = indexString;
     info.groupTitle = title;
-    info.groupType = type;
+    info.groupType = typeString;
     info.groupDataSourceID = dataSourceID;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
