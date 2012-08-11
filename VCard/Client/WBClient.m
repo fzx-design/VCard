@@ -847,6 +847,38 @@ typedef enum {
     [self loadNormalRequest];
 }
 
+- (void)searchTopic:(NSString *)q
+         startingAt:(NSDate *)startDate
+           clearDup:(BOOL)dup
+              count:(int)count
+{
+    self.path = @"search/statuses.json";
+    if (q) {
+        [self.params setObject:q forKey:@"q"];
+    } else {
+        //TODO: Handle userID nil Error
+        return;
+    }
+	
+    if (count > 0) {
+        [self.params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    }
+    if (startDate) {
+        long long timeInterval = [startDate timeIntervalSince1970];
+        [self.params setObject:[NSString stringWithFormat:@"%lld", timeInterval] forKey:@"endtime"];
+    }
+    
+    [self.params setObject:[NSString stringWithFormat:@"%d", dup] forKey:@"dup"];
+    
+    BlockWeakSelf weakSelf = self;
+    [self setPreCompletionBlock:^(WBClient *client) {
+        NSDictionary *dict = weakSelf.responseJSONObject;
+        weakSelf.responseJSONObject = [dict objectForKey:@"statuses"];
+    }];
+    
+    [self loadAdvancedRequest];
+}
+
 - (void)getGroups
 {
     self.shouldReportError = NO;

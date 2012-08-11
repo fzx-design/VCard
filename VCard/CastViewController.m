@@ -114,8 +114,9 @@
     [self.waterflowView addSubview:_loadMoreView];
     [self.waterflowView setContentEmptyIndicatorView:_contentEmptyIndicatorView];
     
-    if ([NSUserDefaults getCurrentGroupIndex] != 0) {
-        [self.waterflowView showInfoBarWithTitleName:[NSUserDefaults getCurrentGroupTitle]];
+    UserAccountInfo *info = [NSUserDefaults getUserAccountInfoWithUserID:self.currentUser.userID];
+    if (info.groupIndex != 0) {
+        [self changeCastViewDataSouceWithType:info.groupType description:info.groupTitle dataSourceID:info.groupDataSourceID];
     }
     
     [_loadMoreView resetLayoutTo:[UIApplication currentInterface]];
@@ -664,13 +665,21 @@
     NSDictionary *dict = notification.object;
     NSString *typeString = [dict objectForKey:kNotificationObjectKeyDataSourceType];
     NSString *description = [dict objectForKey:kNotificationObjectKeyDataSourceDescription];
-    _dataSourceID = [dict objectForKey:kNotificationObjectKeyDataSourceID];
-    int type = typeString.intValue;
+    NSString *dataSouceID = [dict objectForKey:kNotificationObjectKeyDataSourceID];
     
     if (_errorIndicateViewController == nil) {
         _errorIndicateViewController = [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeLoading contentText:nil animated:YES];
     }
     
+    [self changeCastViewDataSouceWithType:typeString description:description dataSourceID:dataSouceID];
+}
+
+- (void)changeCastViewDataSouceWithType:(NSString *)typeString
+                            description:(NSString *)description
+                           dataSourceID:(NSString *)dataSourceID
+{
+    int type = typeString.intValue;
+    _dataSourceID = dataSourceID;
     if ([_dataSourceID isEqualToString:kGroupIDDefault]) {
         [self returnToNormalTimeline];
         
@@ -977,7 +986,7 @@
             } else {
                 [self.waterflowView reloadData];
             }
-            _hasMoreViews = dictArray.count == 20;
+            _hasMoreViews = dictArray.count > 15;
         }
         
         [NSNotificationCenter postDidReloadCardCellNotification];
@@ -1012,8 +1021,11 @@
                                       count:20
                                     feature:0];
     } else if (_dataSource == CastviewDataSourceTopic) {
+        NSDate *startDate = _refreshing ? nil : ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).createdAt;
+        
         [client searchTopic:_dataSourceID
-             startingAtPage:_nextPage++
+                 startingAt:startDate
+                   clearDup:YES
                       count:20];
     }
     
@@ -1152,11 +1164,6 @@
     [self refresh];
 }
 
-- (void)loadMoreViewShouldLoadMoreView:(LoadMoreView *)view
-{
-    [self loadMoreData];
-}
-
 #pragma mark - WaterflowDelegate
 - (void)didDragWaterflowViewWithOffset:(CGFloat)offset
 {    
@@ -1238,7 +1245,9 @@
 
 - (void)flowViewLoadMoreViews
 {
-    [self loadMoreData];
+    if (_hasMoreViews) {
+        [self loadMoreData];
+    }
 }
 
 - (int)numberOfObjectsInSection

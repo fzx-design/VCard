@@ -111,7 +111,9 @@
                 [weakSelf clearData];
             }
             
-            for (NSDictionary *dict in dictArray) {
+            for (NSDictionary *rawDict in dictArray) {
+                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:rawDict];
+                
                 Status *newStatus = nil;
                 newStatus = [Status insertStatus:dict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:weakSelf.coreDataIdentifier operatableType:kOperatableTypeNone];
                                 
@@ -134,7 +136,13 @@
             [weakSelf.managedObjectContext processPendingChanges];
             [weakSelf.fetchedResultsController performFetch:nil];
             
-            weakSelf.hasMoreViews = dictArray.count == 20;
+            if (weakSelf.type == StatusTableViewControllerTypeTopicStatus) {
+                weakSelf.hasMoreViews = dictArray.count > 10;
+            } else {
+                weakSelf.hasMoreViews = dictArray.count == 20;
+            }
+        } else {
+            weakSelf.hasMoreViews = NO;
         }
         
         [NSNotificationCenter postDidReloadCardCellNotification];
@@ -162,8 +170,11 @@
                               page:0
                              count:20];
     } else if(_type == StatusTableViewControllerTypeTopicStatus){
+
+        NSDate *startDate = self.refreshing ? nil : ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).createdAt;
         [client searchTopic:_searchKey
-             startingAtPage:_searchPage++
+                 startingAt:startDate
+                   clearDup:YES
                       count:20];
     }
 }

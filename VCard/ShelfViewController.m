@@ -142,8 +142,11 @@
     drawerView.enabled = NO;
     _currentDrawerView = drawerView;
     
-    [NSUserDefaults setCurrentGroupIndex:0];
-    [NSUserDefaults setCurrentGroupTitle:@""];
+    [NSUserDefaults setUserAccountInfoWithUserID:self.currentUser.userID
+                                      groupIndex:0
+                                      groupTitle:@""
+                               groupDatasourceID:@""
+                                       groupType:kGroupTypeDefault];
 }
 
 #pragma mark - Group Infomation Behavior
@@ -264,21 +267,17 @@
     return NO;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration 
+- (void)viewDidLayoutSubviews
 {
+    UIInterfaceOrientation toInterfaceOrientation = [UIApplication currentInterface];
     [self updatePageControlAndScrollViewSize:toInterfaceOrientation];
     [self resetContentSize:toInterfaceOrientation];
     [self resetContentLayout:toInterfaceOrientation];
     [self resetSettingViewLayout:toInterfaceOrientation];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    CGFloat toWidth = UIInterfaceOrientationIsPortrait(fromInterfaceOrientation) ? 1024 : 768;
-    [_scrollView resetWidth:toWidth];
+    
+    [_scrollView resetWidth:[UIApplication screenWidth]];
     _scrollView.contentOffset = CGPointMake([UIApplication screenWidth] * _pageControl.currentPage, 0.0);
-    [_pageControl resetCenterX:_scrollView.contentOffset.x + toWidth / 2];
+    [_pageControl resetCenterX:_scrollView.contentOffset.x + [UIApplication screenWidth] / 2];
 }
 
 - (void)resetContentSize:(UIInterfaceOrientation)orientation
@@ -442,7 +441,12 @@
     }
     
     if (_currentDrawerView == nil) {
-        int currentGroupIndex = [NSUserDefaults getCurrentGroupIndex];
+        UserAccountInfo *info = [NSUserDefaults getUserAccountInfoWithUserID:self.currentUser.userID];
+        int currentGroupIndex = info.groupIndex;
+        if (currentGroupIndex > _drawerViewArray.count - 1 || currentGroupIndex < 0) {
+            currentGroupIndex = 0;
+        }
+        
         _currentDrawerView = [_drawerViewArray objectAtIndex:currentGroupIndex];
         [_currentDrawerView showHighlightGlow];
         _currentDrawerView.enabled = NO;
@@ -510,8 +514,11 @@
                                                                         kNotificationObjectKeyDataSourceType: type,
                                                                         kNotificationObjectKeyDataSourceID: groupID}];
             
-            [NSUserDefaults setCurrentGroupIndex:view.index];
-            [NSUserDefaults setCurrentGroupTitle:name];
+            [NSUserDefaults setUserAccountInfoWithUserID:self.currentUser.userID
+                                              groupIndex:view.index
+                                              groupTitle:name
+                                       groupDatasourceID:groupID
+                                               groupType:group.type.intValue];
             
         }
     }

@@ -13,6 +13,11 @@
 #define kStoredUserAccountInfoUserID        @"StoredUserAccountInfoUserID"
 #define kStoredUserAccountInfoAccount       @"StoredUserAccountInfoAccount"
 #define kStoredUserAccountInfoPassword      @"StoredUserAccountInfoPassword"
+#define kStoredUserAccountInfoGroupTitle    @"kStoredUserAccountInfoGroupTitle"
+#define kStoredUserAccountInfoGroupIndex    @"kStoredUserAccountInfoGroupIndex"
+#define kStoredUserAccountInfoGroupType     @"kStoredUserAccountInfoGroupType"
+#define kStoredUserAccountInfoGroupDataSourceID    @"kStoredUserAccountInfoGroupDataSourceID"
+
 #define kStoredLoginUserArray               @"StoredLoginUserArray"
 
 #define kSettingEnableAutoTrafficSaving     @"SettingEnableAutoTrafficSaving"
@@ -323,10 +328,16 @@
                     password:(NSString *)password {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    NSDictionary *info = @{kStoredUserAccountInfoAccount: account,
-                          kStoredUserAccountInfoPassword: password,
-                          kStoredUserAccountInfoUserID: userID};
-    [defaults setObject:info forKey:KeyForStoredUserAccountInfo(userID)];
+    UserAccountInfo *info = [NSUserDefaults getUserAccountInfoWithUserID:userID];
+    if (info == nil) {
+        NSDictionary *infoDict = @{kStoredUserAccountInfoAccount: account,
+                                    kStoredUserAccountInfoPassword: password,
+                                    kStoredUserAccountInfoUserID: userID};
+        [defaults setObject:infoDict forKey:KeyForStoredUserAccountInfo(userID)];
+    } else {
+        info.password = password;
+        [defaults setObject:info.infoDictionary forKey:KeyForStoredUserAccountInfo(userID)];
+    }
     
     [defaults synchronize];
 }
@@ -336,6 +347,26 @@
     NSDictionary *infoDict = [defaults objectForKey:KeyForStoredUserAccountInfo(userID)];
     UserAccountInfo *info = [[UserAccountInfo alloc] initWithInfoDict:infoDict];
     return info;
+}
+
++ (void)setUserAccountInfoWithUserID:(NSString *)userID
+                          groupIndex:(NSInteger)index
+                          groupTitle:(NSString *)title
+                   groupDatasourceID:(NSString *)dataSourceID
+                           groupType:(int)type
+{
+    NSString *indexString = [NSString stringWithFormat:@"%d", index];
+    NSString *typeString = [NSString stringWithFormat:@"%d", type];
+    
+    UserAccountInfo *info = [NSUserDefaults getUserAccountInfoWithUserID:userID];
+    info.groupIndexString = indexString;
+    info.groupTitle = title;
+    info.groupType = typeString;
+    info.groupDataSourceID = dataSourceID;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[info infoDictionary] forKey:KeyForStoredUserAccountInfo(userID)];
+    [defaults synchronize];
 }
 
 + (void)setCurrentUserID:(NSString *)userID {
@@ -348,30 +379,6 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *userID = [defaults stringForKey:kStoredCurrentUserID];
     return userID;
-}
-
-+ (void)setCurrentGroupTitle:(NSString *)groupTitle {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:groupTitle forKey:kCurrentGroupTitle];
-    [defaults synchronize];
-}
-
-+ (NSString *)getCurrentGroupTitle {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *userID = [defaults stringForKey:kCurrentGroupTitle];
-    return userID;
-}
-
-+ (void)setCurrentGroupIndex:(int)groupIndex {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:groupIndex forKey:kCurrentGroupIndex];
-    [defaults synchronize];
-}
-
-+ (int)getCurrentGroupIndex {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    int currentGroupIndex = [defaults integerForKey:kCurrentGroupIndex];
-    return currentGroupIndex;
 }
 
 + (NSArray *)getLoginUserArray {
@@ -404,6 +411,8 @@
 @synthesize userID = _userID;
 @synthesize account = _account;
 @synthesize password = _password;
+@synthesize groupIndexString = _groupIndexString;
+@synthesize groupTitle = _groupTitle;
 
 - (id)initWithInfoDict:(NSDictionary *)dict {
     self = [super init];
@@ -411,8 +420,37 @@
         self.userID = [dict objectForKey:kStoredUserAccountInfoUserID];
         self.account = [dict objectForKey:kStoredUserAccountInfoAccount];
         self.password = [dict objectForKey:kStoredUserAccountInfoPassword];
+        self.groupIndexString = [dict objectForKey:kStoredUserAccountInfoGroupIndex];
+        self.groupTitle = [dict objectForKey:kStoredUserAccountInfoGroupTitle];
+        self.groupType = [dict objectForKey:kStoredUserAccountInfoGroupType];
+        self.groupDataSourceID = [dict objectForKey:kStoredUserAccountInfoGroupDataSourceID];
+        if (!self.groupIndexString) {
+            self.groupIndexString = @"0";
+            self.groupTitle = @"";
+        }
+        if (!self.groupType) {
+            self.groupType = @"0";
+            self.groupDataSourceID = @"";
+        }
     }
     return self;
+}
+
+- (NSDictionary *)infoDictionary
+{
+    NSDictionary *info = @{kStoredUserAccountInfoAccount: self.account,
+                            kStoredUserAccountInfoPassword: self.password,
+                            kStoredUserAccountInfoUserID: self.userID,
+                            kStoredUserAccountInfoGroupIndex: self.groupIndexString,
+                            kStoredUserAccountInfoGroupTitle: self.groupTitle,
+                            kStoredUserAccountInfoGroupType: self.groupType,
+                            kStoredUserAccountInfoGroupDataSourceID: self.groupDataSourceID};
+    return info;
+}
+
+- (NSInteger)groupIndex
+{
+    return self.groupIndexString.intValue;
 }
 
 @end

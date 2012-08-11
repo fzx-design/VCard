@@ -158,6 +158,8 @@
                 weakSelf.hasMoreViews = weakSelf.nextCursor != 0;
                 weakSelf.nextPage++;
             }            
+        } else {
+            weakSelf.hasMoreViews = NO;
         }
         
         [weakSelf adjustBackgroundView];
