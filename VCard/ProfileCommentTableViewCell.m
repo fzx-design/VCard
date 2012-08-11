@@ -18,15 +18,14 @@
 #import "InnerBrowserViewController.h"
 #import "NSString+Addition.h"
 #import "ErrorIndicatorViewController.h"
+#import "NSUserDefaults+Addition.h"
 
 #define kActionSheetCommentCopyIndex   0
 #define kActionSheetCommentDelete      1
 
 #define kActionSheetStatusRepostIndex     0
-#define kActionSheetStatusFavorIndex      1
-#define kActionSheetStatusCopyIndex       2
-#define kActionSheetStatusShareIndex      3
-#define kActionSheetStatusDeleteIndex     4
+#define kActionSheetStatusCopyIndex       1
+//#define kActionSheetStatusDeleteIndex     2
 
 @implementation ProfileCommentTableViewCell
 
@@ -64,7 +63,7 @@
     //TODO: Add In_reply_to string
     NSString *screenName = @"";
     
-    screenName = [NSString stringWithFormat:@"%@ 转发并评论", self.status.author.screenName];
+    screenName = [NSString stringWithFormat:@"%@ 转发", self.status.author.screenName];
     
     [self.screenNameLabel setText:screenName];
     
@@ -162,14 +161,13 @@
         actionSheet.delegate = self;
         [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
     } else if (_status) {
-        NSString *favourTitle = self.status.favorited.boolValue ? @"取消收藏" : @"收藏";
-        NSString *deleteTitle = [self.status.author isEqualToUser:[UserAccountManager currentUser]] ? @"删除" : nil;
+//        NSString *deleteTitle = [self.status.author isEqualToUser:[UserAccountManager currentUser]] ? @"删除" : nil;
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                                  delegate:self 
                                                         cancelButtonTitle:nil 
                                                    destructiveButtonTitle:nil
-                                                        otherButtonTitles:@"转发", favourTitle, @"拷贝微博", @"邮件分享", deleteTitle, nil];
-        actionSheet.destructiveButtonIndex = kActionSheetStatusDeleteIndex;
+                                                        otherButtonTitles:@"转发", @"拷贝微博", nil];
+//        actionSheet.destructiveButtonIndex = kActionSheetStatusDeleteIndex;
         actionSheet.delegate = self;
         [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
     }
@@ -258,14 +256,8 @@
     } else {
         if(buttonIndex == kActionSheetStatusRepostIndex) {
             [self repostStatus];
-        } else if(buttonIndex == kActionSheetStatusFavorIndex) {
-            //TODO:
-        } else if(buttonIndex == kActionSheetStatusShareIndex) {
-            [self shareStatusByMail];
         } else if(buttonIndex == kActionSheetStatusCopyIndex){
             [self copyStatus];
-        } else if(buttonIndex == kActionSheetStatusDeleteIndex){
-            //TODO:
         }
     }
 }

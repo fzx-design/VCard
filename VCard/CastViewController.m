@@ -290,17 +290,6 @@
 
 - (void)setUpWaterflowView
 {
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    
-    [request setEntity:[NSEntityDescription entityForName:@"Status" inManagedObjectContext:self.managedObjectContext]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"isFriendsStatusOf == %@ && currentUserID == %@", self.currentUser, self.currentUser.userID]];
-    
-    NSArray *items = [self.managedObjectContext executeFetchRequest:request error:nil];
-    NSLog(@"%@", self.currentUser.userID);
-    for (Status *status in items) {
-        NSLog(@"%@", status.text);
-    }
-    
     if (self.fetchedResultsController.fetchedObjects.count == 0) {
         [self refresh];
     }

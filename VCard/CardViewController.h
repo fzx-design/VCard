@@ -54,6 +54,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *timeStampLabel;
 
 @property (nonatomic, weak) IBOutlet UIButton *commentButton;
+@property (nonatomic, weak) IBOutlet UIButton *originalCommentButton;
 @property (nonatomic, weak) IBOutlet UIButton *repostButton;
 @property (nonatomic, weak) IBOutlet UIButton *originalUserNameButton;
 @property (nonatomic, weak) IBOutlet UIButton *repostUserNameButton;
@@ -80,6 +81,7 @@
 - (IBAction)nameButtonClicked:(id)sender;
 - (IBAction)didClickCommentButton:(UIButton *)sender;
 - (IBAction)didClickRepostButton:(UIButton *)sender;
+- (IBAction)didClickOriginalCommentButton:(UIButton *)sender;
 
 + (CGFloat)heightForStatus:(Status *)status_ andImageHeight:(NSInteger)imageHeight_ timeStampEnabled:(BOOL)timeStampEnabled picEnabled:(BOOL)picEnabled;
 + (CGFloat)heightForTextContent:(NSString *)text;

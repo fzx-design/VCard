@@ -34,6 +34,8 @@
 #define kAvatarOriginX          20.0
 #define kButtonOriginX          10.0
 #define kLabelOriginX           56.0
+#define kOriginalCommentOriginX 264.0
+#define kRepostCommentOriginX   305.0
 
 @interface CardViewController () {
     BOOL _isTimeStampEnabled;
@@ -344,7 +346,7 @@
         [self.repostUserAvatar loadImageFromURL:targetStatus.author.profileImageURL completion:nil];
         [self.repostUserAvatar setVerifiedType:[targetStatus.author verifiedTypeOfUser]];
         
-        NSString *screenName = [NSString stringWithFormat:@"%@ 转发并评论了以上卡片", targetStatus.author.screenName];
+        NSString *screenName = [NSString stringWithFormat:@"%@ 转发以上卡片", targetStatus.author.screenName];
         
         [self.repostUserNameLabel setText:screenName];
         
@@ -372,13 +374,18 @@
 - (void)setUpButtonPosition
 {
     CGPoint origin = _isReposted ? self.repostCardBackground.frame.origin : self.statusInfoView.frame.origin;
-    CGFloat offset = _isReposted ? 7.0 : -8.0;
+    CGFloat offset = _isReposted ? 7.0 : -9.0;
     
     [self.repostButton resetOriginY:origin.y + offset];
-    [self.commentButton resetOriginY:origin.y + offset];
+//    [self.commentButton resetOriginY:origin.y + offset];
     
-    self.commentButton.hidden = _mustShowPic;
-    
+    if (_isReposted) {
+        self.commentButton.hidden = _mustShowPic;
+        [self.originalCommentButton resetOriginX:kRepostCommentOriginX];
+    } else {
+        self.originalCommentButton.hidden = _mustShowPic;
+        [self.originalCommentButton resetOriginX:kOriginalCommentOriginX];
+    }
 }
 
 - (void)setUpCardTail
@@ -522,12 +529,18 @@
 
 - (IBAction)didClickCommentButton:(UIButton *)sender
 {
-    [self sendCommentButtonClickedNotification];
+    [self sendCommentButtonClickedNotification:self.status];
 }
 
 - (IBAction)didClickRepostButton:(UIButton *)sender {
     sender.highlighted = NO;
     [self showActionPopoverAnimated:YES];
+}
+
+- (IBAction)didClickOriginalCommentButton:(UIButton *)sender
+{
+    Status *status = _isReposted ? self.status.repostStatus : self.status;
+    [self sendCommentButtonClickedNotification:status];
 }
 
 #pragma mark - TTTAttributedLabel Delegate
@@ -559,10 +572,10 @@
     }    
 }
 
-- (void)sendCommentButtonClickedNotification
+- (void)sendCommentButtonClickedNotification:(Status *)status
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowCommentList
-                                                        object:@{kNotificationObjectKeyStatus: self.status,
+                                                        object:@{kNotificationObjectKeyStatus: status,
                                    kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
