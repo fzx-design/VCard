@@ -2221,6 +2221,14 @@
                                                             <color key="textColor" red="0.63137254899999995" green="0.63137254899999995" blue="0.63137254899999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="来自 VCard.iPad客户端" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="LBm-qu-AdD">
+                                                            <rect key="frame" x="20" y="48" width="204" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                            <color key="textColor" red="0.63137254899999995" green="0.63137254899999995" blue="0.63137254899999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <size key="shadowOffset" width="0.0" height="1"/>
+                                                        </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="用户名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" id="aKo-CN-gV1">
                                                             <rect key="frame" x="56" y="5" width="187" height="23"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2273,6 +2281,7 @@
                                     <outlet property="moreActionButton" destination="qLf-Ps-dBm" id="RtW-fx-xng"/>
                                     <outlet property="screenNameButton" destination="8Ef-0z-j8z" id="fDW-LG-qtD"/>
                                     <outlet property="screenNameLabel" destination="aKo-CN-gV1" id="aJm-yR-EIe"/>
+                                    <outlet property="sourceLabel" destination="LBm-qu-AdD" id="Aue-3k-tH2"/>
                                     <outlet property="timeStampLabel" destination="cBZ-kg-xv9" id="cdM-Qa-7yb"/>
                                     <outlet property="upThreadImageView" destination="sd1-Bm-0BV" id="w9Y-zl-Frq"/>
                                 </connections>

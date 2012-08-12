@@ -28,6 +28,7 @@
 @property (nonatomic, weak) IBOutlet UIView *commentInfoView;
 @property (nonatomic, weak) IBOutlet TTTAttributedLabel *commentContentLabel;
 @property (nonatomic, weak) IBOutlet UILabel *timeStampLabel;
+@property (nonatomic, weak) IBOutlet UILabel *sourceLabel;
 @property (nonatomic, weak) Comment *comment;
 @property (nonatomic, weak) Status *status;
 @property (nonatomic, assign) NSInteger pageIndex;

@@ -82,7 +82,11 @@
     
     [self.timeStampLabel resetOriginY:cardTailOriginY];
     [self.timeStampLabel setText:[self.status.createdAt stringRepresentation]];
-        
+    
+    [self.sourceLabel resetOriginY:cardTailOriginY];
+    [self.sourceLabel setText:[NSString stringWithFormat:@"来自 %@", self.status.source]];
+    self.sourceLabel.hidden = ![NSUserDefaults isSourceDisplayEnabled];
+    
     self.upThreadImageView.hidden = YES;
     self.downThreadImageView.hidden = YES;
 }
@@ -123,6 +127,7 @@
     
     self.upThreadImageView.hidden = isFirst;
     self.downThreadImageView.hidden = isLast;
+    self.sourceLabel.hidden = YES;
 }
 
 - (void)updateThreadStatusIsFirst:(BOOL)isFirst isLast:(BOOL)isLast
