@@ -127,6 +127,18 @@
 				</dict>
 				<dict>
 					<key>kItemTitle</key>
+					<string>显示微博来源</string>
+					<key>kAccessoryType</key>
+					<string>kAccessoryTypeSwitch</string>
+					<key>kItemImageFileName</key>
+					<string>icon_settings_source</string>
+					<key>kNibFileName</key>
+					<string>SettingEnableSourceDisplay</string>
+					<key>kNotificationName</key>
+					<string>kNotificationNameShouldRefreshWaterflowView</string>
+				</dict>
+				<dict>
+					<key>kItemTitle</key>
 					<string>显示图片</string>
 					<key>kAccessoryType</key>
 					<string>kAccessoryTypeSwitch</string>

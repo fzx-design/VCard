@@ -26,6 +26,7 @@
 #define CardTextLineSpace 8
 #define CardTailHeight 24
 #define CardTailOffset -55
+#define CardSourceTagHeight 22
 #define MaxCardSize CGSizeMake(326,9999)
 
 @protocol CardViewControllerDelegate <NSObject>
@@ -52,6 +53,7 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *locationLabel;
 @property (nonatomic, weak) IBOutlet UILabel *timeStampLabel;
+@property (nonatomic, weak) IBOutlet UILabel *deviceLabel;
 
 @property (nonatomic, weak) IBOutlet UIButton *commentButton;
 @property (nonatomic, weak) IBOutlet UIButton *originalCommentButton;

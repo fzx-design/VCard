@@ -27,6 +27,7 @@
 @property (nonatomic, assign) CGFloat currentFontSize;
 @property (nonatomic, assign) BOOL isPictureEnabled;
 @property (nonatomic, assign) BOOL isTimeStampEnable;
+@property (nonatomic, assign) BOOL isSourceDisplayEnabled;
 
 @end
 
@@ -60,6 +61,7 @@
     _currentFontSize = [NSUserDefaults currentFontSize];
     _isPictureEnabled = [NSUserDefaults isPictureEnabled];
     _isTimeStampEnable = [NSUserDefaults isDateDisplayEnabled];
+    _isSourceDisplayEnabled = [NSUserDefaults isSourceDisplayEnabled];
 }
 
 - (void)viewDidUnload
@@ -91,7 +93,9 @@
     [NSUserDefaults updateCurrentFontSize];
     if ([NSUserDefaults currentFontSize] != _currentFontSize) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameDidChangeFontSize object:nil];
-    } else if ([NSUserDefaults isPictureEnabled] != _isPictureEnabled || [NSUserDefaults isDateDisplayEnabled] != _isTimeStampEnable) {
+    } else if ([NSUserDefaults isPictureEnabled] != _isPictureEnabled ||
+               [NSUserDefaults isDateDisplayEnabled] != _isTimeStampEnable ||
+               [NSUserDefaults isSourceDisplayEnabled] != _isSourceDisplayEnabled) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldRefreshWaterflowView object:nil];
     }
     

@@ -82,6 +82,8 @@
 		181377B91599611E009BFB22 /* topic_pic_frame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181377B51599611E009BFB22 /* topic_pic_frame@2x.png */; };
 		181377BA1599611E009BFB22 /* topic_pic_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 181377B61599611E009BFB22 /* topic_pic_pin.png */; };
 		181377BB1599611E009BFB22 /* topic_pic_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181377B71599611E009BFB22 /* topic_pic_pin@2x.png */; };
+		1814CFD615D7D8B40081C96F /* icon_settings_source.png in Resources */ = {isa = PBXBuildFile; fileRef = 1814CFD415D7D8B40081C96F /* icon_settings_source.png */; };
+		1814CFD715D7D8B40081C96F /* icon_settings_source@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1814CFD515D7D8B40081C96F /* icon_settings_source@2x.png */; };
 		181727F115997ABA00BC25B2 /* ThemeResourceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 181727F015997ABA00BC25B2 /* ThemeResourceProvider.m */; };
 		181727FB1599825700BC25B2 /* button_back_dark_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 181727F31599825700BC25B2 /* button_back_dark_hover.png */; };
 		181727FC1599825700BC25B2 /* button_back_dark_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181727F41599825700BC25B2 /* button_back_dark_hover@2x.png */; };
@@ -1081,6 +1083,8 @@
 		181377B51599611E009BFB22 /* topic_pic_frame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "topic_pic_frame@2x.png"; sourceTree = "<group>"; };
 		181377B61599611E009BFB22 /* topic_pic_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topic_pic_pin.png; sourceTree = "<group>"; };
 		181377B71599611E009BFB22 /* topic_pic_pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "topic_pic_pin@2x.png"; sourceTree = "<group>"; };
+		1814CFD415D7D8B40081C96F /* icon_settings_source.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_settings_source.png; sourceTree = "<group>"; };
+		1814CFD515D7D8B40081C96F /* icon_settings_source@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings_source@2x.png"; sourceTree = "<group>"; };
 		181727EF15997ABA00BC25B2 /* ThemeResourceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeResourceProvider.h; sourceTree = "<group>"; };
 		181727F015997ABA00BC25B2 /* ThemeResourceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeResourceProvider.m; sourceTree = "<group>"; };
 		181727F31599825700BC25B2 /* button_back_dark_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_back_dark_hover.png; sourceTree = "<group>"; };
@@ -2959,6 +2963,8 @@
 		18EA4EC715346DFD005ED94F /* icon */ = {
 			isa = PBXGroup;
 			children = (
+				1814CFD415D7D8B40081C96F /* icon_settings_source.png */,
+				1814CFD515D7D8B40081C96F /* icon_settings_source@2x.png */,
 				18F1E4E915760D5E00EB71DD /* mondev_logo_gloom@2x.png */,
 				18F1E4EA15760D5E00EB71DD /* mondev_logo_gloom.png */,
 				18114563156F79CD00B3BF21 /* icon_gif.png */,
@@ -4750,6 +4756,8 @@
 				187EE1BA15CAB14700BA8F05 /* mark_new@2x.png in Resources */,
 				187EE1BB15CAB14700BA8F05 /* mark_new.png in Resources */,
 				182A6D9315D66500002F1CCA /* topic_select.png in Resources */,
+				1814CFD615D7D8B40081C96F /* icon_settings_source.png in Resources */,
+				1814CFD715D7D8B40081C96F /* icon_settings_source@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5055,6 +5063,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VCard/VCard-Prefix.pch";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "VCard/VCard-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5071,6 +5080,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VCard/VCard-Prefix.pch";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "VCard/VCard-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";

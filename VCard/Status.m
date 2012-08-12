@@ -13,7 +13,7 @@
 #import "NSDate+Addition.h"
 #import "NSUserDefaults+Addition.h"
 #import "CoreDataViewController.h"
-
+#import "NSString+Addition.h"
 
 @implementation Status
 
@@ -106,7 +106,8 @@
     
     result.text = [dict objectForKey:@"text"];
     
-    result.source = [dict objectForKey:@"source"];
+    NSString *source = [dict objectForKey:@"source"];
+    result.source = [source stringBetweenString:@">" andString:@"</"];
     
     BOOL favourited = [[NSUserDefaults getCurrentUserFavouriteIDs] containsObject:result.statusID];
     result.favorited = @(favourited);

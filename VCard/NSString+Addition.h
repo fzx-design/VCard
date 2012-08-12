@@ -11,5 +11,6 @@
 @interface NSString (Addition)
 
 - (NSString *)replaceRegExWithEmoticons;
+-(NSString *)stringBetweenString:(NSString *)start andString:(NSString *)end;
 
 @end

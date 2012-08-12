@@ -171,6 +171,10 @@
         height += CardTailHeight;
     }
     
+    if ([NSUserDefaults isSourceDisplayEnabled]) {
+        height += CardSourceTagHeight;
+    }
+    
     return height;
 }
 
@@ -325,6 +329,9 @@
     
     if (!_isReposted) {
         statusViewHeight += CardTailHeight;
+        if ([NSUserDefaults isSourceDisplayEnabled]) {
+            statusViewHeight += CardSourceTagHeight;
+        }
     }
     
     [self.statusInfoView resetFrameWithOrigin:CGPointMake(0.0, originY) 
@@ -363,6 +370,10 @@
         
         //        if (_isTimeStampEnabled) {
         repostStatusViewHeight += CardTailHeight;
+        
+        if ([NSUserDefaults isSourceDisplayEnabled]) {
+            repostStatusViewHeight += CardSourceTagHeight;
+        }
         //        }
         
         [self.repostCardBackground resetHeight:repostStatusViewHeight];
@@ -391,9 +402,10 @@
 - (void)setUpCardTail
 {
     CGFloat cardTailOriginY = self.view.frame.size.height + CardTailOffset;
+    CGFloat locationTagOriginY = [NSUserDefaults isSourceDisplayEnabled] ? cardTailOriginY - CardSourceTagHeight : cardTailOriginY;
     
-    [self.locationPinImageView resetOriginY:cardTailOriginY + 2];
-    [self.locationLabel resetOriginY:cardTailOriginY];
+    [self.locationPinImageView resetOriginY:locationTagOriginY + 2];
+    [self.locationLabel resetOriginY:locationTagOriginY];
     [self.timeStampLabel resetOriginY:cardTailOriginY];
     
     if (_isTimeStampEnabled) {
@@ -407,6 +419,12 @@
     }
     
     [self setUpLocationInfo];
+    
+    self.deviceLabel.hidden = ![NSUserDefaults isSourceDisplayEnabled];
+    if (!self.deviceLabel.hidden) {
+        self.deviceLabel.text = [NSString stringWithFormat:@"来自 %@", self.status.source];
+        [self.deviceLabel resetOriginY:cardTailOriginY];
+    }
 }
 
 - (void)setUpLocationInfo

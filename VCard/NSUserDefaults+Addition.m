@@ -26,6 +26,7 @@
 #define kSettingEnableRetinaDisplay         @"SettingEnableRetinaDisplay"
 #define kSettingEnablePicture               @"SettingEnablePicture"
 #define kSettingEnableDateDisplay           @"SettingEnableDateDisplay"
+#define kSettingEnableSourceDisplay         @"SettingEnableSourceDisplay"
 
 #define kCurrentUserFavouriteIDs            @"kCurrentUserFavouriteIDs"
 #define kCurrentGroupIndex                  @"kCurrentGroupIndex"
@@ -67,6 +68,7 @@
         [defaults setBool:NO forKey:kSettingEnableRetinaDisplay];
         [defaults setBool:YES forKey:kSettingEnablePicture];
         [defaults setBool:NO forKey:kSettingEnableDateDisplay];
+        [defaults setBool:NO forKey:kSettingEnableSourceDisplay];
         [defaults setFloat:17.0 forKey:kSettingFontSize];
         [defaults setFloat:8.0 forKey:kSettingLeading];
         
@@ -321,6 +323,11 @@
 + (BOOL)isDateDisplayEnabled {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults boolForKey:kSettingEnableDateDisplay];
+}
+
++ (BOOL)isSourceDisplayEnabled {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:kSettingEnableSourceDisplay];
 }
 
 + (void)insertUserAccountInfoWithUserID:(NSString *)userID

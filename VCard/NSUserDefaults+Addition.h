@@ -55,6 +55,7 @@ typedef enum {
 + (BOOL)isPictureEnabled;
 + (BOOL)isRetinaDisplayEnabled;
 + (BOOL)isDateDisplayEnabled;
++ (BOOL)isSourceDisplayEnabled;
 
 + (void)setPictureEnabled:(BOOL)enabled;
 + (void)setAutoTrafficSavingEnabled:(BOOL)enabled;

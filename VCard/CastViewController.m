@@ -284,8 +284,7 @@
 #pragma mark - Initializing Methods
 - (void)initialLoad
 {
-    BOOL succeeded = [self.fetchedResultsController performFetch:nil];
-    NSLog(@"%d", succeeded);
+    [self.fetchedResultsController performFetch:nil];
     [self performSelector:@selector(setUpWaterflowView) withObject:nil afterDelay:0.5];
 }
 
