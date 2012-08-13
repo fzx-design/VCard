@@ -140,6 +140,9 @@
         
         [self refreshEnded];
         [self finishedLoading];
+        if ([self.delegate respondsToSelector:@selector(didFinishedLoadingData)]) {
+            [self.delegate didFinishedLoadingData];
+        }
         
     }];
     

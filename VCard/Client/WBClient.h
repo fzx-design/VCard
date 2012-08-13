@@ -210,6 +210,7 @@ typedef void (^WCCompletionBlock)(WBClient *client);
                                            count:(int)count;
 - (void)sendDirectMessage:(NSString *)text toUser:(NSString *)screenName;
 - (void)deleteDirectMessage:(NSString *)messageID;
+- (void)deleteConversationWithUser:(NSString *)userID;
 - (void)isMessageAvailable:(NSString *)userID;
 
 - (void)getFavouritesWithPage:(int)page

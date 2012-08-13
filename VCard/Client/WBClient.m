@@ -1066,6 +1066,22 @@ typedef enum {
     [self loadAdvancedRequest];
 }
 
+- (void)deleteConversationWithUser:(NSString *)userID
+{
+    self.path = @"direct_messages/destroy_batch.json";
+	
+    if (userID) {
+        [self.params setObject:userID forKey:@"uid"];
+    } else {
+        return;
+    }
+    
+    self.postDataType = kWBRequestPostDataTypeNormal;
+    self.httpMethod = HTTPMethodPost;
+    
+    [self loadAdvancedRequest];
+}
+
 - (void)isMessageAvailable:(NSString *)userID
 {
     self.path = @"direct_messages/is_capable.json";

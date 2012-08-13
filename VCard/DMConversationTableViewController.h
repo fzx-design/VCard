@@ -9,10 +9,19 @@
 #import "RefreshableCoreDataTableViewController.h"
 #import "DMConversationTableViewCell.h"
 
+@protocol DMConversationTableViewDelegate <NSObject>
+
+- (void)didFinishedLoadingData;
+
+@end
+
+
 @interface DMConversationTableViewController : RefreshableCoreDataTableViewController <DMConversationTableViewCellDelegate>
 
 @property (nonatomic, weak) Conversation *conversation;
+@property (nonatomic, weak) id<DMConversationTableViewDelegate> delegate;
 
+- (void)clearData;
 - (void)initialLoadMessageData;
 - (void)scrollToBottom:(BOOL)animated;
 - (void)receivedNewMessage:(NSDictionary *)dict;

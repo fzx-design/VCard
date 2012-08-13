@@ -11,9 +11,10 @@
 #import "PostHintTextView.h"
 #import "PostRootView.h"
 
-@interface MessageConversationViewController : StackViewPageController <UITextViewDelegate, PostHintTextViewDelegate, PostRootViewDelegate>
+@interface MessageConversationViewController : StackViewPageController <UITextViewDelegate, UIActionSheetDelegate, PostHintTextViewDelegate, PostRootViewDelegate, DMConversationTableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIButton       *viewProfileButton;
+@property (nonatomic, weak) IBOutlet UIButton       *clearConversationButton;
 @property (nonatomic, weak) IBOutlet UILabel        *titleLabel;
 @property (nonatomic, weak) IBOutlet UIView         *footerView;
 @property (nonatomic, weak) IBOutlet UIImageView    *footerBackgroundImageView;
@@ -35,5 +36,6 @@
 - (IBAction)didClickSendButton:(UIButton *)sender;
 
 - (IBAction)didClickViewProfileButton:(UIButton *)sender;
+- (IBAction)didClickClearConversationButton:(UIButton *)sender;
 
 @end

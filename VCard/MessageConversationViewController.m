@@ -59,6 +59,7 @@ typedef enum {
     [self.backgroundView insertSubview:self.conversationTableViewController.view belowSubview:self.topShadowImageView];
     _titleLabel.text = _conversation.targetUser.screenName;
     [ThemeResourceProvider configButtonPaperDark:_viewProfileButton];
+    [ThemeResourceProvider configButtonPaperLight:_clearConversationButton];
     
     _textViewBackgroundImageView.image = [[UIImage imageNamed:@"msg_textfield_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(13, 0, 12, 0)];
     _footerBackgroundImageView.image = [[UIImage imageNamed:@"msg_sendfield_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 0, 25, 0)];
@@ -145,6 +146,12 @@ typedef enum {
     }
     [self.conversationTableViewController initialLoadMessageData];
     [self layoutFooterViewWithKeyboardHeight:0];
+    [self updateClearConversationButtonState];
+}
+
+- (void)updateClearConversationButtonState
+{
+    self.clearConversationButton.enabled = self.conversation.messages.count > 0;
 }
 
 #pragma mark - Notification
@@ -367,6 +374,41 @@ typedef enum {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldShowUserByName object:@{kNotificationObjectKeyUserName: _conversation.targetUser.screenName, kNotificationObjectKeyIndex: [NSString stringWithFormat:@"%i", self.pageIndex]}];
 }
 
+- (IBAction)didClickClearConversationButton:(UIButton *)sender
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:nil
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"清空对话", nil];
+    actionSheet.delegate = self;
+    actionSheet.destructiveButtonIndex = 0;
+    [actionSheet showFromRect:sender.bounds inView:sender animated:YES];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self clearConversation];
+    }
+}
+
+- (void)clearConversation
+{
+    WBClient *client = [WBClient client];
+    
+    [client setCompletionBlock:^(WBClient *client) {
+        if (!client.hasError) {
+            self.conversation.latestMessageText = @"";
+            [self.conversationTableViewController clearData];
+            [self.managedObjectContext processPendingChanges];
+            [self updateClearConversationButtonState];
+        }
+    }];
+    
+    [client deleteConversationWithUser:self.conversation.targetUserID];
+}
+
 #pragma mark - Message Methods
 - (void)sendMessage:(NSString *)message
 {
@@ -376,6 +418,7 @@ typedef enum {
         if (!client.hasError) {
             self.textView.text = @"";
             [self.conversationTableViewController receivedNewMessage:client.responseJSONObject];
+            [self updateClearConversationButtonState];
         }
     }];
     
@@ -404,6 +447,7 @@ typedef enum {
         _conversationTableViewController.conversation = _conversation;
         _conversationTableViewController.firstLoad = YES;
         _conversationTableViewController.pageIndex = self.pageIndex;
+        _conversationTableViewController.delegate = self;
     }
     return _conversationTableViewController;
 }
@@ -563,5 +607,12 @@ typedef enum {
         return;
     [self dismissHintView];
 }
+
+#pragma mark - DMConversationTableViewControllerDelegate
+- (void)didFinishedLoadingData
+{
+    [self updateClearConversationButtonState];
+}
+    
 
 @end
