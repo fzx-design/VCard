@@ -35,7 +35,7 @@
 #define kButtonOriginX          10.0
 #define kLabelOriginX           56.0
 #define kOriginalCommentOriginX 266.0
-#define kRepostCommentOriginX   309.0
+#define kRepostCommentOriginX   310.0
 
 @interface CardViewController () {
     BOOL _isTimeStampEnabled;
@@ -206,7 +206,6 @@
     [self setUpStatus:status_];
     
     self.imageHeight = _doesImageExist ? imageHeight_ : 0.0;
-    [self.view resetHeightByOffset:-kCardGapOffset];
     
     [self setUpStatusView];
     
