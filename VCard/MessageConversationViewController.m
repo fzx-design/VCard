@@ -244,9 +244,14 @@ typedef enum {
     }
 }
 
+- (void)rewindTextViewOffset {
+    [self.textView setContentOffset:CGPointMake(0, 2) animated:YES];
+}
+
 - (void)textViewDidChange:(UITextView *)textView
 {
     if (_prevTextViewContentHeight != textView.contentSize.height) {
+        NSLog(@"prevTextContentHeight:%f, contentSize:%f", _prevTextViewContentHeight, textView.contentSize.height);
         _prevTextViewContentHeight = textView.contentSize.height;
         
         CGFloat targetHeight = _prevTextViewContentHeight;
@@ -260,16 +265,15 @@ typedef enum {
             targetHeight = kTextViewMaxHeight;
         } else {
             _textView.scrollEnabled = NO;
-            _textView.clipsToBounds = NO;
+            _textView.clipsToBounds = YES;
             UIEdgeInsets inset = _textView.contentInset;
             inset.top = -2.0;
             _textView.contentInset = inset;
         }
-        
         [self resizeTextView:targetHeight];
     }
     _sendButton.enabled = ![textView.text isEqualToString:@""];
-    
+    NSLog(@"text view content offset : %f", self.textView.contentOffset.y);
     [self.textView textViewDidChangeWithCurrentHintView:self.currentHintView];
     [self updateCurrentHintView];
 }

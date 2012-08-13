@@ -88,7 +88,7 @@ static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
         [self callDismissHintView];
     }
     
-    [self.delegate textViewDidChange:self];
+    [(NSObject *)self.delegate performSelector:@selector(rewindTextViewOffset) withObject:nil afterDelay:0.1f];
 }
 
 - (void)shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text currentHintView:(id)hintView {
