@@ -58,7 +58,7 @@
 - (void)setCellHeight:(CGFloat)height
 {
     CGRect frame = self.frame;
-    frame.size.height = height - kCardGapOffset;
+    frame.size.height = height;
     self.frame = frame;
     
     frame = self.cardViewController.view.frame;

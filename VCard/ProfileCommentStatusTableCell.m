@@ -51,7 +51,7 @@
     self.frame = frame;
     
     frame = self.cardViewController.view.frame;
-    frame.size.height = height;
+    frame.size.height = height - kCardGapOffset;
     self.cardViewController.view.frame = frame;
 }
 
