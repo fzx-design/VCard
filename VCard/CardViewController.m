@@ -175,7 +175,7 @@
         height += CardSourceTagHeight;
     }
     
-    return height + 8;
+    return height + kCardGapOffset;
 }
 
 + (CGFloat)heightForTextContent:(NSString *)text
@@ -206,6 +206,7 @@
     [self setUpStatus:status_];
     
     self.imageHeight = _doesImageExist ? imageHeight_ : 0.0;
+    [self.view resetHeightByOffset:-kCardGapOffset];
     
     [self setUpStatusView];
     

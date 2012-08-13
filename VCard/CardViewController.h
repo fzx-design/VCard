@@ -27,6 +27,7 @@
 #define CardTailHeight 24
 #define CardTailOffset -55
 #define CardSourceTagHeight 22
+#define kCardGapOffset          8.0
 #define MaxCardSize CGSizeMake(326,9999)
 
 @protocol CardViewControllerDelegate <NSObject>
