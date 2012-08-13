@@ -245,7 +245,8 @@ typedef enum {
 }
 
 - (void)rewindTextViewOffset {
-    [self.textView setContentOffset:CGPointMake(0, 2) animated:YES];
+    if(!self.textView.scrollEnabled)
+        [self.textView setContentOffset:CGPointMake(0, 2) animated:YES];
 }
 
 - (void)textViewDidChange:(UITextView *)textView
