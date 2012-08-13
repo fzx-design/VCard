@@ -890,7 +890,11 @@ typedef enum {
 {
     self.path = @"trends.json";
     self.shouldReportError = NO;
-    [self.params setObject:self.userID forKey:@"uid"];
+    if (self.userID) {
+        [self.params setObject:self.userID forKey:@"uid"];
+    } else {
+        return;
+    }
     [self.params setObject:[NSString stringWithFormat:@"%d", 200] forKey:@"count"];
     [self loadNormalRequest];
 }

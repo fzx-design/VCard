@@ -34,8 +34,8 @@
 #define kAvatarOriginX          20.0
 #define kButtonOriginX          10.0
 #define kLabelOriginX           56.0
-#define kOriginalCommentOriginX 264.0
-#define kRepostCommentOriginX   305.0
+#define kOriginalCommentOriginX 266.0
+#define kRepostCommentOriginX   309.0
 
 @interface CardViewController () {
     BOOL _isTimeStampEnabled;
@@ -175,7 +175,7 @@
         height += CardSourceTagHeight;
     }
     
-    return height;
+    return height + 8;
 }
 
 + (CGFloat)heightForTextContent:(NSString *)text
