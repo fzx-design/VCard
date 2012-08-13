@@ -161,7 +161,8 @@ typedef enum {
 #pragma mark Text View
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    
+    if(self.textView.textViewHideLock)
+        return;
     NSDictionary *info = [notification userInfo];
     CGRect keyboardBounds = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat keyboardHeight = [UIApplication isCurrentOrientationLandscape] ? keyboardBounds.size.width : keyboardBounds.size.height;
@@ -178,6 +179,8 @@ typedef enum {
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
+    if(self.textView.textViewHideLock)
+        return;
     _keyboardHeight = 0;
     [UIView animateWithDuration:0.25f animations:^{
         [self layoutFooterViewWithKeyboardHeight:0];

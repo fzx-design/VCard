@@ -54,11 +54,17 @@ static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
         replaceText = [NSString stringWithFormat:@"#%@#", replaceText];
     }
 
+    // 这部分恶心的代码是为了防止 text view 输入中文（带提示）的时候出现问题
+    __weak id textViewDelegate = self.delegate;
+    _textViewHideLock = YES;
+    self.delegate = nil;
     [UIView setAnimationsEnabled:NO];
     [self resignFirstResponder];
     [self textViewDidChangeWithCurrentHintView:hintView];
     [self becomeFirstResponder];
     [UIView setAnimationsEnabled:YES];
+    self.delegate = textViewDelegate;
+    _textViewHideLock = NO;
     
     UITextPosition *beginning = self.beginningOfDocument;
     UITextPosition *start = [self positionFromPosition:beginning offset:!shouldReplaceFormerPoundSign ? self.currentHintStringRange.location : self.currentHintStringRange.location - 1];
