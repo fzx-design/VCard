@@ -636,8 +636,8 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
     CGFloat originX = rect.origin.x + leftMargin;
     if (originX < 5) {
         originX += 3;
-    } else if (originX > 300) {
-        originX -= 5;
+    } else if (originX > self.frame.size.width - 20) {
+        originX -= 6;
     }
     
     CGRect emoticonFrame = CGRectMake(originX, originY, width, width);
