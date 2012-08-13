@@ -261,7 +261,6 @@ typedef enum {
 - (void)textViewDidChange:(UITextView *)textView
 {
     if (_prevTextViewContentHeight != textView.contentSize.height) {
-        NSLog(@"prevTextContentHeight:%f, contentSize:%f", _prevTextViewContentHeight, textView.contentSize.height);
         _prevTextViewContentHeight = textView.contentSize.height;
         
         CGFloat targetHeight = _prevTextViewContentHeight;
@@ -283,7 +282,6 @@ typedef enum {
         [self resizeTextView:targetHeight];
     }
     _sendButton.enabled = ![textView.text isEqualToString:@""];
-    NSLog(@"text view content offset : %f", self.textView.contentOffset.y);
     [self.textView textViewDidChangeWithCurrentHintView:self.currentHintView];
     [self updateCurrentHintView];
 }

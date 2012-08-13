@@ -336,10 +336,14 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     UserAccountInfo *info = [NSUserDefaults getUserAccountInfoWithUserID:userID];
-    if (info == nil) {
+    if (info.account == nil || [info.account isEqualToString:@""]) {
         NSDictionary *infoDict = @{kStoredUserAccountInfoAccount: account,
                                     kStoredUserAccountInfoPassword: password,
-                                    kStoredUserAccountInfoUserID: userID};
+                                    kStoredUserAccountInfoUserID: userID,
+                                    kStoredUserAccountInfoGroupIndex: @"0",
+                                    kStoredUserAccountInfoGroupTitle: @"",
+                                    kStoredUserAccountInfoGroupType: @"0",
+                                    kStoredUserAccountInfoGroupDataSourceID: @""};
         [defaults setObject:infoDict forKey:KeyForStoredUserAccountInfo(userID)];
     } else {
         info.password = password;
