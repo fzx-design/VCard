@@ -54,7 +54,7 @@
         }
     }
     
-    while (duration > 100.0) {
+    while (duration > 30.0) {
         duration /= 100.0;
     }
     
