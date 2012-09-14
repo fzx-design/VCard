@@ -152,8 +152,12 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	SettingInfoSection *sectionInfo = [self.settingSectionInfoArray objectAtIndex:section];
-    return sectionInfo.sectionFooter;
+    NSString *sectionFooter = nil;
+    if(section == 1) {
+        NSString *currentBundleVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+        sectionFooter = [NSString stringWithFormat:@"\n%@\n\n© Mondev", currentBundleVersion];
+    }
+    return sectionFooter;
 }
 
 #pragma mark - IBActions
