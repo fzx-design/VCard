@@ -126,7 +126,7 @@
     if(buttonIndex == 0) {
         
     } else {
-        UserAccountInfo *accountInfo = [NSUserDefaults getUserAccountInfoWithUserID:[CoreDataViewController getCurrentUser].userID];
+        UserAccountInfo *accountInfo = [NSUserDefaults getUserAccountInfoWithUserID:self.ownerUser.userID];
         NSString *newPassword = [alertView textFieldAtIndex:0].text;
         [NSUserDefaults insertUserAccountInfoWithUserID:accountInfo.userID account:accountInfo.account password:newPassword];
         [self didClickLoginButton:self.loginButton];
@@ -135,9 +135,9 @@
 
 #pragma mark - Token methods
 
-- (void)handleWrongPasswordSituation {    
+- (void)handleWrongPasswordSituation {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"新浪微博"
-                                                    message:[NSString stringWithFormat:@"%@，您的密码可能已经更改，请重新输入。", [CoreDataViewController getCurrentUser].screenName]
+                                                    message:[NSString stringWithFormat:@"%@，您的密码可能已经更改，请重新输入。", self.userNameLabel.text]
                                                    delegate:self
                                           cancelButtonTitle:@"取消" 
                                           otherButtonTitles:@"继续", nil];
