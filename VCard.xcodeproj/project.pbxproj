@@ -5059,16 +5059,16 @@
 		181AB93A15230AC1007A2A51 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Xie Cheng (AXP8APNT95)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Xie Cheng (AXP8APNT95)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VCard/VCard-Prefix.pch";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "VCard/VCard-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A5333AB1-A842-4C75-9C81-912B5D04303B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A5333AB1-A842-4C75-9C81-912B5D04303B";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -5076,16 +5076,16 @@
 		181AB93B15230AC1007A2A51 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Xie Cheng";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Xie Cheng";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VCard/VCard-Prefix.pch";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "VCard/VCard-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "912DEBB6-CE9F-4D4D-8D41-5D7E1A50CEB8";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "912DEBB6-CE9F-4D4D-8D41-5D7E1A50CEB8";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
