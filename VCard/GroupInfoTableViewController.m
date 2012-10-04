@@ -108,7 +108,7 @@ static GroupInfoTableViewController *groupInfoTableViewController = nil;
 
 + (void)showGroupInfoOfUser:(NSString *)userID fromRect:(CGRect)rect inView:(UIView *)view
 {
-    groupInfoTableViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:NULL] instantiateViewControllerWithIdentifier:@"GroupInfoTableViewController"];
+    groupInfoTableViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:NULL] instantiateViewControllerWithIdentifier:@"GroupInfoTableViewController"];
     groupInfoTableViewController.userID = userID;
     [groupInfoTableViewController.view resetSize:CGSizeMake(400.0, 300.0)];
     

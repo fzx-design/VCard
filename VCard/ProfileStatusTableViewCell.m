@@ -54,7 +54,7 @@
 {
     if (_cardViewController == nil) {
         
-        _cardViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:NULL] instantiateViewControllerWithIdentifier:@"CardViewController"];
+        _cardViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:NULL] instantiateViewControllerWithIdentifier:@"CardViewController"];
         
         [_cardViewController.view resetOrigin:CGPointMake(10, 15)];
         [_cardViewController.view resetSize:CGSizeMake(362, 500)];

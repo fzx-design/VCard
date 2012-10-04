@@ -27,7 +27,7 @@
 - (DividerViewController*)dividerViewController
 {
     if (_dividerViewController == nil) {
-        _dividerViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:NULL] instantiateViewControllerWithIdentifier:@"DividerViewController"];
+        _dividerViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:NULL] instantiateViewControllerWithIdentifier:@"DividerViewController"];
         
         CGRect frame = _dividerViewController.view.frame;
         frame.origin = CGPointMake(0, 0);
