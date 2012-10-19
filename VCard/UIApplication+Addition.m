@@ -200,7 +200,7 @@ static NSMutableArray *_backViewStack = nil;
 + (BOOL)isFirstGenerationiPad
 {
     return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad &&
-            ![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]);
+            ![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]);
 }
 
 + (CGFloat)heightExcludingTopBar

@@ -100,7 +100,7 @@ typedef enum {
 }
 
 - (void)presentChoosePhotoSourceActionSheet {
-    if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+    if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         [self showAlbumImagePicker];
         return;
     }
