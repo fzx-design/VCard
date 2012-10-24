@@ -31,6 +31,8 @@
 @property (nonatomic, weak) IBOutlet FilterImageView *filterImageViewA;
 @property (nonatomic, weak) IBOutlet FilterImageView *filterImageViewB;
 
+@property (nonatomic, assign) BOOL isOriginalImageFromLibrary;
+
 - (IBAction)didChangeSlider:(UISlider *)sender;
 - (IBAction)didClickCropButton:(UIButton *)sender;
 - (IBAction)didClickRevertButton:(UIButton *)sender;

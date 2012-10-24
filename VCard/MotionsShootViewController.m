@@ -295,7 +295,7 @@
                     UIImage *image = [[UIImage alloc] initWithData:imageData];
                     [weakSelf configureShootImage:image];
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [weakSelf.delegate shootViewController:weakSelf didCaptureImage:weakSelf.capturedImage];
+                        [weakSelf.delegate shootViewController:weakSelf didCaptureImage:weakSelf.capturedImage fromLibrary:NO];
                     });
                 });
             }
@@ -351,7 +351,7 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     self.popoverController = nil;
     [self configureEditImage:image];
-    [self.delegate shootViewController:self didCaptureImage:self.capturedImage];
+    [self.delegate shootViewController:self didCaptureImage:self.capturedImage fromLibrary:YES];
 }
 
 #pragma mark -

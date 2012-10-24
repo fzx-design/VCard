@@ -62,7 +62,7 @@
     self = [self init];
     if(self) {
         self.originalImage = image;
-        
+        _isOriginalImageFromLibrary = YES;
         _useForAvatar = useForAvatar;
         _shouldShowCropView = useForAvatar;
     }
@@ -150,6 +150,8 @@
         result = YES;
     else if(self.croppedImage != self.originalImage)
         result = YES;
+    else if(self.isOriginalImageFromLibrary == NO)
+        return YES;
     return result;
 }
 
@@ -502,6 +504,7 @@
     [self.popoverController dismissPopoverAnimated:YES];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     self.popoverController = nil;
+    self.isOriginalImageFromLibrary = YES;
     
     BlockARCWeakSelf weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
