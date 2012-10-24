@@ -12,6 +12,7 @@
 #import "CropImageViewController.h"
 #import "UIApplication+Addition.h"
 #import "UIImage+Addition.h"
+#import "ALAssetsLibrary+CustomPhotoAlbum.h"
 
 #define CROP_BUTTON_TAG 1001
 
@@ -466,8 +467,14 @@
 #pragma mark - Save image methods
 
 - (void)saveImageInBackground:(UIImage *)image {
-    if(image)
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    if(image) {
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library saveImage:image toAlbum:@"VCard" withCompletionBlock:^(NSError *error) {
+            if (error != nil) {
+                NSLog(@"MotionsEditViewController: save photo error {\n %@}", [error description]);
+            }
+        }];
+    }
 }
 
 #pragma mark - CropImageViewController delegate

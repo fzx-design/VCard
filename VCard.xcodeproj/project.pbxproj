@@ -811,6 +811,8 @@
 		E135F7F0155E6196008494D8 /* button_menu_slideplay_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7D8155E6196008494D8 /* button_menu_slideplay_hover@2x.png */; };
 		E135F7F1155E6196008494D8 /* button_menu_slideplay.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7D9155E6196008494D8 /* button_menu_slideplay.png */; };
 		E135F7F2155E6196008494D8 /* button_menu_slideplay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E135F7DA155E6196008494D8 /* button_menu_slideplay@2x.png */; };
+		E139227B16384294008B83EF /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = E139227A16384294008B83EF /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
+		E139227E163842A9008B83EF /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E139227D163842A9008B83EF /* AssetsLibrary.framework */; };
 		E1575FBF159AF4390018D9BA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1575FBD159AF4390018D9BA /* InfoPlist.strings */; };
 		E1575FC2159AF4470018D9BA /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1575FC0159AF4470018D9BA /* MainStoryboard_iPad.storyboard */; };
 		E1599CC91580CD7400B9AE72 /* PostRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1599CC81580CD7400B9AE72 /* PostRootView.m */; };
@@ -1946,6 +1948,9 @@
 		E135F7D8155E6196008494D8 /* button_menu_slideplay_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_menu_slideplay_hover@2x.png"; sourceTree = "<group>"; };
 		E135F7D9155E6196008494D8 /* button_menu_slideplay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_menu_slideplay.png; sourceTree = "<group>"; };
 		E135F7DA155E6196008494D8 /* button_menu_slideplay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_menu_slideplay@2x.png"; sourceTree = "<group>"; };
+		E139227916384294008B83EF /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
+		E139227A16384294008B83EF /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
+		E139227D163842A9008B83EF /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		E1575FBE159AF4390018D9BA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		E1575FC1159AF4470018D9BA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/MainStoryboard_iPad.storyboard"; sourceTree = "<group>"; };
 		E1599CC71580CD7300B9AE72 /* PostRootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostRootView.h; sourceTree = "<group>"; };
@@ -2149,6 +2154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E139227E163842A9008B83EF /* AssetsLibrary.framework in Frameworks */,
 				18F086A115BEB408009455F4 /* SystemConfiguration.framework in Frameworks */,
 				E1AA44FB15BD346900F3DCA6 /* AudioToolbox.framework in Frameworks */,
 				189F486D15B050630006DC84 /* ImageIO.framework in Frameworks */,
@@ -2228,6 +2234,7 @@
 		181AB90915230AC1007A2A51 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E139227D163842A9008B83EF /* AssetsLibrary.framework */,
 				1850A477153C0ADC0001A905 /* libicucore.A.dylib */,
 				18F086A015BEB408009455F4 /* SystemConfiguration.framework */,
 				E1AA44FA15BD346900F3DCA6 /* AudioToolbox.framework */,
@@ -2671,6 +2678,8 @@
 		18E707D8153D2E020012092E /* Catagaories */ = {
 			isa = PBXGroup;
 			children = (
+				E139227916384294008B83EF /* ALAssetsLibrary+CustomPhotoAlbum.h */,
+				E139227A16384294008B83EF /* ALAssetsLibrary+CustomPhotoAlbum.m */,
 				18E707DF153D2E2C0012092E /* NSDate+Addition.h */,
 				18E707E0153D2E2C0012092E /* NSDate+Addition.m */,
 				E1A59EA815AC242F001F0A94 /* NSNotificationCenter+Addition.h */,
@@ -4965,6 +4974,7 @@
 				183831A815C396DB00E129EF /* UIImageView+AFNetworking.m in Sources */,
 				180B1E0B15CA7FB9005CCFA7 /* EmptyIndicatorViewController.m in Sources */,
 				E1E7403A15CAB38E008DB670 /* PostHintTextView.m in Sources */,
+				E139227B16384294008B83EF /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
