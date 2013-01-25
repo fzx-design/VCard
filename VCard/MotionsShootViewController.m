@@ -126,16 +126,16 @@
     [self configureEditImage:self.capturedImage];
 }
 
-- (void)configurePreviewLayerOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    if(self.previewLayer.orientationSupported) {
-        if(interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
-            self.previewLayer.orientation = AVCaptureVideoOrientationLandscapeLeft;
-        else if(interfaceOrientation == UIInterfaceOrientationLandscapeRight)
-            self.previewLayer.orientation = AVCaptureVideoOrientationLandscapeRight;
-        else if(interfaceOrientation == UIInterfaceOrientationPortrait)
-            self.previewLayer.orientation = AVCaptureVideoOrientationPortrait;
-        else if(interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
-            self.previewLayer.orientation = AVCaptureVideoOrientationPortraitUpsideDown;
+- (void)configurePreviewLayerOrientation {
+    if([self.previewLayer respondsToSelector:@selector(connection)]) { // iOS 6
+        AVCaptureConnection *videoConnection = self.previewLayer.connection;
+        if ([videoConnection isVideoOrientationSupported]) {
+            [videoConnection setVideoOrientation:[UIDevice currentDevice].orientation];
+        }
+    } else { // iOS 5
+        if(self.previewLayer.orientationSupported) {
+            self.previewLayer.orientation = [UIDevice currentDevice].orientation;
+        }
     }
 }
 
@@ -190,15 +190,16 @@
 
 - (void)startShoot {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        [self.previewLayer removeFromSuperlayer];
+        self.previewLayer = nil;
+        
         AVCaptureVideoPreviewLayer* previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
         previewLayer.frame = self.cameraPreviewView.bounds;
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-        
-        //To Do : why should I omit this?
-        //[self.previewLayer removeFromSuperlayer];
         self.previewLayer = previewLayer;
         
-        [self configurePreviewLayerOrientation:[UIApplication sharedApplication].statusBarOrientation];
+        [self configurePreviewLayerOrientation];
+        
         [self.cameraPreviewView.layer addSublayer:previewLayer];
         [self.cameraPreviewView fadeIn];
         [self.captureSession startRunning];
@@ -265,24 +266,15 @@
 #pragma mark - IBActions
 
 - (IBAction)didClickShootButton:(UIButton *)sender {
-    self.view.userInteractionEnabled = NO;
-    
-    AVCaptureConnection *videoConnection = nil;
-    for (AVCaptureConnection *connection in self.stillImageOutput.connections) {
-        for (AVCaptureInputPort *port in [connection inputPorts]) {
-            if ([[port mediaType] isEqual:AVMediaTypeVideo] ) {
-                videoConnection = connection;
-                break;
-            }
-        }
-        if (videoConnection) { break; }
-    }
-    
-    if(!videoConnection) {
+    if(!self.stillImageOutput) {
         return;
     }
     
-    if(!self.stillImageOutput) {
+    self.view.userInteractionEnabled = NO;
+    
+    AVCaptureConnection *videoConnection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+    
+    if(!videoConnection) {
         return;
     }
     
