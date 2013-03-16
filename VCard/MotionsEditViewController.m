@@ -12,6 +12,7 @@
 #import "CropImageViewController.h"
 #import "UIApplication+Addition.h"
 #import "UIImage+Addition.h"
+#import "ALAssetsLibrary+CustomPhotoAlbum.h"
 
 #define CROP_BUTTON_TAG 1001
 
@@ -62,7 +63,7 @@
     self = [self init];
     if(self) {
         self.originalImage = image;
-        
+        _isOriginalImageFromLibrary = YES;
         _useForAvatar = useForAvatar;
         _shouldShowCropView = useForAvatar;
     }
@@ -150,6 +151,8 @@
         result = YES;
     else if(self.croppedImage != self.originalImage)
         result = YES;
+    else if(self.isOriginalImageFromLibrary == NO)
+        return YES;
     return result;
 }
 
@@ -420,7 +423,7 @@
 
 - (IBAction)didClickChangePictureButton:(UIButton *)sender {
     
-    if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+    if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         [self showAlbumImagePicker];
         return;
     }
@@ -464,8 +467,14 @@
 #pragma mark - Save image methods
 
 - (void)saveImageInBackground:(UIImage *)image {
-    if(image)
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    if(image) {
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library saveImage:image toAlbum:@"VCard" withCompletionBlock:^(NSError *error) {
+            if (error != nil) {
+                NSLog(@"MotionsEditViewController: save photo error {\n %@}", [error description]);
+            }
+        }];
+    }
 }
 
 #pragma mark - CropImageViewController delegate
@@ -502,6 +511,7 @@
     [self.popoverController dismissPopoverAnimated:YES];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     self.popoverController = nil;
+    self.isOriginalImageFromLibrary = YES;
     
     BlockARCWeakSelf weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

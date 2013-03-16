@@ -77,7 +77,7 @@
 {
     if (_cardViewController == nil) {
         
-        _cardViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:NULL] instantiateViewControllerWithIdentifier:@"CardViewController"];
+        _cardViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:NULL] instantiateViewControllerWithIdentifier:@"CardViewController"];
         
         CGRect frame = _cardViewController.view.frame;
         frame.origin = CGPointMake(10, 11);

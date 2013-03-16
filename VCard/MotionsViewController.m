@@ -287,7 +287,7 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
 
 #pragma mark - MotionsShootViewController delegate
 
-- (void)shootViewController:(MotionsShootViewController *)vc didCaptureImage:(UIImage *)image {
+- (void)shootViewController:(MotionsShootViewController *)vc didCaptureImage:(UIImage *)image fromLibrary:(BOOL)isFromLibrary {
     [self showCameraCoverWithCompletion:nil];
     [self.shootViewController hideShootAccessoriesAnimationWithCompletion:^{
         [self.shootViewController.view removeFromSuperview];
@@ -297,6 +297,7 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
         BlockARCWeakSelf weakSelf = self;
         [self configureEditViewControllerAfterDelay:0.1f completion:^{
             [weakSelf.editViewController showEditAccessoriesAnimationWithCompletion:nil];
+            weakSelf.editViewController.isOriginalImageFromLibrary = isFromLibrary;
         }];
     }];
 }

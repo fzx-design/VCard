@@ -723,7 +723,7 @@ typedef enum {
 
 - (IBAction)didClickMotionsButton:(UIButton *)sender {
     UIActionSheet *actionSheet = nil;
-    if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+    if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         if(!self.motionsImageView.image) {
             [self showAlbumImagePicker];
             return;
@@ -872,7 +872,7 @@ typedef enum {
         if(buttonIndex == actionSheet.destructiveButtonIndex)
             [self.delegate postViewController:self willDropMessage:self.textView.text];
 	} else if(self.currentActionSheetType == ActionSheetTypeMotions) {
-        if(![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+        if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             buttonIndex += 1;
         }
         if(buttonIndex == MOTIONS_ACTION_SHEET_ALBUM_INDEX) {

@@ -64,4 +64,5 @@
     CGPoint focusPoint = CGPointMake(point.x / self.frame.size.width, 1 - point.y / self.frame.size.height);
     [self.delegate didCreateInterestPoint:focusPoint];
 }
+
 @end

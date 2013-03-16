@@ -34,7 +34,7 @@
 
 @protocol MotionsShootViewControllerDelegate <NSObject>
 
-- (void)shootViewController:(MotionsShootViewController *)vc didCaptureImage:(UIImage *)image;
+- (void)shootViewController:(MotionsShootViewController *)vc didCaptureImage:(UIImage *)image fromLibrary:(BOOL)isFromLibrary;
 - (void)shootViewControllerWillBecomeActiveWithCompletion:(void (^)(void))completion;
 - (void)shootViewControllerWillBecomeInactiveWithCompletion:(void (^)(void))completion;
 

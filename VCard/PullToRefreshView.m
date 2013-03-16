@@ -41,7 +41,9 @@
 @end
 
 @implementation PullToRefreshView
+
 @synthesize delegate, scrollView;
+@synthesize state = state;
 
 - (void)setImageFlipped:(BOOL)flipped {
     [UIView beginAnimations:nil context:NULL];

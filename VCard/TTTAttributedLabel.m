@@ -918,6 +918,8 @@ static inline NSAttributedString * NSAttributedStringByScalingFontSize(NSAttribu
                 [self.delegate attributedLabel:self didSelectLinkWithQuate:tagName];
             }
             break;
+        default:
+            break;
     }
 
 }
