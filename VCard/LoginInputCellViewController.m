@@ -57,9 +57,9 @@
 #pragma mark - Logic methods 
 
 - (void)login {
-    if (self.userNameTextField.text == @"") {
+    if ([self.userNameTextField.text isEqualToString:@""]) {
         [self.userNameTextField becomeFirstResponder];
-    } else if(self.userPasswordTextField.text == @"") {
+    } else if([self.userPasswordTextField.text isEqualToString:@""]) {
         return;
     } else {
         self.loginButton.hidden = YES;

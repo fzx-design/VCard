@@ -147,7 +147,7 @@ static dispatch_queue_t xml_request_operation_processing_queue() {
         dispatch_async(xml_request_operation_processing_queue(), ^(void) {
             NSXMLParser *XMLParser = weakSelf.responseXMLParser;
             
-            if (self.error) {
+            if (weakSelf.error) {
                 if (failure) {
                     dispatch_async(weakSelf.failureCallbackQueue ? weakSelf.failureCallbackQueue : dispatch_get_main_queue(), ^{
                         failure(weakSelf, weakSelf.error);

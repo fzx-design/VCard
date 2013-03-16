@@ -112,7 +112,7 @@ static dispatch_queue_t json_request_operation_processing_queue() {
             dispatch_async(json_request_operation_processing_queue(), ^{
                 id JSON = weakSelf.responseJSON;
                 
-                if (self.JSONError) {
+                if (weakSelf.JSONError) {
                     if (failure) {
                         dispatch_async(weakSelf.failureCallbackQueue ? weakSelf.failureCallbackQueue : dispatch_get_main_queue(), ^{
                             failure(weakSelf, weakSelf.error);

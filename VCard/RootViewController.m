@@ -58,7 +58,7 @@
     WBClient *userClient = [WBClient client];
     
     [userClient setCompletionBlock:^(WBClient *client) {
-        if (!userClient.hasError) {
+        if (!client.hasError) {
             NSDictionary *userDict = client.responseJSONObject;
             [User insertUser:userDict inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeCurrentUser];
             [NSNotificationCenter postChangeUserAvatarNotification];

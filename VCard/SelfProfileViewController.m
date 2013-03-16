@@ -212,7 +212,7 @@ typedef enum {
     BlockARCWeakSelf weakSelf = self;
     WBClient *userClient = [WBClient client];
     [userClient setCompletionBlock:^(WBClient *client) {
-        if (!userClient.hasError && weakSelf) {
+        if (!client.hasError && weakSelf) {
             
             NSDictionary *userDict = client.responseJSONObject;
             User *user = [User insertUser:userDict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeCurrentUser];
