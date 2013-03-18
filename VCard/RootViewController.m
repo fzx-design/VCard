@@ -29,12 +29,14 @@
 
 @synthesize castViewController = _castViewController;
 @synthesize shelfViewController = _shelfViewController;
+@synthesize SimpleTableView = _SimpleTableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -108,26 +110,43 @@
 - (void)showLoginViewController {
     NSString *launchImageName = nil;
     BOOL isLandscape = [UIApplication isCurrentOrientationLandscape];
-    if([UIApplication isRetinaDisplayiPad])
-        launchImageName = isLandscape ? @"Default-Landscape@2x~ipad" : @"Default-Portrait@2x~ipad";
-    else
-        launchImageName = isLandscape ? @"Default-Landscape~ipad" : @"Default-Portrait~ipad";
+    //    if([UIApplication isRetinaDisplayiPad]){
+    //        launchImageName = isLandscape ? @"Default-Landscape@2x~ipad" : @"Default-Portrait@2x~ipad";
+    //    }
+    //    else {
+    //        launchImageName = isLandscape ? @"Default-Landscape~ipad" : @"Default-Portrait~ipad";
+    //    }
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        //如果是iphone设备 加载图片。
+        _SimpleTableView = [[SimpleTableViewController alloc] initWithNibName:@"SimpleTableViewController" bundle:nil];
+        [self.view insertSubview:_SimpleTableView.view belowSubview:self.view];
+        
+    }
+    else{
+        if([UIApplication isRetinaDisplayiPad]){
+            launchImageName = isLandscape ? @"Default-Landscape@2x~ipad" : @"Default-Portrait@2x~ipad";
+        }
+        else {
+            launchImageName = isLandscape ? @"Default-Landscape~ipad" : @"Default-Portrait~ipad";
+        }
+        
+        UIImage *launchImage = [UIImage imageNamed:launchImageName];
+        UIImageView *launchImageView = [[UIImageView alloc] initWithImage:launchImage];
+        
+        [launchImageView resetSize:self.view.frame.size];
+        [launchImageView resetOrigin:CGPointZero];
+        
+        [self.view addSubview:launchImageView];
+        
+        [UIApplication excuteBlock:^{
+            [launchImageView removeFromSuperview];
+        } afterDelay:LOGIN_VIEW_APPEAR_ANIMATION_DURATION + 0.3f];
+        
+        [UIApplication excuteBlock:^{
+            [[[LoginViewController alloc] init] show];
+        } afterDelay:0.3f];
+    }
     
-    UIImage *launchImage = [UIImage imageNamed:launchImageName];
-    UIImageView *launchImageView = [[UIImageView alloc] initWithImage:launchImage];
-    
-    [launchImageView resetSize:self.view.frame.size];
-    [launchImageView resetOrigin:CGPointZero];
-    
-    [self.view addSubview:launchImageView];
-    
-    [UIApplication excuteBlock:^{
-        [launchImageView removeFromSuperview];
-    } afterDelay:LOGIN_VIEW_APPEAR_ANIMATION_DURATION + 0.3f];
-    
-    [UIApplication excuteBlock:^{
-        [[[LoginViewController alloc] init] show];
-    } afterDelay:0.3f];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -285,7 +304,7 @@
     
     [_castViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     [_shelfViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    [_detailImageViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];    
+    [_detailImageViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation

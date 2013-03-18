@@ -197,6 +197,7 @@ static NSMutableArray *_backViewStack = nil;
     return [[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [UIScreen mainScreen].scale > 1;
 }
 
+
 + (BOOL)isFirstGenerationiPad
 {
     return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad &&
