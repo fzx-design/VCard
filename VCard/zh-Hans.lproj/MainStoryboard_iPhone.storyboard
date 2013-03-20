@@ -17,12 +17,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p8T-rW-MBQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-78" y="109"/>
+            <point key="canvasLocation" x="56" y="-747"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Phone Root View Controller-->
         <scene sceneID="2dW-cg-Lwe">
             <objects>
-                <viewController id="FmG-Di-yTK" customClass="RootViewController" sceneMemberID="viewController">
+                <viewController id="FmG-Di-yTK" customClass="PhoneRootViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Oyh-wR-w1x">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -33,15 +33,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JlW-ng-vLl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="379" y="109"/>
+            <point key="canvasLocation" x="563" y="-747"/>
         </scene>
     </scenes>
     <classes>
-        <class className="CoreDataViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataViewController.h"/>
-        </class>
-        <class className="RootViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RootViewController.h"/>
+        <class className="PhoneRootViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhoneRootViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -452,9 +452,11 @@
 		18FE756515C2C02800B0551F /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FE756415C2C02800B0551F /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1B19556315B30D3300371DF0 /* GuideBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F7F8C615B309D900712019 /* GuideBookViewController.m */; };
 		1B19556415B30D3800371DF0 /* GuideBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1F7F8C715B309D900712019 /* GuideBookViewController.xib */; };
-		51BAC8A016F5DC95001DB325 /* MainWindow_iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51BAC89F16F5DC95001DB325 /* MainWindow_iphone.xib */; };
+		51A7F5D216F8174A00A17012 /* PhoneRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A7F5D116F8174A00A17012 /* PhoneRootViewController.m */; };
 		51BAC8B316F643E1001DB325 /* SimpleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51BAC8B116F643E1001DB325 /* SimpleTableViewController.m */; };
 		51BAC8B416F643E1001DB325 /* SimpleTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51BAC8B216F643E1001DB325 /* SimpleTableViewController.xib */; };
+		51D2247E16F85473001DA1EE /* MyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D2247D16F85473001DA1EE /* MyCell.m */; };
+		51D2248016F8AF28001DA1EE /* MyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51D2247F16F8AF28001DA1EE /* MyCell.xib */; };
 		E1031B52159950A5006A9CFD /* motions_cover_b_vertical.png in Resources */ = {isa = PBXBuildFile; fileRef = E1031B4A159950A5006A9CFD /* motions_cover_b_vertical.png */; };
 		E1031B53159950A5006A9CFD /* motions_cover_b_vertical@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1031B4B159950A5006A9CFD /* motions_cover_b_vertical@2x.png */; };
 		E1031B54159950A5006A9CFD /* motions_cover_l_horizon.png in Resources */ = {isa = PBXBuildFile; fileRef = E1031B4C159950A5006A9CFD /* motions_cover_l_horizon.png */; };
@@ -1562,10 +1564,14 @@
 		18F3940715BAE65D00EA1F3E /* DMBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMBubbleView.m; sourceTree = "<group>"; };
 		18FE756315C2C02800B0551F /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		18FE756415C2C02800B0551F /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		51BAC89F16F5DC95001DB325 /* MainWindow_iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow_iphone.xib; sourceTree = "<group>"; };
+		51A7F5D016F8174A00A17012 /* PhoneRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneRootViewController.h; sourceTree = "<group>"; };
+		51A7F5D116F8174A00A17012 /* PhoneRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneRootViewController.m; sourceTree = "<group>"; };
 		51BAC8B016F643E0001DB325 /* SimpleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTableViewController.h; sourceTree = "<group>"; };
 		51BAC8B116F643E1001DB325 /* SimpleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleTableViewController.m; sourceTree = "<group>"; };
 		51BAC8B216F643E1001DB325 /* SimpleTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimpleTableViewController.xib; sourceTree = "<group>"; };
+		51D2247C16F85473001DA1EE /* MyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCell.h; sourceTree = "<group>"; };
+		51D2247D16F85473001DA1EE /* MyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCell.m; sourceTree = "<group>"; };
+		51D2247F16F8AF28001DA1EE /* MyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCell.xib; sourceTree = "<group>"; };
 		E1031B4A159950A5006A9CFD /* motions_cover_b_vertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_cover_b_vertical.png; sourceTree = "<group>"; };
 		E1031B4B159950A5006A9CFD /* motions_cover_b_vertical@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motions_cover_b_vertical@2x.png"; sourceTree = "<group>"; };
 		E1031B4C159950A5006A9CFD /* motions_cover_l_horizon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motions_cover_l_horizon.png; sourceTree = "<group>"; };
@@ -2359,7 +2365,6 @@
 			children = (
 				E1575FC0159AF4470018D9BA /* MainStoryboard_iPad.storyboard */,
 				18F03F731614884000CE4EB3 /* MainStoryboard_iPhone.storyboard */,
-				51BAC89F16F5DC95001DB325 /* MainWindow_iphone.xib */,
 			);
 			name = "User Interface";
 			sourceTree = "<group>";
@@ -2734,6 +2739,11 @@
 				18E55928153F9F5C00ECCA3B /* CoreDataViewController.m */,
 				18E558FF153EF55600ECCA3B /* RootViewController.h */,
 				18E55900153EF55600ECCA3B /* RootViewController.m */,
+				51A7F5D016F8174A00A17012 /* PhoneRootViewController.h */,
+				51A7F5D116F8174A00A17012 /* PhoneRootViewController.m */,
+				51D2247C16F85473001DA1EE /* MyCell.h */,
+				51D2247D16F85473001DA1EE /* MyCell.m */,
+				51D2247F16F8AF28001DA1EE /* MyCell.xib */,
 				51BAC8B016F643E0001DB325 /* SimpleTableViewController.h */,
 				51BAC8B116F643E1001DB325 /* SimpleTableViewController.m */,
 				51BAC8B216F643E1001DB325 /* SimpleTableViewController.xib */,
@@ -4794,8 +4804,8 @@
 				1814CFD715D7D8B40081C96F /* icon_settings_source@2x.png in Resources */,
 				18F03F751614884000CE4EB3 /* MainStoryboard_iPhone.storyboard in Resources */,
 				E1F02F5216F4BB8600699C81 /* Default-568h@2x.png in Resources */,
-				51BAC8A016F5DC95001DB325 /* MainWindow_iphone.xib in Resources */,
 				51BAC8B416F643E1001DB325 /* SimpleTableViewController.xib in Resources */,
+				51D2248016F8AF28001DA1EE /* MyCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4993,6 +5003,8 @@
 				E1E7403A15CAB38E008DB670 /* PostHintTextView.m in Sources */,
 				E139227B16384294008B83EF /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				51BAC8B316F643E1001DB325 /* SimpleTableViewController.m in Sources */,
+				51A7F5D216F8174A00A17012 /* PhoneRootViewController.m in Sources */,
+				51D2247E16F85473001DA1EE /* MyCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

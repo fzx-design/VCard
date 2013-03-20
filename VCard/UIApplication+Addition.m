@@ -46,6 +46,21 @@ static NSMutableArray *_backViewStack = nil;
     }
 }
 
+#pragma mark - iphone Notification handlers
+- (void)phoneRootViewControllerViewDidLoad:(NSNotification *)notification {
+    UIView *rootView = self.rootViewController.view;
+    for(int i = 0; i < self.modalViewControllerStack.count; i++) {
+        UIViewController *vc = [self.modalViewControllerStack objectAtIndex:i];
+        UIView *backView = [self.backViewStack objectAtIndex:i];
+        
+        [vc.view removeFromSuperview];
+        [backView removeFromSuperview];
+        
+        [rootView addSubview:backView];
+        [rootView addSubview:vc.view];
+    }
+}
+
 #pragma mark - ModalViewController methods
 
 - (NSMutableArray *)modalViewControllerStack {

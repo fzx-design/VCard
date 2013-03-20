@@ -14,6 +14,8 @@
 #define kWBClientErrorNotification              @"WBClientErrorNotification"
 
 #define kRootViewControllerViewDidLoadNotification  @"RootViewControllerViewDidLoadNotification"
+#define kPhoneRootViewControllerViewDidLoadNotification  @"PhoneRootViewControllerViewDidLoadNotification"
+
 #define kShouldPostRecommendVCardWeiboNotification  @"ShouldPostRecommendVCardWeiboNotification"
 
 #define kWillReloadCardCellNotification @"WillReloadCardCellNotification"
@@ -64,6 +66,19 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:aTarget selector:aSelector
                    name:kRootViewControllerViewDidLoadNotification 
+                 object:nil];
+}
+
+#pragma mark - iphone Notification post and resgister
++ (void)postPhoneRootViewControllerViewDidLoadNotification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPhoneRootViewControllerViewDidLoadNotification
+                                                        object:nil userInfo:nil];
+}
+
++ (void)registerPhoneRootViewControllerViewDidLoadNotificationWithSelector:(SEL)aSelector target:(id)aTarget {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:aTarget selector:aSelector
+                   name:kPhoneRootViewControllerViewDidLoadNotification
                  object:nil];
 }
 

@@ -11,7 +11,6 @@
 #import "CoreDataViewController.h"
 #import "ShelfViewController.h"
 #import "DetailImageViewController.h"
-#import "SimpleTableViewController.h"
 
 @interface RootViewController : CoreDataViewController <CastViewControllerDelegate> {
     CastViewController *_castViewController;
@@ -20,5 +19,5 @@
 @property (nonatomic, strong) CastViewController *castViewController;
 @property (nonatomic, strong) ShelfViewController *shelfViewController;
 @property (nonatomic, strong) DetailImageViewController *detailImageViewController;
-@property (nonatomic, strong) SimpleTableViewController *SimpleTableView;
+
 @end

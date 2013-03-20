@@ -29,7 +29,6 @@
 
 @synthesize castViewController = _castViewController;
 @synthesize shelfViewController = _shelfViewController;
-@synthesize SimpleTableView = _SimpleTableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -116,36 +115,35 @@
     //    else {
     //        launchImageName = isLandscape ? @"Default-Landscape~ipad" : @"Default-Portrait~ipad";
     //    }
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        //如果是iphone设备 加载图片。
-        _SimpleTableView = [[SimpleTableViewController alloc] initWithNibName:@"SimpleTableViewController" bundle:nil];
-        [self.view insertSubview:_SimpleTableView.view belowSubview:self.view];
-        
+    //    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+    //        //如果是iphone设备 加载图片。
+    ////        _SimpleTableView = [[SimpleTableViewController alloc] initWithNibName:@"SimpleTableViewController" bundle:nil];
+    //        _SimpleTableView = [[SimpleTableViewController alloc]init];
+    //        [self.view insertSubview:_SimpleTableView.view belowSubview:self.view];
+    //
+    //    }
+    if([UIApplication isRetinaDisplayiPad]){
+        launchImageName = isLandscape ? @"Default-Landscape@2x~ipad" : @"Default-Portrait@2x~ipad";
     }
-    else{
-        if([UIApplication isRetinaDisplayiPad]){
-            launchImageName = isLandscape ? @"Default-Landscape@2x~ipad" : @"Default-Portrait@2x~ipad";
-        }
-        else {
-            launchImageName = isLandscape ? @"Default-Landscape~ipad" : @"Default-Portrait~ipad";
-        }
-        
-        UIImage *launchImage = [UIImage imageNamed:launchImageName];
-        UIImageView *launchImageView = [[UIImageView alloc] initWithImage:launchImage];
-        
-        [launchImageView resetSize:self.view.frame.size];
-        [launchImageView resetOrigin:CGPointZero];
-        
-        [self.view addSubview:launchImageView];
-        
-        [UIApplication excuteBlock:^{
-            [launchImageView removeFromSuperview];
-        } afterDelay:LOGIN_VIEW_APPEAR_ANIMATION_DURATION + 0.3f];
-        
-        [UIApplication excuteBlock:^{
-            [[[LoginViewController alloc] init] show];
-        } afterDelay:0.3f];
+    else {
+        launchImageName = isLandscape ? @"Default-Landscape~ipad" : @"Default-Portrait~ipad";
     }
+    
+    UIImage *launchImage = [UIImage imageNamed:launchImageName];
+    UIImageView *launchImageView = [[UIImageView alloc] initWithImage:launchImage];
+    
+    [launchImageView resetSize:self.view.frame.size];
+    [launchImageView resetOrigin:CGPointZero];
+    
+    [self.view addSubview:launchImageView];
+    
+    [UIApplication excuteBlock:^{
+        [launchImageView removeFromSuperview];
+    } afterDelay:LOGIN_VIEW_APPEAR_ANIMATION_DURATION + 0.3f];
+    
+    [UIApplication excuteBlock:^{
+        [[[LoginViewController alloc] init] show];
+    } afterDelay:0.3f];
     
 }
 

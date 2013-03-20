@@ -8,6 +8,7 @@
 
 #import "SimpleTableViewController.h"
 #import "UIApplication+Addition.h"
+#import "MyCell.h"
 @interface SimpleTableViewController ()
 
 @end
@@ -28,8 +29,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    NSArray * temp_array = [[NSArray alloc]initWithObjects:@"Simple Table", nil];
-    _listData = temp_array;
+    NSDictionary * temp_array = [[NSDictionary alloc]initWithObjectsAndKeys:@"Simple Table",@"Name",@"White",@"Color", nil];
+    _listData = [[NSArray alloc]initWithObjects:temp_array, nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,29 +48,26 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *SimpleTableIdentifier = @"SimpleTableIdentifier";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
-                             SimpleTableIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier:SimpleTableIdentifier];
+    static NSString * cellTableIdentifier = @"CellTableIdentifier";
+    static BOOL nibsRegistered = NO;
+    if (!nibsRegistered) {
+        UINib * nib = [UINib nibWithNibName:@"MyCell" bundle:nil];
+        [tableView registerNib:nib forCellReuseIdentifier:cellTableIdentifier];
+        nibsRegistered = YES;
     }
     
     NSUInteger row = [indexPath row];
-    cell.textLabel.text = [_listData objectAtIndex:row];
-    cell.textLabel.font = [UIFont boldSystemFontOfSize:50];
-    
+    NSDictionary * rowData = [_listData objectAtIndex:row];
+    MyCell * cell = [tableView dequeueReusableCellWithIdentifier:cellTableIdentifier];
+    cell.name = [rowData objectForKey:@"Name"];
+    cell.color = [rowData objectForKey:@"Color"];
     return cell;
 }
 
 #pragma mark -
 #pragma mark Table Delegate Methods
 
-- (NSInteger)tableView:(UITableView *)tableView
-indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger row = [indexPath row];
     return row;
 }
@@ -80,31 +78,25 @@ indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {
 //    
 //    if (row == 0)
 //        return nil;
-    
     return indexPath;
 }
 
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger row = [indexPath row];
     NSString *rowValue = [_listData objectAtIndex:row];
     
-    NSString *message = [[NSString alloc] initWithFormat:
-                         @"You selected %@", rowValue];
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@"Row Selected!"
-                          message:message
-                          delegate:nil
-                          cancelButtonTitle:@"Yes I Did"
-                          otherButtonTitles:nil];
+    NSString *message = [[NSString alloc] initWithFormat:@"You selected %@", rowValue];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Row Selected!"
+                                                    message:message
+                                                   delegate:nil
+                                          cancelButtonTitle:@"Yes I Did"
+                                          otherButtonTitles:nil];
     [alert show];
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 70;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 65;
 }
 
 @end

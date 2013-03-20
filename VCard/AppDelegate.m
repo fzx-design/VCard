@@ -14,6 +14,7 @@
 #import "CoreDataViewController.h"
 #import "Reachability.h"
 #import "SDURLCache.h"
+#import "PhoneRootViewController.h"
 
 #define RECOMMEND_VCARD_TO_FRIENDS_USE_COUNT    5
 #define FOLLOW_VCARD_USE_COUNT    2
@@ -63,7 +64,11 @@
     [_reachability startNotifier];
     [[NSUserDefaults standardUserDefaults] setValue:@(YES) forKey:kUserDefaultKeyShouldScrollToTop];
     
-    [NSNotificationCenter registerRootViewControllerViewDidLoadNotificationWithSelector:@selector(rootViewControllerViewDidLoad:) target:[UIApplication sharedApplication]];
+    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone){
+//        [NSNotificationCenter registerPhoneRootViewControllerViewDidLoadNotificationWithSelector:@selector(phoneRootViewControllerViewDidLoad:) target:[UIApplication sharedApplication]];
+    }
+    else
+        [NSNotificationCenter registerRootViewControllerViewDidLoadNotificationWithSelector:@selector(rootViewControllerViewDidLoad:) target:[UIApplication sharedApplication]];
     
     _urlCache = [[SDURLCache alloc] initWithMemoryCapacity:1024*1024   // 1MB mem cache
                                               diskCapacity:1024*1024*5 // 5MB disk cache

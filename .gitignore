@@ -1,5 +1,20 @@
+<<<<<<< HEAD
 *.DS_Store
 VCard.xcodeproj/.LSOverride
 VCard.xcodeproj/xcuserdata
 VCard.xcodeproj/project.xcworkspace/xcuserdata/
 VCard.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+=======
+
+VCard.xcodeproj/project.xcworkspace/xcuserdata/bianshujun.xcuserdatad/UserInterfaceState.xcuserstate
+
+*.xcuserstate
+
+*.xcbkptlist
+
+*.xcscheme
+
+*.plist
+
+*.xcworkspacedata
+>>>>>>> custom cell 和 PhoneRootViewController
