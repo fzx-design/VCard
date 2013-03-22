@@ -59,7 +59,7 @@
 - (void)login {
     if ([self.userNameTextField.text isEqualToString:@""]) {
         [self.userNameTextField becomeFirstResponder];
-    } else if([self.userPasswordTextField.text isEqualToString:@""]) {
+    } else if ([self.userPasswordTextField.text isEqualToString:@""]) {
         return;
     } else {
         self.loginButton.hidden = YES;
@@ -70,7 +70,7 @@
         
         BlockARCWeakSelf weakSelf = self;
         [self loginUsingAccount:self.userNameTextField.text password:self.userPasswordTextField.text completion:^(BOOL succeeded) {
-            if(!succeeded) {
+            if (!succeeded) {
                 weakSelf.loginButton.hidden = NO;
                 weakSelf.activityIndicator.hidden = YES;
                 [weakSelf.activityIndicator stopAnimating];
@@ -80,11 +80,11 @@
 }
 
 - (void)setTooManyUsers:(BOOL)tooMany {
-    if(tooMany) {
+    if (tooMany) {
         self.tooManyUsersLabel.alpha = 1;
         self.inputBgView.alpha = 0;
     } else {
-        if(_tooManyUsers) {
+        if (_tooManyUsers) {
             [self.tooManyUsersLabel fadeOut];
             [self.inputBgView fadeIn];
         } else {
@@ -101,7 +101,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if ([textField isEqual:self.userNameTextField]) {
         [self.userPasswordTextField becomeFirstResponder];
-    } else if([textField isEqual:self.userPasswordTextField]) {
+    } else if ([textField isEqual:self.userPasswordTextField]) {
         [self login];
     }
     return YES;

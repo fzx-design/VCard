@@ -61,7 +61,7 @@
 
 - (id)initWithImage:(UIImage *)image useForAvatar:(BOOL)useForAvatar {
     self = [self init];
-    if(self) {
+    if (self) {
         self.originalImage = image;
         _isOriginalImageFromLibrary = YES;
         _useForAvatar = useForAvatar;
@@ -111,13 +111,13 @@
         self.originalImage = image;
         self.croppedImage = self.originalImage;
         
-        if(weakSelf.useForAvatar)
+        if (weakSelf.useForAvatar)
             [weakSelf didClickCropButton:weakSelf.cropButton];
         
-        if(reloadFilterTableView)
+        if (reloadFilterTableView)
             [weakSelf.filterViewController refreshWithImage:self.croppedImage];
         else
-            [weakSelf.filterViewController.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewRowAnimationTop animated:YES];
+            [weakSelf.filterViewController.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }];
 }
 
@@ -145,13 +145,13 @@
 
 - (BOOL)isDirty {
     BOOL result = NO;
-    if(self.isShadowAmountFilterAdded)
+    if (self.isShadowAmountFilterAdded)
         result = YES;
-    else if(self.currentFilterInfo)
+    else if (self.currentFilterInfo)
         result = YES;
-    else if(self.croppedImage != self.originalImage)
+    else if (self.croppedImage != self.originalImage)
         result = YES;
-    else if(self.isOriginalImageFromLibrary == NO)
+    else if (self.isOriginalImageFromLibrary == NO)
         return YES;
     return result;
 }
@@ -161,7 +161,7 @@
 }
 
 - (FilterImageView *)currentFilterImageView {
-    if(_currentFilterImageViewIndex == 0) {
+    if (_currentFilterImageViewIndex == 0) {
         return self.filterImageViewA;
     } else {
         return self.filterImageViewB;
@@ -169,7 +169,7 @@
 }
 
 - (FilterImageView *)backupFilterImageView {
-    if(_currentFilterImageViewIndex == 1) {
+    if (_currentFilterImageViewIndex == 1) {
         return self.filterImageViewA;
     } else {
         return self.filterImageViewB;
@@ -177,7 +177,7 @@
 }
 
 - (MotionsFilterTableViewController *)filterViewController {
-    if(!_filterViewController) {
+    if (!_filterViewController) {
         _filterViewController = [[MotionsFilterTableViewController alloc] initWithImage:self.originalImage];
         _filterViewController.delegate = self;
         [self.subViewControllers addObject:_filterViewController];
@@ -188,13 +188,13 @@
 - (UIImage *)filteredImage {
     UIImage *result = nil;
     
-    if(self.isShadowAmountFilterAdded && self.currentFilterInfo) {
+    if (self.isShadowAmountFilterAdded && self.currentFilterInfo) {
         CIImage *source = [CIImage imageWithCGImage:self.croppedImage.CGImage];
         CIImage *filteredImage = [self.currentFilterInfo processCIImage:source];
         result = [UIImage shadowAmount:self.currentShadowAmountValue withCIImage:filteredImage];
-    } else if(self.currentFilterInfo) {
+    } else if (self.currentFilterInfo) {
         result = [self.currentFilterInfo processUIImage:self.croppedImage];
-    } else if(self.shadowAmountFilterAdded) {
+    } else if (self.shadowAmountFilterAdded) {
         result = [self.croppedImage shadowAmount:self.currentShadowAmountValue];
     } else {
         result = self.croppedImage;
@@ -208,7 +208,7 @@
 - (void)semiTransparentEditViewForCropAnimation {
     [UIView animateWithDuration:0.3f animations:^{
         for(UIView *subview in self.editAccessoryView.subviews) {
-            if(subview.tag != CROP_BUTTON_TAG) {
+            if (subview.tag != CROP_BUTTON_TAG) {
                 subview.alpha = 0.2f;
                 subview.userInteractionEnabled = NO;
             }
@@ -226,7 +226,7 @@
         self.filterViewController.view.alpha = 1.0f;
     } completion:^(BOOL finished) {
         for(UIView *subview in self.editAccessoryView.subviews) {
-            if([subview isMemberOfClass:[UIView class]])
+            if ([subview isMemberOfClass:[UIView class]])
                 subview.userInteractionEnabled = YES;
         }
         self.filterViewController.view.userInteractionEnabled = YES;
@@ -253,7 +253,7 @@
 - (void)setShowEditAccessoriesFrame {
     CGRect editAccessoryFrame = self.editAccessoryView.frame;
     CGRect filterFrame = self.filterViewController.view.frame;
-    if(self.isCurrentOrientationLandscape) {
+    if (self.isCurrentOrientationLandscape) {
         editAccessoryFrame.origin.x = 1024 - editAccessoryFrame.size.width;
         editAccessoryFrame.origin.y = 0;
         
@@ -273,7 +273,7 @@
 - (void)setHideEditAccessoriesFrame {
     CGRect editAccessoryFrame = self.editAccessoryView.frame;
     CGRect filterFrame = self.filterViewController.view.frame;
-    if(self.isCurrentOrientationLandscape) {
+    if (self.isCurrentOrientationLandscape) {
         editAccessoryFrame.origin.x = 1024;
         editAccessoryFrame.origin.y = 0;
         
@@ -295,7 +295,7 @@
     [UIView animateWithDuration:0.3f animations:^{
         [self setHideEditAccessoriesFrame];
     } completion:^(BOOL finished) {
-        if(completion)
+        if (completion)
             completion();
     }];
 }
@@ -305,7 +305,7 @@
     [UIView animateWithDuration:0.3f animations:^{
         [self setShowEditAccessoriesFrame];
     } completion:^(BOOL finished) {
-        if(completion)
+        if (completion)
             completion();
     }];
 }
@@ -317,10 +317,10 @@
 }
 
 - (void)dismissPopover {
-    if(self.actionSheet) {
+    if (self.actionSheet) {
         [self.actionSheet dismissWithClickedButtonIndex:-1 animated:NO];
     }
-    if(self.popoverController) {
+    if (self.popoverController) {
         [self.popoverController dismissPopoverAnimated:YES];
         self.popoverController = nil;
     }
@@ -342,12 +342,12 @@
     
     [self.currentFilterImageView setNeedsDisplay];
     
-    if(filterImageViewEmpty)
+    if (filterImageViewEmpty)
         [self.currentFilterImageView fadeIn];
     
     [self.delegate performSelector:@selector(editViewControllerDidBecomeActiveWithCompletion:) withObject:nil afterDelay:0.3f];
     
-    if(_shouldShowCropView) {
+    if (_shouldShowCropView) {
         [self performSelector:@selector(didClickCropButton:) withObject:self.cropButton afterDelay:0.3f];
     }
     _shouldShowCropView = NO;
@@ -388,7 +388,7 @@
 - (IBAction)didClickCropButton:(UIButton *)sender {
     BOOL select = !sender.selected;
     sender.selected = select;
-    if(select) {
+    if (select) {
         [self semiTransparentEditViewForCropAnimation];
         [self.activityIndicator fadeIn];
         [self.activityIndicator startAnimating];
@@ -423,7 +423,7 @@
 
 - (IBAction)didClickChangePictureButton:(UIButton *)sender {
     
-    if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         [self showAlbumImagePicker];
         return;
     }
@@ -439,7 +439,7 @@
 }
 
 - (IBAction)didClickRevertButton:(UIButton *)sender {
-    if(!self.isDirty) 
+    if (!self.isDirty) 
         return;
     
     [self refreshViewWithImage:self.originalImage];
@@ -452,12 +452,12 @@
     BlockARCWeakSelf weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *filteredImage = weakSelf.filteredImage;
-        if(weakSelf.useForAvatar)
+        if (weakSelf.useForAvatar)
             filteredImage = [filteredImage compressImageToSize:CGSizeMake(180, 180)];
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.delegate editViewControllerDidFinishEditImage:filteredImage];
             
-            if(self.isDirty) {
+            if (self.isDirty) {
                 [self performSelectorInBackground:@selector(saveImageInBackground:) withObject:filteredImage];
             }
         });
@@ -467,7 +467,7 @@
 #pragma mark - Save image methods
 
 - (void)saveImageInBackground:(UIImage *)image {
-    if(image) {
+    if (image) {
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library saveImage:image toAlbum:@"VCard" withCompletionBlock:^(NSError *error) {
             if (error != nil) {
@@ -496,9 +496,9 @@
 #pragma mark - UIActionSheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if(buttonIndex == MOTIONS_EDIT_ACTION_SHEET_ALBUM_INDEX) {
+    if (buttonIndex == MOTIONS_EDIT_ACTION_SHEET_ALBUM_INDEX) {
         [self showAlbumImagePicker];
-    } else if(buttonIndex == MOTIONS_EDIT_ACTION_SHEET_SHOOT_INDEX) {
+    } else if (buttonIndex == MOTIONS_EDIT_ACTION_SHEET_SHOOT_INDEX) {
         [self.delegate editViewControllerDidChooseToShoot];
     }
     self.actionSheet = nil;
@@ -531,12 +531,12 @@
 #pragma mark - MotionsFilterTableViewController delegate
 
 - (void)filterTableViewController:(MotionsFilterTableViewController *)vc didSelectFilter:(MotionsFilterInfo *)info {
-    if([self.currentFilterInfo.filterName isEqualToString:info.filterName])
+    if ([self.currentFilterInfo.filterName isEqualToString:info.filterName])
         return;
     
     self.currentFilterInfo = info;
     
-    if(info.filterParameter == nil)
+    if (info.filterParameter == nil)
         self.currentFilterInfo = nil;
     
     self.backupFilterImageView.processImage = self.currentFilterImageView.processImage;

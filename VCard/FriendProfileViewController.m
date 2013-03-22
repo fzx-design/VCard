@@ -95,7 +95,7 @@
     NSString *relationShip = nil;
     if (!following) {
         relationShip = @"关注";
-    } else if(!followMe){
+    } else if (!followMe){
         relationShip = @"已关注";
     } else {
         relationShip = @" 互相关注";
@@ -222,7 +222,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex == 0) {
+    if (buttonIndex == 0) {
         [self unfollowUser];
     }
 }

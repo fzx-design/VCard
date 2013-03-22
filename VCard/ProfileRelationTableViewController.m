@@ -70,9 +70,9 @@
 {
     if (_type == RelationshipViewTypeSelfFriends || _type == RelationshipViewTypeUserFriends) {
         [User deleteFriendsOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
-    } else if(_type == RelationshipViewTypeSelfFollowers || _type == RelationshipViewTypeUserFollowers) {
+    } else if (_type == RelationshipViewTypeSelfFollowers || _type == RelationshipViewTypeUserFollowers) {
         [User deleteFollowersOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
-    } else if(_type == RelationshipViewTypeSearch) {
+    } else if (_type == RelationshipViewTypeSearch) {
         [User deleteUsersInManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
     }
     [self resetUnreadFollowerCount];
@@ -106,9 +106,9 @@
                     User *usr = [User insertUser:dict inManagedObjectContext:weakSelf.managedObjectContext withOperatingObject:weakSelf.coreDataIdentifier operatableType:kOperatableTypeNone];
                     if (weakSelf.type == RelationshipViewTypeSelfFollowers || weakSelf.type == RelationshipViewTypeUserFollowers) {
                         [weakSelf.user addFollowersObject:usr];
-                    } else if(weakSelf.type == RelationshipViewTypeSelfFriends || weakSelf.type == RelationshipViewTypeUserFriends) {
+                    } else if (weakSelf.type == RelationshipViewTypeSelfFriends || weakSelf.type == RelationshipViewTypeUserFriends) {
                         [weakSelf.user addFriendsObject:usr];
-                    } else if(weakSelf.type == RelationshipViewTypeSearch) {
+                    } else if (weakSelf.type == RelationshipViewTypeSearch) {
                         //TODO:
                     }
                 }
@@ -165,9 +165,9 @@
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updateDate" ascending:YES];
     if (_type == RelationshipViewTypeSelfFriends || _type == RelationshipViewTypeUserFriends) {
         request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.user.friends, self.coreDataIdentifier, self.currentUser.userID];
-    } else if(_type == RelationshipViewTypeSelfFollowers || _type == RelationshipViewTypeUserFollowers) {
+    } else if (_type == RelationshipViewTypeSelfFollowers || _type == RelationshipViewTypeUserFollowers) {
         request.predicate = [NSPredicate predicateWithFormat:@"SELF IN %@ && operatedBy == %@ && currentUserID == %@", self.user.followers, self.coreDataIdentifier, self.currentUser.userID];
-    }  else if(_type == RelationshipViewTypeSearch) {
+    }  else if (_type == RelationshipViewTypeSearch) {
         request.predicate = [NSPredicate predicateWithFormat:@"operatedBy == %@ && currentUserID == %@",self.coreDataIdentifier, self.currentUser.userID];
     }
     request.sortDescriptors = @[sortDescriptor];

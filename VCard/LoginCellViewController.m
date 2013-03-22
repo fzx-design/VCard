@@ -66,11 +66,11 @@
             
             [self.delegate loginCellDidLoginUser:user];
             
-            if(compeltion)
+            if (compeltion)
                 compeltion(YES);
             
         } else {
-            if(compeltion)
+            if (compeltion)
                 compeltion(NO);
             
             [self.delegate loginCellDidFailLoginUser];

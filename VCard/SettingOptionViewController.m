@@ -23,7 +23,7 @@
 
 - (id)initWithOptionKey:(NSString *)key {
     self = [super init];
-    if(self) {
+    if (self) {
         self.optionInfo = [NSUserDefaults getInfoForOptionKey:key];
     }
     return self;
@@ -57,7 +57,7 @@
     cell.textLabel.text = [self.optionInfo.optionsArray objectAtIndex:indexPath.row];
     
     NSNumber *chosen = [self.optionInfo.optionChosenStatusArray objectAtIndex:indexPath.row];
-    if(chosen.boolValue)
+    if (chosen.boolValue)
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -65,13 +65,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSNumber *chosenNumber = [self.optionInfo.optionChosenStatusArray objectAtIndex:indexPath.row];
-    if(chosenNumber.boolValue == YES && self.optionInfo.allowMultiOptions == NO)
+    if (chosenNumber.boolValue == YES && self.optionInfo.allowMultiOptions == NO)
         return;
     
     NSMutableArray *array = [NSMutableArray array];
     BlockARCWeakSelf weakSelf = self;
     [self.optionInfo.optionChosenStatusArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if(!weakSelf.optionInfo.allowMultiOptions) {
+        if (!weakSelf.optionInfo.allowMultiOptions) {
             NSNumber *item = [NSNumber numberWithBool:idx == indexPath.row ? YES : NO];
             [array addObject:item];
         } else {

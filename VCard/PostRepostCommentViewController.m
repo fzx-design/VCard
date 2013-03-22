@@ -38,7 +38,7 @@
        weiboOwnerName:(NSString *)ownerName
           contentText:(NSString *)content {
     self = [super init];
-    if(self) {
+    if (self) {
         self.weiboID = weiboID;
         self.weiboOwnerName = ownerName;
         self.replyID = replyID;
@@ -56,10 +56,10 @@
     CGRect frame = self.functionRightView.frame;
     frame.origin.x = self.functionLeftCheckmarkView.frame.origin.x + self.functionLeftCheckmarkView.frame.size.width;
     self.functionRightView.frame = frame;
-    if(self.type == PostViewControllerTypeRepost) {
+    if (self.type == PostViewControllerTypeRepost) {
         [self.repostCommentButton setTitle:@"同时评论" forState:UIControlStateNormal];
         self.topBarLabel.text = [NSString stringWithFormat:@"转发 %@ 的微博", self.weiboOwnerName];
-        if(self.content)
+        if (self.content)
             self.textView.text = [NSString stringWithFormat:@" //@%@:%@", self.weiboOwnerName, self.content];
     }
     else {
@@ -86,7 +86,7 @@
     
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
-        if(!client.hasError) {
+        if (!client.hasError) {
             [self.delegate postViewController:self didPostMessage:self.textView.text];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
             NSString *errorMessage = self.type == PostViewControllerTypeRepost ? @"转发成功" : @"评论成功";
@@ -98,15 +98,15 @@
         sender.userInteractionEnabled = YES;
     }];
     
-    if(self.repostCommentCheckmarkButton.selected == NO) {
-        if(self.type == PostViewControllerTypeRepost)
+    if (self.repostCommentCheckmarkButton.selected == NO) {
+        if (self.type == PostViewControllerTypeRepost)
             [client sendRepostWithText:self.textView.text weiboID:self.weiboID commentType:RepostWeiboTypeCommentNone];
-        else if(self.type == PostViewControllerTypeCommentWeibo)
+        else if (self.type == PostViewControllerTypeCommentWeibo)
             [client sendWeiboCommentWithText:self.textView.text weiboID:self.weiboID commentOrigin:NO];
-        else if(self.type == PostViewControllerTypeCommentReply)
+        else if (self.type == PostViewControllerTypeCommentReply)
             [client sendReplyCommentWithText:self.textView.text weiboID:self.weiboID replyID:self.replyID commentOrigin:NO];
     } else {
-        if(self.type == PostViewControllerTypeCommentReply) {
+        if (self.type == PostViewControllerTypeCommentReply) {
             [client sendReplyCommentWithText:self.textView.text weiboID:self.weiboID replyID:self.replyID commentOrigin:NO];
             WBClient *repostClient = [WBClient client];
             [repostClient sendRepostWithText:self.textView.text weiboID:self.weiboID commentType:RepostWeiboTypeCommentNone];

@@ -78,7 +78,7 @@
     [self setUpVariables];
     [self initialLoad];
     
-    if([NSUserDefaults shouldPostRecommendVCardWeibo]) {
+    if ([NSUserDefaults shouldPostRecommendVCardWeibo]) {
         [self postRecommandVCardWeibo];
     }
 }
@@ -1198,7 +1198,7 @@
     static NSString *CellIdentifier;
     if (layoutUnit.unitType == UnitTypeCard) {
         CellIdentifier = kReuseIdentifierCardCell;
-    } else if(layoutUnit.unitType == UnitTypeDivider){
+    } else if (layoutUnit.unitType == UnitTypeDivider){
         CellIdentifier = kReuseIdentifierDividerCell;
     } else {
         CellIdentifier = kReuseIdentifierEmptyCell;
@@ -1206,10 +1206,10 @@
     
 	WaterflowCell *cell = [flowView_ dequeueReusableCellWithIdentifier:CellIdentifier];
 	
-	if(cell == nil) {
+	if (cell == nil) {
         if (layoutUnit.unitType == UnitTypeCard) {
             cell = [[WaterflowCardCell alloc] initWithReuseIdentifier:CellIdentifier currentUser:self.currentUser];
-        } else if(layoutUnit.unitType == UnitTypeDivider) {
+        } else if (layoutUnit.unitType == UnitTypeDivider) {
             cell = [[WaterflowDividerCell alloc] initWithReuseIdentifier:CellIdentifier currentUser:self.currentUser];
         } else {
             cell = [[WaterflowCell alloc] initWithReuseIdentifier:CellIdentifier currentUser:self.currentUser];
@@ -1231,7 +1231,7 @@
                                                    coreDataIdentifier:kCoreDataIdentifierDefault];
         }
         
-    } else if(layoutUnit.unitType == UnitTypeDivider) {
+    } else if (layoutUnit.unitType == UnitTypeDivider) {
         if (self.fetchedResultsController.fetchedObjects.count > layoutUnit.dataIndex) {
             Status *targetStatus = (Status*)[self.fetchedResultsController.fetchedObjects objectAtIndex:layoutUnit.dataIndex];
             [((WaterflowDividerCell *)cell).dividerViewController updateTimeInformation:targetStatus.createdAt];

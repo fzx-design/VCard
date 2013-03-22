@@ -254,7 +254,7 @@ typedef enum {
                     image:(UIImage *)image
                longtitude:(NSString *)longtitude 
                  latitude:(NSString *)latitude {
-    if(image) {
+    if (image) {
         self.path = @"statuses/upload.json";
         //NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
 		[self.params setObject:image forKey:@"pic"];
@@ -264,12 +264,12 @@ typedef enum {
         self.postDataType = kWBRequestPostDataTypeNormal;
     }
     
-    if(image)
+    if (image)
         [self.params setObject:((text && ![text isEqualToString:@""]) ? text : @"分享图片") forKey:@"status"];
     else
         [self.params setObject:((text && ![text isEqualToString:@""]) ? text : @"发表微博") forKey:@"status"];
     
-    if(longtitude && latitude) {
+    if (longtitude && latitude) {
         [self.params setObject:longtitude forKey:@"long"];
         [self.params setObject:latitude forKey:@"lat"];
     }
@@ -430,7 +430,7 @@ typedef enum {
     
     BlockWeakSelf weakSelf = self;
     [self setPreCompletionBlock:^(WBClient *client) {
-        if([weakSelf.responseJSONObject isKindOfClass:[NSDictionary class]]) {
+        if ([weakSelf.responseJSONObject isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dict = (NSDictionary*)client.responseJSONObject;
             weakSelf.advancedToken = [dict objectForKey:@"access_token"];
             
@@ -1228,15 +1228,15 @@ typedef enum {
 {
     self.responseJSONObject = result;
     
-    if([result isKindOfClass:[NSDictionary class]]) {
+    if ([result isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dict = (NSDictionary *)result;
         NSString *errorDescription = [dict objectForKey:@"error"];
-        if(errorDescription) {
+        if (errorDescription) {
             self.hasError = YES;
             NSError *error = [[NSError alloc] initWithDomain:@"error" code:0 userInfo:dict];
             self.responseError = error;
             
-            if(self.shouldReportError)
+            if (self.shouldReportError)
                 [NSNotificationCenter postWBClientErrorNotification:error];
         }
     }
@@ -1247,7 +1247,7 @@ typedef enum {
 
 - (void)request:(WBRequest *)request didFailWithError:(NSError *)error
 {
-    if(self.shouldReportError)
+    if (self.shouldReportError)
         [NSNotificationCenter postWBClientErrorNotification:error];
     self.hasError = YES;
     self.responseError = error;

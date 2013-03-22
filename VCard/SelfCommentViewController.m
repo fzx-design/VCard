@@ -39,7 +39,7 @@
 {
     if (self.toMeButton.selected) {
         [self.commentToMeTableViewController refresh];
-    } else if(self.byMeButton.selected) {
+    } else if (self.byMeButton.selected) {
         [self.commentByMeTableViewController refresh];
     }
 }

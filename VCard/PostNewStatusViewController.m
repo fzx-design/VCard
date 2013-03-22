@@ -25,7 +25,7 @@
 
 - (id)initWithContent:(NSString *)content {
     self = [super init];
-    if(self) {
+    if (self) {
         self.content = content;
     }
     return self;
@@ -44,7 +44,7 @@
 {
     self.functionLeftCheckmarkView.hidden = YES;
     self.functionLeftNavView.hidden = NO;
-    if(self.content)
+    if (self.content)
         self.textView.text = self.content;
     else
         self.textView.text = @"";
@@ -66,7 +66,7 @@
 #pragma mark - UI methods
 
 - (void)unfoldAnimationDidFinish {
-    if([NSUserDefaults isAutoLocateEnabled])
+    if ([NSUserDefaults isAutoLocateEnabled])
         [self didClickNavButton:self.navButton];
 }
 
@@ -84,7 +84,7 @@
     self.navLabel.frame = frame;
     self.navLabel.alpha = 0;
     self.navButton.userInteractionEnabled = NO;
-    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         frame.origin.x = originX;
         self.navLabel.frame = frame;
         self.navLabel.alpha = 1;
@@ -98,12 +98,12 @@
 }
 
 - (void)hideNavLocationLabel {
-    if(self.navLabel.text.length == 0)
+    if (self.navLabel.text.length == 0)
         return;
     __block CGRect frame = self.navLabel.frame;
     self.navLabel.alpha = 1;
     self.navButton.userInteractionEnabled = NO;
-    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationCurveEaseIn animations:^{
+    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         frame.origin.x -= frame.size.width;
         self.navLabel.frame = frame;
         self.navLabel.alpha = 0;
@@ -135,12 +135,12 @@
     self.locationManager = nil;
     _location2D = newLocation.coordinate; 
     
-    if(_located)
+    if (_located)
         return;
     
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
-        if(!client.hasError) {
+        if (!client.hasError) {
             NSString *locationString;
             NSArray* array = (NSArray*)client.responseJSONObject;
             if (array.count > 0) {
@@ -172,7 +172,7 @@
 
 - (IBAction)didClickNavButton:(UIButton *)sender {
     BOOL select = !sender.isSelected;
-    if(select) {
+    if (select) {
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -194,7 +194,7 @@
     
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
-        if(!client.hasError) {
+        if (!client.hasError) {
             [self.delegate postViewController:self didPostMessage:self.textView.text];
             [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"发表成功"];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNameShouldHidePostIndicator object:nil];
@@ -204,7 +204,7 @@
         }
     }];
         
-    if(!_located)
+    if (!_located)
         [client sendWeiBoWithText:self.textView.text image:self.motionsOriginalImage];
     else {
         NSString *lat = [NSString stringWithFormat:@"%f", _location2D.latitude];

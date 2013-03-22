@@ -56,7 +56,7 @@
 
 - (UIImage *)avatarImageForUser:(User *)user {
     UIImage *result = [self.teamMemberAvatarCache objectForKey:user.userID];
-    if(!result) {
+    if (!result) {
         [UIImage loadSettingAvatarImageFromURL:user.profileImageURL completion:^(UIImage *result) {
             [self.teamMemberAvatarCache setObject:result forKey:user.userID];
             [self.tableView reloadData];
@@ -93,23 +93,23 @@
     settingCell.imageView.image = [UIImage imageNamed:info.imageFileName];
     settingCell.detailTextLabel.text = info.itemContent;
     
-    if([info.accessoryType isEqualToString:kAccessoryTypeSwitch]) {
+    if ([info.accessoryType isEqualToString:kAccessoryTypeSwitch]) {
         [settingCell setSwitch];
-    } else if([info.accessoryType isEqualToString:kAccessoryTypeDisclosure]) {
+    } else if ([info.accessoryType isEqualToString:kAccessoryTypeDisclosure]) {
         [settingCell setDisclosureIndicator];
-    } else if([info.accessoryType isEqualToString:kAccessoryTypeWatchButton]) {
+    } else if ([info.accessoryType isEqualToString:kAccessoryTypeWatchButton]) {
         [settingCell setWatchButton];
     }
     
-    if([info.itemTitle isEqualToString:kTeamMemberCell]) {
+    if ([info.itemTitle isEqualToString:kTeamMemberCell]) {
         User *user = [User userWithID:info.nibFileName inManagedObjectContext:self.managedObjectContext withOperatingObject:kCoreDataIdentifierDefault operatableType:kOperatableTypeCurrentUser];
-        if(user) {
+        if (user) {
             settingCell.textLabel.text = user.screenName;
             UIImage *avatarImage = [self avatarImageForUser:user];
-            if(avatarImage)
+            if (avatarImage)
                 settingCell.imageView.image = avatarImage;
             
-            if(user.following.boolValue) {
+            if (user.following.boolValue) {
                 settingCell.itemWatchButton.enabled = NO;
             } else {
                 settingCell.itemWatchButton.enabled = YES;
@@ -127,7 +127,7 @@
             settingCell.itemWatchButton.enabled = NO;
         }
         
-        if([user.userID isEqualToString:self.currentUser.userID]) {
+        if ([user.userID isEqualToString:self.currentUser.userID]) {
             settingCell.itemWatchButton.enabled = NO;
             [settingCell.itemWatchButton setTitle:@"就是你" forState:UIControlStateDisabled];
         }
@@ -137,8 +137,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *sectionInfoArray = [self.dataSourceDictionary objectForKey:[self.dataSourceIndexArray objectAtIndex:indexPath.section]];
     SettingInfo *info = [sectionInfoArray objectAtIndex:indexPath.row];
-    if([info.wayToPresentViewController isEqualToString:kUseSelector]) {
-        if([self respondsToSelector:NSSelectorFromString(info.nibFileName)])
+    if ([info.wayToPresentViewController isEqualToString:kUseSelector]) {
+        if ([self respondsToSelector:NSSelectorFromString(info.nibFileName)])
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [self performSelector:NSSelectorFromString(info.nibFileName)];
@@ -153,7 +153,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     NSString *sectionFooter = nil;
-    if(section == 1) {
+    if (section == 1) {
         NSString *currentBundleVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
         sectionFooter = [NSString stringWithFormat:@"\n%@\n\n© Mondev", currentBundleVersion];
     }
@@ -189,13 +189,13 @@
     
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
-        if(!client.hasError) {
+        if (!client.hasError) {
             user.following = @(YES);
         } else {
             button.enabled = YES;
             
             NSNumber *weiboErrorCode = [client.responseError.userInfo objectForKey:@"error_code"];
-            if(weiboErrorCode.intValue == 20506) {
+            if (weiboErrorCode.intValue == 20506) {
                 user.following = @(YES);
                 button.enabled = NO;
             }

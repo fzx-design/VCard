@@ -25,7 +25,7 @@ static ErrorIndicatorManager *managerInstance = nil;
 @implementation ErrorIndicatorManager
 
 + (ErrorIndicatorManager *)sharedManager {
-    if(!managerInstance) {
+    if (!managerInstance) {
         managerInstance = [[ErrorIndicatorManager alloc] init];
     }
     return managerInstance;
@@ -33,7 +33,7 @@ static ErrorIndicatorManager *managerInstance = nil;
 
 - (id)init {
     self = [super init];
-    if(self) {
+    if (self) {
         [NSNotificationCenter registerWBClientErrorNotificationWithSelector:@selector(handleWBClientNotification:) target:self];
     }
     return self;
@@ -42,7 +42,7 @@ static ErrorIndicatorManager *managerInstance = nil;
 #pragma mark - UIAlertView delegate
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if(buttonIndex == 0) {
+    if (buttonIndex == 0) {
         [[[LoginViewController alloc] initWithType:LoginViewControllerTypeDeleteCurrentUser] show];
     } else {
         UserAccountInfo *accountInfo = [NSUserDefaults getUserAccountInfoWithUserID:[CoreDataViewController getCurrentUser].userID];
@@ -98,7 +98,7 @@ static ErrorIndicatorManager *managerInstance = nil;
 - (void)handleWBClientNotification:(NSNotification *)notification {
     NSError *error = notification.object;
     NSString *errorMessage = nil;
-    if(error.code < 0) {
+    if (error.code < 0) {
         [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeConnectFailure contentText:nil];
     } else {
         NSNumber *weiboErrorCode = [error.userInfo objectForKey:@"error_code"];
@@ -123,13 +123,13 @@ static ErrorIndicatorManager *managerInstance = nil;
                 break;
             case 21315:
             case 21327:
-                if(!_handlingTokenFailureSituation)
+                if (!_handlingTokenFailureSituation)
                     [self handleTokenExpireSituation];
                 return;
             case 21314:
             case 21316:
             case 21317:
-                if(!_handlingTokenFailureSituation)
+                if (!_handlingTokenFailureSituation)
                     [self handleWrongPasswordSituation];
                 return;
             case 20034:
@@ -148,12 +148,12 @@ static ErrorIndicatorManager *managerInstance = nil;
                 break;
         }
         
-        if(errorMessage == nil) {
-            if([requsetAPI isEqualToString:@"/oauth2/access_token"]) {
+        if (errorMessage == nil) {
+            if ([requsetAPI isEqualToString:@"/oauth2/access_token"]) {
                 errorMessage = @"用户名或密码错误";
             }
         }
-        if(!_handlingTokenFailureSituation)
+        if (!_handlingTokenFailureSituation)
             [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureFailure contentText:errorMessage];
     }
 }

@@ -24,7 +24,7 @@
 }
 
 - (void)setThumbnailImage:(UIImage *)image {
-    if(image) {
+    if (image) {
         self.thumbnailImageView.image = image;
         self.activityIndicator.hidden = YES;
         [self.activityIndicator stopAnimating];
@@ -39,7 +39,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setThumbnailImage:filteredImage];
             [self.thumbnailImageView fadeIn];
-            if(completion)
+            if (completion)
                 completion();
         });  
     });

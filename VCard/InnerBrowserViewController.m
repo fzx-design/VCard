@@ -190,9 +190,9 @@
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     
-    if(buttonIndex == 0) {
+    if (buttonIndex == 0) {
         [self copyLink];
-    } else if(buttonIndex == 1) {
+    } else if (buttonIndex == 1) {
         [self openInSafari];
     }
 }

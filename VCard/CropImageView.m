@@ -99,7 +99,7 @@ typedef enum {
         _maximumYArray[i] = maximumYArray[i];
     }
     
-    if(_lockRatio) {
+    if (_lockRatio) {
         CGFloat min = fminf(_cropImageInitSize.width / 2, _cropImageInitSize.height / 2);
         leftTopPoint = CGPointMake(center.x - min, center.y - min);
         rightBottomPoint = CGPointMake(center.x + min, center.y + min);
@@ -205,12 +205,12 @@ typedef enum {
     
     CGPoint result = point;
     
-    if(_lockRatio) {
+    if (_lockRatio) {
         CGFloat distance = fabsf(distanceX) > fabsf(distanceY) ? fabsf(distanceX) : fabsf(distanceY);
         distanceX = distanceY > 0 ? distance : distance * -1;
         distanceY = distanceX;
         PointPositionIdentifier pointIdentifier = [self.pointImageViewArray indexOfObject:_draggingPointImageView];
-        if(pointIdentifier % 2 == 1)
+        if (pointIdentifier % 2 == 1)
             distanceX *= -1;
     }
     
@@ -243,37 +243,37 @@ typedef enum {
     bound.origin.x += self.bgImageView.center.x;
     bound.origin.y += self.bgImageView.center.y;
     
-    if(leftTop.x < bound.origin.x || rightBottom.x > bound.origin.x + bound.size.width)
+    if (leftTop.x < bound.origin.x || rightBottom.x > bound.origin.x + bound.size.width)
         dragingPointXInvalid = YES;
-    if(leftTop.y < bound.origin.y || rightBottom.y > bound.origin.y + bound.size.height)
+    if (leftTop.y < bound.origin.y || rightBottom.y > bound.origin.y + bound.size.height)
         dragingPointYInvalid = YES;
     
-    if(_lockRatio) {
+    if (_lockRatio) {
         __block BOOL outOfBounds = NO;
         [self.pointImageViewArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             UIImageView *pointImageView = obj;
-            if(pointImageView.center.x < _minimumXArray[idx])
+            if (pointImageView.center.x < _minimumXArray[idx])
                 outOfBounds = YES;
-            if(pointImageView.center.x > _maximumXArray[idx])
+            if (pointImageView.center.x > _maximumXArray[idx])
                 outOfBounds = YES;
-            if(pointImageView.center.y < _minimumYArray[idx])
+            if (pointImageView.center.y < _minimumYArray[idx])
                 outOfBounds = YES;
-            if(pointImageView.center.y > _maximumYArray[idx])
+            if (pointImageView.center.y > _maximumYArray[idx])
                 outOfBounds = YES;
         }];
         
-        if(dragingPointXInvalid || dragingPointYInvalid || outOfBounds) {
+        if (dragingPointXInvalid || dragingPointYInvalid || outOfBounds) {
             dragingPointXInvalid = YES;
             dragingPointYInvalid = YES;
         }
     }
     
-    if(dragingPointXInvalid) {
+    if (dragingPointXInvalid) {
         center.x -= distanceX;
         _draggingPointImageView.center = center;
         result.x = _formerTouchPoint.x;
     }
-    if(dragingPointYInvalid) {
+    if (dragingPointYInvalid) {
         center.y -= distanceY;
         _draggingPointImageView.center = center;
         result.y = _formerTouchPoint.y;
@@ -281,7 +281,7 @@ typedef enum {
     
     UIImageView *pointWithSameX = [self pointImageViewWithIdentifier:(pointIdentifier + 1) % 4];
     UIImageView *pointWithSameY = [self pointImageViewWithIdentifier:(pointIdentifier + 3) % 4];
-    if(pointIdentifier % 2 == 0) {
+    if (pointIdentifier % 2 == 0) {
         UIImageView *temp = pointWithSameX;
         pointWithSameX = pointWithSameY;
         pointWithSameY = temp;
@@ -291,17 +291,17 @@ typedef enum {
     
     [self.pointImageViewArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         UIImageView *pointImageView = obj;
-        if(pointImageView.center.x < _minimumXArray[idx])
+        if (pointImageView.center.x < _minimumXArray[idx])
             pointImageView.center = CGPointMake(_minimumXArray[idx], pointImageView.center.y);
-        if(pointImageView.center.x > _maximumXArray[idx])
+        if (pointImageView.center.x > _maximumXArray[idx])
             pointImageView.center = CGPointMake(_maximumXArray[idx], pointImageView.center.y);
-        if(pointImageView.center.y < _minimumYArray[idx])
+        if (pointImageView.center.y < _minimumYArray[idx])
             pointImageView.center = CGPointMake(pointImageView.center.x, _minimumYArray[idx]);
-        if(pointImageView.center.y > _maximumYArray[idx])
+        if (pointImageView.center.y > _maximumYArray[idx])
             pointImageView.center = CGPointMake(pointImageView.center.x, _maximumYArray[idx]);
     }];
     
-    if(![self isRotateValid:self.rotationFactor]) {
+    if (![self isRotateValid:self.rotationFactor]) {
         for(int i = 0; i < 4; i++) {
             [self pointImageViewWithIdentifier:i].center = preservedPoint[i];
         }
@@ -327,13 +327,13 @@ typedef enum {
     bound.origin.y += center.y;
     
     self.dragDistanceX += distanceX;
-    if(leftTop.x < bound.origin.x || rightBottom.x > bound.origin.x + bound.size.width || ![self isRotateValid:self.rotationFactor]) {
+    if (leftTop.x < bound.origin.x || rightBottom.x > bound.origin.x + bound.size.width || ![self isRotateValid:self.rotationFactor]) {
         center.x -= distanceX;
         self.dragDistanceX -= distanceX;
     }
     
     self.dragDistanceY += distanceY;
-    if(leftTop.y < bound.origin.y || rightBottom.y > bound.origin.y + bound.size.height || ![self isRotateValid:self.rotationFactor]) {
+    if (leftTop.y < bound.origin.y || rightBottom.y > bound.origin.y + bound.size.height || ![self isRotateValid:self.rotationFactor]) {
         center.y -= distanceY;
         self.dragDistanceY -= distanceY;
     }
@@ -349,7 +349,7 @@ typedef enum {
     for(UIImageView *pointImageView in self.pointImageViewArray) {
         CGPoint center = pointImageView.center;
         CGRect frame = CGRectMake(center.x - 22, center.y - 22, 44, 44);
-        if(CGRectContainsPoint(frame, point)) {
+        if (CGRectContainsPoint(frame, point)) {
             _draggingPointImageView = pointImageView;
             break;
         }
@@ -362,7 +362,7 @@ typedef enum {
     CGPoint point = [touch locationInView:self];
     CGFloat distanceX = point.x - _formerTouchPoint.x;
     CGFloat distanceY = point.y - _formerTouchPoint.y;
-    if(_draggingPointImageView) {
+    if (_draggingPointImageView) {
         point = [self movePullerWithDistanceX:distanceX distanceY:distanceY touchPoint:point];
     }
     else {
@@ -421,15 +421,15 @@ typedef enum {
     CGRect rect1 = CGRectMake(0, 0, self.bgImageView.image.size.width, self.bgImageView.image.size.height);
     CGRect rect2 = self.cropImageRect;
     rect2.origin = CGPointMake(rect2.origin.x - rect1.size.width / 2, rect2.origin.y - rect1.size.height / 2);
-    if(![CropImageView isRetangle:rect1 withRotation:rotation containRectanle:rect2])
+    if (![CropImageView isRetangle:rect1 withRotation:rotation containRectanle:rect2])
         return NO;
     return YES;
 }
 
 - (BOOL)isScaleValid:(CGFloat)scale {
-    if(scale > MAX_SCALE_FACTOR)
+    if (scale > MAX_SCALE_FACTOR)
         return NO;
-    if(![self isRotateValid:self.rotationFactor] && self.rotationFactor != 0)
+    if (![self isRotateValid:self.rotationFactor] && self.rotationFactor != 0)
         return NO;
     return YES;
 }
@@ -443,9 +443,9 @@ typedef enum {
     CGPoint leftTop = [self pointImageViewWithIdentifier:PointPositionLeftTop].center;
     CGPoint rightBottom = [self pointImageViewWithIdentifier:PointPositionRightBottom].center;
     
-    if(leftTop.x < x || rightBottom.x > x + w) {
+    if (leftTop.x < x || rightBottom.x > x + w) {
         CGFloat offset = 0;
-        if(leftTop.x < x) {
+        if (leftTop.x < x) {
             offset = leftTop.x - x;
         }
         else {
@@ -454,9 +454,9 @@ typedef enum {
         center.x += offset;
         self.dragDistanceX += offset;
     }
-    if(leftTop.y < y || rightBottom.y > y + h) {
+    if (leftTop.y < y || rightBottom.y > y + h) {
         CGFloat offset = 0;
-        if(leftTop.y < y) {
+        if (leftTop.y < y) {
             offset = leftTop.y - y;
         }
         else {
@@ -471,13 +471,13 @@ typedef enum {
 - (void)rotatePiece:(UIRotationGestureRecognizer *)gestureRecognizer {    
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan || [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
         self.assistCropSectionNum = DEFAULT_ASSIST_CROP_SECTION_NUM;
-        if([self isRotateValid:self.rotationFactor + gestureRecognizer.rotation]) {
+        if ([self isRotateValid:self.rotationFactor + gestureRecognizer.rotation]) {
             self.bgImageView.transform = CGAffineTransformRotate(self.bgImageView.transform, gestureRecognizer.rotation);
             self.rotationFactor += gestureRecognizer.rotation;
         }
         [gestureRecognizer setRotation:0];
     }
-    else if([gestureRecognizer state] == UIGestureRecognizerStateEnded) {
+    else if ([gestureRecognizer state] == UIGestureRecognizerStateEnded) {
         self.assistCropSectionNum = 1;
     }
     [self setNeedsDisplay];
@@ -485,10 +485,10 @@ typedef enum {
 
 - (void)scalePiece:(UIPinchGestureRecognizer *)gestureRecognizer {
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan || [gestureRecognizer state] == UIGestureRecognizerStateChanged) {        
-        if(self.scaleFactor * gestureRecognizer.scale < 1)
+        if (self.scaleFactor * gestureRecognizer.scale < 1)
             gestureRecognizer.scale = 1 / self.scaleFactor;
         self.scaleFactor *= gestureRecognizer.scale;
-        if([self isScaleValid:self.scaleFactor]) {
+        if ([self isScaleValid:self.scaleFactor]) {
             self.bgImageView.transform = CGAffineTransformScale(self.bgImageView.transform, gestureRecognizer.scale, gestureRecognizer.scale);
             [self varifyScale];
         }
@@ -536,7 +536,7 @@ Vector rotateVector(Vector src, float rotate) {
 }
 
 + (BOOL)isRetangle:(CGRect)rect1 withRotation:(CGFloat)rotateFactor containRectanle:(CGRect)rect2 {
-    if(rotateFactor == 0)
+    if (rotateFactor == 0)
         return YES;
     Vector axisX = makeVector(cosf(rotateFactor), sinf(rotateFactor));
     Vector axisY = makeVector(-sinf(rotateFactor), cosf(rotateFactor));
@@ -556,7 +556,7 @@ Vector rotateVector(Vector src, float rotate) {
     
     for(int i = 0; i < 4; i++) {
         rect2Points[i] = projVectorToAxises(rect2Points[i], axisX, axisY);
-        if(rect2Points[i].x < rect1MinX || rect2Points[i].x > rect1MaxX
+        if (rect2Points[i].x < rect1MinX || rect2Points[i].x > rect1MaxX
            || rect2Points[i].y < rect1MinY || rect2Points[i].y > rect1MaxY) {
             return NO;
         }
@@ -565,7 +565,7 @@ Vector rotateVector(Vector src, float rotate) {
 }
 
 + (CGRect)getRotatedImageBound:(CGRect)rect withRotation:(CGFloat)rotateFactor {
-    if(rotateFactor == 0)
+    if (rotateFactor == 0)
         return rect;
     Vector rectLT = makeVector(rect.origin.x, rect.origin.y);
     Vector rectLB = makeVector(rect.origin.x, rect.origin.y + rect.size.height);

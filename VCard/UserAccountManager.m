@@ -15,7 +15,7 @@ static UserAccountManager *sharedUserAccount;
 + (void)initializeWithCurrentUser:(User *)user managedObjectContext:(NSManagedObjectContext *)context
 {
     static BOOL initialized = NO;
-    if(!initialized) {
+    if (!initialized) {
         initialized = YES;
         sharedUserAccount = [[UserAccountManager alloc] init];
         sharedUserAccount.currentUser = user;

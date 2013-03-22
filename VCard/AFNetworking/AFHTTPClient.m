@@ -151,9 +151,9 @@ NSString * AFQueryStringFromParametersWithEncoding(NSDictionary *parameters, NSS
 NSArray * AFQueryStringComponentsFromKeyAndValue(NSString *key, id value) {
     NSMutableArray *mutableQueryStringComponents = [NSMutableArray array];
     
-    if([value isKindOfClass:[NSDictionary class]]) {
+    if ([value isKindOfClass:[NSDictionary class]]) {
         [mutableQueryStringComponents addObjectsFromArray:AFQueryStringComponentsFromKeyAndDictionaryValue(key, value)];
-    } else if([value isKindOfClass:[NSArray class]]) {
+    } else if ([value isKindOfClass:[NSArray class]]) {
         [mutableQueryStringComponents addObjectsFromArray:AFQueryStringComponentsFromKeyAndArrayValue(key, value)];
     } else {
         [mutableQueryStringComponents addObject:[[AFQueryStringComponent alloc] initWithKey:key value:value]];
@@ -307,11 +307,11 @@ static AFNetworkReachabilityStatus AFNetworkReachabilityStatusForFlags(SCNetwork
     BOOL isNetworkReachable = (isReachable && !needsConnection);
     
     AFNetworkReachabilityStatus status = AFNetworkReachabilityStatusUnknown;
-    if(isNetworkReachable == NO){
+    if (isNetworkReachable == NO){
         status = AFNetworkReachabilityStatusNotReachable;
     }
 #if	TARGET_OS_IPHONE
-    else if((flags & kSCNetworkReachabilityFlagsIsWWAN) != 0){
+    else if ((flags & kSCNetworkReachabilityFlagsIsWWAN) != 0){
         status = AFNetworkReachabilityStatusReachableViaWWAN;
     }
 #endif
@@ -658,7 +658,7 @@ static NSString * AFMultipartTemporaryFileDirectoryPath() {
         multipartTemporaryFilePath = [[NSTemporaryDirectory() stringByAppendingPathComponent:kAFMultipartTemporaryFileDirectoryName] copy];
         
         NSError *error = nil;
-        if(![[NSFileManager defaultManager] createDirectoryAtPath:multipartTemporaryFilePath withIntermediateDirectories:YES attributes:nil error:&error]) {
+        if (![[NSFileManager defaultManager] createDirectoryAtPath:multipartTemporaryFilePath withIntermediateDirectories:YES attributes:nil error:&error]) {
             NSLog(@"Failed to create multipary temporary file directory at %@", multipartTemporaryFilePath);
         }
     });

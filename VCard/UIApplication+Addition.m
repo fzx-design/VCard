@@ -64,14 +64,14 @@ static NSMutableArray *_backViewStack = nil;
 #pragma mark - ModalViewController methods
 
 - (NSMutableArray *)modalViewControllerStack {
-    if(_modalViewControllerStack == nil) {
+    if (_modalViewControllerStack == nil) {
         _modalViewControllerStack = [NSMutableArray array];
     }
     return _modalViewControllerStack;
 }
 
 - (NSMutableArray *)backViewStack {
-    if(_backViewStack == nil) {
+    if (_backViewStack == nil) {
         _backViewStack = [NSMutableArray array];
     }
     return _backViewStack;
@@ -117,18 +117,18 @@ static NSMutableArray *_backViewStack = nil;
 }
 
 - (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated duration:(NSTimeInterval)duration {
-    if([self.modalViewControllerStack containsObject:vc])
+    if ([self.modalViewControllerStack containsObject:vc])
         return;
     
     __block BOOL existModalClass = NO;
     [self.modalViewControllerStack enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         UIViewController *vcInStack = obj;
-        if([vcInStack class] == [vc class]) {
+        if ([vcInStack class] == [vc class]) {
             existModalClass = YES;
             *stop = YES;
         }
     }];
-    if(existModalClass)
+    if (existModalClass)
         return;
     
     UIView *oldBackView = self.topBackView;
@@ -141,7 +141,7 @@ static NSMutableArray *_backViewStack = nil;
     
     __block __weak typeof(vc) weakVC = vc;
     
-    if(animated) {
+    if (animated) {
         CGRect frame = vc.view.frame;
         frame.origin.x = 0;
         frame.origin.y = self.screenSize.height;
@@ -164,10 +164,10 @@ static NSMutableArray *_backViewStack = nil;
 }
 
 - (void)dismissModalViewController:(UIViewController *)vc animated:(BOOL)animated duration:(NSTimeInterval)duration {
-    if(self.modalViewControllerStack.count == 0)
+    if (self.modalViewControllerStack.count == 0)
         return;
     
-    if(![self.modalViewControllerStack containsObject:vc])
+    if (![self.modalViewControllerStack containsObject:vc])
         return;
     
     NSUInteger index = [self.modalViewControllerStack indexOfObject:vc];
@@ -176,7 +176,7 @@ static NSMutableArray *_backViewStack = nil;
     BlockARCWeakSelf weakSelf = self;
     CGFloat screenHeight = self.screenSize.height;
     
-    if(animated) {
+    if (animated) {
         [UIView animateWithDuration:duration animations:^{
             [weakVC.view resetOriginY:screenHeight];
         } completion:nil];
@@ -200,7 +200,7 @@ static NSMutableArray *_backViewStack = nil;
 
 - (CGSize)screenSize {
     CGFloat screenWidth = 1024, screenHeight = 748;
-    if(UIInterfaceOrientationIsPortrait(self.statusBarOrientation)) {
+    if (UIInterfaceOrientationIsPortrait(self.statusBarOrientation)) {
         screenWidth = 768;
         screenHeight = 1004;
     }
@@ -297,7 +297,7 @@ static NSMutableArray *_backViewStack = nil;
 #pragma Block
 
 + (void)excuteBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay {
-    if(block)
+    if (block)
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * delay), dispatch_get_current_queue(), ^{
             block();
         });

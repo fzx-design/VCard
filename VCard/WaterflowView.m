@@ -246,7 +246,7 @@
 
 - (void)recycleCellIntoReusableQueue:(WaterflowCell *)cell
 {
-    if(!self.reusableCells) {
+    if (!self.reusableCells) {
         self.reusableCells = [NSMutableDictionary dictionary];
         NSMutableArray *array = [NSMutableArray arrayWithObject:cell];
         [self.reusableCells setObject:array forKey:cell.reuseIdentifier];
@@ -559,7 +559,7 @@
         float height = 0;
         int unitIndex = cell.indexPath.row;
         
-        if(unitIndex == 0) {
+        if (unitIndex == 0) {
             cell = nil;
             break;
         }
@@ -590,7 +590,7 @@
         [self recycleCellIntoReusableQueue:cell];
         [column.visibleCells removeObject:cell];
         
-        if(column.visibleCells.count > 0) {
+        if (column.visibleCells.count > 0) {
             cell = [column.visibleCells objectAtIndex:0];
         } else {
             cell = nil;
@@ -604,7 +604,7 @@
         float height = 0;
         int unitIndex = cell.indexPath.row;
         
-        if(unitIndex == column.unitContainer.count - 1) {
+        if (unitIndex == column.unitContainer.count - 1) {
             cell = nil;
             break;
         }
@@ -631,7 +631,7 @@
         [self recycleCellIntoReusableQueue:cell];
         [column.visibleCells removeObject:cell];
         
-        if(column.visibleCells.count > 0) {
+        if (column.visibleCells.count > 0) {
             cell = [column.visibleCells lastObject];
         } else {
             cell = nil;
@@ -712,7 +712,7 @@
         if ([unit containOffset:self.contentOffset.y + _refreshOffset]) {
             result = unit;
             break;
-        } else if(unit.upperBound > self.contentOffset.y + _refreshOffset) {
+        } else if (unit.upperBound > self.contentOffset.y + _refreshOffset) {
             result = unit;
             break;
         }
@@ -864,7 +864,7 @@
     if ((alignToTop = [self view:self.backgroundViewA containsPoint:top]) || [self view:self.backgroundViewB containsPoint:bottom]) {
         upperView = self.backgroundViewA;
         lowerView = self.backgroundViewB;
-    } else if((alignToTop = [self view:self.backgroundViewB containsPoint:top]) || [self view:self.backgroundViewA containsPoint:bottom]) {
+    } else if ((alignToTop = [self view:self.backgroundViewB containsPoint:top]) || [self view:self.backgroundViewA containsPoint:bottom]) {
         upperView = self.backgroundViewB;
         lowerView = self.backgroundViewA;
     }

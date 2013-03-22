@@ -34,7 +34,7 @@
 
 - (void)didMoveToSuperview {
     
-    if(!self.coreImageContext) {
+    if (!self.coreImageContext) {
         self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
         if (!self.context) {
             NSLog(@"Failed to create ES context");
@@ -64,7 +64,7 @@
                                forKey:@"inputShadowAmount"];
     CIImage *outputImage = [self.highlightShadowAdjustFilter outputImage];
     
-    if(self.filterInfo) {
+    if (self.filterInfo) {
         outputImage = [self.filterInfo processCIImage:outputImage];
     }
     

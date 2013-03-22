@@ -14,7 +14,7 @@
 
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier currentUser:(User*)currentUser_
 {
-    if(self = [super initWithReuseIdentifier:reuseIdentifier currentUser:currentUser_])
+    if (self = [super initWithReuseIdentifier:reuseIdentifier currentUser:currentUser_])
 	{
 		self.reuseIdentifier = reuseIdentifier;
         self.autoresizingMask = UIViewAutoresizingNone;

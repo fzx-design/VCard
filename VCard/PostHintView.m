@@ -31,7 +31,7 @@
 
 - (id)initWithCursorPos:(CGPoint)cursorPos {
     self = [self initWithFrame:CGRectMake(cursorPos.x, cursorPos.y, TABLE_VIEW_CELL_SIZE.width, TABLE_VIEW_CELL_SIZE.height + TABLE_VIEW_BOTTOM_PADDING)];
-    if(self) {
+    if (self) {
         
     }
     return self;
@@ -41,7 +41,7 @@
 
 - (NSString *)firstHintResult {
     NSString *result = nil;
-    if(self.tableViewDataSourceArray.count > 0)
+    if (self.tableViewDataSourceArray.count > 0)
         result = [self.tableViewDataSourceArray objectAtIndex:0];
     return result;
 }
@@ -50,13 +50,13 @@
 }
 
 - (NSMutableArray *)tableViewDataSourceArray {
-    if(_tableViewDataSourceArray == nil)
+    if (_tableViewDataSourceArray == nil)
         _tableViewDataSourceArray = [NSMutableArray array];
     return _tableViewDataSourceArray;
 }
 
 - (void)refreshData {
-    if(self.tableViewDataSourceArray.count > 0)
+    if (self.tableViewDataSourceArray.count > 0)
         self.tableView.userInteractionEnabled = YES;
     else 
         self.tableView.userInteractionEnabled = NO;
@@ -87,7 +87,7 @@
     frame.size.height = columnCount * 44;
     frame.size.height = frame.size.height > self.maxViewHeight ? self.maxViewHeight : frame.size.height;
     
-    if(self.strechUpwards) {
+    if (self.strechUpwards) {
         frame.origin.y = bottomPos.y - frame.size.height;
     }
     

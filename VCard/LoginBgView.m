@@ -42,15 +42,15 @@
     
     CGRect scrollViewFrame = [UIApplication isCurrentOrientationLandscape] ? SCROLL_VIEW_LANDSCAPE_FRAME : SCROLL_VIEW_PORTRAIT_FRAME;
     CGRect scrollViewRealFrame = [UIApplication isCurrentOrientationLandscape] ? SCROLL_VIEW_REAL_LANDSCAPE_FRAME : SCROLL_VIEW_REAL_PORTRAIT_FRAME;
-    if(CGRectContainsPoint(scrollViewFrame, point)) {
+    if (CGRectContainsPoint(scrollViewFrame, point)) {
         [[self subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             UIView *view = obj;
-            if(view.tag == LOGIN_SCROOL_VIEW_TAG) {
+            if (view.tag == LOGIN_SCROOL_VIEW_TAG) {
                 subview = view;
                 *stop = YES;
             }
         }];
-        if(CGRectContainsPoint(scrollViewRealFrame, point))
+        if (CGRectContainsPoint(scrollViewRealFrame, point))
             subview = [subview hitTest:[subview convertPoint:point fromView:self] withEvent:event];
     }
     return subview;

@@ -39,7 +39,7 @@
             identifier = [regString substringWithRange:identifierRange];
         }
         EmoticonsInfo *info = [[EmoticonsInfoReader sharedReader] emoticonsInfoForIdentifier:identifier];
-        if(info == nil)
+        if (info == nil)
             continue;
         
         NSString *substitute = [NSString stringWithFormat:@"[%@]", info.keyName];

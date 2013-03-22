@@ -231,7 +231,7 @@
         urlString = [urlString stringByReplacingOccurrencesOfString:@"large" withString:@"bmiddle"];
         NSURL *url = [NSURL URLWithString:urlString];
         
-        if(_errorIndicateViewController) {
+        if (_errorIndicateViewController) {
             [_errorIndicateViewController dismissViewAnimated:NO completion:nil];
             _errorIndicateViewController = [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeLoading contentText:nil animated:NO];
         }

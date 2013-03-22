@@ -77,7 +77,7 @@
         for(int row = 0; row < SCROLL_VIEW_ROW_COUNT; row++) {
             for(int column = 0; column < SCROLL_VIEW_COLUMN_COUNT; column++) {
                 int index = page * emoticonsPerPage + row * SCROLL_VIEW_COLUMN_COUNT + column;
-                if(index >= emoticonsCount)
+                if (index >= emoticonsCount)
                     break;
                 EmoticonsInfo *info = [emoticonsInfoArray objectAtIndex:index];
                 UIImage *buttonImage = [UIImage imageNamed:info.imageFileName];

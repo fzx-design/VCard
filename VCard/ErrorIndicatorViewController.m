@@ -42,7 +42,7 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
 + (ErrorIndicatorViewController *)showErrorIndicatorWithType:(ErrorIndicatorViewControllerType)type
                                                  contentText:(NSString *)contentText
                                                     animated:(BOOL)animated {
-    if(!errorIndicatorInstance) {
+    if (!errorIndicatorInstance) {
         errorIndicatorInstance = [[ErrorIndicatorViewController alloc] initWithType:type contentText:contentText showViewAnimated:animated];
         [errorIndicatorInstance.view resetOriginY:20];
         
@@ -57,7 +57,7 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
        contentText:(NSString *)contentText
   showViewAnimated:(BOOL)animated{
     self = [super init];
-    if(self) {
+    if (self) {
         _controllerType = type;
         _contentText = contentText;
         _showViewAnimated = animated;
@@ -100,20 +100,20 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
     NSString *defaultContentText = nil;
     self.refreshIndicator.hidden = YES;
     NSString *errorImageName = nil;
-    if(_controllerType == ErrorIndicatorViewControllerTypeConnectFailure) {
+    if (_controllerType == ErrorIndicatorViewControllerTypeConnectFailure) {
         defaultContentText = @"网络错误";
         errorImageName = @"icon_connection_error";
-    } else if(_controllerType == ErrorIndicatorViewControllerTypeLoading) {
+    } else if (_controllerType == ErrorIndicatorViewControllerTypeLoading) {
         defaultContentText = @"正在通信...";
         errorImageName = nil;
         self.refreshIndicator.hidden = NO;
         self.errorImageView.hidden = YES;
         [self.refreshIndicator setType:RefreshIndicatorViewTypeLargeWhite];
         [self.refreshIndicator startLoadingAnimation];
-    } else if(_controllerType == ErrorIndicatorViewControllerTypeProcedureFailure) {
+    } else if (_controllerType == ErrorIndicatorViewControllerTypeProcedureFailure) {
         defaultContentText = @"操作失败";
         errorImageName = @"icon_regular_error";
-    } else if(_controllerType == ErrorIndicatorViewControllerTypeProcedureSuccess) {
+    } else if (_controllerType == ErrorIndicatorViewControllerTypeProcedureSuccess) {
         defaultContentText = @"操作成功";
         errorImageName = @"icon_complete";
     }
@@ -124,11 +124,11 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
 
 - (void)show {
     void (^completionBlock)(void) = ^{
-        if(_controllerType != ErrorIndicatorViewControllerTypeLoading) {
+        if (_controllerType != ErrorIndicatorViewControllerTypeLoading) {
             [self performSelector:@selector(automaticDismissView) withObject:nil afterDelay:AUTOMATIC_DISMISS_VIEW_DELAY];
         }
     };
-    if(_showViewAnimated)
+    if (_showViewAnimated)
         [self.view fadeInWithCompletion:^{
             completionBlock();
         }];
@@ -143,10 +143,10 @@ static ErrorIndicatorViewController *errorIndicatorInstance = nil;
     void (^completionBlock)(void) = ^{
         [weakSelf.view removeFromSuperview];
         errorIndicatorInstance = nil;
-        if(completion)
+        if (completion)
             completion();
     };
-    if(animted) {
+    if (animted) {
         self.view.alpha = 1;
         [UIView animateWithDuration:DISMISS_VIEW_ANIMATION_DURATION animations:^{
             self.view.alpha = 0;

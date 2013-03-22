@@ -36,7 +36,7 @@ static SettingInfoReader *readerInstance;
 @synthesize settingInfoMap = _settingInfoMap;
 
 + (SettingInfoReader *)sharedReader {
-    if(!readerInstance) {
+    if (!readerInstance) {
         readerInstance = [[SettingInfoReader alloc] init];
     }
     return readerInstance;
@@ -44,7 +44,7 @@ static SettingInfoReader *readerInstance;
 
 - (id)init {
     self = [super init];
-    if(self) {
+    if (self) {
         [self readPlist];
     }
     return self;
@@ -101,7 +101,7 @@ static SettingInfoReader *readerInstance;
 
 - (id)initWithDict:(NSDictionary *)dict {
     self = [super init];
-    if(self) {
+    if (self) {
         self.sectionIdentifier = [dict objectForKey:kSectionIdentifier];
         self.sectionHeader = [dict objectForKey:kSectionHeader];
         self.sectionFooter = [dict objectForKey:kSectionFooter];
@@ -122,7 +122,7 @@ static SettingInfoReader *readerInstance;
 
 - (id)initWithInfoDict:(NSDictionary *)infoDict {
     self = [super init];
-    if(self) {
+    if (self) {
         self.itemTitle = [infoDict objectForKey:kItemTitle];
         self.itemContent = [infoDict objectForKey:kItemContent];
         self.nibFileName = [infoDict objectForKey:kNibFileName];

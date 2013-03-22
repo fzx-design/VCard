@@ -8,7 +8,7 @@
 
 #import "ActionPopoverGestureRecognizeView.h"
 #import "UIApplication+Addition.h"
-#import "RootViewController.h"
+#import "PadRootViewController.h"
 #import "WaterflowCardCell.h"
 #import "StackViewController.h"
 #import "ProfileStatusTableViewCell.h"
@@ -23,21 +23,21 @@
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *result = [super hitTest:point withEvent:event];
     UINavigationController *nav = (UINavigationController *)[UIApplication sharedApplication].rootViewController;
-    RootViewController *rootVC = (RootViewController *)[nav topViewController];
+    PadRootViewController *rootVC = (PadRootViewController *)[nav topViewController];
     CastViewController *castVC = rootVC.castViewController;
     
-    if(!castVC.stackViewController) {
+    if (!castVC.stackViewController) {
         for(WaterflowCardCell *cardCell in castVC.waterflowView.subviews) {
-            if([cardCell isKindOfClass:[WaterflowCardCell class]]) {
+            if ([cardCell isKindOfClass:[WaterflowCardCell class]]) {
                 CGPoint cardCellPoint = [self convertPoint:point toView:cardCell];
-                if([cardCell pointInside:cardCellPoint withEvent:event] && cardCell.cardViewController.view.tag == ACTION_POPOVER_CONTAINER_VIEW) {
-                    if(!cardCell.cardViewController.actionPopoverViewController)
+                if ([cardCell pointInside:cardCellPoint withEvent:event] && cardCell.cardViewController.view.tag == ACTION_POPOVER_CONTAINER_VIEW) {
+                    if (!cardCell.cardViewController.actionPopoverViewController)
                         continue;
                     UIView *actionPopoverCenterBar = cardCell.cardViewController.actionPopoverViewController.centerBar;
                     CGPoint actionPopoverPoint = [cardCell convertPoint:cardCellPoint toView:actionPopoverCenterBar];
-                    if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
+                    if ([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
                         UIView *testView = [actionPopoverCenterBar hitTest:actionPopoverPoint withEvent:event];
-                        if([testView isKindOfClass:[UIButton class]])
+                        if ([testView isKindOfClass:[UIButton class]])
                             return testView;
                     }
                 }
@@ -47,39 +47,39 @@
         for(StackViewPageController *vc in castVC.stackViewController.controllerStack) {
             for(UITableView *tableView in vc.backgroundView.subviews) {
                 CGPoint tableViewPoint = [self convertPoint:point toView:tableView];
-                if(![tableView pointInside:tableViewPoint withEvent:event])
+                if (![tableView pointInside:tableViewPoint withEvent:event])
                     continue;
                 
-                if([tableView isKindOfClass:[UITableView class]]) {
+                if ([tableView isKindOfClass:[UITableView class]]) {
                     
-                    if([tableView.tableHeaderView isKindOfClass:[ProfileCommentStatusTableCell class]]) {
+                    if ([tableView.tableHeaderView isKindOfClass:[ProfileCommentStatusTableCell class]]) {
                         ProfileCommentStatusTableCell *commentStatusCell = (ProfileCommentStatusTableCell *)tableView.tableHeaderView;
-                        if(commentStatusCell.cardViewController.view.tag == ACTION_POPOVER_CONTAINER_VIEW) {
-                            if(!commentStatusCell.cardViewController.actionPopoverViewController)
+                        if (commentStatusCell.cardViewController.view.tag == ACTION_POPOVER_CONTAINER_VIEW) {
+                            if (!commentStatusCell.cardViewController.actionPopoverViewController)
                                 continue;
                             UIView *actionPopoverCenterBar = commentStatusCell.cardViewController.actionPopoverViewController.centerBar;
                             CGPoint actionPopoverPoint = [tableView convertPoint:tableViewPoint toView:actionPopoverCenterBar];
-                            if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
+                            if ([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
                                 UIView *testView = [actionPopoverCenterBar hitTest:actionPopoverPoint withEvent:event];
-                                if([testView isKindOfClass:[UIButton class]])
+                                if ([testView isKindOfClass:[UIButton class]])
                                     return testView;
                             }
                         }
                     }
                     
                     for(ProfileStatusTableViewCell *tableViewCell in tableView.visibleCells) {
-                        if(![tableViewCell isKindOfClass:[ProfileStatusTableViewCell class]]) {
+                        if (![tableViewCell isKindOfClass:[ProfileStatusTableViewCell class]]) {
                             break;
                         }
                         
-                        if(tableViewCell.cardViewController.view.tag == ACTION_POPOVER_CONTAINER_VIEW) {
-                            if(!tableViewCell.cardViewController.actionPopoverViewController)
+                        if (tableViewCell.cardViewController.view.tag == ACTION_POPOVER_CONTAINER_VIEW) {
+                            if (!tableViewCell.cardViewController.actionPopoverViewController)
                                 continue;
                             UIView *actionPopoverCenterBar = tableViewCell.cardViewController.actionPopoverViewController.centerBar;
                             CGPoint actionPopoverPoint = [tableView convertPoint:tableViewPoint toView:actionPopoverCenterBar];
-                            if([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
+                            if ([actionPopoverCenterBar pointInside:actionPopoverPoint withEvent:event]) {
                                 UIView *testView = [actionPopoverCenterBar hitTest:actionPopoverPoint withEvent:event];
-                                if([testView isKindOfClass:[UIButton class]])
+                                if ([testView isKindOfClass:[UIButton class]])
                                     return testView;
                             }
                         }

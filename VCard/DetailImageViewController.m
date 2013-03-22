@@ -395,7 +395,7 @@
 
 - (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer {
     
-    if(_scrollView.zoomScale > _scrollView.minimumZoomScale) {
+    if (_scrollView.zoomScale > _scrollView.minimumZoomScale) {
         [_scrollView setZoomScale:_scrollView.minimumZoomScale animated:YES];
     } else {
         CGRect zoomRect = [self zoomRectForScrollView:_scrollView withScale:_scrollView.maximumZoomScale withCenter:[gestureRecognizer locationInView:self.imageView]];
@@ -436,7 +436,7 @@
 }
 
 - (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
-    if(vc.type == PostViewControllerTypeRepost)
+    if (vc.type == PostViewControllerTypeRepost)
         [vc dismissViewToRect:[self.bottomBarView convertRect:self.moreActionButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
     else
         [vc dismissViewToRect:[self.bottomBarView convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
@@ -444,11 +444,11 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     
-    if(buttonIndex == 0) {
+    if (buttonIndex == 0) {
         [self repostStatus];
-    } else if(buttonIndex == 1) {
+    } else if (buttonIndex == 1) {
         [self favouriteStatus];
-    } else if(buttonIndex == 2) {
+    } else if (buttonIndex == 2) {
         [self performSelectorInBackground:@selector(saveImage) withObject:nil];
     }
 }
@@ -469,7 +469,7 @@
     NSString *targetUserName = _cardViewController.status.author.screenName;
     NSString *targetStatusID = _cardViewController.status.statusID;
     NSString *targetStatusContent = nil;
-    if(_cardViewController.status.repostStatus)
+    if (_cardViewController.status.repostStatus)
         targetStatusContent = _cardViewController.status.text;
     CGRect frame = [self.bottomBarView convertRect:self.moreActionButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
     PostViewController *vc = [PostViewController getRepostViewControllerWithWeiboID:targetStatusID
@@ -492,7 +492,7 @@
 
 - (void)image:(UIImage *)image finishedSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
-    if(error) {
+    if (error) {
         [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeConnectFailure contentText:@"保存失败"];
     } else {
         [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"保存成功"];

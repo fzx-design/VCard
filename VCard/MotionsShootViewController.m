@@ -87,7 +87,7 @@
 
 - (void)configureShootImage:(UIImage *)image {
     UIImageOrientation imageOrientation;
-    if(self.backFacingCameraDeviceInput) {
+    if (self.backFacingCameraDeviceInput) {
         switch ([UIApplication sharedApplication].statusBarOrientation) {
             case UIInterfaceOrientationLandscapeLeft:
                 imageOrientation = UIImageOrientationDown;
@@ -127,13 +127,13 @@
 }
 
 - (void)configurePreviewLayerOrientation {
-    if([self.previewLayer respondsToSelector:@selector(connection)]) { // iOS 6
+    if ([self.previewLayer respondsToSelector:@selector(connection)]) { // iOS 6
         AVCaptureConnection *videoConnection = self.previewLayer.connection;
         if ([videoConnection isVideoOrientationSupported]) {
             [videoConnection setVideoOrientation:[UIDevice currentDevice].orientation];
         }
     } else { // iOS 5
-        if(self.previewLayer.orientationSupported) {
+        if (self.previewLayer.orientationSupported) {
             self.previewLayer.orientation = [UIDevice currentDevice].orientation;
         }
     }
@@ -172,7 +172,7 @@
 
 - (void)changeCamera {
     [self.captureSession stopRunning];
-    if(self.frontFacingCameraDeviceInput == nil) {
+    if (self.frontFacingCameraDeviceInput == nil) {
         [self.captureSession removeInput:self.backFacingCameraDeviceInput];
         self.backFacingCameraDeviceInput = nil;
         self.frontFacingCameraDeviceInput = [self getCameraInputByDevicePosition:AVCaptureDevicePositionFront];
@@ -221,7 +221,7 @@
 
 - (void)setShowShootAccessoriesFrame {
     CGRect frame = self.shootAccessoryView.frame;
-    if(self.isCurrentOrientationLandscape) {
+    if (self.isCurrentOrientationLandscape) {
         frame.origin.x = 1024 - frame.size.width;
         frame.origin.y = 0;
     } else {
@@ -233,7 +233,7 @@
 
 - (void)setHideShootAccessoriesFrame {
     CGRect frame = self.shootAccessoryView.frame;
-    if(self.isCurrentOrientationLandscape) {
+    if (self.isCurrentOrientationLandscape) {
         frame.origin.x = 1024;
         frame.origin.y = 0;
     } else {
@@ -248,7 +248,7 @@
     [UIView animateWithDuration:0.3f animations:^{
         [self setHideShootAccessoriesFrame];
     } completion:^(BOOL finished) {
-        if(completion)
+        if (completion)
             completion();
     }];
 }
@@ -258,7 +258,7 @@
     [UIView animateWithDuration:0.3f animations:^{
         [self setShowShootAccessoriesFrame];
     } completion:^(BOOL finished) {
-        if(completion)
+        if (completion)
             completion();
     }];
 }
@@ -266,7 +266,7 @@
 #pragma mark - IBActions
 
 - (IBAction)didClickShootButton:(UIButton *)sender {
-    if(!self.stillImageOutput) {
+    if (!self.stillImageOutput) {
         return;
     }
     
@@ -274,14 +274,14 @@
     
     AVCaptureConnection *videoConnection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
     
-    if(!videoConnection) {
+    if (!videoConnection) {
         return;
     }
     
     BlockWeakSelf weakSelf = self;
     [self.delegate shootViewControllerWillBecomeInactiveWithCompletion:^{
         [weakSelf.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
-            if(!error) {
+            if (!error) {
                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     UIImage *image = [[UIImage alloc] initWithData:imageData];
@@ -318,17 +318,17 @@
 #pragma mark MotionsCapturePreview delegate 
 
 - (void)didCreateInterestPoint:(CGPoint)focusPoint {
-    if([self.currentDevice lockForConfiguration:nil] == NO)
+    if ([self.currentDevice lockForConfiguration:nil] == NO)
         return;
-    if(self.currentDevice.focusPointOfInterestSupported) {
+    if (self.currentDevice.focusPointOfInterestSupported) {
         [self.currentDevice setFocusPointOfInterest:focusPoint];
-        if([self.currentDevice isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
+        if ([self.currentDevice isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
             [self.currentDevice setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
         }
     }
-    else if(self.currentDevice.exposurePointOfInterestSupported) {
+    else if (self.currentDevice.exposurePointOfInterestSupported) {
         [self.currentDevice setExposurePointOfInterest:focusPoint];
-        if([self.currentDevice isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+        if ([self.currentDevice isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
             [self.currentDevice setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
         }
     }

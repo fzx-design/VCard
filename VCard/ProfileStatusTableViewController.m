@@ -56,9 +56,9 @@
 {
     if (_type == StatusTableViewControllerTypeUserStatus) {
         [Status deleteStatusesOfUser:self.user InManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
-    } else if(_type == statusTableViewControllerTypeMentionStatus){
+    } else if (_type == statusTableViewControllerTypeMentionStatus){
         [Status deleteMentionStatusesInManagedObjectContext:self.managedObjectContext];
-    } else if(_type == StatusTableViewControllerTypeTopicStatus){
+    } else if (_type == StatusTableViewControllerTypeTopicStatus){
         [Status deleteStatusesWithSearchKey:_searchKey InManagedObjectContext:self.managedObjectContext withOperatingObject:self.coreDataIdentifier];
     }
     [self resetUnreadFollowerCount];
@@ -126,9 +126,9 @@
                 newStatus.forTableView = @(YES);
                 if (weakSelf.type == StatusTableViewControllerTypeUserStatus) {
                     newStatus.author = weakSelf.user;
-                } else if(weakSelf.type == statusTableViewControllerTypeMentionStatus) {
+                } else if (weakSelf.type == statusTableViewControllerTypeMentionStatus) {
                     newStatus.isMentioned = @(YES);
-                } else if(weakSelf.type == StatusTableViewControllerTypeTopicStatus){
+                } else if (weakSelf.type == StatusTableViewControllerTypeTopicStatus){
                     newStatus.searchKey = weakSelf.searchKey;
                 }
             }
@@ -164,12 +164,12 @@
                  startingAtPage:0 
                           count:20 
                         feature:0];
-    } else if(_type == statusTableViewControllerTypeMentionStatus) {
+    } else if (_type == statusTableViewControllerTypeMentionStatus) {
         [client getMentionsSinceID:nil
                              maxID:maxIDString
                               page:0
                              count:20];
-    } else if(_type == StatusTableViewControllerTypeTopicStatus){
+    } else if (_type == StatusTableViewControllerTypeTopicStatus){
 
         NSDate *startDate = self.refreshing ? nil : ((Status *)self.fetchedResultsController.fetchedObjects.lastObject).createdAt;
         [client searchTopic:_searchKey

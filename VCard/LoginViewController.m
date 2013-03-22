@@ -59,9 +59,9 @@
 
 - (id)initWithType:(LoginViewControllerType)type {
     self = [self init];
-    if(self) {
+    if (self) {
         _controllerType = type;
-        if(_controllerType == LoginViewControllerTypeDeleteCurrentUser) {
+        if (_controllerType == LoginViewControllerTypeDeleteCurrentUser) {
             [self deleteUser:self.currentUser];
         }
     }
@@ -70,7 +70,7 @@
 
 - (id)init {
     self = [super init];
-    if(self) {
+    if (self) {
         NSArray *storedArray = [NSUserDefaults getLoginUserArray];
         
         self.loginUserInfoArray = [NSMutableArray array];
@@ -89,9 +89,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    if(_controllerType == LoginViewControllerTypeCreateNewUser) {
+    if (_controllerType == LoginViewControllerTypeCreateNewUser) {
         self.currentCellIndex = [self numberOfCellsInScrollView] - 1;
-    } else if(_controllerType == LoginViewControllerTypeDeleteCurrentUser) {
+    } else if (_controllerType == LoginViewControllerTypeDeleteCurrentUser) {
         [self performSelector:@selector(postDeleteCurrentUserNotification) withObject:nil afterDelay:LOGIN_VIEW_APPEAR_ANIMATION_DURATION];
     }
     
@@ -167,7 +167,7 @@
     }
     [self layoutScrollView];
     
-    if([self numberOfCellsInScrollView] > MAX_USER_COUNT) {
+    if ([self numberOfCellsInScrollView] > MAX_USER_COUNT) {
         [self.loginInputCellViewController setTooManyUsers:YES];
     }
 }
@@ -251,9 +251,9 @@
 }
 
 - (UIViewController *)cellControllerAtIndex:(NSUInteger)index {
-    if(index >= self.cellControllerArray.count) {
+    if (index >= self.cellControllerArray.count) {
         UIViewController *vc = nil;
-        if(self.loginUserInfoArray.count <= index) {
+        if (self.loginUserInfoArray.count <= index) {
             vc = [[LoginInputCellViewController alloc] init];
             ((LoginInputCellViewController *)vc).delegate = self;
         } else {
@@ -274,7 +274,7 @@
     __block NSUInteger index = NSUIntegerMax;
     [self.loginUserInfoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         User *user = obj;
-        if([user.userID isEqualToString:oldUser.userID])
+        if ([user.userID isEqualToString:oldUser.userID])
             index = idx;
         else
             [userIDArray addObject:user.userID];
@@ -288,7 +288,7 @@
     [Conversation deleteAllConversationsOfUser:userID managedObjectContext:self.managedObjectContext];
     [Group deleteAllGroupsOfUser:userID inManagedObjectContext:self.managedObjectContext];
     
-    if(index != NSUIntegerMax) {
+    if (index != NSUIntegerMax) {
         [self.loginUserInfoArray removeObjectAtIndex:index];
         userIDArray = userIDArray.count > 0 ? userIDArray : nil;
         [NSUserDefaults setLoginUserArray:userIDArray];
@@ -301,12 +301,12 @@
     __block BOOL userAlreadyLogin = NO;
     [self.loginUserInfoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         User *user = obj;
-        if([user.userID isEqualToString:newUser.userID])
+        if ([user.userID isEqualToString:newUser.userID])
             userAlreadyLogin = YES;
         [userIDArray addObject:user.userID];
     }];
     
-    if(!userAlreadyLogin) {
+    if (!userAlreadyLogin) {
         [self.loginUserInfoArray addObject:newUser];
         [userIDArray addObject:newUser.userID];
         [NSUserDefaults setLoginUserArray:userIDArray];
@@ -348,8 +348,8 @@
     NSUInteger index = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
     self.currentCellIndex = index;
     
-    if(!decelerate) {
-        if(self.currentCellIndex != self.cellControllerArray.count - 1) {
+    if (!decelerate) {
+        if (self.currentCellIndex != self.cellControllerArray.count - 1) {
             [self.view endEditing:YES];
         }
     }
@@ -365,7 +365,7 @@
     NSUInteger index = fabs(scrollView.contentOffset.x) / scrollView.frame.size.width;
     self.currentCellIndex = index;
     
-    if(self.currentCellIndex != self.cellControllerArray.count - 1) {
+    if (self.currentCellIndex != self.cellControllerArray.count - 1) {
         [self.view endEditing:YES];
     }
 }
@@ -422,14 +422,14 @@
 }
 
 - (void)loginCellDidDeleteUser:(User *)user {
-    if([self.currentUser.userID isEqualToString:user.userID]) {
+    if ([self.currentUser.userID isEqualToString:user.userID]) {
         [NSNotificationCenter postCoreChangeCurrentUserNotificationWithUserID:nil];
     }
     
     NSUInteger index = [self deleteUser:user];
     [self removeCellAtIndex:index];
     
-    if([self numberOfCellsInScrollView] <= MAX_USER_COUNT) {
+    if ([self numberOfCellsInScrollView] <= MAX_USER_COUNT) {
         [self.loginInputCellViewController setTooManyUsers:NO];
     }
 }

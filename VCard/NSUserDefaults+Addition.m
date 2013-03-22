@@ -60,7 +60,7 @@
 
 + (void)initializeVCard_4_0 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if(![defaults boolForKey:kVCard4_0_Initialized]) {
+    if (![defaults boolForKey:kVCard4_0_Initialized]) {
         NSLog(@"init vcard 4.0");
         [defaults setBool:NO forKey:kSettingEnableAutoTrafficSaving];
         [defaults setBool:NO forKey:kSettingEnableAutoLocate];
@@ -96,7 +96,7 @@
     __block SettingOptionFontSizeType result;
     [info.optionChosenStatusArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSNumber *chosenNumber = obj;
-        if(chosenNumber.boolValue) {
+        if (chosenNumber.boolValue) {
             result = idx;
             *stop = YES;
         }
@@ -427,7 +427,7 @@
 
 - (id)initWithInfoDict:(NSDictionary *)dict {
     self = [super init];
-    if(self) {
+    if (self) {
         self.userID = [dict objectForKey:kStoredUserAccountInfoUserID];
         self.account = [dict objectForKey:kStoredUserAccountInfoAccount];
         self.password = [dict objectForKey:kStoredUserAccountInfoPassword];
@@ -476,11 +476,11 @@
 
 - (id)initWithOptionKey:(NSString *)optionKey {
     self = [super init];
-    if(self) {
-        if([optionKey isEqualToString:kSettingOptionFontSize]) {
+    if (self) {
+        if ([optionKey isEqualToString:kSettingOptionFontSize]) {
             self.optionsArray = @[@"小", @"正常", @"大"];
             self.optionName = @"字体大小";
-        } else if([optionKey isEqualToString:kSettingOptionNotification]) {
+        } else if ([optionKey isEqualToString:kSettingOptionNotification]) {
             self.allowMultiOptions = YES;
             self.optionsArray = @[@"新评论", @"新粉丝", @"提到我的", @"新私信"];
             self.optionName = @"消息提示";

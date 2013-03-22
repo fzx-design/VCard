@@ -99,14 +99,14 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
         NSNumber *favoriteButtonOn = [options objectForKey:kActionPopoverOptionFavoriteButtonOn];
         NSNumber *showDeleteButton = [options objectForKey:kActionPopoverOptionShowDeleteButton];
         
-        if(favoriteButtonOn && favoriteButtonOn.boolValue == YES) {
+        if (favoriteButtonOn && favoriteButtonOn.boolValue == YES) {
             [_buttonTitleArray replaceObjectAtIndex:ActionPopoverButtonIdentifierFavorite withObject:@"取消收藏"];
         }
         
         _buttonIndexArray = [NSMutableArray array];
         for(NSUInteger i = 0; i < _buttonTitleArray.count; i++) {
-            if(i == ActionPopoverButtonIdentifierDelete) {
-                if(showDeleteButton && showDeleteButton.boolValue == NO)
+            if (i == ActionPopoverButtonIdentifierDelete) {
+                if (showDeleteButton && showDeleteButton.boolValue == NO)
                     continue;
             }
             [_buttonIndexArray addObject:@(i)];
@@ -470,7 +470,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	}
 	[self.contentView setHidden:NO];
 	
-    if(self.isFolded)
+    if (self.isFolded)
         [self.delegate actionPopoverViewDidDismiss];
 }
 
@@ -588,7 +588,7 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 	// commit the transaction
 	[CATransaction commit];
     
-    [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION delay:0 options:UIViewAnimationCurveLinear animations:^{
+    [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         self.foldShadowView.alpha = forwards ? 0 : 1;
         [self.foldShadowView resetOriginY:forwards ? self.foldShadowViewInitPosY - self.foldViewHeight : self.foldShadowViewInitPosY];
     } completion:nil];
@@ -597,12 +597,12 @@ static inline double degrees (double radians) {return radians * 180 / M_PI;}
 #pragma mark - Gesture recognizer
 
 - (void)handleTap:(UITapGestureRecognizer *)gestureRecognizer {
-    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    if (gestureRecognizer.state == UIGestureRecognizerStateEnded)
         [self foldAnimation];
 }
 
 - (void)handlePan:(UITapGestureRecognizer *)gestureRecognizer {
-    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    if (gestureRecognizer.state == UIGestureRecognizerStateEnded)
         [self foldAnimation];
 }
 

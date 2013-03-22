@@ -26,7 +26,7 @@
 
 - (id)init {
     self = [super init];
-    if(self) {
+    if (self) {
         [self readPlist];
     }
     return self;
@@ -38,7 +38,7 @@
 }
 
 - (NSArray *)getFilterInfoArray {
-    if(!self.filterInfoArray) {
+    if (!self.filterInfoArray) {
         [self configureFilterInfoArray];
     }
     return self.filterInfoArray;
@@ -71,7 +71,7 @@
 - (UIImage *)processUIImage:(UIImage *)image {
     CIImage *source = [CIImage imageWithCGImage:image.CGImage];
     CIImage *processImage = [self processCIImage:source];
-    if(processImage == source)
+    if (processImage == source)
         return image;
     
     CIContext *context = [CIContext contextWithOptions:nil];
@@ -88,16 +88,16 @@
         NSString *filterKey = key;
         NSDictionary *param = obj;
         CIFilter *filter = [CIFilter filterWithName:filterKey];
-        if(filter == nil)
+        if (filter == nil)
             abort();
         [filter setDefaults];
         [filter setValue:processImage forKey:@"inputImage"];
         [param enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             NSString *paramKey = key;
-            if([obj isKindOfClass:[NSNumber class]]) {
+            if ([obj isKindOfClass:[NSNumber class]]) {
                 NSNumber *amount = obj;
                 [filter setValue:amount forKey:paramKey];
-            } else if([obj isKindOfClass:[NSArray class]]) {
+            } else if ([obj isKindOfClass:[NSArray class]]) {
                 NSArray *array = obj;
                 float rgba[4];
                 for(NSUInteger i = 0; i < 4; i++) {
@@ -111,7 +111,7 @@
         processImage = [filter outputImage];
     }];
     
-    if(processImage == nil)
+    if (processImage == nil)
         return image;
     
     return processImage;

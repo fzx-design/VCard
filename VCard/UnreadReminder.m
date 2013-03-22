@@ -95,33 +95,33 @@ static UnreadReminder *sharedUnreadReminder;
                 [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadStatusCount object:nil];
             }
             
-            if(sharedUnreadReminder.currentUser.unreadCommentCount.integerValue != unreadCommentCount.integerValue) {
+            if (sharedUnreadReminder.currentUser.unreadCommentCount.integerValue != unreadCommentCount.integerValue) {
                 sharedUnreadReminder.currentUser.unreadCommentCount = unreadCommentCount;
-                if(commentEnabled) {
+                if (commentEnabled) {
                     [self playSoundEffectWithUnreadCount:unreadCommentCount.integerValue];
                     [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadCommentCount object:nil];
                 }
             }
             
-            if(sharedUnreadReminder.currentUser.unreadFollowingCount.integerValue != unreadFollowingCount.integerValue) {
+            if (sharedUnreadReminder.currentUser.unreadFollowingCount.integerValue != unreadFollowingCount.integerValue) {
                 sharedUnreadReminder.currentUser.unreadFollowingCount = unreadFollowingCount;
-                if(followerEnabled) {
+                if (followerEnabled) {
                     [self playSoundEffectWithUnreadCount:unreadFollowingCount.integerValue];
                     [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadFollowCount object:nil];
                 }
             }
             
-            if(sharedUnreadReminder.currentUser.unreadMentionCount.integerValue != unreadMentionCount.integerValue) {
+            if (sharedUnreadReminder.currentUser.unreadMentionCount.integerValue != unreadMentionCount.integerValue) {
                 sharedUnreadReminder.currentUser.unreadMentionCount = unreadMentionCount;
-                if(mentionEnabled) {
+                if (mentionEnabled) {
                     [self playSoundEffectWithUnreadCount:unreadMentionCount.integerValue];
                     [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMentionCount object:nil];
                 }
             }
             
-            if(sharedUnreadReminder.currentUser.unreadMentionComment.integerValue != unreadMentionComment.integerValue) {
+            if (sharedUnreadReminder.currentUser.unreadMentionComment.integerValue != unreadMentionComment.integerValue) {
                 sharedUnreadReminder.currentUser.unreadMentionComment = unreadMentionComment;
-                if(mentionEnabled) {
+                if (mentionEnabled) {
                     [self playSoundEffectWithUnreadCount:unreadMentionComment.integerValue];
                     [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMentionCommentCount object:nil];
                 }
@@ -133,7 +133,7 @@ static UnreadReminder *sharedUnreadReminder;
             }
             
             _messageWaitingRound = unreadMessageCount.integerValue == 0 ? 0 : _messageWaitingRound + 1;
-            if(messageEnabled && _messageWaitingRound == 2 && ![NSUserDefaults hasShownMessageList]) {
+            if (messageEnabled && _messageWaitingRound == 2 && ![NSUserDefaults hasShownMessageList]) {
                 [self playSoundEffectWithUnreadCount:unreadMessageCount.integerValue];
                 [defaultCenter postNotificationName:kNotificationNameShouldUpdateUnreadMessageCount object:nil];
             }

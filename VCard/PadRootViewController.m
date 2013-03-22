@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 Mondev. All rights reserved.
 //
 
-#import "RootViewController.h"
+#import "PadRootViewController.h"
 #import "WBClient.h"
 #import "ResourceList.h"
 #import "Group.h"
@@ -19,13 +19,13 @@
 
 #define kShelfViewControllerFrame CGRectMake(0.0, -150.0, 768.0, 150.0);
 
-@interface RootViewController () {
+@interface PadRootViewController () {
     BOOL _showingLoginView;
 }
 
 @end
 
-@implementation RootViewController
+@implementation PadRootViewController
 
 @synthesize castViewController = _castViewController;
 @synthesize shelfViewController = _shelfViewController;
@@ -45,7 +45,7 @@
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
     [self setUpNotifications];
-    if(self.currentUser) {
+    if (self.currentUser) {
         [self setUpViews];
         [self loadUserAndChangeAvatar];
     }
@@ -109,7 +109,7 @@
 - (void)showLoginViewController {
     NSString *launchImageName = nil;
     BOOL isLandscape = [UIApplication isCurrentOrientationLandscape];
-    //    if([UIApplication isRetinaDisplayiPad]){
+    //    if ([UIApplication isRetinaDisplayiPad]){
     //        launchImageName = isLandscape ? @"Default-Landscape@2x~ipad" : @"Default-Portrait@2x~ipad";
     //    }
     //    else {
@@ -122,7 +122,7 @@
     //        [self.view insertSubview:_SimpleTableView.view belowSubview:self.view];
     //
     //    }
-    if([UIApplication isRetinaDisplayiPad]){
+    if ([UIApplication isRetinaDisplayiPad]){
         launchImageName = isLandscape ? @"Default-Landscape@2x~ipad" : @"Default-Portrait@2x~ipad";
     }
     else {
@@ -157,7 +157,7 @@
 #pragma mark - Handle notifications
 
 - (void)showGuideBookView {
-    if([NSUserDefaults hasShownGuideBook] == NO) {
+    if ([NSUserDefaults hasShownGuideBook] == NO) {
         [NSUserDefaults setShownGuideBook:YES];
         [[[GuideBookViewController alloc] init] show];
     }
@@ -173,7 +173,7 @@
     _shelfViewController = nil;
     _detailImageViewController = nil;
     
-    if(self.currentUser) {
+    if (self.currentUser) {
         [Group setUpDefaultGroupWithUserID:self.currentUser.userID defaultImageURL:self.currentUser.largeAvatarURL inManagedObjectContext:self.managedObjectContext];
         [self setUpViews];
         [NSUserDefaults setFetchedMessages:NO];
@@ -236,7 +236,7 @@
         [_shelfViewController.view resetOriginY:0.0];
         _shelfViewController.coverView.alpha = 0.0;
     } completion:^(BOOL finished) {
-        if(![NSUserDefaults hasShownShelfTips]) {
+        if (![NSUserDefaults hasShownShelfTips]) {
             [[[TipsViewController alloc] initWithType:TipsViewControllerTypeShelf] show];
             [NSUserDefaults setShownShelfTips:YES];
         }

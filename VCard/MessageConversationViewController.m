@@ -168,7 +168,7 @@ typedef enum {
 #pragma mark Text View
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    if(self.textView.textViewHideLock)
+    if (self.textView.textViewHideLock)
         return;
     NSDictionary *info = [notification userInfo];
     CGRect keyboardBounds = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -186,7 +186,7 @@ typedef enum {
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    if(self.textView.textViewHideLock)
+    if (self.textView.textViewHideLock)
         return;
     _keyboardHeight = 0;
     [UIView animateWithDuration:0.25f animations:^{
@@ -200,9 +200,9 @@ typedef enum {
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     UIView *currentHintView = self.currentHintView;
-    if([text isEqualToString:@"@"] && !currentHintView) {
+    if ([text isEqualToString:@"@"] && !currentHintView) {
         [self presentAtHintView];
-    } else if(([text isEqualToString:@"#"] || [text isEqualToString:@"＃"]) && !currentHintView) {
+    } else if (([text isEqualToString:@"#"] || [text isEqualToString:@"＃"]) && !currentHintView) {
         [self presentTopicHintView];
     }
     [self.textView shouldChangeTextInRange:range replacementText:text currentHintView:currentHintView];
@@ -252,7 +252,7 @@ typedef enum {
 }
 
 - (void)rewindTextViewOffset {
-    if(!self.textView.scrollEnabled) {
+    if (!self.textView.scrollEnabled) {
         [self.textView setContentOffset:CGPointMake(0, 2) animated:YES];
         [self updateCurrentHintViewFrame];
     }
@@ -307,7 +307,7 @@ typedef enum {
 - (IBAction)didClickEmoticonButton:(UIButton *)sender
 {
     BOOL select = !sender.isSelected;
-    if(select) {
+    if (select) {
         [self.textView becomeFirstResponder];
         [self presentEmoticonsView];
     } else {
@@ -451,7 +451,7 @@ typedef enum {
 }
 
 - (EmoticonsViewController *)emoticonsViewController {
-    if(!_emoticonsViewController) {
+    if (!_emoticonsViewController) {
         _emoticonsViewController = [[EmoticonsViewController alloc] init];
         _emoticonsViewController.delegate = self.textView;
         _emoticonsViewController.view.tag = PostRootViewSubviewTagEmoticons;
@@ -487,11 +487,11 @@ typedef enum {
 
 - (CGPoint)hintViewOriginWithType:(HintViewType)type {
     CGPoint cursorPos = [self textViewCursorPos];
-    if(type == HintViewTypeEmoticons) {
+    if (type == HintViewTypeEmoticons) {
         cursorPos.y -= EMOTICONS_HINT_VIEW_HEIGHT + HINT_VIEW_OFFSET_Y;
-    } else if(type == HintViewTypeOther) {
+    } else if (type == HintViewTypeOther) {
         CGFloat hintViewHeight = OTHER_HINT_VIEW_HEIGHT;
-        if(self.currentHintView);
+        if (self.currentHintView);
             hintViewHeight = self.currentHintView.frame.size.height;
         cursorPos.y -= hintViewHeight + HINT_VIEW_OFFSET_Y;
     }
@@ -500,7 +500,7 @@ typedef enum {
 
 - (CGPoint)textViewCursorPos {
     CGPoint cursorPos = CGPointZero;
-    if(self.textView.selectedTextRange.empty && self.textView.selectedTextRange) {
+    if (self.textView.selectedTextRange.empty && self.textView.selectedTextRange) {
         cursorPos = [self.textView caretRectForPosition:self.textView.selectedTextRange.start].origin;
         cursorPos = [self.backgroundView convertPoint:cursorPos fromView:self.textView];
     }
@@ -510,7 +510,7 @@ typedef enum {
 - (void)presentAtHintView {
     [self dismissHintView];
     CGPoint cursorPos = [self hintViewOriginWithType:HintViewTypeOther];
-    if(CGPointEqualToPoint(cursorPos, CGPointZero))
+    if (CGPointEqualToPoint(cursorPos, CGPointZero))
         return;
     PostAtHintView *atView = [[PostAtHintView alloc] initWithCursorPos:cursorPos];
     atView.strechUpwards = YES;
@@ -523,7 +523,7 @@ typedef enum {
 - (void)presentTopicHintView {
     [self dismissHintView];
     CGPoint cursorPos = [self hintViewOriginWithType:HintViewTypeOther];
-    if(CGPointEqualToPoint(cursorPos, CGPointZero))
+    if (CGPointEqualToPoint(cursorPos, CGPointZero))
         return;
     PostTopicHintView *topicView = [[PostTopicHintView alloc] initWithCursorPos:cursorPos];
     topicView.strechUpwards = YES;
@@ -553,32 +553,32 @@ typedef enum {
 }
 
 - (void)updateCurrentHintViewFrame {
-    if(!self.currentHintView)
+    if (!self.currentHintView)
         return;
     
     CGPoint cursorPos;
-    if([self.currentHintView isKindOfClass:[PostHintView class]])
+    if ([self.currentHintView isKindOfClass:[PostHintView class]])
         cursorPos = [self hintViewOriginWithType:HintViewTypeOther];
     else
         cursorPos = [self hintViewOriginWithType:HintViewTypeEmoticons];
     
-    if(!CGPointEqualToPoint(cursorPos, CGPointZero)) {
+    if (!CGPointEqualToPoint(cursorPos, CGPointZero)) {
         [self.currentHintView resetOrigin:cursorPos];
         [self checkCurrentHintViewFrame];
     }
 }
 
 - (void)updateCurrentHintViewContent {
-    if(!self.currentHintView)
+    if (!self.currentHintView)
         return;
-    if([self.currentHintView isMemberOfClass:[PostAtHintView class]]) {
-        if(self.textView.isAtHintStringValid)
+    if ([self.currentHintView isMemberOfClass:[PostAtHintView class]]) {
+        if (self.textView.isAtHintStringValid)
             [self.currentHintView updateHint:self.textView.currentHintString];
         else {
             [self dismissHintView];
         }
-    } else if([self.currentHintView isMemberOfClass:[PostTopicHintView class]]) {
-        if(self.textView.isTopicHintStringValid)
+    } else if ([self.currentHintView isMemberOfClass:[PostTopicHintView class]]) {
+        if (self.textView.isTopicHintStringValid)
             [self.currentHintView updateHint:self.textView.currentHintString];
         else {
             [self dismissHintView];
@@ -601,7 +601,7 @@ typedef enum {
 #pragma mark - PostRootView Delegate
 
 - (void)postRootView:(PostRootView *)view didObserveTouchOtherView:(UIView *)otherView {
-    if(otherView == self.emoticonsButton)
+    if (otherView == self.emoticonsButton)
         return;
     [self dismissHintView];
 }

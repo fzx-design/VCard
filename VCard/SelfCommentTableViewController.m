@@ -95,9 +95,9 @@
 {
     if (self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
 		[Comment deleteCommentsByMeInManagedObjectContext:self.managedObjectContext];
-    } else if(self.dataSource == CommentsTableViewDataSourceCommentsToMe){
+    } else if (self.dataSource == CommentsTableViewDataSourceCommentsToMe){
 		[Comment deleteCommentsToMeInManagedObjectContext:self.managedObjectContext];
-    } else if(self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
+    } else if (self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe) {
         [Comment deleteCommentsMentioningMeInManagedObjectContext:self.managedObjectContext];
     }
     [self resetUnreadCommentCount];
@@ -134,7 +134,7 @@
                     }
                     [weakSelf.managedObjectContext processPendingChanges];
                     
-                } else if(weakSelf.dataSource == CommentsTableViewDataSourceCommentsByMe) {
+                } else if (weakSelf.dataSource == CommentsTableViewDataSourceCommentsByMe) {
                     for (NSDictionary *dict in dictArray) {
                         Comment *comment = [Comment insertCommentByMe:dict inManagedObjectContext:weakSelf.managedObjectContext];
                         comment.text = [TTTAttributedLabelConfiguer replaceEmotionStrings:comment.text];
@@ -178,7 +178,7 @@
                                   page:0
                                  count:20];
     }
-    else if(self.dataSource == CommentsTableViewDataSourceCommentsToMe){
+    else if (self.dataSource == CommentsTableViewDataSourceCommentsToMe){
         [client getCommentsToMeSinceID:nil
                                  maxID:maxIDString
                                   page:0
@@ -235,9 +235,9 @@
     request.sortDescriptors = @[sortDescriptor];
     if (self.dataSource == CommentsTableViewDataSourceCommentsToMe) {
 		request.predicate = [NSPredicate predicateWithFormat:@"toMe == %@ && currentUserID == %@", @(YES), self.currentUser.userID];
-	} else if(self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
+	} else if (self.dataSource == CommentsTableViewDataSourceCommentsByMe) {
 		request.predicate = [NSPredicate predicateWithFormat:@"byMe == %@ && currentUserID == %@", @(YES), self.currentUser.userID];
-	} else if(self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe){
+	} else if (self.dataSource == CommentsTableViewDataSourceCommentsMentioningMe){
         request.predicate = [NSPredicate predicateWithFormat:@"mentioningMe == %@ && currentUserID == %@", @(YES), self.currentUser.userID]; 
     }
 }

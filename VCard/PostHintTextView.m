@@ -48,9 +48,9 @@ static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
     
     BOOL shouldReplaceFormerPoundSign = [hintView isMemberOfClass:[PostTopicHintView class]] && self.needFillPoundSign;
     
-    if([hintView isMemberOfClass:[PostAtHintView class]]) {
+    if ([hintView isMemberOfClass:[PostAtHintView class]]) {
         replaceText = [NSString stringWithFormat:@"%@ ", replaceText];
-    } else if(shouldReplaceFormerPoundSign) {
+    } else if (shouldReplaceFormerPoundSign) {
         replaceText = [NSString stringWithFormat:@"#%@#", replaceText];
     }
 
@@ -77,50 +77,50 @@ static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
     [self replaceRange:textRange withText:replaceText];
     
     NSUInteger replaceTextLength = location + replaceText.length;
-    if(shouldReplaceFormerPoundSign)
+    if (shouldReplaceFormerPoundSign)
         replaceTextLength -= 1;
     NSRange range = NSMakeRange(replaceTextLength, 0);
-    if([hintView isMemberOfClass:[PostTopicHintView class]])
+    if ([hintView isMemberOfClass:[PostTopicHintView class]])
         range.location += 1;
     self.selectedRange = range;
     self.currentHintStringRange = range;
-    if([hintView isKindOfClass:[PostHintView class]]) {
+    if ([hintView isKindOfClass:[PostHintView class]]) {
         [self callDismissHintView];
     }
     
-    if([(NSObject *)self.delegate respondsToSelector:@selector(rewindTextViewOffset)])
+    if ([(NSObject *)self.delegate respondsToSelector:@selector(rewindTextViewOffset)])
         [(NSObject *)self.delegate performSelector:@selector(rewindTextViewOffset) withObject:nil afterDelay:0.1f];
 }
 
 - (void)shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text currentHintView:(id)hintView {
-    if(hintView) {
-        if([hintView isMemberOfClass:[PostAtHintView class]] && [text isEqualToString:@" "]) {
+    if (hintView) {
+        if ([hintView isMemberOfClass:[PostAtHintView class]] && [text isEqualToString:@" "]) {
             [self.hintDelegate postHintTextViewCallDismissHintView];
         }
-    } else if([text isEqualToString:@"@"]) {
+    } else if ([text isEqualToString:@"@"]) {
         self.currentHintStringRange = NSMakeRange(range.location + text.length - range.length, 0);
-    } else if([text isEqualToString:@"#"] || [text isEqualToString:@"＃"]) {
+    } else if ([text isEqualToString:@"#"] || [text isEqualToString:@"＃"]) {
         self.currentHintStringRange = NSMakeRange(range.location + text.length - range.length, 0);
         self.needFillPoundSign = YES;
     }
 }
 
 - (void)textViewDidChangeWithCurrentHintView:(id)hintView {
-    if([hintView isKindOfClass:[PostHintView class]]) {
+    if ([hintView isKindOfClass:[PostHintView class]]) {
         NSInteger length = self.selectedRange.location - self.currentHintStringRange.location;
-        if(length < 0)
+        if (length < 0)
             [self callDismissHintView];
         else {
             self.currentHintStringRange = NSMakeRange(self.currentHintStringRange.location, length);
         }
-    } else if(hintView) {
+    } else if (hintView) {
         self.currentHintStringRange = NSMakeRange(self.selectedRange.location, 0);
     }
 }
 
 - (void)textViewDidChangeSelectionWithCurrentHintView:(id)hintView {
-    if([hintView isKindOfClass:[PostHintView class]]) {
-        if(self.selectedRange.location < self.currentHintStringRange.location
+    if ([hintView isKindOfClass:[PostHintView class]]) {
+        if (self.selectedRange.location < self.currentHintStringRange.location
            || self.selectedRange.location > self.currentHintStringRange.location + self.currentHintStringRange.length) {
             [self callDismissHintView];
         }
@@ -128,7 +128,7 @@ static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
 }
 
 - (void)initAtHintView:(BOOL)present {
-    if(present) {
+    if (present) {
         [self insertText:@"@"];
         NSInteger location = self.selectedRange.location;
         NSRange range = NSMakeRange(location, 0);
@@ -137,14 +137,14 @@ static NSString *weiboTopicRegEx = @"[[a-z][A-Z][0-9][\\u4E00-\\u9FA5]-_]*";
 }
 
 - (void)initTopicHintView:(BOOL)present {
-    if(present) {
+    if (present) {
         [self insertText:@"##"];
         NSInteger location = self.selectedRange.location;
         NSRange range = NSMakeRange(location - 1, 0);
         self.currentHintStringRange = range;
         self.selectedRange = range;
     } else {
-        if(!self.needFillPoundSign)
+        if (!self.needFillPoundSign)
             self.selectedRange = NSMakeRange(self.selectedRange.location + 1, 0);
     }
 }

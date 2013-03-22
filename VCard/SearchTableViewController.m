@@ -503,7 +503,7 @@
     if ((alignToTop = [self view:self.backgroundViewA containsPoint:top]) || [self view:self.backgroundViewB containsPoint:bottom]) {
         upperView = self.backgroundViewA;
         lowerView = self.backgroundViewB;
-    } else if((alignToTop = [self view:self.backgroundViewB containsPoint:top]) || [self view:self.backgroundViewA containsPoint:bottom]) {
+    } else if ((alignToTop = [self view:self.backgroundViewB containsPoint:top]) || [self view:self.backgroundViewA containsPoint:bottom]) {
         upperView = self.backgroundViewB;
         lowerView = self.backgroundViewA;
     }

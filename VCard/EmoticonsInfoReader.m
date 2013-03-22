@@ -32,7 +32,7 @@ static EmoticonsInfoReader *readerInstance;
 @synthesize originalEmoticonsInfoDict = _originalEmoticonsInfoDict;
 
 + (EmoticonsInfoReader *)sharedReader {
-    if(!readerInstance) {
+    if (!readerInstance) {
         readerInstance = [[EmoticonsInfoReader alloc] init];
     }
     return readerInstance;
@@ -40,12 +40,12 @@ static EmoticonsInfoReader *readerInstance;
 
 - (id)init {
     self = [super init];
-    if(self) {
+    if (self) {
         [self readPlist];
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSDictionary *dict = [defaults dictionaryForKey:kEmoticonsInfoStoredPriorityDict];
-        if(dict) {
+        if (dict) {
             [self configureStoredPriorityLevel:dict];
         }
     }
@@ -96,7 +96,7 @@ static EmoticonsInfoReader *readerInstance;
     __block EmoticonsInfo *result = nil;
     [self.emoticonsInfoDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         EmoticonsInfo *info = obj;
-        if([info.emoticonIdentifier isEqualToString:identifier]) {
+        if ([info.emoticonIdentifier isEqualToString:identifier]) {
             result = info;
             *stop = YES;
         }
@@ -121,7 +121,7 @@ static EmoticonsInfoReader *readerInstance;
     EmoticonsInfo *info = [self.emoticonsInfoDict objectForKey:key];
     info.priorityLevel = info.priorityLevel + EMOTICONS_PRIORITY_LEVEL_INTERVAL;
     [self.emoticonsInfoDict setObject:info forKey:key];
-    if(info.priorityLevel > MAX_EMOTICONS_PRIORITY_LEVEL) {
+    if (info.priorityLevel > MAX_EMOTICONS_PRIORITY_LEVEL) {
         [self.emoticonsInfoDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             EmoticonsInfo *item = obj;
             item.priorityLevel = item.priorityLevel / 2;
@@ -142,7 +142,7 @@ static EmoticonsInfoReader *readerInstance;
 
 - (id)initWithDict:(NSDictionary *)dict andKey:(NSString *)key {
     self = [super init];
-    if(self) {
+    if (self) {
         self.keyName = key;
         
         self.imageFileName = [dict objectForKey:kImageFileName];

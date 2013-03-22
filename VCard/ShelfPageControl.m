@@ -62,7 +62,7 @@
 
 - (void)updateDots
 {
-    if(_imageCurrent || _imageNormal) {
+    if (_imageCurrent || _imageNormal) {
         // Get subviews
         NSArray* dotViews = self.subviews;
         

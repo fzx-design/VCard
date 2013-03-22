@@ -159,7 +159,7 @@
     
     UITableView *tableView = self.tableView;
     
-    switch(type) {
+    switch (type) {
         case NSFetchedResultsChangeInsert:
             [tableView insertRowsAtIndexPaths:@[newIndexPath]
                              withRowAnimation:UITableViewRowAnimationTop];
@@ -263,7 +263,7 @@
     if ((alignToTop = [self view:self.backgroundViewA containsPoint:top]) || [self view:self.backgroundViewB containsPoint:bottom]) {
         upperView = self.backgroundViewA;
         lowerView = self.backgroundViewB;
-    } else if((alignToTop = [self view:self.backgroundViewB containsPoint:top]) || [self view:self.backgroundViewA containsPoint:bottom]) {
+    } else if ((alignToTop = [self view:self.backgroundViewB containsPoint:top]) || [self view:self.backgroundViewA containsPoint:bottom]) {
         upperView = self.backgroundViewB;
         lowerView = self.backgroundViewA;
     }

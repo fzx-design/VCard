@@ -126,7 +126,7 @@
     self.welcomeImageView.alpha = 0;
     [CATransaction begin];
     [CATransaction setCompletionBlock:^{
-        [UIView animateWithDuration:0.5f delay:0.3f options:UIViewAnimationCurveEaseInOut animations:^{
+        [UIView animateWithDuration:0.5f delay:0.3f options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.iconImageView.frame = iconFrame;
             self.welcomeImageView.alpha = 1;
         } completion:^(BOOL finished) {

@@ -262,7 +262,7 @@
 		18E558F8153EA95200ECCA3B /* WaterflowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E558F6153EA8BB00ECCA3B /* WaterflowView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18E558FB153EA9D000ECCA3B /* BaseNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E558FA153EA9D000ECCA3B /* BaseNavigationView.m */; };
 		18E558FE153EAAD400ECCA3B /* CastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E558FD153EAAD300ECCA3B /* CastViewController.m */; };
-		18E55901153EF55600ECCA3B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E55900153EF55600ECCA3B /* RootViewController.m */; };
+		18E55901153EF55600ECCA3B /* PadRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E55900153EF55600ECCA3B /* PadRootViewController.m */; };
 		18E55922153F95AB00ECCA3B /* WaterflowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E55921153F95AB00ECCA3B /* WaterflowCell.m */; };
 		18E5592D153FA13E00ECCA3B /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5592B153FA01300ECCA3B /* CoreDataTableViewController.m */; };
 		18E5592E153FA14200ECCA3B /* CoreDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E55928153F9F5C00ECCA3B /* CoreDataViewController.m */; };
@@ -1356,8 +1356,8 @@
 		18E558FA153EA9D000ECCA3B /* BaseNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationView.m; sourceTree = "<group>"; };
 		18E558FC153EAAD300ECCA3B /* CastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CastViewController.h; sourceTree = "<group>"; };
 		18E558FD153EAAD300ECCA3B /* CastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CastViewController.m; sourceTree = "<group>"; };
-		18E558FF153EF55600ECCA3B /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		18E55900153EF55600ECCA3B /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		18E558FF153EF55600ECCA3B /* PadRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PadRootViewController.h; sourceTree = "<group>"; };
+		18E55900153EF55600ECCA3B /* PadRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PadRootViewController.m; sourceTree = "<group>"; };
 		18E55920153F95AB00ECCA3B /* WaterflowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterflowCell.h; sourceTree = "<group>"; };
 		18E55921153F95AB00ECCA3B /* WaterflowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterflowCell.m; sourceTree = "<group>"; };
 		18E55927153F9F5C00ECCA3B /* CoreDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataViewController.h; sourceTree = "<group>"; };
@@ -2733,20 +2733,9 @@
 		18E707F1153D3EDB0012092E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				18E5592A153FA01200ECCA3B /* CoreDataTableViewController.h */,
-				18E5592B153FA01300ECCA3B /* CoreDataTableViewController.m */,
-				18E55927153F9F5C00ECCA3B /* CoreDataViewController.h */,
-				18E55928153F9F5C00ECCA3B /* CoreDataViewController.m */,
-				18E558FF153EF55600ECCA3B /* RootViewController.h */,
-				18E55900153EF55600ECCA3B /* RootViewController.m */,
-				51A7F5D016F8174A00A17012 /* PhoneRootViewController.h */,
-				51A7F5D116F8174A00A17012 /* PhoneRootViewController.m */,
-				51D2247C16F85473001DA1EE /* MyCell.h */,
-				51D2247D16F85473001DA1EE /* MyCell.m */,
-				51D2247F16F8AF28001DA1EE /* MyCell.xib */,
-				51BAC8B016F643E0001DB325 /* SimpleTableViewController.h */,
-				51BAC8B116F643E1001DB325 /* SimpleTableViewController.m */,
-				51BAC8B216F643E1001DB325 /* SimpleTableViewController.xib */,
+				51BA24D516FC23C5003D086C /* Universal */,
+				51BA24D416FC2383003D086C /* Pad */,
+				51BA24D316FC2379003D086C /* Phone */,
 				188BA4F01539AA9200344288 /* CastView */,
 				18E707F2153D3EEF0012092E /* CustomViews */,
 				E1097CF7157F998900BD0640 /* Emoticons */,
@@ -3372,6 +3361,41 @@
 			);
 			name = topbar;
 			path = buttons;
+			sourceTree = "<group>";
+		};
+		51BA24D316FC2379003D086C /* Phone */ = {
+			isa = PBXGroup;
+			children = (
+				51A7F5D016F8174A00A17012 /* PhoneRootViewController.h */,
+				51A7F5D116F8174A00A17012 /* PhoneRootViewController.m */,
+				51D2247C16F85473001DA1EE /* MyCell.h */,
+				51D2247D16F85473001DA1EE /* MyCell.m */,
+				51D2247F16F8AF28001DA1EE /* MyCell.xib */,
+				51BAC8B016F643E0001DB325 /* SimpleTableViewController.h */,
+				51BAC8B116F643E1001DB325 /* SimpleTableViewController.m */,
+				51BAC8B216F643E1001DB325 /* SimpleTableViewController.xib */,
+			);
+			name = Phone;
+			sourceTree = "<group>";
+		};
+		51BA24D416FC2383003D086C /* Pad */ = {
+			isa = PBXGroup;
+			children = (
+				18E558FF153EF55600ECCA3B /* PadRootViewController.h */,
+				18E55900153EF55600ECCA3B /* PadRootViewController.m */,
+			);
+			name = Pad;
+			sourceTree = "<group>";
+		};
+		51BA24D516FC23C5003D086C /* Universal */ = {
+			isa = PBXGroup;
+			children = (
+				18E5592A153FA01200ECCA3B /* CoreDataTableViewController.h */,
+				18E5592B153FA01300ECCA3B /* CoreDataTableViewController.m */,
+				18E55927153F9F5C00ECCA3B /* CoreDataViewController.h */,
+				18E55928153F9F5C00ECCA3B /* CoreDataViewController.m */,
+			);
+			name = Universal;
 			sourceTree = "<group>";
 		};
 		E1097CF4157F997B00BD0640 /* Motions */ = {
@@ -4859,7 +4883,7 @@
 				18E558F8153EA95200ECCA3B /* WaterflowView.m in Sources */,
 				18E558FB153EA9D000ECCA3B /* BaseNavigationView.m in Sources */,
 				18E558FE153EAAD400ECCA3B /* CastViewController.m in Sources */,
-				18E55901153EF55600ECCA3B /* RootViewController.m in Sources */,
+				18E55901153EF55600ECCA3B /* PadRootViewController.m in Sources */,
 				18E55922153F95AB00ECCA3B /* WaterflowCell.m in Sources */,
 				18E5592D153FA13E00ECCA3B /* CoreDataTableViewController.m in Sources */,
 				18E5592E153FA14200ECCA3B /* CoreDataViewController.m in Sources */,

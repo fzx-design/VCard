@@ -33,8 +33,8 @@
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *subview = [super hitTest:point withEvent:event];
-    if(self.observingViewTag != PostRootViewSubviewTagNone) {
-        if(subview.tag != self.observingViewTag &&
+    if (self.observingViewTag != PostRootViewSubviewTagNone) {
+        if (subview.tag != self.observingViewTag &&
            subview.superview.tag != self.observingViewTag && 
            subview.superview.superview.tag != self.observingViewTag &&
            subview.superview.superview.superview.tag != self.observingViewTag) {

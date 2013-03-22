@@ -32,7 +32,7 @@
 
 - (id)initWithUser:(User *)user {
     self = [super init];
-    if(self) {
+    if (self) {
         self.ownerUser = user;
     }
     return self;
@@ -51,7 +51,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.    
-    if(self.ownerUser) {
+    if (self.ownerUser) {
         self.userNameLabel.text = self.ownerUser.screenName;
         [self.avatarImageView loadImageFromURL:self.ownerUser.largeAvatarURL completion:^(BOOL succeeded){
             [self.avatarImageView fadeIn];
@@ -74,13 +74,13 @@
 #pragma mark - Notification handlers
 
 - (void)deviceRotationDidChange:(NSNotification *)notification {
-    if(_shouldPresentDeleteUserActionSheet)
+    if (_shouldPresentDeleteUserActionSheet)
         [self presentDeleteUserActionSheet];
     _shouldPresentDeleteUserActionSheet = NO;
 }
 
 - (void)deviceRotationWillChange:(NSNotification *)notification {
-    if(self.actionSheet)
+    if (self.actionSheet)
         _shouldPresentDeleteUserActionSheet = YES;
     [self.actionSheet dismissWithClickedButtonIndex:-1 animated:NO];
 }
@@ -96,7 +96,7 @@
 #pragma UIActionSheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(buttonIndex == actionSheet.destructiveButtonIndex)
+    if (buttonIndex == actionSheet.destructiveButtonIndex)
         [self.delegate loginCellDidDeleteUser:self.ownerUser];
     self.actionSheet = nil;
 }
@@ -112,7 +112,7 @@
     self.loginButton.enabled = NO;
     UserAccountInfo *accountInfo = [NSUserDefaults getUserAccountInfoWithUserID:self.ownerUser.userID];
     [self loginUsingAccount:accountInfo.account password:accountInfo.password completion:^(BOOL succeeded) {
-        if(!succeeded) {
+        if (!succeeded) {
             [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
             self.loginButton.enabled = YES;
             [self handleWrongPasswordSituation];
@@ -123,7 +123,7 @@
 #pragma mark - UIAlertView delegate
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if(buttonIndex == 0) {
+    if (buttonIndex == 0) {
         
     } else {
         UserAccountInfo *accountInfo = [NSUserDefaults getUserAccountInfoWithUserID:self.ownerUser.userID];

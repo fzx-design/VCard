@@ -125,7 +125,7 @@ typedef enum {
                            weiboContent:(NSString *)content
                                   image:(UIImage *)image {
     PostViewController *vc = nil;
-    if(type == PostViewControllerTypeNewStatus) {
+    if (type == PostViewControllerTypeNewStatus) {
         vc = [[PostNewStatusViewController alloc] initWithContent:content];
     } else {
         vc = [[PostRepostCommentViewController alloc] initWithWeiboID:weiboID
@@ -134,7 +134,7 @@ typedef enum {
                                                           contentText:content];
     }
     
-    if(type == PostViewControllerTypeCommentReply) {
+    if (type == PostViewControllerTypeCommentReply) {
         vc.prefixText = [NSString stringWithFormat:@"回复@%@", ownerName];
     } else {
         vc.prefixText = @"";
@@ -173,7 +173,7 @@ typedef enum {
     [ThemeResourceProvider configButtonPaperLight:self.cancelButton];
     
     //恢复view did unload造成的影响
-    if(self.textViewPreserveText) {
+    if (self.textViewPreserveText) {
         self.textView.text = self.textViewPreserveText;
         self.textViewPreserveText = nil;
     }
@@ -239,11 +239,11 @@ typedef enum {
 #pragma mark - Notification handlers
 
 - (void)deviceRotationDidChange:(NSNotification *)notification {
-    if(_shouldPresentActionSheetType == ActionSheetTypeDestruct) {
+    if (_shouldPresentActionSheetType == ActionSheetTypeDestruct) {
         [self didClickCancelButton:self.cancelButton];
-    } else if(_shouldPresentActionSheetType == ActionSheetTypeMotions) {
+    } else if (_shouldPresentActionSheetType == ActionSheetTypeMotions) {
         [self didClickMotionsButton:self.motionsButton];
-    } else if(_shouldPresentActionSheetType == PopoverAlbumImagePicker) {
+    } else if (_shouldPresentActionSheetType == PopoverAlbumImagePicker) {
         [self showAlbumImagePicker];
     }
     _shouldPresentActionSheetType = ActionSheetTypeNone;
@@ -270,7 +270,7 @@ typedef enum {
     }
         
     CGSize screenSize = [UIApplication sharedApplication].screenSize;
-    if(_keyboardHidden) {
+    if (_keyboardHidden) {
         float animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
         [UIView animateWithDuration:animationDuration animations:^{
             self.postView.center = CGPointMake(self.postView.center.x, (screenSize.height - keyboardHeight) / 2);
@@ -288,7 +288,7 @@ typedef enum {
     NSDictionary *info = [notification userInfo];
     float animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     CGSize screenSize = [UIApplication sharedApplication].screenSize;
-    if(_playingFoldPaperAnimation == NO) {
+    if (_playingFoldPaperAnimation == NO) {
         [UIView animateWithDuration:animationDuration animations:^{
             self.postView.center = CGPointMake(self.postView.center.x, screenSize.height / 2);
             self.paperImageHolderView.center = self.postView.center;
@@ -305,7 +305,7 @@ typedef enum {
 }
 
 - (EmoticonsViewController *)emoticonsViewController {
-    if(!_emoticonsViewController) {
+    if (!_emoticonsViewController) {
         _emoticonsViewController = [[EmoticonsViewController alloc] init];
         _emoticonsViewController.delegate = self.textView;
         _emoticonsViewController.view.tag = PostRootViewSubviewTagEmoticons;
@@ -318,9 +318,9 @@ typedef enum {
     unichar c;
     for(i = 0;i < n; i++) {
         c = [text characterAtIndex:i];
-        if(isblank(c))
+        if (isblank(c))
             b++;
-        else if(isascii(c))
+        else if (isascii(c))
             a++;
         else
             l++;
@@ -337,7 +337,7 @@ typedef enum {
 
 - (CGPoint)cursorPos {
     CGPoint cursorPos = CGPointZero;
-    if(self.textView.selectedTextRange.empty && self.textView.selectedTextRange) {
+    if (self.textView.selectedTextRange.empty && self.textView.selectedTextRange) {
         cursorPos = [self.textView caretRectForPosition:self.textView.selectedTextRange.start].origin;
         cursorPos.x += self.textContainerView.frame.origin.x + self.textView.frame.origin.x + HINT_VIEW_OFFSET.width;
         CGFloat textScrollViewOffsetY = self.textView.contentOffset.y;
@@ -347,10 +347,10 @@ typedef enum {
 }
 
 - (void)setMotionsImage:(UIImage *)image {
-    if(image) {
+    if (image) {
         CGRect imageViewRect = CGRectMake(0, 0, self.motionsImageView.frame.size.width, self.motionsImageView.frame.size.height);
         CGRect imageRect;
-        if(image.size.width > image.size.height) {
+        if (image.size.width > image.size.height) {
             imageRect = CGRectMake((image.size.width - image.size.height) / 2, 0, image.size.height, image.size.height);
         } else {
             imageRect = CGRectMake(0, (image.size.height - image.size.width) / 2, image.size.width, image.size.width);
@@ -413,11 +413,11 @@ typedef enum {
 #pragma mark - UI methods
 
 - (void)dismissPopover {
-    if(self.actionSheet) {
+    if (self.actionSheet) {
         _shouldPresentActionSheetType = self.currentActionSheetType;
         [self.actionSheet dismissWithClickedButtonIndex:-1 animated:NO];
     }
-    if(self.popoverController) {
+    if (self.popoverController) {
         [self.popoverController dismissPopoverAnimated:YES];
         self.popoverController = nil;
         _shouldPresentActionSheetType = PopoverAlbumImagePicker;
@@ -442,7 +442,7 @@ typedef enum {
 
 - (void)dismissViewAnimated:(BOOL)animated {
     [UIApplication dismissModalViewControllerAnimated:animated];
-    if(animated == NO)
+    if (animated == NO)
         _playingFoldPaperAnimation = YES;
     [self.textView resignFirstResponder];
 }
@@ -450,10 +450,10 @@ typedef enum {
 - (void)updateTextCountAndPostButton {
     int weiboTextBackwardsCount = [self weiboTextBackwardsCount];
     self.textCountLabel.text = [NSString stringWithFormat:@"%d", weiboTextBackwardsCount];
-    if([self.textView.text isEqualToString:@""] && !self.motionsOriginalImage && self.type != PostViewControllerTypeRepost) {
+    if ([self.textView.text isEqualToString:@""] && !self.motionsOriginalImage && self.type != PostViewControllerTypeRepost) {
         self.postButton.userInteractionEnabled = NO;
         self.postButton.alpha = 0.3f;
-    } else if(weiboTextBackwardsCount < 0) {
+    } else if (weiboTextBackwardsCount < 0) {
         self.postButton.alpha = 1;
         self.postButton.userInteractionEnabled = NO;
         self.postButton.enabled = NO;
@@ -471,7 +471,7 @@ typedef enum {
 - (void)presentAtHintView {
     [self dismissHintView];
     CGPoint cursorPos = self.cursorPos;
-    if(CGPointEqualToPoint(cursorPos, CGPointZero))
+    if (CGPointEqualToPoint(cursorPos, CGPointZero))
         return;
     PostAtHintView *atView = [[PostAtHintView alloc] initWithCursorPos:cursorPos];
     self.currentHintView = atView;
@@ -483,7 +483,7 @@ typedef enum {
 - (void)presentTopicHintView {
     [self dismissHintView];
     CGPoint cursorPos = self.cursorPos;
-    if(CGPointEqualToPoint(cursorPos, CGPointZero))
+    if (CGPointEqualToPoint(cursorPos, CGPointZero))
         return;
     PostTopicHintView *topicView = [[PostTopicHintView alloc] initWithCursorPos:cursorPos];
     self.currentHintView = topicView;
@@ -499,16 +499,16 @@ typedef enum {
 }
 
 - (void)updateCurrentHintViewContent {
-    if(!self.currentHintView)
+    if (!self.currentHintView)
         return;
-    if([self.currentHintView isMemberOfClass:[PostAtHintView class]]) {
-        if(self.textView.isAtHintStringValid)
+    if ([self.currentHintView isMemberOfClass:[PostAtHintView class]]) {
+        if (self.textView.isAtHintStringValid)
             [self.currentHintView updateHint:self.textView.currentHintString];
         else {
             [self dismissHintView]; 
         }
-    } else if([self.currentHintView isMemberOfClass:[PostTopicHintView class]]) {
-        if(self.textView.isTopicHintStringValid)
+    } else if ([self.currentHintView isMemberOfClass:[PostTopicHintView class]]) {
+        if (self.textView.isTopicHintStringValid)
             [self.currentHintView updateHint:self.textView.currentHintString];
         else {
             [self dismissHintView];
@@ -517,10 +517,10 @@ typedef enum {
 }
 
 - (void)updateCurrentHintViewFrame {
-    if(!self.currentHintView)
+    if (!self.currentHintView)
         return;
     CGPoint cursorPos = self.cursorPos;
-    if(!CGPointEqualToPoint(cursorPos, CGPointZero)) {
+    if (!CGPointEqualToPoint(cursorPos, CGPointZero)) {
         CGRect frame = self.currentHintView.frame;
         frame.origin = cursorPos;
         self.currentHintView.frame = frame;
@@ -537,7 +537,7 @@ typedef enum {
     pos.x = pos.x + size.width > HINT_VIEW_BORDER_MAX_X ? HINT_VIEW_BORDER_MAX_X - size.width : pos.x;
     
     self.currentHintView.frame = CGRectMake(pos.x, pos.y, size.width, size.height);
-    if([self.currentHintView isKindOfClass:[PostHintView class]])
+    if ([self.currentHintView isKindOfClass:[PostHintView class]])
         self.currentHintView.maxViewHeight = HINT_VIEW_BORDER_MAX_Y - pos.y;
 }
 
@@ -590,7 +590,7 @@ typedef enum {
 
 - (void)showAlbumImagePicker {
     
-    if(!self.textView.isFirstResponder) {
+    if (!self.textView.isFirstResponder) {
         UIPopoverController *pc =  [UIApplication getAlbumImagePickerFromButton:self.motionsButton delegate:self];
         self.popoverController = pc;
         [pc presentPopoverFromRect:self.motionsButton.bounds inView:self.motionsButton
@@ -619,7 +619,7 @@ typedef enum {
     self.paperImageHolderView.transform = CGAffineTransformMakeScale(FOLD_PAPER_SCALE_RATIO, FOLD_PAPER_SCALE_RATIO);
     [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION 
                           delay:0
-                        options:UIViewAnimationCurveEaseOut 
+                        options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          self.paperImageHolderView.center = originalCenter;
                          self.paperImageHolderView.transform = CGAffineTransformIdentity;
@@ -629,7 +629,7 @@ typedef enum {
 - (void)moveToStartButtonAnimation {
     [UIView animateWithDuration:UNFOLD_PAPER_ANIMATION_DURATION
                           delay:0
-                        options:UIViewAnimationCurveEaseIn
+                        options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          self.paperImageHolderView.center = self.startButtonCenter;
                          self.paperImageHolderView.transform = CGAffineTransformMakeScale(FOLD_PAPER_SCALE_RATIO, FOLD_PAPER_SCALE_RATIO);
@@ -677,7 +677,7 @@ typedef enum {
     self.rightPaperGloomImageView.alpha = PAPER_GLOOM_ALPHA;
     [UIView animateWithDuration:FOLD_PAPER_ANIMATION_DURATION - 0.2f
                           delay:0.2f
-                        options:UIViewAnimationCurveEaseOut
+                        options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          self.leftPaperGloomImageView.alpha = 0;
                          self.rightPaperGloomImageView.alpha = 0;
@@ -723,8 +723,8 @@ typedef enum {
 
 - (IBAction)didClickMotionsButton:(UIButton *)sender {
     UIActionSheet *actionSheet = nil;
-    if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        if(!self.motionsImageView.image) {
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        if (!self.motionsImageView.image) {
             [self showAlbumImagePicker];
             return;
         }
@@ -736,7 +736,7 @@ typedef enum {
                                              otherButtonTitles:@"重新选取照片", @"编辑", @"清除", nil];
             actionSheet.destructiveButtonIndex = 2;
         }
-    } else if(self.motionsImageView.image) {
+    } else if (self.motionsImageView.image) {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                   delegate:self 
                                          cancelButtonTitle:nil 
@@ -750,7 +750,7 @@ typedef enum {
                                     destructiveButtonTitle:nil
                                          otherButtonTitles:@"拍照", @"选取照片",  nil];
     }
-    if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)
        && self.motionsImageView.image) {
         [self.textView resignFirstResponder];
     }
@@ -760,7 +760,7 @@ typedef enum {
 }
 
 - (IBAction)didClickCancelButton:(UIButton *)sender {
-    if([self.textView.text isEqualToString:@""] && self.motionsImageView.image == nil) {
+    if ([self.textView.text isEqualToString:@""] && self.motionsImageView.image == nil) {
         [self.delegate postViewController:self willDropMessage:self.textView.text];
         return;
     }
@@ -776,7 +776,7 @@ typedef enum {
 
 - (IBAction)didClickAtButton:(UIButton *)sender {
     BOOL select = !sender.isSelected;
-    if(select) {
+    if (select) {
         [self presentAtHintView];
     } else {
         [self dismissHintView];
@@ -787,7 +787,7 @@ typedef enum {
 
 - (IBAction)didClickTopicButton:(UIButton *)sender {
     BOOL select = !sender.isSelected;
-    if(select) {
+    if (select) {
         [self presentTopicHintView];
     } else {
         [self dismissHintView];
@@ -798,7 +798,7 @@ typedef enum {
 
 - (IBAction)didClickEmoticonsButton:(UIButton *)sender {
     BOOL select = !sender.isSelected;
-    if(select) {
+    if (select) {
         [self presentEmoticonsView];
     } else {
         [self dismissHintView];
@@ -830,9 +830,9 @@ typedef enum {
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     UIView *currentHintView = self.currentHintView;
-    if([text isEqualToString:@"@"] && !currentHintView) {
+    if ([text isEqualToString:@"@"] && !currentHintView) {
         [self presentAtHintView];
-    } else if(([text isEqualToString:@"#"] || [text isEqualToString:@"＃"]) && !currentHintView) {
+    } else if (([text isEqualToString:@"#"] || [text isEqualToString:@"＃"]) && !currentHintView) {
         [self presentTopicHintView];
     }
     [self.textView shouldChangeTextInRange:range replacementText:text currentHintView:currentHintView];
@@ -852,7 +852,7 @@ typedef enum {
 #pragma mark - UIScrollView delegate 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if(scrollView == self.textView) {
+    if (scrollView == self.textView) {
         [self updateCurrentHintViewFrame];
     }
 }
@@ -860,7 +860,7 @@ typedef enum {
 #pragma mark - PostRootView delegate
 
 - (void)postRootView:(PostRootView *)view didObserveTouchOtherView:(UIView *)otherView {
-    if(otherView == self.emoticonsButton)
+    if (otherView == self.emoticonsButton)
         return;
     [self dismissHintView];
 }
@@ -868,24 +868,24 @@ typedef enum {
 #pragma mark - UIActionSheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if(self.currentActionSheetType == ActionSheetTypeDestruct) {
-        if(buttonIndex == actionSheet.destructiveButtonIndex)
+	if (self.currentActionSheetType == ActionSheetTypeDestruct) {
+        if (buttonIndex == actionSheet.destructiveButtonIndex)
             [self.delegate postViewController:self willDropMessage:self.textView.text];
-	} else if(self.currentActionSheetType == ActionSheetTypeMotions) {
-        if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+	} else if (self.currentActionSheetType == ActionSheetTypeMotions) {
+        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             buttonIndex += 1;
         }
-        if(buttonIndex == MOTIONS_ACTION_SHEET_ALBUM_INDEX) {
+        if (buttonIndex == MOTIONS_ACTION_SHEET_ALBUM_INDEX) {
             [self showAlbumImagePicker];
-        } else if(buttonIndex == MOTIONS_ACTION_SHEET_SHOOT_INDEX) {
+        } else if (buttonIndex == MOTIONS_ACTION_SHEET_SHOOT_INDEX) {
             MotionsViewController *vc = [[MotionsViewController alloc] init];
             vc.delegate = self;
             [vc show];
-        } else if(buttonIndex == MOTIONS_ACTION_SHEET_EDIT_INDEX) {
+        } else if (buttonIndex == MOTIONS_ACTION_SHEET_EDIT_INDEX) {
             MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:self.motionsOriginalImage useForAvatar:NO];
             vc.delegate = self;
             [vc show];
-        } else if(buttonIndex == MOTIONS_ACTION_SHEET_CLEAR_INDEX) {
+        } else if (buttonIndex == MOTIONS_ACTION_SHEET_CLEAR_INDEX) {
             [self.motionsImageView fadeOutWithCompletion:^{
                 [self setMotionsImage:nil];
                 self.motionsImageView.alpha = 1;

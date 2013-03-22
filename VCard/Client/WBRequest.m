@@ -210,7 +210,7 @@
 {
     // add the access token field
     NSMutableDictionary *mutableParams = [NSMutableDictionary dictionaryWithDictionary:params];
-    if(accessToken)
+    if (accessToken)
         [mutableParams setObject:accessToken forKey:@"access_token"];
     return [WBRequest requestWithURL:url
                           httpMethod:httpMethod

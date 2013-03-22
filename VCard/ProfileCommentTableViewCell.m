@@ -142,7 +142,7 @@
 {
     if (_comment) {
         [self commentStatus];
-    } else if(_status){
+    } else if (_status){
         [self viewCommentOfStatus];
     }
 }
@@ -240,7 +240,7 @@
 }
 
 - (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
-    if(vc.type == PostViewControllerTypeRepost)
+    if (vc.type == PostViewControllerTypeRepost)
         [vc dismissViewToRect:[self convertRect:self.moreActionButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
     else 
         [vc dismissViewToRect:[self convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];        
@@ -251,17 +251,17 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (_comment) {
-        if(buttonIndex == kActionSheetCommentCopyIndex) {
+        if (buttonIndex == kActionSheetCommentCopyIndex) {
             UIPasteboard *pb = [UIPasteboard generalPasteboard];
             [pb setString:[self.comment.text replaceRegExWithEmoticons]];
             [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"已拷贝"];
-        } else if(buttonIndex == kActionSheetCommentDelete) {
+        } else if (buttonIndex == kActionSheetCommentDelete) {
             [self deleteComment];
         }
     } else {
-        if(buttonIndex == kActionSheetStatusRepostIndex) {
+        if (buttonIndex == kActionSheetStatusRepostIndex) {
             [self repostStatus];
-        } else if(buttonIndex == kActionSheetStatusCopyIndex){
+        } else if (buttonIndex == kActionSheetStatusCopyIndex){
             [self copyStatus];
         }
     }
@@ -272,7 +272,7 @@
     NSString *targetUserName = self.status.author.screenName;
     NSString *targetStatusID = self.status.statusID;
     NSString *targetStatusContent = nil;
-    if(self.status.repostStatus)
+    if (self.status.repostStatus)
         targetStatusContent = self.status.text;
     CGRect frame = [self convertRect:self.moreActionButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
     PostViewController *vc = [PostViewController getRepostViewControllerWithWeiboID:targetStatusID

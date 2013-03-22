@@ -20,7 +20,7 @@
 #import "EmoticonsInfoReader.h"
 #import "InnerBrowserViewController.h"
 #import "NSUserDefaults+Addition.h"
-#import "RootViewController.h"
+#import "PadRootViewController.h"
 #import "ErrorIndicatorViewController.h"
 #import "DirectMessage.h"
 #import "TTTAttributedLabelConfiguer.h"
@@ -119,7 +119,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if(_viewAppearLock)
+    if (_viewAppearLock)
         return;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -134,7 +134,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    if(_viewAppearLock)
+    if (_viewAppearLock)
         return;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -623,7 +623,7 @@
 }
 
 - (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
-    if(vc.type == PostViewControllerTypeRepost)
+    if (vc.type == PostViewControllerTypeRepost)
         [vc dismissViewToRect:[self.view convertRect:self.repostButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
     else
         [vc dismissViewToRect:[self.view convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
@@ -636,7 +636,7 @@
     NSString *targetUserName = self.status.author.screenName;
     NSString *targetStatusID = self.status.statusID;
     NSString *targetStatusContent = nil;
-    if(self.status.repostStatus)
+    if (self.status.repostStatus)
         targetStatusContent = self.status.text;
     CGRect frame = [self.view convertRect:self.repostButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
     PostViewController *vc = [PostViewController getRepostViewControllerWithWeiboID:targetStatusID
@@ -706,15 +706,15 @@
     
     [client setCompletionBlock:^(WBClient *client) {
         BOOL shouldFavorite = NO;
-        if(!client.hasError) {
+        if (!client.hasError) {
             shouldFavorite = YES;
         } else {
             NSNumber *weiboErrorCode = [client.responseError.userInfo objectForKey:@"error_code"];
-            if(weiboErrorCode.integerValue == 20704) {
+            if (weiboErrorCode.integerValue == 20704) {
                 shouldFavorite = YES;
             }
         }
-        if(shouldFavorite) {
+        if (shouldFavorite) {
             [self performSelector:@selector(showFavouriteFlag) withObject:nil afterDelay:0.2];
             self.status.favorited = @(YES);
             [NSUserDefaults addFavouriteID:self.status.statusID];
@@ -732,16 +732,16 @@
     
     [client setCompletionBlock:^(WBClient *client) {
         BOOL shouldUnfavorite = NO;
-        if(!client.hasError) {
+        if (!client.hasError) {
             shouldUnfavorite = YES;
         } else {
             NSNumber *weiboErrorCode = [client.responseError.userInfo objectForKey:@"error_code"];
-            if(weiboErrorCode.integerValue == 20705) {
+            if (weiboErrorCode.integerValue == 20705) {
                 shouldUnfavorite = YES;
             }
         }
         
-        if(shouldUnfavorite) {
+        if (shouldUnfavorite) {
             [self performSelector:@selector(hideFavouriteFlag) withObject:nil afterDelay:0.2];
             self.status.favorited = @(NO);
             [self.managedObjectContext processPendingChanges];
@@ -1125,17 +1125,17 @@
     
     CGFloat scrollUp = 50 + cellPosY + cropPosBottomY + actionPopoverFoldViewHeight - scrollViewContentOffsetY - scrollViewHeight;
     
-    if(scrollUp > 0 && scrollViewContentOffsetY + scrollUp + scrollViewHeight < scrollViewContentHeight) {
+    if (scrollUp > 0 && scrollViewContentOffsetY + scrollUp + scrollViewHeight < scrollViewContentHeight) {
         [scrollView setContentOffset:CGPointMake(0, scrollViewContentOffsetY + scrollUp) animated:YES];
         [UIApplication excuteBlock:completion afterDelay:0.3f];
     } else {
-        if(completion)
+        if (completion)
             completion();
     }
 }
 
 - (void)showActionPopoverAnimated:(BOOL)animated {
-    if(self.isActionPopoverShowing)
+    if (self.isActionPopoverShowing)
         return;
     
     _viewAppearLock = YES;
@@ -1147,12 +1147,12 @@
     WaterflowView *superSuperView = (WaterflowView *)self.view.superview.superview;
     
     UIScrollView *scrollView = (UIScrollView *)superSuperView;
-    if([scrollView isKindOfClass:[UIScrollView class]]) {
+    if ([scrollView isKindOfClass:[UIScrollView class]]) {
         scrollView.scrollEnabled = NO;
         [self adjustScrollView:scrollView cropBottomY:cropPosBottomY cellPosY:superView.frame.origin.y completion:^{
             
             [superView removeFromSuperview];
-            if([superSuperView respondsToSelector:@selector(addCellToWaterflowView:)])
+            if ([superSuperView respondsToSelector:@selector(addCellToWaterflowView:)])
                 [superSuperView addCellToWaterflowView:superView];
             else
                 [superSuperView addSubview:superView];
@@ -1184,7 +1184,7 @@
             
             [self.actionPopoverViewController setCropView:self.view cropPosTopY:cropPosTopY cropPosBottomY:cropPosBottomY];
             
-            if(animated)
+            if (animated)
                 [self.actionPopoverViewController foldAnimation];
             
             // 设置tag以被ActionPopoverGestureRecognizeView识别。
@@ -1200,7 +1200,7 @@
 }
 
 - (void)handleActionPopoverPinchGesture:(UIPinchGestureRecognizer *)gesture {
-    if(gesture.state == UIGestureRecognizerStateBegan) {
+    if (gesture.state == UIGestureRecognizerStateBegan) {
         if (!self.originalStatusLabel.linkCaptured && !self.repostStatusLabel.linkCaptured) {
             [self showActionPopoverAnimated:YES];
         }
@@ -1218,7 +1218,7 @@
 #pragma mark - ActionPopoverViewController delegate
 
 - (void)actionPopoverViewDidDismiss {
-    if(!self.isActionPopoverShowing)
+    if (!self.isActionPopoverShowing)
         return;
     
     _viewAppearLock = YES;
@@ -1243,7 +1243,7 @@
     self.actionPopoverViewController = nil;
     
     UIScrollView *scrollView = (UIScrollView *)self.view.superview.superview;
-    if([scrollView isKindOfClass:[UIScrollView class]]) {
+    if ([scrollView isKindOfClass:[UIScrollView class]]) {
         scrollView.scrollEnabled = YES;
     }
     
@@ -1252,14 +1252,14 @@
 
 - (void)actionPopoverDidClickButtonWithIdentifier:(ActionPopoverButtonIdentifier)identifier {
     BOOL dismissPopover = YES;
-    if(identifier == ActionPopoverButtonIdentifierForward) {
+    if (identifier == ActionPopoverButtonIdentifierForward) {
         [self repostStatus];
-    } else if(identifier == ActionPopoverButtonIdentifierShowForward) {
+    } else if (identifier == ActionPopoverButtonIdentifierShowForward) {
         [self sendShowRepostListNotification];
-    } else if(identifier == ActionPopoverButtonIdentifierCopy) {
+    } else if (identifier == ActionPopoverButtonIdentifierCopy) {
         [self copyStatus];
         dismissPopover = NO;
-    } else if(identifier == ActionPopoverButtonIdentifierDelete) {
+    } else if (identifier == ActionPopoverButtonIdentifierDelete) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除微博"
                                                         message:@"删除后将无法还原该微博。"
                                                        delegate:self
@@ -1267,7 +1267,7 @@
                                               otherButtonTitles:@"取消", nil];
         self.deleteStatusAlertView = alert;
         [alert show];
-    } else if(identifier == ActionPopoverButtonIdentifierFavorite) {
+    } else if (identifier == ActionPopoverButtonIdentifierFavorite) {
         if ([self isCardFavorited]) {
             [self unfavouriteStatus];
         } else {
@@ -1275,7 +1275,7 @@
         }
     }
     
-    if(dismissPopover) {
+    if (dismissPopover) {
         [self.actionPopoverViewController foldAnimation];
     }
 }
@@ -1283,9 +1283,9 @@
 #pragma mark - UIAlertView delegate
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if(alertView == self.deleteStatusAlertView) {
+    if (alertView == self.deleteStatusAlertView) {
         self.deleteStatusAlertView = nil;
-        if(buttonIndex == 0) {
+        if (buttonIndex == 0) {
             [self deleteStatus];
         }
     }

@@ -82,7 +82,7 @@
 }
 
 - (SettingRootViewController *)settingRootViewController {
-    if(_settingRootViewController == nil) {
+    if (_settingRootViewController == nil) {
         _settingRootViewController = [[SettingRootViewController alloc] init];
     }
     return _settingRootViewController;

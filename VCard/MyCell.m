@@ -27,14 +27,14 @@
 }
 
 -(void)setName:(NSString *)name{
-    if(![name isEqualToString:_name]){
+    if (![name isEqualToString:_name]){
         _name = [name copy];
         _nameLabel.text = _name;
     }
 }
 
 -(void)setColor:(NSString *)color{
-    if(![color isEqualToString:_color]){
+    if (![color isEqualToString:_color]){
         _color = [color copy];
         _colorLabel.text = _color;
     }

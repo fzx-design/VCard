@@ -20,7 +20,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     NSString *nibName = nil;
-    if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
         nibName = [NSString stringWithFormat:@"%@-landscape", NSStringFromClass([self class])];
     } else {
         nibName = [NSString stringWithFormat:@"%@", NSStringFromClass([self class])];
@@ -41,7 +41,7 @@
 - (void)loadViewControllerWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     self.currentInterfaceOrientation = interfaceOrientation;
     
-    if(UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
+    if (UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
         [[NSBundle mainBundle] loadNibNamed:[NSString stringWithFormat:@"%@-landscape", NSStringFromClass([self class])] owner:self options:nil];
         self.view.frame = CGRectMake(0, 0, 1024, 748);
     } else {
@@ -50,7 +50,7 @@
     }
     [self.subViewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
         MultiInterfaceOrientationViewController *vc = obj;
-        if([vc isKindOfClass:[MultiInterfaceOrientationViewController class]]) {
+        if ([vc isKindOfClass:[MultiInterfaceOrientationViewController class]]) {
             [vc loadViewControllerWithInterfaceOrientation:interfaceOrientation];
         }
     }];
@@ -60,7 +60,7 @@
 - (void)configureRootViewTransformWithInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
         self.view.transform = CGAffineTransformMakeRotation(-M_PI_2);
-    else if(interfaceOrientation == UIInterfaceOrientationLandscapeRight)
+    else if (interfaceOrientation == UIInterfaceOrientationLandscapeRight)
         self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
     else if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         self.view.transform = CGAffineTransformMakeRotation(M_PI);

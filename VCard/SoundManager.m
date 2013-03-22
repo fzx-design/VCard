@@ -22,10 +22,10 @@ static SoundManager *soundManagerInstance;
 @implementation SoundManager
 
 + (id)sharedManager {
-    if(!soundManagerInstance) {
+    if (!soundManagerInstance) {
         soundManagerInstance = [[SoundManager alloc] init];
     }
-    if([NSUserDefaults isSoundEffectEnabled])
+    if ([NSUserDefaults isSoundEffectEnabled])
         return soundManagerInstance;
     else
         return nil;
@@ -33,7 +33,7 @@ static SoundManager *soundManagerInstance;
 
 - (id)init {
     self = [super init];
-    if(self) {
+    if (self) {
         [self loadSoundResource];
     }
     return self;

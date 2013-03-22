@@ -82,7 +82,7 @@ static CoreDataKernal *kernalInstance = nil;
 
 - (id)init {
     self = [super init];
-    if(self) {
+    if (self) {
         NSString *currentUserID = [NSUserDefaults getCurrentUserID];
         [self configureCurrentUserWithUserID:currentUserID];
         [NSNotificationCenter registerCoreChangeCurrentUserNotificationWithSelector:@selector(handleCoreChangeCurrentUserNotification:) target:self];
@@ -91,7 +91,7 @@ static CoreDataKernal *kernalInstance = nil;
 }
 
 + (CoreDataKernal *)getKernalInstance {
-    if(kernalInstance == nil) {
+    if (kernalInstance == nil) {
         kernalInstance = [[CoreDataKernal alloc] init];
     }
     return kernalInstance;
@@ -110,7 +110,7 @@ static CoreDataKernal *kernalInstance = nil;
     
     [UnreadReminder initializeWithCurrentUser:currentUser];
     
-    if(self.currentUser == nil) {
+    if (self.currentUser == nil) {
         [[WBClient client] logOut];
     }
 }

@@ -15,7 +15,7 @@
 
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier currentUser:(User*)currentUser_
 {
-    if(self = [super init])
+    if (self = [super init])
 	{
 		self.reuseIdentifier = reuseIdentifier;
     }

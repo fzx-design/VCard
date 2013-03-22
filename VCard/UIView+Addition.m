@@ -21,10 +21,10 @@
 - (void)fadeInWithCompletion:(void (^)(void))completion {
     self.alpha = 0;
     BlockARCWeakSelf weakSelf = self;
-    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
+    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         weakSelf.alpha = 1;
     } completion:^(BOOL finished) {
-        if(completion)
+        if (completion)
             completion();
     }];
 }
@@ -32,10 +32,10 @@
 - (void)fadeOutWithCompletion:(void (^)(void))completion {
     self.alpha = 1;
     BlockARCWeakSelf weakSelf = self;
-    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
+    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         weakSelf.alpha = 0;
     } completion:^(BOOL finished) {
-        if(completion)
+        if (completion)
             completion();
     }];
 }
@@ -43,7 +43,7 @@
 - (void)transitionFadeIn {
     self.alpha = 0;
     BlockARCWeakSelf weakSelf = self;
-    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationCurveLinear animations:^{
+    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         weakSelf.alpha = 1;
     } completion:nil];
 }
@@ -51,7 +51,7 @@
 - (void)transitionFadeOut {
     self.alpha = 1;
     BlockARCWeakSelf weakSelf = self;
-    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationCurveLinear animations:^{
+    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         weakSelf.alpha = 0;
     } completion:nil];
 }

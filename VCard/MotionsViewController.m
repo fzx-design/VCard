@@ -51,7 +51,7 @@
 
 - (id)initWithImage:(UIImage *)image useForAvatar:(BOOL)useForAvatar {
     self = [self init];
-    if(self) {
+    if (self) {
         UIImage *rotatedImage = [image motionsAdjustImage];
         self.originalImage = rotatedImage;
         _useForAvatar = useForAvatar;
@@ -67,7 +67,7 @@
     self.leftCameraCoverCloseFrame = self.leftCameraCoverImageView.frame;
     self.rightCameraCoverCloseFrame = self.rightCameraCoverImageView.frame;
     [self configureCancelButton];
-    if(self.originalImage) {
+    if (self.originalImage) {
         [self configureEditViewControllerAfterDelay:0.1f completion:nil];
     } else {
         [self configureShootViewControllerAfterDelay:0.1f completion:nil];
@@ -109,7 +109,7 @@
 
 - (CGRect)leftCameraCoverOpenFrame {
     CGRect frame = self.leftCameraCoverCloseFrame;
-    if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
         frame.origin.x = frame.origin.x - frame.size.width;
     } else {
         frame.origin.y = frame.origin.y - frame.size.height;
@@ -119,7 +119,7 @@
 
 - (CGRect)rightCameraCoverOpenFrame {
     CGRect frame = self.rightCameraCoverCloseFrame;
-    if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
         frame.origin.x = frame.origin.x + frame.size.width;
     } else {
         frame.origin.y = frame.origin.y + frame.size.height;
@@ -128,13 +128,13 @@
 }
 
 - (void)setShootViewController:(MotionsShootViewController *)shootViewController {
-    if(shootViewController == nil)
+    if (shootViewController == nil)
         [self.subViewControllers removeObject:_shootViewController];
     _shootViewController = shootViewController;
 }
 
 - (MotionsShootViewController *)shootViewController {
-    if(!_shootViewController) {
+    if (!_shootViewController) {
         _shootViewController = [[MotionsShootViewController alloc] init];
         _shootViewController.delegate = self;
         [self.subViewControllers addObject:_shootViewController];
@@ -143,13 +143,13 @@
 }
 
 - (void)setEditViewController:(MotionsEditViewController *)editViewController {
-    if(editViewController == nil)
+    if (editViewController == nil)
         [self.subViewControllers removeObject:_editViewController];
     _editViewController = editViewController;
 }
 
 - (MotionsEditViewController *)editViewController {
-    if(!_editViewController) {
+    if (!_editViewController) {
         _editViewController = [[MotionsEditViewController alloc] initWithImage:self.originalImage useForAvatar:_useForAvatar];
         _editViewController.delegate = self;
         [self.subViewControllers addObject:_editViewController];
@@ -164,7 +164,7 @@
 }
 
 - (void)configureCameraCover {
-    if(self.isCameraCoverHidden) {
+    if (self.isCameraCoverHidden) {
         self.leftCameraCoverImageView.frame = self.leftCameraCoverOpenFrame;
         self.rightCameraCoverImageView.frame = self.rightCameraCoverOpenFrame;
     }
@@ -185,14 +185,14 @@
 - (void)configureShootViewControllerWithCompletion:(void (^)(void))completion {
     [self.bgView insertSubview:self.shootViewController.view aboveSubview:self.captureBgView];
     
-    if(completion)
+    if (completion)
         completion();
 }
 
 - (void)configureEditViewControllerWithCompletion:(void (^)(void))completion {
     [self.bgView insertSubview:self.editViewController.view aboveSubview:self.captureBgView];
     
-    if(completion)
+    if (completion)
         completion();
 }
 
@@ -216,18 +216,18 @@
 
 BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterfaceOrientation, UIInterfaceOrientation toInterfaceOrientation) {
     BOOL result = NO;
-    if(UIInterfaceOrientationIsLandscape(fromInterfaceOrientation)) {
-        if(fromInterfaceOrientation == UIInterfaceOrientationLandscapeLeft &&
+    if (UIInterfaceOrientationIsLandscape(fromInterfaceOrientation)) {
+        if (fromInterfaceOrientation == UIInterfaceOrientationLandscapeLeft &&
            toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
             result = YES;
-        else if(fromInterfaceOrientation == UIInterfaceOrientationLandscapeRight &&
+        else if (fromInterfaceOrientation == UIInterfaceOrientationLandscapeRight &&
                  toInterfaceOrientation == UIInterfaceOrientationPortrait)
             result = YES;
     } else {
-        if(fromInterfaceOrientation == UIInterfaceOrientationPortrait &&
+        if (fromInterfaceOrientation == UIInterfaceOrientationPortrait &&
            toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft)
             result = YES;
-        else if(fromInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown &&
+        else if (fromInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown &&
                 toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)
             result = YES;
     }
@@ -237,7 +237,7 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
 - (void)orientationTransitionAnimation:(UIInterfaceOrientation)fromInterfaceOrientation {
     UIImageView *tempImageView = [[UIImageView alloc] initWithImage:self.viewImage];
 //    UIInterfaceOrientation currentInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
-//    if(UIInterfaceOrientationIsRotationClockwise(fromInterfaceOrientation, currentInterfaceOrientation))
+//    if (UIInterfaceOrientationIsRotationClockwise(fromInterfaceOrientation, currentInterfaceOrientation))
 //        tempImageView.transform = CGAffineTransformMakeRotation(M_PI_2);
 //    else
 //        tempImageView.transform = CGAffineTransformMakeRotation(-M_PI_2);
@@ -255,7 +255,7 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
 }
 
 - (void)showCameraCoverWithCompletion:(void (^)(void))completion {
-    if(!self.cameraCoverHidden) {
+    if (!self.cameraCoverHidden) {
         _shootViewController.cameraStatusLEDButton.selected = NO;
         return;
     }
@@ -264,13 +264,13 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
         self.leftCameraCoverImageView.frame = self.leftCameraCoverCloseFrame;
         self.rightCameraCoverImageView.frame = self.rightCameraCoverCloseFrame;
     } completion:^(BOOL finished) {
-        if(completion)
+        if (completion)
             completion();
     }];
 }
 
 - (void)hideCameraCoverWithCompletion:(void (^)(void))completion {
-    if(self.cameraCoverHidden) {
+    if (self.cameraCoverHidden) {
         _shootViewController.cameraStatusLEDButton.selected = YES;
         return;
     }
@@ -279,7 +279,7 @@ BOOL UIInterfaceOrientationIsRotationClockwise(UIInterfaceOrientation fromInterf
         self.leftCameraCoverImageView.frame = self.leftCameraCoverOpenFrame;
         self.rightCameraCoverImageView.frame = self.rightCameraCoverOpenFrame;
     } completion:^(BOOL finished) {
-        if(completion)
+        if (completion)
             completion();
         _shootViewController.cameraStatusLEDButton.selected = YES;
     }];

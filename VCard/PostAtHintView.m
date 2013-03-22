@@ -20,14 +20,14 @@
 
 - (void)updateHint:(NSString *)hint {
     _currentHintString = hint;
-    if(hint.length == 0) {
+    if (hint.length == 0) {
         [self.tableViewDataSourceArray removeAllObjects];
         [self refreshData];
         return;
     }
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
-        if(!client.hasError) {
+        if (!client.hasError) {
             if (![client.responseJSONObject isKindOfClass:[NSArray class]])
                 return;
             [self.tableViewDataSourceArray removeAllObjects];
@@ -44,8 +44,8 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     PostAtHintCell *hintCell = (PostAtHintCell *)cell;
-    if(self.tableViewDataSourceArray.count == 0) {
-        if(_currentHintString.length == 0)
+    if (self.tableViewDataSourceArray.count == 0) {
+        if (_currentHintString.length == 0)
             hintCell.hintTextLabel.text = @"输入昵称或备注姓名来查找";
         else 
             hintCell.hintTextLabel.text = @"未找到相关联系人";
@@ -57,7 +57,7 @@
 }
 
 - (NSString *)customCellClassName {
-    if(self.tableViewDataSourceArray.count == 0)
+    if (self.tableViewDataSourceArray.count == 0)
         return @"PostTopicHintCell";
     //return @"PostAtHintCell";
     return @"PostTopicHintCell";

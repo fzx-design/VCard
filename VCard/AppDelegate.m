@@ -64,11 +64,12 @@
     [_reachability startNotifier];
     [[NSUserDefaults standardUserDefaults] setValue:@(YES) forKey:kUserDefaultKeyShouldScrollToTop];
     
-    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone){
-//        [NSNotificationCenter registerPhoneRootViewControllerViewDidLoadNotificationWithSelector:@selector(phoneRootViewControllerViewDidLoad:) target:[UIApplication sharedApplication]];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone){
+        [NSNotificationCenter registerPhoneRootViewControllerViewDidLoadNotificationWithSelector:@selector(phoneRootViewControllerViewDidLoad:) target:[UIApplication sharedApplication]];
     }
-    else
+    else {
         [NSNotificationCenter registerRootViewControllerViewDidLoadNotificationWithSelector:@selector(rootViewControllerViewDidLoad:) target:[UIApplication sharedApplication]];
+    }
     
     _urlCache = [[SDURLCache alloc] initWithMemoryCapacity:1024*1024   // 1MB mem cache
                                               diskCapacity:1024*1024*5 // 5MB disk cache
@@ -116,7 +117,7 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    if(![CoreDataViewController getCurrentUser])
+    if (![CoreDataViewController getCurrentUser])
         return;
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
 	NSInteger loginCount = [userDefault integerForKey:kAppDelegateUserDefaultKeyUseCount];
@@ -132,7 +133,7 @@
 											  otherButtonTitles:@"推荐", nil];
         [alert show];
 		
-	} else if(loginCount == FOLLOW_VCARD_USE_COUNT) {
+	} else if (loginCount == FOLLOW_VCARD_USE_COUNT) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"关注 VCard 微博"
 														message:@"关注我们以了解最新动态和更新。"
 													   delegate:self
@@ -189,9 +190,9 @@
 	else {
         NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
         NSInteger loginCount = [userDefault integerForKey:kAppDelegateUserDefaultKeyUseCount];
-        if(loginCount == RECOMMEND_VCARD_TO_FRIENDS_USE_COUNT) {
+        if (loginCount == RECOMMEND_VCARD_TO_FRIENDS_USE_COUNT) {
             [self recommendVCard];
-        } else if(loginCount == FOLLOW_VCARD_USE_COUNT) {
+        } else if (loginCount == FOLLOW_VCARD_USE_COUNT) {
             [self followVCard];
         }
 	}

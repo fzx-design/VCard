@@ -17,7 +17,7 @@
 
 - (id)init {
     self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:NSStringFromClass([self class])];
-    if(self) {
+    if (self) {
     }
     return self;
 }
@@ -68,12 +68,12 @@
 }
 
 - (void)didClickWatchButton:(UIButton *)sender {
-    if([self.delegate respondsToSelector:@selector(settingTableViewCell:didClickWatchButton:)])
+    if ([self.delegate respondsToSelector:@selector(settingTableViewCell:didClickWatchButton:)])
         [self.delegate settingTableViewCell:self didClickWatchButton:sender];
 }
 
 - (void)didCLickSwitch:(UISwitch *)sender {
-    if([self.delegate respondsToSelector:@selector(settingTableViewCell:didChangeSwitch:)])
+    if ([self.delegate respondsToSelector:@selector(settingTableViewCell:didChangeSwitch:)])
         [self.delegate settingTableViewCell:self didChangeSwitch:sender];
 }
 

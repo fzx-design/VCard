@@ -87,7 +87,7 @@
     
     UITableView *tableView = self.tableView;
     
-    switch(type) {
+    switch (type) {
         case NSFetchedResultsChangeInsert:
             [tableView insertRowsAtIndexPaths:@[newIndexPath]
                              withRowAnimation:UITableViewRowAnimationTop];

@@ -12,7 +12,7 @@
 #import "ShelfViewController.h"
 #import "DetailImageViewController.h"
 
-@interface RootViewController : CoreDataViewController <CastViewControllerDelegate> {
+@interface PadRootViewController : CoreDataViewController <CastViewControllerDelegate> {
     CastViewController *_castViewController;
 }
 

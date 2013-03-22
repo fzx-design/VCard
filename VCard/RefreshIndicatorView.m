@@ -46,14 +46,14 @@
 
 - (void)setUpImageViews
 {
-    if(_viewType == RefreshIndicatorViewTypeSmallBlue) {
+    if (_viewType == RefreshIndicatorViewTypeSmallBlue) {
         _refreshHoleImageView.image = [UIImage imageNamed:kRLRefreshButtonHole];
         _refreshHoleImageView.frame = CGRectMake(0.0, 0.0, 23.0, 23.0);
         
         _refreshCircleImageView.image = [UIImage imageNamed:kRLRefreshButtonCircle];
         _refreshCircleImageView.frame = CGRectMake(2.0, 1.0, 19.0, 19.0);
         
-    } else if(_viewType == RefreshIndicatorViewTypeLargeWhite) {
+    } else if (_viewType == RefreshIndicatorViewTypeLargeWhite) {
         _refreshHoleImageView.image = [UIImage imageNamed:@"icon_error_edge"];
         _refreshHoleImageView.frame = CGRectMake(0.0, 0.0, 90.0, 90.0);
         

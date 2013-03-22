@@ -131,7 +131,7 @@
     NSString *targetUserName = self.status.author.screenName;
     NSString *targetStatusID = self.status.statusID;
     NSString *targetStatusContent = nil;
-    if(self.status.repostStatus)
+    if (self.status.repostStatus)
         targetStatusContent = self.status.text;
     CGRect frame = [self.view convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view];
     PostViewController *vc = [PostViewController getRepostViewControllerWithWeiboID:targetStatusID

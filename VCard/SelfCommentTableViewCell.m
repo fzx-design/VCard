@@ -162,7 +162,7 @@
 }
 
 - (void)postViewController:(PostViewController *)vc willDropMessage:(NSString *)message {
-    if(vc.type == PostViewControllerTypeRepost)
+    if (vc.type == PostViewControllerTypeRepost)
         [vc dismissViewToRect:[self convertRect:self.moreActionButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
     else
         [vc dismissViewToRect:[self convertRect:self.commentButton.frame toView:[UIApplication sharedApplication].rootViewController.view]];
@@ -170,12 +170,12 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     
-    if(buttonIndex == kActionSheetViewCopyIndex) {
+    if (buttonIndex == kActionSheetViewCopyIndex) {
         UIPasteboard *pb = [UIPasteboard generalPasteboard];
         [pb setString:[self.comment.text replaceRegExWithEmoticons]];
         
         [ErrorIndicatorViewController showErrorIndicatorWithType:ErrorIndicatorViewControllerTypeProcedureSuccess contentText:@"已拷贝"];
-    } else if(buttonIndex == kActionSheetViewDelete) {
+    } else if (buttonIndex == kActionSheetViewDelete) {
         [self deleteComment];
     }
 }

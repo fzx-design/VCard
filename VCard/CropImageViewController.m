@@ -53,7 +53,7 @@
     self.cropImageView.bgImageView = self.cropImageBgView;
     [ThemeResourceProvider configButtonDark:self.cancelButton];
     
-    if(_useForAvatar)
+    if (_useForAvatar)
         self.cancelButton.hidden = YES;
 }
 
@@ -70,10 +70,10 @@
 
 - (id)initWithImage:(UIImage *)image filteredImage:(UIImage *)filteredImage useForAvatar:(BOOL)useForAvatar {
     self = [super init];
-    if(self) {
+    if (self) {
         self.originalImage = image;
         self.filteredImage = filteredImage;
-        if(image == filteredImage)
+        if (image == filteredImage)
             self.filteredImage = nil;
         
         _useForAvatar = useForAvatar;
@@ -90,7 +90,7 @@
         self.cropImageBgView.transform = CGAffineTransformIdentity;
         self.cropImageBgView.center = center;
     } completion:^(BOOL finished) {
-        if(completion)
+        if (completion)
             completion();
     }];
 }
@@ -101,7 +101,7 @@
         self.cropImageBgView.transform = CGAffineTransformMakeScale(factor / self.cropImageBgView.contentScaleFactor, factor / self.cropImageBgView.contentScaleFactor);
         self.cropImageBgView.center = point;
     } completion:^(BOOL finished) {
-        if(completion)
+        if (completion)
             completion();
     }];
 }
@@ -143,7 +143,7 @@
     
     BlockARCWeakSelf weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if(weakSelf.filteredImage)
+        if (weakSelf.filteredImage)
             weakSelf.filteredImage = [weakSelf cropImage:weakSelf.filteredImage];
         weakSelf.originalImage = [weakSelf cropImage:weakSelf.originalImage];
         dispatch_async(dispatch_get_main_queue(), ^{

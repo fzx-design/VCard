@@ -54,7 +54,7 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    if(self.focusImageView.hidden == NO)
+    if (self.focusImageView.hidden == NO)
         return;
     UITouch * touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];

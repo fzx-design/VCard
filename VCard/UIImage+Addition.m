@@ -27,7 +27,7 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
 }
 
 - (UIImage *)compressImageToSize:(CGSize)size {
-    if(self.size.width < size.width && self.size.height < size.height)
+    if (self.size.width < size.width && self.size.height < size.height)
         return self;
     UIImage *result = nil;
     CGFloat originWidth = self.size.width;
@@ -35,7 +35,7 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     CGFloat scaleWidth = originWidth > size.width ? size.width : originWidth;
     CGFloat scaleHeight = scaleWidth / originWidth * originHeight;
     CGRect compressFrame = CGRectMake(0, 0, scaleWidth, scaleHeight);
-    if(scaleHeight > size.height)
+    if (scaleHeight > size.height)
         compressFrame.size = CGSizeMake(size.height / scaleHeight * scaleWidth, size.height);
     
     UIGraphicsBeginImageContext(compressFrame.size);
@@ -60,7 +60,7 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     CGSize imageSize = CGSizeMake(CGImageGetWidth(imgRef), CGImageGetHeight(imgRef));  
     CGFloat boundHeight;  
     UIImageOrientation orient = self.imageOrientation;  
-    switch(orient) {  
+    switch (orient) {  
             
         case UIImageOrientationUp: //EXIF = 1  
             transform = CGAffineTransformIdentity;  
@@ -204,7 +204,7 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    if(newImage == nil) NSLog(@"could not scale image");
+    if (newImage == nil) NSLog(@"could not scale image");
     
     
     return newImage ;
@@ -266,7 +266,7 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    if(newImage == nil) NSLog(@"could not scale image");
+    if (newImage == nil) NSLog(@"could not scale image");
     
     
     return newImage ;
@@ -305,7 +305,7 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    if(newImage == nil) NSLog(@"could not scale image");
+    if (newImage == nil) NSLog(@"could not scale image");
     
     
     return newImage ;
@@ -431,7 +431,7 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
     [sourceImage drawInRect:thumbnailRect];
     
     newImage = UIGraphicsGetImageFromCurrentImageContext();
-    if(newImage == nil) 
+    if (newImage == nil) 
         NSLog(@"could not scale image");
     
     //pop the context to get back to the default
@@ -531,7 +531,7 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180 / M_PI;};
         UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
                 
-        if(completion) {
+        if (completion) {
             completion(croppedImage);
         }
     }];

@@ -239,7 +239,7 @@
                 }
             }
      
-         if(group.index.intValue > 0 && group.index.intValue < _drawerViewArray.count) {
+         if (group.index.intValue > 0 && group.index.intValue < _drawerViewArray.count) {
              ShelfDrawerView *view = [_drawerViewArray objectAtIndex:group.index.intValue];
              [view loadImageFromURL:group.picURL completion:nil];
          }

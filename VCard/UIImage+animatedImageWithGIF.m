@@ -42,7 +42,7 @@
                                                                         length:3] 
                                                  options:NSDataSearchBackwards
                                                    range:dataSearchLeftRange];
-        if(frameDescriptorRange.location!=NSNotFound){
+        if (frameDescriptorRange.location!=NSNotFound){
             NSData *durationData = [data subdataWithRange:NSMakeRange(frameDescriptorRange.location+4, 2)];
             unsigned char buffer[2];
             [durationData getBytes:buffer];

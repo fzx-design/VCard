@@ -33,7 +33,7 @@
     [super viewDidLoad];
     self.stackView.delegate = self;
     
-    if(![NSUserDefaults hasShownStackTips]) {
+    if (![NSUserDefaults hasShownStackTips]) {
         [[[TipsViewController alloc] initWithType:TipsViewControllerTypeStack] show];
         [NSUserDefaults setShownStackTips:YES];
     }

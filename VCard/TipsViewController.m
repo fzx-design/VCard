@@ -34,7 +34,7 @@
 
 - (id)initWithType:(TipsViewControllerType)type {
     self = [super init];
-    if(self) {
+    if (self) {
         _controllerType = type;
     }
     return self;
@@ -55,9 +55,9 @@
     // Do any additional setup after loading the view from its nib.
     [self.view resetSize:[UIApplication sharedApplication].screenSize];
     
-    if(_controllerType == TipsViewControllerTypeShelf) {
+    if (_controllerType == TipsViewControllerTypeShelf) {
         self.tipsLabel.text = SHELF_TIPS_TEXT;
-    } else if(_controllerType == TipsViewControllerTypeStack) {
+    } else if (_controllerType == TipsViewControllerTypeStack) {
         self.tipsLabel.text = STACK_TIPS_TEXT;
     }
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapScreen:)];
@@ -85,24 +85,24 @@
 }
 
 - (void)viewWillLayoutSubviews {
-    if(self.view.frame.size.width == 1024) {
-        if(_controllerType == TipsViewControllerTypeShelf) {
+    if (self.view.frame.size.width == 1024) {
+        if (_controllerType == TipsViewControllerTypeShelf) {
             self.tipsView.center = SHELF_TIPS_VIEW_LANDSCAPE_CENTER;
-        } else if(_controllerType == TipsViewControllerTypeStack) {
+        } else if (_controllerType == TipsViewControllerTypeStack) {
             self.tipsView.center = STACK_TIPS_VIEW_LANDSCAPE_CENTER;
         }
         
-    } else if(self.view.frame.size.width == 768) {
-        if(_controllerType == TipsViewControllerTypeShelf) {
+    } else if (self.view.frame.size.width == 768) {
+        if (_controllerType == TipsViewControllerTypeShelf) {
             self.tipsView.center = SHELF_TIPS_VIEW_PORTRAIT_CENTER;
-        } else if(_controllerType == TipsViewControllerTypeStack) {
+        } else if (_controllerType == TipsViewControllerTypeStack) {
             self.tipsView.center = STACK_TIPS_VIEW_PORTRAIT_CENTER;
         }
     }
 }
 
 - (void)dismissView {
-    if(_hasDismissed)
+    if (_hasDismissed)
         return;
     [UIApplication dismissModalViewControllerAnimated:NO];
     [self.view fadeOut];

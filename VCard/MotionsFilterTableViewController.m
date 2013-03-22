@@ -48,7 +48,7 @@
 
 - (id)initWithImage:(UIImage *)image {
     self = [self init];
-    if(self) {
+    if (self) {
         self.thumbnailImage = [image imageCroppedToFitSize:FILTER_IMAGE_SIZE];
     }
     return self;
@@ -84,7 +84,7 @@
     [self.filteredThumbnailCacheDictionary removeAllObjects];
     //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewRowAnimationTop animated:YES];
     [self.tableView reloadData];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewRowAnimationTop animated:NO];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
 - (CGRect)tableViewHeaderViewFrame {
@@ -99,12 +99,12 @@
 
 - (NSUInteger)calculateCurrentCellIndex {
     CGFloat contentOffset = self.tableView.contentOffset.y;
-    if(contentOffset < 0)
+    if (contentOffset < 0)
         contentOffset = 0;
     NSInteger index = contentOffset / TABLE_VIEW_CELL_HEIGHT;
     CGFloat cellOffset = contentOffset - index * TABLE_VIEW_CELL_HEIGHT;
     
-    if(cellOffset > TABLE_VIEW_CELL_HEIGHT / 2) {
+    if (cellOffset > TABLE_VIEW_CELL_HEIGHT / 2) {
         index += 1;
     }
     
@@ -120,7 +120,7 @@
     footerView.backgroundColor = [UIColor clearColor];
     self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
     
-    if(!self.isCurrentOrientationLandscape) {
+    if (!self.isCurrentOrientationLandscape) {
         CGRect frame = self.tableView.frame;
         self.tableView.transform = CGAffineTransformMakeRotation(-M_PI_2);
         headerView.transform = CGAffineTransformMakeRotation(M_PI_2);
@@ -136,23 +136,23 @@
 
 - (void)configureCell:(MotionsFilterCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     MotionsFilterInfo *info = [self.filterInfoArray objectAtIndex:indexPath.row];
-    if(!info.requirePurchase)
+    if (!info.requirePurchase)
         cell.iapIndicator.hidden = YES;
     else
         cell.iapIndicator.hidden = NO;
     UIImage *cacheImage = [self.filteredThumbnailCacheDictionary objectForKey:info.filterName];
-    if(cacheImage)
+    if (cacheImage)
         [cell setThumbnailImage:cacheImage];
     else {
         BlockARCWeakSelf weakSelf = self;
         [cell loadThumbnailImage:self.thumbnailImage withFilterInfo:info completion:^{
             UIImage *filteredImage = cell.thumbnailImageView.image;
-            if(filteredImage)
+            if (filteredImage)
                 [weakSelf.filteredThumbnailCacheDictionary setObject:filteredImage forKey:info.filterName];
         }];
     }
     
-    if(!self.isCurrentOrientationLandscape) {
+    if (!self.isCurrentOrientationLandscape) {
         cell.transform = CGAffineTransformMakeRotation(M_PI_2);
     }
     cell.filterNameLabel.text = info.filterName;
@@ -166,8 +166,8 @@
     [UIView animateWithDuration:0.3f animations:^{
         self.tableView.contentOffset = CGPointMake(0, self.currentFilterIndex * TABLE_VIEW_CELL_HEIGHT);
     } completion:^(BOOL finished) {
-        if(finished)
-            if(completion)
+        if (finished)
+            if (completion)
                 completion(self.currentFilterIndex);
     }];
 }
@@ -205,14 +205,14 @@
     
     NSUInteger calculatedCellIndex = [self calculateCurrentCellIndex];
     
-    if(immediateCellIndex != calculatedCellIndex) {
+    if (immediateCellIndex != calculatedCellIndex) {
         immediateCellIndex = calculatedCellIndex;
         //[[UIDevice currentDevice] playInputClick];
     }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if(!decelerate) {
+    if (!decelerate) {
         BlockARCWeakSelf weakSelf = self;
         [self tableViewSimulatePickerAnimationWithCompletion:^(NSInteger scrollToIndex){
             [weakSelf.delegate filterTableViewController:weakSelf didSelectFilter:[weakSelf.filterInfoArray objectAtIndex:scrollToIndex]];

@@ -78,7 +78,7 @@
 #pragma mark - Logic method
 
 - (UIImage *)currentUserAvatarImage {
-    if(!_currentUserAvatarImage) {
+    if (!_currentUserAvatarImage) {
         [UIImage loadSettingAvatarImageFromURL:self.currentUser.profileImageURL completion:^(UIImage *result) {
             _currentUserAvatarImage = result;
             [self.tableView reloadData];
@@ -133,12 +133,12 @@
 #pragma mark - UI methods
 
 - (void)presentModalViewController:(UIViewController *)modalViewController {
-    if([modalViewController isKindOfClass:[LoginViewController class]]) {
+    if ([modalViewController isKindOfClass:[LoginViewController class]]) {
         UIViewController *vc = [UIApplication sharedApplication].topModalViewController;
         [self performSelector:@selector(dismissModalViewController:) withObject:vc afterDelay:1.0f];
     }
     
-    if([modalViewController respondsToSelector:@selector(show)])
+    if ([modalViewController respondsToSelector:@selector(show)])
         [modalViewController performSelector:@selector(show)];
     else
         [UIApplication presentModalViewController:modalViewController animated:YES];
@@ -158,8 +158,8 @@
         [self.settingSectionInfoArray addObject:section];
         NSMutableArray *itemTitleArray = [NSMutableArray array];
         for(SettingInfo *info in section.itemArray) {            
-            if([info.itemTitle isEqualToString:@"高清图片"]) {
-                if([UIApplication isRetinaDisplayiPad])
+            if ([info.itemTitle isEqualToString:@"高清图片"]) {
+                if ([UIApplication isRetinaDisplayiPad])
                     [itemTitleArray addObject:info];
             } else {
                 [itemTitleArray addObject:info];
@@ -181,32 +181,32 @@
     settingCell.imageView.image = [UIImage imageNamed:info.imageFileName];
     settingCell.detailTextLabel.text = info.itemContent;
     
-    if([info.accessoryType isEqualToString:kAccessoryTypeSwitch]) {
+    if ([info.accessoryType isEqualToString:kAccessoryTypeSwitch]) {
         [settingCell setSwitch];        
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         settingCell.itemSwitch.on = [defaults boolForKey:info.nibFileName];
         
-    } else if([info.accessoryType isEqualToString:kAccessoryTypeDisclosure]) {
+    } else if ([info.accessoryType isEqualToString:kAccessoryTypeDisclosure]) {
         [settingCell setDisclosureIndicator];
     }
     
-    if([info.itemTitle isEqualToString:kSettingCurrentUserCell]) {
+    if ([info.itemTitle isEqualToString:kSettingCurrentUserCell]) {
         settingCell.textLabel.text = self.currentUser.screenName;
         UIImage *avatarImage = self.currentUserAvatarImage;
-        if(avatarImage)
+        if (avatarImage)
             settingCell.imageView.image = avatarImage;
     }
     
-    if([info.wayToPresentViewController isEqualToString:kPushOptionViewController]) {
+    if ([info.wayToPresentViewController isEqualToString:kPushOptionViewController]) {
         SettingOptionInfo *optionInfo = [NSUserDefaults getInfoForOptionKey:info.nibFileName];
         __block NSMutableString *detailText = [NSMutableString string];
         __block BOOL allChosen = YES;
         __block BOOL noneChosen = YES;
         [optionInfo.optionsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSNumber *chosen = [optionInfo.optionChosenStatusArray objectAtIndex:idx];
-            if(chosen.boolValue) {
+            if (chosen.boolValue) {
                 NSString *string = obj;
-                if(detailText.length > 0)
+                if (detailText.length > 0)
                     string = [NSString stringWithFormat:@"、%@", string];
                 [detailText appendString:string];
                 
@@ -217,9 +217,9 @@
         }];
         settingCell.detailTextLabel.text = detailText;
         
-        if(allChosen)
+        if (allChosen)
             settingCell.detailTextLabel.text = @"全部";
-        else if(noneChosen)
+        else if (noneChosen)
             settingCell.detailTextLabel.text = @"无";
     }
 }
@@ -228,19 +228,19 @@
     NSArray *sectionInfoArray = [self.dataSourceDictionary objectForKey:[self.dataSourceIndexArray objectAtIndex:indexPath.section]];
     SettingInfo *info = [sectionInfoArray objectAtIndex:indexPath.row];
     
-    if([info.wayToPresentViewController isEqualToString:kModalViewController]) {
+    if ([info.wayToPresentViewController isEqualToString:kModalViewController]) {
         UIViewController *vc = [[NSClassFromString(info.nibFileName) alloc] init];
         [self presentModalViewController:vc];
-    } else if([info.wayToPresentViewController isEqualToString:kPushNavigationController]) {
+    } else if ([info.wayToPresentViewController isEqualToString:kPushNavigationController]) {
         UIViewController *vc = [[NSClassFromString(info.nibFileName) alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-    } else if([info.wayToPresentViewController isEqualToString:kUseSelector]) {
-        if([self respondsToSelector:NSSelectorFromString(info.nibFileName)])
+    } else if ([info.wayToPresentViewController isEqualToString:kUseSelector]) {
+        if ([self respondsToSelector:NSSelectorFromString(info.nibFileName)])
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [self performSelector:NSSelectorFromString(info.nibFileName)];
 #pragma clang diagnostic pop
-    } else if([info.wayToPresentViewController isEqualToString:kPushOptionViewController]) {
+    } else if ([info.wayToPresentViewController isEqualToString:kPushOptionViewController]) {
         [self didClickOptionCell:info.nibFileName];
     }
 }
@@ -253,8 +253,8 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
 	SettingInfoSection *sectionInfo = [self.settingSectionInfoArray objectAtIndex:section];
     NSString *result = sectionInfo.sectionFooter;
-    if([sectionInfo.sectionIdentifier isEqualToString:@"Group2"]) {
-        if(![UIApplication isRetinaDisplayiPad])
+    if ([sectionInfo.sectionIdentifier isEqualToString:@"Group2"]) {
+        if (![UIApplication isRetinaDisplayiPad])
             result = nil;
     }
     return result;

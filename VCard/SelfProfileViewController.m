@@ -81,9 +81,9 @@ typedef enum {
 #pragma mark - Notification handlers
 
 - (void)deviceRotationDidChange:(NSNotification *)notification {
-    if(_shouldPresentActionSheetType == ActionSheetTypeMotions)
+    if (_shouldPresentActionSheetType == ActionSheetTypeMotions)
         [self presentChoosePhotoSourceActionSheet];
-    else if(_shouldPresentActionSheetType == PopoverAlbumImagePicker)
+    else if (_shouldPresentActionSheetType == PopoverAlbumImagePicker)
         [self showAlbumImagePicker];
     _shouldPresentActionSheetType = ActionSheetTypeNone;
 }
@@ -100,7 +100,7 @@ typedef enum {
 }
 
 - (void)presentChoosePhotoSourceActionSheet {
-    if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         [self showAlbumImagePicker];
         return;
     }
@@ -114,11 +114,11 @@ typedef enum {
 }
 
 - (void)dismissPopover {
-    if(self.actionSheet) {
+    if (self.actionSheet) {
         _shouldPresentActionSheetType = ActionSheetTypeMotions;
         [self.actionSheet dismissWithClickedButtonIndex:-1 animated:NO];
     }
-    if(self.popoverController) {
+    if (self.popoverController) {
         [self.popoverController dismissPopoverAnimated:YES];
         self.popoverController = nil;
         _shouldPresentActionSheetType = PopoverAlbumImagePicker;
@@ -149,9 +149,9 @@ typedef enum {
 #pragma mark - UIActionSheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if(buttonIndex == MOTIONS_EDIT_ACTION_SHEET_ALBUM_INDEX) {
+    if (buttonIndex == MOTIONS_EDIT_ACTION_SHEET_ALBUM_INDEX) {
         [self showAlbumImagePicker];
-    } else if(buttonIndex == MOTIONS_EDIT_ACTION_SHEET_SHOOT_INDEX) {
+    } else if (buttonIndex == MOTIONS_EDIT_ACTION_SHEET_SHOOT_INDEX) {
         MotionsViewController *vc = [[MotionsViewController alloc] initWithImage:nil useForAvatar:YES];
         vc.delegate = self;
         [vc show];
@@ -189,7 +189,7 @@ typedef enum {
     BlockARCWeakSelf weakSelf = self;
     WBClient *client = [WBClient client];
     [client setCompletionBlock:^(WBClient *client) {
-        if(!client.hasError) {
+        if (!client.hasError) {
             
             [weakSelf loadUserAndChangeAvatar];
             
